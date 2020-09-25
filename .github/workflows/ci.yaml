@@ -21,6 +21,8 @@ jobs:
 
     steps:
       - uses: brpaz/hadolint-action@master
+        with:
+          dockerfile: Dockerfile
 
   lint:
     name: "Linting & Static Analysis"

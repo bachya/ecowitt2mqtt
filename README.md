@@ -32,8 +32,36 @@ pip install ecowitt2mqtt
 
 ## Command Line Interface
 
+The library provides an `ecowitt2mqtt` executable:
 
+```
+usage: ecowitt2mqtt [-h] --mqtt-broker MQTT_BROKER --mqtt-topic MQTT_TOPIC [--mqtt-port MQTT_PORT] [--mqtt-username MQTT_USERNAME]
+                    [--mqtt-password MQTT_PASSWORD] [--endpoint ENDPOINT] [--port PORT] [-l LOG_LEVEL]
 
+Send data from Ecowitt devices to an MQTT broker
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --mqtt-broker MQTT_BROKER
+                        The hostname or IP address of the MQTT broker
+  --mqtt-topic MQTT_TOPIC
+                        The MQTT topic to publish the device's data to
+  --mqtt-port MQTT_PORT
+                        The port of the MQTT broker (default: 1883)
+  --mqtt-username MQTT_USERNAME
+                        The username to use with the MQTT broker (default: None)
+  --mqtt-password MQTT_PASSWORD
+                        The password to use with the MQTT broker (default: None)
+  --endpoint ENDPOINT   The relative endpoint/path to serve the web app on (default: /data/report)
+  --port PORT           The port to serve the web app on (default: 8080)
+  -l LOG_LEVEL, --log-level LOG_LEVEL
+                        The logging level (default: INFO)
+```
+
+The executable requires at least two arguments:
+
+* `mqtt-broker`: the hostname or IP address of the MQTT broker
+* `mqtt-topic`: the MQTT topic to publish the device's data to
 
 # Contributing
 
