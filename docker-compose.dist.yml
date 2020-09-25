@@ -1,0 +1,20 @@
+---
+version: "3"
+
+services:
+
+  ecowitt2mqtt:
+    container_name: ecowitt2mqtt
+    environment:
+      LOG_LEVEL: INFO
+      ENDPOINT: /data/report
+      PORT: 8080
+      MQTT_BROKER: <IP_OR_HOST>
+      MQTT_PORT: 1883
+      MQTT_PASSWORD: <PASSWORD>
+      MQTT_USERNAME: <USERNAME>
+      MQTT_TOPIC: <TOPIC>
+    image: "bachya/ecowitt2mqtt:latest"
+    ports:
+      - "8080:8080/tcp"
+    restart: unless-stopped

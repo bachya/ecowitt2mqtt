@@ -20,9 +20,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: brpaz/hadolint-action@master
+      - uses: actions/checkout@v2
 
-      - uses: wagoodman/dive@v0.9.2
+      - uses: brpaz/hadolint-action@master
+        with:
+          dockerfile: Dockerfile
 
   lint:
     name: "Linting & Static Analysis"
