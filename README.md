@@ -58,9 +58,14 @@ Fill out the form with these values and tap `Save`:
 * `Path`: `/data/report` (note that unlike the default in the WS View App, there shouldn't
   be a trailing slash)`
 * `Port`: `8080`
-* `Upload Interval: `60
+* `Upload Interval`: `60`
 
-Then, on 
+Then, on the machine where you installed `ecowitt2mqtt`, run it with the minimum required
+parameters:
+
+```bash
+$ ecowitt2mqtt --mqtt-broker=192.168.1.101 --mqtt-topic=ecowitt/testdevice1
+```
 
 # Usage
 
