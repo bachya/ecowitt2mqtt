@@ -1,0 +1,62 @@
+---
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - dev
+      - master
+
+  push:
+    branches:
+      - dev
+      - master
+
+jobs:
+
+  docker:
+    name: "Docker"
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: brpaz/hadolint-action@master
+        with:
+          dockerfile: Dockerfile
+
+  lint:
+    name: "Linting & Static Analysis"
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v1
+        with:
+          python-version: "3.x"
+          architecture: x64
+
+      - run: echo "::set-env name=PY::$(python -VV | sha256sum | cut -d' ' -f1)"
+
+      - uses: actions/cache@v1
+        with:
+          path: ~/.cache/pre-commit
+          key: >
+            pre-commit|${{ env.PY }}|${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - run: |
+          python -m venv venv
+          venv/bin/pip install pre-commit
+          venv/bin/pre-commit install-hooks --config .pre-commit-config.yaml
+          venv/bin/pre-commit run bandit --all-files
+          venv/bin/pre-commit run black --all-files
+          venv/bin/pre-commit run check-json --all-files
+          venv/bin/pre-commit run codespell --all-files
+          venv/bin/pre-commit run flake8 --all-files
+          venv/bin/pre-commit run isort --all-files
+          venv/bin/pre-commit run mypy --all-files
+          venv/bin/pre-commit run pydocstyle --all-files
+          venv/bin/pre-commit run shellcheck --all-files
