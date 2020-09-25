@@ -38,7 +38,7 @@ def get_arguments() -> argparse.Namespace:
         action="store",
         default=DEFAULT_MQTT_PORT,
         type=int,
-        help="The port of the MQTT broker",
+        help=f"The port of the MQTT broker (default: {DEFAULT_MQTT_PORT})",
     )
     parser.add_argument(
         "--mqtt-username",
@@ -76,7 +76,7 @@ def get_arguments() -> argparse.Namespace:
         "--log-level",
         action="store",
         default=DEFAULT_LOG_LEVEL_STRING,
-        help="The logging level.",
+        help=f"The logging level (default: {DEFAULT_LOG_LEVEL_STRING})",
     )
 
     return parser.parse_args()
@@ -86,14 +86,15 @@ async def post_data(request: web.Request):
     """Define the endpoint for the Ecowitt device to post data to."""
     data = await request.post()
 
+    _LOGGER.debug("Received data from Ecowitt device: %s", data)
+
     try:
         await request.app["mqtt"].publish(
-            request.app["topic"], json.dumps(dict(data)).encode()
+            request.app["args"].mqtt_topic, json.dumps(dict(data)).encode()
         )
+        _LOGGER.info("Data published to MQTT broker: %s", data)
     except MqttError as err:
         _LOGGER.error("Error while publishing data to MQTT: %s", err)
-
-    _LOGGER.info("Data published to MQTT broker: %s", data)
 
 
 if __name__ == "__main__":
@@ -104,6 +105,7 @@ if __name__ == "__main__":
 
     app = web.Application()
     app.add_routes([web.post(args.endpoint, post_data)])
+    app["args"] = args
 
     mqtt = app["mqtt"] = Client(
         args.mqtt_broker,
@@ -111,7 +113,6 @@ if __name__ == "__main__":
         username=args.mqtt_username,
         password=args.mqtt_password,
     )
-    app["topic"] = args.mqtt_topic
 
     async def connect_mqtt(_) -> None:
         """Connect the MQTT broker."""
