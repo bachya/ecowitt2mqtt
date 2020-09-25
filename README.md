@@ -11,7 +11,8 @@ device data to be sent to an MQTT broker.
 
 - [Installation](#installation)
 - [Python Versions](#python-versions)
-- [Documentation](#documentation)
+- [Quick Start](#quick-start)
+- [Advanced Usage](#advanced-usage)
 - [Contributing](#contributing)
 
 # Installation
@@ -28,15 +29,60 @@ pip install ecowitt2mqtt
 * Python 3.7
 * Python 3.8 
 
-# Usage
+# Quick Start
+
+Note that this README assumes:
+
+* you have access to an MQTT broker
+* you have already paired your Ecowitt device with the WS View Android/iOS app from
+  Ecowitt.
+
+First, install `ecowitt2mqtt` via `pip`:
+
+```bash
+$ pip install ecowitt2mqtt
+```
+
+Then, shift over to the WS View app on your Android/iOS device. While viewing your
+device in the app, select `Weather Services`:
+
+![Select Weather Services](/assets/1-weather-services.jpeg?raw=true)
+
+Press `Next` until you reach the `Customized` screen:
+
+![The Customized screen in the WS View app](/assets/2-customized.jpeg?raw=true)
+
+Fill out the form with these values and tap `Save`:
+
+* `Protocol Type Same As`: `Ecowitt`
+* `Server IP / Hostname`: the IP address/hostname of the device running `ecowitt2mqtt`
+* `Path`: `/data/report` (note that unlike the default in the WS View App, there shouldn't
+  be a trailing slash)
+* `Port`: `8080`
+* `Upload Interval`: `60` (change this to alter the frequency with which data is published)
+
+Then, on the machine where you installed `ecowitt2mqtt`, run it:
+
+```bash
+$ ecowitt2mqtt \
+    --mqtt-broker=192.168.1.101 \
+    --mqtt-username=user \
+    --mqtt-password=password \
+    --mqtt-topic=ecowitt/testdevice1
+```
+
+Within the `Upload Interval`, data should begin to appear in the MQTT broker at the topic
+specified.
+
+# Advanced Usage
 
 ## Command Line Interface
 
-The library is controlled via an `ecowitt2mqtt` executable:
-
+The `ecowitt2mqtt` executable contains several configurable parameters:`
 ```
-usage: ecowitt2mqtt [-h] --mqtt-broker MQTT_BROKER --mqtt-topic MQTT_TOPIC [--mqtt-port MQTT_PORT] [--mqtt-username MQTT_USERNAME]
-                    [--mqtt-password MQTT_PASSWORD] [--endpoint ENDPOINT] [--port PORT] [-l LOG_LEVEL]
+usage: ecowitt2mqtt [-h] --mqtt-broker MQTT_BROKER --mqtt-topic MQTT_TOPIC [--mqtt-port MQTT_PORT]
+                    [--mqtt-username MQTT_USERNAME] [--mqtt-password MQTT_PASSWORD]
+                    [--endpoint ENDPOINT] [--port PORT] [-l LOG_LEVEL]
 
 Send data from Ecowitt devices to an MQTT broker
 
@@ -57,14 +103,6 @@ optional arguments:
   -l LOG_LEVEL, --log-level LOG_LEVEL
                         The logging level (default: INFO)
 ```
-When run with the appropriate parameters, the executable will launch a web server with a
-single endpoint (with the default parameters, this endpoint will live at
-`http://0.0.0.0:8080/data/report`).
-
-When configured as a custom weather service in the WS View app, this endpoint will
-receive data from the Ecowitt device and publish it to the defined MQTT broker.
-
-(TODO: flesh out these docs more)
 
 ## Run in the Background
 
@@ -78,7 +116,7 @@ loglevel=info
 user=root
 
 [program:ecowitt2mqtt]
-command=ecowitt2mqtt --mqtt-broker=192.168.1.100 --mqtt-topic=My/topic
+command=ecowitt2mqtt --mqtt-broker=192.168.1.101 --mqtt-topic=ecowitt/testdevice1
 stdout_logfile=/dev/stdout
 stdout_logfile_maxbytes=0
 redirect_stderr=true
