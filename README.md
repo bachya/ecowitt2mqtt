@@ -32,7 +32,7 @@ pip install ecowitt2mqtt
 
 ## Command Line Interface
 
-The library provides an `ecowitt2mqtt` executable:
+The library is controlled via an `ecowitt2mqtt` executable:
 
 ```
 usage: ecowitt2mqtt [-h] --mqtt-broker MQTT_BROKER --mqtt-topic MQTT_TOPIC [--mqtt-port MQTT_PORT] [--mqtt-username MQTT_USERNAME]
@@ -57,6 +57,14 @@ optional arguments:
   -l LOG_LEVEL, --log-level LOG_LEVEL
                         The logging level (default: INFO)
 ```
+When run with the appropriate parameters, the executable will launch a web server with a
+single endpoint (with the default parameters, this endpoint will live at
+`http://0.0.0.0:8080/data/report`).
+
+When configured as a custom weather service in the WS View app, this endpoint will
+receive data from the Ecowitt device and publish it to the defined MQTT broker.
+
+(TODO: flesh out these docs more)
 
 ## Run in the Background
 
