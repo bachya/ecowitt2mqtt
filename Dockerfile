@@ -1,10 +1,18 @@
 FROM python:alpine3.12
 
 COPY ecowitt2mqtt /usr/src/app
-COPY requirements.txt /usr/src/app
 
+# hadolint ignore=DL3003
 RUN apk add --no-cache --virtual build-dependencies \
-    && pip install -r /usr/src/app/requirements.txt \
+      build-base \
+      libffi-dev \
+      openssl-dev \
+    && apk add --no-cache \
+      openssl \
+    && pip install \
+      aiohttp \
+      asyncio-mqtt \
+      supervisor \
     && apk del build-dependencies
 
 # Copy configuration files:
