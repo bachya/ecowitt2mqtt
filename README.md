@@ -61,8 +61,7 @@ Fill out the form with these values and tap `Save`:
 * `Port`: `8080`
 * `Upload Interval`: `60` (change this to alter the frequency with which data is published)
 
-Then, on the machine where you installed `ecowitt2mqtt`, run it with the minimum required
-parameters:
+Then, on the machine where you installed `ecowitt2mqtt`, run it:
 
 ```bash
 $ ecowitt2mqtt \
@@ -72,7 +71,8 @@ $ ecowitt2mqtt \
     --mqtt-topic=ecowitt/testdevice1
 ```
 
-Within the `Upload Interval`, data should begin to appear in the MQTT topic.
+Within the `Upload Interval`, data should begin to appear in the MQTT broker at the topic
+specified.
 
 # Advanced Usage
 
@@ -80,8 +80,9 @@ Within the `Upload Interval`, data should begin to appear in the MQTT topic.
 
 The `ecowitt2mqtt` executable contains several configurable parameters:`
 ```
-usage: ecowitt2mqtt [-h] --mqtt-broker MQTT_BROKER --mqtt-topic MQTT_TOPIC [--mqtt-port MQTT_PORT] [--mqtt-username MQTT_USERNAME]
-                    [--mqtt-password MQTT_PASSWORD] [--endpoint ENDPOINT] [--port PORT] [-l LOG_LEVEL]
+usage: ecowitt2mqtt [-h] --mqtt-broker MQTT_BROKER --mqtt-topic MQTT_TOPIC [--mqtt-port MQTT_PORT]
+                    [--mqtt-username MQTT_USERNAME] [--mqtt-password MQTT_PASSWORD]
+                    [--endpoint ENDPOINT] [--port PORT] [-l LOG_LEVEL]
 
 Send data from Ecowitt devices to an MQTT broker
 
