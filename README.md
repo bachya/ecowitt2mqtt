@@ -30,12 +30,37 @@ pip install ecowitt2mqtt
 
 # Quick Start
 
-Note that this README assumes that you have already paired your Ecowitt device with the
-WS View Android/iOS app from Ecowitt.
+Note that this README assumes:
 
-When viewing your device in the WS View app, select `Weather Services`:
+* you have access to an MQTT broker
+* you have already paired your Ecowitt device with the WS View Android/iOS app from
+  Ecowitt.
+
+First, install `ecowitt2mqtt` via `pip`:
+
+```bash
+$ pip install ecowitt2mqtt
+```
+
+Then, shift over to the WS View app on your Android/iOS device. While viewing your
+device in the app, select `Weather Services`:
 
 ![Select Weather Services](/assets/1-weather-services.jpeg?raw=true)
+
+Press `Next` until you reach the `Customized` screen:
+
+![The Customized screen in the WS View app](/assets/2-customized.jpeg?raw=true)
+
+Fill out the form with these values and tap `Save`:
+
+* `Protocol Type Same As`: `Ecowitt`
+* `Server IP / Hostname`: the IP address/hostname of the device running `ecowitt2mqtt`
+* `Path`: `/data/report` (note that unlike the default in the WS View App, there shouldn't
+  be a trailing slash)`
+* `Port`: `8080`
+* `Upload Interval: `60
+
+Then, on 
 
 # Usage
 
