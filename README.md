@@ -28,6 +28,15 @@ pip install ecowitt2mqtt
 * Python 3.7
 * Python 3.8 
 
+# Quick Start
+
+Note that this README assumes that you have already paired your Ecowitt device with the
+WS View Android/iOS app from Ecowitt.
+
+When viewing your device in the WS View app, select `Weather Services`:
+
+![Select Weather Services](/assets/1-weather-services.jpeg?raw=true)
+
 # Usage
 
 ## Command Line Interface
