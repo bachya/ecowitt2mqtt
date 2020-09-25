@@ -1,0 +1,26 @@
+---
+name: "Publish to PyPI"
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  publish_to_pypi:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+
+      - name: Publish to PyPI
+        run: |
+          pip install poetry
+          poetry publish --build -u __token__ -p  ${{ secrets.PYPI_API_KEY }}
