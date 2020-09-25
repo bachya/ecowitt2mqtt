@@ -58,10 +58,40 @@ optional arguments:
                         The logging level (default: INFO)
 ```
 
-The executable requires at least two arguments:
+## Run in the Background
 
-* `mqtt-broker`: the hostname or IP address of the MQTT broker
-* `mqtt-topic`: the MQTT topic to publish the device's data to
+`ecowitt2mqtt` doesn't, itself, provide any sort of daemonization mechanism. The suggested
+route is to use something like [`supervisord`](http://www.supervisord.org):
+
+```
+[supervisord]
+nodaemon=true
+loglevel=info
+user=root
+
+[program:ecowitt2mqtt]
+command=ecowitt2mqtt --mqtt-broker=192.168.1.100 --mqtt-topic=My/topic
+stdout_logfile=/dev/stdout
+stdout_logfile_maxbytes=0
+redirect_stderr=true
+```
+
+## Docker
+
+The library is available via a Docker image (`bachya/ecowitt2mqtt`). It is configured by
+a handful of environment variables that correspond to the command line parameters listed
+above:
+
+* `LOG_LEVEL:` the log level to use (default: `INFO`)
+* `ENDPOINT:` the relative endpoint/path to serve the web app on (default: `/data/report`)
+* `PORT:` the port to serve the web app on (default: `8080`)
+* `MQTT_BROKER:` the hostname or IP address of the MQTT broker
+* `MQTT_PORT:` the port of the MQTT broker (default: `1883`)
+* `MQTT_PASSWORD:` the password to use with the MQTT broker (default: `None`)
+* `MQTT_USERNAME:` the password to use with the MQTT broker (default: `None`)
+* `MQTT_TOPIC:` the MQTT topic to publish the device's data to
+
+An example `docker-compose` usage can be found in `docker-compose.dist.yml`.
 
 # Contributing
 
