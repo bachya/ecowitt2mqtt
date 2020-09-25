@@ -1,6 +1,7 @@
 # 🔘 ecowitt2mqtt: Send Ecowitt device data to an MQTT broker
 
 [![PyPi](https://img.shields.io/pypi/v/ecowitt2mqtt.svg)](https://pypi.python.org/pypi/ecowitt2mqtt)
+[![Docker Hub](https://img.shields.io/docker/cloud/build/bachya/ecowitt2mqtt.svg)](https://hub.docker.com/r/bachya/ecowitt2mqtt)
 [![Version](https://img.shields.io/pypi/pyversions/ecowitt2mqtt.svg)](https://pypi.python.org/pypi/ecowitt2mqtt)
 [![License](https://img.shields.io/pypi/l/ecowitt2mqtt.svg)](https://github.com/bachya/ecowitt2mqtt/blob/master/LICENSE)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a03c9e96f19a3dc37f98/maintainability)](https://codeclimate.com/github/bachya/ecowitt2mqtt/maintainability)
@@ -46,11 +47,11 @@ $ pip install ecowitt2mqtt
 Then, shift over to the WS View app on your Android/iOS device. While viewing your
 device in the app, select `Weather Services`:
 
-![Select Weather Services](/assets/1-weather-services.jpeg?raw=true)
+![Select Weather Services](https://raw.githubusercontent.com/bachya/ecowitt2mqtt/dev/assets/1-weather-services.jpeg?raw=true)
 
 Press `Next` until you reach the `Customized` screen:
 
-![The Customized screen in the WS View app](/assets/2-customized.jpeg?raw=true)
+![The Customized screen in the WS View app](https://raw.githubusercontent.com/bachya/ecowitt2mqtt/dev/assets/2-customized.jpeg?raw=true)
 
 Fill out the form with these values and tap `Save`:
 
@@ -124,9 +125,10 @@ redirect_stderr=true
 
 ## Docker
 
-The library is available via a Docker image (`bachya/ecowitt2mqtt`). It is configured by
-a handful of environment variables that correspond to the command line parameters listed
-above:
+The library is available via a Docker image
+([`bachya/ecowitt2mqtt`](https://hub.docker.com/r/bachya/ecowitt2mqtt)). It is configured
+by a handful of environment variables that correspond to the command line parameters
+listed above:
 
 * `LOG_LEVEL:` the log level to use (default: `INFO`)
 * `ENDPOINT:` the relative endpoint/path to serve the web app on (default: `/data/report`)
@@ -142,7 +144,7 @@ An example `docker-compose` usage can be found in `docker-compose.dist.yml`.
 # Contributing
 
 1. [Check for open features/bugs](https://github.com/bachya/ecowitt2mqtt/issues)
-  or [initiate a discussion on one](https://github.com/bachya/ecowitt2mqtt/issues/new).
+or [initiate a discussion on one](https://github.com/bachya/ecowitt2mqtt/issues/new).
 2. [Fork the repository](https://github.com/bachya/ecowitt2mqtt/fork).
 3. (_optional, but highly recommended_) Create a virtual environment: `python3 -m venv .venv`
 4. (_optional, but highly recommended_) Enter the virtual environment: `source ./.venv/bin/activate`
