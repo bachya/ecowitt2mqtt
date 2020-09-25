@@ -97,7 +97,8 @@ async def post_data(request: web.Request):
         _LOGGER.error("Error while publishing data to MQTT: %s", err)
 
 
-if __name__ == "__main__":
+def main():
+    """Run."""
     args = get_arguments()
     logging.basicConfig(level=getattr(logging, args.log_level))
 

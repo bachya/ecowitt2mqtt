@@ -50,3 +50,6 @@ pytest = "^5.3.5"
 pytest-aiohttp = "^0.3.0"
 pytest-asyncio = "^0.14.0"
 pytest-cov = "^2.8.1"
+
+[tool.poetry.scripts]
+ecowitt2mqtt = "ecowitt2mqtt.main:main"
