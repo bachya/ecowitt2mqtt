@@ -105,7 +105,7 @@ optional arguments:
                         The logging level (default: INFO)
 ```
 
-## Run in the Background
+## Running in the Background
 
 `ecowitt2mqtt` doesn't, itself, provide any sort of daemonization mechanism. The suggested
 route is to use something like [`supervisord`](http://www.supervisord.org):
@@ -143,10 +143,10 @@ Running the image is straightforward:
 
 ```
 docker run -it \
-    -e MQTT_BROKER=hub.phil.lan \
-    -e MQTT_USERNAME=hass \
-    -e MQTT_PASSWORD=pgNf4_TjSGcvIVCXnpTFn5IL^ \
-    -e MQTT_TOPIC=ecowitt2mqtt/testdevice1 \
+    -e MQTT_BROKER=192.168.1.101 \
+    -e MQTT_USERNAME=user \
+    -e MQTT_PASSWORD=password \
+    -e MQTT_TOPIC=ecowitt/testdevice1 \
     -p 8080:8080 \
     bachya/ecowitt2mqtt:latest
 ```
