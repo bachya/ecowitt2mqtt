@@ -23,6 +23,7 @@ repos:
     hooks:
       - id: codespell
         args:
+          - -L=hass
           - --skip="./.*,*.json"
           - --quiet-level=4
         exclude_types: [json]

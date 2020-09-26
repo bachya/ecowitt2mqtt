@@ -1,4 +1,0 @@
-.flake8
-Dockerfile
-docker-compose.yml
-pylintrc

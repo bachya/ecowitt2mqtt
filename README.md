@@ -139,7 +139,25 @@ listed above:
 * `MQTT_USERNAME:` the password to use with the MQTT broker (default: `None`)
 * `MQTT_TOPIC:` the MQTT topic to publish the device's data to
 
-An example `docker-compose` usage can be found in `docker-compose.dist.yml`.
+Running the image is straightforward:
+
+```
+docker run -it \
+    -e MQTT_BROKER=hub.phil.lan \
+    -e MQTT_USERNAME=hass \
+    -e MQTT_PASSWORD=pgNf4_TjSGcvIVCXnpTFn5IL^ \
+    -e MQTT_TOPIC=ecowitt2mqtt/testdevice1 \
+    -p 8080:8080 \
+    bachya/ecowitt2mqtt:latest
+```
+
+Note the value of the `-p` flag: you must expose the port defined by the `MQTT_PORT`
+environment variable.` In the example above, the default port (`8080`) is used and is
+exposed via the same port on the host.
+
+[`docker-compose`](https://docs.docker.com/compose/) users can find an example
+configuration file at
+[`docker-compose.dist.yml`](https://github.com/bachya/ecowitt2mqtt/blob/dev/docker-compose.dist.yml).
 
 # Contributing
 
