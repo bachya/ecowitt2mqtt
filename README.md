@@ -79,7 +79,7 @@ specified.
 
 ## Command Line Interface
 
-The `ecowitt2mqtt` executable contains several configurable parameters:`
+The `ecowitt2mqtt` executable contains several configurable parameters:
 ```
 usage: ecowitt2mqtt [-h] --mqtt-broker MQTT_BROKER --mqtt-topic MQTT_TOPIC [--mqtt-port MQTT_PORT]
                     [--mqtt-username MQTT_USERNAME] [--mqtt-password MQTT_PASSWORD]
@@ -152,7 +152,7 @@ docker run -it \
 ```
 
 Note the value of the `-p` flag: you must expose the port defined by the `MQTT_PORT`
-environment variable.` In the example above, the default port (`8080`) is used and is
+environment variable. In the example above, the default port (`8080`) is used and is
 exposed via the same port on the host.
 
 [`docker-compose`](https://docs.docker.com/compose/) users can find an example
