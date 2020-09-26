@@ -1,17 +1,21 @@
 FROM python:alpine3.12
 
-COPY ecowitt2mqtt /usr/src/app
+COPY README.md /usr/src/README.md
+COPY pyproject.toml /usr/src/pyproject.toml
+COPY ecowitt2mqtt /usr/src/ecowitt2mqtt
+
+WORKDIR /usr/src
 
 RUN apk add --no-cache --virtual build-dependencies \
       build-base==0.5-r2 \
       libffi-dev==3.3-r2 \
       openssl-dev==1.1.1g-r0 \
     && apk add --no-cache \
-      openssl==1.1.1g-r0 \
-    && pip install \
-      aiohttp==3.6.2 \
-      asyncio-mqtt==0.7.0 \
-      supervisor==4.2.1 \
+      supervisor==4.2.0-r0 \
+    && pip3 install poetry==1.0.10 \
+    && poetry config virtualenvs.create false \
+    && poetry lock && poetry install --no-dev \
+    && pip3 uninstall -y poetry \
     && apk del build-dependencies
 
 # Copy configuration files:

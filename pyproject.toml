@@ -40,7 +40,6 @@ classifiers = [
 aiohttp = "^3.6.2"
 asyncio-mqtt = "^0.7.0"
 python = "^3.6.1"
-supervisor = "^4.2.1"
 
 [tool.poetry.dev-dependencies]
 asynctest = "^0.13.0"
