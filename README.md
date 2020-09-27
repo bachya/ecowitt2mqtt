@@ -130,8 +130,8 @@ redirect_stderr=true
 Ecowitt device by using
 [MQTT Discovery](https://www.home-assistant.io/docs/mqtt/discovery/).
 
-Once Home Assistant is configured to accept MQTT discover, `ecowitt2mqtt` simply needs the
-`--hass-discovery` flag:
+Once Home Assistant is configured to accept MQTT Discovery, `ecowitt2mqtt` simply needs
+the `--hass-discovery` flag:
 
 ```bash
 $ ecowitt2mqtt \
