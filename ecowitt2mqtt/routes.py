@@ -31,7 +31,7 @@ async def async_respond_to_ecowitt_data(request: web.Request):
         else:
             topic = f"ecowitt2mqtt/{unique_id}"
 
-        await mqtt.async_publish(topic, data)
+        return await mqtt.async_publish(topic, data)
 
     LOGGER.debug("Publishing according to Home Assistant MQTT Discovery standard")
 
