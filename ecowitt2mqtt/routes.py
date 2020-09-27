@@ -45,12 +45,12 @@ async def async_respond_to_ecowitt_data(request: web.Request):
         else:
             discovery = hass_discovery_managers[unique_id] = HassDiscovery(unique_id)
 
+    tasks = []
     for key, value in data.items():
         config_payload = discovery.get_config_payload(key)
         config_topic = discovery.get_config_topic(key)
-        tasks = [
-            mqtt.async_publish(config_topic, config_payload),
-            mqtt.async_publish(config_payload["availability_topic"], "online"),
-            mqtt.async_publish(config_payload["state_topic"], value),
-        ]
-        await asyncio.gather(*tasks)
+        tasks.append(mqtt.async_publish(config_topic, config_payload))
+        tasks.append(mqtt.async_publish(config_payload["availability_topic"], "online"))
+        tasks.append(mqtt.async_publish(config_payload["state_topic"], value))
+
+    await asyncio.gather(*tasks)
