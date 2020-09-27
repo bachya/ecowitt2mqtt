@@ -69,11 +69,9 @@ $ ecowitt2mqtt \
     --mqtt-broker=192.168.1.101 \
     --mqtt-username=user \
     --mqtt-password=password \
-    --mqtt-topic=ecowitt/testdevice1
 ```
 
-Within the `Upload Interval`, data should begin to appear in the MQTT broker at the topic
-specified.
+Within the `Upload Interval`, data should begin to appear in the MQTT broker.
 
 # Advanced Usage
 
@@ -91,14 +89,14 @@ optional arguments:
   -h, --help            show this help message and exit
   --mqtt-broker MQTT_BROKER
                         The hostname or IP address of the MQTT broker
-  --mqtt-topic MQTT_TOPIC
-                        The MQTT topic to publish the device's data to
   --mqtt-port MQTT_PORT
                         The port of the MQTT broker (default: 1883)
   --mqtt-username MQTT_USERNAME
                         The username to use with the MQTT broker (default: None)
   --mqtt-password MQTT_PASSWORD
                         The password to use with the MQTT broker (default: None)
+  --mqtt-topic MQTT_TOPIC
+                        The MQTT topic to publish the device's data to (default: ecowitt2mqtt/<ID>)
   --endpoint ENDPOINT   The relative endpoint/path to serve the web app on (default: /data/report)
   --port PORT           The port to serve the web app on (default: 8080)
   -l LOG_LEVEL, --log-level LOG_LEVEL
@@ -117,7 +115,7 @@ loglevel=info
 user=root
 
 [program:ecowitt2mqtt]
-command=ecowitt2mqtt --mqtt-broker=192.168.1.101 --mqtt-topic=ecowitt/testdevice1
+command=ecowitt2mqtt --mqtt-broker=192.168.1.101 --mqtt-username=user --mqtt-password=password
 stdout_logfile=/dev/stdout
 stdout_logfile_maxbytes=0
 redirect_stderr=true
@@ -146,7 +144,6 @@ docker run -it \
     -e MQTT_BROKER=192.168.1.101 \
     -e MQTT_USERNAME=user \
     -e MQTT_PASSWORD=password \
-    -e MQTT_TOPIC=ecowitt/testdevice1 \
     -p 8080:8080 \
     bachya/ecowitt2mqtt:latest
 ```
