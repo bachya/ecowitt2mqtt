@@ -4,11 +4,6 @@ if [ -z "${MQTT_BROKER}" ]; then
     exit 1
 fi
 
-if [ -z "${MQTT_TOPIC}" ] && [ -z "${HASS_DISCOVERY}" ]; then
-    echo "Missing required environment variable: either MQTT_TOPIC or HASS_DISCOVERY"
-    exit 1
-fi
-
 if [ -z "${MQTT_TOPIC}" ] && [ "${HASS_DISCOVERY}" != "true" ]; then
     echo "Missing required environment variable: either MQTT_TOPIC or HASS_DISCOVERY"
     exit 1
