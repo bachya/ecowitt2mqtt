@@ -1,12 +1,11 @@
 """Define MQTT functionality."""
 import json
-from typing import Optional
+from typing import Optional, Union
 
 from asyncio_mqtt import Client, MqttError
 from ecowitt2mqtt.const import LOGGER
 
 DEFAULT_MQTT_PORT = 1883
-DEFAULT_TOPIC_TEMPLATE = "ecowitt2mqtt/{0}"
 
 
 class MQTT:
@@ -19,11 +18,9 @@ class MQTT:
         port: int = DEFAULT_MQTT_PORT,
         username: Optional[str] = None,
         password: Optional[str] = None,
-        topic: Optional[str] = None
     ) -> None:
         """Initialize."""
         self._client = Client(broker, port=port, username=username, password=password)
-        self._topic = topic
 
     async def async_connect(self) -> None:
         """Connect to the MQTT broker."""
@@ -43,15 +40,15 @@ class MQTT:
 
         LOGGER.debug("Disconnected from MQTT broker")
 
-    async def async_publish_topic(self, data: dict) -> None:
+    async def async_publish(self, topic: str, data: Union[dict, str]) -> None:
         """Publish data to an MQTT topic."""
-        if self._topic:
-            topic = self._topic
+        if isinstance(data, dict):
+            payload = json.dumps(data).encode("utf-8")
         else:
-            topic = DEFAULT_TOPIC_TEMPLATE.format(data["PASSKEY"])
+            payload = data.encode("utf-8")
 
         try:
-            await self._client.publish(topic, json.dumps(dict(data)).encode())
+            await self._client.publish(topic, payload)
             LOGGER.info("Data published to topic %s: %s", topic, data)
         except MqttError as err:
             LOGGER.error("Error while publishing data to MQTT: %s", err)
