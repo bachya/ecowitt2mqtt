@@ -1,8 +1,8 @@
 FROM python:alpine3.12
 
 COPY README.md /usr/src/README.md
-COPY pyproject.toml /usr/src/pyproject.toml
 COPY ecowitt2mqtt /usr/src/ecowitt2mqtt
+COPY pyproject.toml /usr/src/pyproject.toml
 
 WORKDIR /usr/src
 

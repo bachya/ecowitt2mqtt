@@ -5,7 +5,7 @@ import logging
 from aiohttp import web
 from ecowitt2mqtt.const import LOGGER
 from ecowitt2mqtt.mqtt import DEFAULT_MQTT_PORT, MQTT
-from ecowitt2mqtt.routes import respond_to_ecowitt_data
+from ecowitt2mqtt.routes import async_respond_to_ecowitt_data
 
 DEFAULT_AIOHTTP_ENDPOINT = "/data/report"
 DEFAULT_AIOHTTP_PORT = 8080
@@ -17,6 +17,16 @@ def get_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Send data from Ecowitt devices to an MQTT broker"
     )
+
+    parser.add_argument(
+        "-l",
+        "--log-level",
+        action="store",
+        default=DEFAULT_LOG_LEVEL_STRING,
+        help=f"The logging level (default: {DEFAULT_LOG_LEVEL_STRING})",
+    )
+
+    # MQTT
     parser.add_argument(
         "--mqtt-broker",
         action="store",
@@ -51,6 +61,20 @@ def get_arguments() -> argparse.Namespace:
         type=str,
         help="The MQTT topic to publish the device's data to (default: ecowitt2mqtt/<ID>)",
     )
+
+    # Home Assistant MQTT Discovery
+    parser.add_argument(
+        "--hass-discovery",
+        action="store_const",
+        const=True,
+        help="Publish data in the Home Assistant MQTT Discovery format",
+    )
+    parser.add_argument(
+        "--hass-discovery-prefix",
+        help="The Home Assistant discovery prefix to use (default: homeassistant)",
+    )
+
+    # Web Server
     parser.add_argument(
         "--endpoint",
         action="store",
@@ -68,13 +92,6 @@ def get_arguments() -> argparse.Namespace:
         type=int,
         help=f"The port to serve the web app on (default: {DEFAULT_AIOHTTP_PORT})",
     )
-    parser.add_argument(
-        "-l",
-        "--log-level",
-        action="store",
-        default=DEFAULT_LOG_LEVEL_STRING,
-        help=f"The logging level (default: {DEFAULT_LOG_LEVEL_STRING})",
-    )
 
     return parser.parse_args()
 
@@ -87,15 +104,15 @@ def main():
     LOGGER.debug("Using arguments: %s", args)
 
     app = web.Application()
-    app.add_routes([web.post(args.endpoint, respond_to_ecowitt_data)])
-    app["args"] = args
+    app.add_routes([web.post(args.endpoint, async_respond_to_ecowitt_data)])
 
+    app["args"] = args
+    app["hass_discovery_managers"] = {}
     mqtt = app["mqtt"] = MQTT(
         args.mqtt_broker,
         port=args.mqtt_port,
         username=args.mqtt_username,
         password=args.mqtt_password,
-        topic=args.mqtt_topic,
     )
 
     async def connect_mqtt(_) -> None:

@@ -68,7 +68,7 @@ Then, on the machine where you installed `ecowitt2mqtt`, run it:
 $ ecowitt2mqtt \
     --mqtt-broker=192.168.1.101 \
     --mqtt-username=user \
-    --mqtt-password=password \
+    --mqtt-password=password
 ```
 
 Within the `Upload Interval`, data should begin to appear in the MQTT broker.
@@ -87,6 +87,8 @@ Send data from Ecowitt devices to an MQTT broker
 
 optional arguments:
   -h, --help            show this help message and exit
+  -l LOG_LEVEL, --log-level LOG_LEVEL
+                        The logging level (default: INFO)
   --mqtt-broker MQTT_BROKER
                         The hostname or IP address of the MQTT broker
   --mqtt-port MQTT_PORT
@@ -97,10 +99,11 @@ optional arguments:
                         The password to use with the MQTT broker (default: None)
   --mqtt-topic MQTT_TOPIC
                         The MQTT topic to publish the device's data to (default: ecowitt2mqtt/<ID>)
+  --hass-discovery      Publish data in the Home Assistant MQTT Discovery format
+  --hass-discovery-prefix HASS_DISCOVERY_PREFIX
+                        The Home Assistant discovery prefix to use (default: homeassistant)
   --endpoint ENDPOINT   The relative endpoint/path to serve the web app on (default: /data/report)
   --port PORT           The port to serve the web app on (default: 8080)
-  -l LOG_LEVEL, --log-level LOG_LEVEL
-                        The logging level (default: INFO)
 ```
 
 ## Running in the Background
@@ -121,6 +124,26 @@ stdout_logfile_maxbytes=0
 redirect_stderr=true
 ```
 
+## Home Assistant MQTT Discovery
+
+[Home Assistant](https://home-assistant.io) users can quickly add entities from an
+Ecowitt device by using
+[MQTT Discovery](https://www.home-assistant.io/docs/mqtt/discovery/).
+
+Once Home Assistant is configured to accept MQTT discover, `ecowitt2mqtt` simply needs the
+`--hass-discovery` flag:
+
+```bash
+$ ecowitt2mqtt \
+    --mqtt-broker=192.168.1.101 \
+    --mqtt-username=user \
+    --mqtt-password=password \
+    --hass-discovery
+```
+
+Note that if both `--hass-discovery` and `--mqtt-topic` are provided, `--hass-discovery` will
+win out.
+
 ## Docker
 
 The library is available via a Docker image
@@ -129,13 +152,16 @@ by a handful of environment variables that correspond to the command line parame
 listed above:
 
 * `LOG_LEVEL:` the log level to use (default: `INFO`)
-* `ENDPOINT:` the relative endpoint/path to serve the web app on (default: `/data/report`)
-* `PORT:` the port to serve the web app on (default: `8080`)
 * `MQTT_BROKER:` the hostname or IP address of the MQTT broker
 * `MQTT_PORT:` the port of the MQTT broker (default: `1883`)
 * `MQTT_PASSWORD:` the password to use with the MQTT broker (default: `None`)
 * `MQTT_USERNAME:` the password to use with the MQTT broker (default: `None`)
 * `MQTT_TOPIC:` the MQTT topic to publish the device's data to
+* `HASS_DISCOVERY`: whether to use Home Assistant MQTT Discovery (default: `false`)
+* `HASS_DISCOVERY_PREFIX`: the topic prefix to use for Home Assistant MQTT Discovery
+  (default: `homeassistant`)
+* `ENDPOINT:` the relative endpoint/path to serve the web app on (default: `/data/report`)
+* `PORT:` the port to serve the web app on (default: `8080`)
 
 Running the image is straightforward:
 
