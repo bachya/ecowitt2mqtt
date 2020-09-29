@@ -39,16 +39,11 @@ classifiers = [
 [tool.poetry.dependencies]
 aiohttp = "^3.6.2"
 asyncio-mqtt = "^0.7.0"
+meteocalc = "^1.1.0"
 python = "^3.6.1"
 
 [tool.poetry.dev-dependencies]
-asynctest = "^0.13.0"
 pre-commit = "^2.0.1"
-pylint = "^2.5.2"
-pytest = "^5.3.5"
-pytest-aiohttp = "^0.3.0"
-pytest-asyncio = "^0.14.0"
-pytest-cov = "^2.8.1"
 
 [tool.poetry.scripts]
 ecowitt2mqtt = "ecowitt2mqtt.main:main"
