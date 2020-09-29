@@ -40,12 +40,14 @@ class MQTT:
 
         LOGGER.debug("Disconnected from MQTT broker")
 
-    async def async_publish(self, topic: str, data: Union[dict, str]) -> None:
+    async def async_publish(self, topic: str, data: Union[dict, float, str]) -> None:
         """Publish data to an MQTT topic."""
         if isinstance(data, dict):
             payload = json.dumps(data).encode("utf-8")
-        else:
+        elif isinstance(data, str):
             payload = data.encode("utf-8")
+        else:
+            payload = str(data).encode("utf-8")
 
         try:
             await self._client.publish(topic, payload)

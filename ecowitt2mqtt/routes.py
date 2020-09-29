@@ -3,6 +3,7 @@ import asyncio
 
 from aiohttp import web
 from ecowitt2mqtt.const import LOGGER
+from ecowitt2mqtt.data import process_data_payload
 from ecowitt2mqtt.hass import HassDiscovery
 
 
@@ -16,12 +17,9 @@ async def async_respond_to_ecowitt_data(request: web.Request):
 
     LOGGER.debug("Received data from Ecowitt device: %s", data)
 
-    unique_id = data.pop("PASSKEY")
+    data = process_data_payload(data)
 
-    # Remove data keys we don't care about:
-    data.pop("dateutc", None)
-    data.pop("freq", None)
-    data.pop("model", None)
+    unique_id = data.pop("PASSKEY")
 
     if not request.app["args"].hass_discovery:
         LOGGER.debug("Publishing entire device payload to single topic")
