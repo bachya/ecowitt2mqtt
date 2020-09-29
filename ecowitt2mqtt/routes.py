@@ -2,6 +2,7 @@
 import asyncio
 
 from aiohttp import web
+
 from ecowitt2mqtt.const import LOGGER
 from ecowitt2mqtt.data import process_data_payload
 from ecowitt2mqtt.hass import HassDiscovery

@@ -1,4 +1,6 @@
 """Define helpers to process data from an Ecowitt device."""
+import meteocalc
+
 from ecowitt2mqtt.const import (
     DATA_POINT_DEWPOINT,
     DATA_POINT_FEELSLIKEF,
@@ -9,7 +11,6 @@ from ecowitt2mqtt.const import (
     DATA_POINT_WINDSPEEDMPH,
     LOGGER,
 )
-import meteocalc
 
 
 def process_data_payload(data: dict) -> dict:

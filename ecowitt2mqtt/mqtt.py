@@ -3,6 +3,7 @@ import json
 from typing import Optional, Union
 
 from asyncio_mqtt import Client, MqttError
+
 from ecowitt2mqtt.const import LOGGER
 
 DEFAULT_MQTT_PORT = 1883
