@@ -30,11 +30,9 @@ def process_data_payload(data: dict) -> dict:
 
     try:
         wind_chill = meteocalc.wind_chill(temperature, wind_speed)
-    except ValueError:
+    except ValueError as err:
         LOGGER.debug(
-            "Ignoring wind chill calculation (temperature: %s, wind speed: %s)",
-            temperature.f,
-            wind_speed,
+            "%s (temperature: %s, wind speed: %s)", err, temperature.f, wind_speed,
         )
     else:
         data[DATA_POINT_WINDCHILL] = wind_chill.f
