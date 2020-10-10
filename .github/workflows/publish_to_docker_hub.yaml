@@ -2,8 +2,6 @@
 name: "Publish to Docker Hub"
 
 on:
-  pull_request:
-    branches: dev
   push:
     branches:
       - dev
@@ -28,8 +26,10 @@ jobs:
 
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             VERSION=${GITHUB_REF#refs/tags/}
-          elif [[ $GITHUB_REF == refs/heads/* ]]; then
-            VERSION=$(echo ${GITHUB_REF#refs/heads/} | sed -r 's#/+#-#g')
+          elif [[ $GITHUB_REF == refs/heads/dev ]]; then
+            VERSION=dev
+          elif [[ $GITHUB_REF == refs/heads/master ]]; then
+            VERSION=latest
           fi
 
           TAGS="${DOCKER_IMAGE}:${VERSION}"
