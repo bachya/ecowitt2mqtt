@@ -164,9 +164,7 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
 
     def _get_topic(self, key: str, topic_type: str) -> str:
         """Get the attributes topic for a particular entity type."""
-        return (
-            f"{self._discovery_prefix}/sensor" f"/{self._unique_id}/{key}/{topic_type}"
-        )
+        return f"{self._discovery_prefix}/sensor/{self._unique_id}/{key}/{topic_type}"
 
     def get_config_payload(self, key: str) -> dict:
         """Return the config payload for a particular entity type."""
