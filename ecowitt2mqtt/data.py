@@ -25,32 +25,35 @@ class DataProcessor:
     def __init__(self, data: dict) -> None:
         """Initialize."""
         self._data = {k: v for k, v in data.items() if k not in KEYS_TO_IGNORE}
-        self.unique_id = data.get("PASSKEY", DEFAULT_UNIQUE_ID)
+        self.unique_id = data.pop("PASSKEY", DEFAULT_UNIQUE_ID)
 
     @property
     def data(self) -> dict:
         """Return the data payload."""
         return {
-            DATA_POINT_HUMIDITY: self.humidity,
-            DATA_POINT_TEMPF: self.temperature_f,
-            DATA_POINT_WINDSPEEDMPH: self.wind_speed,
-            DATA_POINT_DEWPOINT: self.dew_point,
-            DATA_POINT_HEATINDEX: self.heat_index,
-            DATA_POINT_WINDCHILL: self.wind_chill,
-            DATA_POINT_FEELSLIKEF: self.feels_like_f,
+            **self._data,
+            **{
+                DATA_POINT_HUMIDITY: self.humidity,
+                DATA_POINT_TEMPF: self.temperature_f,
+                DATA_POINT_WINDSPEEDMPH: self.wind_speed,
+                DATA_POINT_DEWPOINT: self.dew_point,
+                DATA_POINT_HEATINDEX: self.heat_index,
+                DATA_POINT_WINDCHILL: self.wind_chill,
+                DATA_POINT_FEELSLIKEF: self.feels_like_f,
+            },
         }
 
     @property
-    def dew_point(self) -> Optional[int]:
+    def dew_point(self) -> Optional[float]:
         """Return the dew point in fahrenheit (if it exists)."""
         if not self.temperature_f or not self.humidity:
             return None
 
         dew_point = meteocalc.dew_point(self.temperature_f, self.humidity)
-        return round(dew_point.f)
+        return round(dew_point.f, 2)
 
     @property
-    def feels_like_f(self) -> Optional[int]:
+    def feels_like_f(self) -> Optional[float]:
         """Return the "feels like" temperature in fahrenheit (if it exists)."""
         if not self.temperature_f or not self.humidity or not self.wind_speed:
             return None
@@ -58,16 +61,16 @@ class DataProcessor:
         feels_like_f = meteocalc.feels_like(
             self.temperature_f, self.humidity, self.wind_speed
         )
-        return round(feels_like_f.f)
+        return round(feels_like_f.f, 2)
 
     @property
-    def heat_index(self) -> Optional[int]:
+    def heat_index(self) -> Optional[float]:
         """Return the heat index in fahrenheit (if it exists)."""
         if not self.temperature_f or not self.humidity:
             return None
 
         heat_index = meteocalc.heat_index(self.temperature_f, self.humidity)
-        return round(heat_index.f)
+        return round(heat_index.f, 2)
 
     @property
     def humidity(self) -> Optional[int]:
@@ -77,16 +80,16 @@ class DataProcessor:
         return round(float(self._data[DATA_POINT_HUMIDITY]))
 
     @property
-    def temperature_f(self) -> Optional[int]:
+    def temperature_f(self) -> Optional[float]:
         """Return the temperature in fahrenheit (if it exists)."""
         if DATA_POINT_TEMPF not in self._data:
             return None
 
         temperature = meteocalc.Temp(self._data[DATA_POINT_TEMPF], "f")
-        return round(temperature.f)
+        return round(temperature.f, 2)
 
     @property
-    def wind_chill(self) -> Optional[int]:
+    def wind_chill(self) -> Optional[float]:
         """Return the wind chill (if it exists)."""
         if not self.temperature_f or not self.wind_speed:
             return None
@@ -102,7 +105,7 @@ class DataProcessor:
             )
             return None
 
-        return round(wind_chill.f)
+        return round(wind_chill.f, 2)
 
     @property
     def wind_speed(self) -> Optional[float]:

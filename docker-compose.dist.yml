@@ -4,18 +4,30 @@ version: "3"
 services:
 
   ecowitt2mqtt:
+    build: .
     container_name: ecowitt2mqtt
     environment:
       LOG_LEVEL: INFO
       ENDPOINT: /data/report
       HASS_DISCOVERY: "false"
       PORT: 8080
-      MQTT_BROKER: <IP_OR_HOST>
+      MQTT_BROKER: vernemq
       MQTT_PORT: 1883
-      MQTT_PASSWORD: <PASSWORD>
-      MQTT_USERNAME: <USERNAME>
-      MQTT_TOPIC: <TOPIC>
+      MQTT_PASSWORD: password
+      MQTT_USERNAME: ecowitt
+      MQTT_TOPIC: "Test"
     image: "bachya/ecowitt2mqtt:latest"
     ports:
       - "8080:8080/tcp"
-    restart: unless-stopped
+    restart: always
+
+  vernemq:
+    container_name: vernemq
+    environment:
+      DOCKER_VERNEMQ_ACCEPT_EULA: "yes"
+      DOCKER_VERNEMQ_USER_ECOWITT: "password"
+    image: "vernemq/vernemq:1.11.0"
+    ports:
+      - "1883:1883/tcp"
+    restart: always
+    user: root
