@@ -1,4 +1,6 @@
 """Define helpers to process data from an Ecowitt device."""
+from typing import Optional
+
 import meteocalc
 
 from ecowitt2mqtt.const import (
@@ -12,32 +14,99 @@ from ecowitt2mqtt.const import (
     LOGGER,
 )
 
+DEFAULT_UNIQUE_ID = "default"
 
-def process_data_payload(data: dict) -> dict:
-    """Process incoming data from an Ecowitt device."""
-    for ignore_key in ("dateutc", "freq", "model", "stationtype"):
-        data.pop(ignore_key, None)
+KEYS_TO_IGNORE = ["dateutc", "freq", "model", "stationtype"]
 
-    humidity = int(data[DATA_POINT_HUMIDITY])
-    temperature = meteocalc.Temp(data[DATA_POINT_TEMPF], "f")
-    wind_speed = float(data[DATA_POINT_WINDSPEEDMPH])
 
-    dew_point = meteocalc.dew_point(temperature, humidity)
-    data[DATA_POINT_DEWPOINT] = dew_point.f
+class DataProcessor:
+    """Define an object to process Ecowitt data."""
 
-    heat_index = meteocalc.heat_index(temperature, humidity)
-    data[DATA_POINT_HEATINDEX] = heat_index.f
+    def __init__(self, data: dict) -> None:
+        """Initialize."""
+        self._data = {k: v for k, v in data.items() if k not in KEYS_TO_IGNORE}
+        self.unique_id = data.get("PASSKEY", DEFAULT_UNIQUE_ID)
 
-    try:
-        wind_chill = meteocalc.wind_chill(temperature, wind_speed)
-    except ValueError as err:
-        LOGGER.debug(
-            "%s (temperature: %s, wind speed: %s)", err, temperature.f, wind_speed,
+    @property
+    def data(self) -> dict:
+        """Return the data payload."""
+        return {
+            DATA_POINT_HUMIDITY: self.humidity,
+            DATA_POINT_TEMPF: self.temperature_f,
+            DATA_POINT_WINDSPEEDMPH: self.wind_speed,
+            DATA_POINT_DEWPOINT: self.dew_point,
+            DATA_POINT_HEATINDEX: self.heat_index,
+            DATA_POINT_WINDCHILL: self.wind_chill,
+            DATA_POINT_FEELSLIKEF: self.feels_like_f,
+        }
+
+    @property
+    def dew_point(self) -> Optional[int]:
+        """Return the dew point in fahrenheit (if it exists)."""
+        if not self.temperature_f or not self.humidity:
+            return None
+
+        dew_point = meteocalc.dew_point(self.temperature_f, self.humidity)
+        return round(dew_point.f)
+
+    @property
+    def feels_like_f(self) -> Optional[int]:
+        """Return the "feels like" temperature in fahrenheit (if it exists)."""
+        if not self.temperature_f or not self.humidity or not self.wind_speed:
+            return None
+
+        feels_like_f = meteocalc.feels_like(
+            self.temperature_f, self.humidity, self.wind_speed
         )
-    else:
-        data[DATA_POINT_WINDCHILL] = wind_chill.f
+        return round(feels_like_f.f)
 
-    feels_like = meteocalc.feels_like(temperature, humidity, wind_speed)
-    data[DATA_POINT_FEELSLIKEF] = feels_like.f
+    @property
+    def heat_index(self) -> Optional[int]:
+        """Return the heat index in fahrenheit (if it exists)."""
+        if not self.temperature_f or not self.humidity:
+            return None
 
-    return data
+        heat_index = meteocalc.heat_index(self.temperature_f, self.humidity)
+        return round(heat_index.f)
+
+    @property
+    def humidity(self) -> Optional[int]:
+        """Return the humidity percentage (if it exists)."""
+        if DATA_POINT_HUMIDITY not in self._data:
+            return None
+        return round(float(self._data[DATA_POINT_HUMIDITY]))
+
+    @property
+    def temperature_f(self) -> Optional[int]:
+        """Return the temperature in fahrenheit (if it exists)."""
+        if DATA_POINT_TEMPF not in self._data:
+            return None
+
+        temperature = meteocalc.Temp(self._data[DATA_POINT_TEMPF], "f")
+        return round(temperature.f)
+
+    @property
+    def wind_chill(self) -> Optional[int]:
+        """Return the wind chill (if it exists)."""
+        if not self.temperature_f or not self.wind_speed:
+            return None
+
+        try:
+            wind_chill = meteocalc.wind_chill(self.temperature_f, self.wind_speed)
+        except ValueError as err:
+            LOGGER.debug(
+                "%s (temperature: %s, wind speed: %s)",
+                err,
+                self.temperature_f,
+                self.wind_speed,
+            )
+            return None
+
+        return round(wind_chill.f)
+
+    @property
+    def wind_speed(self) -> Optional[float]:
+        """Return the wind speed (if it exists)."""
+        if DATA_POINT_WINDSPEEDMPH not in self._data:
+            return None
+        return round(float(self._data[DATA_POINT_WINDSPEEDMPH]))

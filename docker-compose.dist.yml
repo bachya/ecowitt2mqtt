@@ -8,6 +8,7 @@ services:
     environment:
       LOG_LEVEL: INFO
       ENDPOINT: /data/report
+      HASS_DISCOVERY: "false"
       PORT: 8080
       MQTT_BROKER: <IP_OR_HOST>
       MQTT_PORT: 1883
