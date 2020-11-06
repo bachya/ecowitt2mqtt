@@ -29,13 +29,10 @@ class DataProcessor:
 
     @property
     def data(self) -> dict:
-        """Return the data payload."""
+        """Return the data payload (original + calculated values)."""
         return {
             **self._data,
             **{
-                DATA_POINT_HUMIDITY: self.humidity,
-                DATA_POINT_TEMPF: self.temperature_f,
-                DATA_POINT_WINDSPEEDMPH: self.wind_speed,
                 DATA_POINT_DEWPOINT: self.dew_point,
                 DATA_POINT_HEATINDEX: self.heat_index,
                 DATA_POINT_WINDCHILL: self.wind_chill,
