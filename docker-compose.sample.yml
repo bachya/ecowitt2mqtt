@@ -7,7 +7,7 @@ services:
     build: .
     container_name: ecowitt2mqtt
     environment:
-      LOG_LEVEL: INFO
+      LOG_LEVEL: DEBUG
       ENDPOINT: /data/report
       HASS_DISCOVERY: "false"
       PORT: 8080
