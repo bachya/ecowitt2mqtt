@@ -181,7 +181,10 @@ exposed via the same port on the host.
 
 [`docker-compose`](https://docs.docker.com/compose/) users can find an example
 configuration file at
-[`docker-compose.dist.yml`](https://github.com/bachya/ecowitt2mqtt/blob/dev/docker-compose.dist.yml).
+[`docker-compose.dev.yml`](https://github.com/bachya/ecowitt2mqtt/blob/dev/docker-compose.dev.yml).
+Note that this is intended to be a dev environment for quickly testing the repo itself;
+in production, you should refer to one of the
+[Docker Hub](https://hub.docker.com/r/bachya/ecowitt2mqtt) images.
 
 # Contributing
 
