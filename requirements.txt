@@ -1,0 +1,3 @@
+aiohttp==3.6.2
+asyncio-mqtt==0.7.0
+meteocalc==1.1.0
