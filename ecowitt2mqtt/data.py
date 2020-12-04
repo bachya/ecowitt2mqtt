@@ -1,4 +1,5 @@
 """Define helpers to process data from an Ecowitt device."""
+from dataclasses import dataclass, field
 from typing import Optional
 
 import meteocalc
@@ -19,112 +20,100 @@ DEFAULT_UNIQUE_ID = "default"
 KEYS_TO_IGNORE = ["dateutc", "freq", "model", "stationtype"]
 
 
-class DataProcessor:  # pylint: disable=too-few-public-methods
-    """Define an object to process Ecowitt data."""
+@dataclass(frozen=True)
+class DataProcessor:  # pylint: disable=too-many-instance-attributes
+    """Define a dataclass that holds processed payload data from the device."""
 
-    def __init__(self, data: dict) -> None:
-        """Initialize."""
-        self._data = {k: v for k, v in data.items() if k not in KEYS_TO_IGNORE}
-        self.unique_id = data.pop("PASSKEY", DEFAULT_UNIQUE_ID)
+    _input: dict = field(repr=False)
+    _data: dict = field(init=False, repr=False)
 
-    @property
-    def _dew_point_obj(self) -> Optional[meteocalc.Temp]:
-        """Return the dew point meteocalc object (if it exists)."""
-        if not self._temperature_obj or not self.humidity:
-            return None
-        return meteocalc.dew_point(self._temperature_obj, self.humidity)
+    _dew_point_obj: Optional[meteocalc.Temp] = field(default=None, repr=False)
+    _feels_like_obj: Optional[meteocalc.Temp] = field(default=None, repr=False)
+    _heat_index_obj: Optional[meteocalc.Temp] = field(default=None, repr=False)
+    _humidity: Optional[int] = field(default=None, repr=False)
+    _temperature_obj: Optional[meteocalc.Temp] = field(default=None, repr=False)
+    _wind_chill_obj: Optional[meteocalc.Temp] = field(default=None, repr=False)
+    _wind_speed: Optional[float] = field(default=None, repr=False)
 
-    @property
-    def _feels_like_obj(self) -> Optional[meteocalc.Temp]:
-        """Return the "feels like" meteocalc object (if it exists)."""
-        if not self._temperature_obj or not self.humidity or not self.wind_speed:
-            return None
-        return meteocalc.feels_like(
-            self._temperature_obj, self.humidity, self.wind_speed
+    unique_id: str = field(init=False)
+    generated_data: dict = field(init=False)
+
+    def __post_init__(self):
+        """Set up some additional attributes from passed-in data."""
+        object.__setattr__(
+            self, "unique_id", self._input.pop("PASSKEY", DEFAULT_UNIQUE_ID)
         )
 
-    @property
-    def _heat_index_obj(self) -> Optional[meteocalc.Temp]:
-        """Return the heat index meteocalc object (if it exists)."""
-        if not self._temperature_obj or not self.humidity:
-            return None
-        return meteocalc.heat_index(self._temperature_obj, self.humidity)
+        # Only store data keys that we explicitly care about:
+        object.__setattr__(
+            self,
+            "_data",
+            {k: v for k, v in self._input.items() if k not in KEYS_TO_IGNORE},
+        )
 
-    @property
-    def _temperature_obj(self) -> Optional[meteocalc.Temp]:
-        """Return the temperature meteocalc object (if it exists)."""
-        if DATA_POINT_TEMPF not in self._data:
-            return None
-        return meteocalc.Temp(self._data[DATA_POINT_TEMPF], "f")
-
-    @property
-    def _wind_chill_obj(self) -> Optional[meteocalc.Temp]:
-        """Return the wind chill (if it exists)."""
-        if not self._temperature_obj or not self.wind_speed:
-            return None
-
-        try:
-            return meteocalc.wind_chill(self._temperature_obj, self.wind_speed)
-        except ValueError as err:
-            LOGGER.debug(
-                "%s (temperature: %s, wind speed: %s)",
-                err,
-                self._temperature_obj,
-                self.wind_speed,
+        # Determine properties necessary for the calculated properties:
+        if DATA_POINT_TEMPF in self._data:
+            object.__setattr__(
+                self,
+                "_temperature_obj",
+                meteocalc.Temp(self._data[DATA_POINT_TEMPF], "f"),
             )
-            return None
+        if DATA_POINT_HUMIDITY in self._data:
+            object.__setattr__(
+                self, "_humidity", round(float(self._data[DATA_POINT_HUMIDITY]))
+            )
+        if DATA_POINT_WINDSPEEDMPH in self._data:
+            object.__setattr__(
+                self, "_wind_speed", round(float(self._data[DATA_POINT_WINDSPEEDMPH]))
+            )
 
-    @property
-    def dew_point(self) -> Optional[int]:
-        """Return the dew point (if it exists)."""
-        if not self._dew_point_obj:
-            return None
-        return self._dew_point_obj.f
+        # Determine calculated properties:
+        if self._temperature_obj and self._humidity:
+            object.__setattr__(
+                self,
+                "_dew_point_obj",
+                meteocalc.dew_point(self._temperature_obj, self._humidity),
+            )
+            object.__setattr__(
+                self,
+                "_heat_index_obj",
+                meteocalc.heat_index(self._temperature_obj, self._humidity),
+            )
+        if self._temperature_obj and self._wind_speed:
+            if self._humidity:
+                object.__setattr__(
+                    self,
+                    "_feels_like_obj",
+                    meteocalc.feels_like(
+                        self._temperature_obj, self._humidity, self._wind_speed
+                    ),
+                )
 
-    @property
-    def feels_like(self) -> Optional[int]:
-        """Return the "feels like" temperature (if it exists)."""
-        if not self._feels_like_obj:
-            return None
-        return self._feels_like_obj.f
+            try:
+                object.__setattr__(
+                    self,
+                    "_wind_chill_obj",
+                    meteocalc.wind_chill(self._temperature_obj, self._wind_speed),
+                )
+            except ValueError as err:
+                LOGGER.debug(
+                    "%s (temperature: %s, wind speed: %s)",
+                    err,
+                    self._temperature_obj,
+                    self._wind_speed,
+                )
 
-    @property
-    def heat_index(self) -> Optional[int]:
-        """Return the heat index (if it exists)."""
-        if not self._heat_index_obj:
-            return None
-        return self._heat_index_obj.f
+        # Calculate the final data payload:
+        generated_data = {**self._data}
+        for key, obj_property in [
+            (DATA_POINT_DEWPOINT, self._dew_point_obj),
+            (DATA_POINT_FEELSLIKEF, self._feels_like_obj),
+            (DATA_POINT_HEATINDEX, self._heat_index_obj),
+            (DATA_POINT_WINDCHILL, self._wind_chill_obj),
+        ]:
+            if obj_property:
+                generated_data[key] = obj_property.f
+            else:
+                generated_data[key] = None
 
-    @property
-    def humidity(self) -> Optional[int]:
-        """Return the humidity percentage (if it exists)."""
-        if DATA_POINT_HUMIDITY not in self._data:
-            return None
-        return round(float(self._data[DATA_POINT_HUMIDITY]))
-
-    @property
-    def wind_chill(self) -> Optional[int]:
-        """Return the wind chill (if it exists)."""
-        if not self._wind_chill_obj:
-            return None
-        return self._wind_chill_obj.f
-
-    @property
-    def wind_speed(self) -> Optional[float]:
-        """Return the wind speed (if it exists)."""
-        if DATA_POINT_WINDSPEEDMPH not in self._data:
-            return None
-        return round(float(self._data[DATA_POINT_WINDSPEEDMPH]))
-
-    @property
-    def data(self) -> dict:
-        """Return the data payload (original + calculated values)."""
-        return {
-            **self._data,
-            **{
-                DATA_POINT_DEWPOINT: self.dew_point,
-                DATA_POINT_HEATINDEX: self.heat_index,
-                DATA_POINT_WINDCHILL: self.wind_chill,
-                DATA_POINT_FEELSLIKEF: self.feels_like,
-            },
-        }
+        object.__setattr__(self, "generated_data", generated_data)

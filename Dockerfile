@@ -1,10 +1,8 @@
 FROM python:alpine3.12
 
-COPY README.md /usr/src/README.md
-COPY ecowitt2mqtt /usr/src/ecowitt2mqtt
-COPY pyproject.toml /usr/src/pyproject.toml
-
 WORKDIR /usr/src
+
+COPY requirements.txt /tmp/requirements.txt
 
 RUN apk add --no-cache --virtual build-dependencies \
       build-base==0.5-r2 \
@@ -12,15 +10,13 @@ RUN apk add --no-cache --virtual build-dependencies \
       openssl-dev==1.1.1g-r0 \
     && apk add --no-cache \
       supervisor==4.2.0-r0 \
-    && pip3 install poetry==1.0.10 \
-    && poetry config virtualenvs.create false \
-    && poetry lock && poetry install --no-dev \
-    && pip3 uninstall -y poetry \
+    && pip3 install -r /tmp/requirements.txt \
     && apk del build-dependencies
 
-# Copy configuration files:
+COPY ecowitt2mqtt /usr/src/ecowitt2mqtt
 COPY supervisord.conf /etc/supervisord.conf
 COPY run.sh /usr/local/bin/run.sh
 
-# Run:
+ENV PYTHONPATH "${PYTHONPATH}:/usr/src/ecowitt2mqtt"
+
 ENTRYPOINT ["/usr/local/bin/run.sh"]
