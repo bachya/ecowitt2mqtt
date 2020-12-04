@@ -1,7 +1,7 @@
 """Define constants."""
 import logging
 
-LOGGER = logging.getLogger("ecowitt2mqtt")
+LOGGER = logging.getLogger(__package__)
 
 DATA_POINT_24HOURRAININ = "24hourrainin"
 DATA_POINT_BAROMABSIN = "baromabsin"

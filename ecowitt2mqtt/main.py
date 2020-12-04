@@ -5,12 +5,12 @@ import logging
 from aiohttp import web
 
 from ecowitt2mqtt.const import LOGGER
-from ecowitt2mqtt.mqtt import DEFAULT_MQTT_PORT, MQTT
-from ecowitt2mqtt.routes import async_respond_to_ecowitt_data
+from ecowitt2mqtt.mqtt import async_publish_payload
 
 DEFAULT_AIOHTTP_ENDPOINT = "/data/report"
 DEFAULT_AIOHTTP_PORT = 8080
 DEFAULT_LOG_LEVEL_STRING = "INFO"
+DEFAULT_MQTT_PORT = 1883
 
 
 def get_arguments() -> argparse.Namespace:
@@ -105,26 +105,13 @@ def main():
     LOGGER.debug("Using arguments: %s", args)
 
     app = web.Application()
-    app.add_routes([web.post(args.endpoint, async_respond_to_ecowitt_data)])
+    app.add_routes([web.post(args.endpoint, async_publish_payload)])
 
     app["args"] = args
     app["hass_discovery_managers"] = {}
-    mqtt = app["mqtt"] = MQTT(
-        args.mqtt_broker,
-        port=args.mqtt_port,
-        username=args.mqtt_username,
-        password=args.mqtt_password,
-    )
-
-    async def connect_mqtt(_) -> None:
-        """Connect the MQTT broker."""
-        await mqtt.async_connect()
-
-    async def disconnect_mqtt(_) -> None:
-        """Disconnect the MQTT broker."""
-        await mqtt.async_disconnect()
-
-    app.on_startup.append(connect_mqtt)
-    app.on_cleanup.append(disconnect_mqtt)
 
     web.run_app(app, port=args.port)
+
+
+if __name__ == "__main__":
+    main()

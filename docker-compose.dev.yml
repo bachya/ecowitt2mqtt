@@ -16,7 +16,6 @@ services:
       MQTT_PASSWORD: password
       MQTT_USERNAME: ecowitt
       MQTT_TOPIC: "Test"
-    image: "bachya/ecowitt2mqtt:latest"
     ports:
       - "8080:8080/tcp"
     restart: always
