@@ -9,10 +9,54 @@ from ecowitt2mqtt.const import (
     DATA_POINT_FEELSLIKEF,
     DATA_POINT_HEATINDEX,
     DATA_POINT_HUMIDITY,
+    DATA_POINT_SOILTEMP1,
+    DATA_POINT_SOILTEMP1F,
+    DATA_POINT_SOILTEMP2,
+    DATA_POINT_SOILTEMP2F,
+    DATA_POINT_SOILTEMP3,
+    DATA_POINT_SOILTEMP3F,
+    DATA_POINT_SOILTEMP4,
+    DATA_POINT_SOILTEMP4F,
+    DATA_POINT_SOILTEMP5,
+    DATA_POINT_SOILTEMP5F,
+    DATA_POINT_SOILTEMP6,
+    DATA_POINT_SOILTEMP6F,
+    DATA_POINT_SOILTEMP7,
+    DATA_POINT_SOILTEMP7F,
+    DATA_POINT_SOILTEMP8,
+    DATA_POINT_SOILTEMP8F,
+    DATA_POINT_SOILTEMP9,
+    DATA_POINT_SOILTEMP9F,
+    DATA_POINT_SOILTEMP10,
+    DATA_POINT_SOILTEMP10F,
+    DATA_POINT_TEMP,
+    DATA_POINT_TEMP1,
+    DATA_POINT_TEMP1F,
+    DATA_POINT_TEMP2,
+    DATA_POINT_TEMP2F,
+    DATA_POINT_TEMP3,
+    DATA_POINT_TEMP3F,
+    DATA_POINT_TEMP4,
+    DATA_POINT_TEMP4F,
+    DATA_POINT_TEMP5,
+    DATA_POINT_TEMP5F,
+    DATA_POINT_TEMP6,
+    DATA_POINT_TEMP6F,
+    DATA_POINT_TEMP7,
+    DATA_POINT_TEMP7F,
+    DATA_POINT_TEMP8,
+    DATA_POINT_TEMP8F,
+    DATA_POINT_TEMP9,
+    DATA_POINT_TEMP9F,
+    DATA_POINT_TEMP10,
+    DATA_POINT_TEMP10F,
     DATA_POINT_TEMPF,
+    DATA_POINT_TEMPIN,
+    DATA_POINT_TEMPINF,
     DATA_POINT_WINDCHILL,
     DATA_POINT_WINDSPEEDMPH,
     LOGGER,
+    UNIT_SYSTEM_METRIC,
 )
 
 DEFAULT_UNIQUE_ID = "default"
@@ -25,7 +69,7 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
     """Define a dataclass that holds processed payload data from the device."""
 
     _input: dict = field(repr=False)
-    _data: dict = field(init=False, repr=False)
+    _unit_system: str = field(repr=False)
 
     _dew_point_obj: Optional[meteocalc.Temp] = field(default=None, repr=False)
     _feels_like_obj: Optional[meteocalc.Temp] = field(default=None, repr=False)
@@ -35,8 +79,8 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
     _wind_chill_obj: Optional[meteocalc.Temp] = field(default=None, repr=False)
     _wind_speed: Optional[float] = field(default=None, repr=False)
 
+    _data: dict = field(init=False, repr=False)
     unique_id: str = field(init=False)
-    generated_data: dict = field(init=False)
 
     def __post_init__(self):
         """Set up some additional attributes from passed-in data."""
@@ -103,8 +147,53 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
                     self._wind_speed,
                 )
 
-        # Calculate the final data payload:
-        generated_data = {**self._data}
+    def _generate_temperature_data(self) -> dict:
+        """Return temperature data."""
+        data = {}
+
+        # Outdoor temperature (which we've already calculated):
+        if self._temperature_obj:
+            if self._unit_system == UNIT_SYSTEM_METRIC:
+                self._data.pop(DATA_POINT_TEMPF)
+                data[DATA_POINT_TEMP] = round(self._temperature_obj.c, 1)
+            else:
+                data[DATA_POINT_TEMP] = round(self._temperature_obj.f, 1)
+
+        # Provided temperatures:
+        for original_key, new_key in [
+            (DATA_POINT_SOILTEMP10F, DATA_POINT_SOILTEMP10),
+            (DATA_POINT_SOILTEMP1F, DATA_POINT_SOILTEMP1),
+            (DATA_POINT_SOILTEMP2F, DATA_POINT_SOILTEMP2),
+            (DATA_POINT_SOILTEMP3F, DATA_POINT_SOILTEMP3),
+            (DATA_POINT_SOILTEMP4F, DATA_POINT_SOILTEMP4),
+            (DATA_POINT_SOILTEMP5F, DATA_POINT_SOILTEMP5),
+            (DATA_POINT_SOILTEMP6F, DATA_POINT_SOILTEMP6),
+            (DATA_POINT_SOILTEMP7F, DATA_POINT_SOILTEMP7),
+            (DATA_POINT_SOILTEMP8F, DATA_POINT_SOILTEMP8),
+            (DATA_POINT_SOILTEMP9F, DATA_POINT_SOILTEMP9),
+            (DATA_POINT_TEMP10F, DATA_POINT_TEMP10),
+            (DATA_POINT_TEMP1F, DATA_POINT_TEMP1),
+            (DATA_POINT_TEMP2F, DATA_POINT_TEMP2),
+            (DATA_POINT_TEMP3F, DATA_POINT_TEMP3),
+            (DATA_POINT_TEMP4F, DATA_POINT_TEMP4),
+            (DATA_POINT_TEMP5F, DATA_POINT_TEMP5),
+            (DATA_POINT_TEMP6F, DATA_POINT_TEMP6),
+            (DATA_POINT_TEMP7F, DATA_POINT_TEMP7),
+            (DATA_POINT_TEMP8F, DATA_POINT_TEMP8),
+            (DATA_POINT_TEMP9F, DATA_POINT_TEMP9),
+            (DATA_POINT_TEMPINF, DATA_POINT_TEMPIN),
+        ]:
+            if original_key not in self._data:
+                continue
+
+            temp_obj = meteocalc.Temp(self._data[original_key], "f")
+
+            if self._unit_system == UNIT_SYSTEM_METRIC:
+                data[new_key] = round(temp_obj.c, 1)
+            else:
+                data[new_key] = round(temp_obj.f, 1)
+
+        # Calculated temperatures:
         for key, obj_property in [
             (DATA_POINT_DEWPOINT, self._dew_point_obj),
             (DATA_POINT_FEELSLIKEF, self._feels_like_obj),
@@ -112,8 +201,43 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
             (DATA_POINT_WINDCHILL, self._wind_chill_obj),
         ]:
             if obj_property:
-                generated_data[key] = obj_property.f
+                if self._unit_system == UNIT_SYSTEM_METRIC:
+                    data[key] = round(obj_property.c, 1)
+                else:
+                    data[key] = round(obj_property.f, 1)
             else:
-                generated_data[key] = None
+                data[key] = None
 
-        object.__setattr__(self, "generated_data", generated_data)
+        return data
+
+    def generate_data(self) -> dict:
+        """Return the final data payload."""
+        temperature_data = self._generate_temperature_data()
+
+        # Clean out any existing old keys that we have better data for:
+        for key in [
+            DATA_POINT_SOILTEMP10F,
+            DATA_POINT_SOILTEMP1F,
+            DATA_POINT_SOILTEMP2F,
+            DATA_POINT_SOILTEMP3F,
+            DATA_POINT_SOILTEMP4F,
+            DATA_POINT_SOILTEMP5F,
+            DATA_POINT_SOILTEMP6F,
+            DATA_POINT_SOILTEMP7F,
+            DATA_POINT_SOILTEMP8F,
+            DATA_POINT_SOILTEMP9F,
+            DATA_POINT_TEMP10F,
+            DATA_POINT_TEMP1F,
+            DATA_POINT_TEMP2F,
+            DATA_POINT_TEMP3F,
+            DATA_POINT_TEMP4F,
+            DATA_POINT_TEMP5F,
+            DATA_POINT_TEMP6F,
+            DATA_POINT_TEMP7F,
+            DATA_POINT_TEMP8F,
+            DATA_POINT_TEMP9F,
+            DATA_POINT_TEMPINF,
+        ]:
+            self._data.pop(key, None)
+
+        return {**self._data, **temperature_data}

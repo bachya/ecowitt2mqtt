@@ -4,7 +4,7 @@ import logging
 
 from aiohttp import web
 
-from ecowitt2mqtt.const import LOGGER
+from ecowitt2mqtt.const import LOGGER, UNIT_SYSTEM_IMPERIAL
 from ecowitt2mqtt.mqtt import async_publish_payload
 
 DEFAULT_AIOHTTP_ENDPOINT = "/data/report"
@@ -92,6 +92,15 @@ def get_arguments() -> argparse.Namespace:
         default=DEFAULT_AIOHTTP_PORT,
         type=int,
         help=f"The port to serve the web app on (default: {DEFAULT_AIOHTTP_PORT})",
+    )
+
+    # Misc.
+    parser.add_argument(
+        "--unit-system",
+        action="store",
+        default=UNIT_SYSTEM_IMPERIAL,
+        type=str,
+        help=f"The unit system to use (default: {UNIT_SYSTEM_IMPERIAL})",
     )
 
     return parser.parse_args()

@@ -43,4 +43,8 @@ if [ -n "${PORT}" ]; then
     PARAMS+=(--port="${PORT}")
 fi
 
+if [ -n "${UNIT_SYSTEM}" ]; then
+    PARAMS+=(--unit-system="${UNIT_SYSTEM}")
+fi
+
 python3 /usr/src/ecowitt2mqtt/main.py "${PARAMS[@]}"
