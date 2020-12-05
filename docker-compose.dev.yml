@@ -16,6 +16,7 @@ services:
       MQTT_PASSWORD: password
       MQTT_USERNAME: ecowitt
       MQTT_TOPIC: "Test"
+      UNIT_SYSTEM: "metric"
     ports:
       - "8080:8080/tcp"
     restart: always

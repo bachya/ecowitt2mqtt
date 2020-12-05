@@ -9,6 +9,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_FEELSLIKEF,
     DATA_POINT_HEATINDEX,
     DATA_POINT_HUMIDITY,
+    DATA_POINT_MAXDAILYGUST,
     DATA_POINT_SOILTEMP1,
     DATA_POINT_SOILTEMP1F,
     DATA_POINT_SOILTEMP2,
@@ -54,6 +55,13 @@ from ecowitt2mqtt.const import (
     DATA_POINT_TEMPIN,
     DATA_POINT_TEMPINF,
     DATA_POINT_WINDCHILL,
+    DATA_POINT_WINDGUST,
+    DATA_POINT_WINDGUSTMPH,
+    DATA_POINT_WINDSPD_AVG2M,
+    DATA_POINT_WINDSPD_AVG10M,
+    DATA_POINT_WINDSPDMPH_AVG2M,
+    DATA_POINT_WINDSPDMPH_AVG10M,
+    DATA_POINT_WINDSPEED,
     DATA_POINT_WINDSPEEDMPH,
     LOGGER,
     UNIT_SYSTEM_METRIC,
@@ -62,6 +70,11 @@ from ecowitt2mqtt.const import (
 DEFAULT_UNIQUE_ID = "default"
 
 KEYS_TO_IGNORE = ["dateutc", "freq", "model", "stationtype"]
+
+
+def mph_to_kmh(value: float) -> float:
+    """Convert a MPH value to km/h."""
+    return value * 1.60934
 
 
 @dataclass(frozen=True)
@@ -148,7 +161,7 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
                 )
 
     def _generate_temperature_data(self) -> dict:
-        """Return temperature data."""
+        """Return temperature data adjusted for units, calculated values, etc."""
         data = {}
 
         # Outdoor temperature (which we've already calculated):
@@ -210,9 +223,31 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
 
         return data
 
+    def _generate_wind_data(self) -> dict:
+        """Return wind data adjusted for units."""
+        data = {}
+
+        for original_key, new_key in [
+            (DATA_POINT_MAXDAILYGUST, DATA_POINT_MAXDAILYGUST),
+            (DATA_POINT_WINDGUSTMPH, DATA_POINT_WINDGUST),
+            (DATA_POINT_WINDSPDMPH_AVG10M, DATA_POINT_WINDSPD_AVG10M),
+            (DATA_POINT_WINDSPDMPH_AVG2M, DATA_POINT_WINDSPD_AVG2M),
+            (DATA_POINT_WINDSPEEDMPH, DATA_POINT_WINDSPEED),
+        ]:
+            if original_key not in self._data:
+                continue
+
+            if self._unit_system == UNIT_SYSTEM_METRIC:
+                data[new_key] = round(mph_to_kmh(float(self._data[original_key])), 1)
+            else:
+                data[new_key] = round(self._data[original_key], 1)
+
+        return data
+
     def generate_data(self) -> dict:
         """Return the final data payload."""
         temperature_data = self._generate_temperature_data()
+        wind_data = self._generate_wind_data()
 
         # Clean out any existing old keys that we have better data for:
         for key in [
@@ -237,7 +272,11 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
             DATA_POINT_TEMP8F,
             DATA_POINT_TEMP9F,
             DATA_POINT_TEMPINF,
+            DATA_POINT_WINDGUSTMPH,
+            DATA_POINT_WINDSPDMPH_AVG10M,
+            DATA_POINT_WINDSPDMPH_AVG2M,
+            DATA_POINT_WINDSPEEDMPH,
         ]:
             self._data.pop(key, None)
 
-        return {**self._data, **temperature_data}
+        return {**self._data, **temperature_data, **wind_data}
