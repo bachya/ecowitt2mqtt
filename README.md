@@ -105,6 +105,8 @@ optional arguments:
                         The Home Assistant discovery prefix to use (default: homeassistant)
   --endpoint ENDPOINT   The relative endpoint/path to serve the web app on (default: /data/report)
   --port PORT           The port to serve the web app on (default: 8080)
+  --unit-system UNIT_SYSTEM
+                        The unit system to use (default: imperial)
 ```
 
 ## Running in the Background
@@ -163,6 +165,7 @@ listed above:
   (default: `homeassistant`)
 * `ENDPOINT:` the relative endpoint/path to serve the web app on (default: `/data/report`)
 * `PORT:` the port to serve the web app on (default: `8080`)
+* `UNIT_SYSTEM`: the unit system to use (`imperial` or `metric`) (default: `imperial`)
 
 Running the image is straightforward:
 
