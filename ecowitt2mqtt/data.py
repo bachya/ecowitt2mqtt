@@ -7,6 +7,10 @@ import meteocalc
 from ecowitt2mqtt.const import (
     DATA_POINT_24HOURRAIN,
     DATA_POINT_24HOURRAININ,
+    DATA_POINT_BAROMABS,
+    DATA_POINT_BAROMABSIN,
+    DATA_POINT_BAROMREL,
+    DATA_POINT_BAROMRELIN,
     DATA_POINT_DAILYRAIN,
     DATA_POINT_DAILYRAININ,
     DATA_POINT_DEWPOINT,
@@ -94,6 +98,11 @@ KEYS_TO_IGNORE = ["dateutc", "freq", "model", "stationtype"]
 def in_to_mm(value: int) -> float:
     """Convert a inches value to millimeters."""
     return value * 25.4
+
+
+def inhg_to_hpa(value: int) -> float:
+    """Convert an inHg value to hPa."""
+    return value * 3386.39
 
 
 def mph_to_kmh(value: float) -> float:
@@ -184,6 +193,24 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
                     self._wind_speed,
                 )
 
+    def _generate_pressure_data(self) -> dict:
+        """Return pressure data adjusted for units."""
+        data = {}
+
+        for original_key, new_key in [
+            (DATA_POINT_BAROMABSIN, DATA_POINT_BAROMABS),
+            (DATA_POINT_BAROMRELIN, DATA_POINT_BAROMREL),
+        ]:
+            if original_key not in self._data:
+                continue
+
+            if self._unit_system == UNIT_SYSTEM_METRIC:
+                data[new_key] = round(inhg_to_hpa(int(self._data[original_key])), 1)
+            else:
+                data[new_key] = int(self._data[original_key])
+
+        return data
+
     def _generate_rain_data(self) -> dict:
         """Return rain data adjusted for units."""
         data = {}
@@ -206,7 +233,7 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
             if self._unit_system == UNIT_SYSTEM_METRIC:
                 data[new_key] = round(in_to_mm(int(self._data[original_key])), 1)
             else:
-                data[new_key] = round(int(self._data[original_key]), 1)
+                data[new_key] = int(self._data[original_key])
 
         return data
 
@@ -296,6 +323,7 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
 
     def generate_data(self) -> dict:
         """Return the final data payload."""
+        pressure_data = self._generate_pressure_data()
         rain_data = self._generate_rain_data()
         temperature_data = self._generate_temperature_data()
         wind_data = self._generate_wind_data()
@@ -303,6 +331,8 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
         # Clean out any existing old keys that we have better data for:
         for key in [
             DATA_POINT_24HOURRAININ,
+            DATA_POINT_BAROMABSIN,
+            DATA_POINT_BAROMRELIN,
             DATA_POINT_DAILYRAININ,
             DATA_POINT_EVENTRAININ,
             DATA_POINT_HOURLYRAININ,
@@ -339,4 +369,10 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
         ]:
             self._data.pop(key, None)
 
-        return {**self._data, **temperature_data, **wind_data, **rain_data}
+        return {
+            **self._data,
+            **pressure_data,
+            **rain_data,
+            **temperature_data,
+            **wind_data,
+        }
