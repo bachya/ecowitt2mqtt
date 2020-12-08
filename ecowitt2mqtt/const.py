@@ -6,7 +6,9 @@ LOGGER = logging.getLogger(__package__)
 # Possible data points:
 DATA_POINT_24HOURRAIN = "24hourrain"
 DATA_POINT_24HOURRAININ = "24hourrainin"
+DATA_POINT_BAROMABS = "baromabs"
 DATA_POINT_BAROMABSIN = "baromabsin"
+DATA_POINT_BAROMREL = "baromrel"
 DATA_POINT_BAROMRELIN = "baromrelin"
 DATA_POINT_CO2 = "co2"
 DATA_POINT_DAILYRAIN = "dailyrain"
