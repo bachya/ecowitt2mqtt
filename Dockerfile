@@ -7,7 +7,6 @@ COPY requirements.txt /tmp/requirements.txt
 RUN apk add --no-cache --virtual build-dependencies \
       build-base==0.5-r2 \
       libffi-dev==3.3-r2 \
-      openssl-dev==1.1.1g-r0 \
     && apk add --no-cache \
       bash==5.0.17-r0 \
     && pip3 install -r /tmp/requirements.txt \
