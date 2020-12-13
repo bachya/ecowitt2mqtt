@@ -233,9 +233,9 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
                 continue
 
             if self._unit_system == UNIT_SYSTEM_METRIC:
-                data[new_key] = round(in_to_mm(int(self._data[original_key])), 1)
+                data[new_key] = round(in_to_mm(int(float(self._data[original_key]))), 1)
             else:
-                data[new_key] = int(self._data[original_key])
+                data[new_key] = int(float(self._data[original_key]))
 
         return data
 
