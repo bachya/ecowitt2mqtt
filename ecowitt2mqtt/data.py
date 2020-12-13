@@ -16,7 +16,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_DEWPOINT,
     DATA_POINT_EVENTRAIN,
     DATA_POINT_EVENTRAININ,
-    DATA_POINT_FEELSLIKEF,
+    DATA_POINT_FEELSLIKE,
     DATA_POINT_HEATINDEX,
     DATA_POINT_HOURLYRAIN,
     DATA_POINT_HOURLYRAININ,
@@ -288,7 +288,7 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
         # Calculated temperatures:
         for key, obj_property in [
             (DATA_POINT_DEWPOINT, self._dew_point_obj),
-            (DATA_POINT_FEELSLIKEF, self._feels_like_obj),
+            (DATA_POINT_FEELSLIKE, self._feels_like_obj),
             (DATA_POINT_HEATINDEX, self._heat_index_obj),
             (DATA_POINT_WINDCHILL, self._wind_chill_obj),
         ]:
