@@ -209,7 +209,7 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
                     inhg_to_hpa(int(float(self._data[original_key]))), 1
                 )
             else:
-                data[new_key] = int(self._data[original_key])
+                data[new_key] = int(float(self._data[original_key]))
 
         return data
 
