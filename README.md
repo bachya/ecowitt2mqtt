@@ -59,7 +59,7 @@ Fill out the form with these values and tap `Save`:
 * `Server IP / Hostname`: the IP address/hostname of the device running `ecowitt2mqtt`
 * `Path`: `/data/report` (note that unlike the default in the WS View App, there shouldn't
   be a trailing slash)
-* `Port`: `8080`
+* `Port`: `8080` (the default port on which `ecowitt2mqtt` is served)
 * `Upload Interval`: `60` (change this to alter the frequency with which data is published)
 
 Then, on the machine where you installed `ecowitt2mqtt`, run it:
@@ -178,7 +178,7 @@ docker run -it \
     bachya/ecowitt2mqtt:latest
 ```
 
-Note the value of the `-p` flag: you must expose the port defined by the `MQTT_PORT`
+Note the value of the `-p` flag: you must expose the port defined by the `PORT`
 environment variable. In the example above, the default port (`8080`) is used and is
 exposed via the same port on the host.
 
