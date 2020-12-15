@@ -246,7 +246,6 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
         # Outdoor temperature (which we've already calculated):
         if self._temperature_obj:
             if self._unit_system == UNIT_SYSTEM_METRIC:
-                self._data.pop(DATA_POINT_TEMPF)
                 data[DATA_POINT_TEMP] = round(self._temperature_obj.c, 1)
             else:
                 data[DATA_POINT_TEMP] = round(self._temperature_obj.f, 1)
@@ -360,6 +359,7 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
             DATA_POINT_TEMP7F,
             DATA_POINT_TEMP8F,
             DATA_POINT_TEMP9F,
+            DATA_POINT_TEMPF,
             DATA_POINT_TEMPINF,
             DATA_POINT_TOTALRAININ,
             DATA_POINT_WEEKLYRAININ,
