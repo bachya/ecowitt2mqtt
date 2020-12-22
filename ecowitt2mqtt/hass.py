@@ -198,7 +198,7 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
                 unit = UNIT_MAPPING[data_class][self._unit_system]
         else:
             icon = DEFAULT_ICON
-            unit = None
+            unit = ""
 
         self._config_payloads[key] = {
             "availability_topic": self._get_topic(key, "availability"),
