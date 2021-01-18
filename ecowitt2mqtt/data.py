@@ -95,14 +95,14 @@ DEFAULT_UNIQUE_ID = "default"
 KEYS_TO_IGNORE = ["dateutc", "freq", "model", "stationtype"]
 
 
-def in_to_mm(value: int) -> float:
+def in_to_mm(value: float) -> float:
     """Convert a inches value to millimeters."""
     return value * 25.4
 
 
-def inhg_to_hpa(value: int) -> float:
+def inhg_to_hpa(value: float) -> float:
     """Convert an inHg value to hPa."""
-    return value * 3386.39
+    return value * 33.8639
 
 
 def mph_to_kmh(value: float) -> float:
@@ -205,9 +205,7 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
                 continue
 
             if self._unit_system == UNIT_SYSTEM_METRIC:
-                data[new_key] = round(
-                    inhg_to_hpa(int(float(self._data[original_key]))), 1
-                )
+                data[new_key] = round(inhg_to_hpa(float(self._data[original_key])), 1)
             else:
                 data[new_key] = int(float(self._data[original_key]))
 
@@ -233,7 +231,7 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
                 continue
 
             if self._unit_system == UNIT_SYSTEM_METRIC:
-                data[new_key] = round(in_to_mm(int(float(self._data[original_key]))), 1)
+                data[new_key] = round(in_to_mm(float(self._data[original_key])), 1)
             else:
                 data[new_key] = int(float(self._data[original_key]))
 
