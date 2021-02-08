@@ -120,7 +120,7 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
     _dew_point_obj: Optional[meteocalc.Temp] = field(default=None, repr=False)
     _feels_like_obj: Optional[meteocalc.Temp] = field(default=None, repr=False)
     _heat_index_obj: Optional[meteocalc.Temp] = field(default=None, repr=False)
-    _humidity: Optional[int] = field(default=None, repr=False)
+    _humidity: Optional[float] = field(default=None, repr=False)
     _temperature_obj: Optional[meteocalc.Temp] = field(default=None, repr=False)
     _wind_chill_obj: Optional[meteocalc.Temp] = field(default=None, repr=False)
     _wind_speed: Optional[float] = field(default=None, repr=False)
@@ -150,7 +150,7 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
             )
         if DATA_POINT_HUMIDITY in self._data:
             object.__setattr__(
-                self, "_humidity", round(float(self._data[DATA_POINT_HUMIDITY]))
+                self, "_humidity", round(float(self._data[DATA_POINT_HUMIDITY]), 1)
             )
         if DATA_POINT_WINDSPEEDMPH in self._data:
             object.__setattr__(
@@ -205,9 +205,9 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
                 continue
 
             if self._unit_system == UNIT_SYSTEM_METRIC:
-                data[new_key] = round(inhg_to_hpa(float(self._data[original_key])), 1)
+                data[new_key] = round(inhg_to_hpa(float(self._data[original_key])), 2)
             else:
-                data[new_key] = float(self._data[original_key]))
+                data[new_key] = round(float(self._data[original_key]), 2)
 
         return data
 
@@ -231,9 +231,9 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
                 continue
 
             if self._unit_system == UNIT_SYSTEM_METRIC:
-                data[new_key] = round(in_to_mm(float(self._data[original_key])), 1)
+                data[new_key] = round(in_to_mm(float(self._data[original_key])), 2)
             else:
-                data[new_key] = float(self._data[original_key])
+                data[new_key] = round(float(self._data[original_key]), 3)
 
         return data
 
