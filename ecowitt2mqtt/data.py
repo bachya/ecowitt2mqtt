@@ -110,6 +110,15 @@ def mph_to_kmh(value: float) -> float:
     return value * 1.60934
 
 
+def is_float(s) -> bool:
+    """Test if string is float value."""
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
+
 @dataclass(frozen=True)
 class DataProcessor:  # pylint: disable=too-many-instance-attributes
     """Define a dataclass that holds processed payload data from the device."""
@@ -368,6 +377,11 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
             DATA_POINT_YEARLYRAININ,
         ]:
             self._data.pop(key, None)
+
+        # convert not processed data to correct data type
+        for key, value in self._data.items():
+            if is_float(value):
+                self._data[key] = float(value)
 
         return {
             **self._data,
