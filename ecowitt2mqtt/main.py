@@ -1,6 +1,8 @@
 """Define the main application."""
 import argparse
+import asyncio
 import logging
+import sys
 
 from aiohttp import web
 
@@ -112,6 +114,10 @@ def main():
     logging.basicConfig(level=getattr(logging, args.log_level))
 
     LOGGER.debug("Using arguments: %s", args)
+
+    # workaround for windows python-3.8.0a4 NotImplementedError
+    if sys.platform == "win32":
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
     app = web.Application()
     app.add_routes([web.post(args.endpoint, async_publish_payload)])
