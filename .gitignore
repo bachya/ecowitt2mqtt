@@ -5,4 +5,3 @@ __pycache__
 dist
 poetry.lock
 tags
-/.venv
