@@ -91,6 +91,8 @@ from ecowitt2mqtt.const import (
 )
 
 DEFAULT_UNIQUE_ID = "default"
+DEFAULT_MODEL = "Unknown Model"
+DEFAULT_STATION_TYPE = "Unknown Station Type"
 
 KEYS_TO_IGNORE = ["dateutc", "freq", "model", "stationtype"]
 
@@ -127,11 +129,19 @@ class DataProcessor:  # pylint: disable=too-many-instance-attributes
 
     _data: dict = field(init=False, repr=False)
     unique_id: str = field(init=False)
+    model: str = field(init=False)
+    stationtype: str = field(init=False)
 
     def __post_init__(self):
         """Set up some additional attributes from passed-in data."""
         object.__setattr__(
             self, "unique_id", self._input.pop("PASSKEY", DEFAULT_UNIQUE_ID)
+        )
+        object.__setattr__(
+            self, "model", self._input.pop("model", DEFAULT_MODEL)
+        )
+        object.__setattr__(
+            self, "stationtype", self._input.pop("stationtype", DEFAULT_STATION_TYPE)
         )
 
         # Only store data keys that we explicitly care about:

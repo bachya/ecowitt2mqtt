@@ -77,6 +77,10 @@ from ecowitt2mqtt.const import (
     UNIT_SYSTEM_METRIC,
 )
 
+# todo -> turn this into a lookup table based on 'model' value?
+DEVICE_NAME = "Waldbeck Hally Weather Station"
+DEVICE_MANUFACTURER = "Waldbeck"
+
 DEFAULT_DISCOVERY_PREFIX = "homeassistant"
 DEFAULT_ICON = "mdi:server"
 
@@ -173,6 +177,8 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
     def __init__(
         self,
         unique_id: str,
+        model: str,
+        stationtype: str,
         unit_system: str,
         *,
         discovery_prefix: str = DEFAULT_DISCOVERY_PREFIX,
@@ -180,6 +186,8 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
         """Initialize."""
         self._config_payloads: Dict[str, dict] = {}
         self._discovery_prefix = discovery_prefix
+        self._model = model
+        self._stationtype = stationtype
         self._unique_id = unique_id
         self._unit_system = unit_system
 
@@ -202,6 +210,13 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
 
         self._config_payloads[key] = {
             "availability_topic": self._get_topic(key, "availability"),
+            "dev": {
+                "ids": [ self._unique_id ],
+                "name": DEVICE_NAME,
+                "mdl": self._model,
+                "sw": self._stationtype,
+                "mf": DEVICE_MANUFACTURER
+            },
             "icon": icon,
             "name": key,
             "qos": 1,

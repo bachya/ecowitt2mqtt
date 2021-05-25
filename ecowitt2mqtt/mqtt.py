@@ -103,13 +103,19 @@ async def async_publish_payload(request: web.Request):
                     data_processor.unique_id
                 ] = HassDiscovery(
                     data_processor.unique_id,
+                    data_processor.model,
+                    data_processor.stationtype,
                     args.unit_system,
                     discovery_prefix=args.hass_discovery_prefix,
                 )
             else:
                 discovery_manager = discovery_managers[
                     data_processor.unique_id
-                ] = HassDiscovery(data_processor.unique_id, args.unit_system)
+                ] = HassDiscovery(
+                    data_processor.unique_id,
+                    data_processor.model,
+                    data_processor.stationtype,
+                    args.unit_system)
 
         await _async_publish_to_hass_discovery(client, data, discovery_manager)
     else:
