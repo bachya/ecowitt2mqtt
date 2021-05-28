@@ -1,5 +1,6 @@
 """Define constants."""
 import logging
+from ecowitt2mqtt.device import Device
 
 LOGGER = logging.getLogger(__package__)
 
@@ -117,3 +118,9 @@ DATA_POINT_YEARLYRAININ = "yearlyrainin"
 # Unit systems:
 UNIT_SYSTEM_IMPERIAL = "imperial"
 UNIT_SYSTEM_METRIC = "metric"
+
+# device lookup table:
+DEVICE_DATA = {
+    'WH265': Device('Waldbeck','Waldbeck Hally Weather Station')
+}
+DEFAULT_DEVICE = Device('default_device_manufacturer','default_device_name')

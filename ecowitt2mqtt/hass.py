@@ -1,4 +1,5 @@
 """Define Home Assistant-related functionality."""
+from ecowitt2mqtt.const import LOGGER
 from typing import Dict
 
 from ecowitt2mqtt.const import (
@@ -73,13 +74,11 @@ from ecowitt2mqtt.const import (
     DATA_POINT_WINDSPD_AVG10M,
     DATA_POINT_WINDSPEED,
     DATA_POINT_YEARLYRAIN,
+    DEFAULT_DEVICE,
+    DEVICE_DATA,
     UNIT_SYSTEM_IMPERIAL,
     UNIT_SYSTEM_METRIC,
 )
-
-# todo -> turn this into a lookup table based on 'model' value?
-DEVICE_NAME = "Waldbeck Hally Weather Station"
-DEVICE_MANUFACTURER = "Waldbeck"
 
 DEFAULT_DISCOVERY_PREFIX = "homeassistant"
 DEFAULT_ICON = "mdi:server"
@@ -208,14 +207,18 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
             icon = DEFAULT_ICON
             unit = ""
 
+        device = DEVICE_DATA.get(self._model)
+        if device is None:
+            LOGGER.info("Unknown device model: '%s'. Please file a bug report for this.", self._model)
+            device = DEFAULT_DEVICE
         self._config_payloads[key] = {
             "availability_topic": self._get_topic(key, "availability"),
             "dev": {
                 "ids": [ self._unique_id ],
-                "name": DEVICE_NAME,
+                "name": device.name,
                 "mdl": self._model,
                 "sw": self._stationtype,
-                "mf": DEVICE_MANUFACTURER
+                "mf": device.manufacturer
             },
             "icon": icon,
             "name": key,

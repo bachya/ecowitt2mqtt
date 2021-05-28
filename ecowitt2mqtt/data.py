@@ -91,10 +91,10 @@ from ecowitt2mqtt.const import (
 )
 
 DEFAULT_UNIQUE_ID = "default"
-DEFAULT_MODEL = "Unknown Model"
-DEFAULT_STATION_TYPE = "Unknown Station Type"
+DEFAULT_MODEL = "default_model"
+DEFAULT_STATION_TYPE = "default_station_type"
 
-KEYS_TO_IGNORE = ["dateutc", "freq", "model", "stationtype"]
+KEYS_TO_IGNORE = ["dateutc", "freq"]
 
 
 def in_to_mm(value: float) -> float:
