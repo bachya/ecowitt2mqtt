@@ -23,10 +23,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: burdzwastaken/hadolint-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          HADOLINT_ACTION_DOCKERFILE_FOLDER: .
+      - uses: hadolint/hadolint-action@v1.5.0
+        with:
+          dockerfile: Dockerfile
 
       - uses: actions/setup-python@v2
         with:
