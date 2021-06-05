@@ -9,7 +9,7 @@ RUN apk add --no-cache --virtual build-dependencies \
       libffi-dev==3.3-r2 \
     && apk add --no-cache \
       bash==5.0.17-r0 \
-    && pip3 install -r /tmp/requirements.txt \
+    && pip3 install --no-cache-dir -r /tmp/requirements.txt \
     && apk del build-dependencies
 
 COPY ecowitt2mqtt /usr/src/ecowitt2mqtt
