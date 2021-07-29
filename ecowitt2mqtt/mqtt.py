@@ -4,7 +4,7 @@ import json
 from typing import Optional, Union
 
 from aiohttp import web
-from asyncio_mqtt import Client, MqttError  # type: ignore
+from asyncio_mqtt import Client, MqttError
 
 from ecowitt2mqtt.const import LOGGER
 from ecowitt2mqtt.data import DataProcessor
@@ -74,7 +74,7 @@ async def _async_publish_to_topic(
     LOGGER.info("Published to %s: %s", topic, data)
 
 
-async def async_publish_payload(request: web.Request):
+async def async_publish_payload(request: web.Request) -> None:
     """Define the endpoint for the Ecowitt device to post data to."""
     args = request.app["args"]
 

@@ -106,7 +106,7 @@ def get_arguments() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def main():
+def main() -> None:
     """Run."""
     args = get_arguments()
     logging.basicConfig(level=getattr(logging, args.log_level))
@@ -114,7 +114,7 @@ def main():
     LOGGER.debug("Using arguments: %s", args)
 
     app = web.Application()
-    app.add_routes([web.post(args.endpoint, async_publish_payload)])
+    app.add_routes([web.post(args.endpoint, async_publish_payload)])  # type: ignore
 
     app["args"] = args
     app["hass_discovery_managers"] = {}
