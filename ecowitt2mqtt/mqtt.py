@@ -4,7 +4,7 @@ import json
 from typing import Optional, Union
 
 from aiohttp import web
-from asyncio_mqtt import Client, MqttError
+from asyncio_mqtt import Client, MqttError  # type: ignore
 
 from ecowitt2mqtt.const import LOGGER
 from ecowitt2mqtt.data import DataProcessor
@@ -81,7 +81,7 @@ async def async_publish_payload(request: web.Request):
     payload = dict(await request.post())
     LOGGER.debug("Received data from Ecowitt device: %s", payload)
 
-    data_processor = DataProcessor(payload, args.unit_system)
+    data_processor = DataProcessor(payload, output_unit_system=args.unit_system)
     data = data_processor.generate_data()
 
     client = Client(
