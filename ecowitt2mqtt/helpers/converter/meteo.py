@@ -1,8 +1,8 @@
 """Define meteorological helpers."""
 # pylint: disable=too-few-public-methods
-from typing import Type
+from typing import Type, cast
 
-import meteocalc  # type: ignore
+import meteocalc
 
 from ecowitt2mqtt.const import LOGGER, UNIT_SYSTEM_IMPERIAL
 from ecowitt2mqtt.helpers.converter import Converter
@@ -41,8 +41,10 @@ class DewPointConverter(MeteoConverter):
     def parse(self) -> float:
         """Return an appropriately-parsed data value."""
         if self._output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            return round(self._dew_point_obj.f, 1)
-        return round(self._dew_point_obj.c, 1)
+            value = round(self._dew_point_obj.f, 1)
+        else:
+            value = round(self._dew_point_obj.c, 1)
+        return cast(float, value)
 
 
 class FeelsLikeConverter(MeteoConverter):
@@ -66,8 +68,10 @@ class FeelsLikeConverter(MeteoConverter):
     def parse(self) -> float:
         """Return an appropriately-parsed data value."""
         if self._output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            return round(self._feels_like_obj.f, 1)
-        return round(self._feels_like_obj.c, 1)
+            value = round(self._feels_like_obj.f, 1)
+        else:
+            value = round(self._feels_like_obj.c, 1)
+        return cast(float, value)
 
 
 class HeatIndexConverter(MeteoConverter):
@@ -90,8 +94,10 @@ class HeatIndexConverter(MeteoConverter):
     def parse(self) -> float:
         """Return an appropriately-parsed data value."""
         if self._output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            return round(self._heat_index_obj.f, 1)
-        return round(self._heat_index_obj.c, 1)
+            value = round(self._heat_index_obj.f, 1)
+        else:
+            value = round(self._heat_index_obj.c, 1)
+        return cast(float, value)
 
 
 class PressureConverter(MeteoConverter):
@@ -162,8 +168,10 @@ class TemperatureConverter(MeteoConverter):
     def parse(self) -> float:
         """Return an appropriately-parsed data value."""
         if self._output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            return round(self._temperature_obj.f, 1)
-        return round(self._temperature_obj.c, 1)
+            value = round(self._temperature_obj.f, 1)
+        else:
+            value = round(self._temperature_obj.c, 1)
+        return cast(float, value)
 
 
 class WindChillConverter(MeteoConverter):
@@ -195,8 +203,10 @@ class WindChillConverter(MeteoConverter):
             return 0.0
 
         if self._output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            return round(self._wind_chill_obj.f, 1)
-        return round(self._wind_chill_obj.c, 1)
+            value = round(self._wind_chill_obj.f, 1)
+        else:
+            value = round(self._wind_chill_obj.c, 1)
+        return cast(float, value)
 
 
 class WindSpeedConverter:
