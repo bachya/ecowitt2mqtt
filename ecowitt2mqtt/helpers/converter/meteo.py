@@ -1,56 +1,28 @@
 """Define meteorological helpers."""
 # pylint: disable=too-few-public-methods
-from numbers import Number
-from typing import Optional
+from typing import Type
 
-import meteocalc
+import meteocalc  # type: ignore
 
 from ecowitt2mqtt.const import LOGGER, UNIT_SYSTEM_IMPERIAL
+from ecowitt2mqtt.helpers.converter import Converter
+from ecowitt2mqtt.util.meteo import get_temperature_unit
 
 
-def get_temperature_unit(unit_system: str) -> str:
-    """Get the correct temperature unit based on the provided unit system."""
-    if unit_system == UNIT_SYSTEM_IMPERIAL:
-        return "f"
-    return "c"
-
-
-def convert_rain_volume(value: Number, unit_system: str) -> float:
-    """Convert a rain volume into the correct unit."""
-    if unit_system == UNIT_SYSTEM_IMPERIAL:
-        return value / 25.4
-    return value * 25.4
-
-
-def convert_wind_speed(value: Number, unit_system: str) -> float:
-    """Convert a wind speed into the correct unit."""
-    if unit_system == UNIT_SYSTEM_IMPERIAL:
-        return value / 1.60934
-    return value * 1.60934
-
-
-def convert_pressure(value: Number, unit_system: str) -> float:
-    """Convert a barometric pressure amount into the correct unit."""
-    if unit_system == UNIT_SYSTEM_IMPERIAL:
-        return value / 33.8639
-    return value * 33.8639
-
-
-class Converter:
-    """Define a base class to convert meteorological data."""
+class MeteoConverter(Converter):
+    """Define a base meteorological data strategy."""
 
     def __init__(self, input_unit_system: str, output_unit_system: str) -> None:
         """Initialize."""
         self._input_unit_system = input_unit_system
         self._output_unit_system = output_unit_system
 
-    def parse(self) -> Optional[float]:
-        """Return an appropriately-parsed data value."""
-        raise NotImplementedError
+
+MeteoConverterType = Type[MeteoConverter]
 
 
-class DewPointConverter(Converter):
-    """Define an object hold convertable dew point data."""
+class DewPointConverter(MeteoConverter):
+    """Define an object hold convertible dew point data."""
 
     def __init__(
         self,
@@ -73,8 +45,8 @@ class DewPointConverter(Converter):
         return round(self._dew_point_obj.c, 1)
 
 
-class FeelsLikeConverter(Converter):
-    """Define an object hold convertable "feels like" data."""
+class FeelsLikeConverter(MeteoConverter):
+    """Define an object hold convertible "feels like" data."""
 
     def __init__(
         self,
@@ -98,8 +70,8 @@ class FeelsLikeConverter(Converter):
         return round(self._feels_like_obj.c, 1)
 
 
-class HeatIndexConverter(Converter):
-    """Define an object hold convertable heat index data."""
+class HeatIndexConverter(MeteoConverter):
+    """Define an object hold convertible heat index data."""
 
     def __init__(
         self,
@@ -122,35 +94,36 @@ class HeatIndexConverter(Converter):
         return round(self._heat_index_obj.c, 1)
 
 
-class PressureConverter:
-    """Define an object hold convertable barometric pressure data."""
+class PressureConverter(MeteoConverter):
+    """Define an object hold convertible barometric pressure data."""
 
     def __init__(
         self,
-        value: str,
+        value: float,
         *,
         input_unit_system: str = UNIT_SYSTEM_IMPERIAL,
         output_unit_system: str = UNIT_SYSTEM_IMPERIAL
     ) -> None:
         """Initialize."""
-        self._input_unit_system = input_unit_system
-        self._output_unit_system = output_unit_system
+        super().__init__(input_unit_system, output_unit_system)
+
         self._value = value
 
-    @property
-    def pressure(self) -> float:
-        """Return the rain accumulation."""
+    def parse(self) -> float:
+        """Return an appropriately-parsed data value."""
         if self._input_unit_system == self._output_unit_system:
-            round(float(self._value), 1)
-        return convert_pressure(self._value, self._output_unit_system)
+            return self._value
+        if self._output_unit_system == UNIT_SYSTEM_IMPERIAL:
+            return self._value / 33.8639
+        return self._value * 33.8639
 
 
 class RainConverter:
-    """Define an object hold convertable rain data."""
+    """Define an object hold convertible rain data."""
 
     def __init__(
         self,
-        value: str,
+        value: float,
         *,
         input_unit_system: str = UNIT_SYSTEM_IMPERIAL,
         output_unit_system: str = UNIT_SYSTEM_IMPERIAL
@@ -160,16 +133,41 @@ class RainConverter:
         self._output_unit_system = output_unit_system
         self._value = value
 
-    @property
-    def accumulation(self) -> float:
-        """Return the rain accumulation."""
+    def parse(self) -> float:
+        """Return an appropriately-parsed data value."""
         if self._input_unit_system == self._output_unit_system:
-            return round(float(self._value), 1)
-        return convert_rain_volume(self._value, self._output_unit_system)
+            return self._value
+        if self._output_unit_system == UNIT_SYSTEM_IMPERIAL:
+            return self._value / 25.4
+        return self._value * 25.4
 
 
-class WindChillConverter(Converter):
-    """Define an object hold convertable wind chill data."""
+class TemperatureConverter(MeteoConverter):
+    """Define an object hold convertible temperature data."""
+
+    def __init__(
+        self,
+        value: float,
+        *,
+        input_unit_system: str = UNIT_SYSTEM_IMPERIAL,
+        output_unit_system: str = UNIT_SYSTEM_IMPERIAL
+    ) -> None:
+        """Initialize."""
+        super().__init__(input_unit_system, output_unit_system)
+
+        self._temperature_obj = meteocalc.Temp(
+            value, get_temperature_unit(input_unit_system)
+        )
+
+    def parse(self) -> float:
+        """Return an appropriately-parsed data value."""
+        if self._output_unit_system == UNIT_SYSTEM_IMPERIAL:
+            return round(self._temperature_obj.f, 1)
+        return round(self._temperature_obj.c, 1)
+
+
+class WindChillConverter(MeteoConverter):
+    """Define an object hold convertible wind chill data."""
 
     def __init__(
         self,
@@ -191,46 +189,22 @@ class WindChillConverter(Converter):
             )
             self._wind_chill_obj = None
 
-    def parse(self) -> Optional[float]:
+    def parse(self) -> float:
         """Return an appropriately-parsed data value."""
         if not self._wind_chill_obj:
-            return None
+            return 0.0
 
         if self._output_unit_system == UNIT_SYSTEM_IMPERIAL:
             return round(self._wind_chill_obj.f, 1)
         return round(self._wind_chill_obj.c, 1)
 
 
-class TemperatureConverter(Converter):
-    """Define an object hold convertable temperature data."""
+class WindSpeedConverter:
+    """Define an object hold convertible wind speed data."""
 
     def __init__(
         self,
-        value: str,
-        *,
-        input_unit_system: str = UNIT_SYSTEM_IMPERIAL,
-        output_unit_system: str = UNIT_SYSTEM_IMPERIAL
-    ) -> None:
-        """Initialize."""
-        super().__init__(input_unit_system, output_unit_system)
-
-        self._temperature_obj = meteocalc.Temp(
-            value, get_temperature_unit(input_unit_system)
-        )
-
-    def parse(self) -> float:
-        """Return an appropriately-parsed data value."""
-        if self._output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            return round(self._temperature_obj.f, 1)
-        return round(self._temperature_obj.c, 1)
-
-
-class WindConverter:
-    """Define an object hold convertable wind data."""
-
-    def __init__(
-        self,
-        value: str,
+        value: float,
         *,
         input_unit_system: str = UNIT_SYSTEM_IMPERIAL,
         output_unit_system: str = UNIT_SYSTEM_IMPERIAL
@@ -240,9 +214,10 @@ class WindConverter:
         self._output_unit_system = output_unit_system
         self._value = value
 
-    @property
-    def wind_speed(self) -> float:
-        """Return the wind speed."""
+    def parse(self) -> float:
+        """Return an appropriately-parsed data value."""
         if self._input_unit_system == self._output_unit_system:
-            return round(float(self._value), 1)
-        return convert_wind_speed(self._value, self._output_unit_system)
+            return self._value
+        if self._output_unit_system == UNIT_SYSTEM_IMPERIAL:
+            return self._value / 1.60934
+        return self._value * 1.60934
