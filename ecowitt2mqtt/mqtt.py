@@ -1,17 +1,19 @@
 """Define aiohttp routes."""
 import asyncio
 import json
-from typing import Optional, Union
+from typing import Any, Dict, Union
 
 from aiohttp import web
 from asyncio_mqtt import Client, MqttError
 
 from ecowitt2mqtt.const import LOGGER
 from ecowitt2mqtt.data import DataProcessor
-from ecowitt2mqtt.hass import HassDiscovery
+from ecowitt2mqtt.hass import ConfigPayloadType, HassDiscovery
 
 
-def _generate_payload(data: Union[dict, float, str]) -> bytes:
+def _generate_payload(
+    data: Union[ConfigPayloadType, Dict[str, Any], float, str]
+) -> bytes:
     """Generate a binary MQTT payload from input data."""
     if isinstance(data, dict):
         return json.dumps(data).encode("utf-8")
@@ -23,7 +25,7 @@ def _generate_payload(data: Union[dict, float, str]) -> bytes:
 
 
 async def _async_publish_to_hass_discovery(
-    client: Client, data: dict, discovery_manager: HassDiscovery
+    client: Client, data: Dict[str, Any], discovery_manager: HassDiscovery
 ) -> None:
     """Publish data to appropriate topics for Home Assistant Discovery."""
     LOGGER.debug("Publishing according to Home Assistant MQTT Discovery standard")
@@ -59,7 +61,7 @@ async def _async_publish_to_hass_discovery(
 
 
 async def _async_publish_to_topic(
-    client: Client, data: dict, *, topic: Optional[str] = None
+    client: Client, data: Dict[str, Any], topic: str
 ) -> None:
     """Publish data to a single MQTT topic."""
     LOGGER.debug("Publishing entire device payload to single topic: %s", topic)
@@ -118,4 +120,4 @@ async def async_publish_payload(request: web.Request) -> None:
         else:
             topic = f"ecowitt2mqtt/{data_processor.unique_id}"
 
-        await _async_publish_to_topic(client, data, topic=topic)
+        await _async_publish_to_topic(client, data, topic)
