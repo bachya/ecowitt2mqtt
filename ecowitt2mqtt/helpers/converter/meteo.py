@@ -6,7 +6,15 @@ import meteocalc
 
 from ecowitt2mqtt.const import LOGGER, UNIT_SYSTEM_IMPERIAL
 from ecowitt2mqtt.helpers.converter import Converter
-from ecowitt2mqtt.util.meteo import get_temperature_unit
+
+
+def get_temperature_object(temperature: float, unit_system: str) -> meteocalc.Temp:
+    """Get a meteocalc temperature object based on a temperature and unit system."""
+    if unit_system == UNIT_SYSTEM_IMPERIAL:
+        unit = "f"
+    else:
+        unit = "c"
+    return meteocalc.Temp(temperature, unit)
 
 
 class MeteoConverter(Converter):
@@ -32,7 +40,7 @@ class DewPointConverter(MeteoConverter):
         """Initialize."""
         super().__init__(input_unit_system, output_unit_system)
 
-        temp_obj = meteocalc.Temp(temperature, get_temperature_unit(input_unit_system))
+        temp_obj = get_temperature_object(temperature, input_unit_system)
         self._dew_point_obj = meteocalc.dew_point(temp_obj, humidity)
 
     def parse(self) -> float:
@@ -59,7 +67,7 @@ class FeelsLikeConverter(MeteoConverter):
         """Initialize."""
         super().__init__(input_unit_system, output_unit_system)
 
-        temp_obj = meteocalc.Temp(temperature, get_temperature_unit(input_unit_system))
+        temp_obj = get_temperature_object(temperature, input_unit_system)
         self._feels_like_obj = meteocalc.feels_like(temp_obj, humidity, wind_speed)
 
     def parse(self) -> float:
@@ -85,7 +93,7 @@ class HeatIndexConverter(MeteoConverter):
         """Initialize."""
         super().__init__(input_unit_system, output_unit_system)
 
-        temp_obj = meteocalc.Temp(temperature, get_temperature_unit(input_unit_system))
+        temp_obj = get_temperature_object(temperature, input_unit_system)
         self._heat_index_obj = meteocalc.heat_index(temp_obj, humidity)
 
     def parse(self) -> float:
@@ -158,16 +166,14 @@ class TemperatureConverter(MeteoConverter):
         """Initialize."""
         super().__init__(input_unit_system, output_unit_system)
 
-        self._temperature_obj = meteocalc.Temp(
-            value, get_temperature_unit(input_unit_system)
-        )
+        self._temp_obj = get_temperature_object(value, input_unit_system)
 
     def parse(self) -> float:
         """Return an appropriately-parsed data value."""
         if self._output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            value = round(self._temperature_obj.f, 1)
+            value = round(self._temp_obj.f, 1)
         else:
-            value = round(self._temperature_obj.c, 1)
+            value = round(self._temp_obj.c, 1)
         return cast(float, value)
 
 
@@ -185,7 +191,7 @@ class WindChillConverter(MeteoConverter):
         """Initialize."""
         super().__init__(input_unit_system, output_unit_system)
 
-        temp_obj = meteocalc.Temp(temperature, get_temperature_unit(input_unit_system))
+        temp_obj = get_temperature_object(temperature, input_unit_system)
         try:
             self._wind_chill_obj = meteocalc.wind_chill(temp_obj, wind_speed)
         except ValueError as err:
