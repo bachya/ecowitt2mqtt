@@ -1,5 +1,5 @@
 """Define Home Assistant-related functionality."""
-from typing import Dict
+from typing import Dict, Optional, TypedDict
 
 from ecowitt2mqtt.const import (
     DATA_POINT_24HOURRAIN,
@@ -167,6 +167,18 @@ UNIT_MAPPING = {
 }
 
 
+class ConfigPayloadType(TypedDict):
+    """Define a type for a config payload."""
+
+    availability_topic: str
+    icon: str
+    name: str
+    qos: int
+    state_topic: str
+    unique_id: str
+    unit_of_measurement: Optional[str]
+
+
 class HassDiscovery:  # pylint: disable=too-few-public-methods
     """Define a Home Assistant MQTT Discovery manager."""
 
@@ -178,7 +190,7 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
         discovery_prefix: str = DEFAULT_DISCOVERY_PREFIX,
     ) -> None:
         """Initialize."""
-        self._config_payloads: Dict[str, dict] = {}
+        self._config_payloads: Dict[str, ConfigPayloadType]
         self._discovery_prefix = discovery_prefix
         self._unique_id = unique_id
         self._unit_system = unit_system
@@ -187,7 +199,7 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
         """Get the attributes topic for a particular entity type."""
         return f"{self._discovery_prefix}/sensor/{self._unique_id}/{key}/{topic_type}"
 
-    def get_config_payload(self, key: str) -> dict:
+    def get_config_payload(self, key: str) -> ConfigPayloadType:
         """Return the config payload for a particular entity type."""
         if key in self._config_payloads:
             return self._config_payloads[key]
@@ -198,7 +210,7 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
                 unit = UNIT_MAPPING[data_class][self._unit_system]
         else:
             icon = DEFAULT_ICON
-            unit = ""
+            unit = None
 
         self._config_payloads[key] = {
             "availability_topic": self._get_topic(key, "availability"),
