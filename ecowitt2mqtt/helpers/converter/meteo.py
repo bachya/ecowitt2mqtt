@@ -20,7 +20,7 @@ def get_temperature_object(temperature: float, unit_system: str) -> meteocalc.Te
 class MeteoConverter(Converter):
     """Define a base meteorological data strategy."""
 
-    def __init__(self, input_unit_system: str, output_unit_system: str) -> None:
+    def __init__(self, *, input_unit_system: str, output_unit_system: str) -> None:
         """Initialize."""
         self._input_unit_system = input_unit_system
         self._output_unit_system = output_unit_system
@@ -38,7 +38,9 @@ class DewPointConverter(MeteoConverter):
         output_unit_system: str = UNIT_SYSTEM_IMPERIAL
     ) -> None:
         """Initialize."""
-        super().__init__(input_unit_system, output_unit_system)
+        super().__init__(
+            input_unit_system=input_unit_system, output_unit_system=output_unit_system
+        )
 
         temp_obj = get_temperature_object(temperature, input_unit_system)
         self._dew_point_obj = meteocalc.dew_point(temp_obj, humidity)
@@ -65,7 +67,9 @@ class FeelsLikeConverter(MeteoConverter):
         output_unit_system: str = UNIT_SYSTEM_IMPERIAL
     ) -> None:
         """Initialize."""
-        super().__init__(input_unit_system, output_unit_system)
+        super().__init__(
+            input_unit_system=input_unit_system, output_unit_system=output_unit_system
+        )
 
         temp_obj = get_temperature_object(temperature, input_unit_system)
         self._feels_like_obj = meteocalc.feels_like(temp_obj, humidity, wind_speed)
@@ -91,7 +95,9 @@ class HeatIndexConverter(MeteoConverter):
         output_unit_system: str = UNIT_SYSTEM_IMPERIAL
     ) -> None:
         """Initialize."""
-        super().__init__(input_unit_system, output_unit_system)
+        super().__init__(
+            input_unit_system=input_unit_system, output_unit_system=output_unit_system
+        )
 
         temp_obj = get_temperature_object(temperature, input_unit_system)
         self._heat_index_obj = meteocalc.heat_index(temp_obj, humidity)
@@ -116,7 +122,9 @@ class PressureConverter(MeteoConverter):
         output_unit_system: str = UNIT_SYSTEM_IMPERIAL
     ) -> None:
         """Initialize."""
-        super().__init__(input_unit_system, output_unit_system)
+        super().__init__(
+            input_unit_system=input_unit_system, output_unit_system=output_unit_system
+        )
 
         self._value = value
 
@@ -129,7 +137,7 @@ class PressureConverter(MeteoConverter):
         return self._value * 33.8639
 
 
-class RainConverter:
+class RainConverter(MeteoConverter):
     """Define an object to hold convertible rain data."""
 
     def __init__(
@@ -140,8 +148,10 @@ class RainConverter:
         output_unit_system: str = UNIT_SYSTEM_IMPERIAL
     ) -> None:
         """Initialize."""
-        self._input_unit_system = input_unit_system
-        self._output_unit_system = output_unit_system
+        super().__init__(
+            input_unit_system=input_unit_system, output_unit_system=output_unit_system
+        )
+
         self._value = value
 
     def parse(self) -> float:
@@ -164,7 +174,9 @@ class TemperatureConverter(MeteoConverter):
         output_unit_system: str = UNIT_SYSTEM_IMPERIAL
     ) -> None:
         """Initialize."""
-        super().__init__(input_unit_system, output_unit_system)
+        super().__init__(
+            input_unit_system=input_unit_system, output_unit_system=output_unit_system
+        )
 
         self._temp_obj = get_temperature_object(value, input_unit_system)
 
@@ -189,7 +201,9 @@ class WindChillConverter(MeteoConverter):
         output_unit_system: str = UNIT_SYSTEM_IMPERIAL
     ) -> None:
         """Initialize."""
-        super().__init__(input_unit_system, output_unit_system)
+        super().__init__(
+            input_unit_system=input_unit_system, output_unit_system=output_unit_system
+        )
 
         temp_obj = get_temperature_object(temperature, input_unit_system)
         try:
@@ -212,7 +226,7 @@ class WindChillConverter(MeteoConverter):
         return cast(float, value)
 
 
-class WindSpeedConverter:
+class WindSpeedConverter(MeteoConverter):
     """Define an object to hold convertible wind speed data."""
 
     def __init__(
@@ -223,8 +237,10 @@ class WindSpeedConverter:
         output_unit_system: str = UNIT_SYSTEM_IMPERIAL
     ) -> None:
         """Initialize."""
-        self._input_unit_system = input_unit_system
-        self._output_unit_system = output_unit_system
+        super().__init__(
+            input_unit_system=input_unit_system, output_unit_system=output_unit_system
+        )
+
         self._value = value
 
     def parse(self) -> float:
