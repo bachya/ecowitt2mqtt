@@ -6,6 +6,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_DEWPOINT,
     DATA_POINT_FEELSLIKE,
     DATA_POINT_GLOB_BAROM,
+    DATA_POINT_GLOB_BATT,
     DATA_POINT_GLOB_GUST,
     DATA_POINT_GLOB_HUMIDITY,
     DATA_POINT_GLOB_MOISTURE,
@@ -45,6 +46,13 @@ GLOBBED_ENTITIES = {
         None,
         DEVICE_CLASS_PRESSURE,
         UNIT_CLASS_PRESSURE,
+        None,
+    ),
+    DATA_POINT_GLOB_BATT: (
+        COMPONENT_BINARY_SENSOR,
+        None,
+        DEVICE_CLASS_BATTERY,
+        None,
         None,
     ),
     DATA_POINT_GLOB_GUST: (

@@ -36,15 +36,12 @@ async def _async_publish_to_hass_discovery(
                 config_topic = discovery_manager.get_config_topic(key)
 
                 tasks.append(
-                    client.publish(
-                        config_topic, _generate_payload(config_payload), retain=True
-                    )
+                    client.publish(config_topic, _generate_payload(config_payload))
                 )
                 tasks.append(
                     client.publish(
                         config_payload["availability_topic"],
                         _generate_payload("online"),
-                        retain=True,
                     )
                 )
                 tasks.append(

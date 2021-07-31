@@ -5,6 +5,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_DEWPOINT,
     DATA_POINT_FEELSLIKE,
     DATA_POINT_GLOB_BAROM,
+    DATA_POINT_GLOB_BATT,
     DATA_POINT_GLOB_RAIN,
     DATA_POINT_GLOB_TEMP,
     DATA_POINT_GLOB_WIND,
@@ -15,11 +16,12 @@ from ecowitt2mqtt.const import (
     DATA_POINT_WINDSPEEDMPH,
     UNIT_SYSTEM_IMPERIAL,
 )
+from ecowitt2mqtt.helpers.converter import Converter
+from ecowitt2mqtt.helpers.converter.battery import BinaryBatteryConverter
 from ecowitt2mqtt.helpers.converter.meteo import (
     DewPointConverter,
     FeelsLikeConverter,
     HeatIndexConverter,
-    MeteoConverter,
     PressureConverter,
     RainConverter,
     TemperatureConverter,
@@ -31,15 +33,17 @@ DEFAULT_KEYS_TO_IGNORE = ["PASSKEY", "dateutc", "freq", "model", "stationtype"]
 DEFAULT_UNIQUE_ID = "default"
 
 
-def get_converter_class(key: str) -> Optional[Type[MeteoConverter]]:
+def get_converter_class(key: str) -> Optional[Type[Converter]]:
     """Get the proper converter class for a key."""
-    converter: Optional[Type[MeteoConverter]] = None
+    converter: Optional[Type[Converter]] = None
     if DATA_POINT_DEWPOINT in key:
         converter = DewPointConverter
     if DATA_POINT_FEELSLIKE in key:
         converter = FeelsLikeConverter
     if DATA_POINT_GLOB_BAROM in key:
         converter = PressureConverter
+    if DATA_POINT_GLOB_BATT in key:
+        converter = BinaryBatteryConverter
     if DATA_POINT_GLOB_RAIN in key:
         converter = RainConverter
     if DATA_POINT_GLOB_TEMP in key:
