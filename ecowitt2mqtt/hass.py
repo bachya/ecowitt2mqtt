@@ -20,12 +20,12 @@ from ecowitt2mqtt.const import (
 DEFAULT_DISCOVERY_PREFIX = "homeassistant"
 DEFAULT_ICON = "mdi:server"
 
+DEVICE_CLASS_BATTERY = "battery"
+
 UNIT_CLASS_PRESSURE = "pressure"
 UNIT_CLASS_RAIN = "rain"
 UNIT_CLASS_TEMPERATURE = "temperature"
 UNIT_CLASS_WIND = "wind"
-
-DEVICE_CLASS_BATTERY = "battery"
 
 GLOB_DATA_POINTS = {
     "barom": ("mdi:cloud", None, UNIT_CLASS_PRESSURE, None),
