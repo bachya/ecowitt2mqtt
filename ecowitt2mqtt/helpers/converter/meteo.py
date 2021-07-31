@@ -17,16 +17,7 @@ def get_temperature_object(temperature: float, unit_system: str) -> meteocalc.Te
     return meteocalc.Temp(temperature, unit)
 
 
-class MeteoConverter(Converter):
-    """Define a base meteorological data strategy."""
-
-    def __init__(self, *, input_unit_system: str, output_unit_system: str) -> None:
-        """Initialize."""
-        self._input_unit_system = input_unit_system
-        self._output_unit_system = output_unit_system
-
-
-class DewPointConverter(MeteoConverter):
+class DewPointConverter(Converter):
     """Define an object to hold convertible dew point data."""
 
     def __init__(
@@ -54,7 +45,7 @@ class DewPointConverter(MeteoConverter):
         return cast(float, value)
 
 
-class FeelsLikeConverter(MeteoConverter):
+class FeelsLikeConverter(Converter):
     """Define an object to hold convertible "feels like" data."""
 
     def __init__(
@@ -83,7 +74,7 @@ class FeelsLikeConverter(MeteoConverter):
         return cast(float, value)
 
 
-class HeatIndexConverter(MeteoConverter):
+class HeatIndexConverter(Converter):
     """Define an object to hold convertible heat index data."""
 
     def __init__(
@@ -111,7 +102,7 @@ class HeatIndexConverter(MeteoConverter):
         return cast(float, value)
 
 
-class PressureConverter(MeteoConverter):
+class PressureConverter(Converter):
     """Define an object to hold convertible barometric pressure data."""
 
     def __init__(
@@ -137,7 +128,7 @@ class PressureConverter(MeteoConverter):
         return self._value * 33.8639
 
 
-class RainConverter(MeteoConverter):
+class RainConverter(Converter):
     """Define an object to hold convertible rain data."""
 
     def __init__(
@@ -163,7 +154,7 @@ class RainConverter(MeteoConverter):
         return self._value * 25.4
 
 
-class TemperatureConverter(MeteoConverter):
+class TemperatureConverter(Converter):
     """Define an object to hold convertible temperature data."""
 
     def __init__(
@@ -189,7 +180,7 @@ class TemperatureConverter(MeteoConverter):
         return cast(float, value)
 
 
-class WindChillConverter(MeteoConverter):
+class WindChillConverter(Converter):
     """Define an object to hold convertible wind chill data."""
 
     def __init__(
@@ -226,7 +217,7 @@ class WindChillConverter(MeteoConverter):
         return cast(float, value)
 
 
-class WindSpeedConverter(MeteoConverter):
+class WindSpeedConverter(Converter):
     """Define an object to hold convertible wind speed data."""
 
     def __init__(
