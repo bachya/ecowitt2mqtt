@@ -1,78 +1,18 @@
 """Define Home Assistant-related functionality."""
-from typing import Dict, Optional, TypedDict
+from typing import Dict, Optional, Tuple, TypedDict
 
 from ecowitt2mqtt.const import (
-    DATA_POINT_24HOURRAIN,
-    DATA_POINT_BAROMABS,
-    DATA_POINT_BAROMREL,
     DATA_POINT_CO2,
-    DATA_POINT_DAILYRAIN,
     DATA_POINT_DEWPOINT,
-    DATA_POINT_EVENTRAIN,
     DATA_POINT_FEELSLIKE,
     DATA_POINT_HEATINDEX,
-    DATA_POINT_HOURLYRAIN,
-    DATA_POINT_HUMIDITY,
-    DATA_POINT_HUMIDITY1,
-    DATA_POINT_HUMIDITY2,
-    DATA_POINT_HUMIDITY3,
-    DATA_POINT_HUMIDITY4,
-    DATA_POINT_HUMIDITY5,
-    DATA_POINT_HUMIDITY6,
-    DATA_POINT_HUMIDITY7,
-    DATA_POINT_HUMIDITY8,
-    DATA_POINT_HUMIDITY9,
-    DATA_POINT_HUMIDITY10,
-    DATA_POINT_HUMIDITYIN,
-    DATA_POINT_LASTRAIN,
-    DATA_POINT_MAXDAILYGUST,
-    DATA_POINT_MONTHLYRAIN,
     DATA_POINT_PM25,
     DATA_POINT_PM25_24H,
-    DATA_POINT_RAINRATE,
-    DATA_POINT_SOILMOISTURE1,
-    DATA_POINT_SOILMOISTURE2,
-    DATA_POINT_SOILMOISTURE3,
-    DATA_POINT_SOILMOISTURE4,
-    DATA_POINT_SOILMOISTURE5,
-    DATA_POINT_SOILMOISTURE6,
-    DATA_POINT_SOILMOISTURE7,
-    DATA_POINT_SOILMOISTURE8,
-    DATA_POINT_SOILMOISTURE9,
-    DATA_POINT_SOILMOISTURE10,
-    DATA_POINT_SOILTEMP1,
-    DATA_POINT_SOILTEMP2,
-    DATA_POINT_SOILTEMP3,
-    DATA_POINT_SOILTEMP4,
-    DATA_POINT_SOILTEMP5,
-    DATA_POINT_SOILTEMP6,
-    DATA_POINT_SOILTEMP7,
-    DATA_POINT_SOILTEMP8,
-    DATA_POINT_SOILTEMP9,
-    DATA_POINT_SOILTEMP10,
     DATA_POINT_SOLARRADIATION,
-    DATA_POINT_TEMP,
-    DATA_POINT_TEMP1,
-    DATA_POINT_TEMP2,
-    DATA_POINT_TEMP3,
-    DATA_POINT_TEMP4,
-    DATA_POINT_TEMP5,
-    DATA_POINT_TEMP6,
-    DATA_POINT_TEMP7,
-    DATA_POINT_TEMP8,
-    DATA_POINT_TEMP9,
-    DATA_POINT_TEMP10,
-    DATA_POINT_TEMPIN,
-    DATA_POINT_TOTALRAIN,
     DATA_POINT_UV,
-    DATA_POINT_WEEKLYRAIN,
     DATA_POINT_WINDCHILL,
     DATA_POINT_WINDDIR,
-    DATA_POINT_WINDGUST,
-    DATA_POINT_WINDSPD_AVG2M,
-    DATA_POINT_WINDSPD_AVG10M,
-    DATA_POINT_WINDSPEED,
-    DATA_POINT_YEARLYRAIN,
+    LOGGER,
     UNIT_SYSTEM_IMPERIAL,
     UNIT_SYSTEM_METRIC,
 )
@@ -80,97 +20,68 @@ from ecowitt2mqtt.const import (
 DEFAULT_DISCOVERY_PREFIX = "homeassistant"
 DEFAULT_ICON = "mdi:server"
 
-DATA_CLASS_PRESSURE = "pressure"
-DATA_CLASS_RAIN = "rain"
-DATA_CLASS_TEMPERATURE = "temperature"
-DATA_CLASS_WIND = "wind"
+UNIT_CLASS_PRESSURE = "pressure"
+UNIT_CLASS_RAIN = "rain"
+UNIT_CLASS_TEMPERATURE = "temperature"
+UNIT_CLASS_WIND = "wind"
 
-DATA_POINTS = {
-    DATA_POINT_24HOURRAIN: ("mdi:water", DATA_CLASS_RAIN, None),
-    DATA_POINT_BAROMABS: ("mdi:cloud", DATA_CLASS_PRESSURE, None),
-    DATA_POINT_BAROMREL: ("mdi:cloud", DATA_CLASS_PRESSURE, None),
-    DATA_POINT_CO2: ("CO2", None, "ppm"),
-    DATA_POINT_DAILYRAIN: ("mdi:weather-pouring", DATA_CLASS_RAIN, None),
-    DATA_POINT_DEWPOINT: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_EVENTRAIN: ("mdi:weather-pouring", DATA_CLASS_RAIN, None),
-    DATA_POINT_FEELSLIKE: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_HEATINDEX: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_HOURLYRAIN: ("mdi:weather-pouring", DATA_CLASS_RAIN, None),
-    DATA_POINT_HUMIDITY10: ("mdi:water-percent", None, "%"),
-    DATA_POINT_HUMIDITY1: ("mdi:water-percent", None, "%"),
-    DATA_POINT_HUMIDITY2: ("mdi:water-percent", None, "%"),
-    DATA_POINT_HUMIDITY3: ("mdi:water-percent", None, "%"),
-    DATA_POINT_HUMIDITY4: ("mdi:water-percent", None, "%"),
-    DATA_POINT_HUMIDITY5: ("mdi:water-percent", None, "%"),
-    DATA_POINT_HUMIDITY6: ("mdi:water-percent", None, "%"),
-    DATA_POINT_HUMIDITY7: ("mdi:water-percent", None, "%"),
-    DATA_POINT_HUMIDITY8: ("mdi:water-percent", None, "%"),
-    DATA_POINT_HUMIDITY9: ("mdi:water-percent", None, "%"),
-    DATA_POINT_HUMIDITY: ("mdi:water-percent", None, "%"),
-    DATA_POINT_HUMIDITYIN: ("mdi:water-percent", None, "%"),
-    DATA_POINT_LASTRAIN: ("mdi:water", DATA_CLASS_RAIN, None),
-    DATA_POINT_MAXDAILYGUST: ("mdi:weather-windy", DATA_CLASS_WIND, None),
-    DATA_POINT_MONTHLYRAIN: ("mdi:weather-pouring", DATA_CLASS_RAIN, None),
-    DATA_POINT_PM25: ("mdi:biohazard", None, "µg/m^3"),
-    DATA_POINT_PM25_24H: ("mdi:biohazard", None, "µg/m^3"),
-    DATA_POINT_RAINRATE: ("mdi:weather-pouring", DATA_CLASS_RAIN, None),
-    DATA_POINT_SOILMOISTURE10: ("mdi:water-percent", None, "%"),
-    DATA_POINT_SOILMOISTURE1: ("mdi:water-percent", None, "%"),
-    DATA_POINT_SOILMOISTURE2: ("mdi:water-percent", None, "%"),
-    DATA_POINT_SOILMOISTURE3: ("mdi:water-percent", None, "%"),
-    DATA_POINT_SOILMOISTURE4: ("mdi:water-percent", None, "%"),
-    DATA_POINT_SOILMOISTURE5: ("mdi:water-percent", None, "%"),
-    DATA_POINT_SOILMOISTURE6: ("mdi:water-percent", None, "%"),
-    DATA_POINT_SOILMOISTURE7: ("mdi:water-percent", None, "%"),
-    DATA_POINT_SOILMOISTURE8: ("mdi:water-percent", None, "%"),
-    DATA_POINT_SOILMOISTURE9: ("mdi:water-percent", None, "%"),
-    DATA_POINT_SOILTEMP10: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_SOILTEMP1: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_SOILTEMP2: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_SOILTEMP3: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_SOILTEMP4: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_SOILTEMP5: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_SOILTEMP6: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_SOILTEMP7: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_SOILTEMP8: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_SOILTEMP9: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_SOLARRADIATION: ("mdi:weather-sunny", None, "w/m^2"),
-    DATA_POINT_TEMP10: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_TEMP1: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_TEMP2: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_TEMP3: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_TEMP4: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_TEMP5: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_TEMP6: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_TEMP7: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_TEMP8: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_TEMP9: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_TEMP: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_TEMPIN: ("mdi:thermometer", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_TOTALRAIN: ("mdi:weather-pouring", DATA_CLASS_RAIN, None),
-    DATA_POINT_UV: ("mdi:weather-sunny", None, "UV index"),
-    DATA_POINT_WEEKLYRAIN: ("mdi:weather-pouring", DATA_CLASS_RAIN, None),
-    DATA_POINT_WINDCHILL: ("mdi:weather-windy", DATA_CLASS_TEMPERATURE, None),
-    DATA_POINT_WINDDIR: ("mdi:weather-windy", None, "°"),
-    DATA_POINT_WINDGUST: ("mdi:weather-windy", DATA_CLASS_WIND, None),
-    DATA_POINT_WINDSPD_AVG10M: ("mdi:weather-windy", DATA_CLASS_WIND, None),
-    DATA_POINT_WINDSPD_AVG2M: ("mdi:weather-windy", DATA_CLASS_WIND, None),
-    DATA_POINT_WINDSPEED: ("mdi:weather-windy", DATA_CLASS_WIND, None),
-    DATA_POINT_YEARLYRAIN: ("mdi:weather-pouring", DATA_CLASS_RAIN, None),
+DEVICE_CLASS_BATTERY = "battery"
+
+GLOB_DATA_POINTS = {
+    "barom": ("mdi:cloud", None, UNIT_CLASS_PRESSURE, None),
+    "gust": ("mdi:weather-windy", None, UNIT_CLASS_WIND, None),
+    "humidity": ("mdi:water-percent", None, None, "%"),
+    "moisture": ("mdi:water-percent", None, None, "%"),
+    "rain": ("mdi:water", None, UNIT_CLASS_RAIN, None),
+    "temp": ("mdi:thermometer", None, UNIT_CLASS_TEMPERATURE, None),
+    "wind": ("mdi:weather-windy", None, UNIT_CLASS_WIND, None),
+}
+
+SPECIFIC_DATA_POINTS = {
+    DATA_POINT_CO2: ("mdi:molecule-co", None, None, "ppm"),
+    DATA_POINT_DEWPOINT: ("mdi:thermometer", None, UNIT_CLASS_TEMPERATURE, None),
+    DATA_POINT_FEELSLIKE: ("mdi:thermometer", None, UNIT_CLASS_TEMPERATURE, None),
+    DATA_POINT_HEATINDEX: ("mdi:thermometer", None, UNIT_CLASS_TEMPERATURE, None),
+    DATA_POINT_PM25: ("mdi:biohazard", None, None, "µg/m^3"),
+    DATA_POINT_PM25_24H: ("mdi:biohazard", None, None, "µg/m^3"),
+    DATA_POINT_SOLARRADIATION: ("mdi:weather-sunny", None, None, "w/m^2"),
+    DATA_POINT_UV: ("mdi:weather-sunny", None, None, "UV index"),
+    DATA_POINT_WINDCHILL: ("mdi:weather-windy", None, UNIT_CLASS_TEMPERATURE, None),
+    DATA_POINT_WINDDIR: ("mdi:weather-windy", None, None, "°"),
 }
 
 UNIT_MAPPING = {
-    DATA_CLASS_PRESSURE: {UNIT_SYSTEM_IMPERIAL: "inHg", UNIT_SYSTEM_METRIC: "hPa"},
-    DATA_CLASS_RAIN: {UNIT_SYSTEM_IMPERIAL: "in", UNIT_SYSTEM_METRIC: "mm"},
-    DATA_CLASS_TEMPERATURE: {UNIT_SYSTEM_IMPERIAL: "°F", UNIT_SYSTEM_METRIC: "°C"},
-    DATA_CLASS_WIND: {UNIT_SYSTEM_IMPERIAL: "mph", UNIT_SYSTEM_METRIC: "km/h"},
+    UNIT_CLASS_PRESSURE: {UNIT_SYSTEM_IMPERIAL: "inHg", UNIT_SYSTEM_METRIC: "hPa"},
+    UNIT_CLASS_RAIN: {UNIT_SYSTEM_IMPERIAL: "in", UNIT_SYSTEM_METRIC: "mm"},
+    UNIT_CLASS_TEMPERATURE: {UNIT_SYSTEM_IMPERIAL: "°F", UNIT_SYSTEM_METRIC: "°C"},
+    UNIT_CLASS_WIND: {UNIT_SYSTEM_IMPERIAL: "mph", UNIT_SYSTEM_METRIC: "km/h"},
 }
+
+
+def get_data_point_characteristics(
+    key: str,
+) -> Tuple[str, Optional[str], Optional[str], Optional[str]]:
+    """Get a data point's characteristics.
+
+    1. Return a specific data point if it exists.
+    2. Return a globbed data point if it exists.
+    3. Raise if nothing exists
+    """
+    if key in SPECIFIC_DATA_POINTS:
+        return SPECIFIC_DATA_POINTS[key]
+
+    matches = [v for k, v in GLOB_DATA_POINTS.items() if k in key]
+    if matches:
+        return matches[0]
+
+    return (DEFAULT_ICON, None, None, None)
 
 
 class ConfigPayloadType(TypedDict):
     """Define a type for a config payload."""
 
     availability_topic: str
+    device_class: Optional[str]
     icon: str
     name: str
     qos: int
@@ -190,7 +101,7 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
         discovery_prefix: str = DEFAULT_DISCOVERY_PREFIX,
     ) -> None:
         """Initialize."""
-        self._config_payloads: Dict[str, ConfigPayloadType]
+        self._config_payloads: Dict[str, ConfigPayloadType] = {}
         self._discovery_prefix = discovery_prefix
         self._unique_id = unique_id
         self._unit_system = unit_system
@@ -204,16 +115,14 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
         if key in self._config_payloads:
             return self._config_payloads[key]
 
-        if key in DATA_POINTS:
-            icon, data_class, unit = DATA_POINTS[key]
-            if data_class:
-                unit = UNIT_MAPPING[data_class][self._unit_system]
-        else:
-            icon = DEFAULT_ICON
-            unit = None
+        LOGGER.debug("Looking at %s", key)
+        icon, device_class, unit_class, unit = get_data_point_characteristics(key)
+        if unit_class:
+            unit = UNIT_MAPPING[unit_class][self._unit_system]
 
         self._config_payloads[key] = {
             "availability_topic": self._get_topic(key, "availability"),
+            "device_class": device_class,
             "icon": icon,
             "name": key,
             "qos": 1,
