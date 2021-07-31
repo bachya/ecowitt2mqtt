@@ -16,6 +16,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_WINDSPEEDMPH,
     UNIT_SYSTEM_IMPERIAL,
 )
+from ecowitt2mqtt.device import get_device_from_raw_payload
 from ecowitt2mqtt.helpers.converter import Converter
 from ecowitt2mqtt.helpers.converter.battery import BinaryBatteryConverter
 from ecowitt2mqtt.helpers.converter.meteo import (
@@ -102,6 +103,7 @@ class DataProcessor:  # pylint: disable=too-few-public-methods
 
         self._input_unit_system = input_unit_system
         self._output_unit_system = output_unit_system
+        self.device = get_device_from_raw_payload(payload)
         self.unique_id = payload.get("PASSKEY", DEFAULT_UNIQUE_ID)
 
     def generate_data(self) -> Dict[str, Any]:
