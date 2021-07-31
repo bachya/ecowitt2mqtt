@@ -8,12 +8,10 @@ from asyncio_mqtt import Client, MqttError
 
 from ecowitt2mqtt.const import LOGGER
 from ecowitt2mqtt.data import DataProcessor
-from ecowitt2mqtt.hass import ConfigPayloadType, HassDiscovery
+from ecowitt2mqtt.hass import HassDiscovery
 
 
-def _generate_payload(
-    data: Union[ConfigPayloadType, Dict[str, Any], float, str]
-) -> bytes:
+def _generate_payload(data: Union[Dict[str, Any], float, str]) -> bytes:
     """Generate a binary MQTT payload from input data."""
     if isinstance(data, dict):
         return json.dumps(data).encode("utf-8")
@@ -35,22 +33,25 @@ async def _async_publish_to_hass_discovery(
             tasks = []
             for key, value in data.items():
                 config_payload = discovery_manager.get_config_payload(key)
+                config_topic = discovery_manager.get_config_topic(key)
 
                 tasks.append(
                     client.publish(
-                        config_payload["config_topic"],
-                        _generate_payload(config_payload),
+                        config_topic, _generate_payload(config_payload), retain=True
                     )
                 )
                 tasks.append(
                     client.publish(
                         config_payload["availability_topic"],
                         _generate_payload("online"),
+                        retain=True,
                     )
                 )
                 tasks.append(
                     client.publish(
-                        config_payload["state_topic"], _generate_payload(value)
+                        config_payload["state_topic"],
+                        _generate_payload(value),
+                        retain=True,
                     )
                 )
 

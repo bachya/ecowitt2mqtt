@@ -3,6 +3,15 @@ import logging
 
 LOGGER = logging.getLogger(__package__)
 
+# Glob data points:
+DATA_POINT_GLOB_BAROM = "barom"
+DATA_POINT_GLOB_GUST = "gust"
+DATA_POINT_GLOB_HUMIDITY = "humidity"
+DATA_POINT_GLOB_MOISTURE = "moisture"
+DATA_POINT_GLOB_RAIN = "rain"
+DATA_POINT_GLOB_TEMP = "temp"
+DATA_POINT_GLOB_WIND = "wind"
+
 # Possible data points:
 DATA_POINT_24HOURRAIN = "24hourrain"
 DATA_POINT_24HOURRAININ = "24hourrainin"

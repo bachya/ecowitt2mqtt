@@ -1,10 +1,17 @@
 """Define Home Assistant-related functionality."""
-from typing import Dict, Optional, Tuple, TypedDict
+from typing import Any, Dict, Optional, Tuple
 
 from ecowitt2mqtt.const import (
     DATA_POINT_CO2,
     DATA_POINT_DEWPOINT,
     DATA_POINT_FEELSLIKE,
+    DATA_POINT_GLOB_BAROM,
+    DATA_POINT_GLOB_GUST,
+    DATA_POINT_GLOB_HUMIDITY,
+    DATA_POINT_GLOB_MOISTURE,
+    DATA_POINT_GLOB_RAIN,
+    DATA_POINT_GLOB_TEMP,
+    DATA_POINT_GLOB_WIND,
     DATA_POINT_HEATINDEX,
     DATA_POINT_PM25,
     DATA_POINT_PM25_24H,
@@ -20,27 +27,60 @@ COMPONENT_BINARY_SENSOR = "binary_sensor"
 COMPONENT_SENSOR = "sensor"
 
 DEFAULT_DISCOVERY_PREFIX = "homeassistant"
-DEFAULT_ICON = "mdi:server"
 
 DEVICE_CLASS_BATTERY = "battery"
+DEVICE_CLASS_CO = "carbon_monoxide"
+DEVICE_CLASS_HUMIDITY = "humidity"
+DEVICE_CLASS_PRESSURE = "pressure"
+DEVICE_CLASS_TEMPERATURE = "temperature"
 
 UNIT_CLASS_PRESSURE = "pressure"
 UNIT_CLASS_RAIN = "rain"
 UNIT_CLASS_TEMPERATURE = "temperature"
 UNIT_CLASS_WIND = "wind"
 
-GLOB_DATA_POINTS = {
-    "barom": (COMPONENT_SENSOR, "mdi:cloud", None, UNIT_CLASS_PRESSURE, None),
-    "gust": (COMPONENT_SENSOR, "mdi:weather-windy", None, UNIT_CLASS_WIND, None),
-    "humidity": (COMPONENT_SENSOR, "mdi:water-percent", None, None, "%"),
-    "moisture": (COMPONENT_SENSOR, "mdi:water-percent", None, None, "%"),
-    "rain": (COMPONENT_SENSOR, "mdi:water", None, UNIT_CLASS_RAIN, None),
-    "temp": (COMPONENT_SENSOR, "mdi:thermometer", None, UNIT_CLASS_TEMPERATURE, None),
-    "wind": (COMPONENT_SENSOR, "mdi:weather-windy", None, UNIT_CLASS_WIND, None),
+GLOBBED_ENTITIES = {
+    DATA_POINT_GLOB_BAROM: (
+        COMPONENT_SENSOR,
+        None,
+        DEVICE_CLASS_PRESSURE,
+        UNIT_CLASS_PRESSURE,
+        None,
+    ),
+    DATA_POINT_GLOB_GUST: (
+        COMPONENT_SENSOR,
+        "mdi:weather-windy",
+        None,
+        UNIT_CLASS_WIND,
+        None,
+    ),
+    DATA_POINT_GLOB_HUMIDITY: (
+        COMPONENT_SENSOR,
+        None,
+        DEVICE_CLASS_HUMIDITY,
+        None,
+        "%",
+    ),
+    DATA_POINT_GLOB_MOISTURE: (COMPONENT_SENSOR, "mdi:water-percent", None, None, "%"),
+    DATA_POINT_GLOB_RAIN: (COMPONENT_SENSOR, "mdi:water", None, UNIT_CLASS_RAIN, None),
+    DATA_POINT_GLOB_TEMP: (
+        COMPONENT_SENSOR,
+        None,
+        DEVICE_CLASS_TEMPERATURE,
+        UNIT_CLASS_TEMPERATURE,
+        None,
+    ),
+    DATA_POINT_GLOB_WIND: (
+        COMPONENT_SENSOR,
+        "mdi:weather-windy",
+        None,
+        UNIT_CLASS_WIND,
+        None,
+    ),
 }
 
-SPECIFIC_DATA_POINTS = {
-    DATA_POINT_CO2: (COMPONENT_SENSOR, "mdi:molecule-co", None, None, "ppm"),
+SPECIFIC_ENTITIES = {
+    DATA_POINT_CO2: (COMPONENT_SENSOR, None, DEVICE_CLASS_CO, None, "ppm"),
     DATA_POINT_DEWPOINT: (
         COMPONENT_SENSOR,
         "mdi:thermometer",
@@ -92,35 +132,21 @@ UNIT_MAPPING = {
 
 def get_data_point_characteristics(
     key: str,
-) -> Tuple[str, str, Optional[str], Optional[str], Optional[str]]:
+) -> Tuple[str, Optional[str], Optional[str], Optional[str], Optional[str]]:
     """Get a data point's characteristics.
 
     1. Return a specific data point if it exists.
     2. Return a globbed data point if it exists.
     3. Return defaults if no specific or globbed data points exist.
     """
-    if key in SPECIFIC_DATA_POINTS:
-        return SPECIFIC_DATA_POINTS[key]
+    if key in SPECIFIC_ENTITIES:
+        return SPECIFIC_ENTITIES[key]
 
-    matches = [v for k, v in GLOB_DATA_POINTS.items() if k in key]
+    matches = [v for k, v in GLOBBED_ENTITIES.items() if k in key]
     if matches:
         return matches[0]
 
-    return (COMPONENT_SENSOR, DEFAULT_ICON, None, None, None)
-
-
-class ConfigPayloadType(TypedDict):
-    """Define a type for a config payload."""
-
-    availability_topic: str
-    config_topic: str
-    device_class: Optional[str]
-    icon: str
-    name: str
-    qos: int
-    state_topic: str
-    unique_id: str
-    unit_of_measurement: Optional[str]
+    return (COMPONENT_SENSOR, None, None, None, None)
 
 
 class HassDiscovery:  # pylint: disable=too-few-public-methods
@@ -134,7 +160,7 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
         discovery_prefix: str = DEFAULT_DISCOVERY_PREFIX,
     ) -> None:
         """Initialize."""
-        self._config_payloads: Dict[str, ConfigPayloadType] = {}
+        self._config_payloads: Dict[str, Dict[str, Any]] = {}
         self._prefix = discovery_prefix
         self._unique_id = unique_id
         self._unit_system = unit_system
@@ -143,7 +169,7 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
         """Get the attributes topic for a particular entity type."""
         return f"{self._prefix}/{component}/{self._unique_id}/{key}/{topic_type}"
 
-    def get_config_payload(self, key: str) -> ConfigPayloadType:
+    def get_config_payload(self, key: str) -> Dict[str, Any]:
         """Return the config payload for a particular entity type."""
         if key in self._config_payloads:
             return self._config_payloads[key]
@@ -160,14 +186,21 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
 
         self._config_payloads[key] = {
             "availability_topic": self._get_topic(key, component, "availability"),
-            "config_topic": self._get_topic(key, component, "config"),
-            "device_class": device_class,
-            "icon": icon,
             "name": key,
             "qos": 1,
             "state_topic": self._get_topic(key, component, "state"),
             "unique_id": f"{self._unique_id}_{key}",
-            "unit_of_measurement": unit,
         }
+        if device_class:
+            self._config_payloads[key]["device_class"] = device_class
+        if icon:
+            self._config_payloads[key]["icon"] = icon
+        if unit:
+            self._config_payloads[key]["unit_of_measurement"] = unit
 
         return self._config_payloads[key]
+
+    def get_config_topic(self, key: str) -> str:
+        """Return the config topic for a particular entity type."""
+        component, _, _, _, _ = get_data_point_characteristics(key)
+        return self._get_topic(key, component, "config")
