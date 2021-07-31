@@ -135,15 +135,12 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
     ) -> None:
         """Initialize."""
         self._config_payloads: Dict[str, ConfigPayloadType] = {}
-        self._config_topics: Dict[str, str] = {}
         self._prefix = discovery_prefix
         self._unique_id = unique_id
         self._unit_system = unit_system
 
     def _get_topic(self, key: str, component: str, topic_type: str) -> str:
         """Get the attributes topic for a particular entity type."""
-        if key in self._config_topics:
-            return self._config_topics[key]
         return f"{self._prefix}/{component}/{self._unique_id}/{key}/{topic_type}"
 
     def get_config_payload(self, key: str) -> ConfigPayloadType:
