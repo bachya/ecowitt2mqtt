@@ -136,7 +136,3 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
     def get_config_topic(self, key: str) -> str:
         """Return the config topic for a particular entity type."""
         return self._get_topic(key, "config")
-
-    def get_will_payload(self, key: str) -> str:
-        """Return the config topic for a particular entity type."""
-        return self._get_topic(key, "config")
