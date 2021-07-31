@@ -35,10 +35,12 @@ async def _async_publish_to_hass_discovery(
             tasks = []
             for key, value in data.items():
                 config_payload = discovery_manager.get_config_payload(key)
-                config_topic = discovery_manager.get_config_topic(key)
 
                 tasks.append(
-                    client.publish(config_topic, _generate_payload(config_payload))
+                    client.publish(
+                        config_payload["config_topic"],
+                        _generate_payload(config_payload),
+                    )
                 )
                 tasks.append(
                     client.publish(
