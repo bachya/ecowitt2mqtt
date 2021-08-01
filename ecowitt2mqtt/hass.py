@@ -17,6 +17,8 @@ from ecowitt2mqtt.const import (
     DATA_POINT_PM25,
     DATA_POINT_PM25_24H,
     DATA_POINT_SOLARRADIATION,
+    DATA_POINT_SOLARRADIATION_LUX,
+    DATA_POINT_SOLARRADIATION_PERCEIVED,
     DATA_POINT_UV,
     DATA_POINT_WINDCHILL,
     DATA_POINT_WINDDIR,
@@ -33,6 +35,7 @@ DEFAULT_DISCOVERY_PREFIX = "homeassistant"
 DEVICE_CLASS_BATTERY = "battery"
 DEVICE_CLASS_CO = "carbon_monoxide"
 DEVICE_CLASS_HUMIDITY = "humidity"
+DEVICE_CLASS_ILLUMINANCE = "illuminance"
 DEVICE_CLASS_PRESSURE = "pressure"
 DEVICE_CLASS_TEMPERATURE = "temperature"
 
@@ -115,10 +118,24 @@ SPECIFIC_ENTITIES = {
     DATA_POINT_PM25_24H: (COMPONENT_SENSOR, "mdi:biohazard", None, None, "µg/m^3"),
     DATA_POINT_SOLARRADIATION: (
         COMPONENT_SENSOR,
-        "mdi:weather-sunny",
         None,
+        DEVICE_CLASS_ILLUMINANCE,
         None,
         "w/m^2",
+    ),
+    DATA_POINT_SOLARRADIATION_LUX: (
+        COMPONENT_SENSOR,
+        None,
+        DEVICE_CLASS_ILLUMINANCE,
+        None,
+        "lx",
+    ),
+    DATA_POINT_SOLARRADIATION_PERCEIVED: (
+        COMPONENT_SENSOR,
+        None,
+        DEVICE_CLASS_ILLUMINANCE,
+        None,
+        "%",
     ),
     DATA_POINT_UV: (COMPONENT_SENSOR, "mdi:weather-sunny", None, None, "UV index"),
     DATA_POINT_WINDCHILL: (

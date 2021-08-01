@@ -1,4 +1,5 @@
 """Define meteorological utilities."""
+import math
 from typing import Optional, cast
 
 import meteocalc
@@ -68,6 +69,17 @@ def calculate_heat_index(
     else:
         value = round(heat_index_obj.c, 1)
     return cast(float, value)
+
+
+def calculate_illuminance_wm2_to_lux(value: float) -> float:
+    """Calculate illuminance (in lux)."""
+    return round(float(value) / 0.0079, 1)
+
+
+def calculate_illuminance_wm2_to_perceived(value: float) -> float:
+    """Calculate illuminance (in lux)."""
+    lux = calculate_illuminance_wm2_to_lux(value)
+    return round(math.log10(lux) / 5, 2) * 100
 
 
 def calculate_pressure(

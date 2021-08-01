@@ -13,6 +13,9 @@ from ecowitt2mqtt.const import (
     DATA_POINT_GLOB_WIND,
     DATA_POINT_HEATINDEX,
     DATA_POINT_HUMIDITY,
+    DATA_POINT_SOLARRADIATION,
+    DATA_POINT_SOLARRADIATION_LUX,
+    DATA_POINT_SOLARRADIATION_PERCEIVED,
     DATA_POINT_TEMPF,
     DATA_POINT_WINDCHILL,
     DATA_POINT_WINDSPEEDMPH,
@@ -24,6 +27,8 @@ from ecowitt2mqtt.util.meteo import (
     calculate_dew_point,
     calculate_feels_like,
     calculate_heat_index,
+    calculate_illuminance_wm2_to_lux,
+    calculate_illuminance_wm2_to_perceived,
     calculate_pressure,
     calculate_rain_volume,
     calculate_temperature,
@@ -43,14 +48,16 @@ CALCULATOR_FUNCTION_MAP: Dict[str, Callable] = {
     DATA_POINT_GLOB_TEMP: calculate_temperature,
     DATA_POINT_GLOB_WIND: calculate_wind_speed,
     DATA_POINT_HEATINDEX: calculate_heat_index,
+    DATA_POINT_SOLARRADIATION_LUX: calculate_illuminance_wm2_to_lux,
+    DATA_POINT_SOLARRADIATION_PERCEIVED: calculate_illuminance_wm2_to_perceived,
     DATA_POINT_WINDCHILL: calculate_wind_chill,
 }
 
-# NOTE: these are lists because the order of the data points matters!
-DEW_POINT_KEYS = [DATA_POINT_TEMPF, DATA_POINT_HUMIDITY]
-FEELS_LIKE_KEYS = [DATA_POINT_TEMPF, DATA_POINT_HUMIDITY, DATA_POINT_WINDSPEEDMPH]
-HEAT_INDEX_KEYS = [DATA_POINT_TEMPF, DATA_POINT_HUMIDITY]
-WIND_CHILL_KEYS = [DATA_POINT_TEMPF, DATA_POINT_WINDSPEEDMPH]
+DEW_POINT_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
+FEELS_LIKE_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY, DATA_POINT_WINDSPEEDMPH)
+HEAT_INDEX_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
+WIND_CHILL_KEYS = (DATA_POINT_TEMPF, DATA_POINT_WINDSPEEDMPH)
+ILLUMINANCE_KEYS = (DATA_POINT_SOLARRADIATION,)
 
 
 def de_unit_key(key: str) -> str:
@@ -123,7 +130,7 @@ class DataProcessor:  # pylint: disable=too-few-public-methods
         self._calculator_funcs[data_type] = partial(func, **kwargs)
         return self._calculator_funcs[data_type]
 
-    def generate_data(self) -> Dict[str, Any]:
+    def generate_data(self) -> Dict[str, Union[float, str]]:
         """Generate a parsed data payload."""
         translated_data: Dict[str, Any] = {}
         for target_key, value in self._payload.items():
@@ -143,6 +150,8 @@ class DataProcessor:  # pylint: disable=too-few-public-methods
             (DATA_POINT_DEWPOINT, DEW_POINT_KEYS),
             (DATA_POINT_FEELSLIKE, FEELS_LIKE_KEYS),
             (DATA_POINT_HEATINDEX, HEAT_INDEX_KEYS),
+            (DATA_POINT_SOLARRADIATION_LUX, ILLUMINANCE_KEYS),
+            (DATA_POINT_SOLARRADIATION_PERCEIVED, ILLUMINANCE_KEYS),
             (DATA_POINT_WINDCHILL, WIND_CHILL_KEYS),
         ]:
             if not all(k in self._payload for k in input_keys):

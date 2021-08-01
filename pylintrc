@@ -24,3 +24,7 @@ ignore-docstrings=yes
 
 # Ignore imports when computing similarities.
 ignore-imports=no
+
+[TYPECHECK]
+
+ignored-modules=math
