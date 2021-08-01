@@ -1,7 +1,7 @@
 """Define helpers to process data from an Ecowitt device."""
 from functools import partial
 import inspect
-from typing import Any, Callable, Dict, Optional
+from typing import Any, Callable, Dict, Optional, Union
 
 from ecowitt2mqtt.const import (
     DATA_POINT_DEWPOINT,
@@ -90,7 +90,14 @@ class DataProcessor:  # pylint: disable=too-few-public-methods
         self._calculator_funcs: Dict[str, Callable] = {}
         self._input_unit_system = input_unit_system
         self._output_unit_system = output_unit_system
-        self._payload = payload
+
+        self._payload: Dict[str, Union[float, str]] = {}
+        for key, value in payload.items():
+            try:
+                self._payload[key] = float(value)
+            except ValueError:
+                self._payload[key] = value
+
         self.device = get_device_from_raw_payload(payload)
         self.unique_id = payload.get("PASSKEY", DEFAULT_UNIQUE_ID)
 
@@ -123,11 +130,6 @@ class DataProcessor:  # pylint: disable=too-few-public-methods
             if target_key in DEFAULT_KEYS_TO_IGNORE:
                 continue
 
-            try:
-                value = float(value)
-            except ValueError:
-                pass
-
             calculator = self._get_calculator_func(target_key)
             if calculator:
                 output = calculator(value)
@@ -143,7 +145,7 @@ class DataProcessor:  # pylint: disable=too-few-public-methods
             (DATA_POINT_HEATINDEX, HEAT_INDEX_KEYS),
             (DATA_POINT_WINDCHILL, WIND_CHILL_KEYS),
         ]:
-            if not all(k in translated_data for k in input_keys):
+            if not all(k in self._payload for k in input_keys):
                 continue
 
             calculator = self._get_calculator_func(target_key)
