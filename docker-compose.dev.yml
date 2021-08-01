@@ -15,8 +15,8 @@ services:
       MQTT_PORT: 1883
       MQTT_PASSWORD: password
       MQTT_USERNAME: ecowitt
-      MQTT_TOPIC: "Test"
-      UNIT_SYSTEM: "metric"
+      MQTT_TOPIC: Test
+      UNIT_SYSTEM: imperial
     ports:
       - "8080:8080/tcp"
     restart: always
