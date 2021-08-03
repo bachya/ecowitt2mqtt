@@ -79,7 +79,15 @@ def calculate_illuminance_wm2_to_lux(value: float) -> float:
 def calculate_illuminance_wm2_to_perceived(value: float) -> float:
     """Calculate illuminance (in lux)."""
     lux = calculate_illuminance_wm2_to_lux(value)
-    return round(math.log10(lux) / 5, 2) * 100
+    try:
+        perceived = round(math.log10(lux) / 5, 2) * 100
+    except ValueError:
+        # If we've approached negative infinity, we'll get a math domain error; in that
+        # case, return 0.0:
+        return 0.0
+    if perceived < 0:
+        return 0.0
+    return perceived
 
 
 def calculate_pressure(
