@@ -80,11 +80,11 @@ async def async_publish_payload(request: web.Request) -> None:
     """Define the endpoint for the Ecowitt device to post data to."""
     args = request.app["args"]
 
-    payload = dict(await request.post())
-    LOGGER.debug("Received data from Ecowitt device: %s", payload)
+    raw_data = dict(await request.post())
+    LOGGER.debug("Received data from Ecowitt device: %s", raw_data)
 
-    data_processor = DataProcessor(payload, output_unit_system=args.unit_system)
-    data = data_processor.generate_data()
+    data = DataProcessor(raw_data, output_unit_system=args.unit_system)
+    payload = data.generate_data()
 
     client = Client(
         args.mqtt_broker,
@@ -98,26 +98,24 @@ async def async_publish_payload(request: web.Request) -> None:
         discovery_managers = request.app["hass_discovery_managers"]
 
         try:
-            discovery_manager = discovery_managers[data_processor.unique_id]
+            discovery_manager = discovery_managers[data.device.unique_id]
         except KeyError:
             if args.hass_discovery_prefix:
                 discovery_manager = discovery_managers[
-                    data_processor.unique_id
+                    data.device.unique_id
                 ] = HassDiscovery(
-                    data_processor,
-                    args.unit_system,
-                    discovery_prefix=args.hass_discovery_prefix,
+                    data, args.unit_system, discovery_prefix=args.hass_discovery_prefix,
                 )
             else:
                 discovery_manager = discovery_managers[
-                    data_processor.unique_id
-                ] = HassDiscovery(data_processor, args.unit_system)
+                    data.device.unique_id
+                ] = HassDiscovery(data, args.unit_system)
 
-        await _async_publish_to_hass_discovery(client, data, discovery_manager)
+        await _async_publish_to_hass_discovery(client, payload, discovery_manager)
     else:
         if args.mqtt_topic:
             topic = args.mqtt_topic
         else:
-            topic = f"ecowitt2mqtt/{data_processor.unique_id}"
+            topic = f"ecowitt2mqtt/{data.device.unique_id}"
 
-        await _async_publish_to_topic(client, data, topic)
+        await _async_publish_to_topic(client, payload, topic)
