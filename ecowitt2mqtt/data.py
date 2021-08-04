@@ -100,7 +100,7 @@ class DataProcessor:  # pylint: disable=too-few-public-methods
         self._payload: Dict[str, Union[float, str]] = {}
         for key, value in payload.items():
             try:
-                self._payload[key] = float(value)
+                self._payload[key] = round(float(value), 1)
             except ValueError:
                 self._payload[key] = value
 
