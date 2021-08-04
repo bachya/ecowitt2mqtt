@@ -6,6 +6,7 @@ from ecowitt2mqtt.const import LOGGER
 DEFAULT_MANUFACTURER = "Unknown"
 DEFAULT_NAME = "Unknown Device"
 DEFAULT_STATION_TYPE = "Unknown Station Type"
+DEFAULT_UNIQUE_ID = "default"
 
 DEVICE_DATA = {
     "GW1000_Pro": ("Ecowitt", "GW1000 Pro"),
@@ -16,6 +17,7 @@ DEVICE_DATA = {
 class Device(NamedTuple):
     """Simple data object to provide device details."""
 
+    unique_id: str
     manufacturer: str
     name: str
     station_type: Optional[str]
@@ -24,21 +26,20 @@ class Device(NamedTuple):
 def get_device_from_raw_payload(payload: Dict[str, Any]) -> Device:
     """Return a device based upon a model string."""
     model = payload.get("model")
-    station_type = payload.get("stationtype")
+    station_type = payload.get("stationtype", DEFAULT_STATION_TYPE)
+    unique_id = payload.get("PASSKEY", DEFAULT_UNIQUE_ID)
 
-    if not model:
-        return Device(DEFAULT_MANUFACTURER, DEFAULT_NAME, DEFAULT_STATION_TYPE)
-
-    try:
+    if model in DEVICE_DATA:
         manufacturer, name = DEVICE_DATA[model]
-    except KeyError:
+    else:
         LOGGER.info(
-            'Unknown device model ("%s"); please report it at '
-            "https://github.com/bachya/ecowitt2mqtt",
-            model,
+            (
+                "Unknown device; please report it at "
+                "https://github.com/bachya/ecowitt2mqtt (payload: %s)"
+            ),
+            payload,
         )
         manufacturer = DEFAULT_MANUFACTURER
         name = DEFAULT_NAME
-        station_type = DEFAULT_STATION_TYPE
 
-    return Device(manufacturer, name, station_type)
+    return Device(unique_id, manufacturer, name, station_type)

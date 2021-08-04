@@ -37,7 +37,6 @@ from ecowitt2mqtt.util.meteo import (
 )
 
 DEFAULT_KEYS_TO_IGNORE = ["PASSKEY", "dateutc", "freq", "model", "stationtype"]
-DEFAULT_UNIQUE_ID = "default"
 
 CALCULATOR_FUNCTION_MAP: Dict[str, Callable] = {
     DATA_POINT_DEWPOINT: calculate_dew_point,
@@ -106,7 +105,6 @@ class DataProcessor:  # pylint: disable=too-few-public-methods
                 self._payload[key] = value
 
         self.device = get_device_from_raw_payload(payload)
-        self.unique_id = payload.get("PASSKEY", DEFAULT_UNIQUE_ID)
 
     def _get_calculator_func(self, key: str) -> Optional[Callable]:
         """Get the proper calculator function for a data point."""
