@@ -11,6 +11,7 @@ DEFAULT_UNIQUE_ID = "default"
 DEVICE_DATA = {
     "GW1000_Pro": ("Ecowitt", "GW1000 Pro"),
     "WH2650": ("Waldbeck", "Hally Weather Station"),
+    "WS2900_V2.01.14": ("Eurochron", "EFWS 2900"),
 }
 
 
