@@ -100,8 +100,8 @@ def calculate_pressure(
     if input_unit_system == output_unit_system:
         return value
     if output_unit_system == UNIT_SYSTEM_IMPERIAL:
-        return value / 33.8639
-    return value * 33.8639
+        return round(value / 33.8639, 1)
+    return round(value * 33.8639, 1)
 
 
 def calculate_rain_volume(
@@ -114,8 +114,8 @@ def calculate_rain_volume(
     if input_unit_system == output_unit_system:
         return value
     if output_unit_system == UNIT_SYSTEM_IMPERIAL:
-        return value / 25.4
-    return value * 25.4
+        return round(value / 25.4, 1)
+    return round(value * 25.4, 1)
 
 
 def calculate_temperature(
@@ -167,5 +167,5 @@ def calculate_wind_speed(
     if input_unit_system == output_unit_system:
         return value
     if output_unit_system == UNIT_SYSTEM_IMPERIAL:
-        return value / 1.60934
-    return value * 1.60934
+        return round(value / 1.60934, 1)
+    return round(value * 1.60934, 1)
