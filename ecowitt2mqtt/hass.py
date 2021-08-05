@@ -25,7 +25,7 @@ from ecowitt2mqtt.const import (
     UNIT_SYSTEM_IMPERIAL,
     UNIT_SYSTEM_METRIC,
 )
-from ecowitt2mqtt.data import DataProcessor
+from ecowitt2mqtt.device import Device
 
 COMPONENT_BINARY_SENSOR = "binary_sensor"
 COMPONENT_SENSOR = "sensor"
@@ -180,21 +180,21 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
 
     def __init__(
         self,
-        data: DataProcessor,
+        device: Device,
         unit_system: str,
         *,
         discovery_prefix: str = DEFAULT_DISCOVERY_PREFIX,
     ) -> None:
         """Initialize."""
         self._config_payloads: Dict[str, Dict[str, Any]] = {}
-        self._data = data
+        self._device = device
         self._prefix = discovery_prefix
         self._unit_system = unit_system
 
     def _get_topic(self, key: str, component: str, topic_type: str) -> str:
         """Get the attributes topic for a particular entity type."""
         return (
-            f"{self._prefix}/{component}/{self._data.device.unique_id}/{key}"
+            f"{self._prefix}/{component}/{self._device.unique_id}/{key}"
             f"/{topic_type}"
         )
 
@@ -216,16 +216,16 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
         self._config_payloads[key] = {
             "availability_topic": self._get_topic(key, component, "availability"),
             "device": {
-                "identifiers": [self._data.device.unique_id],
-                "manufacturer": self._data.device.manufacturer,
-                "model": self._data.device.name,
-                "name": self._data.device.name,
-                "sw_version": self._data.device.station_type,
+                "identifiers": [self._device.unique_id],
+                "manufacturer": self._device.manufacturer,
+                "model": self._device.name,
+                "name": self._device.name,
+                "sw_version": self._device.station_type,
             },
             "name": key,
             "qos": 1,
             "state_topic": self._get_topic(key, component, "state"),
-            "unique_id": f"{self._data.device.unique_id}_{key}",
+            "unique_id": f"{self._device.unique_id}_{key}",
         }
         if device_class:
             self._config_payloads[key]["device_class"] = device_class
