@@ -93,7 +93,6 @@ class DataProcessor:  # pylint: disable=too-few-public-methods
         output_unit_system: str = UNIT_SYSTEM_IMPERIAL
     ) -> None:
         """Initialize."""
-        self._calculator_funcs: Dict[str, Callable] = {}
         self._input_unit_system = input_unit_system
         self._output_unit_system = output_unit_system
 
@@ -106,44 +105,43 @@ class DataProcessor:  # pylint: disable=too-few-public-methods
 
         self.device = get_device_from_raw_payload(payload)
 
-    def _get_calculator_func(self, key: str) -> Optional[Callable]:
-        """Get the proper calculator function for a data point."""
+    def _get_calculator_func(
+        self, key: str, *args: Union[float, str], **kwargs: str
+    ) -> Optional[Callable]:
+        """Get a data calculator function for a particular data key."""
         data_type = get_data_type(key)
 
         if not data_type:
             return None
 
-        if data_type in self._calculator_funcs:
-            return self._calculator_funcs[data_type]
-
         func = CALCULATOR_FUNCTION_MAP[data_type]
 
-        kwargs = {}
         func_params = inspect.signature(func).parameters
         if "input_unit_system" in func_params:
             kwargs["input_unit_system"] = self._input_unit_system
         if "output_unit_system" in func_params:
             kwargs["output_unit_system"] = self._output_unit_system
 
-        self._calculator_funcs[data_type] = partial(func, **kwargs)
-        return self._calculator_funcs[data_type]
+        return partial(func, *args, **kwargs)
 
     def generate_data(self) -> Dict[str, Union[float, str]]:
         """Generate a parsed data payload."""
-        translated_data: Dict[str, Any] = {}
+        data: Dict[str, Any] = {}
+
         for target_key, value in self._payload.items():
             if target_key in DEFAULT_KEYS_TO_IGNORE:
                 continue
 
-            calculator = self._get_calculator_func(target_key)
-            if calculator:
-                output = calculator(value)
-                target_key = de_unit_key(target_key)
-                translated_data[target_key] = output
-            else:
-                translated_data[target_key] = value
+            calculate = self._get_calculator_func(target_key, value)
 
-        calculated_data: Dict[str, Any] = {}
+            if not calculate:
+                data[target_key] = value
+                continue
+
+            output = calculate()
+            target_key = de_unit_key(target_key)
+            data[target_key] = output
+
         for target_key, input_keys in [
             (DATA_POINT_DEWPOINT, DEW_POINT_KEYS),
             (DATA_POINT_FEELSLIKE, FEELS_LIKE_KEYS),
@@ -155,9 +153,14 @@ class DataProcessor:  # pylint: disable=too-few-public-methods
             if not all(k in self._payload for k in input_keys):
                 continue
 
-            calculator = self._get_calculator_func(target_key)
-            if calculator:
-                output = calculator(*[self._payload[k] for k in input_keys])
-                calculated_data[target_key] = output
+            calculate = self._get_calculator_func(
+                target_key, *[self._payload[k] for k in input_keys]
+            )
 
-        return {**translated_data, **calculated_data}
+            if not calculate:
+                continue
+
+            output = calculate()
+            data[target_key] = output
+
+        return data
