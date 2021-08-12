@@ -133,7 +133,7 @@ redirect_stderr=true
 
 ### `systemd`
 
-An example `systemd` service file in `/etc/systemd/system` might look like this:`
+An example `systemd` service file in `/etc/systemd/system` might look like this:
 
 ```
 [Unit]
