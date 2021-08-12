@@ -112,7 +112,11 @@ optional arguments:
 ## Running in the Background
 
 `ecowitt2mqtt` doesn't, itself, provide any sort of daemonization mechanism. The suggested
-route is to use something like [`supervisord`](http://www.supervisord.org):
+route is to use a different application.
+
+### `supervisord`
+
+An example `supervisord` configuration file might look like this:
 
 ```
 [supervisord]
@@ -125,6 +129,33 @@ command=ecowitt2mqtt --mqtt-broker=192.168.1.101 --mqtt-username=user --mqtt-pas
 stdout_logfile=/dev/stdout
 stdout_logfile_maxbytes=0
 redirect_stderr=true
+```
+
+### `systemd`
+
+An example `systemd` service file in `/etc/systemd/system` might look like this:
+
+```
+[Unit]
+Description=ECOWITT2MQTT daemon
+After=network.target
+ 
+[Service]
+Type=notify
+ExecStart=ecowitt2mqtt --mqtt-broker=192.168.1.101 --mqtt-username=user --mqtt-password=password
+ExecReload=kill -HUP $MAINPID
+KillMode=process
+Restart=on-failure
+RestartSec=42s
+ 
+[Install]
+WantedBy=multi-user.target
+```
+
+To enable the service:
+
+```bash
+$ systemctl enable ecowitt2mqtt
 ```
 
 ## Home Assistant MQTT Discovery
