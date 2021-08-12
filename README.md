@@ -112,7 +112,7 @@ optional arguments:
 ## Running in the Background
 
 `ecowitt2mqtt` doesn't, itself, provide any sort of daemonization mechanism. The suggested
-route is to use an application designed for this.
+route is to use a different application.
 
 ### `supervisord`
 
@@ -155,7 +155,7 @@ WantedBy=multi-user.target
 To enable the service:
 
 ```bash
-systemctl enable ecowitt2mqtt
+$ systemctl enable ecowitt2mqtt
 ```
 
 ## Home Assistant MQTT Discovery
