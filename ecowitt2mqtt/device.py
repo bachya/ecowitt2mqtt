@@ -10,8 +10,8 @@ DEFAULT_UNIQUE_ID = "default"
 
 DEVICE_DATA = {
     "GW1000_Pro": ("Ecowitt", "GW1000 Pro"),
-    "WH2650": ("Waldbeck", "Hally Weather Station"),
-    "WS2900_V2.01.14": ("Eurochron", "EFWS 2900"),
+    "WH2650": ("Fine Offset", "WH2650"),
+    "WS2900": ("Ambient Weather", "WS-2902C"),
 }
 
 
@@ -26,21 +26,25 @@ class Device(NamedTuple):
 
 def get_device_from_raw_payload(payload: Dict[str, Any]) -> Device:
     """Return a device based upon a model string."""
-    model = payload.get("model")
+    model = payload["model"]
     station_type = payload.get("stationtype", DEFAULT_STATION_TYPE)
     unique_id = payload.get("PASSKEY", DEFAULT_UNIQUE_ID)
 
     if model in DEVICE_DATA:
         manufacturer, name = DEVICE_DATA[model]
     else:
-        LOGGER.info(
-            (
-                "Unknown device; please report it at "
-                "https://github.com/bachya/ecowitt2mqtt (payload: %s)"
-            ),
-            payload,
-        )
-        manufacturer = DEFAULT_MANUFACTURER
-        name = DEFAULT_NAME
+        matches = [v for k, v in DEVICE_DATA.items() if k in model]
+        if matches:
+            manufacturer, name = matches[0]
+        else:
+            LOGGER.info(
+                (
+                    "Unknown device; please report it at "
+                    "https://github.com/bachya/ecowitt2mqtt (payload: %s)"
+                ),
+                payload,
+            )
+            manufacturer = DEFAULT_MANUFACTURER
+            name = DEFAULT_NAME
 
     return Device(unique_id, manufacturer, name, station_type)
