@@ -15,9 +15,9 @@ services:
       MQTT_PORT: 1883
       MQTT_TOPIC: Test
       MQTT_USERNAME: ecowitt
+      OUTPUT_UNIT_SYSTEM: imperial
       PORT: 8080
       RAW_DATA: "false"
-      UNIT_SYSTEM: imperial
     ports:
       - "8080:8080/tcp"
     restart: always

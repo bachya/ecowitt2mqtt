@@ -1,4 +1,5 @@
 """Define Home Assistant-related functionality."""
+import argparse
 from typing import Any, Dict, Optional, Tuple
 
 from ecowitt2mqtt.const import (
@@ -29,8 +30,6 @@ from ecowitt2mqtt.device import Device
 
 COMPONENT_BINARY_SENSOR = "binary_sensor"
 COMPONENT_SENSOR = "sensor"
-
-DEFAULT_DISCOVERY_PREFIX = "homeassistant"
 
 DEVICE_CLASS_BATTERY = "battery"
 DEVICE_CLASS_CO = "carbon_monoxide"
@@ -178,24 +177,17 @@ def get_data_point_characteristics(
 class HassDiscovery:  # pylint: disable=too-few-public-methods
     """Define a Home Assistant MQTT Discovery manager."""
 
-    def __init__(
-        self,
-        device: Device,
-        unit_system: str,
-        *,
-        discovery_prefix: str = DEFAULT_DISCOVERY_PREFIX,
-    ) -> None:
+    def __init__(self, device: Device, args: argparse.Namespace,) -> None:
         """Initialize."""
+        self._args = args
         self._config_payloads: Dict[str, Dict[str, Any]] = {}
         self._device = device
-        self._prefix = discovery_prefix
-        self._unit_system = unit_system
 
     def _get_topic(self, key: str, component: str, topic_type: str) -> str:
         """Get the attributes topic for a particular entity type."""
         return (
-            f"{self._prefix}/{component}/{self._device.unique_id}/{key}"
-            f"/{topic_type}"
+            f"{self._args.hass_discovery_prefix}/{component}/{self._device.unique_id}/"
+            f"{key}/{topic_type}"
         )
 
     def get_config_payload(self, key: str) -> Dict[str, Any]:
@@ -211,7 +203,7 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
             unit,
         ) = get_data_point_characteristics(key)
         if unit_class:
-            unit = UNIT_MAPPING[unit_class][self._unit_system]
+            unit = UNIT_MAPPING[unit_class][self._args.output_unit_system]
 
         self._config_payloads[key] = {
             "availability_topic": self._get_topic(key, component, "availability"),

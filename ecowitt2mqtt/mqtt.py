@@ -97,21 +97,11 @@ async def async_publish_payload(request: web.Request) -> None:
     if args.hass_discovery:
         discovery_managers = request.app["hass_discovery_managers"]
 
-        try:
+        if data_processor.device.unique_id in discovery_managers:
             discovery_manager = discovery_managers[data_processor.device.unique_id]
-        except KeyError:
-            if args.hass_discovery_prefix:
-                discovery_manager = discovery_managers[
-                    data_processor.device.unique_id
-                ] = HassDiscovery(
-                    data_processor.device,
-                    args.unit_system,
-                    discovery_prefix=args.hass_discovery_prefix,
-                )
-            else:
-                discovery_manager = discovery_managers[
-                    data_processor.device.unique_id
-                ] = HassDiscovery(data_processor.device, args.unit_system)
+        else:
+            discovery_manager = HassDiscovery(data_processor.device, args)
+            discovery_managers[data_processor.device.unique_id] = discovery_manager
 
         await _async_publish_to_hass_discovery(client, data, discovery_manager)
     else:
