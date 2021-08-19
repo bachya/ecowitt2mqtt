@@ -48,7 +48,7 @@ if [ "${RAW_DATA}" = "true" ]; then
 fi
 
 if [ -n "${INPUT_UNIT_SYSTEM}" ]; then
-    PARAMS+=(--output-unit-system="${INPUT_UNIT_SYSTEM}")
+    PARAMS+=(--input-unit-system="${INPUT_UNIT_SYSTEM}")
 fi
 
 if [ -n "${OUTPUT_UNIT_SYSTEM}" ]; then
