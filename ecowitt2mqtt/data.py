@@ -22,7 +22,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_WINDSPEEDMPH,
 )
 from ecowitt2mqtt.device import get_device_from_raw_payload
-from ecowitt2mqtt.util.battery import calculate_binary_battery
+from ecowitt2mqtt.util.battery import calculate_battery
 from ecowitt2mqtt.util.meteo import (
     calculate_dew_point,
     calculate_feels_like,
@@ -42,7 +42,7 @@ CALCULATOR_FUNCTION_MAP: Dict[str, Callable] = {
     DATA_POINT_DEWPOINT: calculate_dew_point,
     DATA_POINT_FEELSLIKE: calculate_feels_like,
     DATA_POINT_GLOB_BAROM: calculate_pressure,
-    DATA_POINT_GLOB_BATT: calculate_binary_battery,
+    DATA_POINT_GLOB_BATT: calculate_battery,
     DATA_POINT_GLOB_RAIN: calculate_rain_volume,
     DATA_POINT_GLOB_TEMP: calculate_temperature,
     DATA_POINT_GLOB_WIND: calculate_wind_speed,
@@ -82,6 +82,20 @@ def get_data_type(key: str) -> Optional[str]:
     return None
 
 
+def get_typed_value(value: str) -> Union[float, int, str]:
+    """Take a string and return its properly typed counterpart."""
+    if value.isdigit():
+        # Integer:
+        return int(value)
+
+    try:
+        # Float:
+        return round(float(value), 1)
+    except ValueError:
+        # String:
+        return value
+
+
 class DataProcessor:  # pylint: disable=too-few-public-methods
     """Define an object that holds processed payload data from the device."""
 
@@ -93,10 +107,7 @@ class DataProcessor:  # pylint: disable=too-few-public-methods
 
         self._payload: Dict[str, Union[float, str]] = {}
         for key, value in payload.items():
-            try:
-                self._payload[key] = round(float(value), 1)
-            except ValueError:
-                self._payload[key] = value
+            self._payload[key] = get_typed_value(value)
 
         self.device = get_device_from_raw_payload(payload)
 
