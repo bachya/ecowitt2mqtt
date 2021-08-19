@@ -1,4 +1,5 @@
 """Define helpers to process data from an Ecowitt device."""
+import argparse
 from functools import partial
 import inspect
 from typing import Any, Callable, Dict, Optional, Union
@@ -19,7 +20,6 @@ from ecowitt2mqtt.const import (
     DATA_POINT_TEMPF,
     DATA_POINT_WINDCHILL,
     DATA_POINT_WINDSPEEDMPH,
-    UNIT_SYSTEM_IMPERIAL,
 )
 from ecowitt2mqtt.device import get_device_from_raw_payload
 from ecowitt2mqtt.util.battery import calculate_binary_battery
@@ -85,16 +85,11 @@ def get_data_type(key: str) -> Optional[str]:
 class DataProcessor:  # pylint: disable=too-few-public-methods
     """Define an object that holds processed payload data from the device."""
 
-    def __init__(
-        self,
-        payload: Dict[str, Any],
-        *,
-        input_unit_system: str = UNIT_SYSTEM_IMPERIAL,
-        output_unit_system: str = UNIT_SYSTEM_IMPERIAL
-    ) -> None:
+    def __init__(self, payload: Dict[str, Any], args: argparse.Namespace) -> None:
         """Initialize."""
-        self._input_unit_system = input_unit_system
-        self._output_unit_system = output_unit_system
+        self._args = args
+        self._input_unit_system = args.unit_system
+        self._output_unit_system = args.unit_system
 
         self._payload: Dict[str, Union[float, str]] = {}
         for key, value in payload.items():
@@ -134,7 +129,7 @@ class DataProcessor:  # pylint: disable=too-few-public-methods
 
             calculate = self._get_calculator_func(target_key, value)
 
-            if not calculate:
+            if self._args.raw_data or not calculate:
                 data[target_key] = value
                 continue
 

@@ -96,6 +96,12 @@ def get_arguments() -> argparse.Namespace:
 
     # Misc.
     parser.add_argument(
+        "--raw-data",
+        action="store_const",
+        const=True,
+        help="Return raw data (don't attempt to translate any values)",
+    )
+    parser.add_argument(
         "--unit-system",
         action="store",
         default=UNIT_SYSTEM_IMPERIAL,

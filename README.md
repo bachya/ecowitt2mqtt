@@ -105,6 +105,7 @@ optional arguments:
                         The Home Assistant discovery prefix to use (default: homeassistant)
   --endpoint ENDPOINT   The relative endpoint/path to serve the web app on (default: /data/report)
   --port PORT           The port to serve the web app on (default: 8080)
+  --raw-data            Return raw data (don't attempt to translate any values)
   --unit-system UNIT_SYSTEM
                         The unit system to use (default: imperial)
 ```
@@ -146,7 +147,7 @@ ExecStart=ecowitt2mqtt --mqtt-broker=192.168.1.101 --mqtt-username=user --mqtt-p
 ExecReload=kill -HUP $MAINPID
 KillMode=process
 Restart=on-failure
-RestartSec=42s
+RestartSec=5s
  
 [Install]
 WantedBy=multi-user.target
@@ -157,6 +158,17 @@ To enable the service:
 ```bash
 $ systemctl enable ecowitt2mqtt
 ```
+
+## Raw Data
+
+In some cases, it may be preferable to prevent `ecowitt2mqtt` from doing any data
+translation (converting values to a new unit system, changing binary values – such as
+might be used by a battery – into "friendly" values, etc.). Passing the `--raw-data` flag
+will accomplish this: data will flow directly from the Ecowitt device to the MQTT broker
+as-is.
+
+Note that the `--raw-data` flag supersedes any that might cause data translation (such as
+`--unit-system`).
 
 ## Home Assistant MQTT Discovery
 

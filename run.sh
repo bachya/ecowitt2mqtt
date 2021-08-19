@@ -28,7 +28,7 @@ if [ -n "${MQTT_PASSWORD}" ]; then
 fi
 
 if [ "${HASS_DISCOVERY}" = "true" ]; then
-    PARAMS+=("--hass-discovery")
+    PARAMS+=(--hass-discovery)
 fi
 
 if [ -n "${HASS_DISCOVERY_PREFIX}" ]; then
@@ -41,6 +41,10 @@ fi
 
 if [ -n "${PORT}" ]; then
     PARAMS+=(--port="${PORT}")
+fi
+
+if [ -n "${RAW_DATA}" ]; then
+    PARAMS+=(--raw-data)
 fi
 
 if [ -n "${UNIT_SYSTEM}" ]; then

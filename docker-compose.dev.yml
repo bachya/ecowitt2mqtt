@@ -7,15 +7,16 @@ services:
     build: .
     container_name: ecowitt2mqtt
     environment:
-      LOG_LEVEL: INFO
       ENDPOINT: /data/report
       HASS_DISCOVERY: "false"
-      PORT: 8080
+      LOG_LEVEL: INFO
       MQTT_BROKER: vernemq
-      MQTT_PORT: 1883
       MQTT_PASSWORD: password
-      MQTT_USERNAME: ecowitt
+      MQTT_PORT: 1883
       MQTT_TOPIC: Test
+      MQTT_USERNAME: ecowitt
+      PORT: 8080
+      RAW_DATA: "false"
       UNIT_SYSTEM: imperial
     ports:
       - "8080:8080/tcp"

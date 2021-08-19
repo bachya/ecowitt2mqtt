@@ -83,7 +83,7 @@ async def async_publish_payload(request: web.Request) -> None:
     payload = dict(await request.post())
     LOGGER.debug("Received data from Ecowitt device: %s", payload)
 
-    data_processor = DataProcessor(payload, output_unit_system=args.unit_system)
+    data_processor = DataProcessor(payload, args)
     data = data_processor.generate_data()
 
     client = Client(
