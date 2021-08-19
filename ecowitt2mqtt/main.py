@@ -9,6 +9,7 @@ from ecowitt2mqtt.mqtt import async_publish_payload
 
 DEFAULT_AIOHTTP_ENDPOINT = "/data/report"
 DEFAULT_AIOHTTP_PORT = 8080
+DEFAULT_HASS_DISCOVERY_PREFIX = "homeassistant"
 DEFAULT_LOG_LEVEL_STRING = "INFO"
 DEFAULT_MQTT_PORT = 1883
 
@@ -72,7 +73,11 @@ def get_arguments() -> argparse.Namespace:
     )
     parser.add_argument(
         "--hass-discovery-prefix",
-        help="The Home Assistant discovery prefix to use (default: homeassistant)",
+        default=DEFAULT_HASS_DISCOVERY_PREFIX,
+        help=(
+            "The Home Assistant discovery prefix to use "
+            f"(default: {DEFAULT_HASS_DISCOVERY_PREFIX})"
+        ),
     )
 
     # Web Server
@@ -102,11 +107,18 @@ def get_arguments() -> argparse.Namespace:
         help="Return raw data (don't attempt to translate any values)",
     )
     parser.add_argument(
-        "--unit-system",
+        "--input-unit-system",
         action="store",
         default=UNIT_SYSTEM_IMPERIAL,
         type=str,
-        help=f"The unit system to use (default: {UNIT_SYSTEM_IMPERIAL})",
+        help=f"The input unit system used by the device (default: {UNIT_SYSTEM_IMPERIAL})",
+    )
+    parser.add_argument(
+        "--output-unit-system",
+        action="store",
+        default=UNIT_SYSTEM_IMPERIAL,
+        type=str,
+        help=f"The unit system to use in output (default: {UNIT_SYSTEM_IMPERIAL})",
     )
 
     return parser.parse_args()

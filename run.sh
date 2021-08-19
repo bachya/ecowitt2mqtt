@@ -43,12 +43,16 @@ if [ -n "${PORT}" ]; then
     PARAMS+=(--port="${PORT}")
 fi
 
-if [ -n "${RAW_DATA}" ]; then
+if [ "${RAW_DATA}" = "true" ]; then
     PARAMS+=(--raw-data)
 fi
 
-if [ -n "${UNIT_SYSTEM}" ]; then
-    PARAMS+=(--unit-system="${UNIT_SYSTEM}")
+if [ -n "${INPUT_UNIT_SYSTEM}" ]; then
+    PARAMS+=(--output-unit-system="${INPUT_UNIT_SYSTEM}")
+fi
+
+if [ -n "${OUTPUT_UNIT_SYSTEM}" ]; then
+    PARAMS+=(--output-unit-system="${OUTPUT_UNIT_SYSTEM}")
 fi
 
 python3 /usr/src/ecowitt2mqtt/main.py "${PARAMS[@]}"

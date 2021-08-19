@@ -88,8 +88,8 @@ class DataProcessor:  # pylint: disable=too-few-public-methods
     def __init__(self, payload: Dict[str, Any], args: argparse.Namespace) -> None:
         """Initialize."""
         self._args = args
-        self._input_unit_system = args.unit_system
-        self._output_unit_system = args.unit_system
+        self._input_unit_system = args.input_unit_system
+        self._output_unit_system = args.output_unit_system
 
         self._payload: Dict[str, Union[float, str]] = {}
         for key, value in payload.items():

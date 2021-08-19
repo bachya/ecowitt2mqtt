@@ -106,9 +106,47 @@ optional arguments:
   --endpoint ENDPOINT   The relative endpoint/path to serve the web app on (default: /data/report)
   --port PORT           The port to serve the web app on (default: 8080)
   --raw-data            Return raw data (don't attempt to translate any values)
-  --unit-system UNIT_SYSTEM
-                        The unit system to use (default: imperial)
+  --input-unit-system INPUT_UNIT_SYSTEM
+                        The input unit system used by the device (default: imperial)
+  --output-unit-system OUTPUT_UNIT_SYSTEM
+                        The unit system to use in output (default: imperial)
 ```
+## Unit Systems
+
+`ecowitt2mqtt` allows you to specify both the input and output unit systems for a device.
+This is fairly self-explanatory, but take care to use an `--input-unit-system` that is
+consistent with what your device provides (otherwise, your data will be way off).
+
+## Raw Data
+
+In some cases, it may be preferable to prevent `ecowitt2mqtt` from doing any data
+translation (converting values to a new unit system, changing binary values – such as
+might be used by a battery – into "friendly" values, etc.). Passing the `--raw-data` flag
+will accomplish this: data will flow directly from the Ecowitt device to the MQTT broker
+as-is.
+
+Note that the `--raw-data` flag supersedes any that might cause data translation (such as
+`--input-unit-system` or `--output-unit-system`).
+
+## Home Assistant MQTT Discovery
+
+[Home Assistant](https://home-assistant.io) users can quickly add entities from an
+Ecowitt device by using
+[MQTT Discovery](https://www.home-assistant.io/docs/mqtt/discovery/).
+
+Once Home Assistant is configured to accept MQTT Discovery, `ecowitt2mqtt` simply needs
+the `--hass-discovery` flag:
+
+```bash
+$ ecowitt2mqtt \
+    --mqtt-broker=192.168.1.101 \
+    --mqtt-username=user \
+    --mqtt-password=password \
+    --hass-discovery
+```
+
+Note that if both `--hass-discovery` and `--mqtt-topic` are provided, `--hass-discovery` will
+win out.
 
 ## Running in the Background
 
@@ -158,37 +196,6 @@ To enable the service:
 ```bash
 $ systemctl enable ecowitt2mqtt
 ```
-
-## Raw Data
-
-In some cases, it may be preferable to prevent `ecowitt2mqtt` from doing any data
-translation (converting values to a new unit system, changing binary values – such as
-might be used by a battery – into "friendly" values, etc.). Passing the `--raw-data` flag
-will accomplish this: data will flow directly from the Ecowitt device to the MQTT broker
-as-is.
-
-Note that the `--raw-data` flag supersedes any that might cause data translation (such as
-`--unit-system`).
-
-## Home Assistant MQTT Discovery
-
-[Home Assistant](https://home-assistant.io) users can quickly add entities from an
-Ecowitt device by using
-[MQTT Discovery](https://www.home-assistant.io/docs/mqtt/discovery/).
-
-Once Home Assistant is configured to accept MQTT Discovery, `ecowitt2mqtt` simply needs
-the `--hass-discovery` flag:
-
-```bash
-$ ecowitt2mqtt \
-    --mqtt-broker=192.168.1.101 \
-    --mqtt-username=user \
-    --mqtt-password=password \
-    --hass-discovery
-```
-
-Note that if both `--hass-discovery` and `--mqtt-topic` are provided, `--hass-discovery` will
-win out.
 
 ## Docker
 
