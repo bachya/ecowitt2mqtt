@@ -56,7 +56,7 @@ GLOBBED_ENTITIES = {
         None,
         DEVICE_CLASS_BATTERY,
         None,
-        None,
+        "v",
     ),
     DATA_POINT_GLOB_GUST: (
         COMPONENT_SENSOR,
