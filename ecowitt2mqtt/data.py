@@ -90,7 +90,7 @@ def get_typed_value(value: str) -> Union[float, int, str]:
 
     try:
         # Float:
-        return round(float(value), 1)
+        return float(value)
     except ValueError:
         # String:
         return value

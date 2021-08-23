@@ -100,8 +100,8 @@ def calculate_pressure(
     if input_unit_system == output_unit_system:
         return value
     if output_unit_system == UNIT_SYSTEM_IMPERIAL:
-        return round(value / 33.8639, 1)
-    return round(value * 33.8639, 1)
+        return round(value / 33.8639, 3)
+    return round(value * 33.8639, 3)
 
 
 def calculate_rain_volume(
