@@ -9,7 +9,8 @@ DEFAULT_STATION_TYPE = "Unknown Station Type"
 DEFAULT_UNIQUE_ID = "default"
 
 DEVICE_DATA = {
-    "GW1000_Pro": ("Ecowitt", "GW1000 Pro"),
+    "GW1000": ("Ecowitt", "GW1000"),
+    "GW1100": ("Ecowitt", "GW1100"),
     "WH2650": ("Fine Offset", "WH2650"),
     "WS2900": ("Ambient Weather", "WS-2902C"),
 }
