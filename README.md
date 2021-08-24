@@ -215,7 +215,8 @@ listed above:
   (default: `homeassistant`)
 * `ENDPOINT:` the relative endpoint/path to serve the web app on (default: `/data/report`)
 * `PORT:` the port to serve the web app on (default: `8080`)
-* `UNIT_SYSTEM`: the unit system to use (`imperial` or `metric`) (default: `imperial`)
+* `INPUT_UNIT_SYSTEM`: the input unit system to use (`imperial` or `metric`) (default: `imperial`)
+* `OUTPUT_UNIT_SYSTEM`: the output unit system to use (`imperial` or `metric`) (default: `imperial`)
 
 Running the image is straightforward:
 
