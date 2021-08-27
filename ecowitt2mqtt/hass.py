@@ -253,7 +253,7 @@ class HassDiscovery:
         if description.icon:
             self._config_payloads[key]["icon"] = description.icon
         if description.unit:
-            self._config_payloads[key]["native_unit_of_measurement"] = description.unit
+            self._config_payloads[key]["unit_of_measurement"] = description.unit
 
         return self._config_payloads[key]
 
