@@ -1,7 +1,7 @@
 """Define Home Assistant-related functionality."""
 import argparse
 from dataclasses import dataclass
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 
 from ecowitt2mqtt.const import (
     DATA_POINT_CO2,
@@ -9,6 +9,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_FEELSLIKE,
     DATA_POINT_GLOB_BAROM,
     DATA_POINT_GLOB_BATT,
+    DATA_POINT_GLOB_BATT_BINARY,
     DATA_POINT_GLOB_GUST,
     DATA_POINT_GLOB_HUMIDITY,
     DATA_POINT_GLOB_MOISTURE,
@@ -51,7 +52,6 @@ UNIT_CLASS_WIND = "wind"
 class EntityDescription:
     """Define a description (set of characteristics) of a Home Assistant entity."""
 
-    key: str
     platform: str
 
     device_class: Optional[str] = None
@@ -60,127 +60,112 @@ class EntityDescription:
     unit_class: Optional[str] = None
 
 
-ENTITY_DESCRIPTIONS = (
-    EntityDescription(
-        key=DATA_POINT_GLOB_BAROM,
+ENTITY_DESCRIPTIONS = {
+    DATA_POINT_GLOB_BAROM: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_PRESSURE,
         unit_class=UNIT_CLASS_PRESSURE,
     ),
-    EntityDescription(
-        key=DATA_POINT_GLOB_BATT,
+    DATA_POINT_GLOB_BATT: EntityDescription(
+        platform=PLATFORM_SENSOR,
+        device_class=DEVICE_CLASS_BATTERY,
+        unit="v",
+    ),
+    DATA_POINT_GLOB_BATT_BINARY: EntityDescription(
         platform=PLATFORM_BINARY_SENSOR,
         device_class=DEVICE_CLASS_BATTERY,
     ),
-    EntityDescription(
-        key=DATA_POINT_GLOB_GUST,
+    DATA_POINT_GLOB_GUST: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:weather-windy",
         unit_class=UNIT_CLASS_WIND,
     ),
-    EntityDescription(
-        key=DATA_POINT_GLOB_HUMIDITY,
+    DATA_POINT_GLOB_HUMIDITY: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_HUMIDITY,
         unit="%",
     ),
-    EntityDescription(
-        key=DATA_POINT_GLOB_MOISTURE,
+    DATA_POINT_GLOB_MOISTURE: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:water-percent",
         unit="%",
     ),
-    EntityDescription(
-        key=DATA_POINT_GLOB_RAIN,
+    DATA_POINT_GLOB_RAIN: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:water",
         unit_class=UNIT_CLASS_RAIN,
     ),
-    EntityDescription(
-        key=DATA_POINT_GLOB_TEMP,
+    DATA_POINT_GLOB_TEMP: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_TEMPERATURE,
         unit_class=UNIT_CLASS_TEMPERATURE,
     ),
-    EntityDescription(
-        key=DATA_POINT_GLOB_WIND,
+    DATA_POINT_GLOB_WIND: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:weather-windy",
         unit_class=UNIT_CLASS_WIND,
     ),
-    EntityDescription(
-        key=DATA_POINT_CO2,
+    DATA_POINT_CO2: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_CO,
         unit="ppm",
     ),
-    EntityDescription(
-        key=DATA_POINT_DEWPOINT,
+    DATA_POINT_DEWPOINT: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:thermometer",
         unit_class=UNIT_CLASS_TEMPERATURE,
     ),
-    EntityDescription(
-        key=DATA_POINT_FEELSLIKE,
+    DATA_POINT_FEELSLIKE: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:thermometer",
         unit_class=UNIT_CLASS_TEMPERATURE,
     ),
-    EntityDescription(
-        key=DATA_POINT_HEATINDEX,
+    DATA_POINT_HEATINDEX: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:thermometer",
         unit_class=UNIT_CLASS_TEMPERATURE,
     ),
-    EntityDescription(
-        key=DATA_POINT_PM25,
+    DATA_POINT_PM25: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_PM25,
         unit="µg/m^3",
     ),
-    EntityDescription(
-        key=DATA_POINT_PM25_24H,
+    DATA_POINT_PM25_24H: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_PM25,
         unit="µg/m^3",
     ),
-    EntityDescription(
-        key=DATA_POINT_SOLARRADIATION,
+    DATA_POINT_SOLARRADIATION: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_ILLUMINANCE,
         unit="w/m^2",
     ),
-    EntityDescription(
-        key=DATA_POINT_SOLARRADIATION_LUX,
+    DATA_POINT_SOLARRADIATION_LUX: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_ILLUMINANCE,
         unit="lx",
     ),
-    EntityDescription(
-        key=DATA_POINT_SOLARRADIATION_PERCEIVED,
+    DATA_POINT_SOLARRADIATION_PERCEIVED: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_ILLUMINANCE,
         unit="%",
     ),
-    EntityDescription(
-        key=DATA_POINT_UV,
+    DATA_POINT_UV: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:weather-sunny",
         unit="index",
     ),
-    EntityDescription(
-        key=DATA_POINT_WINDCHILL,
+    DATA_POINT_WINDCHILL: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:weather-windy",
         unit_class=UNIT_CLASS_TEMPERATURE,
     ),
-    EntityDescription(
-        key=DATA_POINT_WINDDIR,
+    DATA_POINT_WINDDIR: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:weather-windy",
         unit="°",
     ),
-)
+}
 
 UNIT_MAPPING = {
     UNIT_CLASS_PRESSURE: {UNIT_SYSTEM_IMPERIAL: "inHg", UNIT_SYSTEM_METRIC: "hPa"},
@@ -190,46 +175,57 @@ UNIT_MAPPING = {
 }
 
 
-def get_entity_description(key: str) -> EntityDescription:
+def get_entity_description(
+    key: str, value: Union[float, int, str]
+) -> EntityDescription:
     """Get an entity description for a data key.
 
     1. Return a specific data point if it exists.
     2. Return a globbed data point if it exists.
     3. Return defaults if no specific or globbed data points exist.
     """
-    for description in ENTITY_DESCRIPTIONS:
-        if description.key == key:
-            return description
+    if DATA_POINT_GLOB_BATT in key and isinstance(value, str):
+        # Because Ecowitt doesn't give us a clear way to know what sort of battery
+        # we're looking at (a binary on/off battery or one that reports voltage), we
+        # check its value: strings are binary, floats are voltage:
+        return ENTITY_DESCRIPTIONS[DATA_POINT_GLOB_BATT_BINARY]
 
-        if description.key in key:
-            return description
+    if key in ENTITY_DESCRIPTIONS:
+        return ENTITY_DESCRIPTIONS[key]
+
+    globbed_descriptions = [v for k, v in ENTITY_DESCRIPTIONS.items() if k in key]
+    if globbed_descriptions:
+        return globbed_descriptions[0]
 
     LOGGER.info("No entity description found for key: %s", key)
-    return EntityDescription(key=key, platform=PLATFORM_SENSOR)
+    return EntityDescription(platform=PLATFORM_SENSOR)
 
 
-class HassDiscovery:  # pylint: disable=too-few-public-methods
+class HassDiscovery:
     """Define a Home Assistant MQTT Discovery manager."""
 
-    def __init__(self, device: Device, args: argparse.Namespace,) -> None:
+    def __init__(self, device: Device, args: argparse.Namespace) -> None:
         """Initialize."""
         self._args = args
         self._config_payloads: Dict[str, Dict[str, Any]] = {}
         self._device = device
 
-    def _get_topic(self, key: str, component: str, topic_type: str) -> str:
+    def _get_topic(self, key: str, platform: str, topic_type: str) -> str:
         """Get the attributes topic for a particular entity type."""
         return (
-            f"{self._args.hass_discovery_prefix}/{component}/{self._device.unique_id}/"
+            f"{self._args.hass_discovery_prefix}/{platform}/{self._device.unique_id}/"
             f"{key}/{topic_type}"
         )
 
-    def get_config_payload(self, key: str) -> Dict[str, Any]:
+    def get_config_payload(
+        self, key: str, value: Union[float, int, str]
+    ) -> Dict[str, Any]:
         """Return the config payload for a particular entity type."""
         if key in self._config_payloads:
             return self._config_payloads[key]
 
-        description = get_entity_description(key)
+        description = get_entity_description(key, value)
+
         if description.unit_class:
             description.unit = UNIT_MAPPING[description.unit_class][
                 self._args.output_unit_system
@@ -251,6 +247,7 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
             "state_topic": self._get_topic(key, description.platform, "state"),
             "unique_id": f"{self._device.unique_id}_{key}",
         }
+
         if description.device_class:
             self._config_payloads[key]["device_class"] = description.device_class
         if description.icon:
@@ -260,7 +257,7 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
 
         return self._config_payloads[key]
 
-    def get_config_topic(self, key: str) -> str:
+    def get_config_topic(self, key: str, value: Union[float, int, str]) -> str:
         """Return the config topic for a particular entity type."""
-        description = get_entity_description(key)
+        description = get_entity_description(key, value)
         return self._get_topic(key, description.platform, "config")

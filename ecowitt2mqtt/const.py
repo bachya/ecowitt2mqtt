@@ -6,6 +6,7 @@ LOGGER = logging.getLogger(__package__)
 # Glob data points:
 DATA_POINT_GLOB_BAROM = "barom"
 DATA_POINT_GLOB_BATT = "batt"
+DATA_POINT_GLOB_BATT_BINARY = "batt_binary"
 DATA_POINT_GLOB_GUST = "gust"
 DATA_POINT_GLOB_HUMIDITY = "humidity"
 DATA_POINT_GLOB_MOISTURE = "moisture"
