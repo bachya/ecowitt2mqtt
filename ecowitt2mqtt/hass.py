@@ -67,22 +67,33 @@ ENTITY_DESCRIPTIONS = {
         unit_class=UNIT_CLASS_PRESSURE,
     ),
     DATA_POINT_GLOB_BATT: EntityDescription(
-        platform=PLATFORM_SENSOR, device_class=DEVICE_CLASS_BATTERY, unit="v",
+        platform=PLATFORM_SENSOR,
+        device_class=DEVICE_CLASS_BATTERY,
+        unit="v",
     ),
     DATA_POINT_GLOB_BATT_BINARY: EntityDescription(
-        platform=PLATFORM_BINARY_SENSOR, device_class=DEVICE_CLASS_BATTERY,
+        platform=PLATFORM_BINARY_SENSOR,
+        device_class=DEVICE_CLASS_BATTERY,
     ),
     DATA_POINT_GLOB_GUST: EntityDescription(
-        platform=PLATFORM_SENSOR, icon="mdi:weather-windy", unit_class=UNIT_CLASS_WIND,
+        platform=PLATFORM_SENSOR,
+        icon="mdi:weather-windy",
+        unit_class=UNIT_CLASS_WIND,
     ),
     DATA_POINT_GLOB_HUMIDITY: EntityDescription(
-        platform=PLATFORM_SENSOR, device_class=DEVICE_CLASS_HUMIDITY, unit="%",
+        platform=PLATFORM_SENSOR,
+        device_class=DEVICE_CLASS_HUMIDITY,
+        unit="%",
     ),
     DATA_POINT_GLOB_MOISTURE: EntityDescription(
-        platform=PLATFORM_SENSOR, icon="mdi:water-percent", unit="%",
+        platform=PLATFORM_SENSOR,
+        icon="mdi:water-percent",
+        unit="%",
     ),
     DATA_POINT_GLOB_RAIN: EntityDescription(
-        platform=PLATFORM_SENSOR, icon="mdi:water", unit_class=UNIT_CLASS_RAIN,
+        platform=PLATFORM_SENSOR,
+        icon="mdi:water",
+        unit_class=UNIT_CLASS_RAIN,
     ),
     DATA_POINT_GLOB_TEMP: EntityDescription(
         platform=PLATFORM_SENSOR,
@@ -90,10 +101,14 @@ ENTITY_DESCRIPTIONS = {
         unit_class=UNIT_CLASS_TEMPERATURE,
     ),
     DATA_POINT_GLOB_WIND: EntityDescription(
-        platform=PLATFORM_SENSOR, icon="mdi:weather-windy", unit_class=UNIT_CLASS_WIND,
+        platform=PLATFORM_SENSOR,
+        icon="mdi:weather-windy",
+        unit_class=UNIT_CLASS_WIND,
     ),
     DATA_POINT_CO2: EntityDescription(
-        platform=PLATFORM_SENSOR, device_class=DEVICE_CLASS_CO, unit="ppm",
+        platform=PLATFORM_SENSOR,
+        device_class=DEVICE_CLASS_CO,
+        unit="ppm",
     ),
     DATA_POINT_DEWPOINT: EntityDescription(
         platform=PLATFORM_SENSOR,
@@ -111,22 +126,34 @@ ENTITY_DESCRIPTIONS = {
         unit_class=UNIT_CLASS_TEMPERATURE,
     ),
     DATA_POINT_PM25: EntityDescription(
-        platform=PLATFORM_SENSOR, device_class=DEVICE_CLASS_PM25, unit="µg/m^3",
+        platform=PLATFORM_SENSOR,
+        device_class=DEVICE_CLASS_PM25,
+        unit="µg/m^3",
     ),
     DATA_POINT_PM25_24H: EntityDescription(
-        platform=PLATFORM_SENSOR, device_class=DEVICE_CLASS_PM25, unit="µg/m^3",
+        platform=PLATFORM_SENSOR,
+        device_class=DEVICE_CLASS_PM25,
+        unit="µg/m^3",
     ),
     DATA_POINT_SOLARRADIATION: EntityDescription(
-        platform=PLATFORM_SENSOR, device_class=DEVICE_CLASS_ILLUMINANCE, unit="w/m^2",
+        platform=PLATFORM_SENSOR,
+        device_class=DEVICE_CLASS_ILLUMINANCE,
+        unit="w/m^2",
     ),
     DATA_POINT_SOLARRADIATION_LUX: EntityDescription(
-        platform=PLATFORM_SENSOR, device_class=DEVICE_CLASS_ILLUMINANCE, unit="lx",
+        platform=PLATFORM_SENSOR,
+        device_class=DEVICE_CLASS_ILLUMINANCE,
+        unit="lx",
     ),
     DATA_POINT_SOLARRADIATION_PERCEIVED: EntityDescription(
-        platform=PLATFORM_SENSOR, device_class=DEVICE_CLASS_ILLUMINANCE, unit="%",
+        platform=PLATFORM_SENSOR,
+        device_class=DEVICE_CLASS_ILLUMINANCE,
+        unit="%",
     ),
     DATA_POINT_UV: EntityDescription(
-        platform=PLATFORM_SENSOR, icon="mdi:weather-sunny", unit="index",
+        platform=PLATFORM_SENSOR,
+        icon="mdi:weather-sunny",
+        unit="index",
     ),
     DATA_POINT_WINDCHILL: EntityDescription(
         platform=PLATFORM_SENSOR,
@@ -134,7 +161,9 @@ ENTITY_DESCRIPTIONS = {
         unit_class=UNIT_CLASS_TEMPERATURE,
     ),
     DATA_POINT_WINDDIR: EntityDescription(
-        platform=PLATFORM_SENSOR, icon="mdi:weather-windy", unit="°",
+        platform=PLATFORM_SENSOR,
+        icon="mdi:weather-windy",
+        unit="°",
     ),
 }
 
