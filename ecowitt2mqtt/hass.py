@@ -35,7 +35,7 @@ PLATFORM_BINARY_SENSOR = "binary_sensor"
 PLATFORM_SENSOR = "sensor"
 
 DEVICE_CLASS_BATTERY = "battery"
-DEVICE_CLASS_CO = "carbon_monoxide"
+DEVICE_CLASS_CO2 = "carbon_dioxide"
 DEVICE_CLASS_HUMIDITY = "humidity"
 DEVICE_CLASS_ILLUMINANCE = "illuminance"
 DEVICE_CLASS_PM25 = "pm25"
@@ -107,22 +107,22 @@ ENTITY_DESCRIPTIONS = {
     ),
     DATA_POINT_CO2: EntityDescription(
         platform=PLATFORM_SENSOR,
-        device_class=DEVICE_CLASS_CO,
+        device_class=DEVICE_CLASS_CO2,
         unit="ppm",
     ),
     DATA_POINT_DEWPOINT: EntityDescription(
         platform=PLATFORM_SENSOR,
-        icon="mdi:thermometer",
+        device_class=DEVICE_CLASS_TEMPERATURE,
         unit_class=UNIT_CLASS_TEMPERATURE,
     ),
     DATA_POINT_FEELSLIKE: EntityDescription(
         platform=PLATFORM_SENSOR,
-        icon="mdi:thermometer",
+        device_class=DEVICE_CLASS_TEMPERATURE,
         unit_class=UNIT_CLASS_TEMPERATURE,
     ),
     DATA_POINT_HEATINDEX: EntityDescription(
         platform=PLATFORM_SENSOR,
-        icon="mdi:thermometer",
+        device_class=DEVICE_CLASS_TEMPERATURE,
         unit_class=UNIT_CLASS_TEMPERATURE,
     ),
     DATA_POINT_PM25: EntityDescription(
@@ -157,7 +157,7 @@ ENTITY_DESCRIPTIONS = {
     ),
     DATA_POINT_WINDCHILL: EntityDescription(
         platform=PLATFORM_SENSOR,
-        icon="mdi:weather-windy",
+        device_class=DEVICE_CLASS_TEMPERATURE,
         unit_class=UNIT_CLASS_TEMPERATURE,
     ),
     DATA_POINT_WINDDIR: EntityDescription(
