@@ -19,8 +19,8 @@ from ecowitt2mqtt.const import (
     DATA_POINT_SOLARRADIATION_PERCEIVED,
     DATA_POINT_TEMPF,
     DATA_POINT_WINDCHILL,
-    DATA_POINT_WINDSPEEDMPH,
     DATA_POINT_WINDDIR,
+    DATA_POINT_WINDSPEEDMPH,
 )
 from ecowitt2mqtt.device import get_device_from_raw_payload
 from ecowitt2mqtt.util.battery import calculate_battery
