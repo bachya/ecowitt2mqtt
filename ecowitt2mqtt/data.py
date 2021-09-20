@@ -20,6 +20,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_TEMPF,
     DATA_POINT_WINDCHILL,
     DATA_POINT_WINDSPEEDMPH,
+    DATA_POINT_WINDDIR,
 )
 from ecowitt2mqtt.device import get_device_from_raw_payload
 from ecowitt2mqtt.util.battery import calculate_battery
@@ -50,6 +51,8 @@ CALCULATOR_FUNCTION_MAP: Dict[str, Callable] = {
     DATA_POINT_SOLARRADIATION_LUX: calculate_illuminance_wm2_to_lux,
     DATA_POINT_SOLARRADIATION_PERCEIVED: calculate_illuminance_wm2_to_perceived,
     DATA_POINT_WINDCHILL: calculate_wind_chill,
+    # Prevent WINDDIR being converted by GLOB_WIND:
+    DATA_POINT_WINDDIR: lambda x: x,
 }
 
 DEW_POINT_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
