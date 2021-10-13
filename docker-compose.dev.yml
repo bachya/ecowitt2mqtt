@@ -10,10 +10,8 @@ services:
       LOG_LEVEL: INFO
       MQTT_BROKER: vernemq
       MQTT_PASSWORD: password
-      MQTT_PORT: 1883
       MQTT_TOPIC: Test
       MQTT_USERNAME: ecowitt
-      OUTPUT_UNIT_SYSTEM: imperial
     ports:
       - "8080:8080/tcp"
     restart: always
