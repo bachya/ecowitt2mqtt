@@ -7,7 +7,7 @@ services:
     build: .
     container_name: ecowitt2mqtt
     environment:
-      LOG_LEVEL: DEBUG
+      LOG_LEVEL: INFO
       MQTT_BROKER: vernemq
       MQTT_PASSWORD: password
       MQTT_PORT: 1883
