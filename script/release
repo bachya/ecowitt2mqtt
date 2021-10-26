@@ -1,10 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env bash
 set -e
 
-if [ -z "$1" ]; then
-    echo "Usage: script/release [patch | minor | major]"
-    exit 1
-fi
+REPO_PATH="$( dirname "$( cd "$(dirname "$0")" ; pwd -P )" )"
 
 if [ "$(git rev-parse --abbrev-ref HEAD)" != "dev" ]; then
     echo "Refusing to publish a release from a branch other than dev"
@@ -16,27 +13,30 @@ if [ -z "$(command -v poetry)" ]; then
     exit 1
 fi
 
+function generate_version {
+    latest_tag="$(git tag --sort=committerdate | tail -1)"
+    month="$(date +'%Y.%m')"
+
+    if [[ "$latest_tag" =~ "$month".* ]]; then
+        patch="$(echo "$latest_tag" | cut -d . -f 3)"
+        ((patch=patch+1))
+        echo "$month.$patch"
+    else
+        echo "$month.0"
+    fi
+}
+
 # Temporarily uninstall pre-commit hooks so that we can push to dev and master:
 pre-commit uninstall
 
-case "$1" in
-    patch)
-        poetry version patch
-        ;;
-    minor)
-        poetry version minor
-        ;;
-    major)
-        poetry version major
-        ;;
-    *)
-        echo "Unknown release action: \"$1\""
-        exit 1
-        ;;
-esac
+# Pull the latest dev:
+git pull origin dev
+
+# Generate the next version (in the format YEAR.MONTH.RELEASE_NUMER):
+new_version=$(generate_version)
 
 # Update the PyPI package version:
-new_version="$(poetry version | awk -F' ' '{ print $2 }')"
+sed -i "" "s/^version = \".*\"/version = \"$new_version\"/g" "$REPO_PATH/pyproject.toml"
 git add pyproject.toml
 
 # Commit, tag, and push:
