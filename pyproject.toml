@@ -52,18 +52,20 @@ classifiers = [
     "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
 ]
 
 [tool.poetry.dependencies]
-aiohttp = "^3.7.4"
+aiohttp = "^3.7.4post0"
 asyncio-mqtt = "^0.7.0"
 meteocalc = "^1.1.0"
 python = "^3.6.1"
 
 [tool.poetry.dev-dependencies]
-pre-commit = "^2.0.1"
+pre-commit = "^2.15.0"
 
 [tool.poetry.scripts]
 ecowitt2mqtt = "ecowitt2mqtt.main:main"
