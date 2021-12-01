@@ -60,7 +60,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 aiohttp = "^3.7.4post0"
-asyncio-mqtt = "^0.7.0"
+asyncio-mqtt = "^0.11.0"
 meteocalc = "^1.1.0"
 python = "^3.6.1"
 
