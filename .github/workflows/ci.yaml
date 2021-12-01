@@ -32,6 +32,6 @@ jobs:
           python-version: "3.x"
           architecture: x64
 
-      - uses: pre-commit/action@v2.0.0
+      - uses: pre-commit/action@v2.0.3
         env:
           SKIP: no-commit-to-branch
