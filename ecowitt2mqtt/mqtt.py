@@ -10,6 +10,8 @@ from ecowitt2mqtt.const import LOGGER
 from ecowitt2mqtt.data import DataProcessor
 from ecowitt2mqtt.hass import HassDiscovery
 
+DEFAULT_MAX_MQTT_CALLS = 10
+
 
 def _generate_payload(data: Union[Dict[str, Any], float, str]) -> bytes:
     """Generate a binary MQTT payload from input data."""
@@ -92,6 +94,7 @@ async def async_publish_payload(request: web.Request) -> None:
         username=args.mqtt_username,
         password=args.mqtt_password,
         logger=LOGGER,
+        max_concurrent_outgoing_calls=DEFAULT_MAX_MQTT_CALLS,
     )
 
     if args.hass_discovery:
