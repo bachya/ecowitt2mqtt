@@ -47,6 +47,15 @@ UNIT_CLASS_RAIN = "rain"
 UNIT_CLASS_TEMPERATURE = "temperature"
 UNIT_CLASS_WIND = "wind"
 
+UNIT_DEGREES = "°"
+UNIT_INDEX = "index"
+UNIT_LX = "lx"
+UNIT_MG_M3 = "µg/m^3"
+UNIT_PERCENT = "%"
+UNIT_PPM = "ppm"
+UNIT_VOLTS = "v"
+UNIT_W_M2 = "w/m^2"
+
 
 @dataclass
 class EntityDescription:
@@ -69,7 +78,7 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_GLOB_BATT: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_BATTERY,
-        unit="v",
+        unit=UNIT_VOLTS,
     ),
     DATA_POINT_GLOB_BATT_BINARY: EntityDescription(
         platform=PLATFORM_BINARY_SENSOR,
@@ -83,12 +92,12 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_GLOB_HUMIDITY: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_HUMIDITY,
-        unit="%",
+        unit=UNIT_PERCENT,
     ),
     DATA_POINT_GLOB_MOISTURE: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:water-percent",
-        unit="%",
+        unit=UNIT_PERCENT,
     ),
     DATA_POINT_GLOB_RAIN: EntityDescription(
         platform=PLATFORM_SENSOR,
@@ -108,7 +117,7 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_CO2: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_CO2,
-        unit="ppm",
+        unit=UNIT_PPM,
     ),
     DATA_POINT_DEWPOINT: EntityDescription(
         platform=PLATFORM_SENSOR,
@@ -128,32 +137,32 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_PM25: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_PM25,
-        unit="µg/m^3",
+        unit=UNIT_MG_M3,
     ),
     DATA_POINT_PM25_24H: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_PM25,
-        unit="µg/m^3",
+        unit=UNIT_MG_M3,
     ),
     DATA_POINT_SOLARRADIATION: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_ILLUMINANCE,
-        unit="w/m^2",
+        unit=UNIT_W_M2,
     ),
     DATA_POINT_SOLARRADIATION_LUX: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_ILLUMINANCE,
-        unit="lx",
+        unit=UNIT_LX,
     ),
     DATA_POINT_SOLARRADIATION_PERCEIVED: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_ILLUMINANCE,
-        unit="%",
+        unit=UNIT_PERCENT,
     ),
     DATA_POINT_UV: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:weather-sunny",
-        unit="index",
+        unit=UNIT_INDEX,
     ),
     DATA_POINT_WINDCHILL: EntityDescription(
         platform=PLATFORM_SENSOR,
@@ -163,7 +172,7 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_WINDDIR: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:weather-windy",
-        unit="°",
+        unit=UNIT_DEGREES,
     ),
 }
 
