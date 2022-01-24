@@ -53,10 +53,12 @@ UNIT_CLASS_WIND = "wind"
 
 UNIT_DEGREES = "°"
 UNIT_INDEX = "index"
+UNIT_KM = "km"
 UNIT_LX = "lx"
 UNIT_MG_M3 = "µg/m^3"
 UNIT_PERCENT = "%"
 UNIT_PPM = "ppm"
+UNIT_STRIKES = "strikes"
 UNIT_VOLTS = "v"
 UNIT_W_M2 = "w/m^2"
 
@@ -141,12 +143,12 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_LIGHTNING: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:weather-lightning",
-        unit="strikes",
+        unit=UNIT_STRIKES,
     ),
     DATA_POINT_LIGHTNING_NUM: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:map-marker-distance",
-        unit="km",
+        unit=UNIT_KM,
     ),
     DATA_POINT_LIGHTNING_TIME: EntityDescription(
         platform=PLATFORM_SENSOR,
