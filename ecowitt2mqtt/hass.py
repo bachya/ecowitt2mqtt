@@ -17,6 +17,9 @@ from ecowitt2mqtt.const import (
     DATA_POINT_GLOB_TEMP,
     DATA_POINT_GLOB_WIND,
     DATA_POINT_HEATINDEX,
+    DATA_POINT_LIGHTNING,
+    DATA_POINT_LIGHTNING_NUM,
+    DATA_POINT_LIGHTNING_TIME,
     DATA_POINT_PM25,
     DATA_POINT_PM25_24H,
     DATA_POINT_SOLARRADIATION,
@@ -41,6 +44,7 @@ DEVICE_CLASS_ILLUMINANCE = "illuminance"
 DEVICE_CLASS_PM25 = "pm25"
 DEVICE_CLASS_PRESSURE = "pressure"
 DEVICE_CLASS_TEMPERATURE = "temperature"
+DEVICE_CLASS_TIMESTAMP = "timestamp"
 
 UNIT_CLASS_PRESSURE = "pressure"
 UNIT_CLASS_RAIN = "rain"
@@ -133,6 +137,20 @@ ENTITY_DESCRIPTIONS = {
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_TEMPERATURE,
         unit_class=UNIT_CLASS_TEMPERATURE,
+    ),
+    DATA_POINT_LIGHTNING: EntityDescription(
+        platform=PLATFORM_SENSOR,
+        icon="mdi:weather-lightning",
+        unit="strikes",
+    ),
+    DATA_POINT_LIGHTNING_NUM: EntityDescription(
+        platform=PLATFORM_SENSOR,
+        icon="mdi:map-marker-distance",
+        unit="km",
+    ),
+    DATA_POINT_LIGHTNING_TIME: EntityDescription(
+        platform=PLATFORM_SENSOR,
+        device_class=DEVICE_CLASS_TIMESTAMP,
     ),
     DATA_POINT_PM25: EntityDescription(
         platform=PLATFORM_SENSOR,
