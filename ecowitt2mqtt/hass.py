@@ -142,13 +142,13 @@ ENTITY_DESCRIPTIONS = {
     ),
     DATA_POINT_LIGHTNING: EntityDescription(
         platform=PLATFORM_SENSOR,
-        icon="mdi:weather-lightning",
-        unit=UNIT_STRIKES,
+        icon="mdi:map-marker-distance",
+        unit=UNIT_KM,
     ),
     DATA_POINT_LIGHTNING_NUM: EntityDescription(
         platform=PLATFORM_SENSOR,
-        icon="mdi:map-marker-distance",
-        unit=UNIT_KM,
+        icon="mdi:weather-lightning",
+        unit=UNIT_STRIKES,
     ),
     DATA_POINT_LIGHTNING_TIME: EntityDescription(
         platform=PLATFORM_SENSOR,
