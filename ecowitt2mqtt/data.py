@@ -14,6 +14,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_GLOB_WIND,
     DATA_POINT_HEATINDEX,
     DATA_POINT_HUMIDITY,
+    DATA_POINT_LIGHTNING_TIME,
     DATA_POINT_SOLARRADIATION,
     DATA_POINT_SOLARRADIATION_LUX,
     DATA_POINT_SOLARRADIATION_PERCEIVED,
@@ -36,6 +37,7 @@ from ecowitt2mqtt.util.meteo import (
     calculate_wind_chill,
     calculate_wind_speed,
 )
+from ecowitt2mqtt.util.time import calculate_epoch
 
 DEFAULT_KEYS_TO_IGNORE = ["PASSKEY", "dateutc", "freq", "model", "stationtype"]
 
@@ -48,11 +50,11 @@ CALCULATOR_FUNCTION_MAP: Dict[str, Callable] = {
     DATA_POINT_GLOB_TEMP: calculate_temperature,
     DATA_POINT_GLOB_WIND: calculate_wind_speed,
     DATA_POINT_HEATINDEX: calculate_heat_index,
+    DATA_POINT_LIGHTNING_TIME: calculate_epoch,
     DATA_POINT_SOLARRADIATION_LUX: calculate_illuminance_wm2_to_lux,
     DATA_POINT_SOLARRADIATION_PERCEIVED: calculate_illuminance_wm2_to_perceived,
     DATA_POINT_WINDCHILL: calculate_wind_chill,
-    # Prevent WINDDIR being converted by GLOB_WIND:
-    DATA_POINT_WINDDIR: lambda x: x,
+    DATA_POINT_WINDDIR: lambda x: x,  # Prevent WINDDIR being converted by GLOB_WIND:
 }
 
 DEW_POINT_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
