@@ -1,7 +1,7 @@
 """Define Home Assistant-related functionality."""
 import argparse
 from dataclasses import dataclass
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Final, Optional, Union
 
 from ecowitt2mqtt.const import (
     DATA_POINT_CO2,
@@ -37,30 +37,61 @@ from ecowitt2mqtt.device import Device
 PLATFORM_BINARY_SENSOR = "binary_sensor"
 PLATFORM_SENSOR = "sensor"
 
-DEVICE_CLASS_BATTERY = "battery"
-DEVICE_CLASS_CO2 = "carbon_dioxide"
-DEVICE_CLASS_HUMIDITY = "humidity"
-DEVICE_CLASS_ILLUMINANCE = "illuminance"
-DEVICE_CLASS_PM25 = "pm25"
-DEVICE_CLASS_PRESSURE = "pressure"
-DEVICE_CLASS_TEMPERATURE = "temperature"
-DEVICE_CLASS_TIMESTAMP = "timestamp"
+# Device classes
+DEVICE_CLASS_BATTERY: Final = "battery"
+DEVICE_CLASS_CO2: Final = "carbon_dioxide"
+DEVICE_CLASS_HUMIDITY: Final = "humidity"
+DEVICE_CLASS_ILLUMINANCE: Final = "illuminance"
+DEVICE_CLASS_PM25: Final = "pm25"
+DEVICE_CLASS_PRESSURE: Final = "pressure"
+DEVICE_CLASS_TEMPERATURE: Final = "temperature"
+DEVICE_CLASS_TIMESTAMP: Final = "timestamp"
 
-UNIT_CLASS_PRESSURE = "pressure"
-UNIT_CLASS_RAIN = "rain"
-UNIT_CLASS_TEMPERATURE = "temperature"
-UNIT_CLASS_WIND = "wind"
+# Unit classes:
+UNIT_CLASS_DISTANCE: Final = "distance"
+UNIT_CLASS_PRESSURE: Final = "pressure"
+UNIT_CLASS_RAIN: Final = "rain"
+UNIT_CLASS_TEMPERATURE: Final = "temperature"
+UNIT_CLASS_WIND: Final = "wind"
 
-UNIT_DEGREES = "°"
-UNIT_INDEX = "index"
-UNIT_KM = "km"
-UNIT_LX = "lx"
-UNIT_MG_M3 = "µg/m^3"
-UNIT_PERCENT = "%"
-UNIT_PPM = "ppm"
-UNIT_STRIKES = "strikes"
-UNIT_VOLTS = "v"
-UNIT_W_M2 = "w/m^2"
+# Concentration units:
+CONCENTRATION_MICROGRAMS_PER_CUBIC_METER: Final = "µg/m³"
+CONCENTRATION_PARTS_PER_MILLION: Final = "ppm"
+
+# Electric units:
+ELECTRIC_POTENTIAL_VOLT: Final = "V"
+
+# Generic units:
+DEGREE: Final = "°"
+INDEX: Final = "index"
+PERCENTAGE: Final = "%"
+
+# Irradiation units:
+IRRADIATION_WATTS_PER_SQUARE_METER: Final = "W/m²"
+
+# Length units:
+LENGTH_INCHES: Final = "in"
+LENGTH_KILOMETERS: Final = "km"
+LENGTH_MILES: Final = "mi"
+LENGTH_MILLIMETERS: Final = "mm"
+
+# Light units:
+LIGHT_LUX: Final = "lx"
+
+# Lightning units:
+LIGHTNING_STRIKES: Final = "strikes"
+
+# Pressure units:
+PRESSURE_INHG: Final = "inHg"
+PRESSURE_HPA: Final = "hPa"
+
+# Speed units:
+SPEED_KILOMETERS_PER_HOUR: Final = "km/h"
+SPEED_MILES_PER_HOUR: Final = "mph"
+
+# Temperature units:
+TEMP_CELSIUS: Final = "°C"
+TEMP_FAHRENHEIT: Final = "°F"
 
 
 @dataclass
@@ -84,7 +115,7 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_GLOB_BATT: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_BATTERY,
-        unit=UNIT_VOLTS,
+        unit=ELECTRIC_POTENTIAL_VOLT,
     ),
     DATA_POINT_GLOB_BATT_BINARY: EntityDescription(
         platform=PLATFORM_BINARY_SENSOR,
@@ -98,12 +129,12 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_GLOB_HUMIDITY: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_HUMIDITY,
-        unit=UNIT_PERCENT,
+        unit=PERCENTAGE,
     ),
     DATA_POINT_GLOB_MOISTURE: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:water-percent",
-        unit=UNIT_PERCENT,
+        unit=PERCENTAGE,
     ),
     DATA_POINT_GLOB_RAIN: EntityDescription(
         platform=PLATFORM_SENSOR,
@@ -123,7 +154,7 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_CO2: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_CO2,
-        unit=UNIT_PPM,
+        unit=CONCENTRATION_PARTS_PER_MILLION,
     ),
     DATA_POINT_DEWPOINT: EntityDescription(
         platform=PLATFORM_SENSOR,
@@ -143,12 +174,12 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_LIGHTNING: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:map-marker-distance",
-        unit=UNIT_KM,
+        unit_class=UNIT_CLASS_DISTANCE,
     ),
     DATA_POINT_LIGHTNING_NUM: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:weather-lightning",
-        unit=UNIT_STRIKES,
+        unit=LIGHTNING_STRIKES,
     ),
     DATA_POINT_LIGHTNING_TIME: EntityDescription(
         platform=PLATFORM_SENSOR,
@@ -157,32 +188,32 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_PM25: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_PM25,
-        unit=UNIT_MG_M3,
+        unit=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
     ),
     DATA_POINT_PM25_24H: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_PM25,
-        unit=UNIT_MG_M3,
+        unit=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
     ),
     DATA_POINT_SOLARRADIATION: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_ILLUMINANCE,
-        unit=UNIT_W_M2,
+        unit=IRRADIATION_WATTS_PER_SQUARE_METER,
     ),
     DATA_POINT_SOLARRADIATION_LUX: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_ILLUMINANCE,
-        unit=UNIT_LX,
+        unit=LIGHT_LUX,
     ),
     DATA_POINT_SOLARRADIATION_PERCEIVED: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_ILLUMINANCE,
-        unit=UNIT_PERCENT,
+        unit=PERCENTAGE,
     ),
     DATA_POINT_UV: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:weather-sunny",
-        unit=UNIT_INDEX,
+        unit=INDEX,
     ),
     DATA_POINT_WINDCHILL: EntityDescription(
         platform=PLATFORM_SENSOR,
@@ -192,15 +223,31 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_WINDDIR: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:weather-windy",
-        unit=UNIT_DEGREES,
+        unit=DEGREE,
     ),
 }
 
 UNIT_MAPPING = {
-    UNIT_CLASS_PRESSURE: {UNIT_SYSTEM_IMPERIAL: "inHg", UNIT_SYSTEM_METRIC: "hPa"},
-    UNIT_CLASS_RAIN: {UNIT_SYSTEM_IMPERIAL: "in", UNIT_SYSTEM_METRIC: "mm"},
-    UNIT_CLASS_TEMPERATURE: {UNIT_SYSTEM_IMPERIAL: "°F", UNIT_SYSTEM_METRIC: "°C"},
-    UNIT_CLASS_WIND: {UNIT_SYSTEM_IMPERIAL: "mph", UNIT_SYSTEM_METRIC: "km/h"},
+    UNIT_CLASS_DISTANCE: {
+        UNIT_SYSTEM_IMPERIAL: LENGTH_KILOMETERS,
+        UNIT_SYSTEM_METRIC: LENGTH_MILES,
+    },
+    UNIT_CLASS_PRESSURE: {
+        UNIT_SYSTEM_IMPERIAL: PRESSURE_INHG,
+        UNIT_SYSTEM_METRIC: PRESSURE_HPA,
+    },
+    UNIT_CLASS_RAIN: {
+        UNIT_SYSTEM_IMPERIAL: LENGTH_INCHES,
+        UNIT_SYSTEM_METRIC: LENGTH_MILLIMETERS,
+    },
+    UNIT_CLASS_TEMPERATURE: {
+        UNIT_SYSTEM_IMPERIAL: TEMP_FAHRENHEIT,
+        UNIT_SYSTEM_METRIC: TEMP_CELSIUS,
+    },
+    UNIT_CLASS_WIND: {
+        UNIT_SYSTEM_IMPERIAL: SPEED_MILES_PER_HOUR,
+        UNIT_SYSTEM_METRIC: SPEED_KILOMETERS_PER_HOUR,
+    },
 }
 
 
