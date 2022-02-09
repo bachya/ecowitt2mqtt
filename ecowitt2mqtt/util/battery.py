@@ -1,8 +1,8 @@
 """Define battery utilities."""
 from typing import Union
 
-BATTERY_STATE_OFF = "off"
-BATTERY_STATE_ON = "on"
+BATTERY_STATE_OFF = "OFF"
+BATTERY_STATE_ON = "ON"
 
 
 def calculate_battery(value: Union[float, int]) -> Union[float, str]:
