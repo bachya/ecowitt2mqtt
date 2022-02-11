@@ -14,6 +14,8 @@ from ecowitt2mqtt.const import (
     DATA_POINT_GLOB_WIND,
     DATA_POINT_HEATINDEX,
     DATA_POINT_HUMIDITY,
+    DATA_POINT_LIGHTNING,
+    DATA_POINT_LIGHTNING_TIME,
     DATA_POINT_SOLARRADIATION,
     DATA_POINT_SOLARRADIATION_LUX,
     DATA_POINT_SOLARRADIATION_PERCEIVED,
@@ -21,9 +23,11 @@ from ecowitt2mqtt.const import (
     DATA_POINT_WINDCHILL,
     DATA_POINT_WINDDIR,
     DATA_POINT_WINDSPEEDMPH,
+    UNIT_SYSTEM_METRIC,
 )
 from ecowitt2mqtt.device import get_device_from_raw_payload
 from ecowitt2mqtt.util.battery import calculate_battery
+from ecowitt2mqtt.util.distance import calculate_distance
 from ecowitt2mqtt.util.meteo import (
     calculate_dew_point,
     calculate_feels_like,
@@ -36,6 +40,7 @@ from ecowitt2mqtt.util.meteo import (
     calculate_wind_chill,
     calculate_wind_speed,
 )
+from ecowitt2mqtt.util.time import calculate_epoch
 
 DEFAULT_KEYS_TO_IGNORE = ["PASSKEY", "dateutc", "freq", "model", "stationtype"]
 
@@ -48,11 +53,16 @@ CALCULATOR_FUNCTION_MAP: Dict[str, Callable] = {
     DATA_POINT_GLOB_TEMP: calculate_temperature,
     DATA_POINT_GLOB_WIND: calculate_wind_speed,
     DATA_POINT_HEATINDEX: calculate_heat_index,
+    # Lightning strike distance always gives values in metric:
+    DATA_POINT_LIGHTNING: lambda val: calculate_distance(
+        val, input_unit_system=UNIT_SYSTEM_METRIC
+    ),
+    DATA_POINT_LIGHTNING_TIME: calculate_epoch,
     DATA_POINT_SOLARRADIATION_LUX: calculate_illuminance_wm2_to_lux,
     DATA_POINT_SOLARRADIATION_PERCEIVED: calculate_illuminance_wm2_to_perceived,
     DATA_POINT_WINDCHILL: calculate_wind_chill,
     # Prevent WINDDIR being converted by GLOB_WIND:
-    DATA_POINT_WINDDIR: lambda x: x,
+    DATA_POINT_WINDDIR: lambda val: val,
 }
 
 DEW_POINT_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
