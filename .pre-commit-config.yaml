@@ -10,7 +10,7 @@ repos:
           - --configfile=.bandit.yaml
         files: ^ecowitt2mqtt/.+\.py$
   - repo: https://github.com/python/black
-    rev: 21.7b0
+    rev: 22.3.0
     hooks:
       - id: black
         args:
