@@ -1,5 +1,6 @@
 """Define aiohttp routes."""
 import asyncio
+from datetime import datetime
 import json
 from typing import Any, Dict, Union
 
@@ -13,15 +14,15 @@ from ecowitt2mqtt.hass import HassDiscovery
 DEFAULT_MAX_MQTT_CALLS = 10
 
 
-def _generate_payload(data: Union[Dict[str, Any], float, str]) -> bytes:
+def _generate_payload(data: Union[Dict[str, Any], datetime, float, str]) -> bytes:
     """Generate a binary MQTT payload from input data."""
-    if isinstance(data, dict):
-        return json.dumps(data).encode("utf-8")
-
-    if isinstance(data, str):
-        return data.encode("utf-8")
-
-    return str(data).encode("utf-8")
+    if isinstance(data, datetime):
+        value = data.isoformat()
+    elif isinstance(data, dict):
+        value = json.dumps(data)
+    elif not isinstance(data, str):
+        value = str(data)
+    return value.encode("utf-8")
 
 
 async def _async_publish_to_hass_discovery(
@@ -94,7 +95,6 @@ async def async_publish_payload(request: web.Request) -> None:
         username=args.mqtt_username,
         password=args.mqtt_password,
         logger=LOGGER,
-        max_concurrent_outgoing_calls=DEFAULT_MAX_MQTT_CALLS,
     )
 
     if args.hass_discovery:
