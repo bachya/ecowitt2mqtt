@@ -14,17 +14,6 @@ from ecowitt2mqtt.hass import HassDiscovery
 DEFAULT_MAX_MQTT_CALLS = 10
 
 
-def _generate_payload(data: Union[Dict[str, Any], datetime, float, str]) -> bytes:
-    """Generate a binary MQTT payload from input data."""
-    if isinstance(data, datetime):
-        value = data.isoformat()
-    elif isinstance(data, dict):
-        value = json.dumps(data)
-    elif not isinstance(data, str):
-        value = str(data)
-    return value.encode("utf-8")
-
-
 async def _async_publish_to_hass_discovery(
     client: Client, data: Dict[str, Any], discovery_manager: HassDiscovery
 ) -> None:
@@ -77,6 +66,22 @@ async def _async_publish_to_topic(
         return
 
     LOGGER.info("Published to %s: %s", topic, data)
+
+
+def _generate_payload(data: Union[Dict[str, Any], float, str]) -> bytes:
+    """Generate a binary MQTT payload from input data."""
+    if isinstance(data, dict):
+        value = json.dumps(data, default=_json_serial)
+    elif not isinstance(data, str):
+        value = str(data)
+    return value.encode("utf-8")
+
+
+def _json_serial(obj: Any) -> Any:
+    """Define a custom JSON serializer."""
+    if isinstance(obj, datetime):
+        return obj.isoformat()
+    raise TypeError(f"Type {type(obj)} not serializable")
 
 
 async def async_publish_payload(request: web.Request) -> None:
