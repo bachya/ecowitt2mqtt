@@ -307,6 +307,11 @@ class HassDiscovery:
                 self._args.output_unit_system
             ]
 
+        if self._args.hass_entity_id_prefix:
+            name = f"{self._args.hass_entity_id_prefix}_{key}"
+        else:
+            name = key
+
         self._config_payloads[key] = {
             "availability_topic": self._get_topic(
                 key, description.platform, "availability"
@@ -318,7 +323,7 @@ class HassDiscovery:
                 "name": self._device.name,
                 "sw_version": self._device.station_type,
             },
-            "name": key,
+            "name": name,
             "qos": 1,
             "state_topic": self._get_topic(key, description.platform, "state"),
             "unique_id": f"{self._device.unique_id}_{key}",
