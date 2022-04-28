@@ -71,10 +71,10 @@ async def _async_publish_to_topic(
 def _generate_payload(data: Union[Dict[str, Any], float, str]) -> bytes:
     """Generate a binary MQTT payload from input data."""
     if isinstance(data, dict):
-        value = json.dumps(data, default=_json_serial)
+        data = json.dumps(data, default=_json_serial)
     elif not isinstance(data, str):
-        value = str(data)
-    return value.encode("utf-8")
+        data = str(data)
+    return data.encode("utf-8")
 
 
 def _json_serial(obj: Any) -> Any:
