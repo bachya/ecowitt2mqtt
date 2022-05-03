@@ -35,6 +35,10 @@ if [ -n "${HASS_DISCOVERY_PREFIX}" ]; then
     PARAMS+=(--hass-discovery-prefix="${HASS_DISCOVERY_PREFIX}")
 fi
 
+if [ -n "${HASS_ENTITY_ID_PREFIX}" ]; then
+    PARAMS+=(--hass-entity-id-prefix="${HASS_ENTITY_ID_PREFIX}")
+fi
+
 if [ -n "${ENDPOINT}" ]; then
     PARAMS+=(--endpoint="${ENDPOINT}")
 fi

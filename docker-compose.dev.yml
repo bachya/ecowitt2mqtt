@@ -7,6 +7,8 @@ services:
     build: .
     container_name: ecowitt2mqtt
     environment:
+      HASS_DISCOVERY: "true"
+      HASS_ENTITY_ID_PREFIX: aaron
       LOG_LEVEL: INFO
       MQTT_BROKER: vernemq
       MQTT_PASSWORD: password

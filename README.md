@@ -103,6 +103,8 @@ optional arguments:
   --hass-discovery      Publish data in the Home Assistant MQTT Discovery format
   --hass-discovery-prefix HASS_DISCOVERY_PREFIX
                         The Home Assistant discovery prefix to use (default: homeassistant)
+  --hass-entity-id-prefix HASS_ENTITY_ID_PREFIX
+                        The prefix to use for Home Assistant entity IDs
   --endpoint ENDPOINT   The relative endpoint/path to serve the web app on (default: /data/report)
   --port PORT           The port to serve the web app on (default: 8080)
   --raw-data            Return raw data (don't attempt to translate any values)
@@ -213,6 +215,7 @@ listed above:
 * `HASS_DISCOVERY`: whether to use Home Assistant MQTT Discovery (default: `false`)
 * `HASS_DISCOVERY_PREFIX`: the topic prefix to use for Home Assistant MQTT Discovery
   (default: `homeassistant`)
+* `HASS_ENTITY_ID_PREFIX`: the prefix to use for Home Assistant entity IDs
 * `ENDPOINT:` the relative endpoint/path to serve the web app on (default: `/data/report`)
 * `PORT:` the port to serve the web app on (default: `8080`)
 * `INPUT_UNIT_SYSTEM`: the input unit system to use (`imperial` or `metric`) (default: `imperial`)
