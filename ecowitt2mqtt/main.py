@@ -79,7 +79,7 @@ def get_arguments() -> argparse.Namespace:
         help=(
             "The Home Assistant discovery prefix to use "
             f"(default: {DEFAULT_HASS_DISCOVERY_PREFIX})"
-        ),        
+        ),
     )
     parser.add_argument(
         "--hass-entity-id-prefix",
