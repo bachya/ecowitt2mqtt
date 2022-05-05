@@ -76,16 +76,16 @@ def get_arguments() -> argparse.Namespace:
         default=DEFAULT_HASS_DISCOVERY_PREFIX,
         action="store",
         type=str,
-        help="The prefix to use for Home Assistant entity IDs",
+        help=(
+            "The Home Assistant discovery prefix to use "
+            f"(default: {DEFAULT_HASS_DISCOVERY_PREFIX})"
+        ),
     )
     parser.add_argument(
         "--hass-entity-id-prefix",
         action="store",
         type=str,
-        help=(
-            "The Home Assistant discovery prefix to use "
-            f"(default: {DEFAULT_HASS_DISCOVERY_PREFIX})"
-        ),
+        help="The prefix to use for Home Assistant entity IDs",
     )
 
     # Web Server
