@@ -51,10 +51,13 @@ repos:
     rev: v2.4.0
     hooks:
       - id: check-json
+      - id: check-yaml
+      - id: end-of-file-fixer
       - id: no-commit-to-branch
         args:
           - --branch=dev
           - --branch=master
+      - id: trailing-whitespace
   - repo: https://github.com/PyCQA/pydocstyle
     rev: 5.0.2
     hooks:
