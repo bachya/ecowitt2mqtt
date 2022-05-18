@@ -57,7 +57,8 @@ CALCULATOR_FUNCTION_MAP: Dict[str, Callable] = {
     DATA_POINT_LIGHTNING: lambda val: calculate_distance(
         val, input_unit_system=UNIT_SYSTEM_METRIC
     ),
-    DATA_POINT_LIGHTNING_TIME: calculate_epoch,
+    # Lightning strike sensors don't always provide a timestamp:
+    DATA_POINT_LIGHTNING_TIME: lambda val: calculate_epoch(val) if val else None,
     DATA_POINT_SOLARRADIATION_LUX: calculate_illuminance_wm2_to_lux,
     DATA_POINT_SOLARRADIATION_PERCEIVED: calculate_illuminance_wm2_to_perceived,
     DATA_POINT_WINDCHILL: calculate_wind_chill,
