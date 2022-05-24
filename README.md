@@ -28,7 +28,7 @@ pip install ecowitt2mqtt
 
 * Python 3.6
 * Python 3.7
-* Python 3.8 
+* Python 3.8
 
 # Quick Start
 
@@ -180,7 +180,7 @@ An example `systemd` service file in `/etc/systemd/system` might look like this:
 [Unit]
 Description=ECOWITT2MQTT daemon
 After=network.target
- 
+
 [Service]
 Type=notify
 ExecStart=ecowitt2mqtt --mqtt-broker=192.168.1.101 --mqtt-username=user --mqtt-password=password
@@ -188,7 +188,7 @@ ExecReload=kill -HUP $MAINPID
 KillMode=process
 Restart=on-failure
 RestartSec=5s
- 
+
 [Install]
 WantedBy=multi-user.target
 ```
