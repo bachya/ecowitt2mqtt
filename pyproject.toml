@@ -49,8 +49,6 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.6",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -59,13 +57,51 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-aiohttp = "^3.7.4post0"
+aiohttp = ">=3.8.0"
 asyncio-mqtt = ">=0.12.1"
 meteocalc = "^1.1.0"
-python = "^3.6.1"
+python = "^3.8.0"
 
 [tool.poetry.dev-dependencies]
+nox = "^2022.1.7"
 pre-commit = "^2.15.0"
+pytest = "^7.0.0"
+pytest-cov = "^3.0.0"
 
 [tool.poetry.scripts]
 ecowitt2mqtt = "ecowitt2mqtt.main:main"
+
+[tool.pylint.BASIC]
+expected-line-ending-format = "LF"
+
+[tool.pylint."MESSAGES CONTROL"]
+# Reasons disabled:
+# bad-continuation - Invalid attack on black
+# unnecessary-pass - This can hurt readability
+disable = [
+  "bad-continuation",
+  "unnecessary-pass"
+]
+
+[tool.pylint.REPORTS]
+score = false
+
+[tool.pylint.SIMILARITIES]
+# Minimum lines number of a similarity.
+# We set this higher because of some cases where V2 and V3 functionality are
+# similar, but abstracting them isn't feasible.
+min-similarity-lines = 5
+
+# Ignore comments when computing similarities.
+ignore-comments = true
+
+# Ignore docstrings when computing similarities.
+ignore-docstrings = true
+
+# Ignore imports when computing similarities.
+ignore-imports = true
+
+[tool.pylint.TYPECHECK]
+ignored-modules = [
+    "math"
+]
