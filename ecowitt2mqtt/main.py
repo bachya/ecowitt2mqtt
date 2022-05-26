@@ -19,7 +19,7 @@ from ecowitt2mqtt.const import (
     LEGACY_ENV_ENDPOINT,
     LEGACY_ENV_HASS_DISCOVERY,
     LEGACY_ENV_HASS_DISCOVERY_PREFIX,
-    LEGACY_ENV_HASS_ENTITY_ID_PREIFX,
+    LEGACY_ENV_HASS_ENTITY_ID_PREFIX,
     LEGACY_ENV_INPUT_UNIT_SYSTEM,
     LEGACY_ENV_MQTT_BROKER,
     LEGACY_ENV_MQTT_PASSWORD,
@@ -65,7 +65,7 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
     hass_entity_id_prefix: str = typer.Option(
         None,
         "--hass-entity-id-prefix",
-        envvar=[ENV_HASS_ENTITY_ID_PREFIX, LEGACY_ENV_HASS_ENTITY_ID_PREIFX],
+        envvar=[ENV_HASS_ENTITY_ID_PREFIX, LEGACY_ENV_HASS_ENTITY_ID_PREFIX],
         help="The prefix to use for Home Assistant entity IDs.",
     ),
     input_unit_system: str = typer.Option(
