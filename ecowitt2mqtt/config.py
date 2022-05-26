@@ -3,9 +3,14 @@ from __future__ import annotations
 
 import os
 
+from ruamel.yaml import YAML
 import typer
 
 from ecowitt2mqtt.const import (
+    CONF_CONFIG,
+    CONF_HASS_DISCOVERY,
+    CONF_MQTT_BROKER,
+    CONF_MQTT_TOPIC,
     ENV_ENDPOINT,
     ENV_HASS_DISCOVERY,
     ENV_HASS_DISCOVERY_PREFIX,
@@ -38,10 +43,6 @@ from ecowitt2mqtt.const import (
 )
 from ecowitt2mqtt.errors import ConfigError
 
-CONF_HASS_DISCOVERY = "hass_discovery"
-CONF_MQTT_BROKER = "mqtt_broker"
-CONF_MQTT_TOPIC = "mqtt_topic"
-
 DEPRECATED_ENV_VAR_MAP = {
     LEGACY_ENV_ENDPOINT: ENV_ENDPOINT,
     LEGACY_ENV_HASS_DISCOVERY: ENV_HASS_DISCOVERY,
@@ -65,9 +66,7 @@ class Config:
 
     def __init__(self, ctx: typer.Context) -> None:
         """Initialize."""
-        LOGGER.info("Command: %s", ctx.invoked_subcommand)
-        LOGGER.info("Arguments: %s", ctx.args)
-        LOGGER.info("Options: %s", ctx.params)
+        LOGGER.info("CLI options: %s", ctx.params)
 
         for legacy_env_var, new_env_var in DEPRECATED_ENV_VAR_MAP.items():
             if os.getenv(legacy_env_var) is None:
@@ -78,7 +77,23 @@ class Config:
                 new_env_var,
             )
 
-        self._config = ctx.params
+        self._config = {}
+
+        # If the user provides a config file, attempt to load it:
+        if config_path := ctx.params[CONF_CONFIG]:
+            parser = YAML(typ="safe")
+            with open(config_path, encoding="utf-8") as config_file:
+                self._config = parser.load(config_file)
+
+        if not isinstance(self._config, dict):
+            raise ConfigError(f"Unable to parse config file: {config_path}")
+
+        # Merge the CLI options/environment variables in using this logic:
+        #   1. If the value is not None, its an override and we should use it
+        #   2. If a key doesn't exist in self._config yet, include it
+        for key, value in ctx.params.items():
+            if value is not None or key not in self._config:
+                self._config[key] = value
 
         # If we don't have an MQTT broker, we can't proceed:
         if not self._config[CONF_MQTT_BROKER]:
@@ -88,3 +103,5 @@ class Config:
             raise ConfigError(
                 "Missing required option: --mqtt-topic or --hass-discovery"
             )
+
+        LOGGER.debug("Loaded Config: %s", self._config)

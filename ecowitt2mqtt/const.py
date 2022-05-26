@@ -3,10 +3,25 @@ import logging
 
 LOGGER = logging.getLogger(__package__)
 
-# Configuration options:
+# Configuration keys:
+CONF_CONFIG = "config"
+CONF_ENDPOINT = "endpoint"
+CONF_HASS_DISCOVERY = "hass_discovery"
+CONF_HASS_DISCOVERY_PREFIX = "hass_discovery_prefix"
+CONF_HASS_ENTITY_ID_PREFIX = "hass_entity_id_prefix"
+CONF_INPUT_UNIT_SYSTEM = "input_unit_system"
+CONF_MQTT_BROKER = "mqtt_broker"
+CONF_MQTT_PASSWORD = "mqtt_password"
+CONF_MQTT_PORT = "mqtt_port"
+CONF_MQTT_TOPIC = "mqtt_topic"
+CONF_MQTT_USERNAME = "mqtt_username"
+CONF_OUTPUT_UNIT_SYSTEM = "output_unit_system"
+CONF_PORT = "port"
+CONF_RAW_DATA = "raw_data"
 CONF_VERBOSE = "verbose"
 
 # Environment variables:
+ENV_CONFIG = "ECOWITT2MQTT_CONFIG"
 ENV_ENDPOINT = "ECOWITT2MQTT_ENDPOINT"
 ENV_HASS_DISCOVERY = "ECOWITT2MQTT_HASS_DISCOVERY"
 ENV_HASS_DISCOVERY_PREFIX = "ECOWITT2MQTT_HASS_DISCOVERY_PREFIX"

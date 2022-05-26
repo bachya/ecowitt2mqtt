@@ -10,8 +10,6 @@ from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import CONF_VERBOSE, LEGACY_ENV_LOG_LEVEL
 from ecowitt2mqtt.helpers.logging import TyperLoggerHandler
 
-DEFAULT_LOG_LEVEL = "INFO"
-
 
 class Ecowitt:
     """Define the base application object."""
@@ -21,7 +19,7 @@ class Ecowitt:
         if ctx.params[CONF_VERBOSE] or os.getenv(LEGACY_ENV_LOG_LEVEL):
             log_level = logging.DEBUG
         else:
-            log_level = logging.getLevelName(DEFAULT_LOG_LEVEL)
+            log_level = logging.INFO
 
         typer_handler = TyperLoggerHandler()
         logging.basicConfig(
