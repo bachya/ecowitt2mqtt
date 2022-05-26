@@ -1,6 +1,6 @@
 [build-system]
 requires = ["setuptools >= 35.0.2", "wheel >= 0.29.0", "poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+build-backend = "poetry.core.masonry.api"
 
 [tool.isort]
 combine_as_imports = true
@@ -57,10 +57,12 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-aiohttp = ">=3.8.0"
+"ruamel.yaml" = "^0.17.21"
 asyncio-mqtt = ">=0.12.1"
+fastapi = "^0.78.0"
 meteocalc = "^1.1.0"
 python = "^3.8.0"
+typer = {extras = ["all"], version = "^0.4.1"}
 
 [tool.poetry.dev-dependencies]
 nox = "^2022.1.7"
@@ -69,7 +71,7 @@ pytest = "^7.0.0"
 pytest-cov = "^3.0.0"
 
 [tool.poetry.scripts]
-ecowitt2mqtt = "ecowitt2mqtt.main:main"
+ecowitt2mqtt = "ecowitt2mqtt.main:APP"
 
 [tool.pylint.BASIC]
 expected-line-ending-format = "LF"
@@ -78,9 +80,11 @@ expected-line-ending-format = "LF"
 # Reasons disabled:
 # bad-continuation - Invalid attack on black
 # unnecessary-pass - This can hurt readability
+# unused-argument – Typer's modeling uses this everywhere
 disable = [
   "bad-continuation",
-  "unnecessary-pass"
+  "unnecessary-pass",
+  "unused-argument",
 ]
 
 [tool.pylint.REPORTS]
