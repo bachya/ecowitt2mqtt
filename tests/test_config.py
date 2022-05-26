@@ -1,7 +1,11 @@
 """Define tests for configuration management."""
+import json
+import logging
+
 import pytest
 from typer.testing import CliRunner
 
+from ecowitt2mqtt.cli import APP
 from ecowitt2mqtt.const import (
     ENV_ENDPOINT,
     ENV_HASS_DISCOVERY,
@@ -32,7 +36,48 @@ from ecowitt2mqtt.const import (
     LEGACY_ENV_PORT,
     LEGACY_ENV_RAW_DATA,
 )
-from ecowitt2mqtt.main import APP
+
+from tests.common import TEST_RAW_JSON, TEST_RAW_YAML
+
+
+@pytest.mark.parametrize("config", [TEST_RAW_JSON, TEST_RAW_YAML])
+def test_config_file(caplog, config_filepath, runner):
+    """Test successfully loading a valid config file."""
+    caplog.set_level(logging.DEBUG)
+    runner.invoke(APP, ["-v", "-c", config_filepath])
+    assert "Loaded Config" in caplog.messages[1]
+    assert not any(
+        level for _, level, _ in caplog.record_tuples if level == logging.ERROR
+    )
+
+
+@pytest.mark.parametrize("config", ["{}"])
+def test_config_file_empty(caplog, config_filepath, runner):
+    """Test an empty config file with no overrides."""
+    runner.invoke(APP, ["-c", config_filepath])
+    assert "Missing required option: --mqtt-broker" in caplog.messages[0]
+
+
+def test_config_file_overrides_cli(caplog, config_filepath, runner):
+    """Test a config file with CLI option overrides."""
+    caplog.set_level(logging.DEBUG)
+    runner.invoke(APP, ["-v", "-c", config_filepath, "-b", "192.168.1.100"])
+    assert "'mqtt_broker': '192.168.1.100'" in caplog.messages[0]
+
+
+@pytest.mark.parametrize("runner", [CliRunner(env={ENV_PORT: "8081"})])
+def test_config_file_overrides_env_vars(caplog, config_filepath, runner):
+    """Test a config file with environment variable overrides."""
+    caplog.set_level(logging.DEBUG)
+    runner.invoke(APP, ["-v", "-c", config_filepath])
+    assert "'port': 8081" in caplog.messages[0]
+
+
+@pytest.mark.parametrize("config", ["Fake configuration!"])
+def test_config_file_unparsable(caplog, config_filepath, runner):
+    """Test a config file that can't be parsed as JSON or YAML."""
+    runner.invoke(APP, ["-c", config_filepath])
+    assert "Unable to parse config file" in caplog.messages[0]
 
 
 @pytest.mark.parametrize(

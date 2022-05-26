@@ -71,7 +71,7 @@ pytest = "^7.0.0"
 pytest-cov = "^3.0.0"
 
 [tool.poetry.scripts]
-ecowitt2mqtt = "ecowitt2mqtt.main:APP"
+ecowitt2mqtt = "ecowitt2mqtt.cli:APP"
 
 [tool.pylint.BASIC]
 expected-line-ending-format = "LF"
