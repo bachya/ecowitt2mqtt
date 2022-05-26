@@ -1,7 +1,10 @@
 """Define the main interface to the CLI."""
+from pathlib import Path
+
 import typer
 
 from ecowitt2mqtt.const import (
+    ENV_CONFIG,
     ENV_ENDPOINT,
     ENV_HASS_DISCOVERY,
     ENV_HASS_DISCOVERY_PREFIX,
@@ -43,6 +46,17 @@ DEFAULT_PORT = 8080
 @log_exception()
 def main(  # pylint: disable=too-many-arguments,too-many-locals
     ctx: typer.Context,
+    config: Path = typer.Option(
+        None,
+        "--config",
+        "-c",
+        envvar=[ENV_CONFIG],
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        help="A path to a config file.",
+        resolve_path=True,
+    ),
     endpoint: str = typer.Option(
         DEFAULT_ENDPOINT,
         "--endpoint",

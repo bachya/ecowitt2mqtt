@@ -1,11 +1,11 @@
-"""Define tests for the main CLI."""
+"""Define tests for the CLI."""
 import logging
 
 import pytest
 from typer.testing import CliRunner
 
+from ecowitt2mqtt.cli import APP
 from ecowitt2mqtt.helpers.logging import TyperLoggerHandler
-from ecowitt2mqtt.main import APP
 
 
 def test_typer_logging_handler(caplog, runner):
