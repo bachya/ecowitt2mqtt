@@ -14,7 +14,7 @@ def config_filepath_fixture(raw_config, tmp_path):
     return config_filepath
 
 
-@pytest.fixture(name="raw_config", scope="session")
+@pytest.fixture(name="raw_config")
 def raw_config_fixture():
     """Define a fixture to return raw configuration data."""
     return TEST_RAW_JSON
