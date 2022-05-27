@@ -63,6 +63,8 @@ fastapi = "^0.78.0"
 meteocalc = "^1.1.0"
 python = "^3.8.0"
 typer = {extras = ["all"], version = "^0.4.1"}
+uvicorn = "^0.17.6"
+uvloop = "^0.16.0"
 
 [tool.poetry.dev-dependencies]
 nox = "^2022.1.7"

@@ -2,16 +2,18 @@
 from __future__ import annotations
 
 import os
-from typing import Any
+from typing import Any, cast
 
 from ruamel.yaml import YAML
 import typer
 
 from ecowitt2mqtt.const import (
     CONF_CONFIG,
+    CONF_ENDPOINT,
     CONF_HASS_DISCOVERY,
     CONF_MQTT_BROKER,
     CONF_MQTT_TOPIC,
+    CONF_PORT,
     ENV_ENDPOINT,
     ENV_HASS_DISCOVERY,
     ENV_HASS_DISCOVERY_PREFIX,
@@ -106,3 +108,13 @@ class Config:
             )
 
         LOGGER.debug("Loaded Config: %s", self._config)
+
+    @property
+    def endpoint(self) -> str:
+        """Return the ecowitt2mqtt API endpoint."""
+        return cast(str, self._config[CONF_ENDPOINT])
+
+    @property
+    def port(self) -> int:
+        """Return the ecowitt2mqtt API port."""
+        return cast(int, self._config[CONF_PORT])
