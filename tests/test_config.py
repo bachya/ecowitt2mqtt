@@ -39,7 +39,7 @@ from ecowitt2mqtt.const import (
 from tests.common import TEST_RAW_JSON, TEST_RAW_YAML
 
 
-@pytest.mark.parametrize("config", [TEST_RAW_JSON, TEST_RAW_YAML])
+@pytest.mark.parametrize("raw_config", [TEST_RAW_JSON, TEST_RAW_YAML])
 def test_config_file(caplog, config_filepath, runner):
     """Test successfully loading a valid config file."""
     caplog.set_level(logging.DEBUG)
@@ -50,7 +50,7 @@ def test_config_file(caplog, config_filepath, runner):
     )
 
 
-@pytest.mark.parametrize("config", ["{}"])
+@pytest.mark.parametrize("raw_config", ["{}"])
 def test_config_file_empty(caplog, config_filepath, runner):
     """Test an empty config file with no overrides."""
     runner.invoke(APP, ["-c", config_filepath])
@@ -72,7 +72,7 @@ def test_config_file_overrides_env_vars(caplog, config_filepath, runner):
     assert "'port': 8081" in caplog.messages[0]
 
 
-@pytest.mark.parametrize("config", ["Fake configuration!"])
+@pytest.mark.parametrize("raw_config", ["Fake configuration!"])
 def test_config_file_unparsable(caplog, config_filepath, runner):
     """Test a config file that can't be parsed as JSON or YAML."""
     runner.invoke(APP, ["-c", config_filepath])
