@@ -1,20 +1,42 @@
-FROM python:alpine3.12
+FROM python:alpine3.16 as base
 
-WORKDIR /usr/src
+ENV PYTHONFAULTHANDLER=1 \
+    PYTHONHASHSEED=random \
+    PYTHONUNBUFFERED=1
 
-COPY requirements.txt /tmp/requirements.txt
+FROM base as builder
 
-RUN apk add --no-cache --virtual build-dependencies \
+ENV PIP_DEFAULT_TIMEOUT=100 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_NO_CACHE_DIR=1 \
+    POETRY_VERSION=1.1.13
+
+WORKDIR /app
+
+RUN apk add --no-cache \
+      bash==5.1.16-r2 \
       build-base==0.5-r2 \
-      libffi-dev==3.3-r2 \
-    && apk add --no-cache \
-      bash==5.0.17-r0 \
-    && pip3 install --no-cache-dir -r /tmp/requirements.txt \
-    && apk del build-dependencies
+      libffi-dev==3.4.2-r1 \
+    && pip install --no-cache-dir poetry==$POETRY_VERSION \
+    && python -m venv /venv
 
-COPY ecowitt2mqtt /usr/src/ecowitt2mqtt
-COPY run.sh /usr/local/bin/run.sh
+COPY pyproject.toml poetry.lock ./
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN poetry export --without-hashes -f requirements.txt \
+    | /venv/bin/pip install -r /dev/stdin
 
-ENV PYTHONPATH "${PYTHONPATH}:/usr/src/ecowitt2mqtt"
+COPY . .
+RUN poetry build && /venv/bin/pip install dist/*.whl
 
-CMD ["/usr/local/bin/run.sh"]
+FROM base as final
+
+WORKDIR /app
+
+RUN apk add --no-cache \
+      build-base==0.5-r2 \
+      libffi-dev==3.4.2-r1
+COPY --from=builder /venv /venv
+ENV PATH="/venv/bin:${PATH}"
+ENV VIRTUAL_ENV="/venv"
+COPY docker-entrypoint.sh ./
+CMD ["./docker-entrypoint.sh"]

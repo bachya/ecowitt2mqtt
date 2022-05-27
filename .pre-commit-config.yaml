@@ -36,6 +36,10 @@ repos:
           - flake8-docstrings
           - pydocstyle
         files: ^ecowitt2mqtt/.+\.py$
+  - repo: https://github.com/AleksaC/hadolint-py
+    rev: v2.10.0
+    hooks:
+      - id: hadolint
   - repo: https://github.com/pre-commit/mirrors-isort
     rev: v4.3.21
     hooks:
