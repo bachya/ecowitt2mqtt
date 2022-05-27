@@ -149,7 +149,7 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
     ),
 ) -> None:
     """ecowitt2mqtt sends Ecowitt device data to an MQTT broker."""
-    ctx.obj = Ecowitt(ctx)
+    ctx.obj = Ecowitt(ctx.params)
 
 
 APP = typer.Typer(callback=main, invoke_without_command=True)

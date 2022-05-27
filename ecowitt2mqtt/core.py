@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import logging
 import os
+from typing import Any
 
 import typer
 
@@ -14,9 +15,9 @@ from ecowitt2mqtt.helpers.logging import TyperLoggerHandler
 class Ecowitt:
     """Define the base application object."""
 
-    def __init__(self, ctx: typer.Context) -> None:
+    def __init__(self, params: dict[str, Any]) -> None:
         """Initialize."""
-        if ctx.params[CONF_VERBOSE] or os.getenv(LEGACY_ENV_LOG_LEVEL):
+        if params[CONF_VERBOSE] or os.getenv(LEGACY_ENV_LOG_LEVEL):
             log_level = logging.DEBUG
         else:
             log_level = logging.INFO
@@ -28,4 +29,4 @@ class Ecowitt:
             handlers=(typer_handler,),
         )
 
-        self.config = Config(ctx)
+        self.config = Config(params)
