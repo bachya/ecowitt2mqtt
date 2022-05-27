@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+from typing import Any
 
 from ruamel.yaml import YAML
 import typer
@@ -64,9 +65,9 @@ DEPRECATED_ENV_VAR_MAP = {
 class Config:
     """Define the configuration management object."""
 
-    def __init__(self, ctx: typer.Context) -> None:
+    def __init__(self, params: dict[str, Any]) -> None:
         """Initialize."""
-        LOGGER.info("CLI options: %s", ctx.params)
+        LOGGER.info("CLI options: %s", params)
 
         for legacy_env_var, new_env_var in DEPRECATED_ENV_VAR_MAP.items():
             if os.getenv(legacy_env_var) is None:
@@ -80,7 +81,7 @@ class Config:
         self._config = {}
 
         # If the user provides a config file, attempt to load it:
-        if config_path := ctx.params[CONF_CONFIG]:
+        if config_path := params[CONF_CONFIG]:
             parser = YAML(typ="safe")
             with open(config_path, encoding="utf-8") as config_file:
                 self._config = parser.load(config_file)
@@ -91,7 +92,7 @@ class Config:
         # Merge the CLI options/environment variables in using this logic:
         #   1. If the value is not None, its an override and we should use it
         #   2. If a key doesn't exist in self._config yet, include it
-        for key, value in ctx.params.items():
+        for key, value in params.items():
             if value is not None or key not in self._config:
                 self._config[key] = value
 
