@@ -1,11 +1,15 @@
 """Define tests for configuration management."""
 import logging
+import os
 
 import pytest
 from typer.testing import CliRunner
 
 from ecowitt2mqtt.cli import APP
+from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import (
+    CONF_CONFIG,
+    CONF_MQTT_BROKER,
     ENV_ENDPOINT,
     ENV_HASS_DISCOVERY,
     ENV_HASS_DISCOVERY_PREFIX,
@@ -35,48 +39,44 @@ from ecowitt2mqtt.const import (
     LEGACY_ENV_PORT,
     LEGACY_ENV_RAW_DATA,
 )
+from ecowitt2mqtt.errors import ConfigError
 
-from tests.common import TEST_RAW_JSON, TEST_RAW_YAML
+from tests.common import TEST_ENDPOINT, TEST_PORT, TEST_RAW_JSON, TEST_RAW_YAML
 
 
 @pytest.mark.parametrize("raw_config", [TEST_RAW_JSON, TEST_RAW_YAML])
-def test_config_file(caplog, config_filepath, runner):
+def test_config_file(config_filepath):
     """Test successfully loading a valid config file."""
-    caplog.set_level(logging.DEBUG)
-    runner.invoke(APP, ["-v", "-c", config_filepath])
-    assert "Loaded Config" in caplog.messages[1]
-    assert not any(
-        level for _, level, _ in caplog.record_tuples if level == logging.ERROR
-    )
+    config = Config({CONF_CONFIG: config_filepath})
+    assert config.endpoint == TEST_ENDPOINT
+    assert config.port == TEST_PORT
 
 
 @pytest.mark.parametrize("raw_config", ["{}"])
-def test_config_file_empty(caplog, config_filepath, runner):
+def test_config_file_empty(config_filepath):
     """Test an empty config file with no overrides."""
-    runner.invoke(APP, ["-c", config_filepath])
-    assert "Missing required option: --mqtt-broker" in caplog.messages[0]
+    with pytest.raises(ConfigError) as err:
+        _ = Config({CONF_CONFIG: config_filepath})
+    assert "Missing required option: --mqtt-broker" in str(err)
 
 
-def test_config_file_overrides_cli(caplog, config_filepath, runner):
-    """Test a config file with CLI option overrides."""
-    caplog.set_level(logging.DEBUG)
-    runner.invoke(APP, ["-v", "-c", config_filepath, "-b", "192.168.1.100"])
-    assert "'mqtt_broker': '192.168.1.100'" in caplog.messages[0]
-
-
-@pytest.mark.parametrize("runner", [CliRunner(env={ENV_PORT: "8081"})])
-def test_config_file_overrides_env_vars(caplog, config_filepath, runner):
-    """Test a config file with environment variable overrides."""
-    caplog.set_level(logging.DEBUG)
-    runner.invoke(APP, ["-v", "-c", config_filepath])
-    assert "'port': 8081" in caplog.messages[0]
+def test_config_file_overrides(config_filepath):
+    """Test a config file with overrides."""
+    config = Config(
+        {
+            **{CONF_CONFIG: config_filepath},
+            **{CONF_MQTT_BROKER: "192.168.1.100"},
+        }
+    )
+    assert config.mqtt_broker == "192.168.1.100"
 
 
 @pytest.mark.parametrize("raw_config", ["Fake configuration!"])
-def test_config_file_unparsable(caplog, config_filepath, runner):
+def test_config_file_unparsable(config_filepath):
     """Test a config file that can't be parsed as JSON or YAML."""
-    runner.invoke(APP, ["-c", config_filepath])
-    assert "Unable to parse config file" in caplog.messages[0]
+    with pytest.raises(ConfigError) as err:
+        _ = Config({CONF_CONFIG: config_filepath})
+    assert "Unable to parse config file" in str(err)
 
 
 @pytest.mark.parametrize(
@@ -98,10 +98,12 @@ def test_config_file_unparsable(caplog, config_filepath, runner):
         (LEGACY_ENV_RAW_DATA, ENV_RAW_DATA, "True"),
     ],
 )
-def test_deprecated_env_var(caplog, legacy_env_var, new_env_var, value):
+def test_deprecated_env_var(
+    caplog, config_filepath, legacy_env_var, new_env_var, value
+):
     """Test logging the usage of a deprecated environment variable."""
-    runner = CliRunner(env={legacy_env_var: value})
-    runner.invoke(APP, [])
+    os.environ[legacy_env_var] = value
+    _ = Config({CONF_CONFIG: config_filepath})
     assert any(
         m
         for m in caplog.messages

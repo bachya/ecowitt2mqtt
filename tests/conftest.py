@@ -1,39 +1,15 @@
 """Define dynamic fixtures."""
 from __future__ import annotations
 
-import asyncio
+from multiprocessing import Process
 
 import pytest
 from typer.testing import CliRunner
-import uvicorn
 
-from .common import TEST_PORT, TEST_RAW_JSON
+from ecowitt2mqtt.const import CONF_CONFIG
+from ecowitt2mqtt.core import Ecowitt
 
-
-class UvicornTestServer(uvicorn.Server):
-    """Define a Uvicorn test server."""
-
-    def __init__(self, app, host="127.0.0.1", port=TEST_PORT):
-        """Initialize."""
-        self._serve_task: asyncio.Task | None = None
-        self._startup_done = asyncio.Event()
-        super().__init__(config=uvicorn.Config(app, host=host, port=port))
-
-    async def startup(self, sockets: list | None = None) -> None:
-        """Override Uvicorn startup."""
-        await super().startup(sockets=sockets)
-        self.config.setup_event_loop()
-        self._startup_done.set()
-
-    async def up(self) -> None:
-        """Start up server asynchronously."""
-        self._serve_task = asyncio.create_task(self.serve())
-        await self._startup_done.wait()
-
-    async def down(self) -> None:
-        """Shut down server asynchronously."""
-        self.should_exit = True
-        await self._serve_task
+from .common import TEST_RAW_JSON
 
 
 @pytest.fixture(name="config_filepath")
@@ -55,3 +31,13 @@ def raw_config_fixture():
 def runner_fixture():
     """Define a fixture to return a Typer CLI test runner."""
     return CliRunner()
+
+
+@pytest.fixture(name="server")
+def server_fixture(config_filepath):
+    """Define a fixture to return a mocked API server."""
+    ecowitt = Ecowitt({CONF_CONFIG: config_filepath})
+    proc = Process(target=ecowitt.server.start, args=(), daemon=True)
+    proc.start()
+    yield
+    proc.kill()

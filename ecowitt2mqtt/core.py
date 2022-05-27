@@ -9,7 +9,7 @@ from typing import Any
 import uvloop
 
 from ecowitt2mqtt.config import Config
-from ecowitt2mqtt.const import CONF_VERBOSE, LEGACY_ENV_LOG_LEVEL, LOGGER
+from ecowitt2mqtt.const import CONF_VERBOSE, LEGACY_ENV_LOG_LEVEL
 from ecowitt2mqtt.helpers.logging import TyperLoggerHandler
 from ecowitt2mqtt.server import Server
 
@@ -21,7 +21,7 @@ class Ecowitt:  # pylint: disable=too-few-public-methods
         """Initialize."""
         asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
-        if params[CONF_VERBOSE] or os.getenv(LEGACY_ENV_LOG_LEVEL):
+        if params.get(CONF_VERBOSE, False) or os.getenv(LEGACY_ENV_LOG_LEVEL):
             log_level = logging.DEBUG
         else:
             log_level = logging.INFO
@@ -35,8 +35,3 @@ class Ecowitt:  # pylint: disable=too-few-public-methods
 
         self.config = Config(params)
         self.server = Server(self)
-
-    def run(self) -> None:
-        """Start ecowitt2mqtt."""
-        LOGGER.info("Starting ecowitt2mqtt")
-        self.server.start()

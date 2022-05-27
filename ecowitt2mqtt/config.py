@@ -98,10 +98,10 @@ class Config:
                 self._config[key] = value
 
         # If we don't have an MQTT broker, we can't proceed:
-        if not self._config[CONF_MQTT_BROKER]:
+        if self._config.get(CONF_MQTT_BROKER) is None:
             raise ConfigError("Missing required option: --mqtt-broker")
 
-        if not self._config[CONF_MQTT_TOPIC] and not self._config[CONF_HASS_DISCOVERY]:
+        if all(not self._config.get(c) for c in (CONF_MQTT_TOPIC, CONF_HASS_DISCOVERY)):
             raise ConfigError(
                 "Missing required option: --mqtt-topic or --hass-discovery"
             )
@@ -112,6 +112,11 @@ class Config:
     def endpoint(self) -> str:
         """Return the ecowitt2mqtt API endpoint."""
         return cast(str, self._config[CONF_ENDPOINT])
+
+    @property
+    def mqtt_broker(self) -> str:
+        """Return the MQTT broker host/IP address."""
+        return cast(str, self._config[CONF_MQTT_BROKER])
 
     @property
     def port(self) -> int:
