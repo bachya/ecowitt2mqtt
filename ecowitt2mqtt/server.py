@@ -24,7 +24,7 @@ class Server:  # pylint: disable=too-few-public-methods
         self._fastapi.post(ecowitt.config.endpoint)(self._post_data)
 
     @staticmethod
-    async def _post_data(request: Request, status_code=204):
+    async def _post_data(request: Request, status_code: int = 204) -> None:
         """Define an endpoint for the Ecowitt device to post data to."""
         payload = await request.json()
         LOGGER.debug("Received data from the Ecowitt device: %s", payload)

@@ -5,7 +5,6 @@ import os
 from typing import Any, cast
 
 from ruamel.yaml import YAML
-import typer
 
 from ecowitt2mqtt.const import (
     CONF_CONFIG,
