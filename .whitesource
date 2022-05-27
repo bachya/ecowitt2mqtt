@@ -8,5 +8,8 @@
   },
   "issueSettings": {
     "minSeverityLevel": "LOW"
+  },
+  "docker": {
+    "scanImages": true
   }
 }
