@@ -9,7 +9,7 @@ from typing import Any
 import uvloop
 
 from ecowitt2mqtt.config import Config
-from ecowitt2mqtt.const import CONF_VERBOSE, LEGACY_ENV_LOG_LEVEL
+from ecowitt2mqtt.const import CONF_VERBOSE, LEGACY_ENV_LOG_LEVEL, LOGGER
 from ecowitt2mqtt.helpers.logging import TyperLoggerHandler
 from ecowitt2mqtt.server import Server
 
@@ -35,3 +35,8 @@ class Ecowitt:  # pylint: disable=too-few-public-methods
 
         self.config = Config(params)
         self.server = Server(self)
+
+    def start(self) -> None:
+        """Start ecowitt2mqtt."""
+        LOGGER.info("Starting ecowitt2mqtt")
+        self.server.start()
