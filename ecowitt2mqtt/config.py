@@ -2,16 +2,17 @@
 from __future__ import annotations
 
 import os
-from typing import Any
+from typing import Any, cast
 
 from ruamel.yaml import YAML
-import typer
 
 from ecowitt2mqtt.const import (
     CONF_CONFIG,
+    CONF_ENDPOINT,
     CONF_HASS_DISCOVERY,
     CONF_MQTT_BROKER,
     CONF_MQTT_TOPIC,
+    CONF_PORT,
     ENV_ENDPOINT,
     ENV_HASS_DISCOVERY,
     ENV_HASS_DISCOVERY_PREFIX,
@@ -81,7 +82,7 @@ class Config:
         self._config = {}
 
         # If the user provides a config file, attempt to load it:
-        if config_path := params[CONF_CONFIG]:
+        if config_path := params.get(CONF_CONFIG):
             parser = YAML(typ="safe")
             with open(config_path, encoding="utf-8") as config_file:
                 self._config = parser.load(config_file)
@@ -97,12 +98,27 @@ class Config:
                 self._config[key] = value
 
         # If we don't have an MQTT broker, we can't proceed:
-        if not self._config[CONF_MQTT_BROKER]:
+        if self._config.get(CONF_MQTT_BROKER) is None:
             raise ConfigError("Missing required option: --mqtt-broker")
 
-        if not self._config[CONF_MQTT_TOPIC] and not self._config[CONF_HASS_DISCOVERY]:
+        if all(not self._config.get(c) for c in (CONF_MQTT_TOPIC, CONF_HASS_DISCOVERY)):
             raise ConfigError(
                 "Missing required option: --mqtt-topic or --hass-discovery"
             )
 
         LOGGER.debug("Loaded Config: %s", self._config)
+
+    @property
+    def endpoint(self) -> str:
+        """Return the ecowitt2mqtt API endpoint."""
+        return cast(str, self._config[CONF_ENDPOINT])
+
+    @property
+    def mqtt_broker(self) -> str:
+        """Return the MQTT broker host/IP address."""
+        return cast(str, self._config[CONF_MQTT_BROKER])
+
+    @property
+    def port(self) -> int:
+        """Return the ecowitt2mqtt API port."""
+        return cast(int, self._config[CONF_PORT])

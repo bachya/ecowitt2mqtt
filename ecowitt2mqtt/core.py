@@ -1,23 +1,27 @@
 """Define the core application objects."""
 from __future__ import annotations
 
+import asyncio
 import logging
 import os
 from typing import Any
 
-import typer
+import uvloop
 
 from ecowitt2mqtt.config import Config
-from ecowitt2mqtt.const import CONF_VERBOSE, LEGACY_ENV_LOG_LEVEL
+from ecowitt2mqtt.const import CONF_VERBOSE, LEGACY_ENV_LOG_LEVEL, LOGGER
 from ecowitt2mqtt.helpers.logging import TyperLoggerHandler
+from ecowitt2mqtt.server import Server
 
 
-class Ecowitt:
+class Ecowitt:  # pylint: disable=too-few-public-methods
     """Define the base application object."""
 
     def __init__(self, params: dict[str, Any]) -> None:
         """Initialize."""
-        if params[CONF_VERBOSE] or os.getenv(LEGACY_ENV_LOG_LEVEL):
+        asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+
+        if params.get(CONF_VERBOSE, False) or os.getenv(LEGACY_ENV_LOG_LEVEL):
             log_level = logging.DEBUG
         else:
             log_level = logging.INFO
@@ -30,3 +34,9 @@ class Ecowitt:
         )
 
         self.config = Config(params)
+        self.server = Server(self)
+
+    def start(self) -> None:
+        """Start ecowitt2mqtt."""
+        LOGGER.info("Starting ecowitt2mqtt")
+        self.server.start()
