@@ -82,7 +82,7 @@ class Config:
         self._config = {}
 
         # If the user provides a config file, attempt to load it:
-        if config_path := params[CONF_CONFIG]:
+        if config_path := params.get(CONF_CONFIG):
             parser = YAML(typ="safe")
             with open(config_path, encoding="utf-8") as config_file:
                 self._config = parser.load(config_file)

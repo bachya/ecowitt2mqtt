@@ -1,9 +1,9 @@
 """Define a REST API server for Ecowitt devices to interact with."""
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any, Callable
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Response, status
 import uvicorn
 
 from ecowitt2mqtt.const import LOGGER
@@ -20,28 +20,46 @@ class Server:  # pylint: disable=too-few-public-methods
 
     def __init__(self, ecowitt: Ecowitt) -> None:
         """Initialize."""
-        self.ecowitt = ecowitt
+        self._device_payload_callbacks: list[Callable[[dict[str, Any]], None]] = []
+        self._ecowitt = ecowitt
 
         self.app = FastAPI()
-        self.app.post(ecowitt.config.endpoint)(self._post_data)
+        self.app.post(
+            ecowitt.config.endpoint,
+            status_code=status.HTTP_204_NO_CONTENT,
+            response_class=Response,
+        )(self._post_data)
 
-    @staticmethod
-    async def _post_data(request: Request, status_code: int = 204) -> None:
+    async def _post_data(self, request: Request) -> Response:
         """Define an endpoint for the Ecowitt device to post data to."""
         payload = await request.json()
         LOGGER.debug("Received data from the Ecowitt device: %s", payload)
+        for callback in self._device_payload_callbacks:
+            callback(payload)
+
+    def add_device_payload_callback(
+        self, callback: Callable[[dict[str, Any]], None]
+    ) -> Callable[..., None]:
+        """Add a callback to be executed when a new device payload is received."""
+        self._device_payload_callbacks.append(callback)
+
+        def remove() -> None:
+            """Remove the callback."""
+            self._device_payload_callbacks.remove(callback)
+
+        return remove
 
     def start(self) -> None:
         """Start the API."""
         LOGGER.debug(
             "Starting REST API server: http://%s:%s%s",
             DEFAULT_HOST,
-            self.ecowitt.config.port,
-            self.ecowitt.config.endpoint,
+            self._ecowitt.config.port,
+            self._ecowitt.config.endpoint,
         )
         uvicorn.run(
             self.app,
             host="127.0.0.1",
-            port=self.ecowitt.config.port,
+            port=self._ecowitt.config.port,
             log_level=DEFAULT_FASTAPI_LOG_LEVEL,
         )

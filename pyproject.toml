@@ -120,3 +120,6 @@ ignore-imports = true
 ignored-modules = [
     "math"
 ]
+
+[tool.pytest.ini_options]
+asyncio_mode = "strict"
