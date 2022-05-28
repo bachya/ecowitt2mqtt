@@ -15,7 +15,7 @@ DEFAULT_FASTAPI_LOG_LEVEL = "error"
 DEFAULT_HOST = "127.0.0.1"
 
 
-class Server:  # pylint: disable=too-few-public-methods
+class Server:
     """Define an Server."""
 
     def __init__(self, ecowitt: Ecowitt) -> None:
