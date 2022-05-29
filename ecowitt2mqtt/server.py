@@ -16,12 +16,11 @@ DEFAULT_HOST = "127.0.0.1"
 
 
 class Server:
-    """Define an Server."""
+    """Define the server management object."""
 
     def __init__(self, ecowitt: Ecowitt) -> None:
         """Initialize."""
         self._device_payload_callbacks: list[Callable[[dict[str, Any]], None]] = []
-        self._ecowitt = ecowitt
 
         self.app = FastAPI()
         self.app.post(
@@ -29,6 +28,8 @@ class Server:
             status_code=status.HTTP_204_NO_CONTENT,
             response_class=Response,
         )(self._post_data)
+
+        self.ecowitt = ecowitt
 
     async def _post_data(self, request: Request) -> Response:
         """Define an endpoint for the Ecowitt device to post data to."""
@@ -54,12 +55,12 @@ class Server:
         LOGGER.debug(
             "Starting REST API server: http://%s:%s%s",
             DEFAULT_HOST,
-            self._ecowitt.config.port,
-            self._ecowitt.config.endpoint,
+            self.ecowitt.config.port,
+            self.ecowitt.config.endpoint,
         )
         uvicorn.run(
             self.app,
             host="127.0.0.1",
-            port=self._ecowitt.config.port,
+            port=self.ecowitt.config.port,
             log_level=DEFAULT_FASTAPI_LOG_LEVEL,
         )

@@ -11,7 +11,10 @@ from ecowitt2mqtt.const import (
     CONF_ENDPOINT,
     CONF_HASS_DISCOVERY,
     CONF_MQTT_BROKER,
+    CONF_MQTT_PASSWORD,
+    CONF_MQTT_PORT,
     CONF_MQTT_TOPIC,
+    CONF_MQTT_USERNAME,
     CONF_PORT,
     ENV_ENDPOINT,
     ENV_HASS_DISCOVERY,
@@ -43,7 +46,7 @@ from ecowitt2mqtt.const import (
     LEGACY_ENV_RAW_DATA,
     LOGGER,
 )
-from ecowitt2mqtt.errors import ConfigError
+from ecowitt2mqtt.errors import EcowittError
 
 DEPRECATED_ENV_VAR_MAP = {
     LEGACY_ENV_ENDPOINT: ENV_ENDPOINT,
@@ -61,6 +64,12 @@ DEPRECATED_ENV_VAR_MAP = {
     LEGACY_ENV_PORT: ENV_PORT,
     LEGACY_ENV_RAW_DATA: ENV_RAW_DATA,
 }
+
+
+class ConfigError(EcowittError):
+    """Define an error related to bad configuration."""
+
+    pass
 
 
 class Config:
@@ -119,6 +128,26 @@ class Config:
         return cast(str, self._config[CONF_MQTT_BROKER])
 
     @property
+    def mqtt_password(self) -> str:
+        """Return the MQTT broker password."""
+        return cast(str, self._config[CONF_MQTT_PASSWORD])
+
+    @property
+    def mqtt_port(self) -> int:
+        """Return the MQTT broker port."""
+        return cast(int, self._config[CONF_MQTT_PORT])
+
+    @property
+    def mqtt_topic(self) -> str | None:
+        """Return the MQTT broker topic."""
+        return self._config.get(CONF_MQTT_TOPIC)
+
+    @property
     def port(self) -> int:
         """Return the ecowitt2mqtt API port."""
         return cast(int, self._config[CONF_PORT])
+
+    @property
+    def mqtt_username(self) -> str:
+        """Return the MQTT broker username."""
+        return cast(str, self._config[CONF_MQTT_USERNAME])

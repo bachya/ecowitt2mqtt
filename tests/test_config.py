@@ -6,7 +6,7 @@ import pytest
 from typer.testing import CliRunner
 
 from ecowitt2mqtt.cli import APP
-from ecowitt2mqtt.config import Config
+from ecowitt2mqtt.config import Config, ConfigError
 from ecowitt2mqtt.const import (
     CONF_CONFIG,
     CONF_MQTT_BROKER,
@@ -39,7 +39,6 @@ from ecowitt2mqtt.const import (
     LEGACY_ENV_PORT,
     LEGACY_ENV_RAW_DATA,
 )
-from ecowitt2mqtt.errors import ConfigError
 
 from tests.common import TEST_ENDPOINT, TEST_PORT, TEST_RAW_JSON, TEST_RAW_YAML
 

@@ -90,10 +90,12 @@ expected-line-ending-format = "LF"
 [tool.pylint."MESSAGES CONTROL"]
 # Reasons disabled:
 # bad-continuation - Invalid attack on black
+# too-few-public-methods - Often irrelevant
 # unnecessary-pass - This can hurt readability
 # unused-argument – Typer's modeling uses this everywhere
 disable = [
   "bad-continuation",
+  "too-few-public-methods",
   "unnecessary-pass",
   "unused-argument",
 ]

@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import asyncio
 import json
-from unittest.mock import patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
 from fastapi import FastAPI
 import pytest
@@ -43,6 +43,12 @@ class UvicornTestServer(uvicorn.Server):
         await self._serve_task
 
 
+@pytest_asyncio.fixture(name="asyncio_mqtt_publish")
+async def asyncio_mqtt_publish_fixture():
+    """Define a fixture to return a mocked asyncio-mqtt client."""
+    return AsyncMock()
+
+
 @pytest.fixture(name="config_filepath")
 def config_filepath_fixture(raw_config, tmp_path):
     """Define a fixture to return a config filepath."""
@@ -80,6 +86,16 @@ def raw_config_fixture():
 def runner_fixture():
     """Define a fixture to return a Typer CLI test runner."""
     return CliRunner()
+
+
+@pytest_asyncio.fixture(name="setup_asyncio_mqtt")
+async def setup_asyncio_mqtt_fixture(asyncio_mqtt_publish):
+    """Define a fixture to return a mocked asyncio-mqtt client."""
+    with patch(
+        "ecowitt2mqtt.publisher.mqtt.Client",
+        MagicMock(return_value=AsyncMock(publish=asyncio_mqtt_publish)),
+    ):
+        yield
 
 
 @pytest_asyncio.fixture(name="uvicorn")
