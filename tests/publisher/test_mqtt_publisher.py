@@ -36,7 +36,7 @@ async def test_publish(
 async def test_publish_error(
     asyncio_mqtt_publish, device_payload, ecowitt, setup_asyncio_mqtt
 ):
-    """Test publishing to an MqttTopicPublisher."""
+    """Test handling an error when publishing to an MQTT topic."""
     publisher = get_mqtt_publisher(ecowitt)
     with pytest.raises(PublishError):
         await publisher.async_publish(device_payload)

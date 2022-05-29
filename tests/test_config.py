@@ -1,11 +1,8 @@
 """Define tests for configuration management."""
-import logging
 import os
 
 import pytest
-from typer.testing import CliRunner
 
-from ecowitt2mqtt.cli import APP
 from ecowitt2mqtt.config import Config, ConfigError
 from ecowitt2mqtt.const import (
     CONF_CONFIG,
