@@ -5,7 +5,6 @@ import asyncio
 import json
 from unittest.mock import AsyncMock, MagicMock, patch
 
-from fastapi import FastAPI
 import pytest
 import pytest_asyncio
 from typer.testing import CliRunner
@@ -13,6 +12,7 @@ import uvicorn
 
 from ecowitt2mqtt.const import CONF_CONFIG
 from ecowitt2mqtt.core import Ecowitt
+from ecowitt2mqtt.server import SERVER_APP
 
 from tests.common import TEST_PORT, TEST_RAW_JSON, load_fixture
 
@@ -20,11 +20,18 @@ from tests.common import TEST_PORT, TEST_RAW_JSON, load_fixture
 class UvicornTestServer(uvicorn.Server):
     """Mock a Uvicorn test server."""
 
-    def __init__(self, app: FastAPI, *, host: str = "127.0.0.1", port: int = TEST_PORT):
+    def __init__(self) -> None:
         """Initialize."""
         self._serve_task: asyncio.Task | None = None
         self._startup_done = asyncio.Event()
-        super().__init__(config=uvicorn.Config(app, host=host, port=port))
+        super().__init__(
+            config=uvicorn.Config(
+                app=SERVER_APP,
+                host="0.0.0.0",
+                port=TEST_PORT,
+                log_level="error",
+            )
+        )
 
     async def start(self) -> None:
         """Start up server asynchronously."""
@@ -41,12 +48,6 @@ class UvicornTestServer(uvicorn.Server):
         """Shut down server asynchronously."""
         self.should_exit = True
         await self._serve_task
-
-
-@pytest_asyncio.fixture(name="asyncio_mqtt_publish")
-async def asyncio_mqtt_publish_fixture():
-    """Define a fixture to return a mocked asyncio-mqtt client."""
-    return AsyncMock()
 
 
 @pytest.fixture(name="config_filepath")
@@ -67,13 +68,18 @@ def device_payload_fixture(device_payload_filename):
 @pytest.fixture(name="device_payload_filename")
 def device_payload_filename_fixture():
     """Define a fixture to return a device payload filename."""
-    return "payload_gw1000b_pro.json"
+    return "payload_gw1000bpro.json"
 
 
 @pytest.fixture(name="ecowitt")
 def ecowitt_fixture(config_filepath):
     """Define a fixture to return an Ecowitt object."""
-    return Ecowitt({CONF_CONFIG: config_filepath})
+    with patch(
+        "ecowitt2mqtt.publisher.mqtt.Client",
+        MagicMock(return_value=AsyncMock(publish=AsyncMock())),
+    ):
+        ecowitt = Ecowitt({CONF_CONFIG: config_filepath})
+        yield ecowitt
 
 
 @pytest.fixture(name="raw_config")
@@ -88,21 +94,11 @@ def runner_fixture():
     return CliRunner()
 
 
-@pytest_asyncio.fixture(name="setup_asyncio_mqtt")
-async def setup_asyncio_mqtt_fixture(asyncio_mqtt_publish):
-    """Define a fixture to return a mocked asyncio-mqtt client."""
-    with patch(
-        "ecowitt2mqtt.publisher.mqtt.Client",
-        MagicMock(return_value=AsyncMock(publish=asyncio_mqtt_publish)),
-    ):
-        yield
-
-
-@pytest_asyncio.fixture(name="uvicorn")
-async def uvicorn_fixture(ecowitt):
-    """Define a fixture to return a mocked Uvicorn that can launch ecowitt2mqtt."""
+@pytest_asyncio.fixture(name="start_server")
+async def start_server_fixture():
+    """Define a fixture to return a running Uvicorn server."""
     with patch("uvicorn.run"):
-        mock_server = UvicornTestServer(ecowitt.server.app)
+        mock_server = UvicornTestServer()
         await mock_server.start()
         yield
         await mock_server.stop()

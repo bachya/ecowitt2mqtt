@@ -3,20 +3,19 @@ version: "3"
 
 services:
 
-  ecowitt2mqtt:
-    build: .
-    container_name: ecowitt2mqtt
-    environment:
-      HASS_DISCOVERY: "true"
-      HASS_ENTITY_ID_PREFIX: aaron
-      LOG_LEVEL: INFO
-      MQTT_BROKER: vernemq
-      MQTT_PASSWORD: password
-      MQTT_TOPIC: Test
-      MQTT_USERNAME: ecowitt
-    ports:
-      - "8080:8080/tcp"
-    restart: always
+  # ecowitt2mqtt:
+  #   build:
+  #     context: .
+  #   container_name: ecowitt2mqtt
+  #   environment:
+  #     ECOWITT2MQTT_MQTT_BROKER: vernemq
+  #     ECOWITT2MQTT_MQTT_PASSWORD: password
+  #     ECOWITT2MQTT_MQTT_TOPIC: Test
+  #     ECOWITT2MQTT_MQTT_USERNAME: ecowitt
+  #     ECOWITT2MQTT_VERBOSE: true
+  #   ports:
+  #     - "8080:8080/tcp"
+  #   restart: unless-stopped
 
   vernemq:
     container_name: vernemq
@@ -26,5 +25,5 @@ services:
     image: "vernemq/vernemq:1.12.3"
     ports:
       - "1883:1883/tcp"
-    restart: always
+    restart: unless-stopped
     user: root

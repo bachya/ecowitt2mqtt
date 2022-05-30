@@ -1,6 +1,7 @@
 """Define MQTT publishing."""
 from __future__ import annotations
 
+import json
 from typing import TYPE_CHECKING, Any
 
 from asyncio_mqtt import Client, MqttError
@@ -17,6 +18,13 @@ class PublishError(EcowittError):
     """Define an error related to a failed data publish."""
 
     pass
+
+
+def generate_mqtt_payload(data: dict[str, Any] | str) -> bytes:
+    """Generate a binary MQTT payload from input data."""
+    if isinstance(data, dict):
+        data = json.dumps(data)
+    return data.encode("utf-8")
 
 
 class MqttPublisher(Publisher):
@@ -41,7 +49,9 @@ class MqttTopicPublisher(MqttPublisher):
         """Publish to MQTT."""
         try:
             async with self.client:
-                await self.client.publish(self.ecowitt.config.mqtt_topic, data)
+                await self.client.publish(
+                    self.ecowitt.config.mqtt_topic, generate_mqtt_payload(data)
+                )
         except MqttError as err:
             raise PublishError(
                 f"Error while publishing to {self.ecowitt.config.mqtt_topic}: {err}"

@@ -2,7 +2,6 @@
 import logging
 
 import pytest
-from typer.testing import CliRunner
 
 from ecowitt2mqtt.cli import APP
 from ecowitt2mqtt.helpers.logging import TyperLoggerHandler
@@ -22,7 +21,7 @@ def test_missing_required_options(args, caplog, missing_args_str, runner):
 
 
 @pytest.mark.asyncio
-async def test_startup_logging(caplog, config_filepath, runner, uvicorn):
+async def test_startup_logging(caplog, config_filepath, runner, start_server):
     """Test startup logging at various levels."""
     caplog.set_level(logging.INFO)
     runner.invoke(APP, ["-c", config_filepath])

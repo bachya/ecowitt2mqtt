@@ -11,6 +11,7 @@ import uvloop
 from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import CONF_VERBOSE, LEGACY_ENV_LOG_LEVEL, LOGGER
 from ecowitt2mqtt.helpers.logging import TyperLoggerHandler
+from ecowitt2mqtt.publisher.mqtt import get_mqtt_publisher
 from ecowitt2mqtt.server import Server
 
 
@@ -33,11 +34,21 @@ class Ecowitt:  # pylint: disable=too-few-public-methods
 
     def __init__(self, params: dict[str, Any]) -> None:
         """Initialize."""
-        asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
         setup_logging(params.get(CONF_VERBOSE, False))
+
+        self.loop = uvloop.new_event_loop()
+        asyncio.set_event_loop(self.loop)
 
         self.config = Config(params)
         self.server = Server(self)
+
+        mqtt_publisher = get_mqtt_publisher(self)
+
+        async def publish_data_to_mqtt(payload: dict[str, Any]) -> None:
+            """Publish device data to MQTT."""
+            await mqtt_publisher.async_publish(payload)
+
+        self.server.add_device_payload_callback(publish_data_to_mqtt)
 
     def start(self) -> None:
         """Start ecowitt2mqtt."""
