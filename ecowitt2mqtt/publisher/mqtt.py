@@ -33,6 +33,7 @@ class MqttPublisher(Publisher):
     def __init__(self, ecowitt: Ecowitt) -> None:
         """Initialize."""
         super().__init__(ecowitt)
+
         self.client = Client(
             ecowitt.config.mqtt_broker,
             port=ecowitt.config.mqtt_port,
