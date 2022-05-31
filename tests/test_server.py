@@ -1,6 +1,7 @@
 """Define tests for the REST API server."""
 from __future__ import annotations
 
+import asyncio
 from unittest.mock import AsyncMock, Mock
 
 from aiohttp import ClientSession
@@ -10,17 +11,15 @@ from tests.common import TEST_ENDPOINT, TEST_PORT
 
 
 @pytest.mark.asyncio
-async def test_payload_callback(device_payload, ecowitt, event_loop, start_server):
+async def test_payload_callback(device_payload, ecowitt, start_server):
     """Test firing a callback upon receiving a device payload."""
     mock_callback_1 = Mock()
     mock_callback_2 = Mock()
     mock_callback_3 = AsyncMock()
 
     ecowitt.server.add_device_payload_callback(mock_callback_1)
-
     cancel_mock_callback_2 = ecowitt.server.add_device_payload_callback(mock_callback_2)
     cancel_mock_callback_2()
-
     ecowitt.server.add_device_payload_callback(mock_callback_3)
 
     async with ClientSession() as session:

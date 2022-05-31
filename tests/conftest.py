@@ -12,7 +12,6 @@ import uvicorn
 
 from ecowitt2mqtt.const import CONF_CONFIG
 from ecowitt2mqtt.core import Ecowitt
-from ecowitt2mqtt.server import SERVER_APP
 
 from tests.common import TEST_PORT, TEST_RAW_JSON, load_fixture
 
@@ -20,13 +19,13 @@ from tests.common import TEST_PORT, TEST_RAW_JSON, load_fixture
 class UvicornTestServer(uvicorn.Server):
     """Mock a Uvicorn test server."""
 
-    def __init__(self) -> None:
+    def __init__(self, ecowitt: Ecowitt) -> None:
         """Initialize."""
         self._serve_task: asyncio.Task | None = None
         self._startup_done = asyncio.Event()
         super().__init__(
             config=uvicorn.Config(
-                app=SERVER_APP,
+                app=ecowitt.server.app,
                 host="0.0.0.0",
                 port=TEST_PORT,
                 log_level="error",
@@ -95,10 +94,9 @@ def runner_fixture():
 
 
 @pytest_asyncio.fixture(name="start_server")
-async def start_server_fixture():
+async def start_server_fixture(ecowitt):
     """Define a fixture to return a running Uvicorn server."""
-    with patch("uvicorn.run"):
-        mock_server = UvicornTestServer()
+    with patch("uvicorn.server.Server", UvicornTestServer(ecowitt)) as mock_server:
         await mock_server.start()
         yield
         await mock_server.stop()
