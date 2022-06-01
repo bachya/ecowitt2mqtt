@@ -153,4 +153,4 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
     ecowitt.start()
 
 
-APP = typer.Typer(callback=main, invoke_without_command=True)
+CLI_APP = typer.Typer(callback=main, invoke_without_command=True)

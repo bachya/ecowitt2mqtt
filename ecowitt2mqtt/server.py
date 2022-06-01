@@ -15,8 +15,6 @@ if TYPE_CHECKING:
 DEFAULT_SERVER_LOG_LEVEL = "error"
 DEFAULT_HOST = "0.0.0.0"
 
-SERVER_APP = FastAPI()
-
 
 class Server:
     """Define the server management object."""
@@ -27,7 +25,8 @@ class Server:
             Callable[[dict[str, Any]], Coroutine | None]
         ] = []
 
-        SERVER_APP.post(
+        self.app = FastAPI()
+        self.app.post(
             ecowitt.config.endpoint,
             status_code=status.HTTP_204_NO_CONTENT,
             response_class=Response,
@@ -65,7 +64,7 @@ class Server:
 
         server = uvicorn.Server(
             config=uvicorn.Config(
-                SERVER_APP,
+                self.app,
                 host=DEFAULT_HOST,
                 port=self.ecowitt.config.port,
                 log_level=DEFAULT_SERVER_LOG_LEVEL,

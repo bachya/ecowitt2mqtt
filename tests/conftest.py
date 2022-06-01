@@ -49,6 +49,12 @@ class UvicornTestServer(uvicorn.Server):
         await self._serve_task
 
 
+@pytest.fixture(name="config")
+def config_fixture(config_filepath):
+    """Define a fixture to return configuration data."""
+    return {CONF_CONFIG: config_filepath}
+
+
 @pytest.fixture(name="config_filepath")
 def config_filepath_fixture(raw_config, tmp_path):
     """Define a fixture to return a config filepath."""
@@ -71,13 +77,13 @@ def device_payload_filename_fixture():
 
 
 @pytest.fixture(name="ecowitt")
-def ecowitt_fixture(config_filepath):
+def ecowitt_fixture(config):
     """Define a fixture to return an Ecowitt object."""
     with patch(
         "ecowitt2mqtt.publisher.mqtt.Client",
         MagicMock(return_value=AsyncMock(publish=AsyncMock())),
     ):
-        ecowitt = Ecowitt({CONF_CONFIG: config_filepath})
+        ecowitt = Ecowitt(config)
         yield ecowitt
 
 

@@ -1,6 +1,8 @@
 """Define package constants."""
 import logging
 
+from ecowitt2mqtt.helpers.typing import UnitSystemType
+
 LOGGER = logging.getLogger(__package__)
 
 # Configuration keys:
@@ -19,6 +21,37 @@ CONF_OUTPUT_UNIT_SYSTEM = "output_unit_system"
 CONF_PORT = "port"
 CONF_RAW_DATA = "raw_data"
 CONF_VERBOSE = "verbose"
+
+# Data points (glob):
+DATA_POINT_GLOB_BAROM = "barom"
+DATA_POINT_GLOB_BATT = "batt"
+DATA_POINT_GLOB_BATT_BINARY = "batt_binary"
+DATA_POINT_GLOB_GUST = "gust"
+DATA_POINT_GLOB_HUMIDITY = "humidity"
+DATA_POINT_GLOB_MOISTURE = "moisture"
+DATA_POINT_GLOB_RAIN = "rain"
+DATA_POINT_GLOB_TEMP = "temp"
+DATA_POINT_GLOB_WIND = "wind"
+
+# Data points (specific):
+DATA_POINT_CO2 = "co2"
+DATA_POINT_DEWPOINT = "dewpoint"
+DATA_POINT_FEELSLIKE = "feelslike"
+DATA_POINT_HEATINDEX = "heatindex"
+DATA_POINT_HUMIDITY = "humidity"
+DATA_POINT_LIGHTNING = "lightning"
+DATA_POINT_LIGHTNING_NUM = "lightning_num"
+DATA_POINT_LIGHTNING_TIME = "lightning_time"
+DATA_POINT_PM25 = "pm25"
+DATA_POINT_PM25_24H = "pm25_24h"
+DATA_POINT_SOLARRADIATION = "solarradiation"
+DATA_POINT_SOLARRADIATION_LUX = "solarradiation_lux"
+DATA_POINT_SOLARRADIATION_PERCEIVED = "solarradiation_perceived"
+DATA_POINT_TEMPF = "tempf"
+DATA_POINT_UV = "uv"
+DATA_POINT_WINDCHILL = "windchill"
+DATA_POINT_WINDDIR = "winddir"
+DATA_POINT_WINDSPEEDMPH = "windspeedmph"
 
 # Environment variables:
 ENV_CONFIG = "ECOWITT2MQTT_CONFIG"
@@ -54,5 +87,5 @@ LEGACY_ENV_PORT = "PORT"
 LEGACY_ENV_RAW_DATA = "RAW_DATA"
 
 # Unit systems:
-UNIT_SYSTEM_IMPERIAL = "imperial"
-UNIT_SYSTEM_METRIC = "metric"
+UNIT_SYSTEM_IMPERIAL: UnitSystemType = "imperial"
+UNIT_SYSTEM_METRIC: UnitSystemType = "metric"

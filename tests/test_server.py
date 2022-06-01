@@ -1,11 +1,12 @@
 """Define tests for the REST API server."""
 from __future__ import annotations
 
-import asyncio
-from unittest.mock import AsyncMock, Mock
+from unittest.mock import AsyncMock, Mock, patch
 
 from aiohttp import ClientSession
 import pytest
+
+from ecowitt2mqtt.core import Ecowitt
 
 from tests.common import TEST_ENDPOINT, TEST_PORT
 
@@ -33,3 +34,10 @@ async def test_payload_callback(device_payload, ecowitt, start_server):
     mock_callback_1.assert_called_once_with(device_payload)
     mock_callback_2.assert_not_called()
     mock_callback_3.assert_awaited_once_with(device_payload)
+
+
+def test_server_start(config):
+    """Test firing a callback upon receiving a device payload."""
+    with patch("uvicorn.server.Server.serve", AsyncMock()):
+        ecowitt = Ecowitt(config)
+        ecowitt.start()

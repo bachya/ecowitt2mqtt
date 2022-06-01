@@ -3,7 +3,7 @@ import logging
 
 import pytest
 
-from ecowitt2mqtt.cli import APP
+from ecowitt2mqtt.cli import CLI_APP
 from ecowitt2mqtt.helpers.logging import TyperLoggerHandler
 
 
@@ -16,19 +16,18 @@ from ecowitt2mqtt.helpers.logging import TyperLoggerHandler
 )
 def test_missing_required_options(args, caplog, missing_args_str, runner):
     """Test that missing required options are handled."""
-    runner.invoke(APP, args)
+    runner.invoke(CLI_APP, args)
     assert caplog.messages[0] == f"Missing required option: {missing_args_str}"
 
 
-@pytest.mark.asyncio
-async def test_startup_logging(caplog, config_filepath, runner, start_server):
+def test_startup_logging(caplog, config_filepath, runner):
     """Test startup logging at various levels."""
     caplog.set_level(logging.INFO)
-    runner.invoke(APP, ["-c", config_filepath])
+    runner.invoke(CLI_APP, [])
     info_log_messages = caplog.messages
 
     caplog.set_level(logging.DEBUG)
-    runner.invoke(APP, ["-v", "-c", config_filepath])
+    runner.invoke(CLI_APP, ["-v"])
     debug_log_messages = caplog.messages
 
     # There should be more DEBUG-level logs than INFO-level logs:

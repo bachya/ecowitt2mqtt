@@ -5,7 +5,6 @@ import pytest
 
 from ecowitt2mqtt.config import Config, ConfigError
 from ecowitt2mqtt.const import (
-    CONF_CONFIG,
     CONF_MQTT_BROKER,
     ENV_ENDPOINT,
     ENV_HASS_DISCOVERY,
@@ -41,37 +40,32 @@ from tests.common import TEST_ENDPOINT, TEST_PORT, TEST_RAW_JSON, TEST_RAW_YAML
 
 
 @pytest.mark.parametrize("raw_config", [TEST_RAW_JSON, TEST_RAW_YAML])
-def test_config_file(config_filepath):
+def test_config_file(config):
     """Test successfully loading a valid config file."""
-    config = Config({CONF_CONFIG: config_filepath})
+    config = Config(config)
     assert config.endpoint == TEST_ENDPOINT
     assert config.port == TEST_PORT
 
 
 @pytest.mark.parametrize("raw_config", ["{}"])
-def test_config_file_empty(config_filepath):
+def test_config_file_empty(config):
     """Test an empty config file with no overrides."""
     with pytest.raises(ConfigError) as err:
-        _ = Config({CONF_CONFIG: config_filepath})
+        _ = Config(config)
     assert "Missing required option: --mqtt-broker" in str(err)
 
 
-def test_config_file_overrides(config_filepath):
+def test_config_file_overrides(config):
     """Test a config file with overrides."""
-    config = Config(
-        {
-            **{CONF_CONFIG: config_filepath},
-            **{CONF_MQTT_BROKER: "192.168.1.100"},
-        }
-    )
+    config = Config({**config, **{CONF_MQTT_BROKER: "192.168.1.100"}})
     assert config.mqtt_broker == "192.168.1.100"
 
 
 @pytest.mark.parametrize("raw_config", ["Fake configuration!"])
-def test_config_file_unparsable(config_filepath):
+def test_config_file_unparsable(config):
     """Test a config file that can't be parsed as JSON or YAML."""
     with pytest.raises(ConfigError) as err:
-        _ = Config({CONF_CONFIG: config_filepath})
+        _ = Config(config)
     assert "Unable to parse config file" in str(err)
 
 
@@ -94,12 +88,10 @@ def test_config_file_unparsable(config_filepath):
         (LEGACY_ENV_RAW_DATA, ENV_RAW_DATA, "True"),
     ],
 )
-def test_deprecated_env_var(
-    caplog, config_filepath, legacy_env_var, new_env_var, value
-):
+def test_deprecated_env_var(caplog, config, legacy_env_var, new_env_var, value):
     """Test logging the usage of a deprecated environment variable."""
     os.environ[legacy_env_var] = value
-    _ = Config({CONF_CONFIG: config_filepath})
+    _ = Config(config)
     assert any(
         m
         for m in caplog.messages

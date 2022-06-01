@@ -10,12 +10,15 @@ from ecowitt2mqtt.const import (
     CONF_CONFIG,
     CONF_ENDPOINT,
     CONF_HASS_DISCOVERY,
+    CONF_INPUT_UNIT_SYSTEM,
     CONF_MQTT_BROKER,
     CONF_MQTT_PASSWORD,
     CONF_MQTT_PORT,
     CONF_MQTT_TOPIC,
     CONF_MQTT_USERNAME,
+    CONF_OUTPUT_UNIT_SYSTEM,
     CONF_PORT,
+    CONF_RAW_DATA,
     ENV_ENDPOINT,
     ENV_HASS_DISCOVERY,
     ENV_HASS_DISCOVERY_PREFIX,
@@ -47,6 +50,7 @@ from ecowitt2mqtt.const import (
     LOGGER,
 )
 from ecowitt2mqtt.errors import EcowittError
+from ecowitt2mqtt.helpers.typing import UnitSystemType
 
 DEPRECATED_ENV_VAR_MAP = {
     LEGACY_ENV_ENDPOINT: ENV_ENDPOINT,
@@ -123,6 +127,11 @@ class Config:
         return cast(str, self._config[CONF_ENDPOINT])
 
     @property
+    def input_unit_system(self) -> UnitSystemType:
+        """Return the input unit system."""
+        return cast(UnitSystemType, self._config[CONF_INPUT_UNIT_SYSTEM])
+
+    @property
     def mqtt_broker(self) -> str:
         """Return the MQTT broker host/IP address."""
         return cast(str, self._config[CONF_MQTT_BROKER])
@@ -143,11 +152,21 @@ class Config:
         return self._config.get(CONF_MQTT_TOPIC)
 
     @property
+    def mqtt_username(self) -> str:
+        """Return the MQTT broker username."""
+        return cast(str, self._config[CONF_MQTT_USERNAME])
+
+    @property
+    def output_unit_system(self) -> UnitSystemType:
+        """Return the output unit system."""
+        return cast(UnitSystemType, self._config[CONF_OUTPUT_UNIT_SYSTEM])
+
+    @property
     def port(self) -> int:
         """Return the ecowitt2mqtt API port."""
         return cast(int, self._config[CONF_PORT])
 
     @property
-    def mqtt_username(self) -> str:
-        """Return the MQTT broker username."""
-        return cast(str, self._config[CONF_MQTT_USERNAME])
+    def raw_data(self) -> bool:
+        """Return whether raw data is configured."""
+        return cast(bool, self._config[CONF_RAW_DATA])

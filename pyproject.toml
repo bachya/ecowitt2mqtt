@@ -8,6 +8,7 @@ fail_under = 100
 
 [tool.coverage.run]
 source = ["ecowitt2mqtt"]
+omit = ["ecowitt2mqtt/cli.py"]
 
 [tool.isort]
 combine_as_imports = true
@@ -82,7 +83,7 @@ pytest-asyncio = "^0.18.3"
 pytest-cov = "^3.0.0"
 
 [tool.poetry.scripts]
-ecowitt2mqtt = "ecowitt2mqtt.cli:APP"
+ecowitt2mqtt = "ecowitt2mqtt.cli:CLI_APP"
 
 [tool.pylint.BASIC]
 expected-line-ending-format = "LF"
