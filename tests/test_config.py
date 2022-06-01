@@ -6,8 +6,6 @@ import pytest
 
 from ecowitt2mqtt.config import Config, ConfigError
 from ecowitt2mqtt.const import (
-    BATTERY_CONFIGURATION_NUMERIC,
-    BATTERY_CONFIGURATION_RAW,
     CONF_BATTERY_CONFIG,
     CONF_MQTT_BROKER,
     CONF_MQTT_TOPIC,
@@ -41,6 +39,7 @@ from ecowitt2mqtt.const import (
     LEGACY_ENV_PORT,
     LEGACY_ENV_RAW_DATA,
 )
+from ecowitt2mqtt.util.calculator.battery import BatteryConfig
 
 from tests.common import (
     TEST_ENDPOINT,
@@ -58,8 +57,8 @@ def test_battery_configs_cli_options(config):
         {**config, **{"battery_config": ("wh65batt0=raw", "wh65batt1=numeric")}}
     )
     assert config.battery_config == {
-        "wh65batt0": BATTERY_CONFIGURATION_RAW,
-        "wh65batt1": BATTERY_CONFIGURATION_NUMERIC,
+        "wh65batt0": BatteryConfig.RAW,
+        "wh65batt1": BatteryConfig.NUMERIC,
     }
 
 
@@ -79,8 +78,8 @@ def test_battery_configs_config_file(config):
     """Test battery configs provided by a config file."""
     config = Config(config)
     assert config.battery_config == {
-        "wh65batt0": BATTERY_CONFIGURATION_RAW,
-        "wh65batt1": BATTERY_CONFIGURATION_NUMERIC,
+        "wh65batt0": BatteryConfig.RAW,
+        "wh65batt1": BatteryConfig.NUMERIC,
     }
 
 
@@ -101,8 +100,8 @@ def test_battery_configs_env_vars(config):
     os.environ[ENV_BATTERY_CONFIG] = "wh65batt0=raw;wh65batt1=numeric"
     config = Config(config)
     assert config.battery_config == {
-        "wh65batt0": BATTERY_CONFIGURATION_RAW,
-        "wh65batt1": BATTERY_CONFIGURATION_NUMERIC,
+        "wh65batt0": BatteryConfig.RAW,
+        "wh65batt1": BatteryConfig.NUMERIC,
     }
 
 

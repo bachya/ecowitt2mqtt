@@ -1,6 +1,17 @@
 """Define battery utilities."""
 from __future__ import annotations
 
+from ecowitt2mqtt.backports.enum import StrEnum
+
+
+class BatteryConfig(StrEnum):
+    """Define types of battery configuration."""
+
+    BOOLEAN = "boolean"
+    NUMERIC = "numeric"
+    RAW = "raw"
+
+
 BATTERY_STATE_OFF = "OFF"
 BATTERY_STATE_ON = "ON"
 

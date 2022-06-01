@@ -5,11 +5,6 @@ from ecowitt2mqtt.helpers.typing import UnitSystemType
 
 LOGGER = logging.getLogger(__package__)
 
-# Battery configuration types:
-BATTERY_CONFIGURATION_BOOLEAN = "boolean"
-BATTERY_CONFIGURATION_NUMERIC = "numeric"
-BATTERY_CONFIGURATION_RAW = "raw"
-
 # Configuration keys:
 CONF_BATTERY_CONFIG = "battery_config"
 CONF_CONFIG = "config"

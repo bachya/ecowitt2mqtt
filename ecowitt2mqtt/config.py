@@ -52,7 +52,8 @@ from ecowitt2mqtt.const import (
     LOGGER,
 )
 from ecowitt2mqtt.errors import EcowittError
-from ecowitt2mqtt.helpers.typing import BatteryConfigType, UnitSystemType
+from ecowitt2mqtt.helpers.typing import UnitSystemType
+from ecowitt2mqtt.util.calculator.battery import BatteryConfig
 
 DEPRECATED_ENV_VAR_MAP = {
     LEGACY_ENV_ENDPOINT: ENV_ENDPOINT,
@@ -87,16 +88,16 @@ def convert_battery_config(configs: str | tuple) -> dict[str, str]:
     try:
         if isinstance(configs, str):
             return {
-                pair[0]: pair[1]
+                pair[0]: BatteryConfig(pair[1])
                 for assignment in configs.split(";")
                 if (pair := assignment.split("="))
             }
         return {
-            pair[0]: pair[1]
+            pair[0]: BatteryConfig(pair[1])
             for assignment in configs
             if (pair := assignment.split("="))
         }
-    except (IndexError, ValueError):
+    except (IndexError, KeyError, ValueError):
         raise ConfigError(
             f"Unable to parse battery configurations: {configs}"
         ) from None
@@ -161,9 +162,9 @@ class Config:
         LOGGER.debug("Loaded Config: %s", self._config)
 
     @property
-    def battery_config(self) -> dict[str, BatteryConfigType]:
+    def battery_config(self) -> dict[str, BatteryConfig]:
         """Return the battery configurations."""
-        return cast(Dict[str, BatteryConfigType], self._config[CONF_BATTERY_CONFIG])
+        return cast(Dict[str, BatteryConfig], self._config[CONF_BATTERY_CONFIG])
 
     @property
     def endpoint(self) -> str:
