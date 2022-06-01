@@ -79,11 +79,11 @@ class ConfigError(EcowittError):
     pass
 
 
-def convert_battery_config(configs: str | tuple) -> dict[str, str]:
+def convert_battery_config(configs: str | tuple) -> dict[str, BatteryConfig]:
     """Normalize incoming battery configurations depending on the input format.
 
     1. Environment Variables (str): "key1=value1;key2=value2"
-    1. CLI Options (tuple): ("key1=val1", "key2=val2")
+    2. CLI Options (tuple): ("key1=val1", "key2=val2")
     """
     try:
         if isinstance(configs, str):
