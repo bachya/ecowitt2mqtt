@@ -22,7 +22,8 @@ from ecowitt2mqtt.const import (
     UNIT_SYSTEM_IMPERIAL,
     UNIT_SYSTEM_METRIC,
 )
-from ecowitt2mqtt.data import process_data
+from ecowitt2mqtt.data import ProcessedData
+from ecowitt2mqtt.helpers.device import Device
 
 from tests.common import (
     TEST_ENDPOINT,
@@ -37,12 +38,129 @@ from tests.common import (
 )
 
 
+@pytest.mark.parametrize(
+    "device_payload,device",
+    [
+        (
+            {
+                "PASSKEY": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "stationtype": "GW1000B_V1.7.3",
+                "runtime": "319206",
+                "dateutc": "2022-05-27 19:08:10",
+                "tempinf": "79.52",
+                "humidityin": "31",
+                "baromrelin": "24.740",
+                "baromabsin": "24.740",
+                "tempf": "89.06",
+                "humidity": "14",
+                "winddir": "139",
+                "windspeedmph": "0.89",
+                "windgustmph": "1.12",
+                "maxdailygust": "8.05",
+                "solarradiation": "264.61",
+                "uv": "2",
+                "rainratein": "0.000",
+                "eventrainin": "0.000",
+                "hourlyrainin": "0.000",
+                "dailyrainin": "0.000",
+                "weeklyrainin": "0.000",
+                "monthlyrainin": "2.177",
+                "yearlyrainin": "4.441",
+                "wh65batt": "0",
+                "freq": "915M",
+                "model": "GW1000B_Pro",
+            },
+            Device(
+                "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "Ecowitt",
+                "GW1000",
+                "GW1000B_V1.7.3",
+            ),
+        ),
+        (
+            {
+                "PASSKEY": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "stationtype": "UNKOWN_Vx.x.x",
+                "runtime": "319206",
+                "dateutc": "2022-05-27 19:08:10",
+                "tempinf": "79.52",
+                "humidityin": "31",
+                "baromrelin": "24.740",
+                "baromabsin": "24.740",
+                "tempf": "89.06",
+                "humidity": "14",
+                "winddir": "139",
+                "windspeedmph": "0.89",
+                "windgustmph": "1.12",
+                "maxdailygust": "8.05",
+                "solarradiation": "264.61",
+                "uv": "2",
+                "rainratein": "0.000",
+                "eventrainin": "0.000",
+                "hourlyrainin": "0.000",
+                "dailyrainin": "0.000",
+                "weeklyrainin": "0.000",
+                "monthlyrainin": "2.177",
+                "yearlyrainin": "4.441",
+                "wh65batt": "0",
+                "freq": "915M",
+                "model": "Some Random Model",
+            },
+            Device(
+                "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "Unknown",
+                "Unknown Device",
+                "UNKOWN_Vx.x.x",
+            ),
+        ),
+        (
+            {
+                "runtime": "319206",
+                "dateutc": "2022-05-27 19:08:10",
+                "tempinf": "79.52",
+                "humidityin": "31",
+                "baromrelin": "24.740",
+                "baromabsin": "24.740",
+                "tempf": "89.06",
+                "humidity": "14",
+                "winddir": "139",
+                "windspeedmph": "0.89",
+                "windgustmph": "1.12",
+                "maxdailygust": "8.05",
+                "solarradiation": "264.61",
+                "uv": "2",
+                "rainratein": "0.000",
+                "eventrainin": "0.000",
+                "hourlyrainin": "0.000",
+                "dailyrainin": "0.000",
+                "weeklyrainin": "0.000",
+                "monthlyrainin": "2.177",
+                "yearlyrainin": "4.441",
+                "wh65batt": "0",
+                "freq": "915M",
+                "model": "Some Random Model",
+            },
+            Device(
+                "default",
+                "Unknown",
+                "Unknown Device",
+                "Unknown Station Type",
+            ),
+        ),
+    ],
+)
+def test_device(device, device_payload, ecowitt):
+    """Test that a device object is properly created from a data payload."""
+    processed_data = ProcessedData(ecowitt, device_payload)
+    assert processed_data.device == device
+
+
 @pytest.mark.parametrize("device_payload_filename", ["payload_gw2000a_1.json"])
 def test_missing_distance(device_payload, ecowitt):
     """Test that a distance key with an invalid value doesn't throw an error."""
     device_payload[DATA_POINT_LIGHTNING] = ""
-    processed_data = process_data(ecowitt, device_payload)
-    assert processed_data == {
+    processed_data = ProcessedData(ecowitt, device_payload)
+    assert processed_data.output == {
         "runtime": 3179,
         "tempin": 71.2,
         "humidityin": 49,
@@ -382,8 +500,8 @@ def test_missing_distance(device_payload, ecowitt):
 )
 def test_process(device_payload, device_payload_filename, ecowitt, expected_output):
     """Test processing a raw data payload."""
-    processed_data = process_data(ecowitt, device_payload)
-    assert processed_data == expected_output
+    processed_data = ProcessedData(ecowitt, device_payload)
+    assert processed_data.output == expected_output
 
 
 @pytest.mark.parametrize(
@@ -409,8 +527,8 @@ def test_process(device_payload, device_payload_filename, ecowitt, expected_outp
 )
 def test_unit_system(device_payload, device_payload_filename, ecowitt):
     """Test converting imperial data to metric."""
-    processed_data = process_data(ecowitt, device_payload)
-    assert processed_data == {
+    processed_data = ProcessedData(ecowitt, device_payload)
+    assert processed_data.output == {
         "runtime": 319206,
         "tempin": 26.4,
         "humidityin": 31,
@@ -438,4 +556,40 @@ def test_unit_system(device_payload, device_payload_filename, ecowitt):
         "solarradiation_lux": 33494.9,
         "solarradiation_perceived": 90.0,
         "windchill": None,
+    }
+
+
+def test_nonnumeric_value(device_payload, ecowitt):
+    """Test a value that can't be parsed as a number."""
+    device_payload["Random New Key"] = "Some Value"
+    processed_data = ProcessedData(ecowitt, device_payload)
+    assert processed_data.output == {
+        "baromabs": 24.74,
+        "baromrel": 24.74,
+        "dailyrain": 0.0,
+        "dewpoint": 33.7,
+        "eventrain": 0.0,
+        "feelslike": 85.1,
+        "heatindex": 85.1,
+        "hourlyrain": 0.0,
+        "humidity": 14.0,
+        "humidityin": 31.0,
+        "maxdailygust": 8.05,
+        "monthlyrain": 2.177,
+        "rainrate": 0.0,
+        "runtime": 319206.0,
+        "solarradiation": 264.61,
+        "solarradiation_lux": 33494.9,
+        "solarradiation_perceived": 90.0,
+        "temp": 89.1,
+        "tempin": 79.5,
+        "uv": 2.0,
+        "weeklyrain": 0.0,
+        "wh65batt": 0.0,
+        "windchill": None,
+        "winddir": 139.0,
+        "windgust": 1.12,
+        "windspeed": 0.89,
+        "yearlyrain": 4.441,
+        "Random New Key": "Some Value",
     }

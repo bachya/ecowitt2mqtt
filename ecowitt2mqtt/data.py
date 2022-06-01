@@ -1,6 +1,7 @@
 """Define data processing."""
 from __future__ import annotations
 
+from dataclasses import dataclass, field
 from functools import partial
 import inspect
 from typing import TYPE_CHECKING, Any, Callable
@@ -29,6 +30,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_WINDSPEEDMPH,
     UNIT_SYSTEM_METRIC,
 )
+from ecowitt2mqtt.helpers.device import Device, get_device_from_raw_payload
 from ecowitt2mqtt.helpers.typing import DataValueType
 from ecowitt2mqtt.util.calculator import calculate_noop
 from ecowitt2mqtt.util.calculator.distance import calculate_distance
@@ -91,11 +93,11 @@ WIND_CHILL_KEYS = (DATA_POINT_TEMPF, DATA_POINT_WINDSPEEDMPH)
 ILLUMINANCE_KEYS = (DATA_POINT_SOLARRADIATION,)
 
 
-def _get_calculator_function(
+def get_calculator_function(
     ecowitt: Ecowitt, key: str, *args: float | str, **kwargs: str
 ) -> Callable[..., DataValueType] | None:
     """Get a data calculator function for a particular data key (if it exists)."""
-    data_type = _get_data_point(key)
+    data_type = get_data_point_from_key(key)
 
     if not data_type:
         return None
@@ -111,7 +113,7 @@ def _get_calculator_function(
     return partial(func, *args, **kwargs)
 
 
-def _get_data_point(key: str) -> str | None:
+def get_data_point_from_key(key: str) -> str | None:
     """Get the data point "type" (if it exists) for a specific data key.
 
     1. If there is a data type that equals the provided key, use it.
@@ -129,14 +131,17 @@ def _get_data_point(key: str) -> str | None:
     return match
 
 
-def _get_typed_value(value: str) -> float:
-    """Take a string and return its properly typed counterpart."""
-    return float(value)
+def get_typed_value(value: str) -> float | str:
+    """Take a string and return its properly typed counterpart (if possible)."""
+    try:
+        return float(value)
+    except ValueError:
+        return value
 
 
-def _remove_unit_from_key(key: str) -> str:
+def remove_unit_from_key(key: str) -> str:
     """Remove a unit from the end of a key."""
-    data_point = _get_data_point(key)
+    data_point = get_data_point_from_key(key)
 
     if not data_point:
         return key
@@ -151,44 +156,54 @@ def _remove_unit_from_key(key: str) -> str:
     return key[:-suffix_length]
 
 
-def process_data(ecowitt: Ecowitt, data: dict[str, Any]) -> dict[str, Any]:
-    """Return processed data."""
-    processed_data: dict[str, DataValueType] = {}
+@dataclass(frozen=True)
+class ProcessedData:
+    """Define a processed data payload."""
 
-    # Process all of the data points for which raw data was provided:
-    for target_key, target_value in data.items():
-        if target_key in DEFAULT_KEYS_TO_IGNORE or not target_value:
-            continue
+    ecowitt: Ecowitt
+    data: dict[str, Any]
+    device: Device = field(init=False)
+    output: dict[str, DataValueType] = field(default_factory=dict)
 
-        key = _remove_unit_from_key(target_key)
-        value = _get_typed_value(target_value)
+    def __post_init__(self) -> None:
+        """Initialize."""
+        object.__setattr__(self, "device", get_device_from_raw_payload(self.data))
 
-        if (
-            ecowitt.config.raw_data
-            or (calc := _get_calculator_function(ecowitt, target_key, value)) is None
+        # Process all of the data points for which raw data was provided:
+        for target_key, target_value in self.data.items():
+            if target_key in DEFAULT_KEYS_TO_IGNORE or not target_value:
+                continue
+
+            key = remove_unit_from_key(target_key)
+            value = get_typed_value(target_value)
+
+            if (
+                self.ecowitt.config.raw_data
+                or (calc := get_calculator_function(self.ecowitt, target_key, value))
+                is None
+            ):
+                self.output[key] = value
+            else:
+                self.output[key] = calc()
+
+        # Process any from-scratch data points that can be calculated from others:
+        for target_key, input_keys in (
+            (DATA_POINT_DEWPOINT, DEW_POINT_KEYS),
+            (DATA_POINT_FEELSLIKE, FEELS_LIKE_KEYS),
+            (DATA_POINT_HEATINDEX, HEAT_INDEX_KEYS),
+            (DATA_POINT_SOLARRADIATION_LUX, ILLUMINANCE_KEYS),
+            (DATA_POINT_SOLARRADIATION_PERCEIVED, ILLUMINANCE_KEYS),
+            (DATA_POINT_WINDCHILL, WIND_CHILL_KEYS),
         ):
-            processed_data[key] = value
-        else:
-            processed_data[key] = calc()
+            if not all(k in self.data for k in input_keys):
+                continue
 
-    # Process any from-scratch data points that can be calculated from others:
-    for target_key, input_keys in (
-        (DATA_POINT_DEWPOINT, DEW_POINT_KEYS),
-        (DATA_POINT_FEELSLIKE, FEELS_LIKE_KEYS),
-        (DATA_POINT_HEATINDEX, HEAT_INDEX_KEYS),
-        (DATA_POINT_SOLARRADIATION_LUX, ILLUMINANCE_KEYS),
-        (DATA_POINT_SOLARRADIATION_PERCEIVED, ILLUMINANCE_KEYS),
-        (DATA_POINT_WINDCHILL, WIND_CHILL_KEYS),
-    ):
-        if not all(k in data for k in input_keys):
-            continue
+            calc = get_calculator_function(
+                self.ecowitt,
+                target_key,
+                *[get_typed_value(self.data[k]) for k in input_keys],
+            )
+            # We know that calculated data points will always have a calculator:
+            assert calc
 
-        calc = _get_calculator_function(
-            ecowitt, target_key, *[_get_typed_value(data[k]) for k in input_keys]
-        )
-        # We know that calculated data points will always have a calculator:
-        assert calc
-
-        processed_data[target_key] = calc()
-
-    return processed_data
+            self.output[target_key] = calc()
