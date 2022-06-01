@@ -51,6 +51,7 @@ if TYPE_CHECKING:
 
 DEFAULT_KEYS_TO_IGNORE = ["PASSKEY", "dateutc", "freq", "model", "stationtype"]
 
+# Map which data calculator functions should apply to various data points:
 CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., DataValueType]] = {
     DATA_POINT_DEWPOINT: calculate_dew_point,
     DATA_POINT_FEELSLIKE: calculate_feels_like,
@@ -74,6 +75,7 @@ CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., DataValueType]] = {
     DATA_POINT_WINDDIR: calculate_noop,
 }
 
+# Map which data points tend to come with keys embedded at their end:
 UNIT_SUFFIX_MAP = {
     DATA_POINT_GLOB_BAROM: "in",
     DATA_POINT_GLOB_GUST: "mph",
@@ -89,7 +91,7 @@ WIND_CHILL_KEYS = (DATA_POINT_TEMPF, DATA_POINT_WINDSPEEDMPH)
 ILLUMINANCE_KEYS = (DATA_POINT_SOLARRADIATION,)
 
 
-def _get_calculator_func(
+def _get_calculator_function(
     ecowitt: Ecowitt, key: str, *args: float | str, **kwargs: str
 ) -> Callable[..., DataValueType] | None:
     """Get a data calculator function for a particular data key (if it exists)."""
@@ -141,7 +143,7 @@ def _remove_unit_from_key(key: str) -> str:
 
     if (suffix := UNIT_SUFFIX_MAP.get(data_point)) is None or not key.endswith(suffix):
         # Return the key as-is if:
-        #   1. This isn't a key that we know to end with a unit.
+        #   1. This isn't a key we're monitoring.
         #   2. The key doesn't end with the unit.
         return key
 
@@ -154,19 +156,20 @@ def process_data(ecowitt: Ecowitt, data: dict[str, Any]) -> dict[str, Any]:
     processed_data: dict[str, DataValueType] = {}
 
     # Process all of the data points for which raw data was provided:
-    for target_key, value in data.items():
-        if target_key in DEFAULT_KEYS_TO_IGNORE or not value:
+    for target_key, target_value in data.items():
+        if target_key in DEFAULT_KEYS_TO_IGNORE or not target_value:
             continue
 
-        new_key = _remove_unit_from_key(target_key)
-        new_value = _get_typed_value(value)
+        key = _remove_unit_from_key(target_key)
+        value = _get_typed_value(target_value)
 
         if (
-            calc := _get_calculator_func(ecowitt, target_key, new_value)
-        ) is None or ecowitt.config.raw_data:
-            processed_data[new_key] = new_value
+            ecowitt.config.raw_data
+            or (calc := _get_calculator_function(ecowitt, target_key, value)) is None
+        ):
+            processed_data[key] = value
         else:
-            processed_data[new_key] = calc()
+            processed_data[key] = calc()
 
     # Process any from-scratch data points that can be calculated from others:
     for target_key, input_keys in (
@@ -180,7 +183,7 @@ def process_data(ecowitt: Ecowitt, data: dict[str, Any]) -> dict[str, Any]:
         if not all(k in data for k in input_keys):
             continue
 
-        calc = _get_calculator_func(
+        calc = _get_calculator_function(
             ecowitt, target_key, *[_get_typed_value(data[k]) for k in input_keys]
         )
         # We know that calculated data points will always have a calculator:
