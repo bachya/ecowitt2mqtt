@@ -1,11 +1,17 @@
 """Define tests for configuration management."""
+import json
 import os
 
 import pytest
 
 from ecowitt2mqtt.config import Config, ConfigError
 from ecowitt2mqtt.const import (
+    BATTERY_CONFIGURATION_NUMERIC,
+    BATTERY_CONFIGURATION_RAW,
+    CONF_BATTERY_CONFIG,
     CONF_MQTT_BROKER,
+    CONF_MQTT_TOPIC,
+    ENV_BATTERY_CONFIG,
     ENV_ENDPOINT,
     ENV_HASS_DISCOVERY,
     ENV_HASS_DISCOVERY_PREFIX,
@@ -36,7 +42,68 @@ from ecowitt2mqtt.const import (
     LEGACY_ENV_RAW_DATA,
 )
 
-from tests.common import TEST_ENDPOINT, TEST_PORT, TEST_RAW_JSON, TEST_RAW_YAML
+from tests.common import (
+    TEST_ENDPOINT,
+    TEST_MQTT_BROKER,
+    TEST_MQTT_TOPIC,
+    TEST_PORT,
+    TEST_RAW_JSON,
+    TEST_RAW_YAML,
+)
+
+
+def test_battery_configs_cli_options(config):
+    """Test battery configs provided by CLI options."""
+    config = Config(
+        {**config, **{"battery_config": ("wh65batt0=raw", "wh65batt1=numeric")}}
+    )
+    assert config.battery_config == {
+        "wh65batt0": BATTERY_CONFIGURATION_RAW,
+        "wh65batt1": BATTERY_CONFIGURATION_NUMERIC,
+    }
+
+
+@pytest.mark.parametrize(
+    "raw_config",
+    [
+        json.dumps(
+            {
+                CONF_BATTERY_CONFIG: {"wh65batt0": "raw", "wh65batt1": "numeric"},
+                CONF_MQTT_BROKER: TEST_MQTT_BROKER,
+                CONF_MQTT_TOPIC: TEST_MQTT_TOPIC,
+            }
+        )
+    ],
+)
+def test_battery_configs_config_file(config):
+    """Test battery configs provided by a config file."""
+    config = Config(config)
+    assert config.battery_config == {
+        "wh65batt0": BATTERY_CONFIGURATION_RAW,
+        "wh65batt1": BATTERY_CONFIGURATION_NUMERIC,
+    }
+
+
+def test_battery_configs_error(config):
+    """Test handling invalid battery configs."""
+    with pytest.raises(ConfigError):
+        _ = Config(
+            {**config, **{"battery_config": ("wh65batt0;raw", "wh65batt1=numeric")}}
+        )
+
+    os.environ[ENV_BATTERY_CONFIG] = "some-random-string"
+    with pytest.raises(ConfigError):
+        _ = Config(config)
+
+
+def test_battery_configs_env_vars(config):
+    """Test battery configs provided by environment variables."""
+    os.environ[ENV_BATTERY_CONFIG] = "wh65batt0=raw;wh65batt1=numeric"
+    config = Config(config)
+    assert config.battery_config == {
+        "wh65batt0": BATTERY_CONFIGURATION_RAW,
+        "wh65batt1": BATTERY_CONFIGURATION_NUMERIC,
+    }
 
 
 @pytest.mark.parametrize("raw_config", [TEST_RAW_JSON, TEST_RAW_YAML])

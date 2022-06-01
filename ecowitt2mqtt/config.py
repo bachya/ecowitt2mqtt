@@ -2,11 +2,12 @@
 from __future__ import annotations
 
 import os
-from typing import Any, cast
+from typing import Any, Dict, cast
 
 from ruamel.yaml import YAML
 
 from ecowitt2mqtt.const import (
+    CONF_BATTERY_CONFIG,
     CONF_CONFIG,
     CONF_ENDPOINT,
     CONF_HASS_DISCOVERY,
@@ -19,6 +20,7 @@ from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_SYSTEM,
     CONF_PORT,
     CONF_RAW_DATA,
+    ENV_BATTERY_CONFIG,
     ENV_ENDPOINT,
     ENV_HASS_DISCOVERY,
     ENV_HASS_DISCOVERY_PREFIX,
@@ -50,7 +52,7 @@ from ecowitt2mqtt.const import (
     LOGGER,
 )
 from ecowitt2mqtt.errors import EcowittError
-from ecowitt2mqtt.helpers.typing import UnitSystemType
+from ecowitt2mqtt.helpers.typing import BatteryConfigType, UnitSystemType
 
 DEPRECATED_ENV_VAR_MAP = {
     LEGACY_ENV_ENDPOINT: ENV_ENDPOINT,
@@ -74,6 +76,30 @@ class ConfigError(EcowittError):
     """Define an error related to bad configuration."""
 
     pass
+
+
+def convert_battery_config(configs: str | tuple) -> dict[str, str]:
+    """Normalize incoming battery configurations depending on the input format.
+
+    1. Environment Variables (str): "key1=value1;key2=value2"
+    1. CLI Options (tuple): ("key1=val1", "key2=val2")
+    """
+    try:
+        if isinstance(configs, str):
+            return {
+                pair[0]: pair[1]
+                for assignment in configs.split(";")
+                if (pair := assignment.split("="))
+            }
+        return {
+            pair[0]: pair[1]
+            for assignment in configs
+            if (pair := assignment.split("="))
+        }
+    except (IndexError, ValueError):
+        raise ConfigError(
+            f"Unable to parse battery configurations: {configs}"
+        ) from None
 
 
 class Config:
@@ -103,12 +129,16 @@ class Config:
         if not isinstance(self._config, dict):
             raise ConfigError(f"Unable to parse config file: {config_path}")
 
-        # Merge the CLI options/environment variables in using this logic:
-        #   1. If the value is not None, its an override and we should use it
-        #   2. If a key doesn't exist in self._config yet, include it
+        # Merge the CLI options/environment variables; if the value is falsey (but *not*
+        # False), ignore it
         for key, value in params.items():
-            if value is not None or key not in self._config:
-                self._config[key] = value
+            if not isinstance(value, bool) and not value:
+                continue
+            if key == CONF_BATTERY_CONFIG:
+                # Don't bother computing this just now; let's make sure we have the
+                # values we need, then we'll handle it later:
+                continue
+            self._config[key] = value
 
         # If we don't have an MQTT broker, we can't proceed:
         if self._config.get(CONF_MQTT_BROKER) is None:
@@ -119,7 +149,21 @@ class Config:
                 "Missing required option: --mqtt-topic or --hass-discovery"
             )
 
+        if env_battery_configs := os.getenv(ENV_BATTERY_CONFIG):
+            self._config[CONF_BATTERY_CONFIG] = convert_battery_config(
+                env_battery_configs
+            )
+        elif CONF_BATTERY_CONFIG in params:
+            self._config[CONF_BATTERY_CONFIG] = convert_battery_config(
+                params[CONF_BATTERY_CONFIG]
+            )
+
         LOGGER.debug("Loaded Config: %s", self._config)
+
+    @property
+    def battery_config(self) -> dict[str, BatteryConfigType]:
+        """Return the battery configurations."""
+        return cast(Dict[str, BatteryConfigType], self._config[CONF_BATTERY_CONFIG])
 
     @property
     def endpoint(self) -> str:

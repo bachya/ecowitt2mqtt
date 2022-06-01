@@ -1,4 +1,6 @@
 """Define the main interface to the CLI."""
+from __future__ import annotations
+
 from pathlib import Path
 
 import typer
@@ -46,6 +48,11 @@ DEFAULT_PORT = 8080
 @log_exception()
 def main(  # pylint: disable=too-many-arguments,too-many-locals
     ctx: typer.Context,
+    battery_config: list[str] = typer.Option(
+        None,
+        "--battery-config",
+        help="A battery configuration (format: key,value)",
+    ),
     config: Path = typer.Option(
         None,
         "--config",

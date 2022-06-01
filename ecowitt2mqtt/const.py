@@ -5,7 +5,13 @@ from ecowitt2mqtt.helpers.typing import UnitSystemType
 
 LOGGER = logging.getLogger(__package__)
 
+# Battery configuration types:
+BATTERY_CONFIGURATION_BOOLEAN = "boolean"
+BATTERY_CONFIGURATION_NUMERIC = "numeric"
+BATTERY_CONFIGURATION_RAW = "raw"
+
 # Configuration keys:
+CONF_BATTERY_CONFIG = "battery_config"
 CONF_CONFIG = "config"
 CONF_ENDPOINT = "endpoint"
 CONF_HASS_DISCOVERY = "hass_discovery"
@@ -54,6 +60,7 @@ DATA_POINT_WINDDIR = "winddir"
 DATA_POINT_WINDSPEEDMPH = "windspeedmph"
 
 # Environment variables:
+ENV_BATTERY_CONFIG = "ECOWITT2MQTT_BATTERY_CONFIG"
 ENV_CONFIG = "ECOWITT2MQTT_CONFIG"
 ENV_ENDPOINT = "ECOWITT2MQTT_ENDPOINT"
 ENV_HASS_DISCOVERY = "ECOWITT2MQTT_HASS_DISCOVERY"
