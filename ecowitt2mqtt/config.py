@@ -135,8 +135,8 @@ class Config:
             if not isinstance(value, bool) and not value:
                 continue
             if key == CONF_BATTERY_CONFIG:
-                # Don't bother computing this just now; let's make sure we have the
-                # values we need, then we'll handle it later:
+                # Don't bother computing battery configs just now; make sure we have the
+                # values we need, then handle it later:
                 continue
             self._config[key] = value
 
