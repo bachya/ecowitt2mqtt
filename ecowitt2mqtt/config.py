@@ -130,25 +130,25 @@ class Config:
         if not isinstance(self._config, dict):
             raise ConfigError(f"Unable to parse config file: {config_path}")
 
-        # Merge the CLI options/environment variables; if the value is falsey (but *not*
-        # False), ignore it
-        for key, value in params.items():
-            if not isinstance(value, bool) and not value:
-                continue
-            if key == CONF_BATTERY_CONFIG:
-                # Don't bother computing battery configs just now; make sure we have the
-                # values we need, then handle it later:
-                continue
-            self._config[key] = value
-
-        # If we don't have an MQTT broker, we can't proceed:
-        if self._config.get(CONF_MQTT_BROKER) is None:
+        if not any(data.get(CONF_MQTT_BROKER) for data in (self._config, params)):
             raise ConfigError("Missing required option: --mqtt-broker")
 
-        if all(not self._config.get(c) for c in (CONF_MQTT_TOPIC, CONF_HASS_DISCOVERY)):
+        if not any(
+            data.get(key)
+            for key in (CONF_MQTT_TOPIC, CONF_HASS_DISCOVERY)
+            for data in (self._config, params)
+        ):
             raise ConfigError(
                 "Missing required option: --mqtt-topic or --hass-discovery"
             )
+
+        self._config.setdefault(CONF_BATTERY_CONFIG, {})
+
+        # Merge the CLI options/environment variables; if the value is falsey (but *not*
+        # False), ignore it:
+        for key, value in params.items():
+            if value is not None:
+                self._config[key] = value
 
         if env_battery_configs := os.getenv(ENV_BATTERY_CONFIG):
             self._config[CONF_BATTERY_CONFIG] = convert_battery_config(

@@ -51,7 +51,7 @@ from tests.common import (
 )
 
 
-def test_battery_configs_cli_options(config):
+def test_battery_config_cli_options(config):
     """Test battery configs provided by CLI options."""
     config = Config(
         {**config, **{"battery_config": ("wh65batt0=raw", "wh65batt1=numeric")}}
@@ -74,7 +74,7 @@ def test_battery_configs_cli_options(config):
         )
     ],
 )
-def test_battery_configs_config_file(config):
+def test_battery_config_config_file(config):
     """Test battery configs provided by a config file."""
     config = Config(config)
     assert config.battery_config == {
@@ -83,7 +83,7 @@ def test_battery_configs_config_file(config):
     }
 
 
-def test_battery_configs_error(config):
+def test_battery_config_error(config):
     """Test handling invalid battery configs."""
     with pytest.raises(ConfigError):
         _ = Config(
@@ -95,7 +95,7 @@ def test_battery_configs_error(config):
         _ = Config(config)
 
 
-def test_battery_configs_env_vars(config):
+def test_battery_config_env_vars(config):
     """Test battery configs provided by environment variables."""
     os.environ[ENV_BATTERY_CONFIG] = "wh65batt0=raw;wh65batt1=numeric"
     config = Config(config)
@@ -103,6 +103,13 @@ def test_battery_configs_env_vars(config):
         "wh65batt0": BatteryConfig.RAW,
         "wh65batt1": BatteryConfig.NUMERIC,
     }
+    os.environ.pop(ENV_BATTERY_CONFIG)
+
+
+def test_battery_config_missing(config):
+    """Test that missing battery configs doesn't cause an issue."""
+    config = Config(config)
+    assert config.battery_config == {}
 
 
 @pytest.mark.parametrize("raw_config", [TEST_RAW_JSON, TEST_RAW_YAML])
