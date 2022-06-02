@@ -178,10 +178,8 @@ class ProcessedData:
             value = get_typed_value(target_value)
 
             if (
-                self.ecowitt.config.raw_data
-                or (calc := get_calculator_function(self.ecowitt, target_key, value))
-                is None
-            ):
+                calc := get_calculator_function(self.ecowitt, target_key, value)
+            ) is None:
                 self.output[key] = value
             else:
                 self.output[key] = calc()

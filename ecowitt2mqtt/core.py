@@ -47,8 +47,10 @@ class Ecowitt:  # pylint: disable=too-few-public-methods
 
         async def publish_data_to_mqtt(payload: dict[str, Any]) -> None:
             """Publish device data to MQTT."""
-            processed_data = ProcessedData(self, payload)
-            await mqtt_publisher.async_publish(processed_data.output)
+            if not self.config.raw_data:
+                processed_data = ProcessedData(self, payload)
+                payload = processed_data.output
+            await mqtt_publisher.async_publish(payload)
 
         self.server.add_device_payload_callback(publish_data_to_mqtt)
 
