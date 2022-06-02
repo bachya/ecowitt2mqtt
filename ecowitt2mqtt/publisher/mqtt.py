@@ -1,6 +1,7 @@
 """Define MQTT publishing."""
 from __future__ import annotations
 
+from datetime import datetime
 import json
 from typing import TYPE_CHECKING, Any
 
@@ -23,8 +24,15 @@ class PublishError(EcowittError):
 def generate_mqtt_payload(data: dict[str, Any] | str) -> bytes:
     """Generate a binary MQTT payload from input data."""
     if isinstance(data, dict):
-        data = json.dumps(data)
+        data = json.dumps(data, default=json_serializer)
     return data.encode("utf-8")
+
+
+def json_serializer(obj: Any) -> Any:
+    """Define a custom JSON serializer."""
+    if isinstance(obj, datetime):
+        return obj.isoformat()
+    raise TypeError(f"Type {type(obj)} not serializable")
 
 
 class MqttPublisher(Publisher):

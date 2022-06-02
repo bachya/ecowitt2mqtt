@@ -4,6 +4,7 @@ from unittest.mock import patch
 from asyncio_mqtt import MqttError
 import pytest
 
+from ecowitt2mqtt.data import ProcessedData
 from ecowitt2mqtt.publisher.mqtt import (
     MqttTopicPublisher,
     PublishError,
@@ -33,16 +34,25 @@ def test_get_publisher(device_payload, ecowitt):
         "payload_ws2900.json",
     ],
 )
-async def test_publish(
+async def test_publish_raw_data(
     device_payload,
     device_payload_filename,
     ecowitt,
 ):
     """Test publishing a payload to an MqttTopicPublisher."""
     publisher = get_mqtt_publisher(ecowitt)
+
+    # Test publishing raw data:
     await publisher.async_publish(device_payload)
-    publisher.client.publish.assert_awaited_once_with(
+    publisher.client.publish.assert_awaited_with(
         TEST_MQTT_TOPIC, generate_mqtt_payload(device_payload)
+    )
+
+    # Test publishing processed data:
+    processed_data = ProcessedData(ecowitt, device_payload)
+    await publisher.async_publish(processed_data.output)
+    publisher.client.publish.assert_awaited_with(
+        TEST_MQTT_TOPIC, generate_mqtt_payload(processed_data.output)
     )
 
 
