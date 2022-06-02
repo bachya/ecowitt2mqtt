@@ -3,9 +3,9 @@
 import pytest
 
 from ecowitt2mqtt.const import UNIT_SYSTEM_IMPERIAL, UNIT_SYSTEM_METRIC
-from ecowitt2mqtt.util.calculator.battery import calculate_battery
-from ecowitt2mqtt.util.calculator.distance import calculate_distance
-from ecowitt2mqtt.util.calculator.meteo import (
+from ecowitt2mqtt.helpers.calculator.battery import calculate_battery
+from ecowitt2mqtt.helpers.calculator.distance import calculate_distance
+from ecowitt2mqtt.helpers.calculator.meteo import (
     calculate_dew_point,
     calculate_feels_like,
     calculate_heat_index,

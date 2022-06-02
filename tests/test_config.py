@@ -39,7 +39,7 @@ from ecowitt2mqtt.const import (
     LEGACY_ENV_PORT,
     LEGACY_ENV_RAW_DATA,
 )
-from ecowitt2mqtt.util.calculator.battery import BatteryConfig
+from ecowitt2mqtt.helpers.calculator.battery import BatteryConfig
 
 from tests.common import (
     TEST_ENDPOINT,

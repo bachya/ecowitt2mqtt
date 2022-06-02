@@ -52,8 +52,8 @@ from ecowitt2mqtt.const import (
     LOGGER,
 )
 from ecowitt2mqtt.errors import EcowittError
+from ecowitt2mqtt.helpers.calculator.battery import BatteryConfig
 from ecowitt2mqtt.helpers.typing import UnitSystemType
-from ecowitt2mqtt.util.calculator.battery import BatteryConfig
 
 DEPRECATED_ENV_VAR_MAP = {
     LEGACY_ENV_ENDPOINT: ENV_ENDPOINT,

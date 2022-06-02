@@ -30,11 +30,9 @@ from ecowitt2mqtt.const import (
     DATA_POINT_WINDSPEEDMPH,
     UNIT_SYSTEM_METRIC,
 )
-from ecowitt2mqtt.helpers.device import Device, get_device_from_raw_payload
-from ecowitt2mqtt.helpers.typing import DataValueType
-from ecowitt2mqtt.util.calculator import calculate_noop
-from ecowitt2mqtt.util.calculator.distance import calculate_distance
-from ecowitt2mqtt.util.calculator.meteo import (
+from ecowitt2mqtt.helpers.calculator import calculate_noop
+from ecowitt2mqtt.helpers.calculator.distance import calculate_distance
+from ecowitt2mqtt.helpers.calculator.meteo import (
     calculate_dew_point,
     calculate_feels_like,
     calculate_heat_index,
@@ -46,7 +44,9 @@ from ecowitt2mqtt.util.calculator.meteo import (
     calculate_wind_chill,
     calculate_wind_speed,
 )
-from ecowitt2mqtt.util.calculator.time import calculate_dt_from_epoch
+from ecowitt2mqtt.helpers.calculator.time import calculate_dt_from_epoch
+from ecowitt2mqtt.helpers.device import Device, get_device_from_raw_payload
+from ecowitt2mqtt.helpers.typing import DataValueType
 
 if TYPE_CHECKING:
     from ecowitt2mqtt.core import Ecowitt
