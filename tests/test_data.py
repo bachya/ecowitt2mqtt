@@ -155,51 +155,46 @@ def test_device(device, device_payload, ecowitt):
     assert processed_data.device == device
 
 
-@pytest.mark.parametrize("device_payload_filename", ["payload_gw2000a_1.json"])
-def test_missing_distance(device_payload, ecowitt):
+def test_missing_distance(device_data_gw1000bpro, ecowitt, request):
     """Test that a distance key with an invalid value doesn't throw an error."""
-    device_payload[DATA_POINT_LIGHTNING] = ""
-    processed_data = ProcessedData(ecowitt, device_payload)
-    assert processed_data.output == {
-        "runtime": 3179,
-        "tempin": 71.2,
-        "humidityin": 49,
-        "baromrel": 28.476,
-        "baromabs": 28.476,
-        "temp": 74.5,
-        "humidity": 47,
-        "winddir": 100,
-        "windspeed": 1.34,
-        "windgust": 2.24,
-        "maxdailygust": 2.24,
-        "solarradiation": 0.0,
-        "solarradiation_lux": 0.0,
-        "solarradiation_perceived": 0.0,
-        "uv": 0,
-        "rrain_piezo": 0.000,
-        "erain_piezo": 0.000,
-        "hrain_piezo": 0.000,
-        "drain_piezo": 0.000,
-        "wrain_piezo": 0.000,
-        "mrain_piezo": 0.000,
-        "yrain_piezo": 0.000,
-        "ws90cap_volt": 0.6,
-        "ws90_ver": 119,
-        "lightning_num": 1,
-        "wh57batt": 5,
-        "wh90batt": 3.16,
-        "dewpoint": 53.0,
-        "feelslike": 74.5,
-        "heatindex": 73.9,
+    device_data_gw1000bpro[DATA_POINT_LIGHTNING] = ""
+    processed_data = ProcessedData(ecowitt, device_data_gw1000bpro)
+    assert {key: value.value for key, value in processed_data.output.items()} == {
+        "runtime": 319206,
+        "tempin": 79.5,
+        "humidityin": 31,
+        "baromrel": 24.740,
+        "baromabs": 24.740,
+        "temp": 89.1,
+        "humidity": 14,
+        "winddir": 139,
+        "windspeed": 0.89,
+        "windgust": 1.12,
+        "maxdailygust": 8.05,
+        "solarradiation": 264.61,
+        "solarradiation_lux": 33494.9,
+        "solarradiation_perceived": 90.0,
+        "uv": 2,
+        "rainrate": 0.000,
+        "eventrain": 0.000,
+        "hourlyrain": 0.000,
+        "dailyrain": 0.000,
+        "weeklyrain": 0.000,
+        "monthlyrain": 2.177,
+        "yearlyrain": 4.441,
+        "wh65batt": 0,
+        "dewpoint": 33.7,
+        "feelslike": 85.1,
+        "heatindex": 85.1,
         "windchill": None,
     }
 
 
 @pytest.mark.parametrize(
-    "device_payload_filename,expected_output",
+    "device_payload,expected_output",
     [
         (
-            "payload_gw1000bpro.json",
+            "device_data_gw1000bpro",
             {
                 "runtime": 319206,
                 "tempin": 79.5,
@@ -231,7 +226,7 @@ def test_missing_distance(device_payload, ecowitt):
             },
         ),
         (
-            "payload_gw1000pro.json",
+            "device_data_gw1000pro",
             {
                 "tempin": 76.8,
                 "humidityin": 26,
@@ -263,7 +258,7 @@ def test_missing_distance(device_payload, ecowitt):
             },
         ),
         (
-            "payload_gw1100b.json",
+            "device_data_gw1100b",
             {
                 "tempin": 76.5,
                 "humidityin": 46,
@@ -293,7 +288,7 @@ def test_missing_distance(device_payload, ecowitt):
             },
         ),
         (
-            "payload_gw2000a_1.json",
+            "device_data_gw2000a_1",
             {
                 "runtime": 3179,
                 "tempin": 71.2,
@@ -320,7 +315,7 @@ def test_missing_distance(device_payload, ecowitt):
                 "ws90cap_volt": 0.6,
                 "ws90_ver": 119,
                 "lightning_num": 1,
-                "lightning": 16.8,
+                "lightning": 27.0,
                 "wh57batt": 5,
                 "wh90batt": 3.16,
                 "dewpoint": 53.0,
@@ -330,7 +325,7 @@ def test_missing_distance(device_payload, ecowitt):
             },
         ),
         (
-            "payload_gw2000a_2.json",
+            "device_data_gw2000a_2",
             {
                 "runtime": 436796,
                 "tempin": 72.9,
@@ -395,7 +390,7 @@ def test_missing_distance(device_payload, ecowitt):
                 "co2": 455,
                 "co2_24h": 473,
                 "lightning_num": 13,
-                "lightning": 0.6,
+                "lightning": 1.0,
                 "lightning_time": datetime(
                     2022, 4, 20, 17, 17, 17, tzinfo=timezone.utc
                 ),
@@ -424,7 +419,7 @@ def test_missing_distance(device_payload, ecowitt):
             },
         ),
         (
-            "payload_pthp2550pro.json",
+            "device_data_pthp2550pro",
             {
                 "tempin": 64.4,
                 "humidityin": 72,
@@ -466,7 +461,7 @@ def test_missing_distance(device_payload, ecowitt):
             },
         ),
         (
-            "payload_ws2900.json",
+            "device_data_ws2900",
             {
                 "tempin": 72.9,
                 "humidityin": 62,
@@ -498,10 +493,13 @@ def test_missing_distance(device_payload, ecowitt):
         ),
     ],
 )
-def test_process(device_payload, device_payload_filename, ecowitt, expected_output):
+def test_process(device_payload, ecowitt, expected_output, request):
     """Test processing a raw data payload."""
+    device_payload = request.getfixturevalue(device_payload)
     processed_data = ProcessedData(ecowitt, device_payload)
-    assert processed_data.output == expected_output
+    assert {
+        key: value.value for key, value in processed_data.output.items()
+    } == expected_output
 
 
 @pytest.mark.parametrize(
@@ -525,10 +523,10 @@ def test_process(device_payload, device_payload_filename, ecowitt, expected_outp
         }
     ],
 )
-def test_unit_system(device_payload, device_payload_filename, ecowitt):
+def test_unit_system(device_data_gw1000bpro, ecowitt):
     """Test converting imperial data to metric."""
-    processed_data = ProcessedData(ecowitt, device_payload)
-    assert processed_data.output == {
+    processed_data = ProcessedData(ecowitt, device_data_gw1000bpro)
+    assert {key: value.value for key, value in processed_data.output.items()} == {
         "runtime": 319206,
         "tempin": 26.4,
         "humidityin": 31,
@@ -559,11 +557,11 @@ def test_unit_system(device_payload, device_payload_filename, ecowitt):
     }
 
 
-def test_nonnumeric_value(device_payload, ecowitt):
+def test_nonnumeric_value(device_data_gw1000bpro, ecowitt):
     """Test a value that can't be parsed as a number."""
-    device_payload["Random New Key"] = "Some Value"
-    processed_data = ProcessedData(ecowitt, device_payload)
-    assert processed_data.output == {
+    device_data_gw1000bpro["Random New Key"] = "Some Value"
+    processed_data = ProcessedData(ecowitt, device_data_gw1000bpro)
+    assert {key: value.value for key, value in processed_data.output.items()} == {
         "baromabs": 24.74,
         "baromrel": 24.74,
         "dailyrain": 0.0,

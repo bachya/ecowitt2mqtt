@@ -68,9 +68,11 @@ def test_battery_config_cli_options(config):
     [
         json.dumps(
             {
-                CONF_BATTERY_CONFIG: {"wh65batt0": "raw", "wh65batt1": "numeric"},
-                CONF_MQTT_BROKER: TEST_MQTT_BROKER,
-                CONF_MQTT_TOPIC: TEST_MQTT_TOPIC,
+                **json.loads(TEST_RAW_JSON),
+                CONF_BATTERY_CONFIG: {
+                    "wh65batt0": "raw",
+                    "wh65batt1": "numeric",
+                },
             }
         )
     ],

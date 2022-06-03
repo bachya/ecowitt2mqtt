@@ -8,7 +8,9 @@ from typing import TYPE_CHECKING, Any
 from asyncio_mqtt import Client, MqttError
 
 from ecowitt2mqtt.const import LOGGER
+from ecowitt2mqtt.data import ProcessedData
 from ecowitt2mqtt.errors import EcowittError
+from ecowitt2mqtt.helpers.typing import DataValueType
 from ecowitt2mqtt.publisher import Publisher
 
 if TYPE_CHECKING:
@@ -54,8 +56,12 @@ class MqttPublisher(Publisher):
 class MqttTopicPublisher(MqttPublisher):
     """Define an MQTT publisher that publishes to a topic."""
 
-    async def async_publish(self, data: dict[str, Any]) -> None:
+    async def async_publish(self, data: dict[str, DataValueType]) -> None:
         """Publish to MQTT."""
+        if not self.ecowitt.config.raw_data:
+            processed_data = ProcessedData(self.ecowitt, data)
+            data = {key: value.value for key, value in processed_data.output.items()}
+
         try:
             async with self.client:
                 await self.client.publish(

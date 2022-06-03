@@ -2,12 +2,50 @@
 from __future__ import annotations
 
 import math
-from typing import cast
+from typing import TYPE_CHECKING
 
 import meteocalc
 
-from ecowitt2mqtt.const import LOGGER, UNIT_SYSTEM_IMPERIAL
+from ecowitt2mqtt.const import (
+    LIGHT_LUX,
+    LOGGER,
+    PERCENTAGE,
+    PRESSURE_HPA,
+    PRESSURE_INHG,
+    RAINFALL_INCHES,
+    RAINFALL_MILLIMETERS,
+    SPEED_KILOMETERS_PER_HOUR,
+    SPEED_MILES_PER_HOUR,
+    TEMP_CELSIUS,
+    TEMP_FAHRENHEIT,
+    UNIT_SYSTEM_IMPERIAL,
+    UNIT_SYSTEM_METRIC,
+)
+from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
 from ecowitt2mqtt.helpers.typing import UnitSystemType
+
+if TYPE_CHECKING:
+    from ecowitt2mqtt.core import Ecowitt
+
+PRESSURE_UNIT_MAP = {
+    UNIT_SYSTEM_IMPERIAL: PRESSURE_INHG,
+    UNIT_SYSTEM_METRIC: PRESSURE_HPA,
+}
+
+RAIN_VOLUME_UNIT_MAP = {
+    UNIT_SYSTEM_IMPERIAL: RAINFALL_INCHES,
+    UNIT_SYSTEM_METRIC: RAINFALL_MILLIMETERS,
+}
+
+TEMP_UNIT_MAP = {
+    UNIT_SYSTEM_IMPERIAL: TEMP_FAHRENHEIT,
+    UNIT_SYSTEM_METRIC: TEMP_CELSIUS,
+}
+
+WIND_SPEED_UNIT_MAP = {
+    UNIT_SYSTEM_IMPERIAL: SPEED_MILES_PER_HOUR,
+    UNIT_SYSTEM_METRIC: SPEED_KILOMETERS_PER_HOUR,
+}
 
 
 def _get_temperature_object(
@@ -22,187 +60,151 @@ def _get_temperature_object(
 
 
 def calculate_dew_point(
-    temperature: float,
-    humidity: float,
-    *,
-    input_unit_system: UnitSystemType = UNIT_SYSTEM_IMPERIAL,
-    output_unit_system: UnitSystemType = UNIT_SYSTEM_IMPERIAL,
-) -> float:
-    """Calculate dew point in the appropriate unit system.
-
-    * Imperial: Fahrenheit (F)
-    * Metric: Celsius (C)
-    """
-    temp_obj = _get_temperature_object(temperature, input_unit_system)
+    ecowitt: Ecowitt, *, temp: float, humidity: float
+) -> CalculatedDataPoint:
+    """Calculate dew point in the appropriate unit system."""
+    temp_obj = _get_temperature_object(temp, ecowitt.config.input_unit_system)
     dew_point_obj = meteocalc.dew_point(temp_obj, humidity)
 
-    if output_unit_system == UNIT_SYSTEM_IMPERIAL:
-        value = round(dew_point_obj.f, 1)
+    if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+        final_value = round(dew_point_obj.f, 1)
     else:
-        value = round(dew_point_obj.c, 1)
-    return cast(float, value)
+        final_value = round(dew_point_obj.c, 1)
+    return CalculatedDataPoint(
+        final_value, TEMP_UNIT_MAP[ecowitt.config.output_unit_system]
+    )
 
 
 def calculate_feels_like(
-    temperature: float,
-    humidity: float,
-    wind_speed: float,
-    *,
-    input_unit_system: UnitSystemType = UNIT_SYSTEM_IMPERIAL,
-    output_unit_system: UnitSystemType = UNIT_SYSTEM_IMPERIAL,
-) -> float:
-    """Calculate "feels like" temperature in the appropriate unit system.
+    ecowitt: Ecowitt, *, temp: float, humidity: float, windspeed: float
+) -> CalculatedDataPoint:
+    """Calculate "feels like" temperature in the appropriate unit system."""
+    temp_obj = _get_temperature_object(temp, ecowitt.config.input_unit_system)
+    feels_like_obj = meteocalc.feels_like(temp_obj, humidity, windspeed)
 
-    * Imperial: Fahrenheit (F)
-    * Metric: Celsius (C)
-    """
-    temp_obj = _get_temperature_object(temperature, input_unit_system)
-    feels_like_obj = meteocalc.feels_like(temp_obj, humidity, wind_speed)
-
-    if output_unit_system == UNIT_SYSTEM_IMPERIAL:
-        value = round(feels_like_obj.f, 1)
+    if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+        final_value = round(feels_like_obj.f, 1)
     else:
-        value = round(feels_like_obj.c, 1)
-    return cast(float, value)
+        final_value = round(feels_like_obj.c, 1)
+    return CalculatedDataPoint(
+        final_value, TEMP_UNIT_MAP[ecowitt.config.output_unit_system]
+    )
 
 
 def calculate_heat_index(
-    temperature: float,
-    humidity: float,
-    *,
-    input_unit_system: UnitSystemType = UNIT_SYSTEM_IMPERIAL,
-    output_unit_system: UnitSystemType = UNIT_SYSTEM_IMPERIAL,
-) -> float:
-    """Calculate heat index in the appropriate unit system.
-
-    * Imperial: Fahrenheit (F)
-    * Metric: Celsius (C)
-    """
-    temp_obj = _get_temperature_object(temperature, input_unit_system)
+    ecowitt: Ecowitt, *, temp: float, humidity: float
+) -> CalculatedDataPoint:
+    """Calculate heat index in the appropriate unit system."""
+    temp_obj = _get_temperature_object(temp, ecowitt.config.input_unit_system)
     heat_index_obj = meteocalc.heat_index(temp_obj, humidity)
 
-    if output_unit_system == UNIT_SYSTEM_IMPERIAL:
-        value = round(heat_index_obj.f, 1)
+    if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+        final_value = round(heat_index_obj.f, 1)
     else:
-        value = round(heat_index_obj.c, 1)
-    return cast(float, value)
+        final_value = round(heat_index_obj.c, 1)
+    return CalculatedDataPoint(
+        final_value, TEMP_UNIT_MAP[ecowitt.config.output_unit_system]
+    )
 
 
-def calculate_illuminance_wm2_to_lux(value: float) -> float:
+def calculate_illuminance_wm2_to_lux(
+    ecowitt: Ecowitt, *, solarradiation: float
+) -> CalculatedDataPoint:
     """Calculate illuminance (in lux)."""
-    return round(float(value) / 0.0079, 1)
+    return CalculatedDataPoint(round(float(solarradiation) / 0.0079, 1), LIGHT_LUX)
 
 
-def calculate_illuminance_wm2_to_perceived(value: float) -> float:
+def calculate_illuminance_wm2_to_perceived(
+    ecowitt: Ecowitt, *, solarradiation: float
+) -> CalculatedDataPoint:
     """Calculate illuminance (% perceived)."""
-    lux = calculate_illuminance_wm2_to_lux(value)
+    lux_data_point = calculate_illuminance_wm2_to_lux(
+        ecowitt, solarradiation=solarradiation
+    )
+
+    assert isinstance(lux_data_point.value, float)
+
     try:
-        return round(math.log10(lux) / 5, 2) * 100
+        final_value = round(math.log10(lux_data_point.value) / 5, 2) * 100
     except ValueError:
         # If we've approached negative infinity, we'll get a math domain error; in that
         # case, return 0.0:
-        return 0.0
+        final_value = 0.0
+    return CalculatedDataPoint(final_value, PERCENTAGE)
 
 
-def calculate_pressure(
-    value: float,
-    *,
-    input_unit_system: UnitSystemType = UNIT_SYSTEM_IMPERIAL,
-    output_unit_system: UnitSystemType = UNIT_SYSTEM_IMPERIAL,
-) -> float:
-    """Calculate pressure in the appropriate unit system.
-
-    * Imperial: Inches of Mercury (inHg)
-    * Metric: Hectopascals (hPa)
-    """
-    if input_unit_system == output_unit_system:
-        return value
-    if output_unit_system == UNIT_SYSTEM_IMPERIAL:
-        return round(value / 33.8639, 3)
-    return round(value * 33.8639, 3)
-
-
-def calculate_rain_volume(
-    value: float,
-    *,
-    input_unit_system: UnitSystemType = UNIT_SYSTEM_IMPERIAL,
-    output_unit_system: UnitSystemType = UNIT_SYSTEM_IMPERIAL,
-) -> float:
-    """Calculate rain volume in the appropriate unit system.
-
-    * Imperial: Inches (in)
-    * Metric: Millimeters (mm)
-    """
-    if input_unit_system == output_unit_system:
-        return value
-    if output_unit_system == UNIT_SYSTEM_IMPERIAL:
-        return round(value / 25.4, 1)
-    return round(value * 25.4, 1)
-
-
-def calculate_temperature(
-    value: float,
-    *,
-    input_unit_system: UnitSystemType = UNIT_SYSTEM_IMPERIAL,
-    output_unit_system: UnitSystemType = UNIT_SYSTEM_IMPERIAL,
-) -> float:
-    """Calculate temperature in the appropriate unit system.
-
-    * Imperial: Fahrenheit (F)
-    * Metric: Celsius (C)
-    """
-    temp_obj = _get_temperature_object(value, input_unit_system)
-
-    if output_unit_system == UNIT_SYSTEM_IMPERIAL:
-        value = round(temp_obj.f, 1)
+def calculate_pressure(ecowitt: Ecowitt, *, value: float) -> CalculatedDataPoint:
+    """Calculate pressure in the appropriate unit system."""
+    if ecowitt.config.input_unit_system == ecowitt.config.output_unit_system:
+        final_value = value
+    elif ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+        final_value = round(value / 33.8639, 3)
     else:
-        value = round(temp_obj.c, 1)
-    return value
+        final_value = round(value * 33.8639, 3)
+    return CalculatedDataPoint(
+        final_value, PRESSURE_UNIT_MAP[ecowitt.config.output_unit_system]
+    )
+
+
+def calculate_rain_volume(ecowitt: Ecowitt, *, value: float) -> CalculatedDataPoint:
+    """Calculate rain volume in the appropriate unit system."""
+    if ecowitt.config.input_unit_system == ecowitt.config.output_unit_system:
+        final_value = value
+    elif ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+        final_value = round(value / 25.4, 1)
+    else:
+        final_value = round(value * 25.4, 1)
+    return CalculatedDataPoint(
+        final_value, RAIN_VOLUME_UNIT_MAP[ecowitt.config.output_unit_system]
+    )
+
+
+def calculate_temperature(ecowitt: Ecowitt, *, value: float) -> CalculatedDataPoint:
+    """Calculate temperature in the appropriate unit system."""
+    temp_obj = _get_temperature_object(value, ecowitt.config.input_unit_system)
+
+    if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+        final_value = round(temp_obj.f, 1)
+    else:
+        final_value = round(temp_obj.c, 1)
+    return CalculatedDataPoint(
+        final_value, TEMP_UNIT_MAP[ecowitt.config.output_unit_system]
+    )
 
 
 def calculate_wind_chill(
-    temperature: float,
-    wind_speed: float,
-    *,
-    input_unit_system: UnitSystemType = UNIT_SYSTEM_IMPERIAL,
-    output_unit_system: UnitSystemType = UNIT_SYSTEM_IMPERIAL,
-) -> float | None:
+    ecowitt: Ecowitt, *, temp: float, windspeed: float
+) -> CalculatedDataPoint:
     """Calculate wind chill in the appropriate unit system.
 
     Note that because wind chill only applies at certain combinations of temperature
     and wind speed, it is possible for this method to return None.
-
-    * Imperial: Fahrenheit (F)
-    * Metric: Celsius (C)
     """
-    temp_obj = _get_temperature_object(temperature, input_unit_system)
+    temp_obj = _get_temperature_object(temp, ecowitt.config.input_unit_system)
 
     try:
-        wind_chill_obj = meteocalc.wind_chill(temp_obj, wind_speed)
+        wind_chill_obj = meteocalc.wind_chill(temp_obj, windspeed)
     except ValueError as err:
-        LOGGER.debug("%s (temperature: %s, wind speed: %s)", err, temp_obj, wind_speed)
-        return None
-
-    if output_unit_system == UNIT_SYSTEM_IMPERIAL:
-        value = round(wind_chill_obj.f, 1)
+        LOGGER.debug("%s (temperature: %s, wind speed: %s)", err, temp_obj, windspeed)
+        final_value = None
     else:
-        value = round(wind_chill_obj.c, 1)
-    return cast(float, value)
+        if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+            final_value = round(wind_chill_obj.f, 1)
+        else:
+            final_value = round(wind_chill_obj.c, 1)
+    return CalculatedDataPoint(
+        final_value, TEMP_UNIT_MAP[ecowitt.config.output_unit_system]
+    )
 
 
-def calculate_wind_speed(
-    value: float,
-    *,
-    input_unit_system: UnitSystemType = UNIT_SYSTEM_IMPERIAL,
-    output_unit_system: UnitSystemType = UNIT_SYSTEM_IMPERIAL,
-) -> float:
-    """Calculate wind speed in the appropriate unit system.
-
-    * Imperial: Miles per Hour (mph)
-    * Metric: Kilometers per Hour (km/h)
-    """
-    if input_unit_system == output_unit_system:
-        return value
-    if output_unit_system == UNIT_SYSTEM_IMPERIAL:
-        return round(value / 1.60934, 1)
-    return round(value * 1.60934, 1)
+def calculate_wind_speed(ecowitt: Ecowitt, *, value: float) -> CalculatedDataPoint:
+    """Calculate wind speed in the appropriate unit system."""
+    if ecowitt.config.input_unit_system == ecowitt.config.output_unit_system:
+        final_value = value
+    elif ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+        final_value = round(value / 1.60934, 1)
+    else:
+        final_value = round(value * 1.60934, 1)
+    return CalculatedDataPoint(
+        final_value, WIND_SPEED_UNIT_MAP[ecowitt.config.output_unit_system]
+    )

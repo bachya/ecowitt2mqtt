@@ -1,9 +1,11 @@
 """Define the main interface to the CLI."""
 from __future__ import annotations
 
+import asyncio
 from pathlib import Path
 
 import typer
+import uvloop
 
 from ecowitt2mqtt.const import (
     ENV_CONFIG,
@@ -156,6 +158,9 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
     ),
 ) -> None:
     """ecowitt2mqtt sends Ecowitt device data to an MQTT broker."""
+    loop = uvloop.new_event_loop()
+    asyncio.set_event_loop(loop)
+
     ecowitt = Ecowitt(ctx.params)
     ecowitt.start()
 

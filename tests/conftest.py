@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import tempfile
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
@@ -10,7 +11,6 @@ import pytest_asyncio
 from typer.testing import CliRunner
 import uvicorn
 
-from ecowitt2mqtt.const import CONF_CONFIG
 from ecowitt2mqtt.core import Ecowitt
 
 from tests.common import TEST_PORT, TEST_RAW_JSON, load_fixture
@@ -50,41 +50,66 @@ class UvicornTestServer(uvicorn.Server):
 
 
 @pytest.fixture(name="config")
-def config_fixture(raw_config):
+def config_fixture():
     """Define a fixture to return configuration data."""
     return json.loads(TEST_RAW_JSON)
 
 
 @pytest.fixture(name="config_filepath")
-def config_filepath_fixture(raw_config, tmp_path):
+def config_filepath_fixture(raw_config):
     """Define a fixture to return a config filepath."""
-    config_filepath = f"{tmp_path}/config.json"
-    with open(config_filepath, "w", encoding="utf-8") as config_file:
-        config_file.write(raw_config)
-    return config_filepath
+    with tempfile.NamedTemporaryFile() as temp_file:
+        with open(temp_file.name, "w", encoding="utf-8") as config_file:
+            config_file.write(raw_config)
+        yield temp_file.name
 
 
-@pytest.fixture(name="device_payload")
-def device_payload_fixture(device_payload_filename):
-    """Define a fixture to return a device payload."""
-    return json.loads(load_fixture(device_payload_filename))
+@pytest.fixture(name="device_data_gw1000bpro", scope="session")
+def device_data_gw1000bpro_fixture():
+    """Define a fixture to return gw1000bpro data."""
+    return json.loads(load_fixture("payload_gw1000bpro.json"))
 
 
-@pytest.fixture(name="device_payload_filename")
-def device_payload_filename_fixture():
-    """Define a fixture to return a device payload filename."""
-    return "payload_gw1000bpro.json"
+@pytest.fixture(name="device_data_gw1000pro", scope="session")
+def device_data_gw1000pro_fixture():
+    """Define a fixture to return gw1000pro data."""
+    return json.loads(load_fixture("payload_gw1000pro.json"))
+
+
+@pytest.fixture(name="device_data_gw1100b", scope="session")
+def device_data_gw1100b_fixture():
+    """Define a fixture to return gw1100b data."""
+    return json.loads(load_fixture("payload_gw1100b.json"))
+
+
+@pytest.fixture(name="device_data_gw2000a_1", scope="session")
+def device_data_gw2000a_1_fixture():
+    """Define a fixture to return gw2000a_1 data."""
+    return json.loads(load_fixture("payload_gw2000a_1.json"))
+
+
+@pytest.fixture(name="device_data_gw2000a_2", scope="session")
+def device_data_gw2000a_2_fixture():
+    """Define a fixture to return gw2000a_2 data."""
+    return json.loads(load_fixture("payload_gw2000a_2.json"))
+
+
+@pytest.fixture(name="device_data_pthp2550pro", scope="session")
+def device_data_pthp2550pro_fixture():
+    """Define a fixture to return pthp2550pro data."""
+    return json.loads(load_fixture("payload_pthp2550pro.json"))
+
+
+@pytest.fixture(name="device_data_ws2900", scope="session")
+def device_data_ws2900_fixture():
+    """Define a fixture to return ws2900 data."""
+    return json.loads(load_fixture("payload_ws2900.json"))
 
 
 @pytest.fixture(name="ecowitt")
 def ecowitt_fixture(config):
     """Define a fixture to return an Ecowitt object."""
-    with patch(
-        "ecowitt2mqtt.publisher.mqtt.Client",
-        MagicMock(return_value=AsyncMock(publish=AsyncMock())),
-    ):
-        ecowitt = Ecowitt(config)
-        yield ecowitt
+    return Ecowitt(config)
 
 
 @pytest.fixture(name="raw_config")
@@ -97,6 +122,16 @@ def raw_config_fixture():
 def runner_fixture():
     """Define a fixture to return a Typer CLI test runner."""
     return CliRunner()
+
+
+@pytest_asyncio.fixture(name="setup_asyncio_mqtt")
+async def setup_asyncio_mqtt_fixture():
+    """Define a fixture to patch asyncio-mqtt properly."""
+    with patch(
+        "ecowitt2mqtt.publisher.mqtt.Client",
+        MagicMock(return_value=AsyncMock(publish=AsyncMock())),
+    ):
+        yield
 
 
 @pytest_asyncio.fixture(name="start_server")

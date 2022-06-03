@@ -108,7 +108,7 @@ class Config:
 
     def __init__(self, params: dict[str, Any]) -> None:
         """Initialize."""
-        LOGGER.info("CLI options: %s", params)
+        LOGGER.debug("CLI options: %s", params)
 
         for legacy_env_var, new_env_var in DEPRECATED_ENV_VAR_MAP.items():
             if os.getenv(legacy_env_var) is None:

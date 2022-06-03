@@ -1,9 +1,23 @@
 """Define various calculators."""
-from typing import TypeVar
+from __future__ import annotations
 
-T = TypeVar("T")
+from dataclasses import dataclass
+from typing import TYPE_CHECKING
+
+from ecowitt2mqtt.helpers.typing import DataValueType
+
+if TYPE_CHECKING:
+    from ecowitt2mqtt.core import Ecowitt
 
 
-def calculate_noop(value: T) -> T:
+@dataclass(frozen=True)
+class CalculatedDataPoint:
+    """Define a calculated data point."""
+
+    value: DataValueType
+    unit: str | None
+
+
+def calculate_noop(ecowitt: Ecowitt, value: DataValueType) -> CalculatedDataPoint:
     """Define a noop calculator."""
-    return value
+    return CalculatedDataPoint(value, None)

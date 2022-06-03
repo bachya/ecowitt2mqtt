@@ -1,16 +1,12 @@
 """Define the core application objects."""
 from __future__ import annotations
 
-import asyncio
 import logging
 import os
 from typing import Any
 
-import uvloop
-
 from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import CONF_VERBOSE, LEGACY_ENV_LOG_LEVEL, LOGGER
-from ecowitt2mqtt.data import ProcessedData
 from ecowitt2mqtt.helpers.logging import TyperLoggerHandler
 from ecowitt2mqtt.publisher.mqtt import get_mqtt_publisher
 from ecowitt2mqtt.server import Server
@@ -37,9 +33,6 @@ class Ecowitt:  # pylint: disable=too-few-public-methods
         """Initialize."""
         setup_logging(params.get(CONF_VERBOSE, False))
 
-        self.loop = uvloop.new_event_loop()
-        asyncio.set_event_loop(self.loop)
-
         self.config = Config(params)
         self.server = Server(self)
 
@@ -47,9 +40,6 @@ class Ecowitt:  # pylint: disable=too-few-public-methods
 
         async def publish_data_to_mqtt(payload: dict[str, Any]) -> None:
             """Publish device data to MQTT."""
-            if not self.config.raw_data:
-                processed_data = ProcessedData(self, payload)
-                payload = processed_data.output
             await mqtt_publisher.async_publish(payload)
 
         self.server.add_device_payload_callback(publish_data_to_mqtt)

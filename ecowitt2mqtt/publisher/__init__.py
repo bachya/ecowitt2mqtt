@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 
 class Publisher(ABC):
-    """Define an abstract class for data publisher."""
+    """Define an abstract class for a data publisher."""
 
     def __init__(self, ecowitt: Ecowitt) -> None:
         """Initialize."""

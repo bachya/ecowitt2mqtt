@@ -2,13 +2,11 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from functools import partial
-import inspect
-from typing import TYPE_CHECKING, Any, Callable
+import traceback
+from typing import TYPE_CHECKING, Any, Callable, TypeVar
 
+# from ecowitt2mqtt.helpers.calculator.battery import calculate_battery
 from ecowitt2mqtt.const import (
-    CONF_INPUT_UNIT_SYSTEM,
-    CONF_OUTPUT_UNIT_SYSTEM,
     DATA_POINT_DEWPOINT,
     DATA_POINT_FEELSLIKE,
     DATA_POINT_GLOB_BAROM,
@@ -28,9 +26,9 @@ from ecowitt2mqtt.const import (
     DATA_POINT_WINDCHILL,
     DATA_POINT_WINDDIR,
     DATA_POINT_WINDSPEEDMPH,
-    UNIT_SYSTEM_METRIC,
+    LOGGER,
 )
-from ecowitt2mqtt.helpers.calculator import calculate_noop
+from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, calculate_noop
 from ecowitt2mqtt.helpers.calculator.distance import calculate_distance
 from ecowitt2mqtt.helpers.calculator.meteo import (
     calculate_dew_point,
@@ -46,7 +44,6 @@ from ecowitt2mqtt.helpers.calculator.meteo import (
 )
 from ecowitt2mqtt.helpers.calculator.time import calculate_dt_from_epoch
 from ecowitt2mqtt.helpers.device import Device, get_device_from_raw_payload
-from ecowitt2mqtt.helpers.typing import DataValueType
 
 if TYPE_CHECKING:
     from ecowitt2mqtt.core import Ecowitt
@@ -54,7 +51,7 @@ if TYPE_CHECKING:
 DEFAULT_KEYS_TO_IGNORE = ["PASSKEY", "dateutc", "freq", "model", "stationtype"]
 
 # Map which data calculator functions should apply to various data points:
-CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., DataValueType]] = {
+CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., CalculatedDataPoint]] = {
     DATA_POINT_DEWPOINT: calculate_dew_point,
     DATA_POINT_FEELSLIKE: calculate_feels_like,
     DATA_POINT_GLOB_BAROM: calculate_pressure,
@@ -63,10 +60,7 @@ CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., DataValueType]] = {
     DATA_POINT_GLOB_TEMP: calculate_temperature,
     DATA_POINT_GLOB_WIND: calculate_wind_speed,
     DATA_POINT_HEATINDEX: calculate_heat_index,
-    # Lightning strike distance always gives values in metric:
-    DATA_POINT_LIGHTNING: lambda val: calculate_distance(
-        val, input_unit_system=UNIT_SYSTEM_METRIC
-    ),
+    DATA_POINT_LIGHTNING: calculate_distance,
     # Prevent LIGHTNING_NUM from being treated like LIGHTNING:
     DATA_POINT_LIGHTNING_NUM: calculate_noop,
     DATA_POINT_LIGHTNING_TIME: calculate_dt_from_epoch,
@@ -92,25 +86,16 @@ HEAT_INDEX_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
 WIND_CHILL_KEYS = (DATA_POINT_TEMPF, DATA_POINT_WINDSPEEDMPH)
 ILLUMINANCE_KEYS = (DATA_POINT_SOLARRADIATION,)
 
+T = TypeVar("T")
+
 
 def get_calculator_function(
-    ecowitt: Ecowitt, key: str, *args: float | str, **kwargs: str
-) -> Callable[..., DataValueType] | None:
+    ecowitt: Ecowitt, key: str
+) -> Callable[..., CalculatedDataPoint] | None:
     """Get a data calculator function for a particular data key (if it exists)."""
-    data_type = get_data_point_from_key(key)
-
-    if not data_type:
+    if (data_type := get_data_point_from_key(key)) is None:
         return None
-
-    func = CALCULATOR_FUNCTION_MAP[data_type]
-
-    func_params = inspect.signature(func).parameters
-    if CONF_INPUT_UNIT_SYSTEM in func_params:
-        kwargs[CONF_INPUT_UNIT_SYSTEM] = ecowitt.config.input_unit_system
-    if CONF_OUTPUT_UNIT_SYSTEM in func_params:
-        kwargs[CONF_OUTPUT_UNIT_SYSTEM] = ecowitt.config.output_unit_system
-
-    return partial(func, *args, **kwargs)
+    return CALCULATOR_FUNCTION_MAP[data_type]
 
 
 def get_data_point_from_key(key: str) -> str | None:
@@ -131,11 +116,13 @@ def get_data_point_from_key(key: str) -> str | None:
     return match
 
 
-def get_typed_value(value: str) -> float | str:
+def get_typed_value(value: T) -> float | T:
     """Take a string and return its properly typed counterpart (if possible)."""
     try:
-        return float(value)
-    except ValueError:
+        return float(value)  # type: ignore[arg-type]
+    except Exception as err:  # pylint: disable=broad-except
+        LOGGER.warning("Couldn' convert value to number: %s", value)
+        LOGGER.debug("".join(traceback.format_tb(err.__traceback__)))
         return value
 
 
@@ -163,7 +150,7 @@ class ProcessedData:
     ecowitt: Ecowitt
     data: dict[str, Any]
     device: Device = field(init=False)
-    output: dict[str, DataValueType] = field(default_factory=dict)
+    output: dict[str, CalculatedDataPoint] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         """Initialize."""
@@ -177,12 +164,10 @@ class ProcessedData:
             key = remove_unit_from_key(target_key)
             value = get_typed_value(target_value)
 
-            if (
-                calc := get_calculator_function(self.ecowitt, target_key, value)
-            ) is None:
-                self.output[key] = value
+            if calc := get_calculator_function(self.ecowitt, target_key):
+                self.output[key] = calc(self.ecowitt, value=value)
             else:
-                self.output[key] = calc()
+                self.output[key] = CalculatedDataPoint(value, None)
 
         # Process any from-scratch data points that can be calculated from others:
         for target_key, input_keys in (
@@ -196,12 +181,11 @@ class ProcessedData:
             if not all(k in self.data for k in input_keys):
                 continue
 
-            calc = get_calculator_function(
-                self.ecowitt,
-                target_key,
-                *[get_typed_value(self.data[k]) for k in input_keys],
-            )
-            # We know that calculated data points will always have a calculator:
-            assert calc
-
-            self.output[target_key] = calc()
+            if calc := get_calculator_function(self.ecowitt, target_key):
+                self.output[target_key] = calc(
+                    self.ecowitt,
+                    **{
+                        remove_unit_from_key(key): get_typed_value(self.data[key])
+                        for key in input_keys
+                    },
+                )

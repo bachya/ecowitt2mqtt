@@ -1,6 +1,7 @@
 """Define a REST API server for Ecowitt devices to interact with."""
 from __future__ import annotations
 
+import asyncio
 from typing import TYPE_CHECKING, Any, Callable, Coroutine
 
 from fastapi import FastAPI, Request, Response, status
@@ -62,13 +63,14 @@ class Server:
             self.ecowitt.config.endpoint,
         )
 
+        loop = asyncio.get_event_loop()
         server = uvicorn.Server(
             config=uvicorn.Config(
                 self.app,
                 host=DEFAULT_HOST,
                 port=self.ecowitt.config.port,
                 log_level=DEFAULT_SERVER_LOG_LEVEL,
-                loop=self.ecowitt.loop,
+                loop=loop,
             )
         )
-        self.ecowitt.loop.run_until_complete(server.serve())
+        loop.run_until_complete(server.serve())
