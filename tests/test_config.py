@@ -7,6 +7,7 @@ import pytest
 from ecowitt2mqtt.config import Config, ConfigError
 from ecowitt2mqtt.const import (
     CONF_BATTERY_CONFIG,
+    CONF_CONFIG,
     CONF_MQTT_BROKER,
     CONF_MQTT_TOPIC,
     ENV_BATTERY_CONFIG,
@@ -74,9 +75,9 @@ def test_battery_config_cli_options(config):
         )
     ],
 )
-def test_battery_config_config_file(config):
+def test_battery_config_config_file(config_filepath):
     """Test battery configs provided by a config file."""
-    config = Config(config)
+    config = Config({CONF_CONFIG: config_filepath})
     assert config.battery_config == {
         "wh65batt0": BatteryConfig.RAW,
         "wh65batt1": BatteryConfig.NUMERIC,
@@ -113,18 +114,18 @@ def test_battery_config_missing(config):
 
 
 @pytest.mark.parametrize("raw_config", [TEST_RAW_JSON, TEST_RAW_YAML])
-def test_config_file(config):
+def test_config_file(config_filepath):
     """Test successfully loading a valid config file."""
-    config = Config(config)
+    config = Config({CONF_CONFIG: config_filepath})
     assert config.endpoint == TEST_ENDPOINT
     assert config.port == TEST_PORT
 
 
 @pytest.mark.parametrize("raw_config", ["{}"])
-def test_config_file_empty(config):
+def test_config_file_empty(config_filepath):
     """Test an empty config file with no overrides."""
     with pytest.raises(ConfigError) as err:
-        _ = Config(config)
+        _ = Config({CONF_CONFIG: config_filepath})
     assert "Missing required option: --mqtt-broker" in str(err)
 
 
@@ -135,10 +136,10 @@ def test_config_file_overrides(config):
 
 
 @pytest.mark.parametrize("raw_config", ["Fake configuration!"])
-def test_config_file_unparsable(config):
+def test_config_file_unparsable(config_filepath):
     """Test a config file that can't be parsed as JSON or YAML."""
     with pytest.raises(ConfigError) as err:
-        _ = Config(config)
+        _ = Config({CONF_CONFIG: config_filepath})
     assert "Unable to parse config file" in str(err)
 
 

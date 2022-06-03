@@ -50,9 +50,9 @@ class UvicornTestServer(uvicorn.Server):
 
 
 @pytest.fixture(name="config")
-def config_fixture(config_filepath):
+def config_fixture(raw_config):
     """Define a fixture to return configuration data."""
-    return {CONF_CONFIG: config_filepath}
+    return json.loads(TEST_RAW_JSON)
 
 
 @pytest.fixture(name="config_filepath")
