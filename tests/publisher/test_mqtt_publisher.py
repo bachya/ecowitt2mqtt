@@ -7,7 +7,7 @@ import pytest
 from ecowitt2mqtt.const import CONF_RAW_DATA
 from ecowitt2mqtt.core import Ecowitt
 from ecowitt2mqtt.data import ProcessedData
-from ecowitt2mqtt.publisher.mqtt import (
+from ecowitt2mqtt.helpers.publisher.mqtt import (
     MqttTopicPublisher,
     PublishError,
     generate_mqtt_payload,

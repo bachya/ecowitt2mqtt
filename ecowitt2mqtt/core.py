@@ -8,7 +8,7 @@ from typing import Any
 from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import CONF_VERBOSE, LEGACY_ENV_LOG_LEVEL, LOGGER
 from ecowitt2mqtt.helpers.logging import TyperLoggerHandler
-from ecowitt2mqtt.publisher.mqtt import get_mqtt_publisher
+from ecowitt2mqtt.helpers.publisher.mqtt import get_mqtt_publisher
 from ecowitt2mqtt.server import Server
 
 

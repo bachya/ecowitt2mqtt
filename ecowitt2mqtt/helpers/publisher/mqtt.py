@@ -10,8 +10,8 @@ from asyncio_mqtt import Client, MqttError
 from ecowitt2mqtt.const import LOGGER
 from ecowitt2mqtt.data import ProcessedData
 from ecowitt2mqtt.errors import EcowittError
+from ecowitt2mqtt.helpers.publisher import Publisher
 from ecowitt2mqtt.helpers.typing import DataValueType
-from ecowitt2mqtt.publisher import Publisher
 
 if TYPE_CHECKING:
     from ecowitt2mqtt.core import Ecowitt
