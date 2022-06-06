@@ -7,8 +7,9 @@ from typing import Any, Dict, cast
 from ruamel.yaml import YAML
 
 from ecowitt2mqtt.const import (
-    CONF_BATTERY_CONFIG,
+    CONF_BATTERY_OVERRIDES,
     CONF_CONFIG,
+    CONF_DEFAULT_BATTERY_STRATEGY,
     CONF_ENDPOINT,
     CONF_HASS_DISCOVERY,
     CONF_INPUT_UNIT_SYSTEM,
@@ -20,7 +21,7 @@ from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_SYSTEM,
     CONF_PORT,
     CONF_RAW_DATA,
-    ENV_BATTERY_CONFIG,
+    ENV_BATTERY_OVERRIDE,
     ENV_ENDPOINT,
     ENV_HASS_DISCOVERY,
     ENV_HASS_DISCOVERY_PREFIX,
@@ -52,7 +53,7 @@ from ecowitt2mqtt.const import (
     LOGGER,
 )
 from ecowitt2mqtt.errors import EcowittError
-from ecowitt2mqtt.helpers.calculator.battery import BatteryConfig
+from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 from ecowitt2mqtt.helpers.typing import UnitSystemType
 
 DEPRECATED_ENV_VAR_MAP = {
@@ -79,7 +80,7 @@ class ConfigError(EcowittError):
     pass
 
 
-def convert_battery_config(configs: str | tuple) -> dict[str, BatteryConfig]:
+def convert_battery_config(configs: str | tuple) -> dict[str, BatteryStrategy]:
     """Normalize incoming battery configurations depending on the input format.
 
     1. Environment Variables (str): "key1=value1;key2=value2"
@@ -88,19 +89,17 @@ def convert_battery_config(configs: str | tuple) -> dict[str, BatteryConfig]:
     try:
         if isinstance(configs, str):
             return {
-                pair[0]: BatteryConfig(pair[1])
+                pair[0]: BatteryStrategy(pair[1])
                 for assignment in configs.split(";")
                 if (pair := assignment.split("="))
             }
         return {
-            pair[0]: BatteryConfig(pair[1])
+            pair[0]: BatteryStrategy(pair[1])
             for assignment in configs
             if (pair := assignment.split("="))
         }
-    except (IndexError, KeyError, ValueError):
-        raise ConfigError(
-            f"Unable to parse battery configurations: {configs}"
-        ) from None
+    except (IndexError, KeyError, ValueError) as err:
+        raise ConfigError(f"Unable to parse battery configurations: {configs}") from err
 
 
 class Config:
@@ -142,29 +141,36 @@ class Config:
                 "Missing required option: --mqtt-topic or --hass-discovery"
             )
 
-        self._config.setdefault(CONF_BATTERY_CONFIG, {})
+        self._config.setdefault(CONF_BATTERY_OVERRIDES, {})
 
         # Merge the CLI options/environment variables; if the value is falsey (but *not*
         # False), ignore it:
         for key, value in params.items():
+            if key == CONF_DEFAULT_BATTERY_STRATEGY:
+                self._config[key] = BatteryStrategy(value)
             if value is not None:
                 self._config[key] = value
 
-        if env_battery_configs := os.getenv(ENV_BATTERY_CONFIG):
-            self._config[CONF_BATTERY_CONFIG] = convert_battery_config(
-                env_battery_configs
+        if env_battery_overrides := os.getenv(ENV_BATTERY_OVERRIDE):
+            self._config[CONF_BATTERY_OVERRIDES] = convert_battery_config(
+                env_battery_overrides
             )
-        elif CONF_BATTERY_CONFIG in params:
-            self._config[CONF_BATTERY_CONFIG] = convert_battery_config(
-                params[CONF_BATTERY_CONFIG]
+        elif CONF_BATTERY_OVERRIDES in params:
+            self._config[CONF_BATTERY_OVERRIDES] = convert_battery_config(
+                params[CONF_BATTERY_OVERRIDES]
             )
 
         LOGGER.debug("Loaded Config: %s", self._config)
 
     @property
-    def battery_config(self) -> dict[str, BatteryConfig]:
-        """Return the battery configurations."""
-        return cast(Dict[str, BatteryConfig], self._config[CONF_BATTERY_CONFIG])
+    def battery_overrides(self) -> dict[str, BatteryStrategy]:
+        """Return the battery overrides."""
+        return cast(Dict[str, BatteryStrategy], self._config[CONF_BATTERY_OVERRIDES])
+
+    @property
+    def default_battery_strategy(self) -> BatteryStrategy:
+        """Return the default battery strategy."""
+        return cast(BatteryStrategy, self._config[CONF_DEFAULT_BATTERY_STRATEGY])
 
     @property
     def endpoint(self) -> str:

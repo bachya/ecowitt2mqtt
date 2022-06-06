@@ -1,32 +1,40 @@
 """Define battery utilities."""
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from ecowitt2mqtt.backports.enum import StrEnum
+from ecowitt2mqtt.const import DATA_POINT_GLOB_VOLT, ELECTRIC_POTENTIAL_VOLT
+from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
+
+if TYPE_CHECKING:
+    from ecowitt2mqtt.core import Ecowitt
 
 
-class BatteryConfig(StrEnum):
+class BatteryStrategy(StrEnum):
     """Define types of battery configuration."""
 
     BOOLEAN = "boolean"
     NUMERIC = "numeric"
-    RAW = "raw"
 
 
-BATTERY_STATE_OFF = "OFF"
-BATTERY_STATE_ON = "ON"
+class BooleanBatteryState(StrEnum):
+    """Define types of battery configuration."""
+
+    OFF = "OFF"
+    ON = "ON"
 
 
-def calculate_battery(value: float | int) -> float | str:
-    """Calculate a battery value.
+def calculate_battery(
+    ecowitt: Ecowitt, payload_key: str, data_point: str, *, value: float
+) -> CalculatedDataPoint:
+    """Calculate a battery value."""
+    if not (config := ecowitt.config.battery_overrides.get(payload_key)):
+        config = ecowitt.config.default_battery_strategy
 
-    1. If the value is a float, we assume it represents voltage and return it as-is.
-    2. If the value is an int, we assume it represents a binary state:
-         * 0: OK
-         * 1: Low
-    """
-    if not isinstance(value, int):
-        return float(value)
+    if config == BatteryStrategy.NUMERIC or data_point == DATA_POINT_GLOB_VOLT:
+        return CalculatedDataPoint(value, ELECTRIC_POTENTIAL_VOLT)
 
-    if value == 0:
-        return BATTERY_STATE_OFF
-    return BATTERY_STATE_ON
+    if value == 0.0:
+        return CalculatedDataPoint(BooleanBatteryState.OFF, None)
+    return CalculatedDataPoint(BooleanBatteryState.ON, None)

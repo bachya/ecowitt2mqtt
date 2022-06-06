@@ -7,6 +7,10 @@ from typing import TYPE_CHECKING
 import meteocalc
 
 from ecowitt2mqtt.const import (
+    CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+    CONCENTRATION_PARTS_PER_MILLION,
+    DEGREE,
+    IRRADIATION_WATTS_PER_SQUARE_METER,
     LIGHT_LUX,
     LOGGER,
     PERCENTAGE,
@@ -16,6 +20,7 @@ from ecowitt2mqtt.const import (
     RAINFALL_MILLIMETERS,
     SPEED_KILOMETERS_PER_HOUR,
     SPEED_MILES_PER_HOUR,
+    STRIKES,
     TEMP_CELSIUS,
     TEMP_FAHRENHEIT,
     UNIT_SYSTEM_IMPERIAL,
@@ -59,8 +64,15 @@ def _get_temperature_object(
     return meteocalc.Temp(temperature, unit)
 
 
+def calculate_co2(
+    ecowitt: Ecowitt, payload_key: str, data_point: str, *, value: float
+) -> CalculatedDataPoint:
+    """Calculate CO2."""
+    return CalculatedDataPoint(value, CONCENTRATION_PARTS_PER_MILLION)
+
+
 def calculate_dew_point(
-    ecowitt: Ecowitt, *, temp: float, humidity: float
+    ecowitt: Ecowitt, payload_key: str, data_point: str, *, temp: float, humidity: float
 ) -> CalculatedDataPoint:
     """Calculate dew point in the appropriate unit system."""
     temp_obj = _get_temperature_object(temp, ecowitt.config.input_unit_system)
@@ -76,7 +88,13 @@ def calculate_dew_point(
 
 
 def calculate_feels_like(
-    ecowitt: Ecowitt, *, temp: float, humidity: float, windspeed: float
+    ecowitt: Ecowitt,
+    payload_key: str,
+    data_point: str,
+    *,
+    temp: float,
+    humidity: float,
+    windspeed: float,
 ) -> CalculatedDataPoint:
     """Calculate "feels like" temperature in the appropriate unit system."""
     temp_obj = _get_temperature_object(temp, ecowitt.config.input_unit_system)
@@ -92,7 +110,7 @@ def calculate_feels_like(
 
 
 def calculate_heat_index(
-    ecowitt: Ecowitt, *, temp: float, humidity: float
+    ecowitt: Ecowitt, payload_key: str, data_point: str, *, temp: float, humidity: float
 ) -> CalculatedDataPoint:
     """Calculate heat index in the appropriate unit system."""
     temp_obj = _get_temperature_object(temp, ecowitt.config.input_unit_system)
@@ -107,19 +125,84 @@ def calculate_heat_index(
     )
 
 
-def calculate_illuminance_wm2_to_lux(
-    ecowitt: Ecowitt, *, solarradiation: float
+def calculate_humidity(
+    ecowitt: Ecowitt, payload_key: str, data_point: str, *, value: float
 ) -> CalculatedDataPoint:
-    """Calculate illuminance (in lux)."""
+    """Calculate humidity."""
+    return CalculatedDataPoint(value, PERCENTAGE)
+
+
+def calculate_lightning_strikes(
+    ecowitt: Ecowitt, payload_key: str, data_point: str, *, value: float
+) -> CalculatedDataPoint:
+    """Calculate lightning strikes."""
+    return CalculatedDataPoint(value, STRIKES)
+
+
+def calculate_moisture(
+    ecowitt: Ecowitt, payload_key: str, data_point: str, *, value: float
+) -> CalculatedDataPoint:
+    """Calculate moisture."""
+    return CalculatedDataPoint(value, PERCENTAGE)
+
+
+def calculate_pm25(
+    ecowitt: Ecowitt, payload_key: str, data_point: str, *, value: float
+) -> CalculatedDataPoint:
+    """Calculate PM2.5 pollution."""
+    return CalculatedDataPoint(value, CONCENTRATION_MICROGRAMS_PER_CUBIC_METER)
+
+
+def calculate_pm10(
+    ecowitt: Ecowitt, payload_key: str, data_point: str, *, value: float
+) -> CalculatedDataPoint:
+    """Calculate PM10.0 pollution."""
+    return CalculatedDataPoint(value, CONCENTRATION_MICROGRAMS_PER_CUBIC_METER)
+
+
+def calculate_pressure(
+    ecowitt: Ecowitt, payload_key: str, data_point: str, *, value: float
+) -> CalculatedDataPoint:
+    """Calculate pressure in the appropriate unit system."""
+    if ecowitt.config.input_unit_system == ecowitt.config.output_unit_system:
+        final_value = value
+    elif ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+        final_value = round(value / 33.8639, 3)
+    else:
+        final_value = round(value * 33.8639, 3)
+    return CalculatedDataPoint(
+        final_value, PRESSURE_UNIT_MAP[ecowitt.config.output_unit_system]
+    )
+
+
+def calculate_rain_volume(
+    ecowitt: Ecowitt, payload_key: str, data_point: str, *, value: float
+) -> CalculatedDataPoint:
+    """Calculate rain volume in the appropriate unit system."""
+    if ecowitt.config.input_unit_system == ecowitt.config.output_unit_system:
+        final_value = value
+    elif ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+        final_value = round(value / 25.4, 1)
+    else:
+        final_value = round(value * 25.4, 1)
+    return CalculatedDataPoint(
+        final_value, RAIN_VOLUME_UNIT_MAP[ecowitt.config.output_unit_system]
+    )
+
+
+def calculate_solar_radiation_lux(
+    ecowitt: Ecowitt, payload_key: str, data_point: str, *, solarradiation: float
+) -> CalculatedDataPoint:
+    """Calculate solar radiation (lux)."""
     return CalculatedDataPoint(round(float(solarradiation) / 0.0079, 1), LIGHT_LUX)
 
 
-def calculate_illuminance_wm2_to_perceived(
-    ecowitt: Ecowitt, *, solarradiation: float
+def calculate_solar_radiation_perceived(
+    ecowitt: Ecowitt, payload_key: str, data_point: str, *, solarradiation: float
 ) -> CalculatedDataPoint:
-    """Calculate illuminance (% perceived)."""
-    lux_data_point = calculate_illuminance_wm2_to_lux(
-        ecowitt, solarradiation=solarradiation
+    """Calculate solar radiation (% perceived)."""
+    lux_data_point = calculate_solar_radiation_lux(
+        ecowitt, payload_key, data_point, solarradiation=solarradiation
     )
 
     assert isinstance(lux_data_point.value, float)
@@ -133,33 +216,16 @@ def calculate_illuminance_wm2_to_perceived(
     return CalculatedDataPoint(final_value, PERCENTAGE)
 
 
-def calculate_pressure(ecowitt: Ecowitt, *, value: float) -> CalculatedDataPoint:
-    """Calculate pressure in the appropriate unit system."""
-    if ecowitt.config.input_unit_system == ecowitt.config.output_unit_system:
-        final_value = value
-    elif ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-        final_value = round(value / 33.8639, 3)
-    else:
-        final_value = round(value * 33.8639, 3)
-    return CalculatedDataPoint(
-        final_value, PRESSURE_UNIT_MAP[ecowitt.config.output_unit_system]
-    )
+def calculate_solar_radiation_wm2(
+    ecowitt: Ecowitt, payload_key: str, data_point: str, *, value: float
+) -> CalculatedDataPoint:
+    """Calculate solar radiation (W/m²)."""
+    return CalculatedDataPoint(value, IRRADIATION_WATTS_PER_SQUARE_METER)
 
 
-def calculate_rain_volume(ecowitt: Ecowitt, *, value: float) -> CalculatedDataPoint:
-    """Calculate rain volume in the appropriate unit system."""
-    if ecowitt.config.input_unit_system == ecowitt.config.output_unit_system:
-        final_value = value
-    elif ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-        final_value = round(value / 25.4, 1)
-    else:
-        final_value = round(value * 25.4, 1)
-    return CalculatedDataPoint(
-        final_value, RAIN_VOLUME_UNIT_MAP[ecowitt.config.output_unit_system]
-    )
-
-
-def calculate_temperature(ecowitt: Ecowitt, *, value: float) -> CalculatedDataPoint:
+def calculate_temperature(
+    ecowitt: Ecowitt, payload_key: str, data_point: str, *, value: float
+) -> CalculatedDataPoint:
     """Calculate temperature in the appropriate unit system."""
     temp_obj = _get_temperature_object(value, ecowitt.config.input_unit_system)
 
@@ -173,7 +239,12 @@ def calculate_temperature(ecowitt: Ecowitt, *, value: float) -> CalculatedDataPo
 
 
 def calculate_wind_chill(
-    ecowitt: Ecowitt, *, temp: float, windspeed: float
+    ecowitt: Ecowitt,
+    payload_key: str,
+    data_point: str,
+    *,
+    temp: float,
+    windspeed: float,
 ) -> CalculatedDataPoint:
     """Calculate wind chill in the appropriate unit system.
 
@@ -197,7 +268,16 @@ def calculate_wind_chill(
     )
 
 
-def calculate_wind_speed(ecowitt: Ecowitt, *, value: float) -> CalculatedDataPoint:
+def calculate_wind_dir(
+    ecowitt: Ecowitt, payload_key: str, data_point: str, *, value: float
+) -> CalculatedDataPoint:
+    """Calculate wind direction."""
+    return CalculatedDataPoint(value, DEGREE)
+
+
+def calculate_wind_speed(
+    ecowitt: Ecowitt, payload_key: str, data_point: str, *, value: float
+) -> CalculatedDataPoint:
     """Calculate wind speed in the appropriate unit system."""
     if ecowitt.config.input_unit_system == ecowitt.config.output_unit_system:
         final_value = value

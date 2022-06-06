@@ -7,8 +7,9 @@ from ecowitt2mqtt.helpers.typing import UnitSystemType
 LOGGER = logging.getLogger(__package__)
 
 # Configuration keys:
-CONF_BATTERY_CONFIG: Final = "battery_config"
+CONF_BATTERY_OVERRIDES: Final = "battery_override"
 CONF_CONFIG: Final = "config"
+CONF_DEFAULT_BATTERY_STRATEGY: Final = "default_battery_strategy"
 CONF_ENDPOINT: Final = "endpoint"
 CONF_HASS_DISCOVERY: Final = "hass_discovery"
 CONF_HASS_DISCOVERY_PREFIX: Final = "hass_discovery_prefix"
@@ -27,37 +28,44 @@ CONF_VERBOSE: Final = "verbose"
 # Data points (glob):
 DATA_POINT_GLOB_BAROM: Final = "barom"
 DATA_POINT_GLOB_BATT: Final = "batt"
-DATA_POINT_GLOB_BATT_BINARY: Final = "batt_binary"
 DATA_POINT_GLOB_GUST: Final = "gust"
 DATA_POINT_GLOB_HUMIDITY: Final = "humidity"
 DATA_POINT_GLOB_MOISTURE: Final = "moisture"
+DATA_POINT_GLOB_PM10: Final = "pm10"
+DATA_POINT_GLOB_PM25: Final = "pm25"
 DATA_POINT_GLOB_RAIN: Final = "rain"
 DATA_POINT_GLOB_TEMP: Final = "temp"
+DATA_POINT_GLOB_VOLT: Final = "volt"
 DATA_POINT_GLOB_WIND: Final = "wind"
+DATA_POINT_GLOB_WINDDIR: Final = "winddir"
 
 # Data points (specific):
 DATA_POINT_CO2: Final = "co2"
+DATA_POINT_CO2_24H: Final = "co2_24h"
 DATA_POINT_DEWPOINT: Final = "dewpoint"
 DATA_POINT_FEELSLIKE: Final = "feelslike"
 DATA_POINT_HEATINDEX: Final = "heatindex"
 DATA_POINT_HUMIDITY: Final = "humidity"
+DATA_POINT_HUMI_CO2: Final = "humi_co2"
 DATA_POINT_LIGHTNING: Final = "lightning"
 DATA_POINT_LIGHTNING_NUM: Final = "lightning_num"
 DATA_POINT_LIGHTNING_TIME: Final = "lightning_time"
 DATA_POINT_PM25: Final = "pm25"
 DATA_POINT_PM25_24H: Final = "pm25_24h"
+DATA_POINT_RUNTIME: Final = "runtime"
 DATA_POINT_SOLARRADIATION: Final = "solarradiation"
 DATA_POINT_SOLARRADIATION_LUX: Final = "solarradiation_lux"
 DATA_POINT_SOLARRADIATION_PERCEIVED: Final = "solarradiation_perceived"
 DATA_POINT_TEMPF: Final = "tempf"
+DATA_POINT_TF_CO2: Final = "tf_co2"
 DATA_POINT_UV: Final = "uv"
 DATA_POINT_WINDCHILL: Final = "windchill"
-DATA_POINT_WINDDIR: Final = "winddir"
 DATA_POINT_WINDSPEEDMPH: Final = "windspeedmph"
 
 # Environment variables:
-ENV_BATTERY_CONFIG: Final = "ECOWITT2MQTT_BATTERY_CONFIG"
+ENV_BATTERY_OVERRIDE: Final = "ECOWITT2MQTT_BATTERY_OVERRIDE"
 ENV_CONFIG: Final = "ECOWITT2MQTT_CONFIG"
+ENV_DEFAULT_BATTERY_STRATEGY: Final = "ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY"
 ENV_ENDPOINT: Final = "ECOWITT2MQTT_ENDPOINT"
 ENV_HASS_DISCOVERY: Final = "ECOWITT2MQTT_HASS_DISCOVERY"
 ENV_HASS_DISCOVERY_PREFIX: Final = "ECOWITT2MQTT_HASS_DISCOVERY_PREFIX"
@@ -93,15 +101,31 @@ LEGACY_ENV_RAW_DATA: Final = "RAW_DATA"
 UNIT_SYSTEM_IMPERIAL: UnitSystemType = "imperial"
 UNIT_SYSTEM_METRIC: UnitSystemType = "metric"
 
+# Degree units
+DEGREE: Final = "°"
+
 # Distance units:
 DISTANCE_KILOMETERS: Final = "km"
 DISTANCE_MILES: Final = "mi"
 
+# Electric_potential units:
+ELECTRIC_POTENTIAL_VOLT: Final = "V"
+
+# Irradiation units
+IRRADIATION_WATTS_PER_SQUARE_METER: Final = "W/m²"
+
 # Light units:
 LIGHT_LUX: Final = "lx"
 
+# Lightning units:
+STRIKES: Final = "strikes"
+
 # Percentage units
 PERCENTAGE: Final = "%"
+
+# Pollution units:
+CONCENTRATION_MICROGRAMS_PER_CUBIC_METER: Final = "µg/m³"
+CONCENTRATION_PARTS_PER_MILLION: Final = "ppm"
 
 # Pressure units:
 PRESSURE_HPA: Final = "hPa"
@@ -114,6 +138,9 @@ SPEED_MILES_PER_HOUR: Final = "mph"
 # Temperature units:
 TEMP_CELSIUS: Final = "°C"
 TEMP_FAHRENHEIT: Final = "°F"
+
+# Time units
+TIME_SECONDS: Final = "s"
 
 # Volume units:
 RAINFALL_INCHES: Final = "in"

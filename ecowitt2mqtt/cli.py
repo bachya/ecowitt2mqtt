@@ -9,6 +9,7 @@ import uvloop
 
 from ecowitt2mqtt.const import (
     ENV_CONFIG,
+    ENV_DEFAULT_BATTERY_STRATEGY,
     ENV_ENDPOINT,
     ENV_HASS_DISCOVERY,
     ENV_HASS_DISCOVERY_PREFIX,
@@ -37,8 +38,10 @@ from ecowitt2mqtt.const import (
     LEGACY_ENV_PORT,
     LEGACY_ENV_RAW_DATA,
     UNIT_SYSTEM_IMPERIAL,
+    UNIT_SYSTEM_METRIC,
 )
 from ecowitt2mqtt.core import Ecowitt
+from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 from ecowitt2mqtt.helpers.logging import log_exception
 
 DEFAULT_ENDPOINT = "/data/report"
@@ -47,13 +50,22 @@ DEFAULT_MQTT_PORT = 1883
 DEFAULT_PORT = 8080
 
 
+def validate_unit_system(value: str) -> str:
+    """Validate a passed unit system."""
+    if value not in (UNIT_SYSTEM_IMPERIAL, UNIT_SYSTEM_METRIC):
+        raise typer.BadParameter(
+            f"'{value}' is not one of '{UNIT_SYSTEM_IMPERIAL}', '{UNIT_SYSTEM_METRIC}'"
+        )
+    return value
+
+
 @log_exception()
 def main(  # pylint: disable=too-many-arguments,too-many-locals
     ctx: typer.Context,
-    battery_config: list[str] = typer.Option(
+    battery_override: list[str] = typer.Option(
         None,
-        "--battery-config",
-        help="A battery configuration (format: key,value)",
+        "--battery-override",
+        help="A battery configuration override (format: key,value)",
     ),
     config: Path = typer.Option(
         None,
@@ -65,6 +77,13 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
         dir_okay=False,
         help="A path to a config file.",
         resolve_path=True,
+    ),
+    default_battery_strategy: BatteryStrategy = typer.Option(
+        BatteryStrategy.BOOLEAN,
+        "--default-battery-strategy",
+        envvar=[ENV_DEFAULT_BATTERY_STRATEGY],
+        help="The default battery config strategy to use.",
+        metavar="TEXT",
     ),
     endpoint: str = typer.Option(
         DEFAULT_ENDPOINT,
@@ -94,6 +113,7 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
     input_unit_system: str = typer.Option(
         UNIT_SYSTEM_IMPERIAL,
         "--input-unit-system",
+        callback=validate_unit_system,
         envvar=[ENV_INPUT_UNIT_SYSTEM, LEGACY_ENV_INPUT_UNIT_SYSTEM],
         help="The input unit system used by the device.",
     ),
@@ -134,6 +154,7 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
     output_unit_system: str = typer.Option(
         UNIT_SYSTEM_IMPERIAL,
         "--output-unit-system",
+        callback=validate_unit_system,
         envvar=[ENV_OUTPUT_UNIT_SYSTEM, LEGACY_ENV_OUTPUT_UNIT_SYSTEM],
         help="The unit system to use in output.",
     ),

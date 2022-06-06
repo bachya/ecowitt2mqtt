@@ -4,14 +4,24 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import TYPE_CHECKING
 
+from ecowitt2mqtt.const import TIME_SECONDS
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
 
 if TYPE_CHECKING:
     from ecowitt2mqtt.core import Ecowitt
 
 
-def calculate_dt_from_epoch(ecowitt: Ecowitt, *, value: int) -> CalculatedDataPoint:
+def calculate_dt_from_epoch(
+    ecowitt: Ecowitt, payload_key: str, data_point: str, *, value: float
+) -> CalculatedDataPoint:
     """Calculate a datetime from an epoch."""
     return CalculatedDataPoint(
         datetime.utcfromtimestamp(value).replace(tzinfo=timezone.utc), None
     )
+
+
+def calculate_runtime(
+    ecowitt: Ecowitt, payload_key: str, data_point: str, *, value: float
+) -> CalculatedDataPoint:
+    """Calculate a datetime from an epoch."""
+    return CalculatedDataPoint(value, TIME_SECONDS)

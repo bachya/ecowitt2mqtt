@@ -2,73 +2,115 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from functools import partial
 import traceback
 from typing import TYPE_CHECKING, Any, Callable, TypeVar
 
-# from ecowitt2mqtt.helpers.calculator.battery import calculate_battery
+from thefuzz import fuzz
+
 from ecowitt2mqtt.const import (
+    DATA_POINT_CO2,
+    DATA_POINT_CO2_24H,
     DATA_POINT_DEWPOINT,
     DATA_POINT_FEELSLIKE,
     DATA_POINT_GLOB_BAROM,
+    DATA_POINT_GLOB_BATT,
     DATA_POINT_GLOB_GUST,
+    DATA_POINT_GLOB_HUMIDITY,
+    DATA_POINT_GLOB_MOISTURE,
+    DATA_POINT_GLOB_PM10,
+    DATA_POINT_GLOB_PM25,
     DATA_POINT_GLOB_RAIN,
     DATA_POINT_GLOB_TEMP,
+    DATA_POINT_GLOB_VOLT,
     DATA_POINT_GLOB_WIND,
+    DATA_POINT_GLOB_WINDDIR,
     DATA_POINT_HEATINDEX,
+    DATA_POINT_HUMI_CO2,
     DATA_POINT_HUMIDITY,
     DATA_POINT_LIGHTNING,
     DATA_POINT_LIGHTNING_NUM,
     DATA_POINT_LIGHTNING_TIME,
+    DATA_POINT_RUNTIME,
     DATA_POINT_SOLARRADIATION,
     DATA_POINT_SOLARRADIATION_LUX,
     DATA_POINT_SOLARRADIATION_PERCEIVED,
     DATA_POINT_TEMPF,
+    DATA_POINT_TF_CO2,
     DATA_POINT_WINDCHILL,
-    DATA_POINT_WINDDIR,
     DATA_POINT_WINDSPEEDMPH,
     LOGGER,
 )
-from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, calculate_noop
+from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
+from ecowitt2mqtt.helpers.calculator.battery import calculate_battery
 from ecowitt2mqtt.helpers.calculator.distance import calculate_distance
 from ecowitt2mqtt.helpers.calculator.meteo import (
+    calculate_co2,
     calculate_dew_point,
     calculate_feels_like,
     calculate_heat_index,
-    calculate_illuminance_wm2_to_lux,
-    calculate_illuminance_wm2_to_perceived,
+    calculate_humidity,
+    calculate_lightning_strikes,
+    calculate_moisture,
+    calculate_pm10,
+    calculate_pm25,
     calculate_pressure,
     calculate_rain_volume,
+    calculate_solar_radiation_lux,
+    calculate_solar_radiation_perceived,
+    calculate_solar_radiation_wm2,
     calculate_temperature,
     calculate_wind_chill,
+    calculate_wind_dir,
     calculate_wind_speed,
 )
-from ecowitt2mqtt.helpers.calculator.time import calculate_dt_from_epoch
+from ecowitt2mqtt.helpers.calculator.time import (
+    calculate_dt_from_epoch,
+    calculate_runtime,
+)
 from ecowitt2mqtt.helpers.device import Device, get_device_from_raw_payload
 
 if TYPE_CHECKING:
     from ecowitt2mqtt.core import Ecowitt
 
-DEFAULT_KEYS_TO_IGNORE = ["PASSKEY", "dateutc", "freq", "model", "stationtype"]
+DEFAULT_KEYS_TO_IGNORE = [
+    "PASSKEY",
+    "dateutc",
+    "freq",
+    "model",
+    "stationtype",
+    "ws90_ver",
+]
 
 # Map which data calculator functions should apply to various data points:
 CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., CalculatedDataPoint]] = {
     DATA_POINT_DEWPOINT: calculate_dew_point,
     DATA_POINT_FEELSLIKE: calculate_feels_like,
     DATA_POINT_GLOB_BAROM: calculate_pressure,
-    # DATA_POINT_GLOB_BATT: calculate_battery,
+    DATA_POINT_GLOB_BATT: calculate_battery,
+    DATA_POINT_GLOB_GUST: calculate_wind_speed,
+    DATA_POINT_GLOB_HUMIDITY: calculate_humidity,
+    DATA_POINT_GLOB_MOISTURE: calculate_moisture,
+    DATA_POINT_GLOB_PM10: calculate_pm10,
+    DATA_POINT_GLOB_PM25: calculate_pm25,
     DATA_POINT_GLOB_RAIN: calculate_rain_volume,
     DATA_POINT_GLOB_TEMP: calculate_temperature,
+    DATA_POINT_GLOB_VOLT: calculate_battery,
     DATA_POINT_GLOB_WIND: calculate_wind_speed,
+    DATA_POINT_GLOB_WINDDIR: calculate_wind_dir,
+    DATA_POINT_CO2: calculate_co2,
+    DATA_POINT_CO2_24H: calculate_co2,
     DATA_POINT_HEATINDEX: calculate_heat_index,
+    DATA_POINT_HUMI_CO2: calculate_humidity,
     DATA_POINT_LIGHTNING: calculate_distance,
-    # Prevent LIGHTNING_NUM from being treated like LIGHTNING:
-    DATA_POINT_LIGHTNING_NUM: calculate_noop,
+    DATA_POINT_LIGHTNING_NUM: calculate_lightning_strikes,
     DATA_POINT_LIGHTNING_TIME: calculate_dt_from_epoch,
-    DATA_POINT_SOLARRADIATION_LUX: calculate_illuminance_wm2_to_lux,
-    DATA_POINT_SOLARRADIATION_PERCEIVED: calculate_illuminance_wm2_to_perceived,
+    DATA_POINT_RUNTIME: calculate_runtime,
+    DATA_POINT_SOLARRADIATION: calculate_solar_radiation_wm2,
+    DATA_POINT_SOLARRADIATION_LUX: calculate_solar_radiation_lux,
+    DATA_POINT_SOLARRADIATION_PERCEIVED: calculate_solar_radiation_perceived,
+    DATA_POINT_TF_CO2: calculate_temperature,
     DATA_POINT_WINDCHILL: calculate_wind_chill,
-    # Prevent WINDDIR being converted by GLOB_WIND:
-    DATA_POINT_WINDDIR: calculate_noop,
 }
 
 # Map which data points tend to come with keys embedded at their end:
@@ -91,11 +133,11 @@ T = TypeVar("T")
 
 def get_calculator_function(
     ecowitt: Ecowitt, key: str
-) -> Callable[..., CalculatedDataPoint] | None:
+) -> partial[CalculatedDataPoint] | None:
     """Get a data calculator function for a particular data key (if it exists)."""
     if (data_type := get_data_point_from_key(key)) is None:
         return None
-    return CALCULATOR_FUNCTION_MAP[data_type]
+    return partial(CALCULATOR_FUNCTION_MAP[data_type], ecowitt, key, data_type)
 
 
 def get_data_point_from_key(key: str) -> str | None:
@@ -108,12 +150,18 @@ def get_data_point_from_key(key: str) -> str | None:
     if key in CALCULATOR_FUNCTION_MAP:
         return key
 
-    try:
-        [match] = [k for k in CALCULATOR_FUNCTION_MAP if k in key]
-    except ValueError:
+    # If no keys (specific or globbed) match, we don't have a calculator:
+    if not (matches := [k for k in CALCULATOR_FUNCTION_MAP if k in key]):
         return None
 
-    return match
+    # Return the closest match based on the Levenshtein distance from the key:
+    #   Example Key: "winddir_avg10m"
+    #   Matches: ["wind", "winddir"]
+    #   Closest Match: "winddir"
+    sorted_matches = sorted(
+        matches, key=lambda m: fuzz.ratio(key, m), reverse=True  # type: ignore
+    )
+    return sorted_matches[0]
 
 
 def get_typed_value(value: T) -> float | T:
@@ -157,20 +205,28 @@ class ProcessedData:
         object.__setattr__(self, "device", get_device_from_raw_payload(self.data))
 
         # Process all of the data points for which raw data was provided:
-        for target_key, target_value in self.data.items():
-            if target_key in DEFAULT_KEYS_TO_IGNORE or not target_value:
+        for payload_key, payload_value in self.data.items():
+            if payload_key in DEFAULT_KEYS_TO_IGNORE or not payload_value:
                 continue
 
-            key = remove_unit_from_key(target_key)
-            value = get_typed_value(target_value)
+            key = remove_unit_from_key(payload_key)
+            value = get_typed_value(payload_value)
 
-            if calc := get_calculator_function(self.ecowitt, target_key):
-                self.output[key] = calc(self.ecowitt, value=value)
+            if calculator := get_calculator_function(self.ecowitt, payload_key):
+                LOGGER.debug(
+                    "Calculator found for %s: %s (key: %s, value: %s)",
+                    payload_key,
+                    calculator.func.__name__,
+                    key,
+                    value,
+                )
+                self.output[key] = calculator(value=value)
             else:
+                LOGGER.debug("No calculator found for %s", payload_key)
                 self.output[key] = CalculatedDataPoint(value, None)
 
         # Process any from-scratch data points that can be calculated from others:
-        for target_key, input_keys in (
+        for payload_key, input_keys in (
             (DATA_POINT_DEWPOINT, DEW_POINT_KEYS),
             (DATA_POINT_FEELSLIKE, FEELS_LIKE_KEYS),
             (DATA_POINT_HEATINDEX, HEAT_INDEX_KEYS),
@@ -181,9 +237,8 @@ class ProcessedData:
             if not all(k in self.data for k in input_keys):
                 continue
 
-            if calc := get_calculator_function(self.ecowitt, target_key):
-                self.output[target_key] = calc(
-                    self.ecowitt,
+            if calculator := get_calculator_function(self.ecowitt, payload_key):
+                self.output[payload_key] = calculator(
                     **{
                         remove_unit_from_key(key): get_typed_value(self.data[key])
                         for key in input_keys
