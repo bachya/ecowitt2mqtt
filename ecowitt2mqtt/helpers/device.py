@@ -1,5 +1,8 @@
 """Define an Ecowitt device."""
-from typing import Any, Dict, NamedTuple, Optional
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Any
 
 from ecowitt2mqtt.const import LOGGER
 
@@ -18,16 +21,17 @@ DEVICE_DATA = {
 }
 
 
-class Device(NamedTuple):
-    """Simple data object to provide device details."""
+@dataclass(frozen=True)
+class Device:
+    """Define a data object to provide device details."""
 
     unique_id: str
     manufacturer: str
     name: str
-    station_type: Optional[str]
+    station_type: str
 
 
-def get_device_from_raw_payload(payload: Dict[str, Any]) -> Device:
+def get_device_from_raw_payload(payload: dict[str, Any]) -> Device:
     """Return a device based upon a model string."""
     model = payload["model"]
     station_type = payload.get("stationtype", DEFAULT_STATION_TYPE)
