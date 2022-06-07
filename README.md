@@ -19,14 +19,11 @@ device data to be sent to an MQTT broker.
   * [Configuration File](#configuration-file)
   * [Merging Configuration Options](#merging-configuration-options)
 - [Advanced Usage](#advanced-usage)
+  * [Battery Configurations](#battery-configurations)
   * [Unit Systems](#unit-systems)
   * [Raw Data](#raw-data)
   * [Home Assistant](#home-assistant)
-    + [MQTT Discovery](#mqtt-discovery)
-    + [Custom Entity ID Prefix](#custom-entity-id-prefix)
   * [Running in the Background](#running-in-the-background)
-    + [`supervisord`](#-supervisord-)
-    + [`systemd`](#-systemd-)
   * [Docker](#docker)
 - [Contributing](#contributing)
 
@@ -200,7 +197,31 @@ Options:
 
 ## Configuration File
 
-The configuration file can be formatted as either JSON:
+The configuration file can be formatted as either YAML:
+
+```yaml
+---
+battery_override:
+  battery_key1: boolean
+default_battery_strategy: numeric,
+endpoint: /data/report,
+hass_discovery: false,
+hass_discovery_prefix: homeassistant,
+hass_entity_id_prefix: test_prefix
+input_unit_system: imperial,
+mqtt_broker: 127.0.0.1,
+mqtt_password: password,
+mqtt_port: 1883,
+mqtt_topic: Test,
+mqtt_username: user,
+output_unit_system: imperial,
+port: 8080,
+raw_data: false,
+verbose: false
+```
+
+...or JSON
+
 
 ```json
 {
@@ -225,30 +246,6 @@ The configuration file can be formatted as either JSON:
 }
 ```
 
-...or YAML
-
-
-```yaml
----
-battery_override:
-  battery_key1: boolean
-default_battery_strategy: numeric,
-endpoint: /data/report,
-hass_discovery: false,
-hass_discovery_prefix: homeassistant,
-hass_entity_id_prefix: test_prefix
-input_unit_system: imperial,
-mqtt_broker: 127.0.0.1,
-mqtt_password: password,
-mqtt_port: 1883,
-mqtt_topic: Test,
-mqtt_username: user,
-output_unit_system: imperial,
-port: 8080,
-raw_data: false,
-verbose: false
-```
-
 ## Merging Configuration Options
 
 When parsing configuration options, `ecowitt2mqtt` looks at the configuration sources in
@@ -262,6 +259,76 @@ This allows you to mix and match sources – for instance, you might have "defau
 the configuration file and override them via environment variables.
 
 # Advanced Usage
+
+## Battery Configurations
+
+Ecowitt devices report battery levels in a very inconsistent manner, making it difficult
+to automatically parse their values into something meaningful. `ecowitt2mqtt` addresses
+this via two mechanisms: a default battery "strategy" and battery overrides.
+
+### Default Battery Strategy
+
+By using the `--default-battery-strategy` configuration parameter, users can specify how
+batteries should be treated by default:
+
+* `boolean`: `0` represents `OFF` (i.e., the battery is in normal condition) and `1`
+   represents `ON` (i.e., the battery is low).
+* `numeric`: the raw numeric value is interpreted as the amount of voltage remaining in
+   the battery.
+
+### Battery Overrides
+
+Individual batteries can be overridden and given a new strategy. This allows users to,
+say, interpret all batteries as `boolean` by default, but interpret a specific battery
+as `numeric`. How this is accomplished differs slightly based on the configuration
+method used:
+
+* Command Line Options: provide one or more `--battery-override "batt1=boolean"` options
+* Environment Variables: provide a `ECOWITT2MQTT_BATTERY_OVERRIDE` variable that is a
+  semicolon-delimited pair of "key=value" strings (e.g.,
+  `ECOWITT2MQTT_BATTERY_OVERRIDE="batt1=boolean;batt2=numeric"`)
+* Config File: include a dictionary of key/value pairs in either YAML or JSON format
+
+### Example
+
+In this example, a user mostly has batteries that should be treated as `boolean`, but also
+has one – `wh60_batt`1 – that should be treated as numeric.
+
+#### Commany Line Options
+
+```
+$ ecowitt2mqtt --default-battery-strategy boolean --battery-override="wh60_batt1=numeric"
+```
+
+#### Environment Variables
+
+```
+$ ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY=boolean \
+  ECOWITT2MQTT_BATTERY_OVERRIDE="wh60_batt1=numeric" \
+  ecowitt2mqtt
+```
+
+#### Config File
+
+In YAML:
+
+```yaml
+---
+default_battery_strategy: boolean
+battery_override:
+  wh60_batt1: numeric
+```
+
+...or JSON
+
+```json
+{
+  "default_battery_strategy": "boolean",
+  "battery_override": {
+    "wh60_batt1": "numeric"
+  }
+}
+```
 
 ## Unit Systems
 
