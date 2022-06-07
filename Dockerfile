@@ -20,10 +20,11 @@ RUN apk add --no-cache \
     && pip install --no-cache-dir poetry==$POETRY_VERSION \
     && python -m venv /venv
 
-COPY pyproject.toml poetry.lock ./
+COPY pyproject.toml ./
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN poetry export --without-hashes -f requirements.txt \
-    | /venv/bin/pip install -r /dev/stdin
+RUN poetry lock \
+    && poetry export --without-hashes -f requirements.txt \
+       | /venv/bin/pip install -r /dev/stdin
 
 COPY . .
 RUN poetry build && /venv/bin/pip install dist/*.whl
