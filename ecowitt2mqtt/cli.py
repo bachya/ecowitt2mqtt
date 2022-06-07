@@ -8,6 +8,7 @@ import typer
 import uvloop
 
 from ecowitt2mqtt.const import (
+    ENV_BATTERY_OVERRIDE,
     ENV_CONFIG,
     ENV_DEFAULT_BATTERY_STRATEGY,
     ENV_ENDPOINT,
@@ -65,6 +66,7 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
     battery_override: list[str] = typer.Option(
         None,
         "--battery-override",
+        envvar=[ENV_BATTERY_OVERRIDE],
         help="A battery configuration override (format: key,value)",
     ),
     config: Path = typer.Option(
@@ -75,7 +77,7 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
         exists=True,
         file_okay=True,
         dir_okay=False,
-        help="A path to a config file.",
+        help="A path to a YAML or JSON config file.",
         resolve_path=True,
     ),
     default_battery_strategy: BatteryStrategy = typer.Option(
@@ -137,19 +139,19 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
         envvar=[ENV_MQTT_PORT, LEGACY_ENV_MQTT_PORT],
         help="The listenting port of the MQTT broker.",
     ),
-    mqtt_username: str = typer.Option(
-        None,
-        "--mqtt-username",
-        "-u",
-        envvar=[ENV_MQTT_USERNAME, LEGACY_ENV_MQTT_USERNAME],
-        help="A valid username for the MQTT broker.",
-    ),
     mqtt_topic: str = typer.Option(
         None,
         "--mqtt-topic",
         "-t",
         envvar=[ENV_MQTT_TOPIC, LEGACY_ENV_MQTT_TOPIC],
         help="The MQTT topic to publish device data to.",
+    ),
+    mqtt_username: str = typer.Option(
+        None,
+        "--mqtt-username",
+        "-u",
+        envvar=[ENV_MQTT_USERNAME, LEGACY_ENV_MQTT_USERNAME],
+        help="A valid username for the MQTT broker.",
     ),
     output_unit_system: str = typer.Option(
         UNIT_SYSTEM_IMPERIAL,

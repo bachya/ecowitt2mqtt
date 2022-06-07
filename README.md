@@ -13,7 +13,21 @@ device data to be sent to an MQTT broker.
 - [Installation](#installation)
 - [Python Versions](#python-versions)
 - [Quick Start](#quick-start)
+- [Configuration](#configuration)
+  * [Command Line Options](#command-line-options)
+  * [Environment Variables](#environment-variables)
+  * [Configuration File](#configuration-file)
+  * [Merging Configuration Options](#merging-configuration-options)
 - [Advanced Usage](#advanced-usage)
+  * [Unit Systems](#unit-systems)
+  * [Raw Data](#raw-data)
+  * [Home Assistant](#home-assistant)
+    + [MQTT Discovery](#mqtt-discovery)
+    + [Custom Entity ID Prefix](#custom-entity-id-prefix)
+  * [Running in the Background](#running-in-the-background)
+    + [`supervisord`](#-supervisord-)
+    + [`systemd`](#-systemd-)
+  * [Docker](#docker)
 - [Contributing](#contributing)
 
 # Installation
@@ -26,15 +40,15 @@ pip install ecowitt2mqtt
 
 `ecowitt2mqtt` is currently supported on:
 
-* Python 3.6
-* Python 3.7
 * Python 3.8
+* Python 3.9
+* Python 3.10
 
 # Quick Start
 
-Note that this README assumes:
+Note that this README assumes that:
 
-* you have access to an MQTT broker
+* you have access to an MQTT broker.
 * you have already paired your Ecowitt device with the WS View Android/iOS app from
   Ecowitt.
 
@@ -74,50 +88,186 @@ $ ecowitt2mqtt \
 
 Within the `Upload Interval`, data should begin to appear in the MQTT broker.
 
+# Configuration
+
+`ecowitt2mqtt` can be configured via command line options, environment variables, or a
+(YAML or JSON) config file.
+
+## Command Line Options
+
+```
+Usage: ecowitt2mqtt [OPTIONS] COMMAND [ARGS]...
+
+  ecowitt2mqtt sends Ecowitt device data to an MQTT broker.
+
+Options:
+  --battery-override TEXT         A battery configuration override
+                                  (format: key,value)  [env var:
+                                  ECOWITT2MQTT_BATTERY_OVERRIDE]
+  -c, --config FILE               A path to a config file.  [env
+                                  var: ECOWITT2MQTT_CONFIG]
+  --default-battery-strategy TEXT
+                                  The default battery config
+                                  strategy to use.  [env var: ECOW
+                                  ITT2MQTT_DEFAULT_BATTERY_STRATEG
+                                  Y; default: boolean]
+  -e, --endpoint TEXT             The relative endpoint/path to
+                                  serve ecowitt2mqtt on.  [env
+                                  var: ECOWITT2MQTT_ENDPOINT,
+                                  ENDPOINT; default: /data/report]
+  --hass-discovery                Publish data in the Home
+                                  Assistant MQTT Discovery format.
+                                  [env var:
+                                  ECOWITT2MQTT_HASS_DISCOVERY,
+                                  HASS_DISCOVERY]
+  --hass-discovery-prefix TEXT    The Home Assistant discovery
+                                  prefix to use.  [env var: ECOWIT
+                                  T2MQTT_HASS_DISCOVERY_PREFIX,
+                                  HASS_DISCOVERY_PREFIX; default:
+                                  homeassistant]
+  --hass-entity-id-prefix TEXT    The prefix to use for Home
+                                  Assistant entity IDs.  [env var:
+                                  ECOWITT2MQTT_HASS_ENTITY_ID_PREF
+                                  IX, HASS_ENTITY_ID_PREFIX]
+  --input-unit-system TEXT        The input unit system used by
+                                  the device.  [env var:
+                                  ECOWITT2MQTT_INPUT_UNIT_SYSTEM,
+                                  INPUT_UNIT_SYSTEM; default:
+                                  imperial]
+  -b, --mqtt-broker TEXT          The hostname or IP address of an
+                                  MQTT broker.  [env var:
+                                  ECOWITT2MQTT_MQTT_BROKER,
+                                  MQTT_BROKER]
+  -p, --mqtt-password TEXT        A valid password for the MQTT
+                                  broker.  [env var:
+                                  ECOWITT2MQTT_MQTT_PASSWORD,
+                                  MQTT_PASSWORD]
+  --mqtt-port INTEGER             The listenting port of the MQTT
+                                  broker.  [env var:
+                                  ECOWITT2MQTT_MQTT_PORT,
+                                  MQTT_PORT; default: 1883]
+  -u, --mqtt-username TEXT        A valid username for the MQTT
+                                  broker.  [env var:
+                                  ECOWITT2MQTT_MQTT_USERNAME,
+                                  MQTT_USERNAME]
+  -t, --mqtt-topic TEXT           The MQTT topic to publish device
+                                  data to.  [env var:
+                                  ECOWITT2MQTT_MQTT_TOPIC,
+                                  MQTT_TOPIC]
+  --output-unit-system TEXT       The unit system to use in
+                                  output.  [env var:
+                                  ECOWITT2MQTT_OUTPUT_UNIT_SYSTEM,
+                                  OUTPUT_UNIT_SYSTEM; default:
+                                  imperial]
+  --port INTEGER                  The port to serve ecowitt2mqtt
+                                  on.  [env var:
+                                  ECOWITT2MQTT_PORT, PORT;
+                                  default: 8080]
+  --raw-data                      Return raw data (don't attempt
+                                  to translate any values).  [env
+                                  var: ECOWITT2MQTT_RAW_DATA,
+                                  RAW_DATA]
+  -v, --verbose                   Increase verbosity of logged
+                                  output.  [env var:
+                                  ECOWITT2MQTT_VERBOSE]
+  --install-completion            Install completion for the
+                                  current shell.
+  --show-completion               Show completion for the current
+                                  shell, to copy it or customize
+                                  the installation.
+  --help                          Show this message and exit.
+```
+
+## Environment Variables
+
+* `ECOWITT2MQTT_BATTERY_OVERRIDE`: a semicolon-delimited list of key=value battery overrides
+* `ECOWITT2MQTT_CONFIG`: a path to a YAML or JSON config file
+* `ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY`: The default battery config strategy to use (default: `boolean`)
+* `ECOWITT2MQTT_ENDPOINT`: the relative endpoint/path to serve ecowitt2mqtt on (default: `/data/report`)
+* `ECOWITT2MQTT_HASS_DISCOVERY`: publish data in the Home Assistant MQTT Discovery format Idefault: `false`)
+* `ECOWITT2MQTT_HASS_DISCOVERY_PREFIX`: the Home Assistant discovery prefix to use (default: `homeassistant`)
+* `ECOWITT2MQTT_HASS_ENTITY_ID_PREFIX`: the prefix to use for Home Assistant entity IDs
+* `ECOWITT2MQTT_INPUT_UNIT_SYSTEM`: the input unit system used by the device (default: `imperial`)
+* `ECOWITT2MQTT_MQTT_BROKER`: the hostname or IP address of an MQTT broker
+* `ECOWITT2MQTT_MQTT_PASSWORD`: a valid password for the MQTT broker
+* `ECOWITT2MQTT_MQTT_PORT`: the listenting port of the MQTT broker (default: `1883`)
+* `ECOWITT2MQTT_MQTT_TOPIC`: the MQTT topic to publish device data to
+* `ECOWITT2MQTT_MQTT_USERNAME`: a valid username for the MQTT broker
+* `ECOWITT2MQTT_OUTPUT_UNIT_SYSTEM`: the unit system to use in output (default: `imperial`)
+* `ECOWITT2MQTT_PORT`: the port to serve ecowitt2mqtt on (default: `8080`)
+* `ECOWITT2MQTT_RAW_DATA`: return raw data (don't attempt to translate any values)
+* `ECOWITT2MQTT_VERBOSE`: increase verbosity of logged output
+
+## Configuration File
+
+The configuration file can be formatted as either JSON:
+
+```json
+{
+  "battery_override": {
+    "battery_key1": "boolean"
+  },
+  "default_battery_strategy": "numeric",
+  "endpoint": "/data/report",
+  "hass_discovery": false,
+  "hass_discovery_prefix": "homeassistant",
+  "hass_entity_id_prefix": "test_prefix"
+  "input_unit_system": "imperial",
+  "mqtt_broker": "127.0.0.1",
+  "mqtt_password": "password",
+  "mqtt_port": 1883,
+  "mqtt_topic": "Test",
+  "mqtt_username": "user",
+  "output_unit_system": "imperial",
+  "port": 8080,
+  "raw_data": false,
+  "verbose": false
+}
+```
+
+...or YAML
+
+
+```yaml
+---
+battery_override:
+  battery_key1: boolean
+default_battery_strategy: numeric,
+endpoint: /data/report,
+hass_discovery: false,
+hass_discovery_prefix: homeassistant,
+hass_entity_id_prefix: test_prefix
+input_unit_system: imperial,
+mqtt_broker: 127.0.0.1,
+mqtt_password: password,
+mqtt_port: 1883,
+mqtt_topic: Test,
+mqtt_username: user,
+output_unit_system: imperial,
+port: 8080,
+raw_data: false,
+verbose: false
+```
+
+## Merging Configuration Options
+
+When parsing configuration options, `ecowitt2mqtt` looks at the configuration sources in
+the following order:
+
+1. Configuration File
+2. Environment Variables
+3. CLI Options
+
+This allows you to mix and match sources – for instance, you might have "defaults" in
+the configuration file and override them via environment variables.
+
 # Advanced Usage
 
-## Command Line Interface
-
-The `ecowitt2mqtt` executable contains several configurable parameters:
-```
-usage: ecowitt2mqtt [-h] --mqtt-broker MQTT_BROKER --mqtt-topic MQTT_TOPIC [--mqtt-port MQTT_PORT]
-                    [--mqtt-username MQTT_USERNAME] [--mqtt-password MQTT_PASSWORD]
-                    [--endpoint ENDPOINT] [--port PORT] [-l LOG_LEVEL]
-
-Send data from Ecowitt devices to an MQTT broker
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -l LOG_LEVEL, --log-level LOG_LEVEL
-                        The logging level (default: INFO)
-  --mqtt-broker MQTT_BROKER
-                        The hostname or IP address of the MQTT broker
-  --mqtt-port MQTT_PORT
-                        The port of the MQTT broker (default: 1883)
-  --mqtt-username MQTT_USERNAME
-                        The username to use with the MQTT broker (default: None)
-  --mqtt-password MQTT_PASSWORD
-                        The password to use with the MQTT broker (default: None)
-  --mqtt-topic MQTT_TOPIC
-                        The MQTT topic to publish the device's data to (default: ecowitt2mqtt/<ID>)
-  --hass-discovery      Publish data in the Home Assistant MQTT Discovery format
-  --hass-discovery-prefix HASS_DISCOVERY_PREFIX
-                        The Home Assistant discovery prefix to use (default: homeassistant)
-  --hass-entity-id-prefix HASS_ENTITY_ID_PREFIX
-                        The prefix to use for Home Assistant entity IDs
-  --endpoint ENDPOINT   The relative endpoint/path to serve the web app on (default: /data/report)
-  --port PORT           The port to serve the web app on (default: 8080)
-  --raw-data            Return raw data (don't attempt to translate any values)
-  --input-unit-system INPUT_UNIT_SYSTEM
-                        The input unit system used by the device (default: imperial)
-  --output-unit-system OUTPUT_UNIT_SYSTEM
-                        The unit system to use in output (default: imperial)
-```
 ## Unit Systems
 
 `ecowitt2mqtt` allows you to specify both the input and output unit systems for a device.
 This is fairly self-explanatory, but take care to use an `--input-unit-system` that is
-consistent with what your device provides (otherwise, your data will be way off).
+consistent with what your device provides (otherwise, your data will be very "off").
 
 ## Raw Data
 
@@ -130,7 +280,9 @@ as-is.
 Note that the `--raw-data` flag supersedes any that might cause data translation (such as
 `--input-unit-system` or `--output-unit-system`).
 
-## Home Assistant MQTT Discovery
+## Home Assistant
+
+### MQTT Discovery
 
 [Home Assistant](https://home-assistant.io) users can quickly add entities from an
 Ecowitt device by using
@@ -149,6 +301,11 @@ $ ecowitt2mqtt \
 
 Note that if both `--hass-discovery` and `--mqtt-topic` are provided, `--hass-discovery` will
 win out.
+
+### Custom Entity ID Prefix
+
+You can provide a custom prefix for all Home Assistant entities via the
+`--hass-entity-id-prefix` config parameter.
 
 ## Running in the Background
 
@@ -206,20 +363,6 @@ The library is available via a Docker image
 by a handful of environment variables that correspond to the command line parameters
 listed above:
 
-* `LOG_LEVEL:` the log level to use (default: `INFO`)
-* `MQTT_BROKER:` the hostname or IP address of the MQTT broker
-* `MQTT_PORT:` the port of the MQTT broker (default: `1883`)
-* `MQTT_PASSWORD:` the password to use with the MQTT broker (default: `None`)
-* `MQTT_USERNAME:` the password to use with the MQTT broker (default: `None`)
-* `MQTT_TOPIC:` the MQTT topic to publish the device's data to
-* `HASS_DISCOVERY`: whether to use Home Assistant MQTT Discovery (default: `false`)
-* `HASS_DISCOVERY_PREFIX`: the topic prefix to use for Home Assistant MQTT Discovery
-  (default: `homeassistant`)
-* `HASS_ENTITY_ID_PREFIX`: the prefix to use for Home Assistant entity IDs
-* `ENDPOINT:` the relative endpoint/path to serve the web app on (default: `/data/report`)
-* `PORT:` the port to serve the web app on (default: `8080`)
-* `INPUT_UNIT_SYSTEM`: the input unit system to use (`imperial` or `metric`) (default: `imperial`)
-* `OUTPUT_UNIT_SYSTEM`: the output unit system to use (`imperial` or `metric`) (default: `imperial`)
 
 Running the image is straightforward:
 
