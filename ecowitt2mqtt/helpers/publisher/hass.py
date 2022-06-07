@@ -319,14 +319,14 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
                 (discovery_payload.payload["state_topic"], data_point.value),
             ):
                 publish_tasks.append(
-                    asyncio.ensure_future(
-                        self.client.publish(topic, generate_mqtt_payload(payload))
-                    )
+                    self.client.publish(topic, generate_mqtt_payload(payload))
                 )
 
         try:
             async with self.client:
-                await asyncio.gather(*publish_tasks)
+                await asyncio.gather(
+                    *[asyncio.ensure_future(task) for task in publish_tasks]
+                )
         except MqttError as err:
             for task in publish_tasks:
                 task.cancel()
