@@ -18,12 +18,13 @@ RUN apk add --no-cache \
       build-base==0.5-r2 \
       libffi-dev==3.4.2-r1 \
     && pip install --no-cache-dir poetry==$POETRY_VERSION \
-    && python -m venv /venv
+    && python -m venv /venv \
 
-COPY pyproject.toml poetry.lock ./
+COPY pyproject.toml ./
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN poetry export --without-hashes -f requirements.txt \
-    | /venv/bin/pip install -r /dev/stdin
+RUN poetry lock \
+    && poetry export --without-hashes -f requirements.txt \
+       | /venv/bin/pip install -r /dev/stdin
 
 COPY . .
 RUN poetry build && /venv/bin/pip install dist/*.whl
