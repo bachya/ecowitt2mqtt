@@ -1,8 +1,7 @@
 """Define the main interface to the CLI."""
-from __future__ import annotations
-
 import asyncio
 from pathlib import Path
+from typing import List
 
 import typer
 import uvloop
@@ -63,7 +62,7 @@ def validate_unit_system(value: str) -> str:
 @log_exception()
 def main(  # pylint: disable=too-many-arguments,too-many-locals
     ctx: typer.Context,
-    battery_override: list[str] = typer.Option(
+    battery_override: List[str] = typer.Option(
         None,
         "--battery-override",
         envvar=[ENV_BATTERY_OVERRIDE],
