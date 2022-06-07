@@ -360,9 +360,7 @@ $ systemctl enable ecowitt2mqtt
 
 The library is available via a Docker image
 ([`bachya/ecowitt2mqtt`](https://hub.docker.com/r/bachya/ecowitt2mqtt)). It is configured
-by a handful of environment variables that correspond to the command line parameters
-listed above:
-
+by using the same environment variables listed [above](#environment-variables).
 
 Running the image is straightforward:
 
