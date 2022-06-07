@@ -10,6 +10,7 @@ from asyncio_mqtt import MqttError
 from ecowitt2mqtt.const import (
     DATA_POINT_CO2,
     DATA_POINT_CO2_24H,
+    DATA_POINT_DAILY_RAIN,
     DATA_POINT_DEWPOINT,
     DATA_POINT_FEELSLIKE,
     DATA_POINT_GLOB_BAROM,
@@ -25,17 +26,22 @@ from ecowitt2mqtt.const import (
     DATA_POINT_GLOB_WIND,
     DATA_POINT_GLOB_WINDDIR,
     DATA_POINT_HEATINDEX,
+    DATA_POINT_HOURLY_RAIN,
     DATA_POINT_HUMI_CO2,
     DATA_POINT_LIGHTNING,
     DATA_POINT_LIGHTNING_NUM,
     DATA_POINT_LIGHTNING_TIME,
+    DATA_POINT_MONTHLY_RAIN,
     DATA_POINT_RUNTIME,
     DATA_POINT_SOLARRADIATION,
     DATA_POINT_SOLARRADIATION_LUX,
     DATA_POINT_SOLARRADIATION_PERCEIVED,
     DATA_POINT_TF_CO2,
+    DATA_POINT_TOTAL_RAIN,
     DATA_POINT_UV,
+    DATA_POINT_WEEKLY_RAIN,
     DATA_POINT_WINDCHILL,
+    DATA_POINT_YEARLY_RAIN,
     LOGGER,
 )
 from ecowitt2mqtt.data import ProcessedData
@@ -70,6 +76,10 @@ ENTITY_CATEGORY_DIAGNOSTIC = "diagnostic"
 PLATFORM_BINARY_SENSOR = "binary_sensor"
 PLATFORM_SENSOR = "sensor"
 
+STATE_CLASS_MEASUREMENT = "measurement"
+STATE_CLASS_TOTAL = "total"
+STATE_CLASS_TOTAL_INCREASING = "total_increasing"
+
 
 class HassError(EcowittError):
     """Define an error related to a MQTT Discovery error."""
@@ -95,6 +105,7 @@ class EntityDescription:
     device_class: str | None = None
     entity_category: str | None = None
     icon: str | None = None
+    state_class: str | None = None
 
 
 @dataclass
@@ -113,46 +124,57 @@ ENTITY_DESCRIPTIONS = {
         platform=PLATFORM_BINARY_SENSOR,
         device_class=DEVICE_CLASS_BATTERY,
         entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_GLOB_BAROM: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_PRESSURE,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_GLOB_GUST: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:weather-windy",
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_GLOB_HUMIDITY: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_HUMIDITY,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_GLOB_MOISTURE: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:water-percent",
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_GLOB_PM10: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_PM10,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_GLOB_PM25: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_PM25,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_GLOB_RAIN: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:water",
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_GLOB_TEMP: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_TEMPERATURE,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_GLOB_VOLT: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_VOLTAGE,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_GLOB_WIND: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:weather-windy",
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_GLOB_WINDDIR: EntityDescription(
         platform=PLATFORM_SENSOR,
@@ -161,73 +183,99 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_CO2: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_CO2,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_CO2_24H: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_CO2,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_DEWPOINT: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_TEMPERATURE,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_FEELSLIKE: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_TEMPERATURE,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_HEATINDEX: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_TEMPERATURE,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_HUMI_CO2: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_HUMIDITY,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_LIGHTNING: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:map-marker-distance",
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_LIGHTNING_NUM: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:weather-lightning",
+        state_class=STATE_CLASS_TOTAL,
     ),
     DATA_POINT_LIGHTNING_TIME: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_TIMESTAMP,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_SOLARRADIATION: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_ILLUMINANCE,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_SOLARRADIATION_LUX: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_ILLUMINANCE,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_SOLARRADIATION_PERCEIVED: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_ILLUMINANCE,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_RUNTIME: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_DURATION,
         icon="mdi:timer",
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_TF_CO2: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_TEMPERATURE,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_UV: EntityDescription(
         platform=PLATFORM_SENSOR,
         icon="mdi:weather-sunny",
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_WINDCHILL: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_TEMPERATURE,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
     DATA_POINT_NUMERIC_BATTERY: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_VOLTAGE,
         entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
+        state_class=STATE_CLASS_MEASUREMENT,
     ),
+}
+
+STATE_CLASS_OVERRIDES = {
+    DATA_POINT_DAILY_RAIN: STATE_CLASS_TOTAL_INCREASING,
+    DATA_POINT_HOURLY_RAIN: STATE_CLASS_TOTAL_INCREASING,
+    DATA_POINT_MONTHLY_RAIN: STATE_CLASS_TOTAL_INCREASING,
+    DATA_POINT_TOTAL_RAIN: STATE_CLASS_TOTAL_INCREASING,
+    DATA_POINT_WEEKLY_RAIN: STATE_CLASS_TOTAL_INCREASING,
+    DATA_POINT_YEARLY_RAIN: STATE_CLASS_TOTAL_INCREASING,
 }
 
 
@@ -297,6 +345,10 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
             if not value:
                 continue
             payload.payload[discovery_key] = value
+
+        payload.payload["state_class"] = STATE_CLASS_OVERRIDES.get(
+            key, description.state_class
+        )
 
         return payload
 
