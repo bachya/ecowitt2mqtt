@@ -322,16 +322,16 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
                     self.client.publish(topic, generate_mqtt_payload(payload))
                 )
 
-        try:
-            async with self.client:
-                await asyncio.gather(
-                    *[asyncio.ensure_future(task) for task in publish_tasks]
-                )
-        except MqttError as err:
-            for task in publish_tasks:
-                task.cancel()
-            raise PublishError(
-                f"Error while publishing to Home Assisstant MQTT Discovery: {err}"
-            ) from err
+        async with self.client:
+            futures = [asyncio.ensure_future(task) for task in publish_tasks]
+            try:
+                await asyncio.gather(*futures)
+            except MqttError as err:
+                for task in futures:
+                    LOGGER.debug("Canceling publish task: %s", task)
+                    task.cancel()
+                raise PublishError(
+                    f"Error while publishing to Home Assisstant MQTT Discovery: {err}"
+                ) from err
 
         LOGGER.info("Published to Home Assistant MQTT Discovery")
