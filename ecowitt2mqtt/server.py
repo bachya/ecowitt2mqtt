@@ -40,7 +40,7 @@ class Server:
         payload = await request.json()
         LOGGER.debug("Received data from the Ecowitt device: %s", payload)
         for callback in self._device_payload_callbacks:
-            execute_callback(self.ecowitt, callback, payload)
+            execute_callback(callback, payload)
 
     def add_device_payload_callback(
         self, callback: Callable[[dict[str, Any]], Coroutine | None]

@@ -2,17 +2,12 @@
 from __future__ import annotations
 
 import asyncio
-from typing import TYPE_CHECKING, Any, Callable, Iterable
+from typing import Any, Callable, Iterable
 
 from thefuzz import fuzz
 
-if TYPE_CHECKING:
-    from ecowitt2mqtt.core import Ecowitt
 
-
-def execute_callback(
-    ecowitt: Ecowitt, callback: Callable[..., Any], *args: Any
-) -> None:
+def execute_callback(callback: Callable[..., Any], *args: Any) -> None:
     """Schedule a callback to be called."""
     if asyncio.iscoroutinefunction(callback):
         asyncio.create_task(callback(*args))
