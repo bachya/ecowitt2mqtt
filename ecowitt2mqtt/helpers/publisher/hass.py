@@ -70,6 +70,10 @@ ENTITY_CATEGORY_DIAGNOSTIC = "diagnostic"
 PLATFORM_BINARY_SENSOR = "binary_sensor"
 PLATFORM_SENSOR = "sensor"
 
+STATE_CLASS_MEASUREMENT = "measurement"
+STATE_CLASS_TOTAL = "total"
+STATE_CLASS_TOTAL_INCREASING = "total_increasing"
+
 
 class HassError(EcowittError):
     """Define an error related to a MQTT Discovery error."""
@@ -95,6 +99,7 @@ class EntityDescription:
     device_class: str | None = None
     entity_category: str | None = None
     icon: str | None = None
+    state_class: str | None = None
 
 
 @dataclass
@@ -292,6 +297,7 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
             ("device_class", description.device_class),
             ("entity_category", description.entity_category),
             ("icon", description.icon),
+            ("state_class", description.state_class),
             ("unit_of_measurement", data_point.unit),
         ):
             if not value:
