@@ -87,7 +87,7 @@ async def test_publish(
         [
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "runtime", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_runtime", "unit_of_measurement": "s", "device_class": "duration", "icon": "mdi:timer"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "runtime", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_runtime", "device_class": "duration", "icon": "mdi:timer", "unit_of_measurement": "s"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/state",
@@ -95,7 +95,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "tempin", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_tempin", "unit_of_measurement": "\\u00b0F", "device_class": "temperature"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "tempin", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_tempin", "device_class": "temperature", "unit_of_measurement": "\\u00b0F"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/state",
@@ -103,7 +103,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "humidityin", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityin", "unit_of_measurement": "%", "device_class": "humidity"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "humidityin", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityin", "device_class": "humidity", "unit_of_measurement": "%"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/state",
@@ -111,7 +111,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "baromrel", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_baromrel", "unit_of_measurement": "inHg", "device_class": "pressure"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "baromrel", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_baromrel", "device_class": "pressure", "unit_of_measurement": "inHg"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/state",
@@ -119,7 +119,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "baromabs", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_baromabs", "unit_of_measurement": "inHg", "device_class": "pressure"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "baromabs", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_baromabs", "device_class": "pressure", "unit_of_measurement": "inHg"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/state",
@@ -127,7 +127,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "temp", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_temp", "unit_of_measurement": "\\u00b0F", "device_class": "temperature"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "temp", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_temp", "device_class": "temperature", "unit_of_measurement": "\\u00b0F"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/state",
@@ -135,7 +135,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "humidity", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidity", "unit_of_measurement": "%", "device_class": "humidity"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "humidity", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidity", "device_class": "humidity", "unit_of_measurement": "%"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/state",
@@ -143,7 +143,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "winddir", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_winddir", "unit_of_measurement": "\\u00b0", "icon": "mdi:compass"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "winddir", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_winddir", "icon": "mdi:compass", "unit_of_measurement": "\\u00b0"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/state",
@@ -151,7 +151,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "windspeed", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_windspeed", "unit_of_measurement": "mph", "icon": "mdi:weather-windy"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "windspeed", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_windspeed", "icon": "mdi:weather-windy", "unit_of_measurement": "mph"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/state",
@@ -159,7 +159,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "windgust", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_windgust", "unit_of_measurement": "mph", "icon": "mdi:weather-windy"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "windgust", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_windgust", "icon": "mdi:weather-windy", "unit_of_measurement": "mph"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/state",
@@ -167,7 +167,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "maxdailygust", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_maxdailygust", "unit_of_measurement": "mph", "icon": "mdi:weather-windy"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "maxdailygust", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_maxdailygust", "icon": "mdi:weather-windy", "unit_of_measurement": "mph"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/state",
@@ -175,7 +175,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "solarradiation", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "unit_of_measurement": "W/m\\u00b2", "device_class": "illuminance"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "solarradiation", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "device_class": "illuminance", "unit_of_measurement": "W/m\\u00b2"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state",
@@ -183,14 +183,14 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "uv", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_uv", "unit_of_measurement": "UV index", "icon": "mdi:weather-sunny"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "uv", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_uv", "icon": "mdi:weather-sunny", "unit_of_measurement": "UV index"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state", b"2.0"
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "rainrate", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rainrate", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "rainrate", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rainrate", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state",
@@ -198,7 +198,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "eventrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_eventrain", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "eventrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_eventrain", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state",
@@ -206,7 +206,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "hourlyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_hourlyrain", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "hourlyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_hourlyrain", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state",
@@ -214,7 +214,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "dailyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_dailyrain", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "dailyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_dailyrain", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state",
@@ -222,7 +222,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "weeklyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_weeklyrain", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "weeklyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_weeklyrain", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state",
@@ -230,7 +230,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "monthlyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_monthlyrain", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "monthlyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_monthlyrain", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/state",
@@ -238,7 +238,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "yearlyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_yearlyrain", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "yearlyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_yearlyrain", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/state",
@@ -246,7 +246,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "lightning_num", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_lightning_num", "unit_of_measurement": "strikes", "icon": "mdi:weather-lightning"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "lightning_num", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_lightning_num", "icon": "mdi:weather-lightning", "unit_of_measurement": "strikes"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/state",
@@ -254,7 +254,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "lightning", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_lightning", "unit_of_measurement": "mi", "icon": "mdi:map-marker-distance"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "lightning", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_lightning", "icon": "mdi:map-marker-distance", "unit_of_measurement": "mi"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/state",
@@ -270,7 +270,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh65batt/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "wh65batt", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh65batt/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_wh65batt", "device_class": "battery"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "wh65batt", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh65batt/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_wh65batt", "device_class": "battery", "entity_category": "diagnostic"}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh65batt/state",
@@ -278,7 +278,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "dewpoint", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_dewpoint", "unit_of_measurement": "\\u00b0F", "device_class": "temperature"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "dewpoint", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_dewpoint", "device_class": "temperature", "unit_of_measurement": "\\u00b0F"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state",
@@ -286,7 +286,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "feelslike", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_feelslike", "unit_of_measurement": "\\u00b0F", "device_class": "temperature"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "feelslike", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_feelslike", "device_class": "temperature", "unit_of_measurement": "\\u00b0F"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/state",
@@ -294,7 +294,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "heatindex", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_heatindex", "unit_of_measurement": "\\u00b0F", "device_class": "temperature"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "heatindex", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_heatindex", "device_class": "temperature", "unit_of_measurement": "\\u00b0F"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state",
@@ -302,7 +302,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "solarradiation_lux", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_lux", "unit_of_measurement": "lx", "device_class": "illuminance"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "solarradiation_lux", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_lux", "device_class": "illuminance", "unit_of_measurement": "lx"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state",
@@ -310,7 +310,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "solarradiation_perceived", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_perceived", "unit_of_measurement": "%", "device_class": "illuminance"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "solarradiation_perceived", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_perceived", "device_class": "illuminance", "unit_of_measurement": "%"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state",
@@ -318,7 +318,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "windchill", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_windchill", "unit_of_measurement": "\\u00b0F", "device_class": "temperature"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "windchill", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_windchill", "device_class": "temperature", "unit_of_measurement": "\\u00b0F"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state",
@@ -358,7 +358,7 @@ async def test_publish_custom_entity_id_prefix(
         [
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_runtime", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_runtime", "unit_of_measurement": "s", "device_class": "duration", "icon": "mdi:timer"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_runtime", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_runtime", "device_class": "duration", "icon": "mdi:timer", "unit_of_measurement": "s"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/state",
@@ -366,7 +366,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_tempin", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_tempin", "unit_of_measurement": "\\u00b0F", "device_class": "temperature"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_tempin", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_tempin", "device_class": "temperature", "unit_of_measurement": "\\u00b0F"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/state",
@@ -374,7 +374,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_humidityin", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityin", "unit_of_measurement": "%", "device_class": "humidity"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_humidityin", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityin", "device_class": "humidity", "unit_of_measurement": "%"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/state",
@@ -382,7 +382,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_baromrel", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_baromrel", "unit_of_measurement": "inHg", "device_class": "pressure"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_baromrel", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_baromrel", "device_class": "pressure", "unit_of_measurement": "inHg"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/state",
@@ -390,7 +390,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_baromabs", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_baromabs", "unit_of_measurement": "inHg", "device_class": "pressure"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_baromabs", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_baromabs", "device_class": "pressure", "unit_of_measurement": "inHg"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/state",
@@ -398,7 +398,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_temp", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_temp", "unit_of_measurement": "\\u00b0F", "device_class": "temperature"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_temp", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_temp", "device_class": "temperature", "unit_of_measurement": "\\u00b0F"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/state",
@@ -406,7 +406,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_humidity", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidity", "unit_of_measurement": "%", "device_class": "humidity"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_humidity", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidity", "device_class": "humidity", "unit_of_measurement": "%"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/state",
@@ -414,7 +414,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_winddir", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_winddir", "unit_of_measurement": "\\u00b0", "icon": "mdi:compass"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_winddir", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_winddir", "icon": "mdi:compass", "unit_of_measurement": "\\u00b0"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/state",
@@ -422,7 +422,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_windspeed", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_windspeed", "unit_of_measurement": "mph", "icon": "mdi:weather-windy"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_windspeed", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_windspeed", "icon": "mdi:weather-windy", "unit_of_measurement": "mph"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/state",
@@ -430,7 +430,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_windgust", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_windgust", "unit_of_measurement": "mph", "icon": "mdi:weather-windy"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_windgust", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_windgust", "icon": "mdi:weather-windy", "unit_of_measurement": "mph"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/state",
@@ -438,7 +438,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_maxdailygust", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_maxdailygust", "unit_of_measurement": "mph", "icon": "mdi:weather-windy"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_maxdailygust", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_maxdailygust", "icon": "mdi:weather-windy", "unit_of_measurement": "mph"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/state",
@@ -446,7 +446,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_solarradiation", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "unit_of_measurement": "W/m\\u00b2", "device_class": "illuminance"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_solarradiation", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "device_class": "illuminance", "unit_of_measurement": "W/m\\u00b2"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state",
@@ -454,14 +454,14 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_uv", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_uv", "unit_of_measurement": "UV index", "icon": "mdi:weather-sunny"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_uv", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_uv", "icon": "mdi:weather-sunny", "unit_of_measurement": "UV index"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state", b"2.0"
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_rainrate", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rainrate", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_rainrate", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rainrate", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state",
@@ -469,7 +469,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_eventrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_eventrain", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_eventrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_eventrain", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state",
@@ -477,7 +477,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_hourlyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_hourlyrain", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_hourlyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_hourlyrain", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state",
@@ -485,7 +485,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_dailyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_dailyrain", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_dailyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_dailyrain", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state",
@@ -493,7 +493,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_weeklyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_weeklyrain", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_weeklyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_weeklyrain", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state",
@@ -501,7 +501,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_monthlyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_monthlyrain", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_monthlyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_monthlyrain", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/state",
@@ -509,7 +509,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_yearlyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_yearlyrain", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_yearlyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_yearlyrain", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/state",
@@ -517,7 +517,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_lightning_num", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_lightning_num", "unit_of_measurement": "strikes", "icon": "mdi:weather-lightning"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_lightning_num", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_lightning_num", "icon": "mdi:weather-lightning", "unit_of_measurement": "strikes"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/state",
@@ -525,7 +525,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_lightning", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_lightning", "unit_of_measurement": "mi", "icon": "mdi:map-marker-distance"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_lightning", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_lightning", "icon": "mdi:map-marker-distance", "unit_of_measurement": "mi"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/state",
@@ -541,7 +541,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh65batt/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_wh65batt", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh65batt/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_wh65batt", "device_class": "battery"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_wh65batt", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh65batt/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_wh65batt", "device_class": "battery", "entity_category": "diagnostic"}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh65batt/state",
@@ -549,7 +549,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_dewpoint", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_dewpoint", "unit_of_measurement": "\\u00b0F", "device_class": "temperature"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_dewpoint", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_dewpoint", "device_class": "temperature", "unit_of_measurement": "\\u00b0F"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state",
@@ -557,7 +557,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_feelslike", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_feelslike", "unit_of_measurement": "\\u00b0F", "device_class": "temperature"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_feelslike", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_feelslike", "device_class": "temperature", "unit_of_measurement": "\\u00b0F"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/state",
@@ -565,7 +565,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_heatindex", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_heatindex", "unit_of_measurement": "\\u00b0F", "device_class": "temperature"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_heatindex", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_heatindex", "device_class": "temperature", "unit_of_measurement": "\\u00b0F"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state",
@@ -573,7 +573,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_solarradiation_lux", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_lux", "unit_of_measurement": "lx", "device_class": "illuminance"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_solarradiation_lux", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_lux", "device_class": "illuminance", "unit_of_measurement": "lx"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state",
@@ -581,7 +581,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_solarradiation_perceived", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_perceived", "unit_of_measurement": "%", "device_class": "illuminance"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_solarradiation_perceived", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_perceived", "device_class": "illuminance", "unit_of_measurement": "%"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state",
@@ -589,7 +589,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_windchill", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_windchill", "unit_of_measurement": "\\u00b0F", "device_class": "temperature"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "test_prefix_windchill", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_windchill", "device_class": "temperature", "unit_of_measurement": "\\u00b0F"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state",
@@ -628,7 +628,7 @@ async def test_publish_numeric_battery_strategy(
         [
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "runtime", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_runtime", "unit_of_measurement": "s", "device_class": "duration", "icon": "mdi:timer"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "runtime", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_runtime", "device_class": "duration", "icon": "mdi:timer", "unit_of_measurement": "s"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/state",
@@ -636,7 +636,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "tempin", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_tempin", "unit_of_measurement": "\\u00b0F", "device_class": "temperature"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "tempin", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_tempin", "device_class": "temperature", "unit_of_measurement": "\\u00b0F"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/state",
@@ -644,7 +644,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "humidityin", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityin", "unit_of_measurement": "%", "device_class": "humidity"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "humidityin", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityin", "device_class": "humidity", "unit_of_measurement": "%"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/state",
@@ -652,7 +652,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "baromrel", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_baromrel", "unit_of_measurement": "inHg", "device_class": "pressure"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "baromrel", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_baromrel", "device_class": "pressure", "unit_of_measurement": "inHg"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/state",
@@ -660,7 +660,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "baromabs", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_baromabs", "unit_of_measurement": "inHg", "device_class": "pressure"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "baromabs", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_baromabs", "device_class": "pressure", "unit_of_measurement": "inHg"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/state",
@@ -668,7 +668,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "temp", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_temp", "unit_of_measurement": "\\u00b0F", "device_class": "temperature"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "temp", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_temp", "device_class": "temperature", "unit_of_measurement": "\\u00b0F"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/state",
@@ -676,7 +676,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "humidity", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidity", "unit_of_measurement": "%", "device_class": "humidity"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "humidity", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidity", "device_class": "humidity", "unit_of_measurement": "%"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/state",
@@ -684,7 +684,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "winddir", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_winddir", "unit_of_measurement": "\\u00b0", "icon": "mdi:compass"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "winddir", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_winddir", "icon": "mdi:compass", "unit_of_measurement": "\\u00b0"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/state",
@@ -692,7 +692,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "windspeed", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_windspeed", "unit_of_measurement": "mph", "icon": "mdi:weather-windy"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "windspeed", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_windspeed", "icon": "mdi:weather-windy", "unit_of_measurement": "mph"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/state",
@@ -700,7 +700,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "windgust", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_windgust", "unit_of_measurement": "mph", "icon": "mdi:weather-windy"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "windgust", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_windgust", "icon": "mdi:weather-windy", "unit_of_measurement": "mph"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/state",
@@ -708,7 +708,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "maxdailygust", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_maxdailygust", "unit_of_measurement": "mph", "icon": "mdi:weather-windy"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "maxdailygust", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_maxdailygust", "icon": "mdi:weather-windy", "unit_of_measurement": "mph"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/state",
@@ -716,7 +716,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "solarradiation", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "unit_of_measurement": "W/m\\u00b2", "device_class": "illuminance"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "solarradiation", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "device_class": "illuminance", "unit_of_measurement": "W/m\\u00b2"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state",
@@ -724,14 +724,14 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "uv", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_uv", "unit_of_measurement": "UV index", "icon": "mdi:weather-sunny"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "uv", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_uv", "icon": "mdi:weather-sunny", "unit_of_measurement": "UV index"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state", b"2.0"
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "rainrate", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rainrate", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "rainrate", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rainrate", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state",
@@ -739,7 +739,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "eventrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_eventrain", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "eventrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_eventrain", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state",
@@ -747,7 +747,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "hourlyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_hourlyrain", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "hourlyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_hourlyrain", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state",
@@ -755,7 +755,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "dailyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_dailyrain", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "dailyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_dailyrain", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state",
@@ -763,7 +763,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "weeklyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_weeklyrain", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "weeklyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_weeklyrain", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state",
@@ -771,7 +771,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "monthlyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_monthlyrain", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "monthlyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_monthlyrain", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/state",
@@ -779,7 +779,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "yearlyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_yearlyrain", "unit_of_measurement": "in", "icon": "mdi:water"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "yearlyrain", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_yearlyrain", "icon": "mdi:water", "unit_of_measurement": "in"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/state",
@@ -787,7 +787,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "lightning_num", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_lightning_num", "unit_of_measurement": "strikes", "icon": "mdi:weather-lightning"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "lightning_num", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_lightning_num", "icon": "mdi:weather-lightning", "unit_of_measurement": "strikes"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/state",
@@ -795,7 +795,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "lightning", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_lightning", "unit_of_measurement": "mi", "icon": "mdi:map-marker-distance"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "lightning", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_lightning", "icon": "mdi:map-marker-distance", "unit_of_measurement": "mi"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/state",
@@ -811,7 +811,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh65batt/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "wh65batt", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh65batt/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_wh65batt", "unit_of_measurement": "V", "device_class": "voltage"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "wh65batt", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh65batt/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_wh65batt", "device_class": "voltage", "entity_category": "diagnostic", "unit_of_measurement": "V"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh65batt/state",
@@ -819,7 +819,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "dewpoint", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_dewpoint", "unit_of_measurement": "\\u00b0F", "device_class": "temperature"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "dewpoint", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_dewpoint", "device_class": "temperature", "unit_of_measurement": "\\u00b0F"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state",
@@ -827,7 +827,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "feelslike", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_feelslike", "unit_of_measurement": "\\u00b0F", "device_class": "temperature"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "feelslike", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_feelslike", "device_class": "temperature", "unit_of_measurement": "\\u00b0F"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/state",
@@ -835,7 +835,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "heatindex", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_heatindex", "unit_of_measurement": "\\u00b0F", "device_class": "temperature"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "heatindex", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_heatindex", "device_class": "temperature", "unit_of_measurement": "\\u00b0F"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state",
@@ -843,7 +843,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "solarradiation_lux", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_lux", "unit_of_measurement": "lx", "device_class": "illuminance"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "solarradiation_lux", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_lux", "device_class": "illuminance", "unit_of_measurement": "lx"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state",
@@ -851,7 +851,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "solarradiation_perceived", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_perceived", "unit_of_measurement": "%", "device_class": "illuminance"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "solarradiation_perceived", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_perceived", "device_class": "illuminance", "unit_of_measurement": "%"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state",
@@ -859,7 +859,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "windchill", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_windchill", "unit_of_measurement": "\\u00b0F", "device_class": "temperature"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "windchill", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_windchill", "device_class": "temperature", "unit_of_measurement": "\\u00b0F"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state",
