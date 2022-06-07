@@ -10,5 +10,6 @@ from ecowitt2mqtt.helpers.typing import DataValueType
 class CalculatedDataPoint:
     """Define a calculated data point."""
 
+    data_point_key: str
     value: DataValueType
-    unit: str | None
+    unit: str | None = None

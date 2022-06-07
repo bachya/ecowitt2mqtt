@@ -12,16 +12,19 @@ if TYPE_CHECKING:
 
 
 def calculate_dt_from_epoch(
-    ecowitt: Ecowitt, payload_key: str, data_point: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
 ) -> CalculatedDataPoint:
     """Calculate a datetime from an epoch."""
     return CalculatedDataPoint(
-        datetime.utcfromtimestamp(value).replace(tzinfo=timezone.utc), None
+        data_point_key=data_point_key,
+        value=datetime.utcfromtimestamp(value).replace(tzinfo=timezone.utc),
     )
 
 
 def calculate_runtime(
-    ecowitt: Ecowitt, payload_key: str, data_point: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
 ) -> CalculatedDataPoint:
     """Calculate a datetime from an epoch."""
-    return CalculatedDataPoint(value, TIME_SECONDS)
+    return CalculatedDataPoint(
+        data_point_key=data_point_key, value=value, unit=TIME_SECONDS
+    )

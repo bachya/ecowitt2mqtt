@@ -26,15 +26,21 @@ class BooleanBatteryState(StrEnum):
 
 
 def calculate_battery(
-    ecowitt: Ecowitt, payload_key: str, data_point: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
 ) -> CalculatedDataPoint:
     """Calculate a battery value."""
     if not (config := ecowitt.config.battery_overrides.get(payload_key)):
         config = ecowitt.config.default_battery_strategy
 
-    if config == BatteryStrategy.NUMERIC or data_point == DATA_POINT_GLOB_VOLT:
-        return CalculatedDataPoint(value, ELECTRIC_POTENTIAL_VOLT)
+    if config == BatteryStrategy.NUMERIC or data_point_key == DATA_POINT_GLOB_VOLT:
+        return CalculatedDataPoint(
+            data_point_key=data_point_key, value=value, unit=ELECTRIC_POTENTIAL_VOLT
+        )
 
     if value == 0.0:
-        return CalculatedDataPoint(BooleanBatteryState.OFF, None)
-    return CalculatedDataPoint(BooleanBatteryState.ON, None)
+        return CalculatedDataPoint(
+            data_point_key=data_point_key, value=BooleanBatteryState.OFF
+        )
+    return CalculatedDataPoint(
+        data_point_key=data_point_key, value=BooleanBatteryState.ON
+    )

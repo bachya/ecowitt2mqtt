@@ -21,7 +21,7 @@ UNIT_MAP = {
 
 
 def calculate_distance(
-    ecowitt: Ecowitt, payload_key: str, data_point: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
 ) -> CalculatedDataPoint:
     """Calculate distance in the appropriate unit system."""
     if ecowitt.config.input_unit_system == ecowitt.config.output_unit_system:
@@ -30,4 +30,8 @@ def calculate_distance(
         final_value = round(value / 1.609, 1)
     else:
         final_value = round(value * 1.609, 1)
-    return CalculatedDataPoint(final_value, UNIT_MAP[ecowitt.config.output_unit_system])
+    return CalculatedDataPoint(
+        data_point_key=data_point_key,
+        value=final_value,
+        unit=UNIT_MAP[ecowitt.config.output_unit_system],
+    )

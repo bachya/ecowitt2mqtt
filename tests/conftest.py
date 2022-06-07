@@ -134,7 +134,7 @@ def runner_fixture():
 async def setup_asyncio_mqtt_fixture():
     """Define a fixture to patch asyncio-mqtt properly."""
     with patch(
-        "ecowitt2mqtt.helpers.publisher.mqtt.Client",
+        "ecowitt2mqtt.helpers.publisher.Client",
         MagicMock(return_value=AsyncMock(publish=AsyncMock())),
     ):
         yield

@@ -28,7 +28,7 @@ class Device:
     unique_id: str
     manufacturer: str
     name: str
-    station_type: str | None
+    station_type: str
 
 
 def get_device_from_raw_payload(payload: dict[str, Any]) -> Device:

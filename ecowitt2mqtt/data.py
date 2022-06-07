@@ -37,6 +37,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_SOLARRADIATION_PERCEIVED,
     DATA_POINT_TEMPF,
     DATA_POINT_TF_CO2,
+    DATA_POINT_UV,
     DATA_POINT_WINDCHILL,
     DATA_POINT_WINDSPEEDMPH,
     LOGGER,
@@ -60,6 +61,7 @@ from ecowitt2mqtt.helpers.calculator.meteo import (
     calculate_solar_radiation_perceived,
     calculate_solar_radiation_wm2,
     calculate_temperature,
+    calculate_uv_index,
     calculate_wind_chill,
     calculate_wind_dir,
     calculate_wind_speed,
@@ -73,17 +75,10 @@ from ecowitt2mqtt.helpers.device import Device, get_device_from_raw_payload
 if TYPE_CHECKING:
     from ecowitt2mqtt.core import Ecowitt
 
-DEFAULT_KEYS_TO_IGNORE = [
-    "PASSKEY",
-    "dateutc",
-    "freq",
-    "model",
-    "stationtype",
-    "ws90_ver",
-]
-
 # Map which data calculator functions should apply to various data points:
 CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., CalculatedDataPoint]] = {
+    DATA_POINT_CO2: calculate_co2,
+    DATA_POINT_CO2_24H: calculate_co2,
     DATA_POINT_DEWPOINT: calculate_dew_point,
     DATA_POINT_FEELSLIKE: calculate_feels_like,
     DATA_POINT_GLOB_BAROM: calculate_pressure,
@@ -98,8 +93,6 @@ CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., CalculatedDataPoint]] = {
     DATA_POINT_GLOB_VOLT: calculate_battery,
     DATA_POINT_GLOB_WIND: calculate_wind_speed,
     DATA_POINT_GLOB_WINDDIR: calculate_wind_dir,
-    DATA_POINT_CO2: calculate_co2,
-    DATA_POINT_CO2_24H: calculate_co2,
     DATA_POINT_HEATINDEX: calculate_heat_index,
     DATA_POINT_HUMI_CO2: calculate_humidity,
     DATA_POINT_LIGHTNING: calculate_distance,
@@ -110,8 +103,18 @@ CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., CalculatedDataPoint]] = {
     DATA_POINT_SOLARRADIATION_LUX: calculate_solar_radiation_lux,
     DATA_POINT_SOLARRADIATION_PERCEIVED: calculate_solar_radiation_perceived,
     DATA_POINT_TF_CO2: calculate_temperature,
+    DATA_POINT_UV: calculate_uv_index,
     DATA_POINT_WINDCHILL: calculate_wind_chill,
 }
+
+DEFAULT_KEYS_TO_IGNORE = [
+    "PASSKEY",
+    "dateutc",
+    "freq",
+    "model",
+    "stationtype",
+    "ws90_ver",
+]
 
 # Map which data points tend to come with keys embedded at their end:
 UNIT_SUFFIX_MAP = {
@@ -122,6 +125,7 @@ UNIT_SUFFIX_MAP = {
     DATA_POINT_GLOB_WIND: "mph",
 }
 
+# Map calculated data points to the data points they depend on:
 DEW_POINT_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
 FEELS_LIKE_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY, DATA_POINT_WINDSPEEDMPH)
 HEAT_INDEX_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
@@ -176,9 +180,7 @@ def get_typed_value(value: T) -> float | T:
 
 def remove_unit_from_key(key: str) -> str:
     """Remove a unit from the end of a key."""
-    data_point = get_data_point_from_key(key)
-
-    if not data_point:
+    if (data_point := get_data_point_from_key(key)) is None:
         return key
 
     if (suffix := UNIT_SUFFIX_MAP.get(data_point)) is None or not key.endswith(suffix):
@@ -223,7 +225,7 @@ class ProcessedData:
                 self.output[key] = calculator(value=value)
             else:
                 LOGGER.debug("No calculator found for %s", payload_key)
-                self.output[key] = CalculatedDataPoint(value, None)
+                self.output[key] = CalculatedDataPoint(data_point_key=key, value=value)
 
         # Process any from-scratch data points that can be calculated from others:
         for payload_key, input_keys in (

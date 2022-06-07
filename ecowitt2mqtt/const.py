@@ -50,8 +50,6 @@ DATA_POINT_HUMI_CO2: Final = "humi_co2"
 DATA_POINT_LIGHTNING: Final = "lightning"
 DATA_POINT_LIGHTNING_NUM: Final = "lightning_num"
 DATA_POINT_LIGHTNING_TIME: Final = "lightning_time"
-DATA_POINT_PM25: Final = "pm25"
-DATA_POINT_PM25_24H: Final = "pm25_24h"
 DATA_POINT_RUNTIME: Final = "runtime"
 DATA_POINT_SOLARRADIATION: Final = "solarradiation"
 DATA_POINT_SOLARRADIATION_LUX: Final = "solarradiation_lux"
@@ -141,6 +139,9 @@ TEMP_FAHRENHEIT: Final = "°F"
 
 # Time units
 TIME_SECONDS: Final = "s"
+
+# UV units:
+UV_INDEX: Final = "UV index"
 
 # Volume units:
 RAINFALL_INCHES: Final = "in"

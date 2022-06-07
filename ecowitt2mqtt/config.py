@@ -12,6 +12,8 @@ from ecowitt2mqtt.const import (
     CONF_DEFAULT_BATTERY_STRATEGY,
     CONF_ENDPOINT,
     CONF_HASS_DISCOVERY,
+    CONF_HASS_DISCOVERY_PREFIX,
+    CONF_HASS_ENTITY_ID_PREFIX,
     CONF_INPUT_UNIT_SYSTEM,
     CONF_MQTT_BROKER,
     CONF_MQTT_PASSWORD,
@@ -176,6 +178,21 @@ class Config:
     def endpoint(self) -> str:
         """Return the ecowitt2mqtt API endpoint."""
         return cast(str, self._config[CONF_ENDPOINT])
+
+    @property
+    def hass_discovery(self) -> bool:
+        """Return whether Home Assistant Discovery should be used."""
+        return cast(bool, self._config[CONF_HASS_DISCOVERY])
+
+    @property
+    def hass_discovery_prefix(self) -> str:
+        """Return the Home Assistant Discovery MQTT prefix."""
+        return cast(str, self._config[CONF_HASS_DISCOVERY_PREFIX])
+
+    @property
+    def hass_entity_id_prefix(self) -> str | None:
+        """Return the Home Assistant entity ID prefix."""
+        return self._config.get(CONF_HASS_ENTITY_ID_PREFIX)
 
     @property
     def input_unit_system(self) -> UnitSystemType:
