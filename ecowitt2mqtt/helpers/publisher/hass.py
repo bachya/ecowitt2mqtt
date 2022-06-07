@@ -327,9 +327,8 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
             try:
                 await asyncio.gather(*futures)
             except MqttError as err:
-                for task in futures:
-                    LOGGER.debug("Canceling publish task: %s", task)
-                    task.cancel()
+                for future in futures:
+                    future.cancel()
                 raise PublishError(
                     f"Error while publishing to Home Assisstant MQTT Discovery: {err}"
                 ) from err

@@ -887,7 +887,7 @@ async def test_publish_numeric_battery_strategy(
         }
     ],
 )
-async def test_publish_error_mqtt(device_data_gw1000pro, ecowitt):
+async def test_publish_error_mqtt(device_data_gw1000pro, ecowitt, setup_asyncio_mqtt):
     """Test handling an asyncio-mqtt error when publishing."""
     publisher = get_publisher(ecowitt)
     with patch.object(publisher.client, "publish", side_effect=MqttError):
