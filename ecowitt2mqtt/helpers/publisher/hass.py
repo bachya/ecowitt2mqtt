@@ -374,6 +374,7 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
                     self.client.publish(topic, generate_mqtt_payload(payload))
                 )
 
+        async with self.client:
             futures = [asyncio.ensure_future(task) for task in publish_tasks]
             try:
                 await asyncio.gather(*futures)
