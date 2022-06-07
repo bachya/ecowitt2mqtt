@@ -65,6 +65,8 @@ DEVICE_CLASS_TEMPERATURE = "temperature"
 DEVICE_CLASS_TIMESTAMP = "timestamp"
 DEVICE_CLASS_VOLTAGE = "voltage"
 
+ENTITY_CATEGORY_DIAGNOSTIC = "diagnostic"
+
 PLATFORM_BINARY_SENSOR = "binary_sensor"
 PLATFORM_SENSOR = "sensor"
 
@@ -91,6 +93,7 @@ class EntityDescription:
 
     platform: str
     device_class: str | None = None
+    entity_category: str | None = None
     icon: str | None = None
 
 
@@ -109,6 +112,7 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_BINARY_BATTERY: EntityDescription(
         platform=PLATFORM_BINARY_SENSOR,
         device_class=DEVICE_CLASS_BATTERY,
+        entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
     ),
     DATA_POINT_GLOB_BAROM: EntityDescription(
         platform=PLATFORM_SENSOR,
@@ -222,6 +226,7 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_NUMERIC_BATTERY: EntityDescription(
         platform=PLATFORM_SENSOR,
         device_class=DEVICE_CLASS_VOLTAGE,
+        entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
     ),
 }
 
@@ -283,12 +288,15 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
             f"{base_topic}/config",
         )
 
-        if data_point.unit:
-            payload.payload["unit_of_measurement"] = data_point.unit
-        if description.device_class:
-            payload.payload["device_class"] = description.device_class
-        if description.icon:
-            payload.payload["icon"] = description.icon
+        for discovery_key, value in (
+            ("device_class", description.device_class),
+            ("entity_category", description.entity_category),
+            ("icon", description.icon),
+            ("unit_of_measurement", data_point.unit),
+        ):
+            if not value:
+                continue
+            payload.payload[discovery_key] = value
 
         return payload
 
