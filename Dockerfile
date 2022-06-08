@@ -17,7 +17,7 @@ RUN apk add --no-cache \
       bash==5.1.16-r2 \
       build-base==0.5-r2 \
       libffi-dev==3.4.2-r1 \
-    && pip install --no-cache-dir --upgrade pip \
+      py-cryptography==3.4.8-r1 \
     && pip install --no-cache-dir poetry==$POETRY_VERSION \
     && python -m venv /venv
 
