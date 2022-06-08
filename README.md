@@ -292,8 +292,8 @@ method used:
 
 ### Example
 
-In this example, a user mostly has batteries that should be treated as `boolean`, but also
-has one – `wh60_batt`1 – that should be treated as numeric.
+In this example, a user mostly has batteries that should be treated as `boolean`, but
+also has one – `wh60_batt1` – that should be treated as numeric.
 
 #### Command Line Options
 
