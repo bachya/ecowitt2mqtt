@@ -1,4 +1,4 @@
-FROM python:alpine3.16 as base
+FROM python:3.10-slim as base
 
 ENV PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=random \
@@ -13,11 +13,9 @@ ENV PIP_DEFAULT_TIMEOUT=100 \
 
 WORKDIR /app
 
-RUN apk add --no-cache \
-      bash==5.1.16-r2 \
-      build-base==0.5-r2 \
-      libffi-dev==3.4.2-r1 \
-      py-cryptography==3.4.8-r1 \
+RUN apt-get update && apt-get upgrade \
+    && apt-get -y --no-install-recommends install \
+      build-essential=12.9 \
     && pip install --no-cache-dir poetry==$POETRY_VERSION \
     && python -m venv /venv
 
@@ -34,9 +32,6 @@ FROM base as final
 
 WORKDIR /app
 
-RUN apk add --no-cache \
-      build-base==0.5-r2 \
-      libffi-dev==3.4.2-r1
 COPY --from=builder /venv /venv
 ENV PATH="/venv/bin:${PATH}"
 ENV VIRTUAL_ENV="/venv"
