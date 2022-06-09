@@ -263,14 +263,7 @@ the configuration file and override them via environment variables.
 
 ## Battery Configurations
 
-Ecowitt devices report battery levels in a very inconsistent manner, making it difficult
-to automatically parse their values into something meaningful. `ecowitt2mqtt` addresses
-this via two mechanisms: a default battery "strategy" and battery overrides.
-
-### Default Battery Strategy
-
-By using the `--default-battery-strategy` configuration parameter, users can specify how
-batteries should be treated by default:
+Ecowitt devices report battery levels in three different formats:
 
 * `boolean`: `0` represents `OFF` (i.e., the battery is in normal condition) and `1`
    represents `ON` (i.e., the battery is low).
@@ -279,18 +272,36 @@ batteries should be treated by default:
 * `percentage`: the raw numeric value is interpreted as the percentage of voltage
    remaining the battery.
 
+`ecowitt2mqtt` provides three mechanisms to handle this complexity:
+
+1. A built-in mapping of all currently known battery types to their assumed strategy
+2. A default battery strategy for unknown battery types
+3. User-defined battery strategy overrides
+
+### Built-in Mapping
+
+`ecowitt2mqtt` contains an internal mapping that should automatically transform all
+known battery types into their correct format.
+
+### Default Battery Strategy
+
+By using the `--default-battery-strategy` configuration parameter, users can specify how
+unknown battery types should be treated by default.
+
 ### Battery Overrides
 
-Individual batteries can be overridden and given a new strategy. This allows users to,
-say, interpret all batteries as `boolean` by default, but interpret a specific battery
-as `numeric`. How this is accomplished differs slightly based on the configuration
-method used:
+Individual batteries can be overridden and given a new strategy. How this is
+accomplished differs slightly based on the configuration method used:
 
 * Command Line Options: provide one or more `--battery-override "batt1=boolean"` options
 * Environment Variables: provide a `ECOWITT2MQTT_BATTERY_OVERRIDE` variable that is a
   semicolon-delimited pair of "key=value" strings (e.g.,
   `ECOWITT2MQTT_BATTERY_OVERRIDE="batt1=boolean;batt2=numeric"`)
 * Config File: include a dictionary of key/value pairs in either YAML or JSON format
+
+These overrides work on both known and unknown battery types; that said, if you should
+find the need to override a known battery type because `ecowitt2mqtt` has an incorrect
+internal interpretation, submit an issue to get it corrected!
 
 ### Example
 

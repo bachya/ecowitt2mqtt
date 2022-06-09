@@ -112,9 +112,9 @@ def test_battery_config(device_data_gw1100b, ecowitt):
         "soilmoisture2": CalculatedDataPoint("moisture", 56, unit=PERCENTAGE),
         "wh40batt": CalculatedDataPoint("batt", 1.6, unit=ELECTRIC_POTENTIAL_VOLT),
         "wh26batt": CalculatedDataPoint("batt", 0.0, unit=PERCENTAGE),
-        "batt1": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
+        "batt1": CalculatedDataPoint("batt", BooleanBatteryState.ON),
         "soilbatt1": CalculatedDataPoint("batt", 1.5, unit=ELECTRIC_POTENTIAL_VOLT),
-        "soilbatt2": CalculatedDataPoint("batt", BooleanBatteryState.ON),
+        "soilbatt2": CalculatedDataPoint("batt", 1.8, unit=ELECTRIC_POTENTIAL_VOLT),
         "dewpoint": CalculatedDataPoint("dewpoint", 68.9, unit=TEMP_FAHRENHEIT),
         "heatindex": CalculatedDataPoint("heatindex", 96.3, unit=TEMP_FAHRENHEIT),
     }
@@ -165,8 +165,8 @@ def test_default_battery_strategy(device_data_gw1100b, ecowitt):
         "soilmoisture1": CalculatedDataPoint("moisture", 40, unit=PERCENTAGE),
         "soilmoisture2": CalculatedDataPoint("moisture", 56, unit=PERCENTAGE),
         "wh40batt": CalculatedDataPoint("batt", 1.6, unit=ELECTRIC_POTENTIAL_VOLT),
-        "wh26batt": CalculatedDataPoint("batt", 0.0, unit=ELECTRIC_POTENTIAL_VOLT),
-        "batt1": CalculatedDataPoint("batt", 0.0, unit=ELECTRIC_POTENTIAL_VOLT),
+        "wh26batt": CalculatedDataPoint("batt", BooleanBatteryState.OFF, unit=None),
+        "batt1": CalculatedDataPoint("batt", BooleanBatteryState.ON, unit=None),
         "soilbatt1": CalculatedDataPoint("batt", 1.5, unit=ELECTRIC_POTENTIAL_VOLT),
         "soilbatt2": CalculatedDataPoint("batt", 1.8, unit=ELECTRIC_POTENTIAL_VOLT),
         "dewpoint": CalculatedDataPoint("dewpoint", 68.9, unit=TEMP_FAHRENHEIT),
@@ -326,8 +326,12 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
         "ws90cap_volt": CalculatedDataPoint("volt", 0.6, unit=ELECTRIC_POTENTIAL_VOLT),
         "lightning_num": CalculatedDataPoint("lightning_num", 1, unit=STRIKES),
         "lightning": CalculatedDataPoint("lightning", 27, unit=DISTANCE_MILES),
-        "wh57batt": CalculatedDataPoint("batt", BooleanBatteryState.ON),
-        "wh90batt": CalculatedDataPoint("batt", BooleanBatteryState.ON),
+        "wh57batt": CalculatedDataPoint(
+            data_point_key="batt", value=5.0, unit=PERCENTAGE
+        ),
+        "wh90batt": CalculatedDataPoint(
+            data_point_key="batt", value=3.16, unit=ELECTRIC_POTENTIAL_VOLT
+        ),
         "dewpoint": CalculatedDataPoint("dewpoint", 53.0, unit=TEMP_FAHRENHEIT),
         "feelslike": CalculatedDataPoint("feelslike", 74.5, unit=TEMP_FAHRENHEIT),
         "heatindex": CalculatedDataPoint("heatindex", 73.9, unit=TEMP_FAHRENHEIT),
@@ -465,11 +469,17 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
                 "humidity1": CalculatedDataPoint("humidity", 51, unit=PERCENTAGE),
                 "soilmoisture1": CalculatedDataPoint("moisture", 40, unit=PERCENTAGE),
                 "soilmoisture2": CalculatedDataPoint("moisture", 56, unit=PERCENTAGE),
-                "wh40batt": CalculatedDataPoint("batt", BooleanBatteryState.ON),
+                "wh40batt": CalculatedDataPoint(
+                    data_point_key="batt", value=1.6, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
                 "wh26batt": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
-                "batt1": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
-                "soilbatt1": CalculatedDataPoint("batt", BooleanBatteryState.ON),
-                "soilbatt2": CalculatedDataPoint("batt", BooleanBatteryState.ON),
+                "batt1": CalculatedDataPoint("batt", BooleanBatteryState.ON),
+                "soilbatt1": CalculatedDataPoint(
+                    data_point_key="batt", value=1.5, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
+                "soilbatt2": CalculatedDataPoint(
+                    data_point_key="batt", value=1.8, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
                 "dewpoint": CalculatedDataPoint("dewpoint", 68.9, unit=TEMP_FAHRENHEIT),
                 "heatindex": CalculatedDataPoint(
                     "heatindex", 96.3, unit=TEMP_FAHRENHEIT
@@ -520,8 +530,12 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
                 "lightning": CalculatedDataPoint(
                     "lightning", 27.0, unit=DISTANCE_MILES
                 ),
-                "wh57batt": CalculatedDataPoint("batt", BooleanBatteryState.ON),
-                "wh90batt": CalculatedDataPoint("batt", BooleanBatteryState.ON),
+                "wh57batt": CalculatedDataPoint(
+                    data_point_key="batt", value=5.0, unit=PERCENTAGE
+                ),
+                "wh90batt": CalculatedDataPoint(
+                    data_point_key="batt", value=3.16, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
                 "dewpoint": CalculatedDataPoint("dewpoint", 53.0, unit=TEMP_FAHRENHEIT),
                 "feelslike": CalculatedDataPoint(
                     "feelslike", 74.5, unit=TEMP_FAHRENHEIT
@@ -634,7 +648,9 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
                     "lightning_time",
                     datetime(2022, 4, 20, 17, 17, 17, tzinfo=timezone.utc),
                 ),
-                "wh80batt": CalculatedDataPoint("batt", BooleanBatteryState.ON),
+                "wh80batt": CalculatedDataPoint(
+                    data_point_key="batt", value=3.28, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
                 "batt1": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
                 "batt2": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
                 "batt3": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
@@ -643,15 +659,33 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
                 "batt6": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
                 "batt7": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
                 "batt8": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
-                "soilbatt1": CalculatedDataPoint("batt", BooleanBatteryState.ON),
-                "soilbatt2": CalculatedDataPoint("batt", BooleanBatteryState.ON),
-                "soilbatt3": CalculatedDataPoint("batt", BooleanBatteryState.ON),
-                "soilbatt4": CalculatedDataPoint("batt", BooleanBatteryState.ON),
-                "soilbatt5": CalculatedDataPoint("batt", BooleanBatteryState.ON),
-                "pm25batt1": CalculatedDataPoint("batt", BooleanBatteryState.ON),
-                "wh57batt": CalculatedDataPoint("batt", BooleanBatteryState.ON),
-                "co2_batt": CalculatedDataPoint("batt", BooleanBatteryState.ON),
-                "wh90batt": CalculatedDataPoint("batt", BooleanBatteryState.ON),
+                "soilbatt1": CalculatedDataPoint(
+                    data_point_key="batt", value=1.4, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
+                "soilbatt2": CalculatedDataPoint(
+                    data_point_key="batt", value=1.3, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
+                "soilbatt3": CalculatedDataPoint(
+                    data_point_key="batt", value=1.3, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
+                "soilbatt4": CalculatedDataPoint(
+                    data_point_key="batt", value=1.3, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
+                "soilbatt5": CalculatedDataPoint(
+                    data_point_key="batt", value=1.3, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
+                "pm25batt1": CalculatedDataPoint(
+                    data_point_key="batt", value=3.0, unit=PERCENTAGE
+                ),
+                "wh57batt": CalculatedDataPoint(
+                    data_point_key="batt", value=3.0, unit=PERCENTAGE
+                ),
+                "co2_batt": CalculatedDataPoint(
+                    data_point_key="batt", value=6.0, unit=PERCENTAGE
+                ),
+                "wh90batt": CalculatedDataPoint(
+                    data_point_key="batt", value=3.22, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
                 "dewpoint": CalculatedDataPoint("dewpoint", 47.9, unit=TEMP_FAHRENHEIT),
                 "feelslike": CalculatedDataPoint(
                     "feelslike", 59.7, unit=TEMP_FAHRENHEIT
@@ -714,8 +748,12 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
                 "wh65batt": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
                 "wh25batt": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
                 "batt1": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
-                "soilbatt1": CalculatedDataPoint("batt", BooleanBatteryState.ON),
-                "pm25batt1": CalculatedDataPoint("batt", BooleanBatteryState.ON),
+                "soilbatt1": CalculatedDataPoint(
+                    data_point_key="batt", value=1.5, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
+                "pm25batt1": CalculatedDataPoint(
+                    data_point_key="batt", value=5.0, unit=PERCENTAGE
+                ),
                 "dewpoint": CalculatedDataPoint("dewpoint", 49.8, unit=TEMP_FAHRENHEIT),
                 "feelslike": CalculatedDataPoint(
                     "feelslike", 50.9, unit=TEMP_FAHRENHEIT
