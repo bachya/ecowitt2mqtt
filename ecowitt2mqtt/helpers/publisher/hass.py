@@ -48,7 +48,7 @@ from ecowitt2mqtt.const import (
 from ecowitt2mqtt.data import ProcessedData
 from ecowitt2mqtt.errors import EcowittError
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
-from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy, BooleanBatteryState
+from ecowitt2mqtt.helpers.calculator.battery import BooleanBatteryState
 from ecowitt2mqtt.helpers.device import Device
 from ecowitt2mqtt.helpers.publisher import (
     MqttPublisher,
@@ -133,12 +133,17 @@ class HassDiscoveryPayload:
     topic: str
 
 
-DATA_POINT_BINARY_BATTERY = "binary_battery"
-DATA_POINT_NUMERIC_BATTERY = "numeric_battery"
+DATA_POINT_BATTERY_BOOLEAN = "battery_boolean"
+DATA_POINT_BATTERY_NON_BOOLEAN = "battery_non_boolean"
 
 ENTITY_DESCRIPTIONS = {
-    DATA_POINT_BINARY_BATTERY: EntityDescription(
+    DATA_POINT_BATTERY_BOOLEAN: EntityDescription(
         device_class=DeviceClass.BATTERY,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_BATTERY_NON_BOOLEAN: EntityDescription(
+        device_class=DeviceClass.VOLTAGE,
         entity_category=EntityCategory.DIAGNOSTIC,
         state_class=StateClass.MEASUREMENT,
     ),
@@ -250,11 +255,6 @@ ENTITY_DESCRIPTIONS = {
         device_class=DeviceClass.TEMPERATURE,
         state_class=StateClass.MEASUREMENT,
     ),
-    DATA_POINT_NUMERIC_BATTERY: EntityDescription(
-        device_class=DeviceClass.VOLTAGE,
-        entity_category=EntityCategory.DIAGNOSTIC,
-        state_class=StateClass.MEASUREMENT,
-    ),
 }
 
 STATE_CLASS_OVERRIDES = {
@@ -285,15 +285,11 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
         # Since batteries can be either boolean or numeric depending on their
         # strategy, we calculate an entity description at runtime:
         if data_point.data_point_key == DATA_POINT_GLOB_BATT:
-            if (
-                isinstance(data_point.unit, BooleanBatteryState)
-                or self.ecowitt.config.default_battery_strategy
-                == BatteryStrategy.BOOLEAN
-            ):
-                data_point_key = DATA_POINT_BINARY_BATTERY
+            if isinstance(data_point.value, BooleanBatteryState):
+                data_point_key = DATA_POINT_BATTERY_BOOLEAN
                 platform = Platform.BINARY_SENSOR
             else:
-                data_point_key = DATA_POINT_NUMERIC_BATTERY
+                data_point_key = DATA_POINT_BATTERY_NON_BOOLEAN
         else:
             data_point_key = data_point.data_point_key
 
