@@ -37,7 +37,7 @@ class Server:
 
     async def _post_data(self, request: Request) -> Response:
         """Define an endpoint for the Ecowitt device to post data to."""
-        payload = await request.json()
+        payload = await request.form()
         LOGGER.debug("Received data from the Ecowitt device: %s", payload)
         for callback in self._device_payload_callbacks:
             execute_callback(callback, payload)
