@@ -65,7 +65,11 @@ from tests.common import (
     "config",
     [
         {
-            CONF_BATTERY_OVERRIDES: ("wh40batt=numeric", "soilbatt1=numeric"),
+            CONF_BATTERY_OVERRIDES: (
+                "wh40batt=numeric",
+                "soilbatt1=numeric",
+                "wh26batt=percentage",
+            ),
             CONF_DEFAULT_BATTERY_STRATEGY: BatteryStrategy.BOOLEAN,
             CONF_ENDPOINT: TEST_ENDPOINT,
             CONF_HASS_DISCOVERY: False,
@@ -107,7 +111,7 @@ def test_battery_config(device_data_gw1100b, ecowitt):
         "soilmoisture1": CalculatedDataPoint("moisture", 40, unit=PERCENTAGE),
         "soilmoisture2": CalculatedDataPoint("moisture", 56, unit=PERCENTAGE),
         "wh40batt": CalculatedDataPoint("batt", 1.6, unit=ELECTRIC_POTENTIAL_VOLT),
-        "wh26batt": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
+        "wh26batt": CalculatedDataPoint("batt", 0.0, unit=PERCENTAGE),
         "batt1": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
         "soilbatt1": CalculatedDataPoint("batt", 1.5, unit=ELECTRIC_POTENTIAL_VOLT),
         "soilbatt2": CalculatedDataPoint("batt", BooleanBatteryState.ON),

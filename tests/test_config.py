@@ -48,11 +48,16 @@ from tests.common import TEST_ENDPOINT, TEST_PORT, TEST_RAW_JSON, TEST_RAW_YAML
 
 def test_battery_overrides_cli_options(config):
     """Test battery configs provided by CLI options."""
-    config[CONF_BATTERY_OVERRIDES] = ("wh65batt0=boolean", "wh65batt1=numeric")
+    config[CONF_BATTERY_OVERRIDES] = (
+        "testbatt0=boolean",
+        "testbatt1=numeric",
+        "testbatt2=percentage",
+    )
     config = Config(config)
     assert config.battery_overrides == {
-        "wh65batt0": BatteryStrategy.BOOLEAN,
-        "wh65batt1": BatteryStrategy.NUMERIC,
+        "testbatt0": BatteryStrategy.BOOLEAN,
+        "testbatt1": BatteryStrategy.NUMERIC,
+        "testbatt2": BatteryStrategy.PERCENTAGE,
     }
     assert config.default_battery_strategy == BatteryStrategy.BOOLEAN
 
@@ -64,8 +69,9 @@ def test_battery_overrides_cli_options(config):
             {
                 **json.loads(TEST_RAW_JSON),
                 CONF_BATTERY_OVERRIDES: {
-                    "wh65batt0": "boolean",
-                    "wh65batt1": "numeric",
+                    "testbatt0": "boolean",
+                    "testbatt1": "numeric",
+                    "testbatt2": "percentage",
                 },
             }
         )
@@ -75,25 +81,29 @@ def test_battery_overrides_config_file(config_filepath):
     """Test battery configs provided by a config file."""
     config = Config({CONF_CONFIG: config_filepath})
     assert config.battery_overrides == {
-        "wh65batt0": BatteryStrategy.BOOLEAN,
-        "wh65batt1": BatteryStrategy.NUMERIC,
+        "testbatt0": BatteryStrategy.BOOLEAN,
+        "testbatt1": BatteryStrategy.NUMERIC,
+        "testbatt2": BatteryStrategy.PERCENTAGE,
     }
 
 
 def test_battery_overrides_env_vars(config):
     """Test battery configs provided by environment variables."""
-    os.environ[ENV_BATTERY_OVERRIDE] = "wh65batt0=boolean;wh65batt1=numeric"
+    os.environ[
+        ENV_BATTERY_OVERRIDE
+    ] = "testbatt0=boolean;testbatt1=numeric;testbatt2=percentage"
     config = Config(config)
     assert config.battery_overrides == {
-        "wh65batt0": BatteryStrategy.BOOLEAN,
-        "wh65batt1": BatteryStrategy.NUMERIC,
+        "testbatt0": BatteryStrategy.BOOLEAN,
+        "testbatt1": BatteryStrategy.NUMERIC,
+        "testbatt2": BatteryStrategy.PERCENTAGE,
     }
     os.environ.pop(ENV_BATTERY_OVERRIDE)
 
 
 def test_battery_overrides_error(config):
     """Test handling invalid battery configs."""
-    config[CONF_BATTERY_OVERRIDES] = ("wh65batt0;boolean", "wh65batt1=numeric")
+    config[CONF_BATTERY_OVERRIDES] = ("testbatt0;boolean", "testbatt1=numeric")
     with pytest.raises(ConfigError):
         _ = Config(config)
 
