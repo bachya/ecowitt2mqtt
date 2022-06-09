@@ -274,8 +274,10 @@ batteries should be treated by default:
 
 * `boolean`: `0` represents `OFF` (i.e., the battery is in normal condition) and `1`
    represents `ON` (i.e., the battery is low).
-* `numeric`: the raw numeric value is interpreted as the amount of voltage remaining in
+* `numeric`: the raw numeric value is interpreted as the number of volts remaining in
    the battery.
+* `percentage`: the raw numeric value is interpreted as the percentage of voltage
+   remaining the battery.
 
 ### Battery Overrides
 
