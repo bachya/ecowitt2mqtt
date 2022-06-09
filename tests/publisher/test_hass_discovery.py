@@ -14,18 +14,11 @@ from ecowitt2mqtt.const import (
     CONF_MQTT_BROKER,
     CONF_MQTT_PASSWORD,
     CONF_MQTT_PORT,
-    CONF_MQTT_TOPIC,
     CONF_MQTT_USERNAME,
     CONF_OUTPUT_UNIT_SYSTEM,
-    CONF_PORT,
-    CONF_RAW_DATA,
-    CONF_VERBOSE,
     UNIT_SYSTEM_IMPERIAL,
 )
-from ecowitt2mqtt.core import Ecowitt
-from ecowitt2mqtt.data import ProcessedData
-from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
-from ecowitt2mqtt.helpers.publisher import PublishError, generate_mqtt_payload
+from ecowitt2mqtt.helpers.publisher import PublishError
 from ecowitt2mqtt.helpers.publisher.factory import get_publisher
 from ecowitt2mqtt.helpers.publisher.hass import HomeAssistantDiscoveryPublisher
 
@@ -52,7 +45,7 @@ from tests.common import (
         }
     ],
 )
-def test_get_publisher(device_data_gw1000pro, ecowitt):
+def test_get_publisher(device_data_gw1100b, ecowitt):
     """Test getting a publisher via the factory."""
     publisher = get_publisher(ecowitt)
     assert isinstance(publisher, HomeAssistantDiscoveryPublisher)
@@ -810,11 +803,11 @@ async def test_publish_numeric_battery_strategy(
                 b"2022-04-20 17:17:17+00:00",
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh65batt/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "wh65batt", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh65batt/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_wh65batt", "device_class": "voltage", "entity_category": "diagnostic", "state_class": "measurement"}',
+                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh65batt/config",
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW1000", "name": "GW1000", "sw_version": "GW1000B_V1.7.3"}, "name": "wh65batt", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh65batt/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_wh65batt", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh65batt/state",
+                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh65batt/state",
                 b"OFF",
             ),
             call(
@@ -887,9 +880,9 @@ async def test_publish_numeric_battery_strategy(
         }
     ],
 )
-async def test_publish_error_mqtt(device_data_gw1000pro, ecowitt, setup_asyncio_mqtt):
+async def test_publish_error_mqtt(device_data_gw1100b, ecowitt, setup_asyncio_mqtt):
     """Test handling an asyncio-mqtt error when publishing."""
     publisher = get_publisher(ecowitt)
     with patch.object(publisher.client, "publish", side_effect=MqttError):
         with pytest.raises(PublishError):
-            await publisher.async_publish(device_data_gw1000pro)
+            await publisher.async_publish(device_data_gw1100b)
