@@ -119,7 +119,6 @@ class DeviceType(TypedDict):
 class EntityDescription:
     """Define a description (set of characteristics) of a Home Assistant entity."""
 
-    platform: str
     device_class: str | None = None
     entity_category: str | None = None
     icon: str | None = None
@@ -139,148 +138,119 @@ DATA_POINT_NUMERIC_BATTERY = "numeric_battery"
 
 ENTITY_DESCRIPTIONS = {
     DATA_POINT_BINARY_BATTERY: EntityDescription(
-        platform=Platform.BINARY_SENSOR,
         device_class=DeviceClass.BATTERY,
         entity_category=EntityCategory.DIAGNOSTIC,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_BAROM: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.PRESSURE,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_GUST: EntityDescription(
-        platform=Platform.SENSOR,
         icon="mdi:weather-windy",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_HUMIDITY: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.HUMIDITY,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_MOISTURE: EntityDescription(
-        platform=Platform.SENSOR,
         icon="mdi:water-percent",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_PM10: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.PM10,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_PM25: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.PM25,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_RAIN: EntityDescription(
-        platform=Platform.SENSOR,
         icon="mdi:water",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_TEMP: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.TEMPERATURE,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_VOLT: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.VOLTAGE,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_WIND: EntityDescription(
-        platform=Platform.SENSOR,
         icon="mdi:weather-windy",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_WINDDIR: EntityDescription(
-        platform=Platform.SENSOR,
         icon="mdi:compass",
     ),
     DATA_POINT_CO2: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.CO2,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_CO2_24H: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.CO2,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_DEWPOINT: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.TEMPERATURE,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_FEELSLIKE: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.TEMPERATURE,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_HEATINDEX: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.TEMPERATURE,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_HUMI_CO2: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.HUMIDITY,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_LIGHTNING: EntityDescription(
-        platform=Platform.SENSOR,
         icon="mdi:map-marker-distance",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_LIGHTNING_NUM: EntityDescription(
-        platform=Platform.SENSOR,
         icon="mdi:weather-lightning",
         state_class=StateClass.TOTAL,
     ),
     DATA_POINT_LIGHTNING_TIME: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.TIMESTAMP,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_SOLARRADIATION: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.ILLUMINANCE,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_SOLARRADIATION_LUX: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.ILLUMINANCE,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_SOLARRADIATION_PERCEIVED: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.ILLUMINANCE,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_RUNTIME: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.DURATION,
         icon="mdi:timer",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_TF_CO2: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.TEMPERATURE,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_UV: EntityDescription(
-        platform=Platform.SENSOR,
         icon="mdi:weather-sunny",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_WINDCHILL: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.TEMPERATURE,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_NUMERIC_BATTERY: EntityDescription(
-        platform=Platform.SENSOR,
         device_class=DeviceClass.VOLTAGE,
         entity_category=EntityCategory.DIAGNOSTIC,
         state_class=StateClass.MEASUREMENT,
@@ -310,6 +280,8 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
         self, device: Device, key: str, data_point: CalculatedDataPoint
     ) -> HassDiscoveryPayload:
         """Generate a discovery payload for an entity."""
+        platform = Platform.SENSOR
+
         # Since batteries can be either boolean or numeric depending on their
         # strategy, we calculate an entity description at runtime:
         if data_point.data_point_key == DATA_POINT_GLOB_BATT:
@@ -319,6 +291,7 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
                 == BatteryStrategy.BOOLEAN
             ):
                 data_point_key = DATA_POINT_BINARY_BATTERY
+                platform = Platform.BINARY_SENSOR
             else:
                 data_point_key = DATA_POINT_NUMERIC_BATTERY
         else:
@@ -333,8 +306,8 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
             name = key
 
         base_topic = (
-            f"{self.ecowitt.config.hass_discovery_prefix}/{description.platform}/"
-            f"{device.unique_id}/{key}"
+            f"{self.ecowitt.config.hass_discovery_prefix}/{platform}/{device.unique_id}"
+            f"/{key}"
         )
 
         payload = self._discovery_payloads[key] = HassDiscoveryPayload(
