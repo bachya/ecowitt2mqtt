@@ -99,80 +99,65 @@ Usage: ecowitt2mqtt [OPTIONS] COMMAND [ARGS]...
   ecowitt2mqtt sends Ecowitt device data to an MQTT broker.
 
 Options:
-  --battery-override TEXT         A battery configuration override
-                                  (format: key,value)  [env var:
+  --battery-override TEXT         A battery configuration override (format:
+                                  key,value)  [env var:
                                   ECOWITT2MQTT_BATTERY_OVERRIDE]
-  -c, --config FILE               A path to a config file.  [env
+  -c, --config FILE               A path to a YAML or JSON config file.  [env
                                   var: ECOWITT2MQTT_CONFIG]
   --default-battery-strategy TEXT
-                                  The default battery config
-                                  strategy to use.  [env var: ECOW
-                                  ITT2MQTT_DEFAULT_BATTERY_STRATEG
-                                  Y; default: boolean]
-  -e, --endpoint TEXT             The relative endpoint/path to
-                                  serve ecowitt2mqtt on.  [env
-                                  var: ECOWITT2MQTT_ENDPOINT,
-                                  ENDPOINT; default: /data/report]
-  --hass-discovery                Publish data in the Home
-                                  Assistant MQTT Discovery format.
+                                  The default battery config strategy to use.
                                   [env var:
-                                  ECOWITT2MQTT_HASS_DISCOVERY,
-                                  HASS_DISCOVERY]
-  --hass-discovery-prefix TEXT    The Home Assistant discovery
-                                  prefix to use.  [env var: ECOWIT
-                                  T2MQTT_HASS_DISCOVERY_PREFIX,
+                                  ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY;
+                                  default: boolean]
+  -e, --endpoint TEXT             The relative endpoint/path to serve
+                                  ecowitt2mqtt on.  [env var:
+                                  ECOWITT2MQTT_ENDPOINT, ENDPOINT; default:
+                                  /data/report]
+  --hass-discovery                Publish data in the Home Assistant MQTT
+                                  Discovery format.  [env var:
+                                  ECOWITT2MQTT_HASS_DISCOVERY, HASS_DISCOVERY]
+  --hass-discovery-prefix TEXT    The Home Assistant discovery prefix to use.
+                                  [env var:
+                                  ECOWITT2MQTT_HASS_DISCOVERY_PREFIX,
                                   HASS_DISCOVERY_PREFIX; default:
                                   homeassistant]
-  --hass-entity-id-prefix TEXT    The prefix to use for Home
-                                  Assistant entity IDs.  [env var:
-                                  ECOWITT2MQTT_HASS_ENTITY_ID_PREF
-                                  IX, HASS_ENTITY_ID_PREFIX]
-  --input-unit-system TEXT        The input unit system used by
-                                  the device.  [env var:
-                                  ECOWITT2MQTT_INPUT_UNIT_SYSTEM,
-                                  INPUT_UNIT_SYSTEM; default:
-                                  imperial]
-  -b, --mqtt-broker TEXT          The hostname or IP address of an
-                                  MQTT broker.  [env var:
-                                  ECOWITT2MQTT_MQTT_BROKER,
+  --hass-entity-id-prefix TEXT    The prefix to use for Home Assistant entity
+                                  IDs.  [env var:
+                                  ECOWITT2MQTT_HASS_ENTITY_ID_PREFIX,
+                                  HASS_ENTITY_ID_PREFIX]
+  --input-unit-system TEXT        The input unit system used by the device.
+                                  [env var: ECOWITT2MQTT_INPUT_UNIT_SYSTEM,
+                                  INPUT_UNIT_SYSTEM; default: imperial]
+  -b, --mqtt-broker TEXT          The hostname or IP address of an MQTT
+                                  broker.  [env var: ECOWITT2MQTT_MQTT_BROKER,
                                   MQTT_BROKER]
-  -p, --mqtt-password TEXT        A valid password for the MQTT
-                                  broker.  [env var:
-                                  ECOWITT2MQTT_MQTT_PASSWORD,
+  -p, --mqtt-password TEXT        A valid password for the MQTT broker.  [env
+                                  var: ECOWITT2MQTT_MQTT_PASSWORD,
                                   MQTT_PASSWORD]
-  --mqtt-port INTEGER             The listenting port of the MQTT
-                                  broker.  [env var:
-                                  ECOWITT2MQTT_MQTT_PORT,
-                                  MQTT_PORT; default: 1883]
-  -u, --mqtt-username TEXT        A valid username for the MQTT
-                                  broker.  [env var:
-                                  ECOWITT2MQTT_MQTT_USERNAME,
-                                  MQTT_USERNAME]
-  -t, --mqtt-topic TEXT           The MQTT topic to publish device
-                                  data to.  [env var:
-                                  ECOWITT2MQTT_MQTT_TOPIC,
+  --mqtt-port INTEGER             The listenting port of the MQTT broker.
+                                  [env var: ECOWITT2MQTT_MQTT_PORT, MQTT_PORT;
+                                  default: 1883]
+  --mqtt-tls                      Enable MQTT over TLS.  [env var:
+                                  ECOWITT2MQTT_MQTT_TLS]
+  -t, --mqtt-topic TEXT           The MQTT topic to publish device data to.
+                                  [env var: ECOWITT2MQTT_MQTT_TOPIC,
                                   MQTT_TOPIC]
-  --output-unit-system TEXT       The unit system to use in
-                                  output.  [env var:
+  -u, --mqtt-username TEXT        A valid username for the MQTT broker.  [env
+                                  var: ECOWITT2MQTT_MQTT_USERNAME,
+                                  MQTT_USERNAME]
+  --output-unit-system TEXT       The unit system to use in output.  [env var:
                                   ECOWITT2MQTT_OUTPUT_UNIT_SYSTEM,
-                                  OUTPUT_UNIT_SYSTEM; default:
-                                  imperial]
-  --port INTEGER                  The port to serve ecowitt2mqtt
-                                  on.  [env var:
-                                  ECOWITT2MQTT_PORT, PORT;
-                                  default: 8080]
-  --raw-data                      Return raw data (don't attempt
-                                  to translate any values).  [env
-                                  var: ECOWITT2MQTT_RAW_DATA,
-                                  RAW_DATA]
-  -v, --verbose                   Increase verbosity of logged
-                                  output.  [env var:
-                                  ECOWITT2MQTT_VERBOSE]
-  --install-completion            Install completion for the
-                                  current shell.
-  --show-completion               Show completion for the current
-                                  shell, to copy it or customize
-                                  the installation.
+                                  OUTPUT_UNIT_SYSTEM; default: imperial]
+  --port INTEGER                  The port to serve ecowitt2mqtt on.  [env
+                                  var: ECOWITT2MQTT_PORT, PORT; default: 8080]
+  --raw-data                      Return raw data (don't attempt to translate
+                                  any values).  [env var:
+                                  ECOWITT2MQTT_RAW_DATA, RAW_DATA]
+  -v, --verbose                   Increase verbosity of logged output.  [env
+                                  var: ECOWITT2MQTT_VERBOSE]
+  --install-completion            Install completion for the current shell.
+  --show-completion               Show completion for the current shell, to
+                                  copy it or customize the installation.
   --help                          Show this message and exit.
 ```
 
@@ -189,6 +174,7 @@ Options:
 * `ECOWITT2MQTT_MQTT_BROKER`: the hostname or IP address of an MQTT broker
 * `ECOWITT2MQTT_MQTT_PASSWORD`: a valid password for the MQTT broker
 * `ECOWITT2MQTT_MQTT_PORT`: the listenting port of the MQTT broker (default: `1883`)
+* `ECOWITT2MQTT_MQTT_TLS`: publish data via MQTT over TLS
 * `ECOWITT2MQTT_MQTT_TOPIC`: the MQTT topic to publish device data to
 * `ECOWITT2MQTT_MQTT_USERNAME`: a valid username for the MQTT broker
 * `ECOWITT2MQTT_OUTPUT_UNIT_SYSTEM`: the unit system to use in output (default: `imperial`)
@@ -213,6 +199,7 @@ input_unit_system: imperial,
 mqtt_broker: 127.0.0.1,
 mqtt_password: password,
 mqtt_port: 1883,
+mqtt_tls: false,
 mqtt_topic: Test,
 mqtt_username: user,
 output_unit_system: imperial,
@@ -238,6 +225,7 @@ verbose: false
   "mqtt_broker": "127.0.0.1",
   "mqtt_password": "password",
   "mqtt_port": 1883,
+  "mqtt_tls": false,
   "mqtt_topic": "Test",
   "mqtt_username": "user",
   "output_unit_system": "imperial",

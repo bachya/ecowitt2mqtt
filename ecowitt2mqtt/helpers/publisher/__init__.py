@@ -4,6 +4,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from datetime import datetime
 import json
+from ssl import SSLContext
 from typing import TYPE_CHECKING, Any
 
 from asyncio_mqtt import Client
@@ -51,6 +52,7 @@ class MqttPublisher(ABC):
             max_concurrent_outgoing_calls=10,
             password=ecowitt.config.mqtt_password,
             port=ecowitt.config.mqtt_port,
+            tls_context=SSLContext() if ecowitt.config.mqtt_tls else None,
             username=ecowitt.config.mqtt_username,
         )
         self.ecowitt = ecowitt
