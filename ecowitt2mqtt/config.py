@@ -18,6 +18,7 @@ from ecowitt2mqtt.const import (
     CONF_MQTT_BROKER,
     CONF_MQTT_PASSWORD,
     CONF_MQTT_PORT,
+    CONF_MQTT_TLS,
     CONF_MQTT_TOPIC,
     CONF_MQTT_USERNAME,
     CONF_OUTPUT_UNIT_SYSTEM,
@@ -213,6 +214,11 @@ class Config:
     def mqtt_port(self) -> int:
         """Return the MQTT broker port."""
         return cast(int, self._config[CONF_MQTT_PORT])
+
+    @property
+    def mqtt_tls(self) -> bool:
+        """Return whether MQTT over TLS is configured."""
+        return cast(bool, self._config.get(CONF_MQTT_TLS))
 
     @property
     def mqtt_topic(self) -> str | None:

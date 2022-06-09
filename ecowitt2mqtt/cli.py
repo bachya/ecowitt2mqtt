@@ -18,6 +18,7 @@ from ecowitt2mqtt.const import (
     ENV_MQTT_BROKER,
     ENV_MQTT_PASSWORD,
     ENV_MQTT_PORT,
+    ENV_MQTT_TLS,
     ENV_MQTT_TOPIC,
     ENV_MQTT_USERNAME,
     ENV_OUTPUT_UNIT_SYSTEM,
@@ -137,6 +138,12 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
         "--mqtt-port",
         envvar=[ENV_MQTT_PORT, LEGACY_ENV_MQTT_PORT],
         help="The listenting port of the MQTT broker.",
+    ),
+    mqtt_tls: bool = typer.Option(
+        False,
+        "--mqtt-tls",
+        envvar=[ENV_MQTT_TLS],
+        help="Enable MQTT over TLS.",
     ),
     mqtt_topic: str = typer.Option(
         None,
