@@ -38,7 +38,8 @@ async def test_payload_callback(device_data_gw1000bpro, ecowitt, start_server):
 
 
 def test_server_start(config):
-    """Test firing a callback upon receiving a device payload."""
+    """Test successfully starting the server."""
     with patch("uvicorn.server.Server.serve", AsyncMock()):
         ecowitt = Ecowitt(config)
+        # If we get here without error, the server has started up:
         ecowitt.start()
