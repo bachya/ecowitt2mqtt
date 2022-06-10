@@ -14,20 +14,18 @@ from ecowitt2mqtt.helpers.publisher.topic import TopicPublisher
 from tests.common import TEST_MQTT_TOPIC
 
 
-def test_get_publisher(device_data_gw1000pro, ecowitt):
+def test_get_publisher(ecowitt):
     """Test getting a publisher via the factory."""
     publisher = get_publisher(ecowitt)
     assert isinstance(publisher, TopicPublisher)
 
 
 @pytest.mark.asyncio
-async def test_publish(
-    config, device_data_gw1000bpro, ecowitt, request, setup_asyncio_mqtt
-):
+async def test_publish(config, device_data, ecowitt, request, setup_asyncio_mqtt):
     """Test publishing a payload to an TopicPublisher."""
     # Test publishing processed data:
     publisher = get_publisher(ecowitt)
-    await publisher.async_publish(device_data_gw1000bpro)
+    await publisher.async_publish(device_data)
 
     publisher.client.publish.assert_awaited_with(
         TEST_MQTT_TOPIC,
@@ -38,27 +36,25 @@ async def test_publish(
     ecowitt = Ecowitt({**config, CONF_RAW_DATA: True})
     publisher = get_publisher(ecowitt)
 
-    await publisher.async_publish(device_data_gw1000bpro)
+    await publisher.async_publish(device_data)
     publisher.client.publish.assert_awaited_with(
-        TEST_MQTT_TOPIC, generate_mqtt_payload(device_data_gw1000bpro)
+        TEST_MQTT_TOPIC, generate_mqtt_payload(device_data)
     )
 
 
 @pytest.mark.asyncio
-async def test_publish_error_mqtt(device_data_gw1000pro, ecowitt):
+async def test_publish_error_mqtt(device_data, ecowitt):
     """Test handling an asyncio-mqtt error when publishing."""
     publisher = get_publisher(ecowitt)
     with patch.object(publisher.client, "publish", side_effect=MqttError):
         with pytest.raises(PublishError):
-            await publisher.async_publish(device_data_gw1000pro)
+            await publisher.async_publish(device_data)
 
 
 @pytest.mark.asyncio
-async def test_publish_error_unserializable(
-    device_data_gw1100b, ecowitt, setup_asyncio_mqtt
-):
+async def test_publish_error_unserializable(device_data, ecowitt, setup_asyncio_mqtt):
     """Test handling a serialization error when publishing."""
-    device_data_gw1100b["Test"] = object()
+    device_data["Test"] = object()
     publisher = get_publisher(ecowitt)
     with pytest.raises(TypeError):
-        await publisher.async_publish(device_data_gw1100b)
+        await publisher.async_publish(device_data)
