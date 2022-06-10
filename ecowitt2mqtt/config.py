@@ -24,6 +24,7 @@ from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_SYSTEM,
     CONF_PORT,
     CONF_RAW_DATA,
+    CONF_VERBOSE,
     ENV_BATTERY_OVERRIDE,
     ENV_ENDPOINT,
     ENV_HASS_DISCOVERY,
@@ -244,3 +245,8 @@ class Config:
     def raw_data(self) -> bool:
         """Return whether raw data is configured."""
         return cast(bool, self._config[CONF_RAW_DATA])
+
+    @property
+    def verbose(self) -> bool:
+        """Return whether verbose logging is enabled."""
+        return cast(bool, self._config[CONF_VERBOSE])
