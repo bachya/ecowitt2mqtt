@@ -80,7 +80,7 @@ class BooleanBatteryState(StrEnum):
     ON = "ON"
 
 
-STRATEGY_MAP = {
+BATTERY_STRATEGY_MAP = {
     DATA_POINT_BATTERY1: BatteryStrategy.BOOLEAN,
     DATA_POINT_BATTERY2: BatteryStrategy.BOOLEAN,
     DATA_POINT_BATTERY3: BatteryStrategy.BOOLEAN,
@@ -139,17 +139,7 @@ def calculate_battery(
     ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
 ) -> CalculatedDataPoint:
     """Calculate a battery value."""
-    strategy = ecowitt.config.default_battery_strategy
-    for strategy_option in (
-        ecowitt.config.battery_overrides.get(payload_key),
-        STRATEGY_MAP.get(payload_key),
-    ):
-        # Use a strategy other than the default if:
-        #   1. There's a user-provided override
-        #   2. We have a static mapping for this particular battery type
-        if strategy_option is not None:
-            strategy = strategy_option
-            break
+    strategy = get_battery_strategy(ecowitt, payload_key)
 
     if strategy == BatteryStrategy.NUMERIC:
         return CalculatedDataPoint(
@@ -173,3 +163,18 @@ def calculate_battery(
     return CalculatedDataPoint(
         data_point_key=data_point_key, value=BooleanBatteryState.ON
     )
+
+
+def get_battery_strategy(ecowitt: Ecowitt, key: str) -> BatteryStrategy:
+    """Get the battery strategy for a particular key."""
+    for strategy in (
+        ecowitt.config.battery_overrides.get(key),
+        BATTERY_STRATEGY_MAP.get(key),
+    ):
+        # Use a strategy other than the default if:
+        #   1. There's a user-provided override
+        #   2. We have a static mapping for this particular battery type
+        if strategy is not None:
+            return strategy
+
+    return ecowitt.config.default_battery_strategy

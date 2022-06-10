@@ -31,7 +31,7 @@ async def test_publish(
 
     publisher.client.publish.assert_awaited_with(
         TEST_MQTT_TOPIC,
-        b'{"runtime": 319206.0, "tempin": 79.5, "humidityin": 31.0, "baromrel": 24.74, "baromabs": 24.74, "temp": 19.1, "humidity": 34.0, "winddir": 139.0, "windspeed": 20.89, "windgust": 1.12, "maxdailygust": 8.05, "solarradiation": 264.61, "uv": 2.0, "rainrate": 0.0, "eventrain": 0.0, "hourlyrain": 0.0, "dailyrain": 0.0, "weeklyrain": 0.0, "monthlyrain": 2.177, "yearlyrain": 4.441, "lightning_num": 13.0, "lightning": 1.0, "lightning_time": "2022-04-20T17:17:17+00:00", "wh65batt": "OFF", "Random New Key": "Some Value", "dewpoint": -4.7, "feelslike": 2.7, "heatindex": 12.3, "solarradiation_lux": 33494.9, "solarradiation_perceived": 90.0, "windchill": 2.7}',
+        b'{"runtime": 319206.0, "tempin": 79.5, "humidityin": 31.0, "baromrel": 24.74, "baromabs": 24.74, "temp": 19.1, "humidity": 34.0, "winddir": 139.0, "windspeed": 20.89, "windgust": 1.12, "maxdailygust": 8.05, "solarradiation": 264.61, "uv": 2.0, "rainrate": 0.0, "eventrain": 0.0, "hourlyrain": 0.0, "dailyrain": 0.0, "weeklyrain": 0.0, "monthlyrain": 2.177, "yearlyrain": 4.441, "lightning_num": 13.0, "lightning": 1.0, "lightning_time": "2022-04-20T17:17:17+00:00", "wh65batt": "OFF", "dewpoint": -4.7, "feelslike": 2.7, "heatindex": 12.3, "solarradiation_lux": 33494.9, "solarradiation_perceived": 90.0, "windchill": 2.7}',
     )
 
     # Test publishing raw data:

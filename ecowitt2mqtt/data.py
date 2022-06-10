@@ -188,7 +188,7 @@ class ProcessedData:
 
         # Process all of the data points for which raw data was provided:
         for payload_key, payload_value in self.data.items():
-            if payload_key in DEFAULT_KEYS_TO_IGNORE or not payload_value:
+            if payload_key in DEFAULT_KEYS_TO_IGNORE:
                 continue
 
             key = remove_unit_from_key(payload_key)
