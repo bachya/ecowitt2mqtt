@@ -582,7 +582,7 @@ async def test_publish(config, device_data, ecowitt, request, setup_asyncio_mqtt
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt1", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt1", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt1", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt1", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/state",
@@ -590,7 +590,7 @@ async def test_publish(config, device_data, ecowitt, request, setup_asyncio_mqtt
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt2", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt2", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt2", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt2", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/state",
@@ -598,7 +598,7 @@ async def test_publish(config, device_data, ecowitt, request, setup_asyncio_mqtt
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt3", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt3", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt3", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt3", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/state",
@@ -606,7 +606,7 @@ async def test_publish(config, device_data, ecowitt, request, setup_asyncio_mqtt
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt4", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt4", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt4", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt4", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/state",
@@ -614,7 +614,7 @@ async def test_publish(config, device_data, ecowitt, request, setup_asyncio_mqtt
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt5", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt5", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt5", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt5", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/state",
@@ -622,7 +622,7 @@ async def test_publish(config, device_data, ecowitt, request, setup_asyncio_mqtt
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt6", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt6", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt6", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt6", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/state",
@@ -630,7 +630,7 @@ async def test_publish(config, device_data, ecowitt, request, setup_asyncio_mqtt
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt7", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt7", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt7", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt7", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/state",
@@ -638,7 +638,7 @@ async def test_publish(config, device_data, ecowitt, request, setup_asyncio_mqtt
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt8", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt8", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt8", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt8", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/state",
@@ -1302,7 +1302,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_batt1", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt1", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_batt1", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt1", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/state",
@@ -1310,7 +1310,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_batt2", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt2", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_batt2", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt2", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/state",
@@ -1318,7 +1318,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_batt3", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt3", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_batt3", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt3", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/state",
@@ -1326,7 +1326,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_batt4", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt4", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_batt4", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt4", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/state",
@@ -1334,7 +1334,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_batt5", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt5", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_batt5", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt5", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/state",
@@ -1342,7 +1342,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_batt6", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt6", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_batt6", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt6", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/state",
@@ -1350,7 +1350,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_batt7", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt7", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_batt7", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt7", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/state",
@@ -1358,7 +1358,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_batt8", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt8", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_batt8", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt8", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/state",
@@ -2021,7 +2021,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt1", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt1", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt1", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt1", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/state",
@@ -2029,7 +2029,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt2", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt2", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt2", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt2", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/state",
@@ -2037,7 +2037,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt3", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt3", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt3", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt3", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/state",
@@ -2045,7 +2045,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt4", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt4", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt4", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt4", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/state",
@@ -2053,7 +2053,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt5", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt5", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt5", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt5", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/state",
@@ -2061,7 +2061,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt6", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt6", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt6", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt6", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/state",
@@ -2069,7 +2069,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt7", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt7", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt7", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt7", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/state",
@@ -2077,7 +2077,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/config",
-                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt8", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt8", "device_class": "battery", "entity_category": "diagnostic", "state_class": "measurement"}',
+                b'{"device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "batt8", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt8", "device_class": "battery", "entity_category": "diagnostic", "state_class": null}',
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/state",

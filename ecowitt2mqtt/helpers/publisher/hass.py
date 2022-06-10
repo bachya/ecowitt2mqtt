@@ -144,7 +144,6 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_BATTERY_BOOLEAN: EntityDescription(
         device_class=DeviceClass.BATTERY,
         entity_category=EntityCategory.DIAGNOSTIC,
-        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_BATTERY_NUMERIC: EntityDescription(
         device_class=DeviceClass.VOLTAGE,
