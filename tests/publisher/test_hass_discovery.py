@@ -45,7 +45,7 @@ from tests.common import (
         }
     ],
 )
-def test_get_publisher(device_data_gw2000a_2, ecowitt):
+def test_get_publisher(ecowitt):
     """Test getting a publisher via the factory."""
     publisher = get_publisher(ecowitt)
     assert isinstance(publisher, HomeAssistantDiscoveryPublisher)
@@ -69,12 +69,11 @@ def test_get_publisher(device_data_gw2000a_2, ecowitt):
         }
     ],
 )
-async def test_publish(
-    config, device_data_gw2000a_2, ecowitt, request, setup_asyncio_mqtt
-):
+@pytest.mark.parametrize("device_data_filename", ["payload_gw2000a_2.json"])
+async def test_publish(config, device_data, ecowitt, request, setup_asyncio_mqtt):
     """Test publishing a payload."""
     publisher = get_publisher(ecowitt)
-    await publisher.async_publish(device_data_gw2000a_2)
+    await publisher.async_publish(device_data)
 
     publisher.client.publish.assert_has_awaits(
         [
@@ -788,12 +787,13 @@ async def test_publish(
         }
     ],
 )
+@pytest.mark.parametrize("device_data_filename", ["payload_gw2000a_2.json"])
 async def test_publish_custom_entity_id_prefix(
-    config, device_data_gw2000a_2, ecowitt, request, setup_asyncio_mqtt
+    config, device_data, ecowitt, request, setup_asyncio_mqtt
 ):
     """Test publishing a payload with custom HASS entity ID prefix."""
     publisher = get_publisher(ecowitt)
-    await publisher.async_publish(device_data_gw2000a_2)
+    await publisher.async_publish(device_data)
 
     publisher.client.publish.assert_has_awaits(
         [
@@ -1506,12 +1506,13 @@ async def test_publish_custom_entity_id_prefix(
         }
     ],
 )
+@pytest.mark.parametrize("device_data_filename", ["payload_gw2000a_2.json"])
 async def test_publish_numeric_battery_strategy(
-    config, device_data_gw2000a_2, ecowitt, request, setup_asyncio_mqtt
+    config, device_data, ecowitt, request, setup_asyncio_mqtt
 ):
     """Test publishing a payload with numeric battery strategy."""
     publisher = get_publisher(ecowitt)
-    await publisher.async_publish(device_data_gw2000a_2)
+    await publisher.async_publish(device_data)
 
     publisher.client.publish.assert_has_awaits(
         [
@@ -2224,12 +2225,13 @@ async def test_publish_numeric_battery_strategy(
         }
     ],
 )
-async def test_publish_error_mqtt(device_data_gw2000a_2, ecowitt, setup_asyncio_mqtt):
+@pytest.mark.parametrize("device_data_filename", ["payload_gw2000a_2.json"])
+async def test_publish_error_mqtt(device_data, ecowitt, setup_asyncio_mqtt):
     """Test handling an asyncio-mqtt error when publishing."""
     publisher = get_publisher(ecowitt)
     with patch.object(publisher.client, "publish", side_effect=MqttError):
         with pytest.raises(PublishError):
-            await publisher.async_publish(device_data_gw2000a_2)
+            await publisher.async_publish(device_data)
 
 
 @pytest.mark.asyncio
@@ -2250,9 +2252,10 @@ async def test_publish_error_mqtt(device_data_gw2000a_2, ecowitt, setup_asyncio_
         }
     ],
 )
-async def test_unknown_key(caplog, device_data_gw2000a_2, ecowitt, setup_asyncio_mqtt):
+@pytest.mark.parametrize("device_data_filename", ["payload_gw2000a_2.json"])
+async def test_unknown_key(caplog, device_data, ecowitt, setup_asyncio_mqtt):
     """Test that a key with no entity description is handled."""
-    device_data_gw2000a_2["random"] = "value"
+    device_data["random"] = "value"
     publisher = get_publisher(ecowitt)
-    await publisher.async_publish(device_data_gw2000a_2)
+    await publisher.async_publish(device_data)
     assert any(m for m in caplog.messages if 'Skipping "random" due to error' in m)

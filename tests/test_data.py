@@ -88,9 +88,10 @@ from tests.common import (
         }
     ],
 )
-def test_battery_config(device_data_gw1100b, ecowitt):
+@pytest.mark.parametrize("device_data_filename", ["payload_gw1100b.json"])
+def test_battery_config(device_data, ecowitt):
     """Test overriding a battery configuration."""
-    processed_data = ProcessedData(ecowitt, device_data_gw1100b)
+    processed_data = ProcessedData(ecowitt, device_data)
     assert processed_data.output == {
         "tempin": CalculatedDataPoint("temp", 76.5, unit=TEMP_FAHRENHEIT),
         "humidityin": CalculatedDataPoint("humidity", 46, unit=PERCENTAGE),
@@ -142,9 +143,10 @@ def test_battery_config(device_data_gw1100b, ecowitt):
         }
     ],
 )
-def test_default_battery_strategy(device_data_gw1100b, ecowitt):
+@pytest.mark.parametrize("device_data_filename", ["payload_gw1100b.json"])
+def test_default_battery_strategy(device_data, ecowitt):
     """Test overriding the default battery configuration."""
-    processed_data = ProcessedData(ecowitt, device_data_gw1100b)
+    processed_data = ProcessedData(ecowitt, device_data)
     assert processed_data.output == {
         "tempin": CalculatedDataPoint("temp", 76.5, unit=TEMP_FAHRENHEIT),
         "humidityin": CalculatedDataPoint("humidity", 46, unit=PERCENTAGE),
@@ -175,125 +177,47 @@ def test_default_battery_strategy(device_data_gw1100b, ecowitt):
 
 
 @pytest.mark.parametrize(
-    "device_payload,device",
+    "device,device_data_filename",
     [
         (
-            {
-                "PASSKEY": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-                "stationtype": "GW1000B_V1.7.3",
-                "runtime": "319206",
-                "dateutc": "2022-05-27 19:08:10",
-                "tempinf": "79.52",
-                "humidityin": "31",
-                "baromrelin": "24.740",
-                "baromabsin": "24.740",
-                "tempf": "89.06",
-                "humidity": "14",
-                "winddir": "139",
-                "windspeedmph": "0.89",
-                "windgustmph": "1.12",
-                "maxdailygust": "8.05",
-                "solarradiation": "264.61",
-                "uv": "2",
-                "rainratein": "0.000",
-                "eventrainin": "0.000",
-                "hourlyrainin": "0.000",
-                "dailyrainin": "0.000",
-                "weeklyrainin": "0.000",
-                "monthlyrainin": "2.177",
-                "yearlyrainin": "4.441",
-                "wh65batt": "0",
-                "freq": "915M",
-                "model": "GW1000B_Pro",
-            },
             Device(
                 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 "Ecowitt",
                 "GW1000",
                 "GW1000B_V1.7.3",
             ),
+            "payload_gw1000bpro.json",
         ),
         (
-            {
-                "PASSKEY": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-                "stationtype": "UNKOWN_Vx.x.x",
-                "runtime": "319206",
-                "dateutc": "2022-05-27 19:08:10",
-                "tempinf": "79.52",
-                "humidityin": "31",
-                "baromrelin": "24.740",
-                "baromabsin": "24.740",
-                "tempf": "89.06",
-                "humidity": "14",
-                "winddir": "139",
-                "windspeedmph": "0.89",
-                "windgustmph": "1.12",
-                "maxdailygust": "8.05",
-                "solarradiation": "264.61",
-                "uv": "2",
-                "rainratein": "0.000",
-                "eventrainin": "0.000",
-                "hourlyrainin": "0.000",
-                "dailyrainin": "0.000",
-                "weeklyrainin": "0.000",
-                "monthlyrainin": "2.177",
-                "yearlyrainin": "4.441",
-                "wh65batt": "0",
-                "freq": "915M",
-                "model": "Some Random Model",
-            },
             Device(
                 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 "Unknown",
                 "Unknown Device",
-                "UNKOWN_Vx.x.x",
+                "UNKNOWN_Vx.x.x",
             ),
+            "payload_unknown_1.json",
         ),
         (
-            {
-                "runtime": "319206",
-                "dateutc": "2022-05-27 19:08:10",
-                "tempinf": "79.52",
-                "humidityin": "31",
-                "baromrelin": "24.740",
-                "baromabsin": "24.740",
-                "tempf": "89.06",
-                "humidity": "14",
-                "winddir": "139",
-                "windspeedmph": "0.89",
-                "windgustmph": "1.12",
-                "maxdailygust": "8.05",
-                "solarradiation": "264.61",
-                "uv": "2",
-                "rainratein": "0.000",
-                "eventrainin": "0.000",
-                "hourlyrainin": "0.000",
-                "dailyrainin": "0.000",
-                "weeklyrainin": "0.000",
-                "monthlyrainin": "2.177",
-                "yearlyrainin": "4.441",
-                "wh65batt": "0",
-                "freq": "915M",
-                "model": "Some Random Model",
-            },
             Device(
                 "default",
                 "Unknown",
                 "Unknown Device",
                 "Unknown Station Type",
             ),
+            "payload_unknown_2.json",
         ),
     ],
 )
-def test_device(device, device_payload, ecowitt):
+def test_device(device, device_data, ecowitt):
     """Test that a device object is properly created from a data payload."""
-    processed_data = ProcessedData(ecowitt, device_payload)
+    processed_data = ProcessedData(ecowitt, device_data)
     assert processed_data.device == device
 
 
-def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
+@pytest.mark.parametrize("device_data_filename", ["payload_gw2000a_1.json"])
+def test_missing_distance(device_data, ecowitt, request):
     """Test that a distance key with an invalid value doesn't throw an error."""
-    processed_data = ProcessedData(ecowitt, device_data_gw2000a_1)
+    processed_data = ProcessedData(ecowitt, device_data)
     assert processed_data.output == {
         "runtime": CalculatedDataPoint("runtime", 3179, unit=TIME_SECONDS),
         "tempin": CalculatedDataPoint("temp", 71.2, unit=TEMP_FAHRENHEIT),
@@ -341,10 +265,10 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
 
 
 @pytest.mark.parametrize(
-    "device_payload,expected_output",
+    "device_data_filename,expected_output",
     [
         (
-            "device_data_gw1000bpro",
+            "payload_gw1000bpro.json",
             {
                 "runtime": CalculatedDataPoint("runtime", 319206.0, unit=TIME_SECONDS),
                 "tempin": CalculatedDataPoint("temp", 79.5, unit=TEMP_FAHRENHEIT),
@@ -400,7 +324,7 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
             },
         ),
         (
-            "device_data_gw1000pro",
+            "payload_gw1000pro.json",
             {
                 "tempin": CalculatedDataPoint("temp", 76.8, unit=TEMP_FAHRENHEIT),
                 "humidityin": CalculatedDataPoint("humidity", 26, unit=PERCENTAGE),
@@ -450,7 +374,7 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
             },
         ),
         (
-            "device_data_gw1100b",
+            "payload_gw1100b.json",
             {
                 "tempin": CalculatedDataPoint("temp", 76.5, unit=TEMP_FAHRENHEIT),
                 "humidityin": CalculatedDataPoint("humidity", 46, unit=PERCENTAGE),
@@ -488,7 +412,7 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
             },
         ),
         (
-            "device_data_gw2000a_1",
+            "payload_gw2000a_1.json",
             {
                 "runtime": CalculatedDataPoint("runtime", 3179, unit=TIME_SECONDS),
                 "tempin": CalculatedDataPoint("temp", 71.2, unit=TEMP_FAHRENHEIT),
@@ -553,7 +477,7 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
             },
         ),
         (
-            "device_data_gw2000a_2",
+            "payload_gw2000a_2.json",
             {
                 "runtime": CalculatedDataPoint("runtime", 436796, unit=TIME_SECONDS),
                 "tempin": CalculatedDataPoint("temp", 72.9, unit=TEMP_FAHRENHEIT),
@@ -703,7 +627,7 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
             },
         ),
         (
-            "device_data_pthp2550pro",
+            "payload_pthp2550pro.json",
             {
                 "tempin": CalculatedDataPoint("temp", 64.4, unit=TEMP_FAHRENHEIT),
                 "humidityin": CalculatedDataPoint("humidity", 72, unit=PERCENTAGE),
@@ -771,7 +695,7 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
             },
         ),
         (
-            "device_data_ws2900",
+            "payload_ws2900.json",
             {
                 "tempin": CalculatedDataPoint("temp", 72.9, unit=TEMP_FAHRENHEIT),
                 "humidityin": CalculatedDataPoint("humidity", 62, unit=PERCENTAGE),
@@ -819,10 +743,9 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
         ),
     ],
 )
-def test_process(device_payload, ecowitt, expected_output, request):
+def test_process(device_data, ecowitt, expected_output, request):
     """Test processing a raw data payload."""
-    device_payload = request.getfixturevalue(device_payload)
-    processed_data = ProcessedData(ecowitt, device_payload)
+    processed_data = ProcessedData(ecowitt, device_data)
     assert processed_data.output == expected_output
 
 
@@ -848,9 +771,10 @@ def test_process(device_payload, ecowitt, expected_output, request):
         }
     ],
 )
-def test_unit_conversion_to_imperial(device_data_gw1000bpro_metric, ecowitt):
+@pytest.mark.parametrize("device_data_filename", ["payload_gw1000bpro_metric.json"])
+def test_unit_conversion_to_imperial(device_data, ecowitt):
     """Test conversion between units."""
-    processed_data = ProcessedData(ecowitt, device_data_gw1000bpro_metric)
+    processed_data = ProcessedData(ecowitt, device_data)
     assert processed_data.output == {
         "runtime": CalculatedDataPoint("runtime", 319206, unit=TIME_SECONDS),
         "tempin": CalculatedDataPoint("temp", 79.5, unit=TEMP_FAHRENHEIT),
@@ -915,9 +839,9 @@ def test_unit_conversion_to_imperial(device_data_gw1000bpro_metric, ecowitt):
         }
     ],
 )
-def test_unit_conversion_to_metric(device_data_gw1000bpro, ecowitt):
+def test_unit_conversion_to_metric(device_data, ecowitt):
     """Test conversion between units."""
-    processed_data = ProcessedData(ecowitt, device_data_gw1000bpro)
+    processed_data = ProcessedData(ecowitt, device_data)
     assert processed_data.output == {
         "runtime": CalculatedDataPoint("runtime", 319206, unit=TIME_SECONDS),
         "tempin": CalculatedDataPoint("temp", 26.4, unit=TEMP_CELSIUS),
@@ -962,10 +886,10 @@ def test_unit_conversion_to_metric(device_data_gw1000bpro, ecowitt):
     }
 
 
-def test_nonnumeric_value(device_data_gw1000bpro, ecowitt):
+def test_nonnumeric_value(device_data, ecowitt):
     """Test a value that can't be parsed as a number."""
-    device_data_gw1000bpro["Random New Key"] = "Some Value"
-    processed_data = ProcessedData(ecowitt, device_data_gw1000bpro)
+    device_data["Random New Key"] = "Some Value"
+    processed_data = ProcessedData(ecowitt, device_data)
     assert processed_data.output == {
         "runtime": CalculatedDataPoint("runtime", 319206.0, unit=TIME_SECONDS),
         "tempin": CalculatedDataPoint("temp", 79.5, unit=TEMP_FAHRENHEIT),
@@ -1031,10 +955,10 @@ def test_nonnumeric_value(device_data_gw1000bpro, ecowitt):
         }
     ],
 )
-def test_unknown_battery(device_data_gw1000bpro, ecowitt):
+def test_unknown_battery(device_data, ecowitt):
     """Test that an unknown battery is given the default strategy."""
-    device_data_gw1000bpro["playstationbattery1"] = 0
-    processed_data = ProcessedData(ecowitt, device_data_gw1000bpro)
+    device_data["playstationbattery1"] = 0
+    processed_data = ProcessedData(ecowitt, device_data)
     assert processed_data.output == {
         "runtime": CalculatedDataPoint("runtime", 319206.0, unit=TIME_SECONDS),
         "tempin": CalculatedDataPoint("temp", 79.5, unit=TEMP_FAHRENHEIT),
