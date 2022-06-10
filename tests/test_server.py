@@ -7,9 +7,57 @@ from aiohttp import ClientSession
 from fastapi.datastructures import FormData
 import pytest
 
+from ecowitt2mqtt.const import (
+    CONF_ENDPOINT,
+    CONF_MQTT_BROKER,
+    CONF_MQTT_PASSWORD,
+    CONF_MQTT_TOPIC,
+    CONF_MQTT_USERNAME,
+    CONF_VERBOSE,
+)
 from ecowitt2mqtt.core import Ecowitt
 
-from tests.common import TEST_ENDPOINT, TEST_PORT
+from tests.common import (
+    TEST_ENDPOINT,
+    TEST_MQTT_BROKER,
+    TEST_MQTT_PASSWORD,
+    TEST_MQTT_TOPIC,
+    TEST_MQTT_USERNAME,
+    TEST_PORT,
+)
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "config,log_level",
+    [
+        (
+            {
+                CONF_ENDPOINT: TEST_ENDPOINT,
+                CONF_MQTT_BROKER: TEST_MQTT_BROKER,
+                CONF_MQTT_PASSWORD: TEST_MQTT_PASSWORD,
+                CONF_MQTT_TOPIC: TEST_MQTT_TOPIC,
+                CONF_MQTT_USERNAME: TEST_MQTT_USERNAME,
+                CONF_VERBOSE: False,
+            },
+            "error",
+        ),
+        (
+            {
+                CONF_ENDPOINT: TEST_ENDPOINT,
+                CONF_MQTT_BROKER: TEST_MQTT_BROKER,
+                CONF_MQTT_PASSWORD: TEST_MQTT_PASSWORD,
+                CONF_MQTT_TOPIC: TEST_MQTT_TOPIC,
+                CONF_MQTT_USERNAME: TEST_MQTT_USERNAME,
+                CONF_VERBOSE: True,
+            },
+            "debug",
+        ),
+    ],
+)
+async def test_log_levels(device_data, ecowitt, log_level):
+    """Test that server log levels are set correctly."""
+    assert ecowitt.server.log_level == log_level
 
 
 @pytest.mark.asyncio

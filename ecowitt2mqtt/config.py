@@ -24,6 +24,7 @@ from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_SYSTEM,
     CONF_PORT,
     CONF_RAW_DATA,
+    CONF_VERBOSE,
     ENV_BATTERY_OVERRIDE,
     ENV_ENDPOINT,
     ENV_HASS_DISCOVERY,
@@ -168,27 +169,29 @@ class Config:
     @property
     def battery_overrides(self) -> dict[str, BatteryStrategy]:
         """Return the battery overrides."""
-        return cast(Dict[str, BatteryStrategy], self._config[CONF_BATTERY_OVERRIDES])
+        return cast(
+            Dict[str, BatteryStrategy], self._config.get(CONF_BATTERY_OVERRIDES)
+        )
 
     @property
     def default_battery_strategy(self) -> BatteryStrategy:
         """Return the default battery strategy."""
-        return cast(BatteryStrategy, self._config[CONF_DEFAULT_BATTERY_STRATEGY])
+        return cast(BatteryStrategy, self._config.get(CONF_DEFAULT_BATTERY_STRATEGY))
 
     @property
     def endpoint(self) -> str:
         """Return the ecowitt2mqtt API endpoint."""
-        return cast(str, self._config[CONF_ENDPOINT])
+        return cast(str, self._config.get(CONF_ENDPOINT))
 
     @property
     def hass_discovery(self) -> bool:
         """Return whether Home Assistant Discovery should be used."""
-        return cast(bool, self._config[CONF_HASS_DISCOVERY])
+        return cast(bool, self._config.get(CONF_HASS_DISCOVERY))
 
     @property
     def hass_discovery_prefix(self) -> str:
         """Return the Home Assistant Discovery MQTT prefix."""
-        return cast(str, self._config[CONF_HASS_DISCOVERY_PREFIX])
+        return cast(str, self._config.get(CONF_HASS_DISCOVERY_PREFIX))
 
     @property
     def hass_entity_id_prefix(self) -> str | None:
@@ -198,22 +201,22 @@ class Config:
     @property
     def input_unit_system(self) -> UnitSystemType:
         """Return the input unit system."""
-        return cast(UnitSystemType, self._config[CONF_INPUT_UNIT_SYSTEM])
+        return cast(UnitSystemType, self._config.get(CONF_INPUT_UNIT_SYSTEM))
 
     @property
     def mqtt_broker(self) -> str:
         """Return the MQTT broker host/IP address."""
-        return cast(str, self._config[CONF_MQTT_BROKER])
+        return cast(str, self._config.get(CONF_MQTT_BROKER))
 
     @property
     def mqtt_password(self) -> str:
         """Return the MQTT broker password."""
-        return cast(str, self._config[CONF_MQTT_PASSWORD])
+        return cast(str, self._config.get(CONF_MQTT_PASSWORD))
 
     @property
     def mqtt_port(self) -> int:
         """Return the MQTT broker port."""
-        return cast(int, self._config[CONF_MQTT_PORT])
+        return cast(int, self._config.get(CONF_MQTT_PORT))
 
     @property
     def mqtt_tls(self) -> bool:
@@ -228,19 +231,24 @@ class Config:
     @property
     def mqtt_username(self) -> str:
         """Return the MQTT broker username."""
-        return cast(str, self._config[CONF_MQTT_USERNAME])
+        return cast(str, self._config.get(CONF_MQTT_USERNAME))
 
     @property
     def output_unit_system(self) -> UnitSystemType:
         """Return the output unit system."""
-        return cast(UnitSystemType, self._config[CONF_OUTPUT_UNIT_SYSTEM])
+        return cast(UnitSystemType, self._config.get(CONF_OUTPUT_UNIT_SYSTEM))
 
     @property
     def port(self) -> int:
         """Return the ecowitt2mqtt API port."""
-        return cast(int, self._config[CONF_PORT])
+        return cast(int, self._config.get(CONF_PORT))
 
     @property
     def raw_data(self) -> bool:
         """Return whether raw data is configured."""
-        return cast(bool, self._config[CONF_RAW_DATA])
+        return cast(bool, self._config.get(CONF_RAW_DATA))
+
+    @property
+    def verbose(self) -> bool:
+        """Return whether verbose logging is enabled."""
+        return cast(bool, self._config.get(CONF_VERBOSE))

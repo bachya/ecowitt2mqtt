@@ -13,8 +13,10 @@ from ecowitt2mqtt.util import execute_callback
 if TYPE_CHECKING:
     from ecowitt2mqtt.core import Ecowitt
 
-DEFAULT_SERVER_LOG_LEVEL = "error"
 DEFAULT_HOST = "0.0.0.0"
+
+SERVER_LOG_LEVEL_DEBUG = "debug"
+SERVER_LOG_LEVEL_ERROR = "error"
 
 
 class Server:
@@ -34,6 +36,13 @@ class Server:
         )(self._post_data)
 
         self.ecowitt = ecowitt
+
+    @property
+    def log_level(self) -> str:
+        """Return the server log level."""
+        if self.ecowitt.config.verbose:
+            return SERVER_LOG_LEVEL_DEBUG
+        return SERVER_LOG_LEVEL_ERROR
 
     async def _post_data(self, request: Request) -> Response:
         """Define an endpoint for the Ecowitt device to post data to."""
@@ -69,7 +78,7 @@ class Server:
                 self.app,
                 host=DEFAULT_HOST,
                 port=self.ecowitt.config.port,
-                log_level=DEFAULT_SERVER_LOG_LEVEL,
+                log_level=self.log_level,
                 loop=loop,
             )
         )
