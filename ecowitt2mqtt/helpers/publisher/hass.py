@@ -290,8 +290,8 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
         """Generate a discovery payload for an entity."""
         platform = Platform.SENSOR
 
-        # Since batteries can be either boolean or numeric depending on their
-        # strategy, we calculate an entity description at runtime:
+        # Since batteries can be one of many different strategies, we calculate an
+        # entity description at runtime:
         if data_point.data_point_key in (DATA_POINT_GLOB_BATT, DATA_POINT_GLOB_VOLT):
             strategy = get_battery_strategy(self.ecowitt, key)
             if strategy == BatteryStrategy.BOOLEAN:

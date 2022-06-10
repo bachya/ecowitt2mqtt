@@ -4,12 +4,16 @@ from typing import Final
 
 from ecowitt2mqtt.helpers.typing import UnitSystemType
 
+__version__ = "2022.06.1"
+
+
 LOGGER = logging.getLogger(__package__)
 
 # Configuration keys:
 CONF_BATTERY_OVERRIDES: Final = "battery_override"
 CONF_CONFIG: Final = "config"
 CONF_DEFAULT_BATTERY_STRATEGY: Final = "default_battery_strategy"
+CONF_DIAGNOSTICS: Final = "diagnostics"
 CONF_ENDPOINT: Final = "endpoint"
 CONF_HASS_DISCOVERY: Final = "hass_discovery"
 CONF_HASS_DISCOVERY_PREFIX: Final = "hass_discovery_prefix"
@@ -123,6 +127,7 @@ DATA_POINT_YEARLY_RAIN: Final = "yearlyrain"
 ENV_BATTERY_OVERRIDE: Final = "ECOWITT2MQTT_BATTERY_OVERRIDE"
 ENV_CONFIG: Final = "ECOWITT2MQTT_CONFIG"
 ENV_DEFAULT_BATTERY_STRATEGY: Final = "ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY"
+ENV_DIAGNOSTICS: Final = "ECOWITT2MQTT_DIAGNOSTICS"
 ENV_ENDPOINT: Final = "ECOWITT2MQTT_ENDPOINT"
 ENV_HASS_DISCOVERY: Final = "ECOWITT2MQTT_HASS_DISCOVERY"
 ENV_HASS_DISCOVERY_PREFIX: Final = "ECOWITT2MQTT_HASS_DISCOVERY_PREFIX"

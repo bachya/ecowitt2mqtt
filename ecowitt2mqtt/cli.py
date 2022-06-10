@@ -7,9 +7,11 @@ import typer
 import uvloop
 
 from ecowitt2mqtt.const import (
+    CONF_VERBOSE,
     ENV_BATTERY_OVERRIDE,
     ENV_CONFIG,
     ENV_DEFAULT_BATTERY_STRATEGY,
+    ENV_DIAGNOSTICS,
     ENV_ENDPOINT,
     ENV_HASS_DISCOVERY,
     ENV_HASS_DISCOVERY_PREFIX,
@@ -86,6 +88,12 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
         envvar=[ENV_DEFAULT_BATTERY_STRATEGY],
         help="The default battery config strategy to use.",
         metavar="TEXT",
+    ),
+    diagnostics: bool = typer.Option(
+        False,
+        "--diagnostics",
+        envvar=[ENV_DIAGNOSTICS],
+        help="Output diagnostics.",
     ),
     endpoint: str = typer.Option(
         DEFAULT_ENDPOINT,
@@ -190,8 +198,11 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
     loop = uvloop.new_event_loop()
     asyncio.set_event_loop(loop)
 
+    if diagnostics:
+        ctx.params[CONF_VERBOSE] = True
+
     ecowitt = Ecowitt(ctx.params)
-    ecowitt.start()
+    loop.run_until_complete(ecowitt.async_start())
 
 
 CLI_APP = typer.Typer(callback=main, invoke_without_command=True)
