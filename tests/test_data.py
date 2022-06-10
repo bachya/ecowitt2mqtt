@@ -327,7 +327,7 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
         "lightning_num": CalculatedDataPoint("lightning_num", 1, unit=STRIKES),
         "lightning": CalculatedDataPoint("lightning", 27, unit=DISTANCE_MILES),
         "wh57batt": CalculatedDataPoint(
-            data_point_key="batt", value=5.0, unit=PERCENTAGE
+            data_point_key="batt", value=100, unit=PERCENTAGE
         ),
         "wh90batt": CalculatedDataPoint(
             data_point_key="batt", value=3.16, unit=ELECTRIC_POTENTIAL_VOLT
@@ -531,7 +531,7 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
                     "lightning", 27.0, unit=DISTANCE_MILES
                 ),
                 "wh57batt": CalculatedDataPoint(
-                    data_point_key="batt", value=5.0, unit=PERCENTAGE
+                    data_point_key="batt", value=100, unit=PERCENTAGE
                 ),
                 "wh90batt": CalculatedDataPoint(
                     data_point_key="batt", value=3.16, unit=ELECTRIC_POTENTIAL_VOLT
@@ -675,13 +675,13 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
                     data_point_key="batt", value=1.3, unit=ELECTRIC_POTENTIAL_VOLT
                 ),
                 "pm25batt1": CalculatedDataPoint(
-                    data_point_key="batt", value=3.0, unit=PERCENTAGE
+                    data_point_key="batt", value=60, unit=PERCENTAGE
                 ),
                 "wh57batt": CalculatedDataPoint(
-                    data_point_key="batt", value=3.0, unit=PERCENTAGE
+                    data_point_key="batt", value=60, unit=PERCENTAGE
                 ),
                 "co2_batt": CalculatedDataPoint(
-                    data_point_key="batt", value=6.0, unit=PERCENTAGE
+                    data_point_key="batt", value=120, unit=PERCENTAGE
                 ),
                 "wh90batt": CalculatedDataPoint(
                     data_point_key="batt", value=3.22, unit=ELECTRIC_POTENTIAL_VOLT
@@ -752,7 +752,7 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
                     data_point_key="batt", value=1.5, unit=ELECTRIC_POTENTIAL_VOLT
                 ),
                 "pm25batt1": CalculatedDataPoint(
-                    data_point_key="batt", value=5.0, unit=PERCENTAGE
+                    data_point_key="batt", value=100, unit=PERCENTAGE
                 ),
                 "dewpoint": CalculatedDataPoint("dewpoint", 49.8, unit=TEMP_FAHRENHEIT),
                 "feelslike": CalculatedDataPoint(

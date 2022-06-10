@@ -156,8 +156,15 @@ def calculate_battery(
             data_point_key=data_point_key, value=value, unit=ELECTRIC_POTENTIAL_VOLT
         )
     if strategy == BatteryStrategy.PERCENTAGE:
+        # Percentage batteries occur in "steps":
+        #   * 1 = 20%
+        #   * 2 = 40%
+        #   * 3 = 60%
+        #   * 4 = 80%
+        #   * 5 = 100%
+        #   * 6 = 120% (plugged into mains voltage)
         return CalculatedDataPoint(
-            data_point_key=data_point_key, value=value, unit=PERCENTAGE
+            data_point_key=data_point_key, value=value * 20, unit=PERCENTAGE
         )
     if value == 0.0:
         return CalculatedDataPoint(
