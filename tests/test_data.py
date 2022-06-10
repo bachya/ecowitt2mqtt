@@ -326,6 +326,7 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
         "ws90cap_volt": CalculatedDataPoint("volt", 0.6, unit=ELECTRIC_POTENTIAL_VOLT),
         "lightning_num": CalculatedDataPoint("lightning_num", 1, unit=STRIKES),
         "lightning": CalculatedDataPoint("lightning", 27, unit=DISTANCE_MILES),
+        "lightning_time": CalculatedDataPoint("lightning_time", None, unit=None),
         "wh57batt": CalculatedDataPoint(
             data_point_key="batt", value=100, unit=PERCENTAGE
         ),
@@ -529,6 +530,9 @@ def test_missing_distance(device_data_gw2000a_1, ecowitt, request):
                 "lightning_num": CalculatedDataPoint("lightning_num", 1, unit=STRIKES),
                 "lightning": CalculatedDataPoint(
                     "lightning", 27.0, unit=DISTANCE_MILES
+                ),
+                "lightning_time": CalculatedDataPoint(
+                    "lightning_time", None, unit=None
                 ),
                 "wh57batt": CalculatedDataPoint(
                     data_point_key="batt", value=100, unit=PERCENTAGE
@@ -1002,4 +1006,75 @@ def test_nonnumeric_value(device_data_gw1000bpro, ecowitt):
         "heatindex": CalculatedDataPoint("heatindex", 12.3, unit=TEMP_FAHRENHEIT),
         "windchill": CalculatedDataPoint("windchill", 2.7, unit=TEMP_FAHRENHEIT),
         "Random New Key": CalculatedDataPoint("Random New Key", "Some Value"),
+    }
+
+
+@pytest.mark.parametrize(
+    "config",
+    [
+        {
+            CONF_DEFAULT_BATTERY_STRATEGY: BatteryStrategy.BOOLEAN,
+            CONF_ENDPOINT: TEST_ENDPOINT,
+            CONF_HASS_DISCOVERY: False,
+            CONF_HASS_DISCOVERY_PREFIX: TEST_HASS_DISCOVERY_PREFIX,
+            CONF_HASS_ENTITY_ID_PREFIX: TEST_HASS_ENTITY_ID_PREFIX,
+            CONF_INPUT_UNIT_SYSTEM: UNIT_SYSTEM_IMPERIAL,
+            CONF_MQTT_BROKER: TEST_MQTT_BROKER,
+            CONF_MQTT_PASSWORD: TEST_MQTT_PASSWORD,
+            CONF_MQTT_PORT: TEST_MQTT_PORT,
+            CONF_MQTT_TOPIC: TEST_MQTT_TOPIC,
+            CONF_MQTT_USERNAME: TEST_MQTT_USERNAME,
+            CONF_OUTPUT_UNIT_SYSTEM: UNIT_SYSTEM_IMPERIAL,
+            CONF_PORT: TEST_PORT,
+            CONF_RAW_DATA: False,
+            CONF_VERBOSE: False,
+        }
+    ],
+)
+def test_unknown_battery(device_data_gw1000bpro, ecowitt):
+    """Test that an unknown battery is given the default strategy."""
+    device_data_gw1000bpro["playstationbattery1"] = 0
+    processed_data = ProcessedData(ecowitt, device_data_gw1000bpro)
+    assert processed_data.output == {
+        "runtime": CalculatedDataPoint("runtime", 319206.0, unit=TIME_SECONDS),
+        "tempin": CalculatedDataPoint("temp", 79.5, unit=TEMP_FAHRENHEIT),
+        "humidityin": CalculatedDataPoint("humidity", 31.0, unit=PERCENTAGE),
+        "baromrel": CalculatedDataPoint("barom", 24.74, unit=PRESSURE_INHG),
+        "baromabs": CalculatedDataPoint("barom", 24.74, unit=PRESSURE_INHG),
+        "temp": CalculatedDataPoint("temp", 19.1, unit=TEMP_FAHRENHEIT),
+        "humidity": CalculatedDataPoint("humidity", 34.0, unit=PERCENTAGE),
+        "winddir": CalculatedDataPoint("winddir", 139.0, unit=DEGREE),
+        "windspeed": CalculatedDataPoint("wind", 20.89, unit=SPEED_MILES_PER_HOUR),
+        "windgust": CalculatedDataPoint("gust", 1.12, unit=SPEED_MILES_PER_HOUR),
+        "maxdailygust": CalculatedDataPoint("gust", 8.05, unit=SPEED_MILES_PER_HOUR),
+        "solarradiation": CalculatedDataPoint(
+            "solarradiation", 264.61, unit=IRRADIATION_WATTS_PER_SQUARE_METER
+        ),
+        "solarradiation_lux": CalculatedDataPoint(
+            "solarradiation_lux", 33494.9, unit=LIGHT_LUX
+        ),
+        "solarradiation_perceived": CalculatedDataPoint(
+            "solarradiation_perceived", 90.0, unit=PERCENTAGE
+        ),
+        "uv": CalculatedDataPoint("uv", 2.0, unit=UV_INDEX),
+        "rainrate": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
+        "eventrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
+        "hourlyrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
+        "dailyrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
+        "weeklyrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
+        "monthlyrain": CalculatedDataPoint("rain", 2.177, unit=RAINFALL_INCHES),
+        "yearlyrain": CalculatedDataPoint("rain", 4.441, unit=RAINFALL_INCHES),
+        "lightning_num": CalculatedDataPoint("lightning_num", 13, unit=STRIKES),
+        "lightning": CalculatedDataPoint("lightning", 1.0, unit=DISTANCE_MILES),
+        "lightning_time": CalculatedDataPoint(
+            "lightning_time", datetime(2022, 4, 20, 17, 17, 17, tzinfo=timezone.utc)
+        ),
+        "wh65batt": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
+        "dewpoint": CalculatedDataPoint("dewpoint", -4.7, unit=TEMP_FAHRENHEIT),
+        "feelslike": CalculatedDataPoint("feelslike", 2.7, unit=TEMP_FAHRENHEIT),
+        "heatindex": CalculatedDataPoint("heatindex", 12.3, unit=TEMP_FAHRENHEIT),
+        "windchill": CalculatedDataPoint("windchill", 2.7, unit=TEMP_FAHRENHEIT),
+        "playstationbattery1": CalculatedDataPoint(
+            "batt", BooleanBatteryState.OFF, None
+        ),
     }

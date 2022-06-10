@@ -48,7 +48,10 @@ from ecowitt2mqtt.const import (
 from ecowitt2mqtt.data import ProcessedData
 from ecowitt2mqtt.errors import EcowittError
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
-from ecowitt2mqtt.helpers.calculator.battery import BooleanBatteryState
+from ecowitt2mqtt.helpers.calculator.battery import (
+    BatteryStrategy,
+    get_battery_strategy,
+)
 from ecowitt2mqtt.helpers.device import Device
 from ecowitt2mqtt.helpers.publisher import (
     MqttPublisher,
@@ -134,7 +137,8 @@ class HassDiscoveryPayload:
 
 
 DATA_POINT_BATTERY_BOOLEAN = "battery_boolean"
-DATA_POINT_BATTERY_NON_BOOLEAN = "battery_non_boolean"
+DATA_POINT_BATTERY_NUMERIC = "battery_numeric"
+DATA_POINT_BATTERY_PERCENTAGE = "battery_percentage"
 
 ENTITY_DESCRIPTIONS = {
     DATA_POINT_BATTERY_BOOLEAN: EntityDescription(
@@ -142,8 +146,13 @@ ENTITY_DESCRIPTIONS = {
         entity_category=EntityCategory.DIAGNOSTIC,
         state_class=StateClass.MEASUREMENT,
     ),
-    DATA_POINT_BATTERY_NON_BOOLEAN: EntityDescription(
+    DATA_POINT_BATTERY_NUMERIC: EntityDescription(
         device_class=DeviceClass.VOLTAGE,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_BATTERY_PERCENTAGE: EntityDescription(
+        device_class=DeviceClass.BATTERY,
         entity_category=EntityCategory.DIAGNOSTIC,
         state_class=StateClass.MEASUREMENT,
     ),
@@ -284,12 +293,15 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
 
         # Since batteries can be either boolean or numeric depending on their
         # strategy, we calculate an entity description at runtime:
-        if data_point.data_point_key == DATA_POINT_GLOB_BATT:
-            if isinstance(data_point.value, BooleanBatteryState):
+        if data_point.data_point_key in (DATA_POINT_GLOB_BATT, DATA_POINT_GLOB_VOLT):
+            strategy = get_battery_strategy(self.ecowitt, key)
+            if strategy == BatteryStrategy.BOOLEAN:
                 data_point_key = DATA_POINT_BATTERY_BOOLEAN
                 platform = Platform.BINARY_SENSOR
+            elif strategy == BatteryStrategy.NUMERIC:
+                data_point_key = DATA_POINT_BATTERY_NUMERIC
             else:
-                data_point_key = DATA_POINT_BATTERY_NON_BOOLEAN
+                data_point_key = DATA_POINT_BATTERY_PERCENTAGE
         else:
             data_point_key = data_point.data_point_key
 
@@ -350,7 +362,7 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
                     processed_data.device, key, data_point
                 )
             except HassError as err:
-                LOGGER.warning("Skipping %s due to error: %s", key, err)
+                LOGGER.warning('Skipping "%s" due to error: %s', key, err)
                 continue
 
             for topic, payload in (

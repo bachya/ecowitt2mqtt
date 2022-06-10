@@ -64,49 +64,49 @@ def config_filepath_fixture(raw_config):
         yield temp_file.name
 
 
-@pytest.fixture(name="device_data_gw1000bpro", scope="session")
+@pytest.fixture(name="device_data_gw1000bpro")
 def device_data_gw1000bpro_fixture():
     """Define a fixture to return gw1000bpro data."""
     return json.loads(load_fixture("payload_gw1000bpro.json"))
 
 
-@pytest.fixture(name="device_data_gw1000bpro_metric", scope="session")
+@pytest.fixture(name="device_data_gw1000bpro_metric")
 def device_data_gw1000bpro_metric_fixture():
     """Define a fixture to return gw1000bpro data that starts in metric."""
     return json.loads(load_fixture("payload_gw1000bpro_metric.json"))
 
 
-@pytest.fixture(name="device_data_gw1000pro", scope="session")
+@pytest.fixture(name="device_data_gw1000pro")
 def device_data_gw1000pro_fixture():
     """Define a fixture to return gw1000pro data."""
     return json.loads(load_fixture("payload_gw1000pro.json"))
 
 
-@pytest.fixture(name="device_data_gw1100b", scope="session")
+@pytest.fixture(name="device_data_gw1100b")
 def device_data_gw1100b_fixture():
     """Define a fixture to return gw1100b data."""
     return json.loads(load_fixture("payload_gw1100b.json"))
 
 
-@pytest.fixture(name="device_data_gw2000a_1", scope="session")
+@pytest.fixture(name="device_data_gw2000a_1")
 def device_data_gw2000a_1_fixture():
     """Define a fixture to return gw2000a_1 data."""
     return json.loads(load_fixture("payload_gw2000a_1.json"))
 
 
-@pytest.fixture(name="device_data_gw2000a_2", scope="session")
+@pytest.fixture(name="device_data_gw2000a_2")
 def device_data_gw2000a_2_fixture():
     """Define a fixture to return gw2000a_2 data."""
     return json.loads(load_fixture("payload_gw2000a_2.json"))
 
 
-@pytest.fixture(name="device_data_pthp2550pro", scope="session")
+@pytest.fixture(name="device_data_pthp2550pro")
 def device_data_pthp2550pro_fixture():
     """Define a fixture to return pthp2550pro data."""
     return json.loads(load_fixture("payload_pthp2550pro.json"))
 
 
-@pytest.fixture(name="device_data_ws2900", scope="session")
+@pytest.fixture(name="device_data_ws2900")
 def device_data_ws2900_fixture():
     """Define a fixture to return ws2900 data."""
     return json.loads(load_fixture("payload_ws2900.json"))
