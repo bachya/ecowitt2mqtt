@@ -338,7 +338,9 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
             ("device_class", description.device_class),
             ("entity_category", description.entity_category),
             ("icon", description.icon),
-            ("state_class", STATE_CLASS_OVERRIDES.get(key, description.state_class),
+            ("state_class", STATE_CLASS_OVERRIDES.get(
+                key, description.state_class
+            ),
             ("unit_of_measurement", data_point.unit),
         ):
             if not value:
