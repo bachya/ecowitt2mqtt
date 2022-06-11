@@ -4,7 +4,7 @@ from typing import Final
 
 from ecowitt2mqtt.helpers.typing import UnitSystemType
 
-__version__ = "2022.06.3"
+__version__ = "2022.06.4"
 
 
 LOGGER = logging.getLogger(__package__)
