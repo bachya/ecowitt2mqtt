@@ -179,6 +179,11 @@ class Config:
         return cast(BatteryStrategy, self._config.get(CONF_DEFAULT_BATTERY_STRATEGY))
 
     @property
+    def diagnostics(self) -> bool:
+        """Return whether diagnostics is enabled."""
+        return cast(bool, self._config.get(CONF_VERBOSE))
+
+    @property
     def endpoint(self) -> str:
         """Return the ecowitt2mqtt API endpoint."""
         return cast(str, self._config.get(CONF_ENDPOINT))

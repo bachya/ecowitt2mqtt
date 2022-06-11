@@ -1,7 +1,6 @@
 """Define dynamic fixtures."""
 from __future__ import annotations
 
-import asyncio
 import json
 import tempfile
 from unittest.mock import AsyncMock, MagicMock, patch
@@ -9,44 +8,10 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 import pytest_asyncio
 from typer.testing import CliRunner
-import uvicorn
 
 from ecowitt2mqtt.core import Ecowitt
 
-from tests.common import TEST_PORT, TEST_RAW_JSON, load_fixture
-
-
-class UvicornTestServer(uvicorn.Server):
-    """Mock a Uvicorn test server."""
-
-    def __init__(self, ecowitt: Ecowitt) -> None:
-        """Initialize."""
-        self._serve_task: asyncio.Task | None = None
-        self._startup_done = asyncio.Event()
-        super().__init__(
-            config=uvicorn.Config(
-                app=ecowitt.server.app,
-                host="0.0.0.0",
-                port=TEST_PORT,
-                log_level="error",
-            )
-        )
-
-    async def start(self) -> None:
-        """Start up server asynchronously."""
-        self._serve_task = asyncio.create_task(self.serve())
-        await self._startup_done.wait()
-
-    async def startup(self, sockets: list | None = None) -> None:
-        """Override Uvicorn startup."""
-        await super().startup(sockets=sockets)
-        self.config.setup_event_loop()
-        self._startup_done.set()
-
-    async def stop(self) -> None:
-        """Shut down server asynchronously."""
-        self.should_exit = True
-        await self._serve_task
+from tests.common import TEST_RAW_JSON, load_fixture
 
 
 @pytest.fixture(name="config")
@@ -102,12 +67,3 @@ async def setup_asyncio_mqtt_fixture():
         MagicMock(return_value=AsyncMock(publish=AsyncMock())),
     ):
         yield
-
-
-@pytest_asyncio.fixture(name="start_server")
-async def start_server_fixture(ecowitt):
-    """Define a fixture to return a running Uvicorn server."""
-    with patch("uvicorn.server.Server", UvicornTestServer(ecowitt)) as mock_server:
-        await mock_server.start()
-        yield
-        await mock_server.stop()

@@ -1,18 +1,9 @@
 """Define utility modules."""
 from __future__ import annotations
 
-import asyncio
-from typing import Any, Callable, Iterable
+from typing import Iterable
 
 from thefuzz import fuzz
-
-
-def execute_callback(callback: Callable[..., Any], *args: Any) -> None:
-    """Schedule a callback to be called."""
-    if asyncio.iscoroutinefunction(callback):
-        asyncio.create_task(callback(*args))
-    else:
-        callback(*args)
 
 
 def glob_search(data: Iterable[str], key: str) -> str | None:

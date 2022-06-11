@@ -8,15 +8,14 @@ from fastapi import FastAPI, Request, Response, status
 import uvicorn
 
 from ecowitt2mqtt.const import LOGGER
-from ecowitt2mqtt.util import execute_callback
 
 if TYPE_CHECKING:
     from ecowitt2mqtt.core import Ecowitt
 
 DEFAULT_HOST = "0.0.0.0"
 
-SERVER_LOG_LEVEL_DEBUG = "debug"
-SERVER_LOG_LEVEL_ERROR = "error"
+LOG_LEVEL_DEBUG = "debug"
+LOG_LEVEL_ERROR = "error"
 
 
 class Server:
@@ -27,29 +26,37 @@ class Server:
         self._device_payload_callbacks: list[
             Callable[[dict[str, Any]], Coroutine | None]
         ] = []
+        self._loop = asyncio.get_event_loop()
+        self._startup_task: asyncio.Task | None = None
 
         self.app = FastAPI()
         self.app.post(
             ecowitt.config.endpoint,
             status_code=status.HTTP_204_NO_CONTENT,
             response_class=Response,
-        )(self._post_data)
+        )(self._async_post_data)
+
+        self._server = uvicorn.Server(
+            config=uvicorn.Config(
+                self.app,
+                host=DEFAULT_HOST,
+                port=ecowitt.config.port,
+                log_level="debug" if ecowitt.config.verbose else "error",
+                loop=self._loop,
+            )
+        )
 
         self.ecowitt = ecowitt
 
-    @property
-    def log_level(self) -> str:
-        """Return the server log level."""
-        if self.ecowitt.config.verbose:
-            return SERVER_LOG_LEVEL_DEBUG
-        return SERVER_LOG_LEVEL_ERROR
-
-    async def _post_data(self, request: Request) -> Response:
+    async def _async_post_data(self, request: Request) -> Response:
         """Define an endpoint for the Ecowitt device to post data to."""
         payload = await request.form()
         LOGGER.debug("Received data from the Ecowitt device: %s", payload)
         for callback in self._device_payload_callbacks:
-            execute_callback(callback, payload)
+            if asyncio.iscoroutinefunction(callback):
+                self._loop.create_task(callback(payload))  # type: ignore
+            else:
+                callback(payload)
 
     def add_device_payload_callback(
         self, callback: Callable[[dict[str, Any]], Coroutine | None]
@@ -63,8 +70,8 @@ class Server:
 
         return remove
 
-    def start(self) -> None:
-        """Start the API."""
+    async def async_start(self) -> None:
+        """Start the REST API server."""
         LOGGER.debug(
             "Starting REST API server: http://%s:%s%s",
             DEFAULT_HOST,
@@ -72,14 +79,14 @@ class Server:
             self.ecowitt.config.endpoint,
         )
 
-        loop = asyncio.get_event_loop()
-        server = uvicorn.Server(
-            config=uvicorn.Config(
-                self.app,
-                host=DEFAULT_HOST,
-                port=self.ecowitt.config.port,
-                log_level=self.log_level,
-                loop=loop,
-            )
-        )
-        loop.run_until_complete(server.serve())
+        self._startup_task = self._loop.create_task(self._server.serve())
+        try:
+            await self._startup_task
+        except asyncio.CancelledError:
+            LOGGER.debug("REST API server shutdown complete")
+
+    def stop(self) -> None:
+        """Stop the REST API server."""
+        if self._startup_task:
+            self._startup_task.cancel()
+            self._startup_task = None

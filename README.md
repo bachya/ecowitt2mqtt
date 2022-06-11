@@ -27,6 +27,7 @@ device data to be sent to an MQTT broker.
   * [Home Assistant](#home-assistant)
   * [Running in the Background](#running-in-the-background)
   * [Docker](#docker)
+- [Diagnostics](#diagnostics)
 - [Contributing](#contributing)
 
 # Installation
@@ -110,6 +111,8 @@ Options:
                                   [env var:
                                   ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY;
                                   default: boolean]
+  --diagnostics                   Output diagnostics.  [env var:
+                                  ECOWITT2MQTT_DIAGNOSTICS]
   -e, --endpoint TEXT             The relative endpoint/path to serve
                                   ecowitt2mqtt on.  [env var:
                                   ECOWITT2MQTT_ENDPOINT, ENDPOINT; default:
@@ -167,6 +170,7 @@ Options:
 * `ECOWITT2MQTT_BATTERY_OVERRIDE`: a semicolon-delimited list of key=value battery overrides
 * `ECOWITT2MQTT_CONFIG`: a path to a YAML or JSON config file
 * `ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY`: The default battery config strategy to use (default: `boolean`)
+* `ECOWITT2MQTT_DIAGNOSTICS`: whether to output diagnostics
 * `ECOWITT2MQTT_ENDPOINT`: the relative endpoint/path to serve ecowitt2mqtt on (default: `/data/report`)
 * `ECOWITT2MQTT_HASS_DISCOVERY`: publish data in the Home Assistant MQTT Discovery format Idefault: `false`)
 * `ECOWITT2MQTT_HASS_DISCOVERY_PREFIX`: the Home Assistant discovery prefix to use (default: `homeassistant`)
@@ -192,6 +196,7 @@ The configuration file can be formatted as either YAML:
 battery_override:
   battery_key1: boolean
 default_battery_strategy: numeric,
+diagnostics: false
 endpoint: /data/report,
 hass_discovery: false,
 hass_discovery_prefix: homeassistant,
@@ -218,6 +223,7 @@ verbose: false
     "battery_key1": "boolean"
   },
   "default_battery_strategy": "numeric",
+  "diagnostics": false,
   "endpoint": "/data/report",
   "hass_discovery": false,
   "hass_discovery_prefix": "homeassistant",
@@ -453,6 +459,13 @@ configuration file at
 Note that this is intended to be a dev environment for quickly testing the repo itself;
 in production, you should refer to one of the
 [Docker Hub](https://hub.docker.com/r/bachya/ecowitt2mqtt) images.
+
+# Diagnostics
+
+You may run `ecowitt2mqtt` in diagnostics mode by providing the `--diagnostics` flag. In
+this mode, the app will wait until it receives and publishes a single payload, then
+exit. This allows users to collect a small-but-complete payload for use in testing,
+debugging, and issue reporting.
 
 # Contributing
 
