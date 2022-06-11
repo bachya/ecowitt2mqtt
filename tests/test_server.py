@@ -91,7 +91,7 @@ async def test_payload_callback(device_data, ecowitt):
         async with ClientSession() as session:
             resp = await session.request(
                 "post",
-                f"http://127.0.0.1:{TEST_PORT}{TEST_ENDPOINT}",
+                f"http://0.0.0.0:{TEST_PORT}{TEST_ENDPOINT}",
                 data=device_data,
             )
             assert resp.status == 204
