@@ -116,6 +116,12 @@ def test_battery_config(device_data, ecowitt):
         "batt1": CalculatedDataPoint("batt", BooleanBatteryState.ON),
         "soilbatt1": CalculatedDataPoint("batt", 1.5, unit=ELECTRIC_POTENTIAL_VOLT),
         "soilbatt2": CalculatedDataPoint("batt", 1.8, unit=ELECTRIC_POTENTIAL_VOLT),
+        "tf_batt1": CalculatedDataPoint(
+            data_point_key="batt", value=1.6, unit=ELECTRIC_POTENTIAL_VOLT
+        ),
+        "tf_ch1": CalculatedDataPoint(
+            data_point_key="tf_ch1", value=84.7, unit=TEMP_FAHRENHEIT
+        ),
         "dewpoint": CalculatedDataPoint("dewpoint", 68.9, unit=TEMP_FAHRENHEIT),
         "heatindex": CalculatedDataPoint("heatindex", 96.3, unit=TEMP_FAHRENHEIT),
     }
@@ -171,6 +177,12 @@ def test_default_battery_strategy(device_data, ecowitt):
         "batt1": CalculatedDataPoint("batt", BooleanBatteryState.ON, unit=None),
         "soilbatt1": CalculatedDataPoint("batt", 1.5, unit=ELECTRIC_POTENTIAL_VOLT),
         "soilbatt2": CalculatedDataPoint("batt", 1.8, unit=ELECTRIC_POTENTIAL_VOLT),
+        "tf_batt1": CalculatedDataPoint(
+            data_point_key="batt", value=1.6, unit=ELECTRIC_POTENTIAL_VOLT
+        ),
+        "tf_ch1": CalculatedDataPoint(
+            data_point_key="tf_ch1", value=84.7, unit=TEMP_FAHRENHEIT
+        ),
         "dewpoint": CalculatedDataPoint("dewpoint", 68.9, unit=TEMP_FAHRENHEIT),
         "heatindex": CalculatedDataPoint("heatindex", 96.3, unit=TEMP_FAHRENHEIT),
     }
@@ -404,6 +416,12 @@ def test_missing_distance(device_data, ecowitt, request):
                 ),
                 "soilbatt2": CalculatedDataPoint(
                     data_point_key="batt", value=1.8, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
+                "tf_batt1": CalculatedDataPoint(
+                    data_point_key="batt", value=1.6, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
+                "tf_ch1": CalculatedDataPoint(
+                    data_point_key="tf_ch1", value=84.7, unit=TEMP_FAHRENHEIT
                 ),
                 "dewpoint": CalculatedDataPoint("dewpoint", 68.9, unit=TEMP_FAHRENHEIT),
                 "heatindex": CalculatedDataPoint(
