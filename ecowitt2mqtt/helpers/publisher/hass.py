@@ -37,6 +37,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_SOLARRADIATION,
     DATA_POINT_SOLARRADIATION_LUX,
     DATA_POINT_SOLARRADIATION_PERCEIVED,
+    DATA_POINT_TF_CH1,
     DATA_POINT_TF_CO2,
     DATA_POINT_TOTAL_RAIN,
     DATA_POINT_UV,
@@ -249,6 +250,10 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_RUNTIME: EntityDescription(
         device_class=DeviceClass.DURATION,
         icon="mdi:timer",
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_TF_CH1: EntityDescription(
+        device_class=DeviceClass.TEMPERATURE,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_TF_CO2: EntityDescription(

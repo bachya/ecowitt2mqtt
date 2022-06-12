@@ -25,6 +25,8 @@
   "batt1": "1",
   "soilbatt1": "1.5",
   "soilbatt2": "1.8",
+  "tf_ch1": "84.7",
+  "tf_batt1": "1.60",
   "freq": "915M",
   "model": "GW1100B"
 }

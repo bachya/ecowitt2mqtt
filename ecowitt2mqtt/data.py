@@ -6,6 +6,8 @@ from functools import partial
 import traceback
 from typing import TYPE_CHECKING, Any, Callable, TypeVar
 
+from thefuzz import fuzz
+
 from ecowitt2mqtt.const import (
     DATA_POINT_CO2,
     DATA_POINT_CO2_24H,
@@ -34,6 +36,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_SOLARRADIATION_LUX,
     DATA_POINT_SOLARRADIATION_PERCEIVED,
     DATA_POINT_TEMPF,
+    DATA_POINT_TF_CH1,
     DATA_POINT_TF_CO2,
     DATA_POINT_UV,
     DATA_POINT_WINDCHILL,
@@ -69,7 +72,6 @@ from ecowitt2mqtt.helpers.calculator.time import (
     calculate_runtime,
 )
 from ecowitt2mqtt.helpers.device import Device, get_device_from_raw_payload
-from ecowitt2mqtt.util import glob_search
 
 if TYPE_CHECKING:
     from ecowitt2mqtt.core import Ecowitt
@@ -101,6 +103,7 @@ CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., CalculatedDataPoint]] = {
     DATA_POINT_SOLARRADIATION: calculate_solar_radiation_wm2,
     DATA_POINT_SOLARRADIATION_LUX: calculate_solar_radiation_lux,
     DATA_POINT_SOLARRADIATION_PERCEIVED: calculate_solar_radiation_perceived,
+    DATA_POINT_TF_CH1: calculate_temperature,
     DATA_POINT_TF_CO2: calculate_temperature,
     DATA_POINT_UV: calculate_uv_index,
     DATA_POINT_WINDCHILL: calculate_wind_chill,
@@ -144,8 +147,28 @@ def get_calculator_function(
 
 
 def get_data_point_from_key(key: str) -> str | None:
-    """Get a data point from a key."""
-    return glob_search(CALCULATOR_FUNCTION_MAP, key)
+    """Get the data point identified for a particular key according to some rules.
+
+    1. If the exact key exists, return it.
+    2. If a single glob exists return it.
+    3. If multiple globs exist, return the "closest" (Levenshtein distance).
+    4. If none of these are satisfied, return None.
+    """
+    if key in CALCULATOR_FUNCTION_MAP:
+        return key
+
+    # If no keys (specific or globbed) match, we don't have a calculator:
+    if not (matches := [k for k in CALCULATOR_FUNCTION_MAP if k in key]):
+        return None
+
+    # Return the closest match based on the Levenshtein distance from the key:
+    #   Example Key: "winddir_avg10m"
+    #   Matches: ["wind", "winddir"]
+    #   Closest Match: "winddir"
+    sorted_matches = sorted(
+        matches, key=lambda m: fuzz.ratio(key, m), reverse=True  # type: ignore
+    )
+    return sorted_matches[0]
 
 
 def get_typed_value(value: T) -> float | T:
