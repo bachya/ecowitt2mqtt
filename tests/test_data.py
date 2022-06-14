@@ -116,12 +116,22 @@ def test_battery_config(device_data, ecowitt):
         "batt1": CalculatedDataPoint("batt", BooleanBatteryState.ON),
         "soilbatt1": CalculatedDataPoint("batt", 1.5, unit=ELECTRIC_POTENTIAL_VOLT),
         "soilbatt2": CalculatedDataPoint("batt", 1.8, unit=ELECTRIC_POTENTIAL_VOLT),
-        "tf_batt1": CalculatedDataPoint(
-            data_point_key="batt", value=1.6, unit=ELECTRIC_POTENTIAL_VOLT
-        ),
-        "tf_ch1": CalculatedDataPoint(
-            data_point_key="tf_ch1", value=84.7, unit=TEMP_FAHRENHEIT
-        ),
+        "tf_ch1": CalculatedDataPoint("tf", 84.7, unit=TEMP_FAHRENHEIT),
+        "tf_batt1": CalculatedDataPoint("batt", 1.6, unit=ELECTRIC_POTENTIAL_VOLT),
+        "tf_ch2": CalculatedDataPoint("tf", 82.9, unit=TEMP_FAHRENHEIT),
+        "tf_batt2": CalculatedDataPoint("batt", 1.47, unit=ELECTRIC_POTENTIAL_VOLT),
+        "tf_ch3": CalculatedDataPoint("tf", 84.0, unit=TEMP_FAHRENHEIT),
+        "tf_batt3": CalculatedDataPoint("batt", 1.6, unit=ELECTRIC_POTENTIAL_VOLT),
+        "tf_ch4": CalculatedDataPoint("tf", 84.2, unit=TEMP_FAHRENHEIT),
+        "tf_batt4": CalculatedDataPoint("batt", 1.6, unit=ELECTRIC_POTENTIAL_VOLT),
+        "tf_ch5": CalculatedDataPoint("tf", 85.1, unit=TEMP_FAHRENHEIT),
+        "tf_batt5": CalculatedDataPoint("batt", 1.2, unit=ELECTRIC_POTENTIAL_VOLT),
+        "tf_ch6": CalculatedDataPoint("tf", 84.2, unit=TEMP_FAHRENHEIT),
+        "tf_batt6": CalculatedDataPoint("batt", 1.77, unit=ELECTRIC_POTENTIAL_VOLT),
+        "tf_ch7": CalculatedDataPoint("tf", 84.3, unit=TEMP_FAHRENHEIT),
+        "tf_batt7": CalculatedDataPoint("batt", 1.6, unit=ELECTRIC_POTENTIAL_VOLT),
+        "tf_ch8": CalculatedDataPoint("tf", 84.2, unit=TEMP_FAHRENHEIT),
+        "tf_batt8": CalculatedDataPoint("batt", 1.3, unit=ELECTRIC_POTENTIAL_VOLT),
         "dewpoint": CalculatedDataPoint("dewpoint", 68.9, unit=TEMP_FAHRENHEIT),
         "heatindex": CalculatedDataPoint("heatindex", 96.3, unit=TEMP_FAHRENHEIT),
     }
@@ -177,12 +187,22 @@ def test_default_battery_strategy(device_data, ecowitt):
         "batt1": CalculatedDataPoint("batt", BooleanBatteryState.ON, unit=None),
         "soilbatt1": CalculatedDataPoint("batt", 1.5, unit=ELECTRIC_POTENTIAL_VOLT),
         "soilbatt2": CalculatedDataPoint("batt", 1.8, unit=ELECTRIC_POTENTIAL_VOLT),
-        "tf_batt1": CalculatedDataPoint(
-            data_point_key="batt", value=1.6, unit=ELECTRIC_POTENTIAL_VOLT
-        ),
-        "tf_ch1": CalculatedDataPoint(
-            data_point_key="tf_ch1", value=84.7, unit=TEMP_FAHRENHEIT
-        ),
+        "tf_ch1": CalculatedDataPoint("tf", 84.7, unit=TEMP_FAHRENHEIT),
+        "tf_batt1": CalculatedDataPoint("batt", 1.6, unit=ELECTRIC_POTENTIAL_VOLT),
+        "tf_ch2": CalculatedDataPoint("tf", 82.9, unit=TEMP_FAHRENHEIT),
+        "tf_batt2": CalculatedDataPoint("batt", 1.47, unit=ELECTRIC_POTENTIAL_VOLT),
+        "tf_ch3": CalculatedDataPoint("tf", 84.0, unit=TEMP_FAHRENHEIT),
+        "tf_batt3": CalculatedDataPoint("batt", 1.6, unit=ELECTRIC_POTENTIAL_VOLT),
+        "tf_ch4": CalculatedDataPoint("tf", 84.2, unit=TEMP_FAHRENHEIT),
+        "tf_batt4": CalculatedDataPoint("batt", 1.6, unit=ELECTRIC_POTENTIAL_VOLT),
+        "tf_ch5": CalculatedDataPoint("tf", 85.1, unit=TEMP_FAHRENHEIT),
+        "tf_batt5": CalculatedDataPoint("batt", 1.2, unit=ELECTRIC_POTENTIAL_VOLT),
+        "tf_ch6": CalculatedDataPoint("tf", 84.2, unit=TEMP_FAHRENHEIT),
+        "tf_batt6": CalculatedDataPoint("batt", 1.77, unit=ELECTRIC_POTENTIAL_VOLT),
+        "tf_ch7": CalculatedDataPoint("tf", 84.3, unit=TEMP_FAHRENHEIT),
+        "tf_batt7": CalculatedDataPoint("batt", 1.6, unit=ELECTRIC_POTENTIAL_VOLT),
+        "tf_ch8": CalculatedDataPoint("tf", 84.2, unit=TEMP_FAHRENHEIT),
+        "tf_batt8": CalculatedDataPoint("batt", 1.3, unit=ELECTRIC_POTENTIAL_VOLT),
         "dewpoint": CalculatedDataPoint("dewpoint", 68.9, unit=TEMP_FAHRENHEIT),
         "heatindex": CalculatedDataPoint("heatindex", 96.3, unit=TEMP_FAHRENHEIT),
     }
@@ -263,12 +283,8 @@ def test_missing_distance(device_data, ecowitt, request):
         "lightning_num": CalculatedDataPoint("lightning_num", 1, unit=STRIKES),
         "lightning": CalculatedDataPoint("lightning", 27, unit=DISTANCE_MILES),
         "lightning_time": CalculatedDataPoint("lightning_time", None, unit=None),
-        "wh57batt": CalculatedDataPoint(
-            data_point_key="batt", value=100, unit=PERCENTAGE
-        ),
-        "wh90batt": CalculatedDataPoint(
-            data_point_key="batt", value=3.16, unit=ELECTRIC_POTENTIAL_VOLT
-        ),
+        "wh57batt": CalculatedDataPoint("batt", 100, unit=PERCENTAGE),
+        "wh90batt": CalculatedDataPoint("batt", 3.16, unit=ELECTRIC_POTENTIAL_VOLT),
         "dewpoint": CalculatedDataPoint("dewpoint", 53.0, unit=TEMP_FAHRENHEIT),
         "feelslike": CalculatedDataPoint("feelslike", 74.5, unit=TEMP_FAHRENHEIT),
         "heatindex": CalculatedDataPoint("heatindex", 73.9, unit=TEMP_FAHRENHEIT),
@@ -407,21 +423,47 @@ def test_missing_distance(device_data, ecowitt, request):
                 "soilmoisture1": CalculatedDataPoint("moisture", 40, unit=PERCENTAGE),
                 "soilmoisture2": CalculatedDataPoint("moisture", 56, unit=PERCENTAGE),
                 "wh40batt": CalculatedDataPoint(
-                    data_point_key="batt", value=1.6, unit=ELECTRIC_POTENTIAL_VOLT
+                    "batt", 1.6, unit=ELECTRIC_POTENTIAL_VOLT
                 ),
                 "wh26batt": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
                 "batt1": CalculatedDataPoint("batt", BooleanBatteryState.ON),
                 "soilbatt1": CalculatedDataPoint(
-                    data_point_key="batt", value=1.5, unit=ELECTRIC_POTENTIAL_VOLT
+                    "batt", 1.5, unit=ELECTRIC_POTENTIAL_VOLT
                 ),
                 "soilbatt2": CalculatedDataPoint(
-                    data_point_key="batt", value=1.8, unit=ELECTRIC_POTENTIAL_VOLT
+                    "batt", 1.8, unit=ELECTRIC_POTENTIAL_VOLT
                 ),
+                "tf_ch1": CalculatedDataPoint("tf", 84.7, unit=TEMP_FAHRENHEIT),
                 "tf_batt1": CalculatedDataPoint(
-                    data_point_key="batt", value=1.6, unit=ELECTRIC_POTENTIAL_VOLT
+                    "batt", 1.6, unit=ELECTRIC_POTENTIAL_VOLT
                 ),
-                "tf_ch1": CalculatedDataPoint(
-                    data_point_key="tf_ch1", value=84.7, unit=TEMP_FAHRENHEIT
+                "tf_ch2": CalculatedDataPoint("tf", 82.9, unit=TEMP_FAHRENHEIT),
+                "tf_batt2": CalculatedDataPoint(
+                    "batt", 1.47, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
+                "tf_ch3": CalculatedDataPoint("tf", 84.0, unit=TEMP_FAHRENHEIT),
+                "tf_batt3": CalculatedDataPoint(
+                    "batt", 1.6, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
+                "tf_ch4": CalculatedDataPoint("tf", 84.2, unit=TEMP_FAHRENHEIT),
+                "tf_batt4": CalculatedDataPoint(
+                    "batt", 1.6, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
+                "tf_ch5": CalculatedDataPoint("tf", 85.1, unit=TEMP_FAHRENHEIT),
+                "tf_batt5": CalculatedDataPoint(
+                    "batt", 1.2, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
+                "tf_ch6": CalculatedDataPoint("tf", 84.2, unit=TEMP_FAHRENHEIT),
+                "tf_batt6": CalculatedDataPoint(
+                    "batt", 1.77, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
+                "tf_ch7": CalculatedDataPoint("tf", 84.3, unit=TEMP_FAHRENHEIT),
+                "tf_batt7": CalculatedDataPoint(
+                    "batt", 1.6, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
+                "tf_ch8": CalculatedDataPoint("tf", 84.2, unit=TEMP_FAHRENHEIT),
+                "tf_batt8": CalculatedDataPoint(
+                    "batt", 1.3, unit=ELECTRIC_POTENTIAL_VOLT
                 ),
                 "dewpoint": CalculatedDataPoint("dewpoint", 68.9, unit=TEMP_FAHRENHEIT),
                 "heatindex": CalculatedDataPoint(
@@ -476,11 +518,9 @@ def test_missing_distance(device_data, ecowitt, request):
                 "lightning_time": CalculatedDataPoint(
                     "lightning_time", None, unit=None
                 ),
-                "wh57batt": CalculatedDataPoint(
-                    data_point_key="batt", value=100, unit=PERCENTAGE
-                ),
+                "wh57batt": CalculatedDataPoint("batt", 100, unit=PERCENTAGE),
                 "wh90batt": CalculatedDataPoint(
-                    data_point_key="batt", value=3.16, unit=ELECTRIC_POTENTIAL_VOLT
+                    "batt", 3.16, unit=ELECTRIC_POTENTIAL_VOLT
                 ),
                 "dewpoint": CalculatedDataPoint("dewpoint", 53.0, unit=TEMP_FAHRENHEIT),
                 "feelslike": CalculatedDataPoint(
@@ -595,7 +635,7 @@ def test_missing_distance(device_data, ecowitt, request):
                     datetime(2022, 4, 20, 17, 17, 17, tzinfo=timezone.utc),
                 ),
                 "wh80batt": CalculatedDataPoint(
-                    data_point_key="batt", value=3.28, unit=ELECTRIC_POTENTIAL_VOLT
+                    "batt", 3.28, unit=ELECTRIC_POTENTIAL_VOLT
                 ),
                 "batt1": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
                 "batt2": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
@@ -606,31 +646,25 @@ def test_missing_distance(device_data, ecowitt, request):
                 "batt7": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
                 "batt8": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
                 "soilbatt1": CalculatedDataPoint(
-                    data_point_key="batt", value=1.4, unit=ELECTRIC_POTENTIAL_VOLT
+                    "batt", 1.4, unit=ELECTRIC_POTENTIAL_VOLT
                 ),
                 "soilbatt2": CalculatedDataPoint(
-                    data_point_key="batt", value=1.3, unit=ELECTRIC_POTENTIAL_VOLT
+                    "batt", 1.3, unit=ELECTRIC_POTENTIAL_VOLT
                 ),
                 "soilbatt3": CalculatedDataPoint(
-                    data_point_key="batt", value=1.3, unit=ELECTRIC_POTENTIAL_VOLT
+                    "batt", 1.3, unit=ELECTRIC_POTENTIAL_VOLT
                 ),
                 "soilbatt4": CalculatedDataPoint(
-                    data_point_key="batt", value=1.3, unit=ELECTRIC_POTENTIAL_VOLT
+                    "batt", 1.3, unit=ELECTRIC_POTENTIAL_VOLT
                 ),
                 "soilbatt5": CalculatedDataPoint(
-                    data_point_key="batt", value=1.3, unit=ELECTRIC_POTENTIAL_VOLT
+                    "batt", 1.3, unit=ELECTRIC_POTENTIAL_VOLT
                 ),
-                "pm25batt1": CalculatedDataPoint(
-                    data_point_key="batt", value=60, unit=PERCENTAGE
-                ),
-                "wh57batt": CalculatedDataPoint(
-                    data_point_key="batt", value=60, unit=PERCENTAGE
-                ),
-                "co2_batt": CalculatedDataPoint(
-                    data_point_key="batt", value=120, unit=PERCENTAGE
-                ),
+                "pm25batt1": CalculatedDataPoint("batt", 60, unit=PERCENTAGE),
+                "wh57batt": CalculatedDataPoint("batt", 60, unit=PERCENTAGE),
+                "co2_batt": CalculatedDataPoint("batt", 120, unit=PERCENTAGE),
                 "wh90batt": CalculatedDataPoint(
-                    data_point_key="batt", value=3.22, unit=ELECTRIC_POTENTIAL_VOLT
+                    "batt", 3.22, unit=ELECTRIC_POTENTIAL_VOLT
                 ),
                 "dewpoint": CalculatedDataPoint("dewpoint", 47.9, unit=TEMP_FAHRENHEIT),
                 "feelslike": CalculatedDataPoint(
@@ -695,11 +729,9 @@ def test_missing_distance(device_data, ecowitt, request):
                 "wh25batt": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
                 "batt1": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
                 "soilbatt1": CalculatedDataPoint(
-                    data_point_key="batt", value=1.5, unit=ELECTRIC_POTENTIAL_VOLT
+                    "batt", 1.5, unit=ELECTRIC_POTENTIAL_VOLT
                 ),
-                "pm25batt1": CalculatedDataPoint(
-                    data_point_key="batt", value=100, unit=PERCENTAGE
-                ),
+                "pm25batt1": CalculatedDataPoint("batt", 100, unit=PERCENTAGE),
                 "dewpoint": CalculatedDataPoint("dewpoint", 49.8, unit=TEMP_FAHRENHEIT),
                 "feelslike": CalculatedDataPoint(
                     "feelslike", 50.9, unit=TEMP_FAHRENHEIT
