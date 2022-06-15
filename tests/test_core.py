@@ -79,6 +79,7 @@ async def test_get_diagnostics(caplog, device_data, ecowitt):
             )
             assert resp.status == 204
     assert any(m for m in caplog.messages if "COLLECTING DIAGNOSTICS" in m)
+    assert any(m for m in caplog.messages if "DIAGNOSTICS COLLECTED" in m)
 
 
 @pytest.mark.asyncio
