@@ -29,6 +29,16 @@
   "lightning_time": "",
   "wh57batt": "5",
   "wh90batt": "3.16",
+  "leak_ch1": "0",
+  "leakbatt1": "5",
+  "leak_ch2": 1,
+  "leakbatt2": "5",
+  "leak_ch3": "0",
+  "leakbatt3": "5",
+  "leak_ch4": "0",
+  "leakbatt4": "5",
+  "leafwetness_ch1": "14",
+  "leaf_batt1": "1.78",
   "freq": "868M",
   "model": "GW2000A"
 }

@@ -17,6 +17,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_GLOB_BATT,
     DATA_POINT_GLOB_GUST,
     DATA_POINT_GLOB_HUMIDITY,
+    DATA_POINT_GLOB_LEAK,
     DATA_POINT_GLOB_MOISTURE,
     DATA_POINT_GLOB_PM10,
     DATA_POINT_GLOB_PM25,
@@ -24,6 +25,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_GLOB_TEMP,
     DATA_POINT_GLOB_TF,
     DATA_POINT_GLOB_VOLT,
+    DATA_POINT_GLOB_WETNESS,
     DATA_POINT_GLOB_WIND,
     DATA_POINT_GLOB_WINDDIR,
     DATA_POINT_HEATINDEX,
@@ -46,6 +48,7 @@ from ecowitt2mqtt.const import (
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
 from ecowitt2mqtt.helpers.calculator.battery import calculate_battery
 from ecowitt2mqtt.helpers.calculator.distance import calculate_distance
+from ecowitt2mqtt.helpers.calculator.leak import calculate_leak
 from ecowitt2mqtt.helpers.calculator.meteo import (
     calculate_co2,
     calculate_dew_point,
@@ -86,6 +89,7 @@ CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., CalculatedDataPoint]] = {
     DATA_POINT_GLOB_BATT: calculate_battery,
     DATA_POINT_GLOB_GUST: calculate_wind_speed,
     DATA_POINT_GLOB_HUMIDITY: calculate_humidity,
+    DATA_POINT_GLOB_LEAK: calculate_leak,
     DATA_POINT_GLOB_MOISTURE: calculate_moisture,
     DATA_POINT_GLOB_PM10: calculate_pm10,
     DATA_POINT_GLOB_PM25: calculate_pm25,
@@ -93,6 +97,7 @@ CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., CalculatedDataPoint]] = {
     DATA_POINT_GLOB_TEMP: calculate_temperature,
     DATA_POINT_GLOB_TF: calculate_temperature,
     DATA_POINT_GLOB_VOLT: calculate_battery,
+    DATA_POINT_GLOB_WETNESS: calculate_moisture,
     DATA_POINT_GLOB_WIND: calculate_wind_speed,
     DATA_POINT_GLOB_WINDDIR: calculate_wind_dir,
     DATA_POINT_HEATINDEX: calculate_heat_index,

@@ -46,6 +46,7 @@ from ecowitt2mqtt.const import (
 from ecowitt2mqtt.data import ProcessedData
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy, BooleanBatteryState
+from ecowitt2mqtt.helpers.calculator.leak import LeakState
 from ecowitt2mqtt.helpers.device import Device
 
 from tests.common import (
@@ -285,6 +286,16 @@ def test_missing_distance(device_data, ecowitt, request):
         "lightning_time": CalculatedDataPoint("lightning_time", None, unit=None),
         "wh57batt": CalculatedDataPoint("batt", 100, unit=PERCENTAGE),
         "wh90batt": CalculatedDataPoint("batt", 3.16, unit=ELECTRIC_POTENTIAL_VOLT),
+        "leak_ch1": CalculatedDataPoint("leak", LeakState.OFF, unit=None),
+        "leakbatt1": CalculatedDataPoint("batt", 100, unit=PERCENTAGE),
+        "leak_ch2": CalculatedDataPoint("leak", LeakState.ON, unit=None),
+        "leakbatt2": CalculatedDataPoint("batt", 100, unit=PERCENTAGE),
+        "leak_ch3": CalculatedDataPoint("leak", LeakState.OFF, unit=None),
+        "leakbatt3": CalculatedDataPoint("batt", 100, unit=PERCENTAGE),
+        "leak_ch4": CalculatedDataPoint("leak", LeakState.OFF, unit=None),
+        "leakbatt4": CalculatedDataPoint("batt", 100, unit=PERCENTAGE),
+        "leafwetness_ch1": CalculatedDataPoint("wetness", 14, unit=PERCENTAGE),
+        "leaf_batt1": CalculatedDataPoint("batt", 1.78, unit=ELECTRIC_POTENTIAL_VOLT),
         "dewpoint": CalculatedDataPoint("dewpoint", 53.0, unit=TEMP_FAHRENHEIT),
         "feelslike": CalculatedDataPoint("feelslike", 74.5, unit=TEMP_FAHRENHEIT),
         "heatindex": CalculatedDataPoint("heatindex", 73.9, unit=TEMP_FAHRENHEIT),
@@ -521,6 +532,18 @@ def test_missing_distance(device_data, ecowitt, request):
                 "wh57batt": CalculatedDataPoint("batt", 100, unit=PERCENTAGE),
                 "wh90batt": CalculatedDataPoint(
                     "batt", 3.16, unit=ELECTRIC_POTENTIAL_VOLT
+                ),
+                "leak_ch1": CalculatedDataPoint("leak", LeakState.OFF, unit=None),
+                "leakbatt1": CalculatedDataPoint("batt", 100, unit=PERCENTAGE),
+                "leak_ch2": CalculatedDataPoint("leak", LeakState.ON, unit=None),
+                "leakbatt2": CalculatedDataPoint("batt", 100, unit=PERCENTAGE),
+                "leak_ch3": CalculatedDataPoint("leak", LeakState.OFF, unit=None),
+                "leakbatt3": CalculatedDataPoint("batt", 100, unit=PERCENTAGE),
+                "leak_ch4": CalculatedDataPoint("leak", LeakState.OFF, unit=None),
+                "leakbatt4": CalculatedDataPoint("batt", 100, unit=PERCENTAGE),
+                "leafwetness_ch1": CalculatedDataPoint("wetness", 14, unit=PERCENTAGE),
+                "leaf_batt1": CalculatedDataPoint(
+                    "batt", 1.78, unit=ELECTRIC_POTENTIAL_VOLT
                 ),
                 "dewpoint": CalculatedDataPoint("dewpoint", 53.0, unit=TEMP_FAHRENHEIT),
                 "feelslike": CalculatedDataPoint(
