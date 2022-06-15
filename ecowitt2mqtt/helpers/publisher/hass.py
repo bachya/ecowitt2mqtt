@@ -18,6 +18,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_GLOB_BATT,
     DATA_POINT_GLOB_GUST,
     DATA_POINT_GLOB_HUMIDITY,
+    DATA_POINT_GLOB_LEAK,
     DATA_POINT_GLOB_MOISTURE,
     DATA_POINT_GLOB_PM10,
     DATA_POINT_GLOB_PM25,
@@ -25,6 +26,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_GLOB_TEMP,
     DATA_POINT_GLOB_TF,
     DATA_POINT_GLOB_VOLT,
+    DATA_POINT_GLOB_WETNESS,
     DATA_POINT_GLOB_WIND,
     DATA_POINT_GLOB_WINDDIR,
     DATA_POINT_HEATINDEX,
@@ -72,6 +74,7 @@ class DeviceClass(StrEnum):
     DURATION = "duration"
     HUMIDITY = "humidity"
     ILLUMINANCE = "illuminance"
+    MOISTURE = "moisture"
     PM10 = "pm10"
     PM25 = "pm25"
     PRESSURE = "pressure"
@@ -161,6 +164,10 @@ ENTITY_DESCRIPTIONS = {
         device_class=DeviceClass.HUMIDITY,
         state_class=StateClass.MEASUREMENT,
     ),
+    DATA_POINT_GLOB_LEAK: EntityDescription(
+        device_class=DeviceClass.MOISTURE,
+        state_class=StateClass.MEASUREMENT,
+    ),
     DATA_POINT_GLOB_MOISTURE: EntityDescription(
         icon="mdi:water-percent",
         state_class=StateClass.MEASUREMENT,
@@ -187,6 +194,10 @@ ENTITY_DESCRIPTIONS = {
     ),
     DATA_POINT_GLOB_VOLT: EntityDescription(
         device_class=DeviceClass.VOLTAGE,
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_GLOB_WETNESS: EntityDescription(
+        icon="mdi:water-percent",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_WIND: EntityDescription(
@@ -286,7 +297,10 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
         self, device: Device, payload_key: str, data_point: CalculatedDataPoint
     ) -> HassDiscoveryPayload:
         """Generate a discovery payload for an entity."""
-        platform = Platform.SENSOR
+        if isinstance(data_point.value, StrEnum):
+            platform = Platform.BINARY_SENSOR
+        else:
+            platform = Platform.SENSOR
 
         # Since batteries can be one of many different strategies, we calculate an
         # entity description at runtime:
@@ -294,7 +308,6 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
             strategy = get_battery_strategy(self.ecowitt, payload_key)
             if strategy == BatteryStrategy.BOOLEAN:
                 data_point_key = DATA_POINT_BATTERY_BOOLEAN
-                platform = Platform.BINARY_SENSOR
             elif strategy == BatteryStrategy.NUMERIC:
                 data_point_key = DATA_POINT_BATTERY_NUMERIC
             else:
