@@ -10,6 +10,7 @@ from ecowitt2mqtt.const import (
     CONF_BATTERY_OVERRIDES,
     CONF_CONFIG,
     CONF_DEFAULT_BATTERY_STRATEGY,
+    CONF_DIAGNOSTICS,
     CONF_ENDPOINT,
     CONF_HASS_DISCOVERY,
     CONF_HASS_DISCOVERY_PREFIX,
@@ -181,7 +182,7 @@ class Config:
     @property
     def diagnostics(self) -> bool:
         """Return whether diagnostics is enabled."""
-        return cast(bool, self._config.get(CONF_VERBOSE))
+        return cast(bool, self._config.get(CONF_DIAGNOSTICS))
 
     @property
     def endpoint(self) -> str:
