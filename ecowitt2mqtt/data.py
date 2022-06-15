@@ -6,8 +6,6 @@ from functools import partial
 import traceback
 from typing import TYPE_CHECKING, Any, Callable, TypeVar
 
-from thefuzz import fuzz
-
 from ecowitt2mqtt.const import (
     DATA_POINT_CO2,
     DATA_POINT_CO2_24H,
@@ -75,6 +73,7 @@ from ecowitt2mqtt.helpers.calculator.time import (
     calculate_runtime,
 )
 from ecowitt2mqtt.helpers.device import Device, get_device_from_raw_payload
+from ecowitt2mqtt.util import glob_search
 
 if TYPE_CHECKING:
     from ecowitt2mqtt.core import Ecowitt
@@ -146,34 +145,9 @@ def get_calculator_function(
     ecowitt: Ecowitt, key: str
 ) -> partial[CalculatedDataPoint] | None:
     """Get a data calculator function for a particular data key (if it exists)."""
-    if (data_point := get_data_point_from_key(key)) is None:
+    if (data_point := glob_search(CALCULATOR_FUNCTION_MAP, key)) is None:
         return None
     return partial(CALCULATOR_FUNCTION_MAP[data_point], ecowitt, key, data_point)
-
-
-def get_data_point_from_key(key: str) -> str | None:
-    """Get the data point identified for a particular key according to some rules.
-
-    1. If the exact key exists, return it.
-    2. If a single glob exists return it.
-    3. If multiple globs exist, return the "closest" (Levenshtein distance).
-    4. If none of these are satisfied, return None.
-    """
-    if key in CALCULATOR_FUNCTION_MAP:
-        return key
-
-    # If no keys (specific or globbed) match, we don't have a calculator:
-    if not (matches := [k for k in CALCULATOR_FUNCTION_MAP if k in key]):
-        return None
-
-    # Return the closest match based on the Levenshtein distance from the key:
-    #   Example Key: "winddir_avg10m"
-    #   Matches: ["wind", "winddir"]
-    #   Closest Match: "winddir"
-    sorted_matches = sorted(
-        matches, key=lambda m: fuzz.ratio(key, m), reverse=True  # type: ignore
-    )
-    return sorted_matches[0]
 
 
 def get_typed_value(value: T) -> float | T:
@@ -188,7 +162,7 @@ def get_typed_value(value: T) -> float | T:
 
 def remove_unit_from_key(key: str) -> str:
     """Remove a unit from the end of a key."""
-    if (data_point := get_data_point_from_key(key)) is None:
+    if (data_point := glob_search(CALCULATOR_FUNCTION_MAP, key)) is None:
         return key
 
     if (suffix := UNIT_SUFFIX_MAP.get(data_point)) is None or not key.endswith(suffix):

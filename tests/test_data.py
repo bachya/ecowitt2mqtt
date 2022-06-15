@@ -185,7 +185,6 @@ def test_default_battery_strategy(device_data, ecowitt):
         "soilmoisture2": CalculatedDataPoint("moisture", 56, unit=PERCENTAGE),
         "wh40batt": CalculatedDataPoint("batt", 1.6, unit=ELECTRIC_POTENTIAL_VOLT),
         "wh26batt": CalculatedDataPoint("batt", BooleanBatteryState.OFF, unit=None),
-        "batt1": CalculatedDataPoint("batt", BooleanBatteryState.ON, unit=None),
         "soilbatt1": CalculatedDataPoint("batt", 1.5, unit=ELECTRIC_POTENTIAL_VOLT),
         "soilbatt2": CalculatedDataPoint("batt", 1.8, unit=ELECTRIC_POTENTIAL_VOLT),
         "tf_ch1": CalculatedDataPoint("tf", 84.7, unit=TEMP_FAHRENHEIT),
@@ -204,6 +203,7 @@ def test_default_battery_strategy(device_data, ecowitt):
         "tf_batt7": CalculatedDataPoint("batt", 1.6, unit=ELECTRIC_POTENTIAL_VOLT),
         "tf_ch8": CalculatedDataPoint("tf", 84.2, unit=TEMP_FAHRENHEIT),
         "tf_batt8": CalculatedDataPoint("batt", 1.3, unit=ELECTRIC_POTENTIAL_VOLT),
+        "batt1": CalculatedDataPoint("batt", 1.0, unit=ELECTRIC_POTENTIAL_VOLT),
         "dewpoint": CalculatedDataPoint("dewpoint", 68.9, unit=TEMP_FAHRENHEIT),
         "heatindex": CalculatedDataPoint("heatindex", 96.3, unit=TEMP_FAHRENHEIT),
     }
