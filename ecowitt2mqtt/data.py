@@ -145,9 +145,10 @@ def get_calculator_function(
     ecowitt: Ecowitt, key: str
 ) -> partial[CalculatedDataPoint] | None:
     """Get a data calculator function for a particular data key (if it exists)."""
-    if (data_point := glob_search(CALCULATOR_FUNCTION_MAP, key)) is None:
+    data_point, func = glob_search(CALCULATOR_FUNCTION_MAP, key)
+    if not data_point or not func:
         return None
-    return partial(CALCULATOR_FUNCTION_MAP[data_point], ecowitt, key, data_point)
+    return partial(func, ecowitt, key, data_point)
 
 
 def get_typed_value(value: T) -> float | T:
@@ -162,7 +163,9 @@ def get_typed_value(value: T) -> float | T:
 
 def remove_unit_from_key(key: str) -> str:
     """Remove a unit from the end of a key."""
-    if (data_point := glob_search(CALCULATOR_FUNCTION_MAP, key)) is None:
+    data_point, _ = glob_search(CALCULATOR_FUNCTION_MAP, key)
+
+    if not data_point:
         return key
 
     if (suffix := UNIT_SUFFIX_MAP.get(data_point)) is None or not key.endswith(suffix):

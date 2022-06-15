@@ -100,8 +100,9 @@ def get_battery_strategy(ecowitt: Ecowitt, key: str) -> BatteryStrategy:
     """Get the battery strategy for a particular key."""
     strategies = [ecowitt.config.battery_overrides.get(key)]
 
-    if data_point := glob_search(BATTERY_STRATEGY_MAP, key):
-        strategies.append(BATTERY_STRATEGY_MAP.get(data_point))
+    data_point, strategy = glob_search(BATTERY_STRATEGY_MAP, key)
+    if data_point:
+        strategies.append(strategy)
 
     for strategy in strategies:
         # Use a strategy other than the default if:
