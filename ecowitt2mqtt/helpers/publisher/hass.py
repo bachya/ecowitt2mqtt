@@ -47,7 +47,6 @@ from ecowitt2mqtt.const import (
     LOGGER,
 )
 from ecowitt2mqtt.data import ProcessedData
-from ecowitt2mqtt.errors import EcowittError
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
 from ecowitt2mqtt.helpers.calculator.battery import (
     BatteryStrategy,
@@ -101,12 +100,6 @@ class StateClass(StrEnum):
     MEASUREMENT = "measurement"
     TOTAL = "total"
     TOTAL_INCREASING = "total_increasing"
-
-
-class HassError(EcowittError):
-    """Define an error related to a MQTT Discovery error."""
-
-    pass
 
 
 class DeviceType(TypedDict):
@@ -290,7 +283,7 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
         self._discovery_payloads: dict[str, HassDiscoveryPayload] = {}
 
     def _generate_discovery_payload(
-        self, device: Device, key: str, data_point: CalculatedDataPoint
+        self, device: Device, payload_key: str, data_point: CalculatedDataPoint
     ) -> HassDiscoveryPayload:
         """Generate a discovery payload for an entity."""
         platform = Platform.SENSOR
@@ -298,7 +291,7 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
         # Since batteries can be one of many different strategies, we calculate an
         # entity description at runtime:
         if data_point.data_point_key in (DATA_POINT_GLOB_BATT, DATA_POINT_GLOB_VOLT):
-            strategy = get_battery_strategy(self.ecowitt, key)
+            strategy = get_battery_strategy(self.ecowitt, payload_key)
             if strategy == BatteryStrategy.BOOLEAN:
                 data_point_key = DATA_POINT_BATTERY_BOOLEAN
                 platform = Platform.BINARY_SENSOR
@@ -309,20 +302,17 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
         else:
             data_point_key = data_point.data_point_key
 
-        if (description := ENTITY_DESCRIPTIONS.get(data_point_key)) is None:
-            raise HassError("No entity description")
-
         if self.ecowitt.config.hass_entity_id_prefix:
-            name = f"{self.ecowitt.config.hass_entity_id_prefix}_{key}"
+            name = f"{self.ecowitt.config.hass_entity_id_prefix}_{payload_key}"
         else:
-            name = key
+            name = payload_key
 
         base_topic = (
             f"{self.ecowitt.config.hass_discovery_prefix}/{platform}/{device.unique_id}"
-            f"/{key}"
+            f"/{payload_key}"
         )
 
-        payload = self._discovery_payloads[key] = HassDiscoveryPayload(
+        payload = self._discovery_payloads[payload_key] = HassDiscoveryPayload(
             {
                 "device": {
                     "identifiers": [device.unique_id],
@@ -334,21 +324,33 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
                 "name": name,
                 "qos": 1,
                 "state_topic": f"{base_topic}/state",
-                "unique_id": f"{device.unique_id}_{key}",
+                "unique_id": f"{device.unique_id}_{payload_key}",
             },
             f"{base_topic}/config",
         )
 
-        for discovery_key, value in (
-            ("device_class", description.device_class),
-            ("entity_category", description.entity_category),
-            ("icon", description.icon),
-            ("state_class", STATE_CLASS_OVERRIDES.get(key, description.state_class)),
-            ("unit_of_measurement", data_point.unit),
-        ):
-            if not value:
-                continue
-            payload.payload[discovery_key] = value
+        if data_point.unit:
+            payload.payload["unit_of_measurement"] = data_point.unit
+
+        # If we have an entity description, use it:
+        if description := ENTITY_DESCRIPTIONS.get(data_point_key):
+            for discovery_key, value in (
+                ("device_class", description.device_class),
+                ("entity_category", description.entity_category),
+                ("icon", description.icon),
+                (
+                    "state_class",
+                    STATE_CLASS_OVERRIDES.get(payload_key, description.state_class),
+                ),
+            ):
+                if not value:
+                    continue
+                payload.payload[discovery_key] = value
+        else:
+            LOGGER.warning(
+                'Missing entity description for "%s" (please report it!)',
+                payload_key,
+            )
 
         return payload
 
@@ -357,14 +359,10 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
         processed_data = ProcessedData(self.ecowitt, data)
         publish_tasks = []
 
-        for key, data_point in processed_data.output.items():
-            try:
-                discovery_payload = self._generate_discovery_payload(
-                    processed_data.device, key, data_point
-                )
-            except HassError as err:
-                LOGGER.warning('Skipping "%s" due to error: %s', key, err)
-                continue
+        for payload_key, data_point in processed_data.output.items():
+            discovery_payload = self._generate_discovery_payload(
+                processed_data.device, payload_key, data_point
+            )
 
             for topic, payload in (
                 (discovery_payload.topic, discovery_payload.payload),
