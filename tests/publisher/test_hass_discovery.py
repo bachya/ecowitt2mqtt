@@ -2256,6 +2256,8 @@ async def test_publish_error_mqtt(device_data, ecowitt, setup_asyncio_mqtt):
 @pytest.mark.parametrize("device_data_filename", ["payload_gw2000a_2.json"])
 async def test_no_entity_description(caplog, device_data, ecowitt, setup_asyncio_mqtt):
     """Test that a key with no entity description is handled."""
+    caplog.set_level(logging.DEBUG)
+
     device_data["random"] = "value"
 
     publisher = get_publisher(ecowitt)

@@ -347,7 +347,7 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
                     continue
                 payload.payload[discovery_key] = value
         else:
-            LOGGER.warning(
+            LOGGER.debug(
                 'Missing entity description for "%s" (please report it!)',
                 payload_key,
             )
