@@ -1,4 +1,6 @@
 """Define common test utilities."""
+import asyncio
+from contextlib import asynccontextmanager
 import json
 import os
 
@@ -21,6 +23,7 @@ from ecowitt2mqtt.const import (
     CONF_VERBOSE,
     UNIT_SYSTEM_IMPERIAL,
 )
+from ecowitt2mqtt.core import Ecowitt
 
 TEST_ENDPOINT = "/data/report"
 TEST_HASS_DISCOVERY_PREFIX = "homeassistant"
@@ -71,6 +74,19 @@ TEST_RAW_YAML = f"""
 {CONF_RAW_DATA}: false
 {CONF_VERBOSE}: false
 """
+
+
+@asynccontextmanager
+async def async_run_server(ecowitt: Ecowitt):
+    """Run ecowitt2mqtt."""
+    start_task = asyncio.create_task(ecowitt.async_start())
+    await asyncio.sleep(0.1)
+    try:
+        yield
+    finally:
+        await ecowitt.server._server.shutdown()  # pylint: disable=protected-access
+        start_task.cancel()
+    await asyncio.sleep(0.1)
 
 
 def load_fixture(filename):

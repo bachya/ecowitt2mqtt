@@ -4,6 +4,7 @@ from __future__ import annotations
 import asyncio
 import logging
 import os
+import traceback
 from typing import Any
 
 from ecowitt2mqtt.config import Config
@@ -14,6 +15,7 @@ from ecowitt2mqtt.const import (
     __version__ as version,
 )
 from ecowitt2mqtt.helpers.logging import TyperLoggerHandler
+from ecowitt2mqtt.helpers.publisher import PublishError
 from ecowitt2mqtt.helpers.publisher.factory import get_publisher
 from ecowitt2mqtt.server import Server
 
@@ -38,22 +40,29 @@ class Ecowitt:  # pylint: disable=too-few-public-methods
         self.mqtt_publisher = get_publisher(self)
         self.server = Server(self)
 
+    async def async_get_diagnostics(self, payload: dict[str, Any]) -> None:
+        """Publish a diagnostics payload to the MQTT broker and exit."""
+        LOGGER.debug("*** COLLECTING DIAGNOSTICS (version: %s)", version)
+        await self.async_publish(payload)
+        await asyncio.sleep(0.1)
+        self.server.stop()
+        LOGGER.debug("*** DIAGNOSTICS COLLECTED")
+
+    async def async_publish(self, payload: dict[str, Any]) -> None:
+        """Publish a payload to the MQTT broker."""
+        try:
+            await self.mqtt_publisher.async_publish(payload)
+        except PublishError as err:
+            LOGGER.error("Unable to publish payload: %s", err)
+            LOGGER.debug("".join(traceback.format_tb(err.__traceback__)))
+
     async def async_start(self, *, diagnostics: bool = False) -> None:
         """Start ecowitt2mqtt."""
         LOGGER.info("Starting ecowitt2mqtt")
 
-        self.server.add_device_payload_callback(self.mqtt_publisher.async_publish)
-
         if self.config.diagnostics:
-            LOGGER.debug("*** COLLECTING DIAGNOSTICS (version: %s)", version)
-
-            async def stop_after_diagnostics_collected(_: dict[str, Any]) -> None:
-                """Stop the server."""
-                # Sleep briefly to let the MQTT broker disconnect:
-                await asyncio.sleep(0.1)
-                self.server.stop()
-                LOGGER.debug("*** DIAGNOSTICS COLLECTED")
-
-            self.server.add_device_payload_callback(stop_after_diagnostics_collected)
+            self.server.add_device_payload_callback(self.async_get_diagnostics)
+        else:
+            self.server.add_device_payload_callback(self.async_publish)
 
         await self.server.async_start()
