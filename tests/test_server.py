@@ -47,9 +47,11 @@ async def async_run_server(ecowitt):
     """Run ecowitt2mqtt."""
     start_task = asyncio.create_task(ecowitt.async_start())
     await asyncio.sleep(0.1)
-    yield
-    ecowitt.server._server.should_exit = True  # pylint: disable=protected-access
-    await start_task
+    try:
+        yield
+    finally:
+        await ecowitt.server._server.shutdown()  # pylint: disable=protected-access
+        start_task.cancel()
 
 
 @pytest.mark.asyncio
