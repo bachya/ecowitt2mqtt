@@ -156,7 +156,7 @@ def get_typed_value(value: T) -> float | T:
     try:
         return float(value)  # type: ignore[arg-type]
     except Exception as err:  # pylint: disable=broad-except
-        LOGGER.warning("Couldn' convert value to number: %s", value)
+        LOGGER.warning("Couldn't convert value to number: %s", value)
         LOGGER.debug("".join(traceback.format_tb(err.__traceback__)))
         return value
 
