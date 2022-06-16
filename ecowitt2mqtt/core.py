@@ -56,7 +56,7 @@ class Ecowitt:  # pylint: disable=too-few-public-methods
             LOGGER.error("Unable to publish payload: %s", err)
             LOGGER.debug("".join(traceback.format_tb(err.__traceback__)))
 
-    async def async_start(self, *, diagnostics: bool = False) -> None:
+    async def async_start(self) -> None:
         """Start ecowitt2mqtt."""
         LOGGER.info("Starting ecowitt2mqtt")
 
