@@ -40,29 +40,29 @@ class Ecowitt:  # pylint: disable=too-few-public-methods
         self.mqtt_publisher = get_publisher(self)
         self.server = Server(self)
 
-    async def async_get_diagnostics(self, payload: dict[str, Any]) -> None:
-        """Publish a diagnostics payload to the MQTT broker and exit."""
-        LOGGER.debug("*** COLLECTING DIAGNOSTICS (version: %s)", version)
-        await self.async_publish(payload)
-        await asyncio.sleep(0.1)
-        self.server.stop()
-        LOGGER.debug("*** DIAGNOSTICS COLLECTED")
-
-    async def async_publish(self, payload: dict[str, Any]) -> None:
-        """Publish a payload to the MQTT broker."""
-        try:
-            await self.mqtt_publisher.async_publish(payload)
-        except PublishError as err:
-            LOGGER.error("Unable to publish payload: %s", err)
-            LOGGER.debug("".join(traceback.format_tb(err.__traceback__)))
-
     async def async_start(self) -> None:
         """Start ecowitt2mqtt."""
         LOGGER.info("Starting ecowitt2mqtt")
 
+        async def async_publish(payload: dict[str, Any]) -> None:
+            """Publish a payload to the MQTT broker."""
+            try:
+                await self.mqtt_publisher.async_publish(payload)
+            except PublishError as err:
+                LOGGER.error("Unable to publish payload: %s", err)
+                LOGGER.debug("".join(traceback.format_tb(err.__traceback__)))
+
+        async def async_get_diagnostics(payload: dict[str, Any]) -> None:
+            """Publish a diagnostics payload to the MQTT broker and exit."""
+            LOGGER.debug("*** COLLECTING DIAGNOSTICS (version: %s)", version)
+            await async_publish(payload)
+            await asyncio.sleep(0.1)
+            self.server.stop()
+            LOGGER.debug("*** DIAGNOSTICS COLLECTED")
+
         if self.config.diagnostics:
-            self.server.add_device_payload_callback(self.async_get_diagnostics)
+            self.server.add_device_payload_callback(async_get_diagnostics)
         else:
-            self.server.add_device_payload_callback(self.async_publish)
+            self.server.add_device_payload_callback(async_publish)
 
         await self.server.async_start()
