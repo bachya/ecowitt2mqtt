@@ -415,7 +415,7 @@ Description=ECOWITT2MQTT daemon
 After=network.target
 
 [Service]
-Type=notify
+Type=simple
 ExecStart=ecowitt2mqtt --mqtt-broker=192.168.1.101 --mqtt-username=user --mqtt-password=password
 ExecReload=kill -HUP $MAINPID
 KillMode=process
