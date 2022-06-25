@@ -38,6 +38,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_SOLARRADIATION_PERCEIVED,
     DATA_POINT_TEMPF,
     DATA_POINT_TF_CO2,
+    DATA_POINT_TOTAL_AIN,
     DATA_POINT_UV,
     DATA_POINT_WINDCHILL,
     DATA_POINT_WINDSPEEDMPH,
@@ -109,6 +110,7 @@ CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., CalculatedDataPoint]] = {
     DATA_POINT_SOLARRADIATION_LUX: calculate_solar_radiation_lux,
     DATA_POINT_SOLARRADIATION_PERCEIVED: calculate_solar_radiation_perceived,
     DATA_POINT_TF_CO2: calculate_temperature,
+    DATA_POINT_TOTAL_AIN: calculate_rain_volume,
     DATA_POINT_UV: calculate_uv_index,
     DATA_POINT_WINDCHILL: calculate_wind_chill,
 }
@@ -129,6 +131,7 @@ UNIT_SUFFIX_MAP = {
     DATA_POINT_GLOB_RAIN: "in",
     DATA_POINT_GLOB_TEMP: "f",
     DATA_POINT_GLOB_WIND: "mph",
+    DATA_POINT_TOTAL_AIN: "in",
 }
 
 # Map calculated data points to the data points they depend on:

@@ -768,6 +768,64 @@ def test_missing_distance(device_data, ecowitt, request):
             },
         ),
         (
+            "payload_wh2650a.json",
+            {
+                "runtime": CalculatedDataPoint("runtime", 49030, unit=TIME_SECONDS),
+                "tempin": CalculatedDataPoint("temp", 71.2, unit=TEMP_FAHRENHEIT),
+                "humidityin": CalculatedDataPoint("humidity", 60, unit=PERCENTAGE),
+                "baromrel": CalculatedDataPoint("barom", 32.211, unit=PRESSURE_INHG),
+                "baromabs": CalculatedDataPoint("barom", 29.648, unit=PRESSURE_INHG),
+                "temp": CalculatedDataPoint("temp", 76.3, unit=TEMP_FAHRENHEIT),
+                "humidity": CalculatedDataPoint("humidity", 54, unit=PERCENTAGE),
+                "winddir": CalculatedDataPoint("winddir", 217, unit=DEGREE),
+                "windspeed": CalculatedDataPoint(
+                    "wind", 1.12, unit=SPEED_MILES_PER_HOUR
+                ),
+                "windgust": CalculatedDataPoint(
+                    "gust", 2.24, unit=SPEED_MILES_PER_HOUR
+                ),
+                "maxdailygust": CalculatedDataPoint(
+                    "gust", 10.07, unit=SPEED_MILES_PER_HOUR
+                ),
+                "solarradiation": CalculatedDataPoint(
+                    "solarradiation", 642.38, unit=IRRADIATION_WATTS_PER_SQUARE_METER
+                ),
+                "solarradiation_lux": CalculatedDataPoint(
+                    "solarradiation_lux", 81313.9, unit=LIGHT_LUX
+                ),
+                "solarradiation_perceived": CalculatedDataPoint(
+                    "solarradiation_perceived", 98.0, unit=PERCENTAGE
+                ),
+                "uv": CalculatedDataPoint("uv", 6, unit=UV_INDEX),
+                "rainrate": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
+                "eventrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
+                "hourlyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
+                "dailyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
+                "weeklyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
+                "monthlyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
+                "yearlyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
+                "totalain": CalculatedDataPoint(
+                    "totalain", 0.000, unit=RAINFALL_INCHES
+                ),
+                "wh65batt": CalculatedDataPoint(
+                    "batt", BooleanBatteryState.OFF, unit=None
+                ),
+                "wh25batt": CalculatedDataPoint(
+                    "batt", BooleanBatteryState.ON, unit=None
+                ),
+                "dewpoint": CalculatedDataPoint("dewpoint", 58.4, unit=TEMP_FAHRENHEIT),
+                "feelslike": CalculatedDataPoint(
+                    "feelslike", 76.3, unit=TEMP_FAHRENHEIT
+                ),
+                "heatindex": CalculatedDataPoint(
+                    "heatindex", 76.1, unit=TEMP_FAHRENHEIT
+                ),
+                "windchill": CalculatedDataPoint(
+                    "windchill", None, unit=TEMP_FAHRENHEIT
+                ),
+            },
+        ),
+        (
             "payload_ws2900.json",
             {
                 "tempin": CalculatedDataPoint("temp", 72.9, unit=TEMP_FAHRENHEIT),
