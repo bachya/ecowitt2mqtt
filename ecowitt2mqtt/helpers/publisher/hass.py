@@ -292,11 +292,11 @@ STATE_CLASS_OVERRIDES = {
 }
 
 
-def get_data_point_availability(data_point: CalculatedDataPoint) -> bool:
-    """Return a data point's availability (whether Home Assistant shows it)."""
+def get_availability_payload(data_point: CalculatedDataPoint) -> str:
+    """Get the availability payload for a data point."""
     if data_point.value is None:
-        return False
-    return True
+        return AVAILABILITY_OFFLINE
+    return AVAILABILITY_ONLINE
 
 
 class HomeAssistantDiscoveryPublisher(MqttPublisher):
@@ -393,14 +393,12 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
                 processed_data.device, payload_key, data_point
             )
 
-            if get_data_point_availability(data_point):
-                availability_payload = AVAILABILITY_ONLINE
-            else:
-                availability_payload = AVAILABILITY_OFFLINE
-
             for topic, payload in (
                 (discovery_payload.topic, discovery_payload.payload),
-                (discovery_payload.payload["availability_topic"], availability_payload),
+                (
+                    discovery_payload.payload["availability_topic"],
+                    get_availability_payload(data_point),
+                ),
                 (discovery_payload.payload["state_topic"], data_point.value),
             ):
                 publish_tasks.append(
