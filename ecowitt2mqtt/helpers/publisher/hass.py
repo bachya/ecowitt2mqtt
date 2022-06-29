@@ -134,6 +134,9 @@ class HassDiscoveryPayload:
     topic: str
 
 
+AVAILABILITY_OFFLINE = "offline"
+AVAILABILITY_ONLINE = "online"
+
 DATA_POINT_BATTERY_BOOLEAN = "battery_boolean"
 DATA_POINT_BATTERY_NUMERIC = "battery_numeric"
 DATA_POINT_BATTERY_PERCENTAGE = "battery_percentage"
@@ -289,6 +292,13 @@ STATE_CLASS_OVERRIDES = {
 }
 
 
+def get_availability_payload(data_point: CalculatedDataPoint) -> str:
+    """Get the availability payload for a data point."""
+    if data_point.value is None:
+        return AVAILABILITY_OFFLINE
+    return AVAILABILITY_ONLINE
+
+
 class HomeAssistantDiscoveryPublisher(MqttPublisher):
     """Define an MQTT publisher for the MQTT Discovery standard."""
 
@@ -332,6 +342,7 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
 
         payload = self._discovery_payloads[payload_key] = HassDiscoveryPayload(
             {
+                "availability_topic": f"{base_topic}/availability",
                 "device": {
                     "identifiers": [device.unique_id],
                     "manufacturer": device.manufacturer,
@@ -384,6 +395,10 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
 
             for topic, payload in (
                 (discovery_payload.topic, discovery_payload.payload),
+                (
+                    discovery_payload.payload["availability_topic"],
+                    get_availability_payload(data_point),
+                ),
                 (discovery_payload.payload["state_topic"], data_point.value),
             ):
                 publish_tasks.append(
