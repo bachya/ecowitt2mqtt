@@ -46,7 +46,6 @@ from ecowitt2mqtt.const import (
 )
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
 from ecowitt2mqtt.helpers.calculator.battery import calculate_battery
-from ecowitt2mqtt.helpers.calculator.distance import calculate_distance
 from ecowitt2mqtt.helpers.calculator.leak import calculate_leak
 from ecowitt2mqtt.helpers.calculator.meteo import (
     calculate_co2,
@@ -54,6 +53,7 @@ from ecowitt2mqtt.helpers.calculator.meteo import (
     calculate_feels_like,
     calculate_heat_index,
     calculate_humidity,
+    calculate_lightning_strike_distance,
     calculate_lightning_strikes,
     calculate_moisture,
     calculate_pm10,
@@ -102,7 +102,7 @@ CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., CalculatedDataPoint]] = {
     DATA_POINT_GLOB_WINDDIR: calculate_wind_dir,
     DATA_POINT_HEATINDEX: calculate_heat_index,
     DATA_POINT_HUMI_CO2: calculate_humidity,
-    DATA_POINT_LIGHTNING: calculate_distance,
+    DATA_POINT_LIGHTNING: calculate_lightning_strike_distance,
     DATA_POINT_LIGHTNING_NUM: calculate_lightning_strikes,
     DATA_POINT_LIGHTNING_TIME: calculate_dt_from_epoch,
     DATA_POINT_RUNTIME: calculate_runtime,
