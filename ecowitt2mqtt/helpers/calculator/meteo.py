@@ -10,6 +10,8 @@ from ecowitt2mqtt.const import (
     CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
     CONCENTRATION_PARTS_PER_MILLION,
     DEGREE,
+    DISTANCE_KILOMETERS,
+    DISTANCE_MILES,
     IRRADIATION_WATTS_PER_SQUARE_METER,
     LIGHT_LUX,
     LOGGER,
@@ -32,6 +34,11 @@ from ecowitt2mqtt.helpers.typing import UnitSystemType
 
 if TYPE_CHECKING:
     from ecowitt2mqtt.core import Ecowitt
+
+DISTANCE_UNIT_MAP = {
+    UNIT_SYSTEM_IMPERIAL: DISTANCE_MILES,
+    UNIT_SYSTEM_METRIC: DISTANCE_KILOMETERS,
+}
 
 PRESSURE_UNIT_MAP = {
     UNIT_SYSTEM_IMPERIAL: PRESSURE_INHG,
@@ -150,6 +157,24 @@ def calculate_humidity(
     """Calculate humidity."""
     return CalculatedDataPoint(
         data_point_key=data_point_key, value=value, unit=PERCENTAGE
+    )
+
+
+def calculate_lightning_strike_distance(
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+) -> CalculatedDataPoint:
+    """Calculate lightning strike distance in the appropriate unit system.
+
+    Note that lightning strike distances always have metric as the input unit system.
+    """
+    if ecowitt.config.output_unit_system == UNIT_SYSTEM_METRIC:
+        final_value = value
+    else:
+        final_value = round(value / 1.609, 1)
+    return CalculatedDataPoint(
+        data_point_key=data_point_key,
+        value=final_value,
+        unit=DISTANCE_UNIT_MAP[ecowitt.config.output_unit_system],
     )
 
 

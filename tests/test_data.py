@@ -282,7 +282,7 @@ def test_missing_distance(device_data, ecowitt, request):
         "yrain_piezo": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
         "ws90cap_volt": CalculatedDataPoint("volt", 0.6, unit=ELECTRIC_POTENTIAL_VOLT),
         "lightning_num": CalculatedDataPoint("lightning_num", 1, unit=STRIKES),
-        "lightning": CalculatedDataPoint("lightning", 27, unit=DISTANCE_MILES),
+        "lightning": CalculatedDataPoint("lightning", 16.8, unit=DISTANCE_MILES),
         "lightning_time": CalculatedDataPoint("lightning_time", None, unit=None),
         "wh57batt": CalculatedDataPoint("batt", 100, unit=PERCENTAGE),
         "wh90batt": CalculatedDataPoint("batt", 3.16, unit=ELECTRIC_POTENTIAL_VOLT),
@@ -344,7 +344,7 @@ def test_missing_distance(device_data, ecowitt, request):
                 "monthlyrain": CalculatedDataPoint("rain", 2.177, unit=RAINFALL_INCHES),
                 "yearlyrain": CalculatedDataPoint("rain", 4.441, unit=RAINFALL_INCHES),
                 "lightning_num": CalculatedDataPoint("lightning_num", 13, unit=STRIKES),
-                "lightning": CalculatedDataPoint("lightning", 1.0, unit=DISTANCE_MILES),
+                "lightning": CalculatedDataPoint("lightning", 0.6, unit=DISTANCE_MILES),
                 "lightning_time": CalculatedDataPoint(
                     "lightning_time",
                     datetime(2022, 4, 20, 17, 17, 17, tzinfo=timezone.utc),
@@ -524,7 +524,7 @@ def test_missing_distance(device_data, ecowitt, request):
                 ),
                 "lightning_num": CalculatedDataPoint("lightning_num", 1, unit=STRIKES),
                 "lightning": CalculatedDataPoint(
-                    "lightning", 27.0, unit=DISTANCE_MILES
+                    "lightning", 16.8, unit=DISTANCE_MILES
                 ),
                 "lightning_time": CalculatedDataPoint(
                     "lightning_time", None, unit=None
@@ -652,7 +652,7 @@ def test_missing_distance(device_data, ecowitt, request):
                     "co2_24h", 473, unit=CONCENTRATION_PARTS_PER_MILLION
                 ),
                 "lightning_num": CalculatedDataPoint("lightning_num", 13, unit=STRIKES),
-                "lightning": CalculatedDataPoint("lightning", 1.0, unit=DISTANCE_MILES),
+                "lightning": CalculatedDataPoint("lightning", 0.6, unit=DISTANCE_MILES),
                 "lightning_time": CalculatedDataPoint(
                     "lightning_time",
                     datetime(2022, 4, 20, 17, 17, 17, tzinfo=timezone.utc),
@@ -1005,7 +1005,7 @@ def test_unit_conversion_to_metric(device_data, ecowitt):
         "monthlyrain": CalculatedDataPoint("rain", 55.3, unit=RAINFALL_MILLIMETERS),
         "yearlyrain": CalculatedDataPoint("rain", 112.8, unit=RAINFALL_MILLIMETERS),
         "lightning_num": CalculatedDataPoint("lightning_num", 13, unit=STRIKES),
-        "lightning": CalculatedDataPoint("lightning", 1.6, unit=DISTANCE_KILOMETERS),
+        "lightning": CalculatedDataPoint("lightning", 1.0, unit=DISTANCE_KILOMETERS),
         "lightning_time": CalculatedDataPoint(
             "lightning_time", datetime(2022, 4, 20, 17, 17, 17, tzinfo=timezone.utc)
         ),
@@ -1051,7 +1051,7 @@ def test_nonnumeric_value(device_data, ecowitt):
         "monthlyrain": CalculatedDataPoint("rain", 2.177, unit=RAINFALL_INCHES),
         "yearlyrain": CalculatedDataPoint("rain", 4.441, unit=RAINFALL_INCHES),
         "lightning_num": CalculatedDataPoint("lightning_num", 13, unit=STRIKES),
-        "lightning": CalculatedDataPoint("lightning", 1.0, unit=DISTANCE_MILES),
+        "lightning": CalculatedDataPoint("lightning", 0.6, unit=DISTANCE_MILES),
         "lightning_time": CalculatedDataPoint(
             "lightning_time", datetime(2022, 4, 20, 17, 17, 17, tzinfo=timezone.utc)
         ),
@@ -1120,7 +1120,7 @@ def test_unknown_battery(device_data, ecowitt):
         "monthlyrain": CalculatedDataPoint("rain", 2.177, unit=RAINFALL_INCHES),
         "yearlyrain": CalculatedDataPoint("rain", 4.441, unit=RAINFALL_INCHES),
         "lightning_num": CalculatedDataPoint("lightning_num", 13, unit=STRIKES),
-        "lightning": CalculatedDataPoint("lightning", 1.0, unit=DISTANCE_MILES),
+        "lightning": CalculatedDataPoint("lightning", 0.6, unit=DISTANCE_MILES),
         "lightning_time": CalculatedDataPoint(
             "lightning_time", datetime(2022, 4, 20, 17, 17, 17, tzinfo=timezone.utc)
         ),
