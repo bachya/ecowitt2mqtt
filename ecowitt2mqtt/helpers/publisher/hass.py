@@ -186,6 +186,10 @@ ENTITY_DESCRIPTIONS = {
         device_class=DeviceClass.PM25,
         state_class=StateClass.MEASUREMENT,
     ),
+    DATA_POINT_GLOB_R_RAIN: EntityDescription(
+        icon="mdi:water",
+        state_class=StateClass.MEASUREMENT,
+    ),
     DATA_POINT_GLOB_RAIN: EntityDescription(
         icon="mdi:water",
         state_class=StateClass.MEASUREMENT,
@@ -259,10 +263,6 @@ ENTITY_DESCRIPTIONS = {
     ),
     DATA_POINT_SOLARRADIATION_PERCEIVED: EntityDescription(
         device_class=DeviceClass.ILLUMINANCE,
-        state_class=StateClass.MEASUREMENT,
-    ),
-    DATA_POINT_GLOB_R_RAIN: EntityDescription(
-        icon="mdi:water",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_RAIN_RATE: EntityDescription(
