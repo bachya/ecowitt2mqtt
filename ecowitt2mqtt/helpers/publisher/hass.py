@@ -22,6 +22,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_GLOB_MOISTURE,
     DATA_POINT_GLOB_PM10,
     DATA_POINT_GLOB_PM25,
+    DATA_POINT_GLOB_R_RAIN,
     DATA_POINT_GLOB_RAIN,
     DATA_POINT_GLOB_TEMP,
     DATA_POINT_GLOB_TF,
@@ -36,7 +37,6 @@ from ecowitt2mqtt.const import (
     DATA_POINT_LIGHTNING_NUM,
     DATA_POINT_LIGHTNING_TIME,
     DATA_POINT_MONTHLY_RAIN,
-    DATA_POINT_R_RAIN,
     DATA_POINT_RAIN_RATE,
     DATA_POINT_RUNTIME,
     DATA_POINT_SOLARRADIATION,
@@ -186,6 +186,10 @@ ENTITY_DESCRIPTIONS = {
         device_class=DeviceClass.PM25,
         state_class=StateClass.MEASUREMENT,
     ),
+    DATA_POINT_GLOB_R_RAIN: EntityDescription(
+        icon="mdi:water",
+        state_class=StateClass.MEASUREMENT,
+    ),
     DATA_POINT_GLOB_RAIN: EntityDescription(
         icon="mdi:water",
         state_class=StateClass.MEASUREMENT,
@@ -259,10 +263,6 @@ ENTITY_DESCRIPTIONS = {
     ),
     DATA_POINT_SOLARRADIATION_PERCEIVED: EntityDescription(
         device_class=DeviceClass.ILLUMINANCE,
-        state_class=StateClass.MEASUREMENT,
-    ),
-    DATA_POINT_R_RAIN: EntityDescription(
-        icon="mdi:water",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_RAIN_RATE: EntityDescription(
