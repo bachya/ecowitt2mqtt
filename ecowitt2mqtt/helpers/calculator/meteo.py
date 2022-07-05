@@ -233,6 +233,17 @@ def calculate_pressure(
     )
 
 
+def calculate_rain_rate(
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+) -> CalculatedDataPoint:
+    """Calculate rain rate in the appropriate unit system."""
+    data_point = calculate_rain_volume(
+        ecowitt, payload_key, data_point_key, value=value
+    )
+    data_point.unit = f"{data_point.unit}/hr"
+    return data_point
+
+
 def calculate_rain_volume(
     ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
 ) -> CalculatedDataPoint:

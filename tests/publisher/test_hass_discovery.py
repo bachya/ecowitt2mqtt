@@ -235,7 +235,7 @@ async def test_publish(config, device_data, ecowitt, request, setup_asyncio_mqtt
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/config",
-                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "rainrate", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rainrate", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "measurement"}',
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "rainrate", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rainrate", "unit_of_measurement": "in/hr", "icon": "mdi:water", "state_class": "measurement"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/availability",
@@ -319,7 +319,7 @@ async def test_publish(config, device_data, ecowitt, request, setup_asyncio_mqtt
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/config",
-                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "rrain_piezo", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rrain_piezo", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "measurement"}',
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "rrain_piezo", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rrain_piezo", "unit_of_measurement": "in/hr", "icon": "mdi:water", "state_class": "measurement"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/availability",
@@ -1299,7 +1299,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/config",
-                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_rainrate", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rainrate", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "measurement"}',
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_rainrate", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rainrate", "unit_of_measurement": "in/hr", "icon": "mdi:water", "state_class": "measurement"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/availability",
@@ -1383,7 +1383,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/config",
-                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_rrain_piezo", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rrain_piezo", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "measurement"}',
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_rrain_piezo", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rrain_piezo", "unit_of_measurement": "in/hr", "icon": "mdi:water", "state_class": "measurement"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/availability",
@@ -2362,7 +2362,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/config",
-                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "rainrate", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rainrate", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "measurement"}',
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "rainrate", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rainrate", "unit_of_measurement": "in/hr", "icon": "mdi:water", "state_class": "measurement"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/availability",
@@ -2446,7 +2446,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/config",
-                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "rrain_piezo", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rrain_piezo", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "measurement"}',
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "rrain_piezo", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rrain_piezo", "unit_of_measurement": "in/hr", "icon": "mdi:water", "state_class": "measurement"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/availability",
@@ -3454,7 +3454,7 @@ async def test_no_entity_description(caplog, device_data, ecowitt, setup_asyncio
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/config",
-                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "rainrate", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rainrate", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "measurement"}',
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "rainrate", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rainrate", "unit_of_measurement": "in/hr", "icon": "mdi:water", "state_class": "measurement"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/availability",
@@ -3538,7 +3538,7 @@ async def test_no_entity_description(caplog, device_data, ecowitt, setup_asyncio
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/config",
-                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "rrain_piezo", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rrain_piezo", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "measurement"}',
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "rrain_piezo", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_rrain_piezo", "unit_of_measurement": "in/hr", "icon": "mdi:water", "state_class": "measurement"}',
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/availability",

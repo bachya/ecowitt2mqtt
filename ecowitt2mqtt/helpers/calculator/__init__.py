@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from ecowitt2mqtt.helpers.typing import DataValueType
 
 
-@dataclass(frozen=True)
+@dataclass
 class CalculatedDataPoint:
     """Define a calculated data point."""
 
