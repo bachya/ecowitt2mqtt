@@ -9,6 +9,8 @@ import meteocalc
 from ecowitt2mqtt.const import (
     CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
     CONCENTRATION_PARTS_PER_MILLION,
+    DATA_POINT_R_RAIN,
+    DATA_POINT_RAIN_RATE,
     DEGREE,
     DISTANCE_KILOMETERS,
     DISTANCE_MILES,
@@ -231,6 +233,20 @@ def calculate_pressure(
         value=final_value,
         unit=PRESSURE_UNIT_MAP[ecowitt.config.output_unit_system],
     )
+
+
+def calculate_rain_rate(
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+) -> CalculatedDataPoint:
+    """Calculate rain rate in the appropriate unit system."""
+    data_point = calculate_rain_volume(
+        ecowitt, payload_key, data_point_key, value=value
+    )
+
+    if data_point_key in (DATA_POINT_R_RAIN, DATA_POINT_RAIN_RATE):
+        data_point.unit = f"{data_point.unit}/hr"
+
+    return data_point
 
 
 def calculate_rain_volume(

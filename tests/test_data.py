@@ -100,7 +100,9 @@ def test_battery_config(device_data, ecowitt):
         "baromabs": CalculatedDataPoint("barom", 29.244, unit=PRESSURE_INHG),
         "temp": CalculatedDataPoint("temp", 91.4, unit=TEMP_FAHRENHEIT),
         "humidity": CalculatedDataPoint("humidity", 48, unit=PERCENTAGE),
-        "rainrate": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
+        "rainrate": CalculatedDataPoint(
+            "rainrate", 0.000, unit=f"{RAINFALL_INCHES}/hr"
+        ),
         "eventrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
         "hourlyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
         "dailyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
@@ -171,7 +173,9 @@ def test_default_battery_strategy(device_data, ecowitt):
         "baromabs": CalculatedDataPoint("barom", 29.244, unit=PRESSURE_INHG),
         "temp": CalculatedDataPoint("temp", 91.4, unit=TEMP_FAHRENHEIT),
         "humidity": CalculatedDataPoint("humidity", 48, unit=PERCENTAGE),
-        "rainrate": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
+        "rainrate": CalculatedDataPoint(
+            "rainrate", 0.000, unit=f"{RAINFALL_INCHES}/hr"
+        ),
         "eventrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
         "hourlyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
         "dailyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
@@ -273,7 +277,9 @@ def test_missing_distance(device_data, ecowitt, request):
             "solarradiation_perceived", 0.0, unit=PERCENTAGE
         ),
         "uv": CalculatedDataPoint("uv", 0, unit=UV_INDEX),
-        "rrain_piezo": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
+        "rrain_piezo": CalculatedDataPoint(
+            "rrain", 0.000, unit=f"{RAINFALL_INCHES}/hr"
+        ),
         "erain_piezo": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
         "hrain_piezo": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
         "drain_piezo": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
@@ -336,7 +342,9 @@ def test_missing_distance(device_data, ecowitt, request):
                     "solarradiation_perceived", 90.0, unit=PERCENTAGE
                 ),
                 "uv": CalculatedDataPoint("uv", 2.0, unit=UV_INDEX),
-                "rainrate": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
+                "rainrate": CalculatedDataPoint(
+                    "rainrate", 0.0, unit=f"{RAINFALL_INCHES}/hr"
+                ),
                 "eventrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
                 "hourlyrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
                 "dailyrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
@@ -391,7 +399,9 @@ def test_missing_distance(device_data, ecowitt, request):
                     "solarradiation_perceived", 70.0, unit=PERCENTAGE
                 ),
                 "uv": CalculatedDataPoint("uv", 0, unit=UV_INDEX),
-                "rainrate": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
+                "rainrate": CalculatedDataPoint(
+                    "rainrate", 0.000, unit=f"{RAINFALL_INCHES}/hr"
+                ),
                 "eventrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
                 "hourlyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
                 "dailyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
@@ -421,7 +431,9 @@ def test_missing_distance(device_data, ecowitt, request):
                 "baromabs": CalculatedDataPoint("barom", 29.244, unit=PRESSURE_INHG),
                 "temp": CalculatedDataPoint("temp", 91.4, unit=TEMP_FAHRENHEIT),
                 "humidity": CalculatedDataPoint("humidity", 48, unit=PERCENTAGE),
-                "rainrate": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
+                "rainrate": CalculatedDataPoint(
+                    "rainrate", 0.000, unit=f"{RAINFALL_INCHES}/hr"
+                ),
                 "eventrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
                 "hourlyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
                 "dailyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
@@ -512,7 +524,9 @@ def test_missing_distance(device_data, ecowitt, request):
                     "solarradiation_perceived", 0.0, unit=PERCENTAGE
                 ),
                 "uv": CalculatedDataPoint("uv", 0, unit=UV_INDEX),
-                "rrain_piezo": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
+                "rrain_piezo": CalculatedDataPoint(
+                    "rrain", 0.000, unit=f"{RAINFALL_INCHES}/hr"
+                ),
                 "erain_piezo": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
                 "hrain_piezo": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
                 "drain_piezo": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
@@ -587,14 +601,18 @@ def test_missing_distance(device_data, ecowitt, request):
                     "solarradiation_perceived", 0.0, unit=PERCENTAGE
                 ),
                 "uv": CalculatedDataPoint("uv", 0, unit=UV_INDEX),
-                "rainrate": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
+                "rainrate": CalculatedDataPoint(
+                    "rainrate", 0.000, unit=f"{RAINFALL_INCHES}/hr"
+                ),
                 "eventrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
                 "hourlyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
                 "dailyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
                 "weeklyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
                 "monthlyrain": CalculatedDataPoint("rain", 0.736, unit=RAINFALL_INCHES),
                 "yearlyrain": CalculatedDataPoint("rain", 3.909, unit=RAINFALL_INCHES),
-                "rrain_piezo": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
+                "rrain_piezo": CalculatedDataPoint(
+                    "rrain", 0.000, unit=f"{RAINFALL_INCHES}/hr"
+                ),
                 "erain_piezo": CalculatedDataPoint("rain", 0.063, unit=RAINFALL_INCHES),
                 "hrain_piezo": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
                 "drain_piezo": CalculatedDataPoint("rain", 0.075, unit=RAINFALL_INCHES),
@@ -722,7 +740,9 @@ def test_missing_distance(device_data, ecowitt, request):
                 "maxdailygust": CalculatedDataPoint(
                     "gust", 20.6, unit=SPEED_MILES_PER_HOUR
                 ),
-                "rainrate": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
+                "rainrate": CalculatedDataPoint(
+                    "rainrate", 0.000, unit=f"{RAINFALL_INCHES}/hr"
+                ),
                 "eventrain": CalculatedDataPoint("rain", 0.134, unit=RAINFALL_INCHES),
                 "hourlyrain": CalculatedDataPoint("rain", 0.012, unit=RAINFALL_INCHES),
                 "dailyrain": CalculatedDataPoint("rain", 0.134, unit=RAINFALL_INCHES),
@@ -797,7 +817,9 @@ def test_missing_distance(device_data, ecowitt, request):
                     "solarradiation_perceived", 98.0, unit=PERCENTAGE
                 ),
                 "uv": CalculatedDataPoint("uv", 6, unit=UV_INDEX),
-                "rainrate": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
+                "rainrate": CalculatedDataPoint(
+                    "rainrate", 0.000, unit=f"{RAINFALL_INCHES}/hr"
+                ),
                 "eventrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
                 "hourlyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
                 "dailyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
@@ -842,7 +864,9 @@ def test_missing_distance(device_data, ecowitt, request):
                 "maxdailygust": CalculatedDataPoint(
                     "gust", 9.2, unit=SPEED_MILES_PER_HOUR
                 ),
-                "rainrate": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
+                "rainrate": CalculatedDataPoint(
+                    "rainrate", 0.000, unit=f"{RAINFALL_INCHES}/hr"
+                ),
                 "eventrain": CalculatedDataPoint("rain", 1.331, unit=RAINFALL_INCHES),
                 "hourlyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
                 "dailyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
@@ -928,7 +952,9 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
             "solarradiation_perceived", 90.0, unit=PERCENTAGE
         ),
         "uv": CalculatedDataPoint("uv", 2, unit=UV_INDEX),
-        "rainrate": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
+        "rainrate": CalculatedDataPoint(
+            "rainrate", 0.000, unit=f"{RAINFALL_INCHES}/hr"
+        ),
         "eventrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
         "hourlyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
         "dailyrain": CalculatedDataPoint("rain", 0.000, unit=RAINFALL_INCHES),
@@ -997,7 +1023,9 @@ def test_unit_conversion_to_metric(device_data, ecowitt):
             "solarradiation_perceived", 90.0, unit=PERCENTAGE
         ),
         "uv": CalculatedDataPoint("uv", 2, unit=UV_INDEX),
-        "rainrate": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_MILLIMETERS),
+        "rainrate": CalculatedDataPoint(
+            "rainrate", 0.0, unit=f"{RAINFALL_MILLIMETERS}/hr"
+        ),
         "eventrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_MILLIMETERS),
         "hourlyrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_MILLIMETERS),
         "dailyrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_MILLIMETERS),
@@ -1043,7 +1071,7 @@ def test_nonnumeric_value(device_data, ecowitt):
             "solarradiation_perceived", 90.0, unit=PERCENTAGE
         ),
         "uv": CalculatedDataPoint("uv", 2.0, unit=UV_INDEX),
-        "rainrate": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
+        "rainrate": CalculatedDataPoint("rainrate", 0.0, unit=f"{RAINFALL_INCHES}/hr"),
         "eventrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
         "hourlyrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
         "dailyrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
@@ -1112,7 +1140,7 @@ def test_unknown_battery(device_data, ecowitt):
             "solarradiation_perceived", 90.0, unit=PERCENTAGE
         ),
         "uv": CalculatedDataPoint("uv", 2.0, unit=UV_INDEX),
-        "rainrate": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
+        "rainrate": CalculatedDataPoint("rainrate", 0.0, unit=f"{RAINFALL_INCHES}/hr"),
         "eventrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
         "hourlyrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
         "dailyrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
