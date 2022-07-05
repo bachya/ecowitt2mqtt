@@ -9,8 +9,6 @@ import meteocalc
 from ecowitt2mqtt.const import (
     CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
     CONCENTRATION_PARTS_PER_MILLION,
-    DATA_POINT_R_RAIN,
-    DATA_POINT_RAIN_RATE,
     DEGREE,
     DISTANCE_KILOMETERS,
     DISTANCE_MILES,
@@ -242,10 +240,7 @@ def calculate_rain_rate(
     data_point = calculate_rain_volume(
         ecowitt, payload_key, data_point_key, value=value
     )
-
-    if data_point_key in (DATA_POINT_R_RAIN, DATA_POINT_RAIN_RATE):
-        data_point.unit = f"{data_point.unit}/hr"
-
+    data_point.unit = f"{data_point.unit}/hr"
     return data_point
 
 
