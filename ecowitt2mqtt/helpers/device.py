@@ -17,6 +17,7 @@ DEVICE_DATA = {
     "GW2000A": ("Ecowitt", "GW2000A"),
     "GW2000B": ("Ecowitt", "GW2000B"),
     "PT-HP2550": ("Fine Offset", "HP2550"),
+    "HP2550_Pro": ("Misol", "HP2250_Pro"),
     "WH2650": ("Fine Offset", "WH2650"),
     "WS2900": ("Ambient Weather", "WS-2902C"),
 }
