@@ -62,7 +62,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: >
+          platforms: >-
             linux/aarch64,linux/amd64,linux/armhf,linux/arm64
           push: true
           tags: ${{ steps.prep.outputs.tags }}
