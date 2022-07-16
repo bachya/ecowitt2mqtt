@@ -38,6 +38,7 @@ from ecowitt2mqtt.const import (
     STRIKES,
     TEMP_CELSIUS,
     TEMP_FAHRENHEIT,
+    TIME_MINUTES,
     TIME_SECONDS,
     UNIT_SYSTEM_IMPERIAL,
     UNIT_SYSTEM_METRIC,
@@ -277,6 +278,24 @@ def test_missing_distance(device_data, ecowitt, request):
             "solarradiation_perceived", 0.0, unit=PERCENTAGE
         ),
         "uv": CalculatedDataPoint("uv", 0, unit=UV_INDEX),
+        "safe_exposure_time_skin_type_1": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_1", None, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_2": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_2", None, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_3": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_3", None, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_4": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_4", None, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_5": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_5", None, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_6": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_6", None, unit=TIME_MINUTES
+        ),
         "rrain_piezo": CalculatedDataPoint(
             "rrain", 0.000, unit=f"{RAINFALL_INCHES}/hr"
         ),
@@ -342,6 +361,24 @@ def test_missing_distance(device_data, ecowitt, request):
                     "solarradiation_perceived", 90.0, unit=PERCENTAGE
                 ),
                 "uv": CalculatedDataPoint("uv", 2.0, unit=UV_INDEX),
+                "safe_exposure_time_skin_type_1": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_1", 83.3, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_2": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_2", 100.0, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_3": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_3", 133.3, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_4": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_4", 166.7, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_5": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_5", 266.7, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_6": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_6", 433.3, unit=TIME_MINUTES
+                ),
                 "rainrate": CalculatedDataPoint(
                     "rainrate", 0.0, unit=f"{RAINFALL_INCHES}/hr"
                 ),
@@ -399,6 +436,24 @@ def test_missing_distance(device_data, ecowitt, request):
                     "solarradiation_perceived", 70.0, unit=PERCENTAGE
                 ),
                 "uv": CalculatedDataPoint("uv", 0, unit=UV_INDEX),
+                "safe_exposure_time_skin_type_1": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_1", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_2": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_2", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_3": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_3", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_4": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_4", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_5": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_5", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_6": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_6", None, unit=TIME_MINUTES
+                ),
                 "rainrate": CalculatedDataPoint(
                     "rainrate", 0.000, unit=f"{RAINFALL_INCHES}/hr"
                 ),
@@ -524,6 +579,24 @@ def test_missing_distance(device_data, ecowitt, request):
                     "solarradiation_perceived", 0.0, unit=PERCENTAGE
                 ),
                 "uv": CalculatedDataPoint("uv", 0, unit=UV_INDEX),
+                "safe_exposure_time_skin_type_1": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_1", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_2": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_2", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_3": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_3", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_4": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_4", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_5": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_5", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_6": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_6", None, unit=TIME_MINUTES
+                ),
                 "rrain_piezo": CalculatedDataPoint(
                     "rrain", 0.000, unit=f"{RAINFALL_INCHES}/hr"
                 ),
@@ -601,6 +674,24 @@ def test_missing_distance(device_data, ecowitt, request):
                     "solarradiation_perceived", 0.0, unit=PERCENTAGE
                 ),
                 "uv": CalculatedDataPoint("uv", 0, unit=UV_INDEX),
+                "safe_exposure_time_skin_type_1": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_1", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_2": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_2", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_3": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_3", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_4": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_4", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_5": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_5", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_6": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_6", None, unit=TIME_MINUTES
+                ),
                 "rainrate": CalculatedDataPoint(
                     "rainrate", 0.000, unit=f"{RAINFALL_INCHES}/hr"
                 ),
@@ -759,6 +850,24 @@ def test_missing_distance(device_data, ecowitt, request):
                     "solarradiation_perceived", 87.0, unit=PERCENTAGE
                 ),
                 "uv": CalculatedDataPoint("uv", 1, unit=UV_INDEX),
+                "safe_exposure_time_skin_type_1": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_1", 166.7, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_2": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_2", 200.0, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_3": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_3", 266.7, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_4": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_4", 333.3, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_5": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_5", 533.3, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_6": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_6", 866.7, unit=TIME_MINUTES
+                ),
                 "temp1": CalculatedDataPoint("temp", 66.4, unit=TEMP_FAHRENHEIT),
                 "humidity1": CalculatedDataPoint("humidity", 69, unit=PERCENTAGE),
                 "soilmoisture1": CalculatedDataPoint("moisture", 22, unit=PERCENTAGE),
@@ -817,6 +926,24 @@ def test_missing_distance(device_data, ecowitt, request):
                     "solarradiation_perceived", 98.0, unit=PERCENTAGE
                 ),
                 "uv": CalculatedDataPoint("uv", 6, unit=UV_INDEX),
+                "safe_exposure_time_skin_type_1": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_1", 27.8, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_2": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_2", 33.3, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_3": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_3", 44.4, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_4": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_4", 55.6, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_5": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_5", 88.9, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_6": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_6", 144.4, unit=TIME_MINUTES
+                ),
                 "rainrate": CalculatedDataPoint(
                     "rainrate", 0.000, unit=f"{RAINFALL_INCHES}/hr"
                 ),
@@ -883,6 +1010,24 @@ def test_missing_distance(device_data, ecowitt, request):
                     "solarradiation_perceived", 0.0, unit=PERCENTAGE
                 ),
                 "uv": CalculatedDataPoint("uv", 0, unit=UV_INDEX),
+                "safe_exposure_time_skin_type_1": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_1", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_2": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_2", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_3": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_3", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_4": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_4", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_5": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_5", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_6": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_6", None, unit=TIME_MINUTES
+                ),
                 "wh65batt": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
                 "dewpoint": CalculatedDataPoint("dewpoint", 53.4, unit=TEMP_FAHRENHEIT),
                 "feelslike": CalculatedDataPoint(
@@ -951,7 +1096,25 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
         "solarradiation_perceived": CalculatedDataPoint(
             "solarradiation_perceived", 90.0, unit=PERCENTAGE
         ),
-        "uv": CalculatedDataPoint("uv", 2, unit=UV_INDEX),
+        "uv": CalculatedDataPoint("uv", 2.0, unit=UV_INDEX),
+        "safe_exposure_time_skin_type_1": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_1", 83.3, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_2": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_2", 100.0, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_3": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_3", 133.3, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_4": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_4", 166.7, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_5": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_5", 266.7, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_6": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_6", 433.3, unit=TIME_MINUTES
+        ),
         "rainrate": CalculatedDataPoint(
             "rainrate", 0.000, unit=f"{RAINFALL_INCHES}/hr"
         ),
@@ -1022,7 +1185,25 @@ def test_unit_conversion_to_metric(device_data, ecowitt):
         "solarradiation_perceived": CalculatedDataPoint(
             "solarradiation_perceived", 90.0, unit=PERCENTAGE
         ),
-        "uv": CalculatedDataPoint("uv", 2, unit=UV_INDEX),
+        "uv": CalculatedDataPoint("uv", 2.0, unit=UV_INDEX),
+        "safe_exposure_time_skin_type_1": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_1", 83.3, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_2": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_2", 100.0, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_3": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_3", 133.3, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_4": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_4", 166.7, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_5": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_5", 266.7, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_6": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_6", 433.3, unit=TIME_MINUTES
+        ),
         "rainrate": CalculatedDataPoint(
             "rainrate", 0.0, unit=f"{RAINFALL_MILLIMETERS}/hr"
         ),
@@ -1071,6 +1252,24 @@ def test_nonnumeric_value(device_data, ecowitt):
             "solarradiation_perceived", 90.0, unit=PERCENTAGE
         ),
         "uv": CalculatedDataPoint("uv", 2.0, unit=UV_INDEX),
+        "safe_exposure_time_skin_type_1": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_1", 83.3, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_2": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_2", 100.0, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_3": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_3", 133.3, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_4": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_4", 166.7, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_5": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_5", 266.7, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_6": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_6", 433.3, unit=TIME_MINUTES
+        ),
         "rainrate": CalculatedDataPoint("rainrate", 0.0, unit=f"{RAINFALL_INCHES}/hr"),
         "eventrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
         "hourlyrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
@@ -1140,6 +1339,24 @@ def test_unknown_battery(device_data, ecowitt):
             "solarradiation_perceived", 90.0, unit=PERCENTAGE
         ),
         "uv": CalculatedDataPoint("uv", 2.0, unit=UV_INDEX),
+        "safe_exposure_time_skin_type_1": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_1", 83.3, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_2": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_2", 100.0, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_3": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_3", 133.3, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_4": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_4", 166.7, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_5": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_5", 266.7, unit=TIME_MINUTES
+        ),
+        "safe_exposure_time_skin_type_6": CalculatedDataPoint(
+            "safe_exposure_time_skin_type_6", 433.3, unit=TIME_MINUTES
+        ),
         "rainrate": CalculatedDataPoint("rainrate", 0.0, unit=f"{RAINFALL_INCHES}/hr"),
         "eventrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),
         "hourlyrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_INCHES),

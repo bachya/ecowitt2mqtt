@@ -75,6 +75,12 @@ DATA_POINT_MONTHLY_RAIN: Final = "monthlyrain"
 DATA_POINT_MRAIN_PIEZO: Final = "mrain_piezo"
 DATA_POINT_RAIN_RATE: Final = "rainrate"
 DATA_POINT_RUNTIME: Final = "runtime"
+DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1: Final = "safe_exposure_time_skin_type_1"
+DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2: Final = "safe_exposure_time_skin_type_2"
+DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_3: Final = "safe_exposure_time_skin_type_3"
+DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4: Final = "safe_exposure_time_skin_type_4"
+DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5: Final = "safe_exposure_time_skin_type_5"
+DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6: Final = "safe_exposure_time_skin_type_6"
 DATA_POINT_SOLARRADIATION: Final = "solarradiation"
 DATA_POINT_SOLARRADIATION_LUX: Final = "solarradiation_lux"
 DATA_POINT_SOLARRADIATION_PERCEIVED: Final = "solarradiation_perceived"
@@ -180,6 +186,7 @@ TEMP_CELSIUS: Final = "°C"
 TEMP_FAHRENHEIT: Final = "°F"
 
 # Time units
+TIME_MINUTES: Final = "min"
 TIME_SECONDS: Final = "s"
 
 # UV units:

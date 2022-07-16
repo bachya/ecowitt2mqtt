@@ -35,6 +35,12 @@ from ecowitt2mqtt.const import (
     DATA_POINT_LIGHTNING_TIME,
     DATA_POINT_RAIN_RATE,
     DATA_POINT_RUNTIME,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_3,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6,
     DATA_POINT_SOLARRADIATION,
     DATA_POINT_SOLARRADIATION_LUX,
     DATA_POINT_SOLARRADIATION_PERCEIVED,
@@ -63,6 +69,7 @@ from ecowitt2mqtt.helpers.calculator.meteo import (
     calculate_pressure,
     calculate_rain_rate,
     calculate_rain_volume,
+    calculate_safe_exposure_time,
     calculate_solar_radiation_lux,
     calculate_solar_radiation_perceived,
     calculate_solar_radiation_wm2,
@@ -97,6 +104,7 @@ CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., CalculatedDataPoint]] = {
     DATA_POINT_GLOB_PM10: calculate_pm10,
     DATA_POINT_GLOB_PM25: calculate_pm25,
     DATA_POINT_GLOB_RAIN: calculate_rain_volume,
+    DATA_POINT_GLOB_R_RAIN: calculate_rain_rate,
     DATA_POINT_GLOB_TEMP: calculate_temperature,
     DATA_POINT_GLOB_TF: calculate_temperature,
     DATA_POINT_GLOB_VOLT: calculate_battery,
@@ -110,7 +118,12 @@ CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., CalculatedDataPoint]] = {
     DATA_POINT_LIGHTNING_TIME: calculate_dt_from_epoch,
     DATA_POINT_RAIN_RATE: calculate_rain_rate,
     DATA_POINT_RUNTIME: calculate_runtime,
-    DATA_POINT_GLOB_R_RAIN: calculate_rain_rate,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1: calculate_safe_exposure_time,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2: calculate_safe_exposure_time,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_3: calculate_safe_exposure_time,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4: calculate_safe_exposure_time,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5: calculate_safe_exposure_time,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6: calculate_safe_exposure_time,
     DATA_POINT_SOLARRADIATION: calculate_solar_radiation_wm2,
     DATA_POINT_SOLARRADIATION_LUX: calculate_solar_radiation_lux,
     DATA_POINT_SOLARRADIATION_PERCEIVED: calculate_solar_radiation_perceived,
@@ -146,6 +159,7 @@ FEELS_LIKE_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY, DATA_POINT_WINDSPEEDMP
 HEAT_INDEX_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
 WIND_CHILL_KEYS = (DATA_POINT_TEMPF, DATA_POINT_WINDSPEEDMPH)
 ILLUMINANCE_KEYS = (DATA_POINT_SOLARRADIATION,)
+UV_INDEX_KEYS = (DATA_POINT_UV,)
 
 T = TypeVar("T")
 
@@ -226,6 +240,12 @@ class ProcessedData:
             (DATA_POINT_DEWPOINT, DEW_POINT_KEYS),
             (DATA_POINT_FEELSLIKE, FEELS_LIKE_KEYS),
             (DATA_POINT_HEATINDEX, HEAT_INDEX_KEYS),
+            (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1, UV_INDEX_KEYS),
+            (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2, UV_INDEX_KEYS),
+            (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_3, UV_INDEX_KEYS),
+            (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4, UV_INDEX_KEYS),
+            (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5, UV_INDEX_KEYS),
+            (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6, UV_INDEX_KEYS),
             (DATA_POINT_SOLARRADIATION_LUX, ILLUMINANCE_KEYS),
             (DATA_POINT_SOLARRADIATION_PERCEIVED, ILLUMINANCE_KEYS),
             (DATA_POINT_WINDCHILL, WIND_CHILL_KEYS),

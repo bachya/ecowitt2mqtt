@@ -9,6 +9,12 @@ import meteocalc
 from ecowitt2mqtt.const import (
     CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
     CONCENTRATION_PARTS_PER_MILLION,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_3,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6,
     DEGREE,
     DISTANCE_KILOMETERS,
     DISTANCE_MILES,
@@ -25,6 +31,7 @@ from ecowitt2mqtt.const import (
     STRIKES,
     TEMP_CELSIUS,
     TEMP_FAHRENHEIT,
+    TIME_MINUTES,
     UNIT_SYSTEM_IMPERIAL,
     UNIT_SYSTEM_METRIC,
     UV_INDEX,
@@ -58,6 +65,15 @@ TEMP_UNIT_MAP = {
 WIND_SPEED_UNIT_MAP = {
     UNIT_SYSTEM_IMPERIAL: SPEED_MILES_PER_HOUR,
     UNIT_SYSTEM_METRIC: SPEED_KILOMETERS_PER_HOUR,
+}
+
+SAFE_EXPOSURE_CONSTANT_MAP: dict[str, float] = {
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1: 2.5,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2: 3.0,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_3: 4.0,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4: 5.0,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5: 8.0,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6: 13.0,
 }
 
 
@@ -258,6 +274,21 @@ def calculate_rain_volume(
         data_point_key=data_point_key,
         value=final_value,
         unit=RAIN_VOLUME_UNIT_MAP[ecowitt.config.output_unit_system],
+    )
+
+
+def calculate_safe_exposure_time(
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, uv: float
+) -> CalculatedDataPoint:
+    """Calculate the number of minutes one can be safely exposed to a UV index."""
+    try:
+        final_value = round(
+            (200 * SAFE_EXPOSURE_CONSTANT_MAP[payload_key]) / (3 * uv), 1
+        )
+    except ZeroDivisionError:
+        final_value = None
+    return CalculatedDataPoint(
+        data_point_key=data_point_key, value=final_value, unit=TIME_MINUTES
     )
 
 
