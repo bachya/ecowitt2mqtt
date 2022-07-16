@@ -44,6 +44,12 @@ from ecowitt2mqtt.const import (
     DATA_POINT_MRAIN_PIEZO,
     DATA_POINT_RAIN_RATE,
     DATA_POINT_RUNTIME,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_3,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5,
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6,
     DATA_POINT_SOLARRADIATION,
     DATA_POINT_SOLARRADIATION_LUX,
     DATA_POINT_SOLARRADIATION_PERCEIVED,
@@ -258,6 +264,30 @@ ENTITY_DESCRIPTIONS = {
     ),
     DATA_POINT_LIGHTNING_TIME: EntityDescription(
         device_class=DeviceClass.TIMESTAMP,
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1: EntityDescription(
+        icon="mdi:timer",
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2: EntityDescription(
+        icon="mdi:timer",
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_3: EntityDescription(
+        icon="mdi:timer",
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4: EntityDescription(
+        icon="mdi:timer",
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5: EntityDescription(
+        icon="mdi:timer",
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6: EntityDescription(
+        icon="mdi:timer",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_SOLARRADIATION: EntityDescription(
