@@ -46,6 +46,8 @@ from ecowitt2mqtt.helpers.typing import UnitSystemType
 if TYPE_CHECKING:
     from ecowitt2mqtt.core import Ecowitt
 
+FROST_RISK_HUMIDITY_ABS_THRESHOLD = 2.8
+
 ABSOLUTE_HUMIDITY_MAP = {
     UNIT_SYSTEM_IMPERIAL: WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
     UNIT_SYSTEM_METRIC: WATER_VAPOR_GRAMS_PER_CUBIC_METER,
@@ -86,8 +88,17 @@ SAFE_EXPOSURE_CONSTANT_MAP: dict[str, float] = {
 }
 
 
+class FrostRisk(StrEnum):
+    """Define types of frost risk."""
+
+    NO_RISK = "No risk"
+    PROBABLE = "Probable"
+    UNLIKELY = "Unlikely"
+    VERY_PROBABLE = "Very probable"
+
+
 class ThermalPerception(StrEnum):
-    """Define types of battery configuration."""
+    """Define types of thermal perception."""
 
     COMFORTABLE = "Comfortable"
     DRY = "Dry"
@@ -152,10 +163,8 @@ THERMAL_PERCEPTION_RATINGS: list[ThermalPerceptionRating] = [
 ]
 
 
-def _get_absolute_humidity_in_metric(
-    temp_obj: meteocalc.Temp, relative_humidity: float
-) -> float:
-    """Get a calculated absolute humidity in metric."""
+def _get_absolute_humidity(temp_obj: meteocalc.Temp, relative_humidity: float) -> float:
+    """Get absolute humidity."""
     return cast(
         float,
         (
@@ -168,10 +177,39 @@ def _get_absolute_humidity_in_metric(
     )
 
 
+def _get_frost_point_object(
+    temp_obj: meteocalc.Temp,
+    relative_humidity: float,
+    input_unit_system: UnitSystemType,
+) -> meteocalc.Temp:
+    """Get a meteocalc frost point object."""
+    dew_point_obj = meteocalc.dew_point(temp_obj, relative_humidity)
+
+    absolute_temp_c = temp_obj.c + 273.15
+    absolute_dew_point_c = dew_point_obj.c + 273.15
+
+    return _get_temperature_object(
+        (
+            absolute_dew_point_c
+            + (
+                2671.02
+                / (
+                    (2954.61 / absolute_temp_c)
+                    + 2.193665 * math.log(absolute_temp_c)
+                    - 13.3448
+                )
+            )
+            - absolute_temp_c
+        )
+        - 273.15,
+        UNIT_SYSTEM_METRIC,
+    )
+
+
 def _get_temperature_object(
     temperature: float, unit_system: UnitSystemType
 ) -> meteocalc.Temp:
-    """Get a meteocalc temperature object based on a temperature and unit system."""
+    """Get a meteocalc temperature object."""
     if unit_system == UNIT_SYSTEM_IMPERIAL:
         unit = "f"
     else:
@@ -188,7 +226,7 @@ def calculate_absolute_humidity(
 ) -> CalculatedDataPoint:
     """Calculate absolute humidity."""
     temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
-    final_value = _get_absolute_humidity_in_metric(temp_obj, relative_humidity)
+    final_value = _get_absolute_humidity(temp_obj, relative_humidity)
     if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
         final_value /= 16018.46592051
     return CalculatedDataPoint(
@@ -212,11 +250,11 @@ def calculate_dew_point(
     payload_key: str,
     data_point_key: str,
     temperature: float,
-    humidity: float,
+    relative_humidity: float,
 ) -> CalculatedDataPoint:
     """Calculate dew point in the appropriate unit system."""
     temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
-    dew_point_obj = meteocalc.dew_point(temp_obj, humidity)
+    dew_point_obj = meteocalc.dew_point(temp_obj, relative_humidity)
 
     if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
         final_value = round(dew_point_obj.f, 1)
@@ -234,12 +272,12 @@ def calculate_feels_like(  # pylint: disable=too-many-arguments
     payload_key: str,
     data_point_key: str,
     temperature: float,
-    humidity: float,
+    relative_humidity: float,
     wind_speed: float,
 ) -> CalculatedDataPoint:
     """Calculate "feels like" temperature in the appropriate unit system."""
     temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
-    feels_like_obj = meteocalc.feels_like(temp_obj, humidity, wind_speed)
+    feels_like_obj = meteocalc.feels_like(temp_obj, relative_humidity, wind_speed)
 
     if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
         final_value = round(feels_like_obj.f, 1)
@@ -252,16 +290,72 @@ def calculate_feels_like(  # pylint: disable=too-many-arguments
     )
 
 
+def calculate_frost_point(
+    ecowitt: Ecowitt,
+    payload_key: str,
+    data_point_key: str,
+    temperature: float,
+    relative_humidity: float,
+) -> CalculatedDataPoint:
+    """Calculate frost point in the appropriate unit system."""
+    temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
+    frost_point_obj = _get_frost_point_object(
+        temp_obj, relative_humidity, ecowitt.config.input_unit_system
+    )
+
+    if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+        final_value = round(frost_point_obj.f, 1)
+    else:
+        final_value = round(frost_point_obj.c, 1)
+
+    return CalculatedDataPoint(
+        data_point_key=data_point_key,
+        value=final_value,
+        unit=TEMP_UNIT_MAP[ecowitt.config.output_unit_system],
+    )
+
+
+def calculate_frost_risk(
+    ecowitt: Ecowitt,
+    payload_key: str,
+    data_point_key: str,
+    temperature: float,
+    relative_humidity: float,
+) -> CalculatedDataPoint:
+    """Calculate the risk of frost forming."""
+    temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
+    absolute_humidity = _get_absolute_humidity(temp_obj, relative_humidity)
+    frost_point_obj = _get_frost_point_object(
+        temp_obj, relative_humidity, ecowitt.config.input_unit_system
+    )
+
+    if temp_obj.c <= 1.0 and frost_point_obj.c <= 0:
+        if absolute_humidity <= FROST_RISK_HUMIDITY_ABS_THRESHOLD:
+            final_value = FrostRisk.UNLIKELY
+        else:
+            final_value = FrostRisk.VERY_PROBABLE
+    elif (
+        temp_obj.c <= 4.0
+        and frost_point_obj.c <= 0.5
+        and absolute_humidity > FROST_RISK_HUMIDITY_ABS_THRESHOLD
+    ):
+        final_value = FrostRisk.PROBABLE
+    else:
+        final_value = FrostRisk.NO_RISK
+
+    return CalculatedDataPoint(data_point_key=data_point_key, value=final_value)
+
+
 def calculate_heat_index(
     ecowitt: Ecowitt,
     payload_key: str,
     data_point_key: str,
     temperature: float,
-    humidity: float,
+    relative_humidity: float,
 ) -> CalculatedDataPoint:
     """Calculate heat index in the appropriate unit system."""
     temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
-    heat_index_obj = meteocalc.heat_index(temp_obj, humidity)
+    heat_index_obj = meteocalc.heat_index(temp_obj, relative_humidity)
 
     if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
         final_value = round(heat_index_obj.f, 1)
@@ -459,16 +553,16 @@ def calculate_temperature(
     )
 
 
-def calculate_thermal_perception(  # pylint: disable=too-many-return-statements
+def calculate_thermal_perception(
     ecowitt: Ecowitt,
     payload_key: str,
     data_point_key: str,
     temperature: float,
-    humidity: float,
+    relative_humidity: float,
 ) -> CalculatedDataPoint:
     """Calculate the human perception of comfort level related to dew point."""
     temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
-    dew_point_obj = meteocalc.dew_point(temp_obj, humidity)
+    dew_point_obj = meteocalc.dew_point(temp_obj, relative_humidity)
 
     [rating] = [
         r

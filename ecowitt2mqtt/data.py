@@ -11,6 +11,8 @@ from ecowitt2mqtt.const import (
     DATA_POINT_CO2_24H,
     DATA_POINT_DEWPOINT,
     DATA_POINT_FEELSLIKE,
+    DATA_POINT_FROST_POINT,
+    DATA_POINT_FROST_RISK,
     DATA_POINT_GLOB_BAROM,
     DATA_POINT_GLOB_BATT,
     DATA_POINT_GLOB_GUST,
@@ -64,6 +66,8 @@ from ecowitt2mqtt.helpers.calculator.meteo import (
     calculate_co2,
     calculate_dew_point,
     calculate_feels_like,
+    calculate_frost_point,
+    calculate_frost_risk,
     calculate_heat_index,
     calculate_lightning_strike_distance,
     calculate_lightning_strikes,
@@ -101,6 +105,8 @@ CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., CalculatedDataPoint]] = {
     DATA_POINT_CO2_24H: calculate_co2,
     DATA_POINT_DEWPOINT: calculate_dew_point,
     DATA_POINT_FEELSLIKE: calculate_feels_like,
+    DATA_POINT_FROST_POINT: calculate_frost_point,
+    DATA_POINT_FROST_RISK: calculate_frost_risk,
     DATA_POINT_GLOB_BAROM: calculate_pressure,
     DATA_POINT_GLOB_BATT: calculate_battery,
     DATA_POINT_GLOB_GUST: calculate_wind_speed,
@@ -167,6 +173,7 @@ UNIT_SUFFIX_MAP = {
 # respective calculator (as args) in that order:
 DEW_POINT_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
 FEELS_LIKE_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY, DATA_POINT_WINDSPEEDMPH)
+FROST_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
 HEAT_INDEX_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
 HUMIDITY_ABS_IN_KEYS = (DATA_POINT_TEMPINF, DATA_POINT_HUMIDITY)
 HUMIDITY_ABS_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
@@ -253,6 +260,8 @@ class ProcessedData:
         for payload_key, input_keys in (
             (DATA_POINT_DEWPOINT, DEW_POINT_KEYS),
             (DATA_POINT_FEELSLIKE, FEELS_LIKE_KEYS),
+            (DATA_POINT_FROST_POINT, FROST_KEYS),
+            (DATA_POINT_FROST_RISK, FROST_KEYS),
             (DATA_POINT_HEATINDEX, HEAT_INDEX_KEYS),
             (DATA_POINT_HUMIDITY_ABS, HUMIDITY_ABS_KEYS),
             (DATA_POINT_HUMIDITY_ABS_IN, HUMIDITY_ABS_IN_KEYS),
