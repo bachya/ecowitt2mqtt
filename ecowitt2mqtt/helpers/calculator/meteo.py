@@ -1,11 +1,13 @@
 """Define meteorological utilities."""
 from __future__ import annotations
 
+from dataclasses import dataclass
 import math
 from typing import TYPE_CHECKING, cast
 
 import meteocalc
 
+from ecowitt2mqtt.backports.enum import StrEnum
 from ecowitt2mqtt.const import (
     CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
     CONCENTRATION_PARTS_PER_MILLION,
@@ -82,6 +84,72 @@ SAFE_EXPOSURE_CONSTANT_MAP: dict[str, float] = {
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5: 8.0,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6: 13.0,
 }
+
+
+class ThermalPerception(StrEnum):
+    """Define types of battery configuration."""
+
+    COMFORTABLE = "Comfortable"
+    DRY = "Dry"
+    EXTREMELY_UNCOMFORTABLE = "Extremely uncomfortable"
+    OK_BUT_HUMID = "OK for most"
+    QUITE_UNCOMFORTABLE = "Quite uncomfortable"
+    SEVERELY_HIGH = "Severely high"
+    SOMEWHAT_UNCOMFORTABLE = "Somewhat uncomfortable"
+    VERY_COMFORTABLE = "Very comfortable"
+
+
+@dataclass
+class ThermalPerceptionRating:
+    """Define a dataclass to store a thermal perception rating."""
+
+    perception: ThermalPerception
+    minimum: float | None = None
+    maximum: float | None = None
+
+
+THERMAL_PERCEPTION_RATINGS: list[ThermalPerceptionRating] = [
+    ThermalPerceptionRating(
+        perception=ThermalPerception.SEVERELY_HIGH,
+        minimum=26.0,
+        maximum=100.0,
+    ),
+    ThermalPerceptionRating(
+        perception=ThermalPerception.EXTREMELY_UNCOMFORTABLE,
+        minimum=24.0,
+        maximum=26.0,
+    ),
+    ThermalPerceptionRating(
+        perception=ThermalPerception.QUITE_UNCOMFORTABLE,
+        minimum=21.0,
+        maximum=24.0,
+    ),
+    ThermalPerceptionRating(
+        perception=ThermalPerception.SOMEWHAT_UNCOMFORTABLE,
+        minimum=18.0,
+        maximum=21.0,
+    ),
+    ThermalPerceptionRating(
+        perception=ThermalPerception.OK_BUT_HUMID,
+        minimum=16.0,
+        maximum=18.0,
+    ),
+    ThermalPerceptionRating(
+        perception=ThermalPerception.COMFORTABLE,
+        minimum=13.0,
+        maximum=16.0,
+    ),
+    ThermalPerceptionRating(
+        perception=ThermalPerception.VERY_COMFORTABLE,
+        minimum=10.0,
+        maximum=12.0,
+    ),
+    ThermalPerceptionRating(
+        perception=ThermalPerception.DRY,
+        maximum=10.0,
+        minimum=-100.0,
+    ),
+]
 
 
 def _get_absolute_humidity_in_metric(
@@ -389,6 +457,26 @@ def calculate_temperature(
         value=final_value,
         unit=TEMP_UNIT_MAP[ecowitt.config.output_unit_system],
     )
+
+
+def calculate_thermal_perception(  # pylint: disable=too-many-return-statements
+    ecowitt: Ecowitt,
+    payload_key: str,
+    data_point_key: str,
+    temperature: float,
+    humidity: float,
+) -> CalculatedDataPoint:
+    """Calculate the human perception of comfort level related to dew point."""
+    temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
+    dew_point_obj = meteocalc.dew_point(temp_obj, humidity)
+
+    [rating] = [
+        r
+        for r in THERMAL_PERCEPTION_RATINGS
+        if r.minimum <= dew_point_obj.c <= r.maximum
+    ]
+
+    return CalculatedDataPoint(data_point_key=data_point_key, value=rating.perception)
 
 
 def calculate_uv_index(

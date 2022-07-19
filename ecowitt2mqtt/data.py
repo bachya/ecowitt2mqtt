@@ -49,6 +49,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_TEMPF,
     DATA_POINT_TEMPINF,
     DATA_POINT_TF_CO2,
+    DATA_POINT_THERMAL_PERCEPTION,
     DATA_POINT_TOTAL_AIN,
     DATA_POINT_UV,
     DATA_POINT_WINDCHILL,
@@ -78,6 +79,7 @@ from ecowitt2mqtt.helpers.calculator.meteo import (
     calculate_solar_radiation_perceived,
     calculate_solar_radiation_wm2,
     calculate_temperature,
+    calculate_thermal_perception,
     calculate_uv_index,
     calculate_wind_chill,
     calculate_wind_dir,
@@ -134,6 +136,7 @@ CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., CalculatedDataPoint]] = {
     DATA_POINT_SOLARRADIATION_LUX: calculate_solar_radiation_lux,
     DATA_POINT_SOLARRADIATION_PERCEIVED: calculate_solar_radiation_perceived,
     DATA_POINT_TF_CO2: calculate_temperature,
+    DATA_POINT_THERMAL_PERCEPTION: calculate_thermal_perception,
     DATA_POINT_TOTAL_AIN: calculate_rain_volume,
     DATA_POINT_UV: calculate_uv_index,
     DATA_POINT_WINDCHILL: calculate_wind_chill,
@@ -168,6 +171,7 @@ HEAT_INDEX_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
 HUMIDITY_ABS_IN_KEYS = (DATA_POINT_TEMPINF, DATA_POINT_HUMIDITY)
 HUMIDITY_ABS_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
 ILLUMINANCE_KEYS = (DATA_POINT_SOLARRADIATION,)
+THERMAL_PERCEPTION_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
 UV_INDEX_KEYS = (DATA_POINT_UV,)
 WIND_CHILL_KEYS = (DATA_POINT_TEMPF, DATA_POINT_WINDSPEEDMPH)
 
@@ -260,6 +264,7 @@ class ProcessedData:
             (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6, UV_INDEX_KEYS),
             (DATA_POINT_SOLARRADIATION_LUX, ILLUMINANCE_KEYS),
             (DATA_POINT_SOLARRADIATION_PERCEIVED, ILLUMINANCE_KEYS),
+            (DATA_POINT_THERMAL_PERCEPTION, THERMAL_PERCEPTION_KEYS),
             (DATA_POINT_WINDCHILL, WIND_CHILL_KEYS),
         ):
             if not all(k in self.data for k in input_keys):

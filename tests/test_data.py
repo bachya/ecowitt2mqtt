@@ -50,6 +50,7 @@ from ecowitt2mqtt.data import ProcessedData
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy, BooleanBatteryState
 from ecowitt2mqtt.helpers.calculator.leak import LeakState
+from ecowitt2mqtt.helpers.calculator.meteo import ThermalPerception
 from ecowitt2mqtt.helpers.device import Device
 
 from tests.common import (
@@ -150,6 +151,11 @@ def test_battery_config(device_data, ecowitt):
             value=0.0,
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
         ),
+        "thermalperception": CalculatedDataPoint(
+            data_point_key="thermalperception",
+            value=ThermalPerception.SOMEWHAT_UNCOMFORTABLE,
+            unit=None,
+        ),
     }
 
 
@@ -232,6 +238,11 @@ def test_default_battery_strategy(device_data, ecowitt):
             data_point_key="humidityabsin",
             value=0.0,
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+        ),
+        "thermalperception": CalculatedDataPoint(
+            data_point_key="thermalperception",
+            value=ThermalPerception.SOMEWHAT_UNCOMFORTABLE,
+            unit=None,
         ),
     }
 
@@ -357,6 +368,11 @@ def test_missing_distance(device_data, ecowitt, request):
             value=0.0,
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
         ),
+        "thermalperception": CalculatedDataPoint(
+            data_point_key="thermalperception",
+            value=ThermalPerception.VERY_COMFORTABLE,
+            unit=None,
+        ),
     }
 
 
@@ -447,6 +463,11 @@ def test_missing_distance(device_data, ecowitt, request):
                     value=0.0,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                 ),
+                "thermalperception": CalculatedDataPoint(
+                    data_point_key="thermalperception",
+                    value=ThermalPerception.DRY,
+                    unit=None,
+                ),
             },
         ),
         (
@@ -526,6 +547,11 @@ def test_missing_distance(device_data, ecowitt, request):
                     data_point_key="humidityabsin",
                     value=0.0,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+                ),
+                "thermalperception": CalculatedDataPoint(
+                    data_point_key="thermalperception",
+                    value=ThermalPerception.DRY,
+                    unit=None,
                 ),
             },
         ),
@@ -608,6 +634,11 @@ def test_missing_distance(device_data, ecowitt, request):
                     data_point_key="humidityabsin",
                     value=0.0,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+                ),
+                "thermalperception": CalculatedDataPoint(
+                    data_point_key="thermalperception",
+                    value=ThermalPerception.SOMEWHAT_UNCOMFORTABLE,
+                    unit=None,
                 ),
             },
         ),
@@ -713,6 +744,11 @@ def test_missing_distance(device_data, ecowitt, request):
                     data_point_key="humidityabsin",
                     value=0.0,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+                ),
+                "thermalperception": CalculatedDataPoint(
+                    data_point_key="thermalperception",
+                    value=ThermalPerception.VERY_COMFORTABLE,
+                    unit=None,
                 ),
             },
         ),
@@ -890,6 +926,11 @@ def test_missing_distance(device_data, ecowitt, request):
                     value=0.0,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                 ),
+                "thermalperception": CalculatedDataPoint(
+                    data_point_key="thermalperception",
+                    value=ThermalPerception.DRY,
+                    unit=None,
+                ),
             },
         ),
         (
@@ -986,6 +1027,11 @@ def test_missing_distance(device_data, ecowitt, request):
                     value=0.0,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                 ),
+                "thermalperception": CalculatedDataPoint(
+                    data_point_key="thermalperception",
+                    value=ThermalPerception.DRY,
+                    unit=None,
+                ),
             },
         ),
         (
@@ -1074,6 +1120,11 @@ def test_missing_distance(device_data, ecowitt, request):
                     value=0.0,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                 ),
+                "thermalperception": CalculatedDataPoint(
+                    data_point_key="thermalperception",
+                    value=ThermalPerception.COMFORTABLE,
+                    unit=None,
+                ),
             },
         ),
         (
@@ -1150,6 +1201,11 @@ def test_missing_distance(device_data, ecowitt, request):
                     data_point_key="humidityabsin",
                     value=0.0,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+                ),
+                "thermalperception": CalculatedDataPoint(
+                    data_point_key="thermalperception",
+                    value=ThermalPerception.VERY_COMFORTABLE,
+                    unit=None,
                 ),
             },
         ),
@@ -1256,6 +1312,9 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
             value=0.0,
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
         ),
+        "thermalperception": CalculatedDataPoint(
+            data_point_key="thermalperception", value=ThermalPerception.DRY, unit=None
+        ),
     }
 
 
@@ -1355,6 +1414,9 @@ def test_unit_conversion_to_metric(device_data, ecowitt):
             value=8.5,
             unit=WATER_VAPOR_GRAMS_PER_CUBIC_METER,
         ),
+        "thermalperception": CalculatedDataPoint(
+            data_point_key="thermalperception", value=ThermalPerception.DRY, unit=None
+        ),
     }
 
 
@@ -1428,6 +1490,9 @@ def test_nonnumeric_value(device_data, ecowitt):
             data_point_key="humidityabsin",
             value=0.0,
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+        ),
+        "thermalperception": CalculatedDataPoint(
+            data_point_key="thermalperception", value=ThermalPerception.DRY, unit=None
         ),
         "Random New Key": CalculatedDataPoint("Random New Key", "Some Value"),
     }
@@ -1525,6 +1590,9 @@ def test_unknown_battery(device_data, ecowitt):
             data_point_key="humidityabsin",
             value=0.0,
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+        ),
+        "thermalperception": CalculatedDataPoint(
+            data_point_key="thermalperception", value=ThermalPerception.DRY, unit=None
         ),
         "playstationbattery1": CalculatedDataPoint(
             "batt", BooleanBatteryState.OFF, None
