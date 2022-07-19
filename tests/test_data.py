@@ -43,6 +43,8 @@ from ecowitt2mqtt.const import (
     UNIT_SYSTEM_IMPERIAL,
     UNIT_SYSTEM_METRIC,
     UV_INDEX,
+    WATER_VAPOR_GRAMS_PER_CUBIC_METER,
+    WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
 )
 from ecowitt2mqtt.data import ProcessedData
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
@@ -138,6 +140,16 @@ def test_battery_config(device_data, ecowitt):
         "tf_batt8": CalculatedDataPoint("batt", 1.3, unit=ELECTRIC_POTENTIAL_VOLT),
         "dewpoint": CalculatedDataPoint("dewpoint", 68.9, unit=TEMP_FAHRENHEIT),
         "heatindex": CalculatedDataPoint("heatindex", 96.3, unit=TEMP_FAHRENHEIT),
+        "humidityabs": CalculatedDataPoint(
+            data_point_key="humidityabs",
+            value=0.0,
+            unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+        ),
+        "humidityabsin": CalculatedDataPoint(
+            data_point_key="humidityabsin",
+            value=0.0,
+            unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+        ),
     }
 
 
@@ -211,6 +223,16 @@ def test_default_battery_strategy(device_data, ecowitt):
         "batt1": CalculatedDataPoint("batt", 1.0, unit=ELECTRIC_POTENTIAL_VOLT),
         "dewpoint": CalculatedDataPoint("dewpoint", 68.9, unit=TEMP_FAHRENHEIT),
         "heatindex": CalculatedDataPoint("heatindex", 96.3, unit=TEMP_FAHRENHEIT),
+        "humidityabs": CalculatedDataPoint(
+            data_point_key="humidityabs",
+            value=0.0,
+            unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+        ),
+        "humidityabsin": CalculatedDataPoint(
+            data_point_key="humidityabsin",
+            value=0.0,
+            unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+        ),
     }
 
 
@@ -325,6 +347,16 @@ def test_missing_distance(device_data, ecowitt, request):
         "feelslike": CalculatedDataPoint("feelslike", 74.5, unit=TEMP_FAHRENHEIT),
         "heatindex": CalculatedDataPoint("heatindex", 73.9, unit=TEMP_FAHRENHEIT),
         "windchill": CalculatedDataPoint("windchill", None, unit=TEMP_FAHRENHEIT),
+        "humidityabs": CalculatedDataPoint(
+            data_point_key="humidityabs",
+            value=0.0,
+            unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+        ),
+        "humidityabsin": CalculatedDataPoint(
+            data_point_key="humidityabsin",
+            value=0.0,
+            unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+        ),
     }
 
 
@@ -405,6 +437,16 @@ def test_missing_distance(device_data, ecowitt, request):
                 "windchill": CalculatedDataPoint(
                     "windchill", 2.7, unit=TEMP_FAHRENHEIT
                 ),
+                "humidityabs": CalculatedDataPoint(
+                    data_point_key="humidityabs",
+                    value=0.0,
+                    unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+                ),
+                "humidityabsin": CalculatedDataPoint(
+                    data_point_key="humidityabsin",
+                    value=0.0,
+                    unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+                ),
             },
         ),
         (
@@ -474,6 +516,16 @@ def test_missing_distance(device_data, ecowitt, request):
                 ),
                 "windchill": CalculatedDataPoint(
                     "windchill", None, unit=TEMP_FAHRENHEIT
+                ),
+                "humidityabs": CalculatedDataPoint(
+                    data_point_key="humidityabs",
+                    value=0.0,
+                    unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+                ),
+                "humidityabsin": CalculatedDataPoint(
+                    data_point_key="humidityabsin",
+                    value=0.0,
+                    unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                 ),
             },
         ),
@@ -546,6 +598,16 @@ def test_missing_distance(device_data, ecowitt, request):
                 "dewpoint": CalculatedDataPoint("dewpoint", 68.9, unit=TEMP_FAHRENHEIT),
                 "heatindex": CalculatedDataPoint(
                     "heatindex", 96.3, unit=TEMP_FAHRENHEIT
+                ),
+                "humidityabs": CalculatedDataPoint(
+                    data_point_key="humidityabs",
+                    value=0.0,
+                    unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+                ),
+                "humidityabsin": CalculatedDataPoint(
+                    data_point_key="humidityabsin",
+                    value=0.0,
+                    unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                 ),
             },
         ),
@@ -641,6 +703,16 @@ def test_missing_distance(device_data, ecowitt, request):
                 ),
                 "windchill": CalculatedDataPoint(
                     "windchill", None, unit=TEMP_FAHRENHEIT
+                ),
+                "humidityabs": CalculatedDataPoint(
+                    data_point_key="humidityabs",
+                    value=0.0,
+                    unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+                ),
+                "humidityabsin": CalculatedDataPoint(
+                    data_point_key="humidityabsin",
+                    value=0.0,
+                    unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                 ),
             },
         ),
@@ -808,6 +880,16 @@ def test_missing_distance(device_data, ecowitt, request):
                 "windchill": CalculatedDataPoint(
                     "windchill", None, unit=TEMP_FAHRENHEIT
                 ),
+                "humidityabs": CalculatedDataPoint(
+                    data_point_key="humidityabs",
+                    value=0.0,
+                    unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+                ),
+                "humidityabsin": CalculatedDataPoint(
+                    data_point_key="humidityabsin",
+                    value=0.0,
+                    unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+                ),
             },
         ),
         (
@@ -894,6 +976,16 @@ def test_missing_distance(device_data, ecowitt, request):
                 "windchill": CalculatedDataPoint(
                     "windchill", None, unit=TEMP_FAHRENHEIT
                 ),
+                "humidityabs": CalculatedDataPoint(
+                    data_point_key="humidityabs",
+                    value=0.0,
+                    unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+                ),
+                "humidityabsin": CalculatedDataPoint(
+                    data_point_key="humidityabsin",
+                    value=0.0,
+                    unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+                ),
             },
         ),
         (
@@ -972,6 +1064,16 @@ def test_missing_distance(device_data, ecowitt, request):
                 "windchill": CalculatedDataPoint(
                     "windchill", None, unit=TEMP_FAHRENHEIT
                 ),
+                "humidityabs": CalculatedDataPoint(
+                    data_point_key="humidityabs",
+                    value=0.0,
+                    unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+                ),
+                "humidityabsin": CalculatedDataPoint(
+                    data_point_key="humidityabsin",
+                    value=0.0,
+                    unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+                ),
             },
         ),
         (
@@ -1038,6 +1140,16 @@ def test_missing_distance(device_data, ecowitt, request):
                 ),
                 "windchill": CalculatedDataPoint(
                     "windchill", None, unit=TEMP_FAHRENHEIT
+                ),
+                "humidityabs": CalculatedDataPoint(
+                    data_point_key="humidityabs",
+                    value=0.0,
+                    unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+                ),
+                "humidityabsin": CalculatedDataPoint(
+                    data_point_key="humidityabsin",
+                    value=0.0,
+                    unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                 ),
             },
         ),
@@ -1134,6 +1246,16 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
         "feelslike": CalculatedDataPoint("feelslike", 6.3, unit=TEMP_FAHRENHEIT),
         "heatindex": CalculatedDataPoint("heatindex", 19.7, unit=TEMP_FAHRENHEIT),
         "windchill": CalculatedDataPoint("windchill", 6.3, unit=TEMP_FAHRENHEIT),
+        "humidityabs": CalculatedDataPoint(
+            data_point_key="humidityabs",
+            value=0.0,
+            unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+        ),
+        "humidityabsin": CalculatedDataPoint(
+            data_point_key="humidityabsin",
+            value=0.0,
+            unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+        ),
     }
 
 
@@ -1223,6 +1345,16 @@ def test_unit_conversion_to_metric(device_data, ecowitt):
         "feelslike": CalculatedDataPoint("feelslike", -16.3, unit=TEMP_CELSIUS),
         "heatindex": CalculatedDataPoint("heatindex", -11.0, unit=TEMP_CELSIUS),
         "windchill": CalculatedDataPoint("windchill", -16.3, unit=TEMP_CELSIUS),
+        "humidityabs": CalculatedDataPoint(
+            data_point_key="humidityabs",
+            value=1.0,
+            unit=WATER_VAPOR_GRAMS_PER_CUBIC_METER,
+        ),
+        "humidityabsin": CalculatedDataPoint(
+            data_point_key="humidityabsin",
+            value=8.5,
+            unit=WATER_VAPOR_GRAMS_PER_CUBIC_METER,
+        ),
     }
 
 
@@ -1287,6 +1419,16 @@ def test_nonnumeric_value(device_data, ecowitt):
         "feelslike": CalculatedDataPoint("feelslike", 2.7, unit=TEMP_FAHRENHEIT),
         "heatindex": CalculatedDataPoint("heatindex", 12.3, unit=TEMP_FAHRENHEIT),
         "windchill": CalculatedDataPoint("windchill", 2.7, unit=TEMP_FAHRENHEIT),
+        "humidityabs": CalculatedDataPoint(
+            data_point_key="humidityabs",
+            value=0.0,
+            unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+        ),
+        "humidityabsin": CalculatedDataPoint(
+            data_point_key="humidityabsin",
+            value=0.0,
+            unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+        ),
         "Random New Key": CalculatedDataPoint("Random New Key", "Some Value"),
     }
 
@@ -1374,6 +1516,16 @@ def test_unknown_battery(device_data, ecowitt):
         "feelslike": CalculatedDataPoint("feelslike", 2.7, unit=TEMP_FAHRENHEIT),
         "heatindex": CalculatedDataPoint("heatindex", 12.3, unit=TEMP_FAHRENHEIT),
         "windchill": CalculatedDataPoint("windchill", 2.7, unit=TEMP_FAHRENHEIT),
+        "humidityabs": CalculatedDataPoint(
+            data_point_key="humidityabs",
+            value=0.0,
+            unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+        ),
+        "humidityabsin": CalculatedDataPoint(
+            data_point_key="humidityabsin",
+            value=0.0,
+            unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
+        ),
         "playstationbattery1": CalculatedDataPoint(
             "batt", BooleanBatteryState.OFF, None
         ),
