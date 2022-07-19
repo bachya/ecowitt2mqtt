@@ -167,15 +167,6 @@ def calculate_heat_index(
     )
 
 
-def calculate_humidity(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
-) -> CalculatedDataPoint:
-    """Calculate humidity."""
-    return CalculatedDataPoint(
-        data_point_key=data_point_key, value=value, unit=PERCENTAGE
-    )
-
-
 def calculate_lightning_strike_distance(
     ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
 ) -> CalculatedDataPoint:
@@ -274,6 +265,15 @@ def calculate_rain_volume(
         data_point_key=data_point_key,
         value=final_value,
         unit=RAIN_VOLUME_UNIT_MAP[ecowitt.config.output_unit_system],
+    )
+
+
+def calculate_relative_humidity(
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+) -> CalculatedDataPoint:
+    """Calculate humidity."""
+    return CalculatedDataPoint(
+        data_point_key=data_point_key, value=value, unit=PERCENTAGE
     )
 
 
