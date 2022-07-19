@@ -55,7 +55,7 @@ jobs:
           pip install nox==2022.1.7 poetry==1.1.13
           nox -rs coverage
 
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v3.1.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
