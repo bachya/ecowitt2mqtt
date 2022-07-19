@@ -67,7 +67,7 @@ BATTERY_STRATEGY_MAP = {
 
 
 def calculate_battery(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate a battery value."""
     strategy = get_battery_strategy(ecowitt, payload_key)

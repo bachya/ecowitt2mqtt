@@ -89,7 +89,7 @@ def _get_temperature_object(
 
 
 def calculate_co2(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate CO2."""
     return CalculatedDataPoint(
@@ -101,7 +101,6 @@ def calculate_dew_point(
     ecowitt: Ecowitt,
     payload_key: str,
     data_point_key: str,
-    *,
     temp: float,
     humidity: float,
 ) -> CalculatedDataPoint:
@@ -124,7 +123,6 @@ def calculate_feels_like(
     ecowitt: Ecowitt,
     payload_key: str,
     data_point_key: str,
-    *,
     temp: float,
     humidity: float,
     windspeed: float,
@@ -148,7 +146,6 @@ def calculate_heat_index(
     ecowitt: Ecowitt,
     payload_key: str,
     data_point_key: str,
-    *,
     temp: float,
     humidity: float,
 ) -> CalculatedDataPoint:
@@ -168,7 +165,7 @@ def calculate_heat_index(
 
 
 def calculate_lightning_strike_distance(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate lightning strike distance in the appropriate unit system.
 
@@ -186,14 +183,14 @@ def calculate_lightning_strike_distance(
 
 
 def calculate_lightning_strikes(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate lightning strikes."""
     return CalculatedDataPoint(data_point_key=data_point_key, value=value, unit=STRIKES)
 
 
 def calculate_moisture(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate moisture."""
     return CalculatedDataPoint(
@@ -202,7 +199,7 @@ def calculate_moisture(
 
 
 def calculate_pm25(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate PM2.5 pollution."""
     return CalculatedDataPoint(
@@ -213,7 +210,7 @@ def calculate_pm25(
 
 
 def calculate_pm10(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate PM10.0 pollution."""
     return CalculatedDataPoint(
@@ -224,7 +221,7 @@ def calculate_pm10(
 
 
 def calculate_pressure(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate pressure in the appropriate unit system."""
     if ecowitt.config.input_unit_system == ecowitt.config.output_unit_system:
@@ -241,7 +238,7 @@ def calculate_pressure(
 
 
 def calculate_rain_rate(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate rain rate in the appropriate unit system."""
     data_point = calculate_rain_volume(
@@ -252,7 +249,7 @@ def calculate_rain_rate(
 
 
 def calculate_rain_volume(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate rain volume in the appropriate unit system."""
     if ecowitt.config.input_unit_system == ecowitt.config.output_unit_system:
@@ -269,7 +266,7 @@ def calculate_rain_volume(
 
 
 def calculate_relative_humidity(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate humidity."""
     return CalculatedDataPoint(
@@ -278,7 +275,7 @@ def calculate_relative_humidity(
 
 
 def calculate_safe_exposure_time(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate the number of minutes one can be safely exposed to a UV index."""
     try:
@@ -293,7 +290,7 @@ def calculate_safe_exposure_time(
 
 
 def calculate_solar_radiation_lux(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate solar radiation (lux)."""
     return CalculatedDataPoint(
@@ -304,7 +301,7 @@ def calculate_solar_radiation_lux(
 
 
 def calculate_solar_radiation_perceived(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate solar radiation (% perceived)."""
     lux_data_point = calculate_solar_radiation_lux(
@@ -325,7 +322,7 @@ def calculate_solar_radiation_perceived(
 
 
 def calculate_solar_radiation_wm2(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate solar radiation (W/m²)."""
     return CalculatedDataPoint(
@@ -336,7 +333,7 @@ def calculate_solar_radiation_wm2(
 
 
 def calculate_temperature(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate temperature in the appropriate unit system."""
     temp_obj = _get_temperature_object(value, ecowitt.config.input_unit_system)
@@ -353,7 +350,7 @@ def calculate_temperature(
 
 
 def calculate_uv_index(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate UV index."""
     return CalculatedDataPoint(
@@ -365,7 +362,6 @@ def calculate_wind_chill(
     ecowitt: Ecowitt,
     payload_key: str,
     data_point_key: str,
-    *,
     temp: float,
     windspeed: float,
 ) -> CalculatedDataPoint:
@@ -394,14 +390,14 @@ def calculate_wind_chill(
 
 
 def calculate_wind_dir(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate wind direction."""
     return CalculatedDataPoint(data_point_key=data_point_key, value=value, unit=DEGREE)
 
 
 def calculate_wind_speed(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate wind speed in the appropriate unit system."""
     if ecowitt.config.input_unit_system == ecowitt.config.output_unit_system:

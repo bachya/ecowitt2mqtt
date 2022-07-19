@@ -18,7 +18,7 @@ class LeakState(StrEnum):
 
 
 def calculate_leak(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate a boolean leak state."""
     if value == 0.0:

@@ -153,7 +153,9 @@ UNIT_SUFFIX_MAP = {
     DATA_POINT_TOTAL_AIN: "in",
 }
 
-# Map calculated data points to the data points they depend on:
+# Map calculated data points to the data points they depend on - note that the order
+# of the input keys inside the tuple is important, as those values are passed to their
+# respective calculator (as args) in that order:
 DEW_POINT_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
 FEELS_LIKE_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY, DATA_POINT_WINDSPEEDMPH)
 HEAT_INDEX_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
@@ -254,15 +256,6 @@ class ProcessedData:
                 continue
 
             if calculator := get_calculator_function(self.ecowitt, payload_key):
-                if len(input_keys) == 1:
-                    # If we only have one input key/value, generalize its kwarg name so
-                    # that its calculator can be used across multiple data points more
-                    # easily:
-                    kwargs = {"value": get_typed_value(self.data[input_keys[0]])}
-                else:
-                    kwargs = {
-                        remove_unit_from_key(key): get_typed_value(self.data[key])
-                        for key in input_keys
-                    }
-
-                self.output[payload_key] = calculator(**kwargs)
+                self.output[payload_key] = calculator(
+                    *(get_typed_value(self.data[key]) for key in input_keys)
+                )
