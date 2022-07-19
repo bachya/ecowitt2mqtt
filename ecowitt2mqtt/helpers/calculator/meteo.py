@@ -278,12 +278,12 @@ def calculate_relative_humidity(
 
 
 def calculate_safe_exposure_time(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, uv: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
 ) -> CalculatedDataPoint:
     """Calculate the number of minutes one can be safely exposed to a UV index."""
     try:
         final_value = round(
-            (200 * SAFE_EXPOSURE_CONSTANT_MAP[payload_key]) / (3 * uv), 1
+            (200 * SAFE_EXPOSURE_CONSTANT_MAP[payload_key]) / (3 * value), 1
         )
     except ZeroDivisionError:
         final_value = None
@@ -293,22 +293,22 @@ def calculate_safe_exposure_time(
 
 
 def calculate_solar_radiation_lux(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, solarradiation: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
 ) -> CalculatedDataPoint:
     """Calculate solar radiation (lux)."""
     return CalculatedDataPoint(
         data_point_key=data_point_key,
-        value=round(float(solarradiation) / 0.0079, 1),
+        value=round(float(value) / 0.0079, 1),
         unit=LIGHT_LUX,
     )
 
 
 def calculate_solar_radiation_perceived(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, solarradiation: float
+    ecowitt: Ecowitt, payload_key: str, data_point_key: str, *, value: float
 ) -> CalculatedDataPoint:
     """Calculate solar radiation (% perceived)."""
     lux_data_point = calculate_solar_radiation_lux(
-        ecowitt, payload_key, data_point_key, solarradiation=solarradiation
+        ecowitt, payload_key, data_point_key, value=value
     )
 
     assert isinstance(lux_data_point.value, float)

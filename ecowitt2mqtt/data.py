@@ -254,9 +254,15 @@ class ProcessedData:
                 continue
 
             if calculator := get_calculator_function(self.ecowitt, payload_key):
-                self.output[payload_key] = calculator(
-                    **{
+                if len(input_keys) == 1:
+                    # If we only have one input key/value, generalize its kwarg name so
+                    # that its calculator can be used across multiple data points more
+                    # easily:
+                    kwargs = {"value": get_typed_value(self.data[input_keys[0]])}
+                else:
+                    kwargs = {
                         remove_unit_from_key(key): get_typed_value(self.data[key])
                         for key in input_keys
-                    },
-                )
+                    }
+
+                self.output[payload_key] = calculator(**kwargs)
