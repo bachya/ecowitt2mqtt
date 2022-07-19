@@ -30,6 +30,8 @@ from ecowitt2mqtt.const import (
     DATA_POINT_HEATINDEX,
     DATA_POINT_HUMI_CO2,
     DATA_POINT_HUMIDITY,
+    DATA_POINT_HUMIDITY_ABS,
+    DATA_POINT_HUMIDITY_ABS_IN,
     DATA_POINT_LIGHTNING,
     DATA_POINT_LIGHTNING_NUM,
     DATA_POINT_LIGHTNING_TIME,
@@ -45,6 +47,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_SOLARRADIATION_LUX,
     DATA_POINT_SOLARRADIATION_PERCEIVED,
     DATA_POINT_TEMPF,
+    DATA_POINT_TEMPINF,
     DATA_POINT_TF_CO2,
     DATA_POINT_TOTAL_AIN,
     DATA_POINT_UV,
@@ -56,6 +59,7 @@ from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
 from ecowitt2mqtt.helpers.calculator.battery import calculate_battery
 from ecowitt2mqtt.helpers.calculator.leak import calculate_leak
 from ecowitt2mqtt.helpers.calculator.meteo import (
+    calculate_absolute_humidity,
     calculate_co2,
     calculate_dew_point,
     calculate_feels_like,
@@ -112,6 +116,8 @@ CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., CalculatedDataPoint]] = {
     DATA_POINT_GLOB_WIND: calculate_wind_speed,
     DATA_POINT_GLOB_WINDDIR: calculate_wind_dir,
     DATA_POINT_HEATINDEX: calculate_heat_index,
+    DATA_POINT_HUMIDITY_ABS: calculate_absolute_humidity,
+    DATA_POINT_HUMIDITY_ABS_IN: calculate_absolute_humidity,
     DATA_POINT_HUMI_CO2: calculate_relative_humidity,
     DATA_POINT_LIGHTNING: calculate_lightning_strike_distance,
     DATA_POINT_LIGHTNING_NUM: calculate_lightning_strikes,
@@ -159,9 +165,11 @@ UNIT_SUFFIX_MAP = {
 DEW_POINT_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
 FEELS_LIKE_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY, DATA_POINT_WINDSPEEDMPH)
 HEAT_INDEX_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
-WIND_CHILL_KEYS = (DATA_POINT_TEMPF, DATA_POINT_WINDSPEEDMPH)
+HUMIDITY_ABS_IN_KEYS = (DATA_POINT_TEMPINF, DATA_POINT_HUMIDITY)
+HUMIDITY_ABS_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
 ILLUMINANCE_KEYS = (DATA_POINT_SOLARRADIATION,)
 UV_INDEX_KEYS = (DATA_POINT_UV,)
+WIND_CHILL_KEYS = (DATA_POINT_TEMPF, DATA_POINT_WINDSPEEDMPH)
 
 T = TypeVar("T")
 
@@ -242,6 +250,8 @@ class ProcessedData:
             (DATA_POINT_DEWPOINT, DEW_POINT_KEYS),
             (DATA_POINT_FEELSLIKE, FEELS_LIKE_KEYS),
             (DATA_POINT_HEATINDEX, HEAT_INDEX_KEYS),
+            (DATA_POINT_HUMIDITY_ABS, HUMIDITY_ABS_KEYS),
+            (DATA_POINT_HUMIDITY_ABS_IN, HUMIDITY_ABS_IN_KEYS),
             (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1, UV_INDEX_KEYS),
             (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2, UV_INDEX_KEYS),
             (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_3, UV_INDEX_KEYS),
