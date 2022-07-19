@@ -50,7 +50,7 @@ from ecowitt2mqtt.data import ProcessedData
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy, BooleanBatteryState
 from ecowitt2mqtt.helpers.calculator.leak import LeakState
-from ecowitt2mqtt.helpers.calculator.meteo import ThermalPerception
+from ecowitt2mqtt.helpers.calculator.meteo import FrostRisk, ThermalPerception
 from ecowitt2mqtt.helpers.device import Device
 
 from tests.common import (
@@ -156,6 +156,12 @@ def test_battery_config(device_data, ecowitt):
             value=ThermalPerception.SOMEWHAT_UNCOMFORTABLE,
             unit=None,
         ),
+        "frostpoint": CalculatedDataPoint(
+            data_point_key="frostpoint", value=60.3, unit="°F"
+        ),
+        "frostrisk": CalculatedDataPoint(
+            data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+        ),
     }
 
 
@@ -243,6 +249,12 @@ def test_default_battery_strategy(device_data, ecowitt):
             data_point_key="thermalperception",
             value=ThermalPerception.SOMEWHAT_UNCOMFORTABLE,
             unit=None,
+        ),
+        "frostpoint": CalculatedDataPoint(
+            data_point_key="frostpoint", value=60.3, unit="°F"
+        ),
+        "frostrisk": CalculatedDataPoint(
+            data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
         ),
     }
 
@@ -373,6 +385,12 @@ def test_missing_distance(device_data, ecowitt, request):
             value=ThermalPerception.VERY_COMFORTABLE,
             unit=None,
         ),
+        "frostpoint": CalculatedDataPoint(
+            data_point_key="frostpoint", value=47.1, unit="°F"
+        ),
+        "frostrisk": CalculatedDataPoint(
+            data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+        ),
     }
 
 
@@ -468,6 +486,12 @@ def test_missing_distance(device_data, ecowitt, request):
                     value=ThermalPerception.DRY,
                     unit=None,
                 ),
+                "frostpoint": CalculatedDataPoint(
+                    data_point_key="frostpoint", value=-3.3, unit="°F"
+                ),
+                "frostrisk": CalculatedDataPoint(
+                    data_point_key="frostrisk", value=FrostRisk.UNLIKELY, unit=None
+                ),
             },
         ),
         (
@@ -552,6 +576,12 @@ def test_missing_distance(device_data, ecowitt, request):
                     data_point_key="thermalperception",
                     value=ThermalPerception.DRY,
                     unit=None,
+                ),
+                "frostpoint": CalculatedDataPoint(
+                    data_point_key="frostpoint", value=19.9, unit="°F"
+                ),
+                "frostrisk": CalculatedDataPoint(
+                    data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
                 ),
             },
         ),
@@ -639,6 +669,12 @@ def test_missing_distance(device_data, ecowitt, request):
                     data_point_key="thermalperception",
                     value=ThermalPerception.SOMEWHAT_UNCOMFORTABLE,
                     unit=None,
+                ),
+                "frostpoint": CalculatedDataPoint(
+                    data_point_key="frostpoint", value=60.3, unit="°F"
+                ),
+                "frostrisk": CalculatedDataPoint(
+                    data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
                 ),
             },
         ),
@@ -749,6 +785,12 @@ def test_missing_distance(device_data, ecowitt, request):
                     data_point_key="thermalperception",
                     value=ThermalPerception.VERY_COMFORTABLE,
                     unit=None,
+                ),
+                "frostpoint": CalculatedDataPoint(
+                    data_point_key="frostpoint", value=47.1, unit="°F"
+                ),
+                "frostrisk": CalculatedDataPoint(
+                    data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
                 ),
             },
         ),
@@ -931,6 +973,12 @@ def test_missing_distance(device_data, ecowitt, request):
                     value=ThermalPerception.DRY,
                     unit=None,
                 ),
+                "frostpoint": CalculatedDataPoint(
+                    data_point_key="frostpoint", value=44.3, unit="°F"
+                ),
+                "frostrisk": CalculatedDataPoint(
+                    data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+                ),
             },
         ),
         (
@@ -940,8 +988,8 @@ def test_missing_distance(device_data, ecowitt, request):
                 "humidityin": CalculatedDataPoint("humidity", 72, unit=PERCENTAGE),
                 "baromrel": CalculatedDataPoint("barom", 28.196, unit=PRESSURE_INHG),
                 "baromabs": CalculatedDataPoint("barom", 28.196, unit=PRESSURE_INHG),
-                "temp": CalculatedDataPoint("temp", 50.9, unit=TEMP_FAHRENHEIT),
-                "humidity": CalculatedDataPoint("humidity", 96, unit=PERCENTAGE),
+                "temp": CalculatedDataPoint("temp", 35.2, unit=TEMP_FAHRENHEIT),
+                "humidity": CalculatedDataPoint("humidity", 60, unit=PERCENTAGE),
                 "winddir": CalculatedDataPoint("winddir", 289, unit=DEGREE),
                 "winddir_avg10m": CalculatedDataPoint("winddir", 282, unit=DEGREE),
                 "windspeed": CalculatedDataPoint(
@@ -1007,12 +1055,12 @@ def test_missing_distance(device_data, ecowitt, request):
                     "batt", 1.5, unit=ELECTRIC_POTENTIAL_VOLT
                 ),
                 "pm25batt1": CalculatedDataPoint("batt", 100, unit=PERCENTAGE),
-                "dewpoint": CalculatedDataPoint("dewpoint", 49.8, unit=TEMP_FAHRENHEIT),
+                "dewpoint": CalculatedDataPoint("dewpoint", 22.7, unit=TEMP_FAHRENHEIT),
                 "feelslike": CalculatedDataPoint(
-                    "feelslike", 50.9, unit=TEMP_FAHRENHEIT
+                    "feelslike", 35.2, unit=TEMP_FAHRENHEIT
                 ),
                 "heatindex": CalculatedDataPoint(
-                    "heatindex", 50.2, unit=TEMP_FAHRENHEIT
+                    "heatindex", 31.2, unit=TEMP_FAHRENHEIT
                 ),
                 "windchill": CalculatedDataPoint(
                     "windchill", None, unit=TEMP_FAHRENHEIT
@@ -1031,6 +1079,12 @@ def test_missing_distance(device_data, ecowitt, request):
                     data_point_key="thermalperception",
                     value=ThermalPerception.DRY,
                     unit=None,
+                ),
+                "frostpoint": CalculatedDataPoint(
+                    data_point_key="frostpoint", value=22.4, unit="°F"
+                ),
+                "frostrisk": CalculatedDataPoint(
+                    data_point_key="frostrisk", value=FrostRisk.PROBABLE, unit=None
                 ),
             },
         ),
@@ -1125,6 +1179,12 @@ def test_missing_distance(device_data, ecowitt, request):
                     value=ThermalPerception.COMFORTABLE,
                     unit=None,
                 ),
+                "frostpoint": CalculatedDataPoint(
+                    data_point_key="frostpoint", value=52.3, unit="°F"
+                ),
+                "frostrisk": CalculatedDataPoint(
+                    data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+                ),
             },
         ),
         (
@@ -1134,8 +1194,8 @@ def test_missing_distance(device_data, ecowitt, request):
                 "humidityin": CalculatedDataPoint("humidity", 62, unit=PERCENTAGE),
                 "baromrel": CalculatedDataPoint("barom", 29.829, unit=PRESSURE_INHG),
                 "baromabs": CalculatedDataPoint("barom", 28.122, unit=PRESSURE_INHG),
-                "temp": CalculatedDataPoint("temp", 57.2, unit=TEMP_FAHRENHEIT),
-                "humidity": CalculatedDataPoint("humidity", 87, unit=PERCENTAGE),
+                "temp": CalculatedDataPoint("temp", 22.0, unit=TEMP_FAHRENHEIT),
+                "humidity": CalculatedDataPoint("humidity", 100, unit=PERCENTAGE),
                 "winddir": CalculatedDataPoint("winddir", 271, unit=DEGREE),
                 "windspeed": CalculatedDataPoint(
                     "wind", 6.9, unit=SPEED_MILES_PER_HOUR
@@ -1182,15 +1242,15 @@ def test_missing_distance(device_data, ecowitt, request):
                     "safe_exposure_time_skin_type_6", None, unit=TIME_MINUTES
                 ),
                 "wh65batt": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
-                "dewpoint": CalculatedDataPoint("dewpoint", 53.4, unit=TEMP_FAHRENHEIT),
+                "dewpoint": CalculatedDataPoint("dewpoint", 22.0, unit=TEMP_FAHRENHEIT),
                 "feelslike": CalculatedDataPoint(
-                    "feelslike", 57.2, unit=TEMP_FAHRENHEIT
+                    "feelslike", 13.5, unit=TEMP_FAHRENHEIT
                 ),
                 "heatindex": CalculatedDataPoint(
-                    "heatindex", 56.7, unit=TEMP_FAHRENHEIT
+                    "heatindex", 18.6, unit=TEMP_FAHRENHEIT
                 ),
                 "windchill": CalculatedDataPoint(
-                    "windchill", None, unit=TEMP_FAHRENHEIT
+                    "windchill", 13.5, unit=TEMP_FAHRENHEIT
                 ),
                 "humidityabs": CalculatedDataPoint(
                     data_point_key="humidityabs",
@@ -1204,8 +1264,14 @@ def test_missing_distance(device_data, ecowitt, request):
                 ),
                 "thermalperception": CalculatedDataPoint(
                     data_point_key="thermalperception",
-                    value=ThermalPerception.VERY_COMFORTABLE,
+                    value=ThermalPerception.DRY,
                     unit=None,
+                ),
+                "frostpoint": CalculatedDataPoint(
+                    data_point_key="frostpoint", value=23.1, unit="°F"
+                ),
+                "frostrisk": CalculatedDataPoint(
+                    data_point_key="frostrisk", value=FrostRisk.VERY_PROBABLE, unit=None
                 ),
             },
         ),
@@ -1315,6 +1381,12 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
         "thermalperception": CalculatedDataPoint(
             data_point_key="thermalperception", value=ThermalPerception.DRY, unit=None
         ),
+        "frostpoint": CalculatedDataPoint(
+            data_point_key="frostpoint", value=17.9, unit="°F"
+        ),
+        "frostrisk": CalculatedDataPoint(
+            data_point_key="frostrisk", value=FrostRisk.UNLIKELY, unit=None
+        ),
     }
 
 
@@ -1417,6 +1489,12 @@ def test_unit_conversion_to_metric(device_data, ecowitt):
         "thermalperception": CalculatedDataPoint(
             data_point_key="thermalperception", value=ThermalPerception.DRY, unit=None
         ),
+        "frostpoint": CalculatedDataPoint(
+            data_point_key="frostpoint", value=-19.6, unit="°C"
+        ),
+        "frostrisk": CalculatedDataPoint(
+            data_point_key="frostrisk", value=FrostRisk.UNLIKELY, unit=None
+        ),
     }
 
 
@@ -1493,6 +1571,12 @@ def test_nonnumeric_value(device_data, ecowitt):
         ),
         "thermalperception": CalculatedDataPoint(
             data_point_key="thermalperception", value=ThermalPerception.DRY, unit=None
+        ),
+        "frostpoint": CalculatedDataPoint(
+            data_point_key="frostpoint", value=-3.3, unit="°F"
+        ),
+        "frostrisk": CalculatedDataPoint(
+            data_point_key="frostrisk", value=FrostRisk.UNLIKELY, unit=None
         ),
         "Random New Key": CalculatedDataPoint("Random New Key", "Some Value"),
     }
@@ -1593,6 +1677,12 @@ def test_unknown_battery(device_data, ecowitt):
         ),
         "thermalperception": CalculatedDataPoint(
             data_point_key="thermalperception", value=ThermalPerception.DRY, unit=None
+        ),
+        "frostpoint": CalculatedDataPoint(
+            data_point_key="frostpoint", value=-3.3, unit="°F"
+        ),
+        "frostrisk": CalculatedDataPoint(
+            data_point_key="frostrisk", value=FrostRisk.UNLIKELY, unit=None
         ),
         "playstationbattery1": CalculatedDataPoint(
             "batt", BooleanBatteryState.OFF, None

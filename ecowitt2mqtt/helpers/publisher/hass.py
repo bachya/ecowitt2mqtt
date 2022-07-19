@@ -17,6 +17,8 @@ from ecowitt2mqtt.const import (
     DATA_POINT_ERAIN_PIEZO,
     DATA_POINT_EVENT_RAIN,
     DATA_POINT_FEELSLIKE,
+    DATA_POINT_FROST_POINT,
+    DATA_POINT_FROST_RISK,
     DATA_POINT_GLOB_BAROM,
     DATA_POINT_GLOB_BATT,
     DATA_POINT_GLOB_GUST,
@@ -172,6 +174,14 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_BATTERY_PERCENTAGE: EntityDescription(
         device_class=DeviceClass.BATTERY,
         entity_category=EntityCategory.DIAGNOSTIC,
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_FROST_POINT: EntityDescription(
+        device_class=DeviceClass.TEMPERATURE,
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_FROST_RISK: EntityDescription(
+        icon="mdi:snowflake-alert",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_BAROM: EntityDescription(
