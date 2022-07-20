@@ -24,7 +24,7 @@ from ecowitt2mqtt.const import (
     ELECTRIC_POTENTIAL_VOLT,
     PERCENTAGE,
 )
-from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
+from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, DataPointType
 from ecowitt2mqtt.util import glob_search
 
 if TYPE_CHECKING:
@@ -89,10 +89,14 @@ def calculate_battery(
         )
     if value == 0.0:
         return CalculatedDataPoint(
-            data_point_key=data_point_key, value=BooleanBatteryState.OFF
+            data_point_key=data_point_key,
+            value=BooleanBatteryState.OFF,
+            data_type=DataPointType.BOOLEAN,
         )
     return CalculatedDataPoint(
-        data_point_key=data_point_key, value=BooleanBatteryState.ON
+        data_point_key=data_point_key,
+        value=BooleanBatteryState.ON,
+        data_type=DataPointType.BOOLEAN,
     )
 
 

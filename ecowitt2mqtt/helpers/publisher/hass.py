@@ -72,7 +72,7 @@ from ecowitt2mqtt.const import (
     LOGGER,
 )
 from ecowitt2mqtt.data import ProcessedData
-from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
+from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, DataPointType
 from ecowitt2mqtt.helpers.calculator.battery import (
     BatteryStrategy,
     get_battery_strategy,
@@ -343,7 +343,7 @@ ENTITY_DESCRIPTIONS = {
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_THERMAL_PERCEPTION: EntityDescription(
-        icon="mdi:account",
+        icon="mdi:water",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_TF_CO2: EntityDescription(
@@ -362,6 +362,11 @@ ENTITY_DESCRIPTIONS = {
         device_class=DeviceClass.TEMPERATURE,
         state_class=StateClass.MEASUREMENT,
     ),
+}
+
+PLATFORM_MAP = {
+    DataPointType.BOOLEAN: Platform.BINARY_SENSOR,
+    DataPointType.NON_BOOLEAN: Platform.SENSOR,
 }
 
 STATE_CLASS_OVERRIDES = {
@@ -401,11 +406,6 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
         self, device: Device, payload_key: str, data_point: CalculatedDataPoint
     ) -> HassDiscoveryPayload:
         """Generate a discovery payload for an entity."""
-        if isinstance(data_point.value, StrEnum):
-            platform = Platform.BINARY_SENSOR
-        else:
-            platform = Platform.SENSOR
-
         # Since batteries can be one of many different strategies, we calculate an
         # entity description at runtime:
         if data_point.data_point_key in (DATA_POINT_GLOB_BATT, DATA_POINT_GLOB_VOLT):
@@ -425,8 +425,8 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
             name = payload_key
 
         base_topic = (
-            f"{self.ecowitt.config.hass_discovery_prefix}/{platform}/{device.unique_id}"
-            f"/{payload_key}"
+            f"{self.ecowitt.config.hass_discovery_prefix}"
+            f"/{PLATFORM_MAP[data_point.data_type]}/{device.unique_id}/{payload_key}"
         )
 
         payload = self._discovery_payloads[payload_key] = HassDiscoveryPayload(
