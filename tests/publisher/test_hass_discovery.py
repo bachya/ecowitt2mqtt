@@ -1074,15 +1074,15 @@ async def test_publish(config, device_data, ecowitt, request, setup_asyncio_mqtt
                 b"44.3",
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/config",
-                b'{"availability_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "frostrisk", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_frostrisk", "icon": "mdi:snowflake-alert", "state_class": "measurement"}',
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/config",
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "frostrisk", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_frostrisk", "icon": "mdi:snowflake-alert", "state_class": "measurement"}',
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability",
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability",
                 b"online",
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/state",
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/state",
                 b"No risk",
             ),
             call(
@@ -1242,15 +1242,15 @@ async def test_publish(config, device_data, ecowitt, request, setup_asyncio_mqtt
                 b"0.0",
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/config",
-                b'{"availability_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "thermalperception", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_thermalperception", "icon": "mdi:account", "state_class": "measurement"}',
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/config",
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "thermalperception", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_thermalperception", "icon": "mdi:water", "state_class": "measurement"}',
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability",
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability",
                 b"online",
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state",
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state",
                 b"Dry",
             ),
             call(
@@ -2294,15 +2294,15 @@ async def test_publish_custom_entity_id_prefix(
                 b"44.3",
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/config",
-                b'{"availability_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_frostrisk", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_frostrisk", "icon": "mdi:snowflake-alert", "state_class": "measurement"}',
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/config",
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_frostrisk", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_frostrisk", "icon": "mdi:snowflake-alert", "state_class": "measurement"}',
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability",
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability",
                 b"online",
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/state",
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/state",
                 b"No risk",
             ),
             call(
@@ -2462,15 +2462,15 @@ async def test_publish_custom_entity_id_prefix(
                 b"0.0",
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/config",
-                b'{"availability_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_thermalperception", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_thermalperception", "icon": "mdi:account", "state_class": "measurement"}',
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/config",
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_thermalperception", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_thermalperception", "icon": "mdi:water", "state_class": "measurement"}',
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability",
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability",
                 b"online",
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state",
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state",
                 b"Dry",
             ),
             call(
@@ -3513,15 +3513,15 @@ async def test_publish_numeric_battery_strategy(
                 b"44.3",
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/config",
-                b'{"availability_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "frostrisk", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_frostrisk", "icon": "mdi:snowflake-alert", "state_class": "measurement"}',
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/config",
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "frostrisk", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_frostrisk", "icon": "mdi:snowflake-alert", "state_class": "measurement"}',
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability",
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability",
                 b"online",
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/state",
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/state",
                 b"No risk",
             ),
             call(
@@ -3681,15 +3681,15 @@ async def test_publish_numeric_battery_strategy(
                 b"0.0",
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/config",
-                b'{"availability_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "thermalperception", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_thermalperception", "icon": "mdi:account", "state_class": "measurement"}',
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/config",
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "thermalperception", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_thermalperception", "icon": "mdi:water", "state_class": "measurement"}',
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability",
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability",
                 b"online",
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state",
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state",
                 b"Dry",
             ),
             call(
@@ -4773,15 +4773,15 @@ async def test_no_entity_description(caplog, device_data, ecowitt, setup_asyncio
                 b"44.3",
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/config",
-                b'{"availability_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "frostrisk", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_frostrisk", "icon": "mdi:snowflake-alert", "state_class": "measurement"}',
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/config",
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "frostrisk", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_frostrisk", "icon": "mdi:snowflake-alert", "state_class": "measurement"}',
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability",
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability",
                 b"online",
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/state",
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/state",
                 b"No risk",
             ),
             call(
@@ -4941,15 +4941,15 @@ async def test_no_entity_description(caplog, device_data, ecowitt, setup_asyncio
                 b"0.0",
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/config",
-                b'{"availability_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "thermalperception", "qos": 1, "state_topic": "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_thermalperception", "icon": "mdi:account", "state_class": "measurement"}',
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/config",
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "thermalperception", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_thermalperception", "icon": "mdi:water", "state_class": "measurement"}',
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability",
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability",
                 b"online",
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state",
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state",
                 b"Dry",
             ),
             call(
