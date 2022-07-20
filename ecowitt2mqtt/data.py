@@ -45,6 +45,8 @@ from ecowitt2mqtt.const import (
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6,
+    DATA_POINT_SIMMER_INDEX,
+    DATA_POINT_SIMMER_ZONE,
     DATA_POINT_SOLARRADIATION,
     DATA_POINT_SOLARRADIATION_LUX,
     DATA_POINT_SOLARRADIATION_PERCEIVED,
@@ -79,6 +81,8 @@ from ecowitt2mqtt.helpers.calculator.meteo import (
     calculate_rain_volume,
     calculate_relative_humidity,
     calculate_safe_exposure_time,
+    calculate_simmer_index,
+    calculate_simmer_zone,
     calculate_solar_radiation_lux,
     calculate_solar_radiation_perceived,
     calculate_solar_radiation_wm2,
@@ -138,6 +142,8 @@ CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., CalculatedDataPoint]] = {
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4: calculate_safe_exposure_time,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5: calculate_safe_exposure_time,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6: calculate_safe_exposure_time,
+    DATA_POINT_SIMMER_INDEX: calculate_simmer_index,
+    DATA_POINT_SIMMER_ZONE: calculate_simmer_zone,
     DATA_POINT_SOLARRADIATION: calculate_solar_radiation_wm2,
     DATA_POINT_SOLARRADIATION_LUX: calculate_solar_radiation_lux,
     DATA_POINT_SOLARRADIATION_PERCEIVED: calculate_solar_radiation_perceived,
@@ -178,6 +184,7 @@ HEAT_INDEX_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
 HUMIDITY_ABS_IN_KEYS = (DATA_POINT_TEMPINF, DATA_POINT_HUMIDITY)
 HUMIDITY_ABS_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
 ILLUMINANCE_KEYS = (DATA_POINT_SOLARRADIATION,)
+SIMMER_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
 THERMAL_PERCEPTION_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
 UV_INDEX_KEYS = (DATA_POINT_UV,)
 WIND_CHILL_KEYS = (DATA_POINT_TEMPF, DATA_POINT_WINDSPEEDMPH)
@@ -271,6 +278,8 @@ class ProcessedData:
             (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4, UV_INDEX_KEYS),
             (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5, UV_INDEX_KEYS),
             (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6, UV_INDEX_KEYS),
+            (DATA_POINT_SIMMER_INDEX, SIMMER_KEYS),
+            (DATA_POINT_SIMMER_ZONE, SIMMER_KEYS),
             (DATA_POINT_SOLARRADIATION_LUX, ILLUMINANCE_KEYS),
             (DATA_POINT_SOLARRADIATION_PERCEIVED, ILLUMINANCE_KEYS),
             (DATA_POINT_THERMAL_PERCEPTION, THERMAL_PERCEPTION_KEYS),

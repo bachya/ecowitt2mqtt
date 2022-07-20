@@ -50,7 +50,11 @@ from ecowitt2mqtt.data import ProcessedData
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy, BooleanBatteryState
 from ecowitt2mqtt.helpers.calculator.leak import LeakState
-from ecowitt2mqtt.helpers.calculator.meteo import FrostRisk, ThermalPerception
+from ecowitt2mqtt.helpers.calculator.meteo import (
+    FrostRisk,
+    SimmerZone,
+    ThermalPerception,
+)
 from ecowitt2mqtt.helpers.device import Device
 
 from tests.common import (
@@ -157,10 +161,18 @@ def test_battery_config(device_data, ecowitt):
             unit=None,
         ),
         "frostpoint": CalculatedDataPoint(
-            data_point_key="frostpoint", value=60.3, unit="°F"
+            data_point_key="frostpoint", value=60.3, unit=TEMP_FAHRENHEIT
         ),
         "frostrisk": CalculatedDataPoint(
             data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+        ),
+        "simmerindex": CalculatedDataPoint(
+            data_point_key="simmerindex", value=105.2, unit=TEMP_FAHRENHEIT
+        ),
+        "simmerzone": CalculatedDataPoint(
+            data_point_key="simmerzone",
+            value=SimmerZone.CAUTION_HEAT_EXHAUSTION,
+            unit=None,
         ),
     }
 
@@ -251,10 +263,18 @@ def test_default_battery_strategy(device_data, ecowitt):
             unit=None,
         ),
         "frostpoint": CalculatedDataPoint(
-            data_point_key="frostpoint", value=60.3, unit="°F"
+            data_point_key="frostpoint", value=60.3, unit=TEMP_FAHRENHEIT
         ),
         "frostrisk": CalculatedDataPoint(
             data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+        ),
+        "simmerindex": CalculatedDataPoint(
+            data_point_key="simmerindex", value=105.2, unit=TEMP_FAHRENHEIT
+        ),
+        "simmerzone": CalculatedDataPoint(
+            data_point_key="simmerzone",
+            value=SimmerZone.CAUTION_HEAT_EXHAUSTION,
+            unit=None,
         ),
     }
 
@@ -386,10 +406,16 @@ def test_missing_distance(device_data, ecowitt, request):
             unit=None,
         ),
         "frostpoint": CalculatedDataPoint(
-            data_point_key="frostpoint", value=47.1, unit="°F"
+            data_point_key="frostpoint", value=47.1, unit=TEMP_FAHRENHEIT
         ),
         "frostrisk": CalculatedDataPoint(
             data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+        ),
+        "simmerindex": CalculatedDataPoint(
+            data_point_key="simmerindex", value=81.2, unit=TEMP_FAHRENHEIT
+        ),
+        "simmerzone": CalculatedDataPoint(
+            data_point_key="simmerzone", value=SimmerZone.COMFORTABLE, unit=None
         ),
     }
 
@@ -487,10 +513,16 @@ def test_missing_distance(device_data, ecowitt, request):
                     unit=None,
                 ),
                 "frostpoint": CalculatedDataPoint(
-                    data_point_key="frostpoint", value=-3.3, unit="°F"
+                    data_point_key="frostpoint", value=-3.3, unit=TEMP_FAHRENHEIT
                 ),
                 "frostrisk": CalculatedDataPoint(
                     data_point_key="frostrisk", value=FrostRisk.UNLIKELY, unit=None
+                ),
+                "simmerindex": CalculatedDataPoint(
+                    data_point_key="simmerindex", value=None, unit=TEMP_FAHRENHEIT
+                ),
+                "simmerzone": CalculatedDataPoint(
+                    data_point_key="simmerzone", value=None, unit=None
                 ),
             },
         ),
@@ -578,10 +610,16 @@ def test_missing_distance(device_data, ecowitt, request):
                     unit=None,
                 ),
                 "frostpoint": CalculatedDataPoint(
-                    data_point_key="frostpoint", value=19.9, unit="°F"
+                    data_point_key="frostpoint", value=19.9, unit=TEMP_FAHRENHEIT
                 ),
                 "frostrisk": CalculatedDataPoint(
                     data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+                ),
+                "simmerindex": CalculatedDataPoint(
+                    data_point_key="simmerindex", value=None, unit=TEMP_FAHRENHEIT
+                ),
+                "simmerzone": CalculatedDataPoint(
+                    data_point_key="simmerzone", value=None, unit=None
                 ),
             },
         ),
@@ -671,10 +709,18 @@ def test_missing_distance(device_data, ecowitt, request):
                     unit=None,
                 ),
                 "frostpoint": CalculatedDataPoint(
-                    data_point_key="frostpoint", value=60.3, unit="°F"
+                    data_point_key="frostpoint", value=60.3, unit=TEMP_FAHRENHEIT
                 ),
                 "frostrisk": CalculatedDataPoint(
                     data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+                ),
+                "simmerindex": CalculatedDataPoint(
+                    data_point_key="simmerindex", value=105.2, unit=TEMP_FAHRENHEIT
+                ),
+                "simmerzone": CalculatedDataPoint(
+                    data_point_key="simmerzone",
+                    value=SimmerZone.CAUTION_HEAT_EXHAUSTION,
+                    unit=None,
                 ),
             },
         ),
@@ -787,10 +833,16 @@ def test_missing_distance(device_data, ecowitt, request):
                     unit=None,
                 ),
                 "frostpoint": CalculatedDataPoint(
-                    data_point_key="frostpoint", value=47.1, unit="°F"
+                    data_point_key="frostpoint", value=47.1, unit=TEMP_FAHRENHEIT
                 ),
                 "frostrisk": CalculatedDataPoint(
                     data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+                ),
+                "simmerindex": CalculatedDataPoint(
+                    data_point_key="simmerindex", value=81.2, unit=TEMP_FAHRENHEIT
+                ),
+                "simmerzone": CalculatedDataPoint(
+                    data_point_key="simmerzone", value=SimmerZone.COMFORTABLE, unit=None
                 ),
             },
         ),
@@ -974,10 +1026,16 @@ def test_missing_distance(device_data, ecowitt, request):
                     unit=None,
                 ),
                 "frostpoint": CalculatedDataPoint(
-                    data_point_key="frostpoint", value=44.3, unit="°F"
+                    data_point_key="frostpoint", value=44.3, unit=TEMP_FAHRENHEIT
                 ),
                 "frostrisk": CalculatedDataPoint(
                     data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+                ),
+                "simmerindex": CalculatedDataPoint(
+                    data_point_key="simmerindex", value=None, unit=TEMP_FAHRENHEIT
+                ),
+                "simmerzone": CalculatedDataPoint(
+                    data_point_key="simmerzone", value=None, unit=None
                 ),
             },
         ),
@@ -1081,10 +1139,16 @@ def test_missing_distance(device_data, ecowitt, request):
                     unit=None,
                 ),
                 "frostpoint": CalculatedDataPoint(
-                    data_point_key="frostpoint", value=22.4, unit="°F"
+                    data_point_key="frostpoint", value=22.4, unit=TEMP_FAHRENHEIT
                 ),
                 "frostrisk": CalculatedDataPoint(
                     data_point_key="frostrisk", value=FrostRisk.PROBABLE, unit=None
+                ),
+                "simmerindex": CalculatedDataPoint(
+                    data_point_key="simmerindex", value=None, unit=TEMP_FAHRENHEIT
+                ),
+                "simmerzone": CalculatedDataPoint(
+                    data_point_key="simmerzone", value=None, unit=None
                 ),
             },
         ),
@@ -1180,10 +1244,18 @@ def test_missing_distance(device_data, ecowitt, request):
                     unit=None,
                 ),
                 "frostpoint": CalculatedDataPoint(
-                    data_point_key="frostpoint", value=52.3, unit="°F"
+                    data_point_key="frostpoint", value=52.3, unit=TEMP_FAHRENHEIT
                 ),
                 "frostrisk": CalculatedDataPoint(
                     data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+                ),
+                "simmerindex": CalculatedDataPoint(
+                    data_point_key="simmerindex", value=85.0, unit=TEMP_FAHRENHEIT
+                ),
+                "simmerzone": CalculatedDataPoint(
+                    data_point_key="simmerzone",
+                    value=SimmerZone.SLIGHTLY_WARM,
+                    unit=None,
                 ),
             },
         ),
@@ -1268,10 +1340,16 @@ def test_missing_distance(device_data, ecowitt, request):
                     unit=None,
                 ),
                 "frostpoint": CalculatedDataPoint(
-                    data_point_key="frostpoint", value=23.1, unit="°F"
+                    data_point_key="frostpoint", value=23.1, unit=TEMP_FAHRENHEIT
                 ),
                 "frostrisk": CalculatedDataPoint(
                     data_point_key="frostrisk", value=FrostRisk.VERY_PROBABLE, unit=None
+                ),
+                "simmerindex": CalculatedDataPoint(
+                    data_point_key="simmerindex", value=None, unit=TEMP_FAHRENHEIT
+                ),
+                "simmerzone": CalculatedDataPoint(
+                    data_point_key="simmerzone", value=None, unit=None
                 ),
             },
         ),
@@ -1382,10 +1460,16 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
             data_point_key="thermalperception", value=ThermalPerception.DRY, unit=None
         ),
         "frostpoint": CalculatedDataPoint(
-            data_point_key="frostpoint", value=17.9, unit="°F"
+            data_point_key="frostpoint", value=17.9, unit=TEMP_FAHRENHEIT
         ),
         "frostrisk": CalculatedDataPoint(
             data_point_key="frostrisk", value=FrostRisk.UNLIKELY, unit=None
+        ),
+        "simmerindex": CalculatedDataPoint(
+            data_point_key="simmerindex", value=None, unit=TEMP_FAHRENHEIT
+        ),
+        "simmerzone": CalculatedDataPoint(
+            data_point_key="simmerzone", value=None, unit=None
         ),
     }
 
@@ -1490,10 +1574,16 @@ def test_unit_conversion_to_metric(device_data, ecowitt):
             data_point_key="thermalperception", value=ThermalPerception.DRY, unit=None
         ),
         "frostpoint": CalculatedDataPoint(
-            data_point_key="frostpoint", value=-19.6, unit="°C"
+            data_point_key="frostpoint", value=-19.6, unit=TEMP_CELSIUS
         ),
         "frostrisk": CalculatedDataPoint(
             data_point_key="frostrisk", value=FrostRisk.UNLIKELY, unit=None
+        ),
+        "simmerindex": CalculatedDataPoint(
+            data_point_key="simmerindex", value=None, unit=TEMP_CELSIUS
+        ),
+        "simmerzone": CalculatedDataPoint(
+            data_point_key="simmerzone", value=None, unit=None
         ),
     }
 
@@ -1573,10 +1663,16 @@ def test_nonnumeric_value(device_data, ecowitt):
             data_point_key="thermalperception", value=ThermalPerception.DRY, unit=None
         ),
         "frostpoint": CalculatedDataPoint(
-            data_point_key="frostpoint", value=-3.3, unit="°F"
+            data_point_key="frostpoint", value=-3.3, unit=TEMP_FAHRENHEIT
         ),
         "frostrisk": CalculatedDataPoint(
             data_point_key="frostrisk", value=FrostRisk.UNLIKELY, unit=None
+        ),
+        "simmerindex": CalculatedDataPoint(
+            data_point_key="simmerindex", value=None, unit=TEMP_FAHRENHEIT
+        ),
+        "simmerzone": CalculatedDataPoint(
+            data_point_key="simmerzone", value=None, unit=None
         ),
         "Random New Key": CalculatedDataPoint("Random New Key", "Some Value"),
     }
@@ -1679,10 +1775,16 @@ def test_unknown_battery(device_data, ecowitt):
             data_point_key="thermalperception", value=ThermalPerception.DRY, unit=None
         ),
         "frostpoint": CalculatedDataPoint(
-            data_point_key="frostpoint", value=-3.3, unit="°F"
+            data_point_key="frostpoint", value=-3.3, unit=TEMP_FAHRENHEIT
         ),
         "frostrisk": CalculatedDataPoint(
             data_point_key="frostrisk", value=FrostRisk.UNLIKELY, unit=None
+        ),
+        "simmerindex": CalculatedDataPoint(
+            data_point_key="simmerindex", value=None, unit=TEMP_FAHRENHEIT
+        ),
+        "simmerzone": CalculatedDataPoint(
+            data_point_key="simmerzone", value=None, unit=None
         ),
         "playstationbattery1": CalculatedDataPoint(
             "batt", BooleanBatteryState.OFF, None

@@ -54,6 +54,8 @@ from ecowitt2mqtt.const import (
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6,
+    DATA_POINT_SIMMER_INDEX,
+    DATA_POINT_SIMMER_ZONE,
     DATA_POINT_SOLARRADIATION,
     DATA_POINT_SOLARRADIATION_LUX,
     DATA_POINT_SOLARRADIATION_PERCEIVED,
@@ -176,6 +178,22 @@ ENTITY_DESCRIPTIONS = {
         entity_category=EntityCategory.DIAGNOSTIC,
         state_class=StateClass.MEASUREMENT,
     ),
+    DATA_POINT_CO2: EntityDescription(
+        device_class=DeviceClass.CO2,
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_CO2_24H: EntityDescription(
+        device_class=DeviceClass.CO2,
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_DEWPOINT: EntityDescription(
+        device_class=DeviceClass.TEMPERATURE,
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_FEELSLIKE: EntityDescription(
+        device_class=DeviceClass.TEMPERATURE,
+        state_class=StateClass.MEASUREMENT,
+    ),
     DATA_POINT_FROST_POINT: EntityDescription(
         device_class=DeviceClass.TEMPERATURE,
         state_class=StateClass.MEASUREMENT,
@@ -243,22 +261,6 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_GLOB_WINDDIR: EntityDescription(
         icon="mdi:compass",
     ),
-    DATA_POINT_CO2: EntityDescription(
-        device_class=DeviceClass.CO2,
-        state_class=StateClass.MEASUREMENT,
-    ),
-    DATA_POINT_CO2_24H: EntityDescription(
-        device_class=DeviceClass.CO2,
-        state_class=StateClass.MEASUREMENT,
-    ),
-    DATA_POINT_DEWPOINT: EntityDescription(
-        device_class=DeviceClass.TEMPERATURE,
-        state_class=StateClass.MEASUREMENT,
-    ),
-    DATA_POINT_FEELSLIKE: EntityDescription(
-        device_class=DeviceClass.TEMPERATURE,
-        state_class=StateClass.MEASUREMENT,
-    ),
     DATA_POINT_HEATINDEX: EntityDescription(
         device_class=DeviceClass.TEMPERATURE,
         state_class=StateClass.MEASUREMENT,
@@ -309,6 +311,14 @@ ENTITY_DESCRIPTIONS = {
     ),
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6: EntityDescription(
         icon="mdi:timer",
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_SIMMER_INDEX: EntityDescription(
+        device_class=DeviceClass.TEMPERATURE,
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_SIMMER_ZONE: EntityDescription(
+        icon="mdi:heat-wave",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_SOLARRADIATION: EntityDescription(
