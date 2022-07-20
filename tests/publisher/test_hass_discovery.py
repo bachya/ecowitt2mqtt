@@ -1194,6 +1194,30 @@ async def test_publish(config, device_data, ecowitt, request, setup_asyncio_mqtt
                 b"None",
             ),
             call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/config",
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "simmerindex", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_simmerindex", "unit_of_measurement": "\\u00b0F", "device_class": "temperature", "state_class": "measurement"}',
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/availability",
+                b"offline",
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/state",
+                b"None",
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/config",
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "simmerzone", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_simmerzone", "icon": "mdi:heat-wave", "state_class": "measurement"}',
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability",
+                b"offline",
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state",
+                b"None",
+            ),
+            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/config",
                 b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "solarradiation_lux", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_lux", "unit_of_measurement": "lx", "device_class": "illuminance", "state_class": "measurement"}',
             ),
@@ -2390,6 +2414,30 @@ async def test_publish_custom_entity_id_prefix(
                 b"None",
             ),
             call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/config",
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_simmerindex", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_simmerindex", "unit_of_measurement": "\\u00b0F", "device_class": "temperature", "state_class": "measurement"}',
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/availability",
+                b"offline",
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/state",
+                b"None",
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/config",
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_simmerzone", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_simmerzone", "icon": "mdi:heat-wave", "state_class": "measurement"}',
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability",
+                b"offline",
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state",
+                b"None",
+            ),
+            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/config",
                 b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "test_prefix_solarradiation_lux", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_lux", "unit_of_measurement": "lx", "device_class": "illuminance", "state_class": "measurement"}',
             ),
@@ -3582,6 +3630,30 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/state",
+                b"None",
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/config",
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "simmerindex", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_simmerindex", "unit_of_measurement": "\\u00b0F", "device_class": "temperature", "state_class": "measurement"}',
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/availability",
+                b"offline",
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/state",
+                b"None",
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/config",
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "simmerzone", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_simmerzone", "icon": "mdi:heat-wave", "state_class": "measurement"}',
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability",
+                b"offline",
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state",
                 b"None",
             ),
             call(
@@ -4818,6 +4890,30 @@ async def test_no_entity_description(caplog, device_data, ecowitt, setup_asyncio
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/state",
+                b"None",
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/config",
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "simmerindex", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_simmerindex", "unit_of_measurement": "\\u00b0F", "device_class": "temperature", "state_class": "measurement"}',
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/availability",
+                b"offline",
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/state",
+                b"None",
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/config",
+                b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "name": "simmerzone", "qos": 1, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_simmerzone", "icon": "mdi:heat-wave", "state_class": "measurement"}',
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability",
+                b"offline",
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state",
                 b"None",
             ),
             call(

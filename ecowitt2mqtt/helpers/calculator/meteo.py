@@ -97,6 +97,28 @@ class FrostRisk(StrEnum):
     VERY_PROBABLE = "Very probable"
 
 
+class SimmerZone(StrEnum):
+    """Define types of simmer zone."""
+
+    CAUTION_HEAT_EXHAUSTION = "Caution: Heat exhaustion"
+    CIRCULATORY_COLLAPSE_IMMINENT = "Circulatory collapse imminent"
+    COMFORTABLE = "Comfortable"
+    DANGER_OF_HEATSTROKE = "Danger of heatstroke"
+    EXTREME_DANGER_OF_HEATSTROKE = "Extreme danger of heatstroke"
+    INCREASED_DISCOMFORT = "Increased discomfort"
+    SLIGHTLY_COOL = "Slightly cool"
+    SLIGHTLY_WARM = "Slightly warm"
+
+
+@dataclass
+class SimmerZoneRating:
+    """Define a dataclass to store a simmer zone rating."""
+
+    zone: SimmerZone
+    minimum_f: float | None = None
+    maximum_f: float | None = None
+
+
 class ThermalPerception(StrEnum):
     """Define types of thermal perception."""
 
@@ -115,50 +137,94 @@ class ThermalPerceptionRating:
     """Define a dataclass to store a thermal perception rating."""
 
     perception: ThermalPerception
-    minimum: float | None = None
-    maximum: float | None = None
+    minimum_c: float
+    maximum_c: float
+
+
+SIMMER_ZONE_RATINGS: list[SimmerZoneRating] = [
+    SimmerZoneRating(
+        zone=SimmerZone.SLIGHTLY_COOL,
+        minimum_f=70.0,
+        maximum_f=77.0,
+    ),
+    SimmerZoneRating(
+        zone=SimmerZone.COMFORTABLE,
+        minimum_f=77.0,
+        maximum_f=83.0,
+    ),
+    SimmerZoneRating(
+        zone=SimmerZone.SLIGHTLY_WARM,
+        minimum_f=83.0,
+        maximum_f=91.0,
+    ),
+    SimmerZoneRating(
+        zone=SimmerZone.INCREASED_DISCOMFORT,
+        minimum_f=91.0,
+        maximum_f=100.0,
+    ),
+    SimmerZoneRating(
+        zone=SimmerZone.CAUTION_HEAT_EXHAUSTION,
+        minimum_f=100.0,
+        maximum_f=112.0,
+    ),
+    SimmerZoneRating(
+        zone=SimmerZone.DANGER_OF_HEATSTROKE,
+        minimum_f=112.0,
+        maximum_f=125.0,
+    ),
+    SimmerZoneRating(
+        zone=SimmerZone.EXTREME_DANGER_OF_HEATSTROKE,
+        minimum_f=125.0,
+        maximum_f=150.0,
+    ),
+    SimmerZoneRating(
+        zone=SimmerZone.CIRCULATORY_COLLAPSE_IMMINENT,
+        minimum_f=150.0,
+        maximum_f=200.0,
+    ),
+]
 
 
 THERMAL_PERCEPTION_RATINGS: list[ThermalPerceptionRating] = [
     ThermalPerceptionRating(
         perception=ThermalPerception.SEVERELY_HIGH,
-        minimum=26.0,
-        maximum=100.0,
+        minimum_c=26.0,
+        maximum_c=100.0,
     ),
     ThermalPerceptionRating(
         perception=ThermalPerception.EXTREMELY_UNCOMFORTABLE,
-        minimum=24.0,
-        maximum=26.0,
+        minimum_c=24.0,
+        maximum_c=26.0,
     ),
     ThermalPerceptionRating(
         perception=ThermalPerception.QUITE_UNCOMFORTABLE,
-        minimum=21.0,
-        maximum=24.0,
+        minimum_c=21.0,
+        maximum_c=24.0,
     ),
     ThermalPerceptionRating(
         perception=ThermalPerception.SOMEWHAT_UNCOMFORTABLE,
-        minimum=18.0,
-        maximum=21.0,
+        minimum_c=18.0,
+        maximum_c=21.0,
     ),
     ThermalPerceptionRating(
         perception=ThermalPerception.OK_BUT_HUMID,
-        minimum=16.0,
-        maximum=18.0,
+        minimum_c=16.0,
+        maximum_c=18.0,
     ),
     ThermalPerceptionRating(
         perception=ThermalPerception.COMFORTABLE,
-        minimum=13.0,
-        maximum=16.0,
+        minimum_c=13.0,
+        maximum_c=16.0,
     ),
     ThermalPerceptionRating(
         perception=ThermalPerception.VERY_COMFORTABLE,
-        minimum=10.0,
-        maximum=12.0,
+        minimum_c=10.0,
+        maximum_c=12.0,
     ),
     ThermalPerceptionRating(
         perception=ThermalPerception.DRY,
-        maximum=10.0,
-        minimum=-100.0,
+        maximum_c=10.0,
+        minimum_c=-100.0,
     ),
 ]
 
@@ -178,13 +244,10 @@ def _get_absolute_humidity(temp_obj: meteocalc.Temp, relative_humidity: float) -
 
 
 def _get_frost_point_object(
-    temp_obj: meteocalc.Temp,
-    relative_humidity: float,
-    input_unit_system: UnitSystemType,
+    temp_obj: meteocalc.Temp, relative_humidity: float
 ) -> meteocalc.Temp:
-    """Get a meteocalc frost point object."""
+    """Get a frost point object."""
     dew_point_obj = meteocalc.dew_point(temp_obj, relative_humidity)
-
     absolute_temp_c = temp_obj.c + 273.15
     absolute_dew_point_c = dew_point_obj.c + 273.15
 
@@ -206,10 +269,26 @@ def _get_frost_point_object(
     )
 
 
+def _get_simmer_index_object(
+    temp_obj: meteocalc.Temp, relative_humidity: float
+) -> meteocalc.Temp | None:
+    """Get a simmer index object."""
+    if temp_obj.f < 70:
+        return None
+    return _get_temperature_object(
+        (
+            1.98
+            * (temp_obj.f - (0.55 - (0.0055 * relative_humidity)) * (temp_obj.f - 58.0))
+            - 56.83
+        ),
+        UNIT_SYSTEM_IMPERIAL,
+    )
+
+
 def _get_temperature_object(
     temperature: float, unit_system: UnitSystemType
 ) -> meteocalc.Temp:
-    """Get a meteocalc temperature object."""
+    """Get a temperature object."""
     if unit_system == UNIT_SYSTEM_IMPERIAL:
         unit = "f"
     else:
@@ -227,8 +306,10 @@ def calculate_absolute_humidity(
     """Calculate absolute humidity."""
     temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
     final_value = _get_absolute_humidity(temp_obj, relative_humidity)
+
     if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
         final_value /= 16018.46592051
+
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=round(final_value, 1),
@@ -260,6 +341,7 @@ def calculate_dew_point(
         final_value = round(dew_point_obj.f, 1)
     else:
         final_value = round(dew_point_obj.c, 1)
+
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
@@ -283,6 +365,7 @@ def calculate_feels_like(  # pylint: disable=too-many-arguments
         final_value = round(feels_like_obj.f, 1)
     else:
         final_value = round(feels_like_obj.c, 1)
+
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
@@ -299,9 +382,7 @@ def calculate_frost_point(
 ) -> CalculatedDataPoint:
     """Calculate frost point in the appropriate unit system."""
     temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
-    frost_point_obj = _get_frost_point_object(
-        temp_obj, relative_humidity, ecowitt.config.input_unit_system
-    )
+    frost_point_obj = _get_frost_point_object(temp_obj, relative_humidity)
 
     if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
         final_value = round(frost_point_obj.f, 1)
@@ -325,9 +406,7 @@ def calculate_frost_risk(
     """Calculate the risk of frost forming."""
     temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
     absolute_humidity = _get_absolute_humidity(temp_obj, relative_humidity)
-    frost_point_obj = _get_frost_point_object(
-        temp_obj, relative_humidity, ecowitt.config.input_unit_system
-    )
+    frost_point_obj = _get_frost_point_object(temp_obj, relative_humidity)
 
     if temp_obj.c <= 1.0 and frost_point_obj.c <= 0:
         if absolute_humidity <= FROST_RISK_HUMIDITY_ABS_THRESHOLD:
@@ -361,6 +440,7 @@ def calculate_heat_index(
         final_value = round(heat_index_obj.f, 1)
     else:
         final_value = round(heat_index_obj.c, 1)
+
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
@@ -379,6 +459,7 @@ def calculate_lightning_strike_distance(
         final_value = value
     else:
         final_value = round(value / 1.609, 1)
+
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
@@ -434,6 +515,7 @@ def calculate_pressure(
         final_value = round(value / 33.8639, 3)
     else:
         final_value = round(value * 33.8639, 3)
+
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
@@ -462,6 +544,7 @@ def calculate_rain_volume(
         final_value = round(value / 25.4, 1)
     else:
         final_value = round(value * 25.4, 1)
+
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
@@ -488,9 +571,58 @@ def calculate_safe_exposure_time(
         )
     except ZeroDivisionError:
         final_value = None
+
     return CalculatedDataPoint(
         data_point_key=data_point_key, value=final_value, unit=TIME_MINUTES
     )
+
+
+def calculate_simmer_index(
+    ecowitt: Ecowitt,
+    payload_key: str,
+    data_point_key: str,
+    temperature: float,
+    relative_humidity: float,
+) -> CalculatedDataPoint:
+    """Calculate simmer index in the appropriate unit system."""
+    temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
+    simmer_obj = _get_simmer_index_object(temp_obj, relative_humidity)
+
+    if simmer_obj:
+        if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+            final_value = round(simmer_obj.f, 1)
+        else:
+            final_value = round(simmer_obj.c, 1)
+    else:
+        final_value = None
+
+    return CalculatedDataPoint(
+        data_point_key=data_point_key,
+        value=final_value,
+        unit=TEMP_UNIT_MAP[ecowitt.config.output_unit_system],
+    )
+
+
+def calculate_simmer_zone(
+    ecowitt: Ecowitt,
+    payload_key: str,
+    data_point_key: str,
+    temperature: float,
+    relative_humidity: float,
+) -> CalculatedDataPoint:
+    """Calculate the human perception of comfort level related to temperature."""
+    temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
+    simmer_obj = _get_simmer_index_object(temp_obj, relative_humidity)
+
+    if simmer_obj:
+        [rating] = [
+            r for r in SIMMER_ZONE_RATINGS if r.minimum_f <= simmer_obj.f <= r.maximum_f
+        ]
+        final_value = rating.zone
+    else:
+        final_value = None
+
+    return CalculatedDataPoint(data_point_key=data_point_key, value=final_value)
 
 
 def calculate_solar_radiation_lux(
@@ -546,6 +678,7 @@ def calculate_temperature(
         final_value = round(temp_obj.f, 1)
     else:
         final_value = round(temp_obj.c, 1)
+
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
@@ -567,7 +700,7 @@ def calculate_thermal_perception(
     [rating] = [
         r
         for r in THERMAL_PERCEPTION_RATINGS
-        if r.minimum <= dew_point_obj.c <= r.maximum
+        if r.minimum_c <= dew_point_obj.c <= r.maximum_c
     ]
 
     return CalculatedDataPoint(data_point_key=data_point_key, value=rating.perception)
@@ -606,6 +739,7 @@ def calculate_wind_chill(
             final_value = round(wind_chill_obj.f, 1)
         else:
             final_value = round(wind_chill_obj.c, 1)
+
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
@@ -630,6 +764,7 @@ def calculate_wind_speed(
         final_value = round(value / 1.60934, 1)
     else:
         final_value = round(value * 1.60934, 1)
+
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,

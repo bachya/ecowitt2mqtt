@@ -50,7 +50,11 @@ from ecowitt2mqtt.data import ProcessedData
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy, BooleanBatteryState
 from ecowitt2mqtt.helpers.calculator.leak import LeakState
-from ecowitt2mqtt.helpers.calculator.meteo import FrostRisk, ThermalPerception
+from ecowitt2mqtt.helpers.calculator.meteo import (
+    FrostRisk,
+    SimmerZone,
+    ThermalPerception,
+)
 from ecowitt2mqtt.helpers.device import Device
 
 from tests.common import (
@@ -157,10 +161,18 @@ def test_battery_config(device_data, ecowitt):
             unit=None,
         ),
         "frostpoint": CalculatedDataPoint(
-            data_point_key="frostpoint", value=60.3, unit="°F"
+            data_point_key="frostpoint", value=60.3, unit=TEMP_FAHRENHEIT
         ),
         "frostrisk": CalculatedDataPoint(
             data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+        ),
+        "simmerindex": CalculatedDataPoint(
+            data_point_key="simmerindex", value=105.2, unit=TEMP_FAHRENHEIT
+        ),
+        "simmerzone": CalculatedDataPoint(
+            data_point_key="simmerzone",
+            value=SimmerZone.CAUTION_HEAT_EXHAUSTION,
+            unit=None,
         ),
     }
 
@@ -251,10 +263,18 @@ def test_default_battery_strategy(device_data, ecowitt):
             unit=None,
         ),
         "frostpoint": CalculatedDataPoint(
-            data_point_key="frostpoint", value=60.3, unit="°F"
+            data_point_key="frostpoint", value=60.3, unit=TEMP_FAHRENHEIT
         ),
         "frostrisk": CalculatedDataPoint(
             data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+        ),
+        "simmerindex": CalculatedDataPoint(
+            data_point_key="simmerindex", value=105.2, unit=TEMP_FAHRENHEIT
+        ),
+        "simmerzone": CalculatedDataPoint(
+            data_point_key="simmerzone",
+            value=SimmerZone.CAUTION_HEAT_EXHAUSTION,
+            unit=None,
         ),
     }
 
@@ -386,10 +406,16 @@ def test_missing_distance(device_data, ecowitt, request):
             unit=None,
         ),
         "frostpoint": CalculatedDataPoint(
-            data_point_key="frostpoint", value=47.1, unit="°F"
+            data_point_key="frostpoint", value=47.1, unit=TEMP_FAHRENHEIT
         ),
         "frostrisk": CalculatedDataPoint(
             data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+        ),
+        "simmerindex": CalculatedDataPoint(
+            data_point_key="simmerindex", value=81.2, unit=TEMP_FAHRENHEIT
+        ),
+        "simmerzone": CalculatedDataPoint(
+            data_point_key="simmerzone", value=SimmerZone.COMFORTABLE, unit=None
         ),
     }
 
@@ -405,8 +431,8 @@ def test_missing_distance(device_data, ecowitt, request):
                 "humidityin": CalculatedDataPoint("humidity", 31.0, unit=PERCENTAGE),
                 "baromrel": CalculatedDataPoint("barom", 24.74, unit=PRESSURE_INHG),
                 "baromabs": CalculatedDataPoint("barom", 24.74, unit=PRESSURE_INHG),
-                "temp": CalculatedDataPoint("temp", 19.1, unit=TEMP_FAHRENHEIT),
-                "humidity": CalculatedDataPoint("humidity", 34.0, unit=PERCENTAGE),
+                "temp": CalculatedDataPoint("temp", 93.2, unit=TEMP_FAHRENHEIT),
+                "humidity": CalculatedDataPoint("humidity", 64, unit=PERCENTAGE),
                 "winddir": CalculatedDataPoint("winddir", 139.0, unit=DEGREE),
                 "windspeed": CalculatedDataPoint(
                     "wind", 20.89, unit=SPEED_MILES_PER_HOUR
@@ -461,15 +487,15 @@ def test_missing_distance(device_data, ecowitt, request):
                     datetime(2022, 4, 20, 17, 17, 17, tzinfo=timezone.utc),
                 ),
                 "wh65batt": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
-                "dewpoint": CalculatedDataPoint("dewpoint", -4.7, unit=TEMP_FAHRENHEIT),
+                "dewpoint": CalculatedDataPoint("dewpoint", 79.2, unit=TEMP_FAHRENHEIT),
                 "feelslike": CalculatedDataPoint(
-                    "feelslike", 2.7, unit=TEMP_FAHRENHEIT
+                    "feelslike", 111.1, unit=TEMP_FAHRENHEIT
                 ),
                 "heatindex": CalculatedDataPoint(
-                    "heatindex", 12.3, unit=TEMP_FAHRENHEIT
+                    "heatindex", 111.1, unit=TEMP_FAHRENHEIT
                 ),
                 "windchill": CalculatedDataPoint(
-                    "windchill", 2.7, unit=TEMP_FAHRENHEIT
+                    "windchill", None, unit=TEMP_FAHRENHEIT
                 ),
                 "humidityabs": CalculatedDataPoint(
                     data_point_key="humidityabs",
@@ -483,14 +509,22 @@ def test_missing_distance(device_data, ecowitt, request):
                 ),
                 "thermalperception": CalculatedDataPoint(
                     data_point_key="thermalperception",
-                    value=ThermalPerception.DRY,
+                    value=ThermalPerception.SEVERELY_HIGH,
                     unit=None,
                 ),
                 "frostpoint": CalculatedDataPoint(
-                    data_point_key="frostpoint", value=-3.3, unit="°F"
+                    data_point_key="frostpoint", value=70.3, unit=TEMP_FAHRENHEIT
                 ),
                 "frostrisk": CalculatedDataPoint(
-                    data_point_key="frostrisk", value=FrostRisk.UNLIKELY, unit=None
+                    data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+                ),
+                "simmerindex": CalculatedDataPoint(
+                    data_point_key="simmerindex", value=113.9, unit=TEMP_FAHRENHEIT
+                ),
+                "simmerzone": CalculatedDataPoint(
+                    data_point_key="simmerzone",
+                    value=SimmerZone.DANGER_OF_HEATSTROKE,
+                    unit=None,
                 ),
             },
         ),
@@ -501,11 +535,11 @@ def test_missing_distance(device_data, ecowitt, request):
                 "humidityin": CalculatedDataPoint("humidity", 26, unit=PERCENTAGE),
                 "baromrel": CalculatedDataPoint("barom", 24.604, unit=PRESSURE_INHG),
                 "baromabs": CalculatedDataPoint("barom", 24.604, unit=PRESSURE_INHG),
-                "temp": CalculatedDataPoint("temp", 56.7, unit=TEMP_FAHRENHEIT),
+                "temp": CalculatedDataPoint("temp", 26.7, unit=TEMP_FAHRENHEIT),
                 "humidity": CalculatedDataPoint("humidity", 27, unit=PERCENTAGE),
                 "winddir": CalculatedDataPoint("winddir", 46, unit=DEGREE),
                 "windspeed": CalculatedDataPoint(
-                    "wind", 0.89, unit=SPEED_MILES_PER_HOUR
+                    "wind", 22.12, unit=SPEED_MILES_PER_HOUR
                 ),
                 "windgust": CalculatedDataPoint(
                     "gust", 4.47, unit=SPEED_MILES_PER_HOUR
@@ -552,15 +586,15 @@ def test_missing_distance(device_data, ecowitt, request):
                 "yearlyrain": CalculatedDataPoint("rain", 11.756, unit=RAINFALL_INCHES),
                 "totalrain": CalculatedDataPoint("rain", 11.756, unit=RAINFALL_INCHES),
                 "wh65batt": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
-                "dewpoint": CalculatedDataPoint("dewpoint", 23.1, unit=TEMP_FAHRENHEIT),
+                "dewpoint": CalculatedDataPoint("dewpoint", -2.8, unit=TEMP_FAHRENHEIT),
                 "feelslike": CalculatedDataPoint(
-                    "feelslike", 56.7, unit=TEMP_FAHRENHEIT
+                    "feelslike", 12.4, unit=TEMP_FAHRENHEIT
                 ),
                 "heatindex": CalculatedDataPoint(
-                    "heatindex", 53.3, unit=TEMP_FAHRENHEIT
+                    "heatindex", 20.3, unit=TEMP_FAHRENHEIT
                 ),
                 "windchill": CalculatedDataPoint(
-                    "windchill", None, unit=TEMP_FAHRENHEIT
+                    "windchill", 12.4, unit=TEMP_FAHRENHEIT
                 ),
                 "humidityabs": CalculatedDataPoint(
                     data_point_key="humidityabs",
@@ -578,10 +612,16 @@ def test_missing_distance(device_data, ecowitt, request):
                     unit=None,
                 ),
                 "frostpoint": CalculatedDataPoint(
-                    data_point_key="frostpoint", value=19.9, unit="°F"
+                    data_point_key="frostpoint", value=-2.2, unit=TEMP_FAHRENHEIT
                 ),
                 "frostrisk": CalculatedDataPoint(
-                    data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+                    data_point_key="frostrisk", value=FrostRisk.UNLIKELY, unit=None
+                ),
+                "simmerindex": CalculatedDataPoint(
+                    data_point_key="simmerindex", value=None, unit=TEMP_FAHRENHEIT
+                ),
+                "simmerzone": CalculatedDataPoint(
+                    data_point_key="simmerzone", value=None, unit=None
                 ),
             },
         ),
@@ -671,10 +711,18 @@ def test_missing_distance(device_data, ecowitt, request):
                     unit=None,
                 ),
                 "frostpoint": CalculatedDataPoint(
-                    data_point_key="frostpoint", value=60.3, unit="°F"
+                    data_point_key="frostpoint", value=60.3, unit=TEMP_FAHRENHEIT
                 ),
                 "frostrisk": CalculatedDataPoint(
                     data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+                ),
+                "simmerindex": CalculatedDataPoint(
+                    data_point_key="simmerindex", value=105.2, unit=TEMP_FAHRENHEIT
+                ),
+                "simmerzone": CalculatedDataPoint(
+                    data_point_key="simmerzone",
+                    value=SimmerZone.CAUTION_HEAT_EXHAUSTION,
+                    unit=None,
                 ),
             },
         ),
@@ -787,10 +835,16 @@ def test_missing_distance(device_data, ecowitt, request):
                     unit=None,
                 ),
                 "frostpoint": CalculatedDataPoint(
-                    data_point_key="frostpoint", value=47.1, unit="°F"
+                    data_point_key="frostpoint", value=47.1, unit=TEMP_FAHRENHEIT
                 ),
                 "frostrisk": CalculatedDataPoint(
                     data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+                ),
+                "simmerindex": CalculatedDataPoint(
+                    data_point_key="simmerindex", value=81.2, unit=TEMP_FAHRENHEIT
+                ),
+                "simmerzone": CalculatedDataPoint(
+                    data_point_key="simmerzone", value=SimmerZone.COMFORTABLE, unit=None
                 ),
             },
         ),
@@ -974,10 +1028,16 @@ def test_missing_distance(device_data, ecowitt, request):
                     unit=None,
                 ),
                 "frostpoint": CalculatedDataPoint(
-                    data_point_key="frostpoint", value=44.3, unit="°F"
+                    data_point_key="frostpoint", value=44.3, unit=TEMP_FAHRENHEIT
                 ),
                 "frostrisk": CalculatedDataPoint(
                     data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+                ),
+                "simmerindex": CalculatedDataPoint(
+                    data_point_key="simmerindex", value=None, unit=TEMP_FAHRENHEIT
+                ),
+                "simmerzone": CalculatedDataPoint(
+                    data_point_key="simmerzone", value=None, unit=None
                 ),
             },
         ),
@@ -1081,10 +1141,16 @@ def test_missing_distance(device_data, ecowitt, request):
                     unit=None,
                 ),
                 "frostpoint": CalculatedDataPoint(
-                    data_point_key="frostpoint", value=22.4, unit="°F"
+                    data_point_key="frostpoint", value=22.4, unit=TEMP_FAHRENHEIT
                 ),
                 "frostrisk": CalculatedDataPoint(
                     data_point_key="frostrisk", value=FrostRisk.PROBABLE, unit=None
+                ),
+                "simmerindex": CalculatedDataPoint(
+                    data_point_key="simmerindex", value=None, unit=TEMP_FAHRENHEIT
+                ),
+                "simmerzone": CalculatedDataPoint(
+                    data_point_key="simmerzone", value=None, unit=None
                 ),
             },
         ),
@@ -1180,10 +1246,18 @@ def test_missing_distance(device_data, ecowitt, request):
                     unit=None,
                 ),
                 "frostpoint": CalculatedDataPoint(
-                    data_point_key="frostpoint", value=52.3, unit="°F"
+                    data_point_key="frostpoint", value=52.3, unit=TEMP_FAHRENHEIT
                 ),
                 "frostrisk": CalculatedDataPoint(
                     data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+                ),
+                "simmerindex": CalculatedDataPoint(
+                    data_point_key="simmerindex", value=85.0, unit=TEMP_FAHRENHEIT
+                ),
+                "simmerzone": CalculatedDataPoint(
+                    data_point_key="simmerzone",
+                    value=SimmerZone.SLIGHTLY_WARM,
+                    unit=None,
                 ),
             },
         ),
@@ -1268,10 +1342,16 @@ def test_missing_distance(device_data, ecowitt, request):
                     unit=None,
                 ),
                 "frostpoint": CalculatedDataPoint(
-                    data_point_key="frostpoint", value=23.1, unit="°F"
+                    data_point_key="frostpoint", value=23.1, unit=TEMP_FAHRENHEIT
                 ),
                 "frostrisk": CalculatedDataPoint(
                     data_point_key="frostrisk", value=FrostRisk.VERY_PROBABLE, unit=None
+                ),
+                "simmerindex": CalculatedDataPoint(
+                    data_point_key="simmerindex", value=None, unit=TEMP_FAHRENHEIT
+                ),
+                "simmerzone": CalculatedDataPoint(
+                    data_point_key="simmerzone", value=None, unit=None
                 ),
             },
         ),
@@ -1382,10 +1462,16 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
             data_point_key="thermalperception", value=ThermalPerception.DRY, unit=None
         ),
         "frostpoint": CalculatedDataPoint(
-            data_point_key="frostpoint", value=17.9, unit="°F"
+            data_point_key="frostpoint", value=17.9, unit=TEMP_FAHRENHEIT
         ),
         "frostrisk": CalculatedDataPoint(
             data_point_key="frostrisk", value=FrostRisk.UNLIKELY, unit=None
+        ),
+        "simmerindex": CalculatedDataPoint(
+            data_point_key="simmerindex", value=None, unit=TEMP_FAHRENHEIT
+        ),
+        "simmerzone": CalculatedDataPoint(
+            data_point_key="simmerzone", value=None, unit=None
         ),
     }
 
@@ -1412,90 +1498,233 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
         }
     ],
 )
-def test_unit_conversion_to_metric(device_data, ecowitt):
+@pytest.mark.parametrize(
+    "device_data_filename,expected_output",
+    [
+        (
+            "payload_gw1000bpro.json",
+            {
+                "runtime": CalculatedDataPoint("runtime", 319206.0, unit=TIME_SECONDS),
+                "tempin": CalculatedDataPoint("temp", 26.4, unit=TEMP_CELSIUS),
+                "humidityin": CalculatedDataPoint("humidity", 31.0, unit=PERCENTAGE),
+                "baromrel": CalculatedDataPoint("barom", 837.793, unit=PRESSURE_HPA),
+                "baromabs": CalculatedDataPoint("barom", 837.793, unit=PRESSURE_HPA),
+                "temp": CalculatedDataPoint("temp", 34.0, unit=TEMP_CELSIUS),
+                "humidity": CalculatedDataPoint("humidity", 64, unit=PERCENTAGE),
+                "winddir": CalculatedDataPoint("winddir", 139.0, unit=DEGREE),
+                "windspeed": CalculatedDataPoint(
+                    "wind", 33.6, unit=SPEED_KILOMETERS_PER_HOUR
+                ),
+                "windgust": CalculatedDataPoint(
+                    "gust", 1.8, unit=SPEED_KILOMETERS_PER_HOUR
+                ),
+                "maxdailygust": CalculatedDataPoint(
+                    "gust", 13.0, unit=SPEED_KILOMETERS_PER_HOUR
+                ),
+                "solarradiation": CalculatedDataPoint(
+                    "solarradiation", 264.61, unit=IRRADIATION_WATTS_PER_SQUARE_METER
+                ),
+                "solarradiation_lux": CalculatedDataPoint(
+                    "solarradiation_lux", 33494.9, unit=LIGHT_LUX
+                ),
+                "solarradiation_perceived": CalculatedDataPoint(
+                    "solarradiation_perceived", 90.0, unit=PERCENTAGE
+                ),
+                "uv": CalculatedDataPoint("uv", 2.0, unit=UV_INDEX),
+                "safe_exposure_time_skin_type_1": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_1", 83.3, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_2": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_2", 100.0, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_3": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_3", 133.3, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_4": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_4", 166.7, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_5": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_5", 266.7, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_6": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_6", 433.3, unit=TIME_MINUTES
+                ),
+                "rainrate": CalculatedDataPoint(
+                    "rainrate", 0.0, unit=f"{RAINFALL_MILLIMETERS}/hr"
+                ),
+                "eventrain": CalculatedDataPoint(
+                    "rain", 0.0, unit=RAINFALL_MILLIMETERS
+                ),
+                "hourlyrain": CalculatedDataPoint(
+                    "rain", 0.0, unit=RAINFALL_MILLIMETERS
+                ),
+                "dailyrain": CalculatedDataPoint(
+                    "rain", 0.0, unit=RAINFALL_MILLIMETERS
+                ),
+                "weeklyrain": CalculatedDataPoint(
+                    "rain", 0.0, unit=RAINFALL_MILLIMETERS
+                ),
+                "monthlyrain": CalculatedDataPoint(
+                    "rain", 55.3, unit=RAINFALL_MILLIMETERS
+                ),
+                "yearlyrain": CalculatedDataPoint(
+                    "rain", 112.8, unit=RAINFALL_MILLIMETERS
+                ),
+                "lightning_num": CalculatedDataPoint("lightning_num", 13, unit=STRIKES),
+                "lightning": CalculatedDataPoint(
+                    "lightning", 1.0, unit=DISTANCE_KILOMETERS
+                ),
+                "lightning_time": CalculatedDataPoint(
+                    "lightning_time",
+                    datetime(2022, 4, 20, 17, 17, 17, tzinfo=timezone.utc),
+                ),
+                "wh65batt": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
+                "dewpoint": CalculatedDataPoint("dewpoint", 26.2, unit=TEMP_CELSIUS),
+                "feelslike": CalculatedDataPoint("feelslike", 43.9, unit=TEMP_CELSIUS),
+                "heatindex": CalculatedDataPoint("heatindex", 43.9, unit=TEMP_CELSIUS),
+                "windchill": CalculatedDataPoint("windchill", None, unit=TEMP_CELSIUS),
+                "humidityabs": CalculatedDataPoint(
+                    data_point_key="humidityabs",
+                    value=24.1,
+                    unit=WATER_VAPOR_GRAMS_PER_CUBIC_METER,
+                ),
+                "humidityabsin": CalculatedDataPoint(
+                    data_point_key="humidityabsin",
+                    value=15.9,
+                    unit=WATER_VAPOR_GRAMS_PER_CUBIC_METER,
+                ),
+                "thermalperception": CalculatedDataPoint(
+                    data_point_key="thermalperception",
+                    value=ThermalPerception.SEVERELY_HIGH,
+                    unit=None,
+                ),
+                "frostpoint": CalculatedDataPoint(
+                    data_point_key="frostpoint", value=21.3, unit=TEMP_CELSIUS
+                ),
+                "frostrisk": CalculatedDataPoint(
+                    data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+                ),
+                "simmerindex": CalculatedDataPoint(
+                    data_point_key="simmerindex", value=45.5, unit=TEMP_CELSIUS
+                ),
+                "simmerzone": CalculatedDataPoint(
+                    data_point_key="simmerzone",
+                    value=SimmerZone.DANGER_OF_HEATSTROKE,
+                    unit=None,
+                ),
+            },
+        ),
+        (
+            "payload_gw1000pro.json",
+            {
+                "tempin": CalculatedDataPoint("temp", 24.9, unit=TEMP_CELSIUS),
+                "humidityin": CalculatedDataPoint("humidity", 26, unit=PERCENTAGE),
+                "baromrel": CalculatedDataPoint("barom", 833.187, unit=PRESSURE_HPA),
+                "baromabs": CalculatedDataPoint("barom", 833.187, unit=PRESSURE_HPA),
+                "temp": CalculatedDataPoint("temp", -2.9, unit=TEMP_CELSIUS),
+                "humidity": CalculatedDataPoint("humidity", 27, unit=PERCENTAGE),
+                "winddir": CalculatedDataPoint("winddir", 46, unit=DEGREE),
+                "windspeed": CalculatedDataPoint(
+                    "wind", 35.6, unit=SPEED_KILOMETERS_PER_HOUR
+                ),
+                "windgust": CalculatedDataPoint(
+                    "gust", 7.2, unit=SPEED_KILOMETERS_PER_HOUR
+                ),
+                "maxdailygust": CalculatedDataPoint(
+                    "gust", 25.6, unit=SPEED_KILOMETERS_PER_HOUR
+                ),
+                "solarradiation": CalculatedDataPoint(
+                    "solarradiation", 25.56, unit=IRRADIATION_WATTS_PER_SQUARE_METER
+                ),
+                "solarradiation_lux": CalculatedDataPoint(
+                    "solarradiation_lux", 3235.4, unit=LIGHT_LUX
+                ),
+                "solarradiation_perceived": CalculatedDataPoint(
+                    "solarradiation_perceived", 70.0, unit=PERCENTAGE
+                ),
+                "uv": CalculatedDataPoint("uv", 0, unit=UV_INDEX),
+                "safe_exposure_time_skin_type_1": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_1", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_2": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_2", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_3": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_3", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_4": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_4", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_5": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_5", None, unit=TIME_MINUTES
+                ),
+                "safe_exposure_time_skin_type_6": CalculatedDataPoint(
+                    "safe_exposure_time_skin_type_6", None, unit=TIME_MINUTES
+                ),
+                "rainrate": CalculatedDataPoint(
+                    "rainrate", 0.000, unit=f"{RAINFALL_MILLIMETERS}/hr"
+                ),
+                "eventrain": CalculatedDataPoint(
+                    "rain", 0.000, unit=RAINFALL_MILLIMETERS
+                ),
+                "hourlyrain": CalculatedDataPoint(
+                    "rain", 0.000, unit=RAINFALL_MILLIMETERS
+                ),
+                "dailyrain": CalculatedDataPoint(
+                    "rain", 0.000, unit=RAINFALL_MILLIMETERS
+                ),
+                "weeklyrain": CalculatedDataPoint(
+                    "rain", 0.000, unit=RAINFALL_MILLIMETERS
+                ),
+                "monthlyrain": CalculatedDataPoint(
+                    "rain", 0.000, unit=RAINFALL_MILLIMETERS
+                ),
+                "yearlyrain": CalculatedDataPoint(
+                    "rain", 298.6, unit=RAINFALL_MILLIMETERS
+                ),
+                "totalrain": CalculatedDataPoint(
+                    "rain", 298.6, unit=RAINFALL_MILLIMETERS
+                ),
+                "wh65batt": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
+                "dewpoint": CalculatedDataPoint("dewpoint", -19.3, unit=TEMP_CELSIUS),
+                "feelslike": CalculatedDataPoint("feelslike", -10.9, unit=TEMP_CELSIUS),
+                "heatindex": CalculatedDataPoint("heatindex", -6.5, unit=TEMP_CELSIUS),
+                "windchill": CalculatedDataPoint("windchill", -10.9, unit=TEMP_CELSIUS),
+                "humidityabs": CalculatedDataPoint(
+                    data_point_key="humidityabs",
+                    value=1.1,
+                    unit=WATER_VAPOR_GRAMS_PER_CUBIC_METER,
+                ),
+                "humidityabsin": CalculatedDataPoint(
+                    data_point_key="humidityabsin",
+                    value=6.2,
+                    unit=WATER_VAPOR_GRAMS_PER_CUBIC_METER,
+                ),
+                "thermalperception": CalculatedDataPoint(
+                    data_point_key="thermalperception",
+                    value=ThermalPerception.DRY,
+                    unit=None,
+                ),
+                "frostpoint": CalculatedDataPoint(
+                    data_point_key="frostpoint", value=-19.0, unit=TEMP_CELSIUS
+                ),
+                "frostrisk": CalculatedDataPoint(
+                    data_point_key="frostrisk", value=FrostRisk.UNLIKELY, unit=None
+                ),
+                "simmerindex": CalculatedDataPoint(
+                    data_point_key="simmerindex", value=None, unit=TEMP_CELSIUS
+                ),
+                "simmerzone": CalculatedDataPoint(
+                    data_point_key="simmerzone", value=None, unit=None
+                ),
+            },
+        ),
+    ],
+)
+def test_unit_conversion_to_metric(device_data, ecowitt, expected_output):
     """Test conversion between units."""
     processed_data = ProcessedData(ecowitt, device_data)
-    assert processed_data.output == {
-        "runtime": CalculatedDataPoint("runtime", 319206, unit=TIME_SECONDS),
-        "tempin": CalculatedDataPoint("temp", 26.4, unit=TEMP_CELSIUS),
-        "humidityin": CalculatedDataPoint("humidity", 31, unit=PERCENTAGE),
-        "baromrel": CalculatedDataPoint("barom", 837.793, unit=PRESSURE_HPA),
-        "baromabs": CalculatedDataPoint("barom", 837.793, unit=PRESSURE_HPA),
-        "temp": CalculatedDataPoint("temp", -7.2, unit=TEMP_CELSIUS),
-        "humidity": CalculatedDataPoint("humidity", 34, unit=PERCENTAGE),
-        "winddir": CalculatedDataPoint("winddir", 139, unit=DEGREE),
-        "windspeed": CalculatedDataPoint("wind", 33.6, unit=SPEED_KILOMETERS_PER_HOUR),
-        "windgust": CalculatedDataPoint("gust", 1.8, unit=SPEED_KILOMETERS_PER_HOUR),
-        "maxdailygust": CalculatedDataPoint(
-            "gust", 13.0, unit=SPEED_KILOMETERS_PER_HOUR
-        ),
-        "solarradiation": CalculatedDataPoint(
-            "solarradiation", 264.61, unit=IRRADIATION_WATTS_PER_SQUARE_METER
-        ),
-        "solarradiation_lux": CalculatedDataPoint(
-            "solarradiation_lux", 33494.9, unit=LIGHT_LUX
-        ),
-        "solarradiation_perceived": CalculatedDataPoint(
-            "solarradiation_perceived", 90.0, unit=PERCENTAGE
-        ),
-        "uv": CalculatedDataPoint("uv", 2.0, unit=UV_INDEX),
-        "safe_exposure_time_skin_type_1": CalculatedDataPoint(
-            "safe_exposure_time_skin_type_1", 83.3, unit=TIME_MINUTES
-        ),
-        "safe_exposure_time_skin_type_2": CalculatedDataPoint(
-            "safe_exposure_time_skin_type_2", 100.0, unit=TIME_MINUTES
-        ),
-        "safe_exposure_time_skin_type_3": CalculatedDataPoint(
-            "safe_exposure_time_skin_type_3", 133.3, unit=TIME_MINUTES
-        ),
-        "safe_exposure_time_skin_type_4": CalculatedDataPoint(
-            "safe_exposure_time_skin_type_4", 166.7, unit=TIME_MINUTES
-        ),
-        "safe_exposure_time_skin_type_5": CalculatedDataPoint(
-            "safe_exposure_time_skin_type_5", 266.7, unit=TIME_MINUTES
-        ),
-        "safe_exposure_time_skin_type_6": CalculatedDataPoint(
-            "safe_exposure_time_skin_type_6", 433.3, unit=TIME_MINUTES
-        ),
-        "rainrate": CalculatedDataPoint(
-            "rainrate", 0.0, unit=f"{RAINFALL_MILLIMETERS}/hr"
-        ),
-        "eventrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_MILLIMETERS),
-        "hourlyrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_MILLIMETERS),
-        "dailyrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_MILLIMETERS),
-        "weeklyrain": CalculatedDataPoint("rain", 0.0, unit=RAINFALL_MILLIMETERS),
-        "monthlyrain": CalculatedDataPoint("rain", 55.3, unit=RAINFALL_MILLIMETERS),
-        "yearlyrain": CalculatedDataPoint("rain", 112.8, unit=RAINFALL_MILLIMETERS),
-        "lightning_num": CalculatedDataPoint("lightning_num", 13, unit=STRIKES),
-        "lightning": CalculatedDataPoint("lightning", 1.0, unit=DISTANCE_KILOMETERS),
-        "lightning_time": CalculatedDataPoint(
-            "lightning_time", datetime(2022, 4, 20, 17, 17, 17, tzinfo=timezone.utc)
-        ),
-        "wh65batt": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
-        "dewpoint": CalculatedDataPoint("dewpoint", -20.4, unit=TEMP_CELSIUS),
-        "feelslike": CalculatedDataPoint("feelslike", -16.3, unit=TEMP_CELSIUS),
-        "heatindex": CalculatedDataPoint("heatindex", -11.0, unit=TEMP_CELSIUS),
-        "windchill": CalculatedDataPoint("windchill", -16.3, unit=TEMP_CELSIUS),
-        "humidityabs": CalculatedDataPoint(
-            data_point_key="humidityabs",
-            value=1.0,
-            unit=WATER_VAPOR_GRAMS_PER_CUBIC_METER,
-        ),
-        "humidityabsin": CalculatedDataPoint(
-            data_point_key="humidityabsin",
-            value=8.5,
-            unit=WATER_VAPOR_GRAMS_PER_CUBIC_METER,
-        ),
-        "thermalperception": CalculatedDataPoint(
-            data_point_key="thermalperception", value=ThermalPerception.DRY, unit=None
-        ),
-        "frostpoint": CalculatedDataPoint(
-            data_point_key="frostpoint", value=-19.6, unit="°C"
-        ),
-        "frostrisk": CalculatedDataPoint(
-            data_point_key="frostrisk", value=FrostRisk.UNLIKELY, unit=None
-        ),
-    }
+    assert processed_data.output == expected_output
 
 
 def test_nonnumeric_value(device_data, ecowitt):
@@ -1508,8 +1737,8 @@ def test_nonnumeric_value(device_data, ecowitt):
         "humidityin": CalculatedDataPoint("humidity", 31.0, unit=PERCENTAGE),
         "baromrel": CalculatedDataPoint("barom", 24.74, unit=PRESSURE_INHG),
         "baromabs": CalculatedDataPoint("barom", 24.74, unit=PRESSURE_INHG),
-        "temp": CalculatedDataPoint("temp", 19.1, unit=TEMP_FAHRENHEIT),
-        "humidity": CalculatedDataPoint("humidity", 34.0, unit=PERCENTAGE),
+        "temp": CalculatedDataPoint("temp", 93.2, unit=TEMP_FAHRENHEIT),
+        "humidity": CalculatedDataPoint("humidity", 64, unit=PERCENTAGE),
         "winddir": CalculatedDataPoint("winddir", 139.0, unit=DEGREE),
         "windspeed": CalculatedDataPoint("wind", 20.89, unit=SPEED_MILES_PER_HOUR),
         "windgust": CalculatedDataPoint("gust", 1.12, unit=SPEED_MILES_PER_HOUR),
@@ -1555,10 +1784,10 @@ def test_nonnumeric_value(device_data, ecowitt):
             "lightning_time", datetime(2022, 4, 20, 17, 17, 17, tzinfo=timezone.utc)
         ),
         "wh65batt": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
-        "dewpoint": CalculatedDataPoint("dewpoint", -4.7, unit=TEMP_FAHRENHEIT),
-        "feelslike": CalculatedDataPoint("feelslike", 2.7, unit=TEMP_FAHRENHEIT),
-        "heatindex": CalculatedDataPoint("heatindex", 12.3, unit=TEMP_FAHRENHEIT),
-        "windchill": CalculatedDataPoint("windchill", 2.7, unit=TEMP_FAHRENHEIT),
+        "dewpoint": CalculatedDataPoint("dewpoint", 79.2, unit=TEMP_FAHRENHEIT),
+        "feelslike": CalculatedDataPoint("feelslike", 111.1, unit=TEMP_FAHRENHEIT),
+        "heatindex": CalculatedDataPoint("heatindex", 111.1, unit=TEMP_FAHRENHEIT),
+        "windchill": CalculatedDataPoint("windchill", None, unit=TEMP_FAHRENHEIT),
         "humidityabs": CalculatedDataPoint(
             data_point_key="humidityabs",
             value=0.0,
@@ -1570,13 +1799,23 @@ def test_nonnumeric_value(device_data, ecowitt):
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
         ),
         "thermalperception": CalculatedDataPoint(
-            data_point_key="thermalperception", value=ThermalPerception.DRY, unit=None
+            data_point_key="thermalperception",
+            value=ThermalPerception.SEVERELY_HIGH,
+            unit=None,
         ),
         "frostpoint": CalculatedDataPoint(
-            data_point_key="frostpoint", value=-3.3, unit="°F"
+            data_point_key="frostpoint", value=70.3, unit=TEMP_FAHRENHEIT
         ),
         "frostrisk": CalculatedDataPoint(
-            data_point_key="frostrisk", value=FrostRisk.UNLIKELY, unit=None
+            data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+        ),
+        "simmerindex": CalculatedDataPoint(
+            data_point_key="simmerindex", value=113.9, unit=TEMP_FAHRENHEIT
+        ),
+        "simmerzone": CalculatedDataPoint(
+            data_point_key="simmerzone",
+            value=SimmerZone.DANGER_OF_HEATSTROKE,
+            unit=None,
         ),
         "Random New Key": CalculatedDataPoint("Random New Key", "Some Value"),
     }
@@ -1614,8 +1853,8 @@ def test_unknown_battery(device_data, ecowitt):
         "humidityin": CalculatedDataPoint("humidity", 31.0, unit=PERCENTAGE),
         "baromrel": CalculatedDataPoint("barom", 24.74, unit=PRESSURE_INHG),
         "baromabs": CalculatedDataPoint("barom", 24.74, unit=PRESSURE_INHG),
-        "temp": CalculatedDataPoint("temp", 19.1, unit=TEMP_FAHRENHEIT),
-        "humidity": CalculatedDataPoint("humidity", 34.0, unit=PERCENTAGE),
+        "temp": CalculatedDataPoint("temp", 93.2, unit=TEMP_FAHRENHEIT),
+        "humidity": CalculatedDataPoint("humidity", 64, unit=PERCENTAGE),
         "winddir": CalculatedDataPoint("winddir", 139.0, unit=DEGREE),
         "windspeed": CalculatedDataPoint("wind", 20.89, unit=SPEED_MILES_PER_HOUR),
         "windgust": CalculatedDataPoint("gust", 1.12, unit=SPEED_MILES_PER_HOUR),
@@ -1661,10 +1900,10 @@ def test_unknown_battery(device_data, ecowitt):
             "lightning_time", datetime(2022, 4, 20, 17, 17, 17, tzinfo=timezone.utc)
         ),
         "wh65batt": CalculatedDataPoint("batt", BooleanBatteryState.OFF),
-        "dewpoint": CalculatedDataPoint("dewpoint", -4.7, unit=TEMP_FAHRENHEIT),
-        "feelslike": CalculatedDataPoint("feelslike", 2.7, unit=TEMP_FAHRENHEIT),
-        "heatindex": CalculatedDataPoint("heatindex", 12.3, unit=TEMP_FAHRENHEIT),
-        "windchill": CalculatedDataPoint("windchill", 2.7, unit=TEMP_FAHRENHEIT),
+        "dewpoint": CalculatedDataPoint("dewpoint", 79.2, unit=TEMP_FAHRENHEIT),
+        "feelslike": CalculatedDataPoint("feelslike", 111.1, unit=TEMP_FAHRENHEIT),
+        "heatindex": CalculatedDataPoint("heatindex", 111.1, unit=TEMP_FAHRENHEIT),
+        "windchill": CalculatedDataPoint("windchill", None, unit=TEMP_FAHRENHEIT),
         "humidityabs": CalculatedDataPoint(
             data_point_key="humidityabs",
             value=0.0,
@@ -1676,13 +1915,23 @@ def test_unknown_battery(device_data, ecowitt):
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
         ),
         "thermalperception": CalculatedDataPoint(
-            data_point_key="thermalperception", value=ThermalPerception.DRY, unit=None
+            data_point_key="thermalperception",
+            value=ThermalPerception.SEVERELY_HIGH,
+            unit=None,
         ),
         "frostpoint": CalculatedDataPoint(
-            data_point_key="frostpoint", value=-3.3, unit="°F"
+            data_point_key="frostpoint", value=70.3, unit=TEMP_FAHRENHEIT
         ),
         "frostrisk": CalculatedDataPoint(
-            data_point_key="frostrisk", value=FrostRisk.UNLIKELY, unit=None
+            data_point_key="frostrisk", value=FrostRisk.NO_RISK, unit=None
+        ),
+        "simmerindex": CalculatedDataPoint(
+            data_point_key="simmerindex", value=113.9, unit=TEMP_FAHRENHEIT
+        ),
+        "simmerzone": CalculatedDataPoint(
+            data_point_key="simmerzone",
+            value=SimmerZone.DANGER_OF_HEATSTROKE,
+            unit=None,
         ),
         "playstationbattery1": CalculatedDataPoint(
             "batt", BooleanBatteryState.OFF, None
