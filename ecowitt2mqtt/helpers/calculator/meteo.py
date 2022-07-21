@@ -594,6 +594,10 @@ def calculate_simmer_index(
         else:
             final_value = round(simmer_obj.c, 1)
     else:
+        LOGGER.debug(
+            "Simmer index is only defined for temperatures over 70°F (temperature: %s",
+            temperature,
+        )
         final_value = None
 
     return CalculatedDataPoint(
