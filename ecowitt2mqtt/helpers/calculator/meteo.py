@@ -213,7 +213,7 @@ THERMAL_PERCEPTION_RATINGS: list[ThermalPerceptionRating] = [
     ),
     ThermalPerceptionRating(
         perception=ThermalPerception.COMFORTABLE,
-        minimum_c=13.0,
+        minimum_c=12.0,
         maximum_c=16.0,
     ),
     ThermalPerceptionRating(
@@ -223,8 +223,8 @@ THERMAL_PERCEPTION_RATINGS: list[ThermalPerceptionRating] = [
     ),
     ThermalPerceptionRating(
         perception=ThermalPerception.DRY,
-        maximum_c=10.0,
         minimum_c=-100.0,
+        maximum_c=10.0,
     ),
 ]
 
@@ -696,6 +696,9 @@ def calculate_thermal_perception(
     """Calculate the human perception of comfort level related to dew point."""
     temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
     dew_point_obj = meteocalc.dew_point(temp_obj, relative_humidity)
+
+    print(f"DEW POINT: {dew_point_obj.c}")
+    print(f"{12.0}")
 
     [rating] = [
         r
