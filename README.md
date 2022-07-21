@@ -268,7 +268,8 @@ the configuration file and override them via environment variables.
 ## Calculated Sensors
 
 In addition to the data coming from a gateway, `ecowitt2mqtt` will automatically deduce
-and published several additional, calculated data points:
+and published several additional, calculated data points if the requisite underlying
+data exists:
 
 * **Absolute Humidity:** the actual volume of water vapor in the air
 * **Dew Point:** the temperature to which air must be cooled to become saturated with
