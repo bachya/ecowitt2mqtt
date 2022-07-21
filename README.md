@@ -23,6 +23,7 @@ device data to be sent to an MQTT broker.
   * [Configuration File](#configuration-file)
   * [Merging Configuration Options](#merging-configuration-options)
 - [Advanced Usage](#advanced-usage)
+  * [Calculated Sensors](#calculated-sensors)
   * [Battery Configurations](#battery-configurations)
   * [Unit Systems](#unit-systems)
   * [Raw Data](#raw-data)
@@ -115,6 +116,9 @@ Options:
                                   default: boolean]
   --diagnostics                   Output diagnostics.  [env var:
                                   ECOWITT2MQTT_DIAGNOSTICS]
+  --disable-calculated-data       Disable the output of calculated sensors.
+                                  [env var:
+                                  ECOWITT2MQTT_DISABLED_CALCULATED_DATA]
   -e, --endpoint TEXT             The relative endpoint/path to serve
                                   ecowitt2mqtt on.  [env var:
                                   ECOWITT2MQTT_ENDPOINT, ENDPOINT; default:
@@ -171,8 +175,9 @@ Options:
 
 * `ECOWITT2MQTT_BATTERY_OVERRIDE`: a semicolon-delimited list of key=value battery overrides
 * `ECOWITT2MQTT_CONFIG`: a path to a YAML or JSON config file
-* `ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY`: The default battery config strategy to use (default: `boolean`)
+* `ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY`: the default battery config strategy to use (default: `boolean`)
 * `ECOWITT2MQTT_DIAGNOSTICS`: whether to output diagnostics
+* `ECOWITT2MQTT_DISABLED_CALCULATED_DATA`: whether to disable the output of calculated sensors
 * `ECOWITT2MQTT_ENDPOINT`: the relative endpoint/path to serve ecowitt2mqtt on (default: `/data/report`)
 * `ECOWITT2MQTT_HASS_DISCOVERY`: publish data in the Home Assistant MQTT Discovery format Idefault: `false`)
 * `ECOWITT2MQTT_HASS_DISCOVERY_PREFIX`: the Home Assistant discovery prefix to use (default: `homeassistant`)
@@ -197,22 +202,23 @@ The configuration file can be formatted as either YAML:
 ---
 battery_override:
   battery_key1: boolean
-default_battery_strategy: numeric,
+default_battery_strategy: numeric
 diagnostics: false
-endpoint: /data/report,
-hass_discovery: false,
-hass_discovery_prefix: homeassistant,
+disable_calculated_data: false
+endpoint: /data/report
+hass_discovery: false
+hass_discovery_prefix: homeassistant
 hass_entity_id_prefix: test_prefix
-input_unit_system: imperial,
-mqtt_broker: 127.0.0.1,
-mqtt_password: password,
-mqtt_port: 1883,
-mqtt_tls: false,
-mqtt_topic: Test,
-mqtt_username: user,
-output_unit_system: imperial,
-port: 8080,
-raw_data: false,
+input_unit_system: imperial
+mqtt_broker: 127.0.0.1
+mqtt_password: password
+mqtt_port: 1883
+mqtt_tls: false
+mqtt_topic: Test
+mqtt_username: user
+output_unit_system: imperial
+port: 8080
+raw_data: false
 verbose: false
 ```
 
@@ -226,6 +232,7 @@ verbose: false
   },
   "default_battery_strategy": "numeric",
   "diagnostics": false,
+  "disable_calculated_data": false,
   "endpoint": "/data/report",
   "hass_discovery": false,
   "hass_discovery_prefix": "homeassistant",
@@ -257,6 +264,39 @@ This allows you to mix and match sources – for instance, you might have "defau
 the configuration file and override them via environment variables.
 
 # Advanced Usage
+
+## Calculated Sensors
+
+In addition to the data coming from a gateway, `ecowitt2mqtt` will automatically deduce
+and published several additional, calculated data points:
+
+* **Absolute Humidity:** the actual volume of water vapor in the air
+* **Dew Point:** the temperature to which air must be cooled to become saturated with
+  water vapor, assuming constant air pressure and water content
+* **Feels Like:** how hot or how cold the air feels to the human body when factoring in
+  variables such as relative humidity, wind speeds, the amount of sunshine, etc.
+* **Frost Point:** the temperature below 32°F (0°C) at which moisture in the air will
+  condense as a layer of frost on exposed surfaces that are also at a temperature below
+  the frost point
+* **Frost Risk:** how likely the formation of frost is (based on the `frostpoint`)
+* **Heat Index:** how hot the air feels to the human body when factoring in relative
+  humidity (applicable when the apparent temperature is higher than the air temperature)
+* **Safe Exposure Times:** how long different skin types can be in the sun (unprotected)
+  before burning begins according to the
+  [Fitzpatrick Scale](https://en.wikipedia.org/wiki/Fitzpatrick_scale)
+* **Solar Radiation (lux):** the detected solar radiation (brightness) calculated in lux
+* **Solar Radiation (%):** the percentage of detected solar radiation (brightness) as
+  perceived by the human eye
+* **Simmer Index:** an alternative to heat index that describes how how the air feels to
+  the human body in relatively dry environments
+* **Simmer Zone:** a human-friendly interpretation of the Simmer Index
+* **Thermal Perception:** a human-friendly interpretation of the Dew Point
+* **Wind Chill:** how cold the air feels to the human body when factoring in relative
+  humidity, wind speed, etc. (applicable when the apparent temperature is lower than the
+  air temperature)
+
+If you would prefer to not have these sensors calculated and published, you can utilize
+the `--disable-calculated-data` configuration option.
 
 ## Battery Configurations
 

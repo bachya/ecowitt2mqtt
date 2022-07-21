@@ -12,6 +12,7 @@ from ecowitt2mqtt.const import (
     ENV_CONFIG,
     ENV_DEFAULT_BATTERY_STRATEGY,
     ENV_DIAGNOSTICS,
+    ENV_DISABLE_CALCULATED_DATA,
     ENV_ENDPOINT,
     ENV_HASS_DISCOVERY,
     ENV_HASS_DISCOVERY_PREFIX,
@@ -94,6 +95,12 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
         "--diagnostics",
         envvar=[ENV_DIAGNOSTICS],
         help="Output diagnostics.",
+    ),
+    disable_calculated_data: bool = typer.Option(
+        False,
+        "--disable-calculated-data",
+        envvar=[ENV_DISABLE_CALCULATED_DATA],
+        help="Disable the output of calculated sensors.",
     ),
     endpoint: str = typer.Option(
         DEFAULT_ENDPOINT,

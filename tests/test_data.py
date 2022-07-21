@@ -8,6 +8,7 @@ from ecowitt2mqtt.const import (
     CONCENTRATION_PARTS_PER_MILLION,
     CONF_BATTERY_OVERRIDES,
     CONF_DEFAULT_BATTERY_STRATEGY,
+    CONF_DISABLE_CALCULATED_DATA,
     CONF_ENDPOINT,
     CONF_HASS_DISCOVERY,
     CONF_HASS_DISCOVERY_PREFIX,
@@ -579,6 +580,169 @@ def test_device(device, device_data, ecowitt):
     """Test that a device object is properly created from a data payload."""
     processed_data = ProcessedData(ecowitt, device_data)
     assert processed_data.device == device
+
+
+@pytest.mark.parametrize(
+    "config",
+    [
+        {
+            CONF_DEFAULT_BATTERY_STRATEGY: BatteryStrategy.BOOLEAN,
+            CONF_DISABLE_CALCULATED_DATA: True,
+            CONF_ENDPOINT: TEST_ENDPOINT,
+            CONF_HASS_DISCOVERY: False,
+            CONF_HASS_DISCOVERY_PREFIX: TEST_HASS_DISCOVERY_PREFIX,
+            CONF_HASS_ENTITY_ID_PREFIX: TEST_HASS_ENTITY_ID_PREFIX,
+            CONF_INPUT_UNIT_SYSTEM: UNIT_SYSTEM_IMPERIAL,
+            CONF_MQTT_BROKER: TEST_MQTT_BROKER,
+            CONF_MQTT_PASSWORD: TEST_MQTT_PASSWORD,
+            CONF_MQTT_PORT: TEST_MQTT_PORT,
+            CONF_MQTT_TOPIC: TEST_MQTT_TOPIC,
+            CONF_MQTT_USERNAME: TEST_MQTT_USERNAME,
+            CONF_OUTPUT_UNIT_SYSTEM: UNIT_SYSTEM_IMPERIAL,
+            CONF_PORT: TEST_PORT,
+            CONF_RAW_DATA: False,
+            CONF_VERBOSE: False,
+        }
+    ],
+)
+def test_disable_calculated_data(device_data, ecowitt):
+    """Test the disabling of calculated sensors."""
+    processed_data = ProcessedData(ecowitt, device_data)
+    assert processed_data.output == {
+        "runtime": CalculatedDataPoint(
+            "runtime",
+            319206.0,
+            unit=TIME_SECONDS,
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "tempin": CalculatedDataPoint(
+            "temp",
+            79.5,
+            unit=TEMP_FAHRENHEIT,
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "humidityin": CalculatedDataPoint(
+            "humidity",
+            31.0,
+            unit=PERCENTAGE,
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "baromrel": CalculatedDataPoint(
+            "barom",
+            24.74,
+            unit=PRESSURE_INHG,
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "baromabs": CalculatedDataPoint(
+            "barom",
+            24.74,
+            unit=PRESSURE_INHG,
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "temp": CalculatedDataPoint(
+            "temp",
+            93.2,
+            unit=TEMP_FAHRENHEIT,
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "humidity": CalculatedDataPoint(
+            "humidity", 64, unit=PERCENTAGE, data_type=DataPointType.NON_BOOLEAN
+        ),
+        "winddir": CalculatedDataPoint(
+            "winddir", 139.0, unit=DEGREE, data_type=DataPointType.NON_BOOLEAN
+        ),
+        "windspeed": CalculatedDataPoint(
+            "wind",
+            20.89,
+            unit=SPEED_MILES_PER_HOUR,
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "windgust": CalculatedDataPoint(
+            "gust",
+            1.12,
+            unit=SPEED_MILES_PER_HOUR,
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "maxdailygust": CalculatedDataPoint(
+            "gust",
+            8.05,
+            unit=SPEED_MILES_PER_HOUR,
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "solarradiation": CalculatedDataPoint(
+            "solarradiation",
+            264.61,
+            unit=IRRADIATION_WATTS_PER_SQUARE_METER,
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "uv": CalculatedDataPoint(
+            "uv", 2.0, unit=UV_INDEX, data_type=DataPointType.NON_BOOLEAN
+        ),
+        "rainrate": CalculatedDataPoint(
+            "rainrate",
+            0.0,
+            unit=f"{RAINFALL_INCHES}/hr",
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "eventrain": CalculatedDataPoint(
+            "rain",
+            0.0,
+            unit=RAINFALL_INCHES,
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "hourlyrain": CalculatedDataPoint(
+            "rain",
+            0.0,
+            unit=RAINFALL_INCHES,
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "dailyrain": CalculatedDataPoint(
+            "rain",
+            0.0,
+            unit=RAINFALL_INCHES,
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "weeklyrain": CalculatedDataPoint(
+            "rain",
+            0.0,
+            unit=RAINFALL_INCHES,
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "monthlyrain": CalculatedDataPoint(
+            "rain",
+            2.177,
+            unit=RAINFALL_INCHES,
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "yearlyrain": CalculatedDataPoint(
+            "rain",
+            4.441,
+            unit=RAINFALL_INCHES,
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "lightning_num": CalculatedDataPoint(
+            "lightning_num",
+            13,
+            unit=STRIKES,
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "lightning": CalculatedDataPoint(
+            "lightning",
+            0.6,
+            unit=DISTANCE_MILES,
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "lightning_time": CalculatedDataPoint(
+            "lightning_time",
+            datetime(2022, 4, 20, 17, 17, 17, tzinfo=timezone.utc),
+        ),
+        "wh65batt": CalculatedDataPoint(
+            "batt",
+            BooleanBatteryState.OFF,
+            unit=None,
+            data_type=DataPointType.BOOLEAN,
+        ),
+    }
 
 
 @pytest.mark.parametrize("device_data_filename", ["payload_gw2000a_1.json"])
