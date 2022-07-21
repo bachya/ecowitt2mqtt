@@ -624,6 +624,10 @@ def calculate_simmer_zone(
         ]
         final_value = rating.zone
     else:
+        LOGGER.debug(
+            "Simmer zone is only defined for temperatures over 70°F (temperature: %s",
+            temperature,
+        )
         final_value = None
 
     return CalculatedDataPoint(data_point_key=data_point_key, value=final_value)
