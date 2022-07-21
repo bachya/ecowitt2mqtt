@@ -11,6 +11,7 @@ from ecowitt2mqtt.const import (
     CONF_CONFIG,
     CONF_DEFAULT_BATTERY_STRATEGY,
     CONF_DIAGNOSTICS,
+    CONF_DISABLE_CALCULATED_DATA,
     CONF_ENDPOINT,
     CONF_HASS_DISCOVERY,
     CONF_HASS_DISCOVERY_PREFIX,
@@ -182,7 +183,12 @@ class Config:
     @property
     def diagnostics(self) -> bool:
         """Return whether diagnostics is enabled."""
-        return cast(bool, self._config.get(CONF_DIAGNOSTICS))
+        return cast(bool, self._config.get(CONF_DIAGNOSTICS, False))
+
+    @property
+    def disable_calculated_data(self) -> bool:
+        """Return whether calculated sensor output is disabled."""
+        return cast(bool, self._config.get(CONF_DISABLE_CALCULATED_DATA, False))
 
     @property
     def endpoint(self) -> str:
@@ -192,7 +198,7 @@ class Config:
     @property
     def hass_discovery(self) -> bool:
         """Return whether Home Assistant Discovery should be used."""
-        return cast(bool, self._config.get(CONF_HASS_DISCOVERY))
+        return cast(bool, self._config.get(CONF_HASS_DISCOVERY, False))
 
     @property
     def hass_discovery_prefix(self) -> str:
@@ -227,7 +233,7 @@ class Config:
     @property
     def mqtt_tls(self) -> bool:
         """Return whether MQTT over TLS is configured."""
-        return cast(bool, self._config.get(CONF_MQTT_TLS))
+        return cast(bool, self._config.get(CONF_MQTT_TLS, False))
 
     @property
     def mqtt_topic(self) -> str | None:
@@ -252,9 +258,9 @@ class Config:
     @property
     def raw_data(self) -> bool:
         """Return whether raw data is configured."""
-        return cast(bool, self._config.get(CONF_RAW_DATA))
+        return cast(bool, self._config.get(CONF_RAW_DATA, False))
 
     @property
     def verbose(self) -> bool:
         """Return whether verbose logging is enabled."""
-        return cast(bool, self._config.get(CONF_VERBOSE))
+        return cast(bool, self._config.get(CONF_VERBOSE, False))

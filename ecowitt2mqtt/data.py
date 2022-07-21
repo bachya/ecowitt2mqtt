@@ -263,32 +263,33 @@ class ProcessedData:
                 LOGGER.debug("No calculator found for %s", payload_key)
                 self.output[key] = CalculatedDataPoint(data_point_key=key, value=value)
 
-        # Process any from-scratch data points that can be calculated from others:
-        for payload_key, input_keys in (
-            (DATA_POINT_DEWPOINT, DEW_POINT_KEYS),
-            (DATA_POINT_FEELSLIKE, FEELS_LIKE_KEYS),
-            (DATA_POINT_FROST_POINT, FROST_KEYS),
-            (DATA_POINT_FROST_RISK, FROST_KEYS),
-            (DATA_POINT_HEATINDEX, HEAT_INDEX_KEYS),
-            (DATA_POINT_HUMIDITY_ABS, HUMIDITY_ABS_KEYS),
-            (DATA_POINT_HUMIDITY_ABS_IN, HUMIDITY_ABS_IN_KEYS),
-            (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1, UV_INDEX_KEYS),
-            (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2, UV_INDEX_KEYS),
-            (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_3, UV_INDEX_KEYS),
-            (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4, UV_INDEX_KEYS),
-            (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5, UV_INDEX_KEYS),
-            (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6, UV_INDEX_KEYS),
-            (DATA_POINT_SIMMER_INDEX, SIMMER_KEYS),
-            (DATA_POINT_SIMMER_ZONE, SIMMER_KEYS),
-            (DATA_POINT_SOLARRADIATION_LUX, ILLUMINANCE_KEYS),
-            (DATA_POINT_SOLARRADIATION_PERCEIVED, ILLUMINANCE_KEYS),
-            (DATA_POINT_THERMAL_PERCEPTION, THERMAL_PERCEPTION_KEYS),
-            (DATA_POINT_WINDCHILL, WIND_CHILL_KEYS),
-        ):
-            if not all(k in self.data for k in input_keys):
-                continue
+        if not self.ecowitt.config.disable_calculated_data:
+            # Process any from-scratch data points that can be calculated from others:
+            for payload_key, input_keys in (
+                (DATA_POINT_DEWPOINT, DEW_POINT_KEYS),
+                (DATA_POINT_FEELSLIKE, FEELS_LIKE_KEYS),
+                (DATA_POINT_FROST_POINT, FROST_KEYS),
+                (DATA_POINT_FROST_RISK, FROST_KEYS),
+                (DATA_POINT_HEATINDEX, HEAT_INDEX_KEYS),
+                (DATA_POINT_HUMIDITY_ABS, HUMIDITY_ABS_KEYS),
+                (DATA_POINT_HUMIDITY_ABS_IN, HUMIDITY_ABS_IN_KEYS),
+                (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1, UV_INDEX_KEYS),
+                (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2, UV_INDEX_KEYS),
+                (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_3, UV_INDEX_KEYS),
+                (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4, UV_INDEX_KEYS),
+                (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5, UV_INDEX_KEYS),
+                (DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6, UV_INDEX_KEYS),
+                (DATA_POINT_SIMMER_INDEX, SIMMER_KEYS),
+                (DATA_POINT_SIMMER_ZONE, SIMMER_KEYS),
+                (DATA_POINT_SOLARRADIATION_LUX, ILLUMINANCE_KEYS),
+                (DATA_POINT_SOLARRADIATION_PERCEIVED, ILLUMINANCE_KEYS),
+                (DATA_POINT_THERMAL_PERCEPTION, THERMAL_PERCEPTION_KEYS),
+                (DATA_POINT_WINDCHILL, WIND_CHILL_KEYS),
+            ):
+                if not all(k in self.data for k in input_keys):
+                    continue
 
-            if calculator := get_calculator_function(self.ecowitt, payload_key):
-                self.output[payload_key] = calculator(
-                    *(get_typed_value(self.data[key]) for key in input_keys)
-                )
+                if calculator := get_calculator_function(self.ecowitt, payload_key):
+                    self.output[payload_key] = calculator(
+                        *(get_typed_value(self.data[key]) for key in input_keys)
+                    )
