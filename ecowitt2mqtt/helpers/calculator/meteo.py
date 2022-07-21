@@ -705,9 +705,6 @@ def calculate_thermal_perception(
     temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
     dew_point_obj = meteocalc.dew_point(temp_obj, relative_humidity)
 
-    print(f"DEW POINT: {dew_point_obj.c}")
-    print(f"{12.0}")
-
     [rating] = [
         r
         for r in THERMAL_PERCEPTION_RATINGS
