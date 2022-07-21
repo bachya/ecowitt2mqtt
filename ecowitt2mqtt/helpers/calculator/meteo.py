@@ -595,8 +595,8 @@ def calculate_simmer_index(
             final_value = round(simmer_obj.c, 1)
     else:
         LOGGER.debug(
-            "Simmer index is only defined for temperatures over 70°F (temperature: %s",
-            temperature,
+            "Simmer index is undefined for temperatures below 70°F (temperature: %s°F",
+            temp_obj.f,
         )
         final_value = None
 
@@ -625,8 +625,8 @@ def calculate_simmer_zone(
         final_value = rating.zone
     else:
         LOGGER.debug(
-            "Simmer zone is only defined for temperatures over 70°F (temperature: %s",
-            temperature,
+            "Simmer index is undefined for temperatures below 70°F (temperature: %s°F",
+            temp_obj.f,
         )
         final_value = None
 
