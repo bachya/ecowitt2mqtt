@@ -594,6 +594,10 @@ def calculate_simmer_index(
         else:
             final_value = round(simmer_obj.c, 1)
     else:
+        LOGGER.debug(
+            "Simmer index is undefined for temperatures below 70°F (temperature: %s°F",
+            temp_obj.f,
+        )
         final_value = None
 
     return CalculatedDataPoint(
@@ -620,6 +624,10 @@ def calculate_simmer_zone(
         ]
         final_value = rating.zone
     else:
+        LOGGER.debug(
+            "Simmer index is undefined for temperatures below 70°F (temperature: %s°F",
+            temp_obj.f,
+        )
         final_value = None
 
     return CalculatedDataPoint(data_point_key=data_point_key, value=final_value)
