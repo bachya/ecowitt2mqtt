@@ -118,7 +118,7 @@ Options:
                                   ECOWITT2MQTT_DIAGNOSTICS]
   --disable-calculated-data       Disable the output of calculated sensors.
                                   [env var:
-                                  ECOWITT2MQTT_DISABLED_CALCULATED_DATA]
+                                  ECOWITT2MQTT_DISABLE_CALCULATE_DATA]
   -e, --endpoint TEXT             The relative endpoint/path to serve
                                   ecowitt2mqtt on.  [env var:
                                   ECOWITT2MQTT_ENDPOINT, ENDPOINT; default:
@@ -177,7 +177,7 @@ Options:
 * `ECOWITT2MQTT_CONFIG`: a path to a YAML or JSON config file
 * `ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY`: the default battery config strategy to use (default: `boolean`)
 * `ECOWITT2MQTT_DIAGNOSTICS`: whether to output diagnostics
-* `ECOWITT2MQTT_DISABLED_CALCULATED_DATA`: whether to disable the output of calculated sensors
+* `ECOWITT2MQTT_DISABLE_CALCULATE_DATA`: whether to disable the output of calculated sensors
 * `ECOWITT2MQTT_ENDPOINT`: the relative endpoint/path to serve ecowitt2mqtt on (default: `/data/report`)
 * `ECOWITT2MQTT_HASS_DISCOVERY`: publish data in the Home Assistant MQTT Discovery format Idefault: `false`)
 * `ECOWITT2MQTT_HASS_DISCOVERY_PREFIX`: the Home Assistant discovery prefix to use (default: `homeassistant`)
