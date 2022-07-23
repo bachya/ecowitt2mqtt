@@ -1,4 +1,4 @@
-# 🔘 ecowitt2mqtt: Send Ecowitt device data to an MQTT broker
+![ecowitt2mqtt](resources/logo-full.png)
 
 [![CI](https://github.com/bachya/ecowitt2mqtt/workflows/CI/badge.svg)](https://github.com/bachya/ecowitt2mqtt/actions)
 [![PyPi](https://img.shields.io/pypi/v/ecowitt2mqtt.svg)](https://pypi.python.org/pypi/ecowitt2mqtt)
