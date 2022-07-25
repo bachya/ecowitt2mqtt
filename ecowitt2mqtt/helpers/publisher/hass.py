@@ -475,34 +475,37 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
     async def async_publish(self, data: dict[str, DataValueType]) -> None:
         """Publish to MQTT."""
         processed_data = ProcessedData(self.ecowitt, data)
-        publish_tasks = []
+        tasks = []
 
-        for payload_key, data_point in processed_data.output.items():
-            discovery_payload = self._generate_discovery_payload(
-                processed_data.device, payload_key, data_point
-            )
+        try:
+            async with self.client:
+                for payload_key, data_point in processed_data.output.items():
+                    discovery_payload = self._generate_discovery_payload(
+                        processed_data.device, payload_key, data_point
+                    )
 
-            for topic, payload in (
-                (discovery_payload.topic, discovery_payload.payload),
-                (
-                    discovery_payload.payload["availability_topic"],
-                    get_availability_payload(data_point),
-                ),
-                (discovery_payload.payload["state_topic"], data_point.value),
-            ):
-                publish_tasks.append(
-                    self.client.publish(topic, generate_mqtt_payload(payload))
-                )
+                    for topic, payload in (
+                        (discovery_payload.topic, discovery_payload.payload),
+                        (
+                            discovery_payload.payload["availability_topic"],
+                            get_availability_payload(data_point),
+                        ),
+                        (discovery_payload.payload["state_topic"], data_point.value),
+                    ):
+                        tasks.append(
+                            asyncio.create_task(
+                                self.client.publish(
+                                    topic, generate_mqtt_payload(payload)
+                                )
+                            )
+                        )
 
-        async with self.client:
-            futures = [asyncio.ensure_future(task) for task in publish_tasks]
-            try:
-                await asyncio.gather(*futures)
-            except MqttError as err:
-                for future in futures:
-                    future.cancel()
-                raise PublishError(
-                    f"Error while publishing to Home Assisstant MQTT Discovery: {err}"
-                ) from err
+                        await asyncio.gather(*tasks)
+        except MqttError as err:
+            for task in tasks:
+                task.cancel()
+            raise PublishError(
+                f"Error while publishing to Home Assisstant MQTT Discovery: {err}"
+            ) from err
 
         LOGGER.info("Published to Home Assistant MQTT Discovery")
