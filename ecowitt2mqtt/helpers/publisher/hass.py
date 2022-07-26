@@ -200,7 +200,6 @@ ENTITY_DESCRIPTIONS = {
     ),
     DATA_POINT_FROST_RISK: EntityDescription(
         icon="mdi:snowflake-alert",
-        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_BAROM: EntityDescription(
         device_class=DeviceClass.PRESSURE,
@@ -319,7 +318,6 @@ ENTITY_DESCRIPTIONS = {
     ),
     DATA_POINT_SIMMER_ZONE: EntityDescription(
         icon="mdi:heat-wave",
-        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_SOLARRADIATION: EntityDescription(
         device_class=DeviceClass.ILLUMINANCE,
@@ -344,7 +342,6 @@ ENTITY_DESCRIPTIONS = {
     ),
     DATA_POINT_THERMAL_PERCEPTION: EntityDescription(
         icon="mdi:water",
-        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_TF_CO2: EntityDescription(
         device_class=DeviceClass.TEMPERATURE,
