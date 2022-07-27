@@ -431,7 +431,7 @@ You can provide a custom prefix for all Home Assistant entities via the
 Home Assistant OS users can install the official `ecowitt2mqtt` add-on by clicking the
 link below:
 
-[![Open this add-on in your Home Assistant instance.][https://my.home-assistant.io/badges/supervisor_addon.svg]][https://my.home-assistant.io/redirect/supervisor_addon/?addon=c35f0383_ecowitt2mqtt&repository_url=https%3A%2F%2Fgithub.com%2Fbachya%2Fhome-assistant-addons]
+[![Open this add-on in your Home Assistant instance.][addon-badge]][addon]
 
 ## Running in the Background
 
@@ -531,3 +531,6 @@ debugging, and issue reporting.
 9. Update `README.md` with any new documentation.
 10. Add yourself to `AUTHORS.md`.
 11. Submit a pull request!
+
+[addon-badge]: https://my.home-assistant.io/badges/supervisor_addon.svg
+[addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=c35f0383_ecowitt2mqtt&repository_url=https%3A%2F%2Fgithub.com%2Fbachya%2Fhome-assistant-addons
