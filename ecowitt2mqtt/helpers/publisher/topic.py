@@ -25,7 +25,9 @@ class TopicPublisher(MqttPublisher):
         try:
             async with self.client:
                 await self.client.publish(
-                    self.ecowitt.config.mqtt_topic, generate_mqtt_payload(data)
+                    self.ecowitt.config.mqtt_topic,
+                    payload=generate_mqtt_payload(data),
+                    retain=self.ecowitt.config.mqtt_retain,
                 )
         except MqttError as err:
             raise PublishError(
