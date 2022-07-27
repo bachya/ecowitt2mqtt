@@ -438,6 +438,7 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
                 },
                 "name": name,
                 "qos": 1,
+                "retain": self.ecowitt.config.mqtt_retain,
                 "state_topic": f"{base_topic}/state",
                 "unique_id": f"{device.unique_id}_{payload_key}",
             },
@@ -492,7 +493,9 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
                         tasks.append(
                             asyncio.create_task(
                                 self.client.publish(
-                                    topic, generate_mqtt_payload(payload)
+                                    topic,
+                                    payload=generate_mqtt_payload(payload),
+                                    retain=self.ecowitt.config.mqtt_retain,
                                 )
                             )
                         )

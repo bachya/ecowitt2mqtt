@@ -21,6 +21,7 @@ from ecowitt2mqtt.const import (
     ENV_MQTT_BROKER,
     ENV_MQTT_PASSWORD,
     ENV_MQTT_PORT,
+    ENV_MQTT_RETAIN,
     ENV_MQTT_TLS,
     ENV_MQTT_TOPIC,
     ENV_MQTT_USERNAME,
@@ -153,6 +154,12 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
         "--mqtt-port",
         envvar=[ENV_MQTT_PORT, LEGACY_ENV_MQTT_PORT],
         help="The listenting port of the MQTT broker.",
+    ),
+    mqtt_retain: bool = typer.Option(
+        False,
+        "--mqtt-retain",
+        envvar=[ENV_MQTT_RETAIN],
+        help="Instruct the MQTT broker to retain messages.",
     ),
     mqtt_tls: bool = typer.Option(
         False,
