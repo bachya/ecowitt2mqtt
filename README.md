@@ -118,7 +118,7 @@ Options:
                                   ECOWITT2MQTT_DIAGNOSTICS]
   --disable-calculated-data       Disable the output of calculated sensors.
                                   [env var:
-                                  ECOWITT2MQTT_DISABLE_CALCULATE_DATA]
+                                  ECOWITT2MQTT_DISABLE_CALCULATED_DATA]
   -e, --endpoint TEXT             The relative endpoint/path to serve
                                   ecowitt2mqtt on.  [env var:
                                   ECOWITT2MQTT_ENDPOINT, ENDPOINT; default:
@@ -147,6 +147,8 @@ Options:
   --mqtt-port INTEGER             The listenting port of the MQTT broker.
                                   [env var: ECOWITT2MQTT_MQTT_PORT, MQTT_PORT;
                                   default: 1883]
+  --mqtt-retain                   Instruct the MQTT broker to retain messages.
+                                  [env var: ECOWITT2MQTT_MQTT_RETAIN]
   --mqtt-tls                      Enable MQTT over TLS.  [env var:
                                   ECOWITT2MQTT_MQTT_TLS]
   -t, --mqtt-topic TEXT           The MQTT topic to publish device data to.
@@ -173,26 +175,27 @@ Options:
 
 ## Environment Variables
 
-* `ECOWITT2MQTT_BATTERY_OVERRIDE`: a semicolon-delimited list of key=value battery overrides
-* `ECOWITT2MQTT_CONFIG`: a path to a YAML or JSON config file
+* `ECOWITT2MQTT_BATTERY_OVERRIDE`: a semicolon-delimited list of key=value battery overrides (default: `numeric`)
+* `ECOWITT2MQTT_CONFIG`: a path to a YAML or JSON config file (default: `None`)
 * `ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY`: the default battery config strategy to use (default: `boolean`)
-* `ECOWITT2MQTT_DIAGNOSTICS`: whether to output diagnostics
-* `ECOWITT2MQTT_DISABLE_CALCULATE_DATA`: whether to disable the output of calculated sensors
+* `ECOWITT2MQTT_DIAGNOSTICS`: whether to output diagnostics (default: `false`)
+* `ECOWITT2MQTT_DISABLE_CALCULATE_DATA`: whether to disable the output of calculated sensors (default: `false`)
 * `ECOWITT2MQTT_ENDPOINT`: the relative endpoint/path to serve ecowitt2mqtt on (default: `/data/report`)
 * `ECOWITT2MQTT_HASS_DISCOVERY`: publish data in the Home Assistant MQTT Discovery format Idefault: `false`)
 * `ECOWITT2MQTT_HASS_DISCOVERY_PREFIX`: the Home Assistant discovery prefix to use (default: `homeassistant`)
-* `ECOWITT2MQTT_HASS_ENTITY_ID_PREFIX`: the prefix to use for Home Assistant entity IDs
+* `ECOWITT2MQTT_HASS_ENTITY_ID_PREFIX`: the prefix to use for Home Assistant entity IDs (default: `""`)
 * `ECOWITT2MQTT_INPUT_UNIT_SYSTEM`: the input unit system used by the device (default: `imperial`)
 * `ECOWITT2MQTT_MQTT_BROKER`: the hostname or IP address of an MQTT broker
 * `ECOWITT2MQTT_MQTT_PASSWORD`: a valid password for the MQTT broker
 * `ECOWITT2MQTT_MQTT_PORT`: the listenting port of the MQTT broker (default: `1883`)
-* `ECOWITT2MQTT_MQTT_TLS`: publish data via MQTT over TLS
+* `ECOWITT2MQTT_MQTT_RETAIN`: whether to instruct the MQTT broker to retain messages (default: `false`)
+* `ECOWITT2MQTT_MQTT_TLS`: publish data via MQTT over TLS (default: `false`)
 * `ECOWITT2MQTT_MQTT_TOPIC`: the MQTT topic to publish device data to
 * `ECOWITT2MQTT_MQTT_USERNAME`: a valid username for the MQTT broker
 * `ECOWITT2MQTT_OUTPUT_UNIT_SYSTEM`: the unit system to use in output (default: `imperial`)
 * `ECOWITT2MQTT_PORT`: the port to serve ecowitt2mqtt on (default: `8080`)
-* `ECOWITT2MQTT_RAW_DATA`: return raw data (don't attempt to translate any values)
-* `ECOWITT2MQTT_VERBOSE`: increase verbosity of logged output
+* `ECOWITT2MQTT_RAW_DATA`: return raw data (don't attempt to translate any values) (default: `false`)
+* `ECOWITT2MQTT_VERBOSE`: increase verbosity of logged output (default: `false`)
 
 ## Configuration File
 
@@ -213,6 +216,7 @@ input_unit_system: imperial
 mqtt_broker: 127.0.0.1
 mqtt_password: password
 mqtt_port: 1883
+mqtt_retain: false
 mqtt_tls: false
 mqtt_topic: Test
 mqtt_username: user
@@ -241,6 +245,7 @@ verbose: false
   "mqtt_broker": "127.0.0.1",
   "mqtt_password": "password",
   "mqtt_port": 1883,
+  "mqtt_retain": 1883,
   "mqtt_tls": false,
   "mqtt_topic": "Test",
   "mqtt_username": "user",
