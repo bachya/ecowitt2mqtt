@@ -84,7 +84,7 @@ async def async_run_server(ecowitt: Ecowitt):
     try:
         yield
     finally:
-        await ecowitt.server._server.shutdown()  # pylint: disable=protected-access
+        await ecowitt.server.server.shutdown()
         start_task.cancel()
     await asyncio.sleep(0.1)
 

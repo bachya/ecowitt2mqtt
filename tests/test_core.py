@@ -78,7 +78,6 @@ async def test_get_diagnostics(caplog, device_data, ecowitt):
                 data=device_data,
             )
             assert resp.status == 204
-    assert any(m for m in caplog.messages if "COLLECTING DIAGNOSTICS" in m)
     assert any(m for m in caplog.messages if "DIAGNOSTICS COLLECTED" in m)
 
 
@@ -87,7 +86,7 @@ async def test_publish_failure(caplog, device_data, ecowitt):
     """Test a failed MQTT publish."""
     async with async_run_server(ecowitt):
         with patch.object(
-            ecowitt.mqtt_publisher.client, "publish", side_effect=MqttError
+            ecowitt.server.publisher.client, "publish", side_effect=MqttError
         ):
             async with ClientSession() as session:
                 await session.request(
