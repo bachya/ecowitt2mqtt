@@ -476,7 +476,7 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
         tasks = []
 
         try:
-            async with self.client:
+            async with self.async_get_client() as client:
                 for payload_key, data_point in processed_data.output.items():
                     discovery_payload = self._generate_discovery_payload(
                         processed_data.device, payload_key, data_point
@@ -492,7 +492,7 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
                     ):
                         tasks.append(
                             asyncio.create_task(
-                                self.client.publish(
+                                client.publish(
                                     topic,
                                     payload=generate_mqtt_payload(payload),
                                     retain=self.ecowitt.config.mqtt_retain,
@@ -504,8 +504,10 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
         except MqttError as err:
             for task in tasks:
                 task.cancel()
+
             raise PublishError(
-                f"Error while publishing to Home Assisstant MQTT Discovery: {err}"
+                f"Error while publishing to Home Assistant MQTT Discovery: {err}"
             ) from err
 
         LOGGER.info("Published to Home Assistant MQTT Discovery")
+        LOGGER.debug("Published data: %s", processed_data.output)

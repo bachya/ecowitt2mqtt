@@ -9,20 +9,8 @@ from ecowitt2mqtt.const import (
     CONF_BATTERY_OVERRIDES,
     CONF_DEFAULT_BATTERY_STRATEGY,
     CONF_DISABLE_CALCULATED_DATA,
-    CONF_ENDPOINT,
-    CONF_HASS_DISCOVERY,
-    CONF_HASS_DISCOVERY_PREFIX,
-    CONF_HASS_ENTITY_ID_PREFIX,
     CONF_INPUT_UNIT_SYSTEM,
-    CONF_MQTT_BROKER,
-    CONF_MQTT_PASSWORD,
-    CONF_MQTT_PORT,
-    CONF_MQTT_TOPIC,
-    CONF_MQTT_USERNAME,
     CONF_OUTPUT_UNIT_SYSTEM,
-    CONF_PORT,
-    CONF_RAW_DATA,
-    CONF_VERBOSE,
     DEGREE,
     DISTANCE_KILOMETERS,
     DISTANCE_MILES,
@@ -41,7 +29,6 @@ from ecowitt2mqtt.const import (
     TEMP_FAHRENHEIT,
     TIME_MINUTES,
     TIME_SECONDS,
-    UNIT_SYSTEM_IMPERIAL,
     UNIT_SYSTEM_METRIC,
     UV_INDEX,
     WATER_VAPOR_GRAMS_PER_CUBIC_METER,
@@ -58,43 +45,19 @@ from ecowitt2mqtt.helpers.calculator.meteo import (
 )
 from ecowitt2mqtt.helpers.device import Device
 
-from tests.common import (
-    TEST_ENDPOINT,
-    TEST_HASS_DISCOVERY_PREFIX,
-    TEST_HASS_ENTITY_ID_PREFIX,
-    TEST_MQTT_BROKER,
-    TEST_MQTT_PASSWORD,
-    TEST_MQTT_PORT,
-    TEST_MQTT_TOPIC,
-    TEST_MQTT_USERNAME,
-    TEST_PORT,
-)
+from tests.common import TEST_CONFIG_JSON
 
 
 @pytest.mark.parametrize(
     "config",
     [
         {
+            **TEST_CONFIG_JSON,
             CONF_BATTERY_OVERRIDES: (
                 "wh40batt=numeric",
                 "soilbatt1=numeric",
                 "wh26batt=percentage",
             ),
-            CONF_DEFAULT_BATTERY_STRATEGY: BatteryStrategy.BOOLEAN,
-            CONF_ENDPOINT: TEST_ENDPOINT,
-            CONF_HASS_DISCOVERY: False,
-            CONF_HASS_DISCOVERY_PREFIX: TEST_HASS_DISCOVERY_PREFIX,
-            CONF_HASS_ENTITY_ID_PREFIX: TEST_HASS_ENTITY_ID_PREFIX,
-            CONF_INPUT_UNIT_SYSTEM: UNIT_SYSTEM_IMPERIAL,
-            CONF_MQTT_BROKER: TEST_MQTT_BROKER,
-            CONF_MQTT_PASSWORD: TEST_MQTT_PASSWORD,
-            CONF_MQTT_PORT: TEST_MQTT_PORT,
-            CONF_MQTT_TOPIC: TEST_MQTT_TOPIC,
-            CONF_MQTT_USERNAME: TEST_MQTT_USERNAME,
-            CONF_OUTPUT_UNIT_SYSTEM: UNIT_SYSTEM_IMPERIAL,
-            CONF_PORT: TEST_PORT,
-            CONF_RAW_DATA: False,
-            CONF_VERBOSE: False,
         }
     ],
 )
@@ -311,21 +274,8 @@ def test_battery_config(device_data, ecowitt):
     "config",
     [
         {
+            **TEST_CONFIG_JSON,
             CONF_DEFAULT_BATTERY_STRATEGY: BatteryStrategy.NUMERIC,
-            CONF_ENDPOINT: TEST_ENDPOINT,
-            CONF_HASS_DISCOVERY: False,
-            CONF_HASS_DISCOVERY_PREFIX: TEST_HASS_DISCOVERY_PREFIX,
-            CONF_HASS_ENTITY_ID_PREFIX: TEST_HASS_ENTITY_ID_PREFIX,
-            CONF_INPUT_UNIT_SYSTEM: UNIT_SYSTEM_IMPERIAL,
-            CONF_MQTT_BROKER: TEST_MQTT_BROKER,
-            CONF_MQTT_PASSWORD: TEST_MQTT_PASSWORD,
-            CONF_MQTT_PORT: TEST_MQTT_PORT,
-            CONF_MQTT_TOPIC: TEST_MQTT_TOPIC,
-            CONF_MQTT_USERNAME: TEST_MQTT_USERNAME,
-            CONF_OUTPUT_UNIT_SYSTEM: UNIT_SYSTEM_IMPERIAL,
-            CONF_PORT: TEST_PORT,
-            CONF_RAW_DATA: False,
-            CONF_VERBOSE: False,
         }
     ],
 )
@@ -586,22 +536,8 @@ def test_device(device, device_data, ecowitt):
     "config",
     [
         {
-            CONF_DEFAULT_BATTERY_STRATEGY: BatteryStrategy.BOOLEAN,
+            **TEST_CONFIG_JSON,
             CONF_DISABLE_CALCULATED_DATA: True,
-            CONF_ENDPOINT: TEST_ENDPOINT,
-            CONF_HASS_DISCOVERY: False,
-            CONF_HASS_DISCOVERY_PREFIX: TEST_HASS_DISCOVERY_PREFIX,
-            CONF_HASS_ENTITY_ID_PREFIX: TEST_HASS_ENTITY_ID_PREFIX,
-            CONF_INPUT_UNIT_SYSTEM: UNIT_SYSTEM_IMPERIAL,
-            CONF_MQTT_BROKER: TEST_MQTT_BROKER,
-            CONF_MQTT_PASSWORD: TEST_MQTT_PASSWORD,
-            CONF_MQTT_PORT: TEST_MQTT_PORT,
-            CONF_MQTT_TOPIC: TEST_MQTT_TOPIC,
-            CONF_MQTT_USERNAME: TEST_MQTT_USERNAME,
-            CONF_OUTPUT_UNIT_SYSTEM: UNIT_SYSTEM_IMPERIAL,
-            CONF_PORT: TEST_PORT,
-            CONF_RAW_DATA: False,
-            CONF_VERBOSE: False,
         }
     ],
 )
@@ -3339,21 +3275,8 @@ def test_process(device_data, ecowitt, expected_output, request):
     "config",
     [
         {
-            CONF_DEFAULT_BATTERY_STRATEGY: BatteryStrategy.BOOLEAN,
-            CONF_ENDPOINT: TEST_ENDPOINT,
-            CONF_HASS_DISCOVERY: False,
-            CONF_HASS_DISCOVERY_PREFIX: TEST_HASS_DISCOVERY_PREFIX,
-            CONF_HASS_ENTITY_ID_PREFIX: TEST_HASS_ENTITY_ID_PREFIX,
+            **TEST_CONFIG_JSON,
             CONF_INPUT_UNIT_SYSTEM: UNIT_SYSTEM_METRIC,
-            CONF_MQTT_BROKER: TEST_MQTT_BROKER,
-            CONF_MQTT_PASSWORD: TEST_MQTT_PASSWORD,
-            CONF_MQTT_PORT: TEST_MQTT_PORT,
-            CONF_MQTT_TOPIC: TEST_MQTT_TOPIC,
-            CONF_MQTT_USERNAME: TEST_MQTT_USERNAME,
-            CONF_OUTPUT_UNIT_SYSTEM: UNIT_SYSTEM_IMPERIAL,
-            CONF_PORT: TEST_PORT,
-            CONF_RAW_DATA: False,
-            CONF_VERBOSE: False,
         }
     ],
 )
@@ -3549,21 +3472,8 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
     "config",
     [
         {
-            CONF_DEFAULT_BATTERY_STRATEGY: BatteryStrategy.BOOLEAN,
-            CONF_ENDPOINT: TEST_ENDPOINT,
-            CONF_HASS_DISCOVERY: False,
-            CONF_HASS_DISCOVERY_PREFIX: TEST_HASS_DISCOVERY_PREFIX,
-            CONF_HASS_ENTITY_ID_PREFIX: TEST_HASS_ENTITY_ID_PREFIX,
-            CONF_INPUT_UNIT_SYSTEM: UNIT_SYSTEM_IMPERIAL,
-            CONF_MQTT_BROKER: TEST_MQTT_BROKER,
-            CONF_MQTT_PASSWORD: TEST_MQTT_PASSWORD,
-            CONF_MQTT_PORT: TEST_MQTT_PORT,
-            CONF_MQTT_TOPIC: TEST_MQTT_TOPIC,
-            CONF_MQTT_USERNAME: TEST_MQTT_USERNAME,
+            **TEST_CONFIG_JSON,
             CONF_OUTPUT_UNIT_SYSTEM: UNIT_SYSTEM_METRIC,
-            CONF_PORT: TEST_PORT,
-            CONF_RAW_DATA: False,
-            CONF_VERBOSE: False,
         }
     ],
 )
@@ -4249,28 +4159,6 @@ def test_nonnumeric_value(device_data, ecowitt):
     }
 
 
-@pytest.mark.parametrize(
-    "config",
-    [
-        {
-            CONF_DEFAULT_BATTERY_STRATEGY: BatteryStrategy.BOOLEAN,
-            CONF_ENDPOINT: TEST_ENDPOINT,
-            CONF_HASS_DISCOVERY: False,
-            CONF_HASS_DISCOVERY_PREFIX: TEST_HASS_DISCOVERY_PREFIX,
-            CONF_HASS_ENTITY_ID_PREFIX: TEST_HASS_ENTITY_ID_PREFIX,
-            CONF_INPUT_UNIT_SYSTEM: UNIT_SYSTEM_IMPERIAL,
-            CONF_MQTT_BROKER: TEST_MQTT_BROKER,
-            CONF_MQTT_PASSWORD: TEST_MQTT_PASSWORD,
-            CONF_MQTT_PORT: TEST_MQTT_PORT,
-            CONF_MQTT_TOPIC: TEST_MQTT_TOPIC,
-            CONF_MQTT_USERNAME: TEST_MQTT_USERNAME,
-            CONF_OUTPUT_UNIT_SYSTEM: UNIT_SYSTEM_IMPERIAL,
-            CONF_PORT: TEST_PORT,
-            CONF_RAW_DATA: False,
-            CONF_VERBOSE: False,
-        }
-    ],
-)
 def test_unknown_battery(device_data, ecowitt):
     """Test that an unknown battery is given the default strategy."""
     device_data["playstationbattery1"] = 0

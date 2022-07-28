@@ -1,38 +1,15 @@
 """Define tests for the MQTT Topic publisher."""
-from unittest.mock import patch
+from unittest.mock import AsyncMock
 
-from asyncio_mqtt import MqttError
+from asyncio_mqtt import Client, MqttError
 import pytest
 
-from ecowitt2mqtt.const import (
-    CONF_DEFAULT_BATTERY_STRATEGY,
-    CONF_ENDPOINT,
-    CONF_HASS_DISCOVERY,
-    CONF_HASS_DISCOVERY_PREFIX,
-    CONF_INPUT_UNIT_SYSTEM,
-    CONF_MQTT_BROKER,
-    CONF_MQTT_PASSWORD,
-    CONF_MQTT_PORT,
-    CONF_MQTT_RETAIN,
-    CONF_MQTT_TOPIC,
-    CONF_MQTT_USERNAME,
-    CONF_OUTPUT_UNIT_SYSTEM,
-    CONF_RAW_DATA,
-    UNIT_SYSTEM_IMPERIAL,
-)
-from ecowitt2mqtt.core import Ecowitt
+from ecowitt2mqtt.const import CONF_MQTT_RETAIN, CONF_RAW_DATA
 from ecowitt2mqtt.helpers.publisher import PublishError, generate_mqtt_payload
 from ecowitt2mqtt.helpers.publisher.factory import get_publisher
 from ecowitt2mqtt.helpers.publisher.topic import TopicPublisher
 
-from tests.common import (
-    TEST_ENDPOINT,
-    TEST_MQTT_BROKER,
-    TEST_MQTT_PASSWORD,
-    TEST_MQTT_PORT,
-    TEST_MQTT_TOPIC,
-    TEST_MQTT_USERNAME,
-)
+from tests.common import TEST_CONFIG_JSON, TEST_MQTT_TOPIC
 
 
 def test_get_publisher(ecowitt):
@@ -43,14 +20,11 @@ def test_get_publisher(ecowitt):
 
 @pytest.mark.asyncio
 async def test_publish_processed(
-    config, device_data, ecowitt, request, setup_asyncio_mqtt
+    device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
 ):
     """Test publishing a processed payload to an TopicPublisher."""
-    # Test publishing processed data:
-    publisher = get_publisher(ecowitt)
-    await publisher.async_publish(device_data)
-
-    publisher.client.publish.assert_awaited_with(
+    await ecowitt.server.publisher.async_publish(device_data)
+    mock_asyncio_mqtt_client.publish.assert_awaited_with(
         TEST_MQTT_TOPIC,
         payload=b'{"runtime": 319206.0, "tempin": 79.5, "humidityin": 31.0, "baromrel": 24.74, "baromabs": 24.74, "temp": 93.2, "humidity": 64.0, "winddir": 139.0, "windspeed": 20.89, "windgust": 1.12, "maxdailygust": 8.05, "solarradiation": 264.61, "uv": 2.0, "rainrate": 0.0, "eventrain": 0.0, "hourlyrain": 0.0, "dailyrain": 0.0, "weeklyrain": 0.0, "monthlyrain": 2.177, "yearlyrain": 4.441, "lightning_num": 13.0, "lightning": 0.6, "lightning_time": "2022-04-20T17:17:17+00:00", "wh65batt": "OFF", "dewpoint": 79.2, "feelslike": 111.1, "frostpoint": 70.3, "frostrisk": "No risk", "heatindex": 111.1, "humidityabs": 0.0, "humidityabsin": 0.0, "safe_exposure_time_skin_type_1": 83.3, "safe_exposure_time_skin_type_2": 100.0, "safe_exposure_time_skin_type_3": 133.3, "safe_exposure_time_skin_type_4": 166.7, "safe_exposure_time_skin_type_5": 266.7, "safe_exposure_time_skin_type_6": 433.3, "simmerindex": 113.9, "simmerzone": "Danger of heatstroke", "solarradiation_lux": 33494.9, "solarradiation_perceived": 90.0, "thermalperception": "Severely high", "windchill": null}',
         retain=False,
@@ -58,24 +32,31 @@ async def test_publish_processed(
 
 
 @pytest.mark.asyncio
-async def test_publish_raw(config, device_data, ecowitt, request, setup_asyncio_mqtt):
+@pytest.mark.parametrize(
+    "config",
+    [
+        {
+            **TEST_CONFIG_JSON,
+            CONF_RAW_DATA: True,
+        }
+    ],
+)
+async def test_publish_raw(
+    device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
+):
     """Test publishing a raw payload to an TopicPublisher."""
-    ecowitt = Ecowitt({**config, CONF_RAW_DATA: True})
-    publisher = get_publisher(ecowitt)
-
-    await publisher.async_publish(device_data)
-    publisher.client.publish.assert_awaited_with(
+    await ecowitt.server.publisher.async_publish(device_data)
+    mock_asyncio_mqtt_client.publish.assert_awaited_with(
         TEST_MQTT_TOPIC, payload=generate_mqtt_payload(device_data), retain=False
     )
 
 
 @pytest.mark.asyncio
-async def test_publish_error_mqtt(device_data, ecowitt):
+@pytest.mark.parametrize("mqtt_publish_side_effect", [MqttError])
+async def test_publish_error_mqtt(device_data, ecowitt, setup_asyncio_mqtt):
     """Test handling an asyncio-mqtt error when publishing."""
-    publisher = get_publisher(ecowitt)
-    with patch.object(publisher.client, "publish", side_effect=MqttError):
-        with pytest.raises(PublishError):
-            await publisher.async_publish(device_data)
+    with pytest.raises(PublishError):
+        await ecowitt.server.publisher.async_publish(device_data)
 
 
 @pytest.mark.asyncio
@@ -92,28 +73,17 @@ async def test_publish_error_unserializable(device_data, ecowitt, setup_asyncio_
     "config",
     [
         {
-            CONF_DEFAULT_BATTERY_STRATEGY: "numeric",
-            CONF_ENDPOINT: TEST_ENDPOINT,
-            CONF_HASS_DISCOVERY: False,
-            CONF_INPUT_UNIT_SYSTEM: UNIT_SYSTEM_IMPERIAL,
-            CONF_MQTT_BROKER: TEST_MQTT_BROKER,
-            CONF_MQTT_PASSWORD: TEST_MQTT_PASSWORD,
-            CONF_MQTT_PORT: TEST_MQTT_PORT,
+            **TEST_CONFIG_JSON,
             CONF_MQTT_RETAIN: True,
-            CONF_MQTT_TOPIC: TEST_MQTT_TOPIC,
-            CONF_MQTT_USERNAME: TEST_MQTT_USERNAME,
-            CONF_OUTPUT_UNIT_SYSTEM: UNIT_SYSTEM_IMPERIAL,
+            CONF_RAW_DATA: True,
         }
     ],
 )
 async def test_publish_retain(
-    config, device_data, ecowitt, request, setup_asyncio_mqtt
+    device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
 ):
     """Test publishing a retained raw payload to an TopicPublisher."""
-    ecowitt = Ecowitt({**config, CONF_RAW_DATA: True})
-    publisher = get_publisher(ecowitt)
-
-    await publisher.async_publish(device_data)
-    publisher.client.publish.assert_awaited_with(
+    await ecowitt.server.publisher.async_publish(device_data)
+    mock_asyncio_mqtt_client.publish.assert_awaited_with(
         TEST_MQTT_TOPIC, payload=generate_mqtt_payload(device_data), retain=True
     )

@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 from datetime import datetime
 import json
 from ssl import SSLContext
@@ -46,16 +48,20 @@ class MqttPublisher(ABC):
 
     def __init__(self, ecowitt: Ecowitt) -> None:
         """Initialize."""
-        self.client = Client(
-            ecowitt.config.mqtt_broker,
-            logger=LOGGER,
-            max_concurrent_outgoing_calls=10,
-            password=ecowitt.config.mqtt_password,
-            port=ecowitt.config.mqtt_port,
-            tls_context=SSLContext() if ecowitt.config.mqtt_tls else None,
-            username=ecowitt.config.mqtt_username,
-        )
         self.ecowitt = ecowitt
+
+    @asynccontextmanager
+    async def async_get_client(self) -> AsyncIterator[Client]:
+        """Get an MQTT client."""
+        async with Client(
+            self.ecowitt.config.mqtt_broker,
+            logger=LOGGER,
+            password=self.ecowitt.config.mqtt_password,
+            port=self.ecowitt.config.mqtt_port,
+            tls_context=SSLContext() if self.ecowitt.config.mqtt_tls else None,
+            username=self.ecowitt.config.mqtt_username,
+        ) as client:
+            yield client
 
     @abstractmethod
     async def async_publish(self, data: dict[str, Any]) -> None:
