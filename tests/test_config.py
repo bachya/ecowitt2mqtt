@@ -43,16 +43,29 @@ from ecowitt2mqtt.const import (
 )
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 
-from tests.common import TEST_ENDPOINT, TEST_PORT, TEST_RAW_JSON, TEST_RAW_YAML
+from tests.common import (
+    TEST_CONFIG_JSON,
+    TEST_CONFIG_RAW_YAML,
+    TEST_ENDPOINT,
+    TEST_PORT,
+)
 
 
+@pytest.mark.parametrize(
+    "config",
+    [
+        {
+            **TEST_CONFIG_JSON,
+            CONF_BATTERY_OVERRIDES: (
+                "testbatt0=boolean",
+                "testbatt1=numeric",
+                "testbatt2=percentage",
+            ),
+        },
+    ],
+)
 def test_battery_overrides_cli_options(config):
     """Test battery configs provided by CLI options."""
-    config[CONF_BATTERY_OVERRIDES] = (
-        "testbatt0=boolean",
-        "testbatt1=numeric",
-        "testbatt2=percentage",
-    )
     config = Config(config)
     assert config.battery_overrides == {
         "testbatt0": BatteryStrategy.BOOLEAN,
@@ -67,7 +80,7 @@ def test_battery_overrides_cli_options(config):
     [
         json.dumps(
             {
-                **json.loads(TEST_RAW_JSON),
+                **TEST_CONFIG_JSON,
                 CONF_BATTERY_OVERRIDES: {
                     "testbatt0": "boolean",
                     "testbatt1": "numeric",
@@ -101,9 +114,20 @@ def test_battery_overrides_env_vars(config):
     os.environ.pop(ENV_BATTERY_OVERRIDE)
 
 
+@pytest.mark.parametrize(
+    "config",
+    [
+        {
+            **TEST_CONFIG_JSON,
+            CONF_BATTERY_OVERRIDES: (
+                "testbatt0;boolean",
+                "testbatt1=numeric",
+            ),
+        },
+    ],
+)
 def test_battery_overrides_error(config):
     """Test handling invalid battery configs."""
-    config[CONF_BATTERY_OVERRIDES] = ("testbatt0;boolean", "testbatt1=numeric")
     with pytest.raises(ConfigError):
         _ = Config(config)
 
@@ -119,7 +143,13 @@ def test_battery_overrides_missing(config):
     assert config.battery_overrides == {}
 
 
-@pytest.mark.parametrize("raw_config", [TEST_RAW_JSON, TEST_RAW_YAML])
+@pytest.mark.parametrize(
+    "raw_config",
+    [
+        json.dumps(TEST_CONFIG_JSON),
+        TEST_CONFIG_RAW_YAML,
+    ],
+)
 def test_config_file(config_filepath):
     """Test successfully loading a valid config file."""
     config = Config({CONF_CONFIG: config_filepath})
@@ -135,9 +165,18 @@ def test_config_file_empty(config_filepath):
     assert "Missing required option: --mqtt-broker" in str(err)
 
 
+@pytest.mark.parametrize(
+    "config",
+    [
+        {
+            **TEST_CONFIG_JSON,
+            CONF_MQTT_BROKER: "192.168.1.100",
+        }
+    ],
+)
 def test_config_file_overrides(config):
     """Test a config file with overrides."""
-    config = Config({**config, **{CONF_MQTT_BROKER: "192.168.1.100"}})
+    config = Config(config)
     assert config.mqtt_broker == "192.168.1.100"
 
 
@@ -149,9 +188,17 @@ def test_config_file_unparsable(config_filepath):
     assert "Unable to parse config file" in str(err)
 
 
+@pytest.mark.parametrize(
+    "config",
+    [
+        {
+            **TEST_CONFIG_JSON,
+            CONF_DEFAULT_BATTERY_STRATEGY: BatteryStrategy.NUMERIC,
+        },
+    ],
+)
 def test_default_battery_strategy(config):
     """Test the default battery config."""
-    config[CONF_DEFAULT_BATTERY_STRATEGY] = BatteryStrategy.NUMERIC
     config = Config(config)
     assert config.default_battery_strategy == BatteryStrategy.NUMERIC
 

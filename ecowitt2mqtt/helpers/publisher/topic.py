@@ -23,8 +23,8 @@ class TopicPublisher(MqttPublisher):
             data = {key: value.value for key, value in processed_data.output.items()}
 
         try:
-            async with self.client:
-                await self.client.publish(
+            async with self.async_get_client() as client:
+                await client.publish(
                     self.ecowitt.config.mqtt_topic,
                     payload=generate_mqtt_payload(data),
                     retain=self.ecowitt.config.mqtt_retain,
@@ -34,4 +34,5 @@ class TopicPublisher(MqttPublisher):
                 f"Error while publishing to {self.ecowitt.config.mqtt_topic}: {err}"
             ) from err
 
-        LOGGER.info("Published to %s: %s", self.ecowitt.config.mqtt_topic, data)
+        LOGGER.info("Published to %s", self.ecowitt.config.mqtt_topic)
+        LOGGER.debug("Published data: %s", data)

@@ -181,8 +181,8 @@ Options:
 * `ECOWITT2MQTT_DIAGNOSTICS`: whether to output diagnostics (default: `false`)
 * `ECOWITT2MQTT_DISABLE_CALCULATE_DATA`: whether to disable the output of calculated sensors (default: `false`)
 * `ECOWITT2MQTT_ENDPOINT`: the relative endpoint/path to serve ecowitt2mqtt on (default: `/data/report`)
-* `ECOWITT2MQTT_HASS_DISCOVERY`: publish data in the Home Assistant MQTT Discovery format Idefault: `false`)
 * `ECOWITT2MQTT_HASS_DISCOVERY_PREFIX`: the Home Assistant discovery prefix to use (default: `homeassistant`)
+* `ECOWITT2MQTT_HASS_DISCOVERY`: publish data in the Home Assistant MQTT Discovery format Idefault: `false`)
 * `ECOWITT2MQTT_HASS_ENTITY_ID_PREFIX`: the prefix to use for Home Assistant entity IDs (default: `""`)
 * `ECOWITT2MQTT_INPUT_UNIT_SYSTEM`: the input unit system used by the device (default: `imperial`)
 * `ECOWITT2MQTT_MQTT_BROKER`: the hostname or IP address of an MQTT broker
