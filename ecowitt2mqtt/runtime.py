@@ -135,8 +135,8 @@ class Runtime:
         """Define an endpoint for the Ecowitt device to post data to."""
         payload = dict(await request.form())
         LOGGER.debug("Received data from the Ecowitt device: %s", payload)
-        self._latest_payload = payload
         async with self._condition:
+            self._latest_payload = payload
             self._condition.notify_all()
 
     async def async_start(self) -> None:
