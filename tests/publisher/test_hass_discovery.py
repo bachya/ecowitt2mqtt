@@ -1,6 +1,6 @@
 """Define tests for the Home Assistant MQTT Discovery publisher."""
 import logging
-from unittest.mock import AsyncMock, call
+from unittest.mock import call
 
 from asyncio_mqtt import MqttError
 import pytest
@@ -11,7 +11,6 @@ from ecowitt2mqtt.const import (
     CONF_HASS_ENTITY_ID_PREFIX,
 )
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
-from ecowitt2mqtt.helpers.publisher import PublishError
 from ecowitt2mqtt.helpers.publisher.factory import get_publisher
 from ecowitt2mqtt.helpers.publisher.hass import HomeAssistantDiscoveryPublisher
 
@@ -48,7 +47,9 @@ async def test_publish(
     device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
 ):
     """Test publishing a payload."""
-    await ecowitt.server.publisher.async_publish(device_data)
+    await ecowitt.runtime._publisher.async_publish(
+        mock_asyncio_mqtt_client, device_data
+    )
     mock_asyncio_mqtt_client.publish.assert_has_awaits(
         [
             call(
@@ -1556,7 +1557,9 @@ async def test_publish_custom_entity_id_prefix(
     device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
 ):
     """Test publishing a payload with custom HASS entity ID prefix."""
-    await ecowitt.server.publisher.async_publish(device_data)
+    await ecowitt.runtime._publisher.async_publish(
+        mock_asyncio_mqtt_client, device_data
+    )
     mock_asyncio_mqtt_client.publish.assert_has_awaits(
         [
             call(
@@ -3064,7 +3067,9 @@ async def test_publish_numeric_battery_strategy(
     device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
 ):
     """Test publishing a payload with numeric battery strategy."""
-    await ecowitt.server.publisher.async_publish(device_data)
+    await ecowitt.runtime._publisher.async_publish(
+        mock_asyncio_mqtt_client, device_data
+    )
     mock_asyncio_mqtt_client.publish.assert_has_awaits(
         [
             call(
@@ -4558,26 +4563,6 @@ async def test_publish_numeric_battery_strategy(
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    "config,device_data_filename,mqtt_publish_side_effect",
-    [
-        (
-            {
-                **TEST_CONFIG_JSON,
-                CONF_HASS_DISCOVERY: True,
-            },
-            "payload_gw2000a_2.json",
-            [None, None, None, MqttError],
-        ),
-    ],
-)
-async def test_publish_error_mqtt(device_data, ecowitt, setup_asyncio_mqtt):
-    """Test handling an asyncio-mqtt error when publishing."""
-    with pytest.raises(PublishError):
-        await ecowitt.server.publisher.async_publish(device_data)
-
-
-@pytest.mark.asyncio
-@pytest.mark.parametrize(
     "config",
     [
         {
@@ -4594,7 +4579,9 @@ async def test_no_entity_description(
     caplog.set_level(logging.DEBUG)
     device_data["random"] = "value"
 
-    await ecowitt.server.publisher.async_publish(device_data)
+    await ecowitt.runtime._publisher.async_publish(
+        mock_asyncio_mqtt_client, device_data
+    )
     mock_asyncio_mqtt_client.publish.assert_has_awaits(
         [
             call(
@@ -6100,7 +6087,6 @@ async def test_no_entity_description(
         ]
     )
 
-
-#     assert any(
-#         m for m in caplog.messages if 'Missing entity description for "random"' in m
-#     )
+    assert any(
+        m for m in caplog.messages if 'Missing entity description for "random"' in m
+    )

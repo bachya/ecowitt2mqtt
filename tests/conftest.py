@@ -1,9 +1,10 @@
 """Define dynamic fixtures."""
 from __future__ import annotations
 
+import asyncio
 import json
 import tempfile
-from unittest.mock import AsyncMock, MagicMock, Mock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 import pytest_asyncio
@@ -78,10 +79,21 @@ def runner_fixture():
 @pytest_asyncio.fixture(name="setup_asyncio_mqtt")
 async def setup_asyncio_mqtt_fixture(ecowitt, mock_asyncio_mqtt_client):
     """Define a fixture to patch asyncio-mqtt properly."""
-    with patch(
-        "ecowitt2mqtt.helpers.publisher.Client",
-    ) as mock_client_class:
+    with patch("ecowitt2mqtt.runtime.Client") as mock_client_class:
         mock_client_class.return_value.__aenter__.return_value = (
             mock_asyncio_mqtt_client
         )
         yield
+
+
+@pytest_asyncio.fixture(name="setup_uvicorn_server")
+async def setup_uvicorn_server_fixture(ecowitt):
+    """Define a fixture to patch Uvicorn properly."""
+    start_task = asyncio.create_task(ecowitt.async_start())
+    await asyncio.sleep(0.1)
+    try:
+        yield
+    finally:
+        await ecowitt.runtime._server.shutdown()
+        start_task.cancel()
+    await asyncio.sleep(0.1)
