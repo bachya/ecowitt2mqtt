@@ -3053,6 +3053,30 @@ async def test_publish_custom_entity_id_prefix(
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
+    "config,device_data_filename,mqtt_publish_side_effect",
+    [
+        (
+            {
+                **TEST_CONFIG_JSON,
+                CONF_HASS_DISCOVERY: True,
+            },
+            "payload_gw2000a_2.json",
+            [None, None, None, MqttError],
+        ),
+    ],
+)
+async def test_publish_error_mqtt(
+    device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
+):
+    """Test handling an asyncio-mqtt error when publishing."""
+    with pytest.raises(MqttError):
+        await ecowitt.runtime._publisher.async_publish(
+            mock_asyncio_mqtt_client, device_data
+        )
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
     "config",
     [
         {

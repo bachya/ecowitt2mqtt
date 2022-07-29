@@ -69,8 +69,6 @@ class Runtime:
         LOGGER.debug("Starting the MQTT process loop")
 
         retry_attempt = 0
-        should_rerun = False
-
         while True:
             try:
                 async with Client(
@@ -93,19 +91,13 @@ class Runtime:
 
                         if self.ecowitt.config.diagnostics:
                             LOGGER.debug("*** DIAGNOSTICS COLLECTED")
-                            await self.stop()
+                            self.stop()
             except asyncio.CancelledError:
                 LOGGER.debug("Stopping the MQTT process loop")
                 raise
             except MqttError as err:
                 LOGGER.error("There was an MQTT error: %s", err)
                 LOGGER.debug("".join(traceback.format_tb(err.__traceback__)))
-                should_rerun = True
-
-            if not should_rerun:
-                LOGGER.error("Can't recover MQTT process loop; shutting down")
-                await self.stop()
-                return
 
             retry_attempt += 1
             delay = min(retry_attempt**2, DEFAULT_MAX_RETRY_INTERVAL)
@@ -145,22 +137,16 @@ class Runtime:
 
         def handle_exit_signal(sig: int, frame: FrameType | None) -> None:  # noqa: D202
             """Handle an exit signal."""
-
-            async def async_shutdown() -> None:
-                """Shut everything down."""
-                if self._server.should_exit and sig == signal.SIGINT:
-                    self._server.force_exit = True
-                else:
-                    self._server.should_exit = True
-
-                await self.stop()
-
-            asyncio.create_task(async_shutdown())
+            if self._server.should_exit and sig == signal.SIGINT:
+                self._server.force_exit = True
+            else:
+                self._server.should_exit = True
+            self.stop()
 
         try:
             for sig in HANDLED_SIGNALS:
                 loop.add_signal_handler(sig, handle_exit_signal, sig, None)
-        except NotImplementedError:  # pragma: no cover
+        except NotImplementedError:
             # Windows
             for sig in HANDLED_SIGNALS:
                 signal.signal(sig, handle_exit_signal)
@@ -174,7 +160,7 @@ class Runtime:
             await asyncio.sleep(0.1)
             LOGGER.debug("Shutdown complete")
 
-    async def stop(self) -> None:
+    def stop(self) -> None:
         """Stop the REST API server."""
         for task in self._runtime_tasks:
             task.cancel()
