@@ -274,7 +274,10 @@ def _get_simmer_index_object(
 ) -> meteocalc.Temp | None:
     """Get a simmer index object."""
     if temp_obj.f < 70:
-        return None
+        raise ValueError(
+            "Simmer Index is only valid for temperatures above 70°F (21.1 °C)"
+        )
+
     return _get_temperature_object(
         (
             1.98
@@ -586,19 +589,18 @@ def calculate_simmer_index(
 ) -> CalculatedDataPoint:
     """Calculate simmer index in the appropriate unit system."""
     temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
-    simmer_obj = _get_simmer_index_object(temp_obj, relative_humidity)
 
-    if simmer_obj:
+    try:
+        simmer_obj = _get_simmer_index_object(temp_obj, relative_humidity)
+    except ValueError as err:
+        LOGGER.debug("%s (temperature: %s)", err, temp_obj)
+        final_value = None
+    else:
+        assert simmer_obj
         if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
             final_value = round(simmer_obj.f, 1)
         else:
             final_value = round(simmer_obj.c, 1)
-    else:
-        LOGGER.debug(
-            "Simmer index is undefined for temperatures below 70°F (temperature: %s°F",
-            temp_obj.f,
-        )
-        final_value = None
 
     return CalculatedDataPoint(
         data_point_key=data_point_key,
@@ -616,19 +618,18 @@ def calculate_simmer_zone(
 ) -> CalculatedDataPoint:
     """Calculate the human perception of comfort level related to temperature."""
     temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
-    simmer_obj = _get_simmer_index_object(temp_obj, relative_humidity)
 
-    if simmer_obj:
+    try:
+        simmer_obj = _get_simmer_index_object(temp_obj, relative_humidity)
+    except ValueError as err:
+        LOGGER.debug("%s (temperature: %s)", err, temp_obj)
+        final_value = None
+    else:
+        assert simmer_obj
         [rating] = [
             r for r in SIMMER_ZONE_RATINGS if r.minimum_f <= simmer_obj.f <= r.maximum_f
         ]
         final_value = rating.zone
-    else:
-        LOGGER.debug(
-            "Simmer index is undefined for temperatures below 70°F (temperature: %s°F",
-            temp_obj.f,
-        )
-        final_value = None
 
     return CalculatedDataPoint(data_point_key=data_point_key, value=final_value)
 
