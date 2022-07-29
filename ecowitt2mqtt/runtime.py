@@ -7,7 +7,7 @@ import signal
 from ssl import SSLContext
 import traceback
 from types import FrameType
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from asyncio_mqtt import Client, MqttError
 from fastapi import FastAPI, Request, Response, status
@@ -45,7 +45,8 @@ class Runtime:
     def __init__(self, ecowitt: Ecowitt) -> None:
         """Initialize."""
         self._app = FastAPI()
-        self._payload_queue: asyncio.Queue = asyncio.Queue(maxsize=1)
+        self._condition = asyncio.Condition()
+        self._latest_payload: dict[str, Any] | None = None
         self._publisher = get_publisher(ecowitt)
         self._runtime_tasks: list[asyncio.Task] = []
         self._server = MyCustomUvicornServer(
@@ -81,9 +82,13 @@ class Runtime:
                     username=self.ecowitt.config.mqtt_username,
                 ) as client:
                     while True:
-                        payload = await self._payload_queue.get()
-                        LOGGER.debug("Publishing payload: %s", dict(payload))
-                        await self._publisher.async_publish(client, payload)
+                        async with self._condition:
+                            await self._condition.wait()
+                            LOGGER.debug("Publishing payload: %s", self._latest_payload)
+                            assert self._latest_payload
+                            await self._publisher.async_publish(
+                                client, self._latest_payload
+                            )
                         retry_attempt = 0
 
                         if self.ecowitt.config.diagnostics:
@@ -128,13 +133,11 @@ class Runtime:
 
     async def _async_post_data(self, request: Request) -> Response:
         """Define an endpoint for the Ecowitt device to post data to."""
-        payload = await request.form()
-        LOGGER.debug("Received data from the Ecowitt device: %s", dict(payload))
-
-        if self._payload_queue.full():
-            LOGGER.debug("Replacing data payload currently in the queue")
-            _ = self._payload_queue.get_nowait()
-        await self._payload_queue.put(payload)
+        payload = dict(await request.form())
+        LOGGER.debug("Received data from the Ecowitt device: %s", payload)
+        self._latest_payload = payload
+        async with self._condition:
+            self._condition.notify_all()
 
     async def async_start(self) -> None:
         """Start the REST API server."""
