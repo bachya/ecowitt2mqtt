@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 import signal
 from ssl import SSLContext
 import traceback
@@ -44,7 +45,7 @@ class Runtime:
     def __init__(self, ecowitt: Ecowitt) -> None:
         """Initialize."""
         self._app = FastAPI()
-        self._payload_queue: asyncio.Queue = asyncio.Queue()
+        self._payload_queue: asyncio.Queue = asyncio.Queue(maxsize=1)
         self._publisher = get_publisher(ecowitt)
         self._runtime_tasks: list[asyncio.Task] = []
         self._server = MyCustomUvicornServer(
@@ -52,10 +53,15 @@ class Runtime:
                 self._app,
                 host=DEFAULT_HOST,
                 port=ecowitt.config.port,
-                log_level="debug" if ecowitt.config.verbose else "error",
+                log_level="debug" if ecowitt.config.verbose else "info",
             )
         )
         self.ecowitt = ecowitt
+
+        # Remove the existing Uvicorn logger handler so that we don't get duplicates:
+        # https://github.com/encode/uvicorn/issues/1285
+        uvicorn_logger = logging.getLogger("uvicorn")
+        uvicorn_logger.removeHandler(uvicorn_logger.handlers[0])
 
     async def _async_create_mqtt_loop(self) -> None:
         """Create the MQTT process loop."""
@@ -82,10 +88,10 @@ class Runtime:
 
                         if self.ecowitt.config.diagnostics:
                             LOGGER.debug("*** DIAGNOSTICS COLLECTED")
-                            self.stop()
+                            await self.stop()
             except asyncio.CancelledError:
-                LOGGER.debug("MQTT process loop shutdown requested")
-                return
+                LOGGER.debug("Stopping the MQTT process loop")
+                raise
             except MqttError as err:
                 LOGGER.error("There was an MQTT error: %s", err)
                 LOGGER.debug("".join(traceback.format_tb(err.__traceback__)))
@@ -93,7 +99,7 @@ class Runtime:
 
             if not should_rerun:
                 LOGGER.error("Can't recover MQTT process loop; shutting down")
-                self.stop()
+                await self.stop()
                 return
 
             retry_attempt += 1
@@ -107,40 +113,54 @@ class Runtime:
 
     async def _async_create_server(self) -> None:
         """Create the server."""
-        LOGGER.debug("Starting the Uvicorn + FastAPI server")
+        LOGGER.debug("Starting runtime server")
         self._app.post(
             self.ecowitt.config.endpoint,
             status_code=status.HTTP_204_NO_CONTENT,
             response_class=Response,
         )(self._async_post_data)
 
-        await self._server.serve()
+        try:
+            await self._server.serve()
+        except asyncio.CancelledError:
+            LOGGER.debug("Stopping the runtime server")
+            raise
 
     async def _async_post_data(self, request: Request) -> Response:
         """Define an endpoint for the Ecowitt device to post data to."""
         payload = await request.form()
         LOGGER.debug("Received data from the Ecowitt device: %s", dict(payload))
+
+        if self._payload_queue.full():
+            LOGGER.debug("Replacing data payload currently in the queue")
+            _ = self._payload_queue.get_nowait()
         await self._payload_queue.put(payload)
-
-    def _handle_exit(self, sig: int, frame: FrameType | None) -> None:
-        """Handle a shutdown signal."""
-        if self._server.should_exit and sig == signal.SIGINT:
-            self._server.force_exit = True
-        else:
-            self._server.should_exit = True
-
-        self.stop()
 
     async def async_start(self) -> None:
         """Start the REST API server."""
         loop = asyncio.get_running_loop()
+
+        def handle_exit_signal(sig: int, frame: FrameType | None) -> None:  # noqa: D202
+            """Handle an exit signal."""
+
+            async def async_shutdown() -> None:
+                """Shut everything down."""
+                if self._server.should_exit and sig == signal.SIGINT:
+                    self._server.force_exit = True
+                else:
+                    self._server.should_exit = True
+
+                await self.stop()
+
+            asyncio.create_task(async_shutdown())
+
         try:
             for sig in HANDLED_SIGNALS:
-                loop.add_signal_handler(sig, self._handle_exit, sig, None)
+                loop.add_signal_handler(sig, handle_exit_signal, sig, None)
         except NotImplementedError:  # pragma: no cover
             # Windows
             for sig in HANDLED_SIGNALS:
-                signal.signal(sig, self._handle_exit)
+                signal.signal(sig, handle_exit_signal)
 
         for coro_func in self._async_create_mqtt_loop, self._async_create_server:
             self._runtime_tasks.append(asyncio.create_task(coro_func()))
@@ -148,9 +168,10 @@ class Runtime:
         try:
             await asyncio.gather(*self._runtime_tasks)
         except asyncio.CancelledError:
-            LOGGER.debug("Runtime shutdown complete")
+            await asyncio.sleep(0.1)
+            LOGGER.debug("Shutdown complete")
 
-    def stop(self) -> None:
+    async def stop(self) -> None:
         """Stop the REST API server."""
         for task in self._runtime_tasks:
             task.cancel()
