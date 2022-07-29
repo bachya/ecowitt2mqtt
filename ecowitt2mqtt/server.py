@@ -26,7 +26,6 @@ class Server:
 
     def __init__(self, ecowitt: Ecowitt) -> None:
         """Initialize."""
-        self._loop = asyncio.get_event_loop()
         self._startup_task: asyncio.Task | None = None
 
         self.app = FastAPI()
@@ -38,7 +37,6 @@ class Server:
                 host=DEFAULT_HOST,
                 port=ecowitt.config.port,
                 log_level="debug" if ecowitt.config.verbose else "error",
-                loop=self._loop,
             )
         )
 
@@ -72,7 +70,7 @@ class Server:
             response_class=Response,
         )(self._async_post_data)
 
-        self._startup_task = self._loop.create_task(self.server.serve())
+        self._startup_task = asyncio.create_task(self.server.serve())
         try:
             await self._startup_task
         except asyncio.CancelledError:
