@@ -2,27 +2,16 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from collections.abc import AsyncIterator
-from contextlib import asynccontextmanager
 from datetime import datetime
 import json
-from ssl import SSLContext
 from typing import TYPE_CHECKING, Any
 
 from asyncio_mqtt import Client
 
-from ecowitt2mqtt.const import LOGGER
-from ecowitt2mqtt.errors import EcowittError
 from ecowitt2mqtt.helpers.typing import DataValueType
 
 if TYPE_CHECKING:
     from ecowitt2mqtt.core import Ecowitt
-
-
-class PublishError(EcowittError):
-    """Define an error related to a failed data publish."""
-
-    pass
 
 
 def generate_mqtt_payload(data: DataValueType) -> bytes:
@@ -50,20 +39,7 @@ class MqttPublisher(ABC):
         """Initialize."""
         self.ecowitt = ecowitt
 
-    @asynccontextmanager
-    async def async_get_client(self) -> AsyncIterator[Client]:
-        """Get an MQTT client."""
-        async with Client(
-            self.ecowitt.config.mqtt_broker,
-            logger=LOGGER,
-            password=self.ecowitt.config.mqtt_password,
-            port=self.ecowitt.config.mqtt_port,
-            tls_context=SSLContext() if self.ecowitt.config.mqtt_tls else None,
-            username=self.ecowitt.config.mqtt_username,
-        ) as client:
-            yield client
-
     @abstractmethod
-    async def async_publish(self, data: dict[str, Any]) -> None:
+    async def async_publish(self, client: Client, data: dict[str, Any]) -> None:
         """Publish the data."""
         raise NotImplementedError()
