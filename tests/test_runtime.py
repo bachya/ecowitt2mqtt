@@ -61,12 +61,3 @@ async def test_publish_success(
             data=device_data,
         )
         assert resp.status == 204
-
-
-# @pytest.mark.asyncio
-# async def test_signal_shutdown(device_data, ecowitt, setup_asyncio_mqtt):
-#     """Test a shutdown of the runtime via a signal."""
-#     start_task = asyncio.create_task(ecowitt.async_start())
-#     pid = os.getpid()
-#     os.kill(pid, signal.SIGTERM)
-#     print(dir(start_task))

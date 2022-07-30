@@ -45,7 +45,7 @@ class Runtime:
     def __init__(self, ecowitt: Ecowitt) -> None:
         """Initialize."""
         self._app = FastAPI()
-        self._condition = asyncio.Condition()
+        self._new_payload_condition = asyncio.Condition()
         self._latest_payload: dict[str, Any] | None = None
         self._publisher = get_publisher(ecowitt)
         self._runtime_tasks: list[asyncio.Task] = []
@@ -80,8 +80,8 @@ class Runtime:
                     username=self.ecowitt.config.mqtt_username,
                 ) as client:
                     while True:
-                        async with self._condition:
-                            await self._condition.wait()
+                        async with self._new_payload_condition:
+                            await self._new_payload_condition.wait()
                             LOGGER.debug("Publishing payload: %s", self._latest_payload)
                             assert self._latest_payload
                             await self._publisher.async_publish(
@@ -127,9 +127,9 @@ class Runtime:
         """Define an endpoint for the Ecowitt device to post data to."""
         payload = dict(await request.form())
         LOGGER.debug("Received data from the Ecowitt device: %s", payload)
-        async with self._condition:
+        async with self._new_payload_condition:
             self._latest_payload = payload
-            self._condition.notify_all()
+            self._new_payload_condition.notify_all()
 
     async def async_start(self) -> None:
         """Start the REST API server."""

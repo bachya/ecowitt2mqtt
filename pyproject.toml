@@ -3,7 +3,7 @@ requires = ["setuptools >= 35.0.2", "wheel >= 0.29.0", "poetry>=0.12"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.coverage.report]
-exclude_lines = ["NotImplementedError", "TYPE_CHECKING"]
+exclude_lines = ["TYPE_CHECKING", "NotImplementedError", "handle_exit_signal"]
 fail_under = 100
 
 [tool.coverage.run]
