@@ -21,7 +21,7 @@ async def test_publish_processed(
     device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
 ):
     """Test publishing a processed payload to an TopicPublisher."""
-    await ecowitt.runtime._publisher.async_publish(
+    await ecowitt._runtime._publisher.async_publish(
         mock_asyncio_mqtt_client, device_data
     )
     mock_asyncio_mqtt_client.publish.assert_awaited_with(
@@ -45,7 +45,7 @@ async def test_publish_raw(
     device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
 ):
     """Test publishing a raw payload to an TopicPublisher."""
-    await ecowitt.runtime._publisher.async_publish(
+    await ecowitt._runtime._publisher.async_publish(
         mock_asyncio_mqtt_client, device_data
     )
     mock_asyncio_mqtt_client.publish.assert_awaited_with(
@@ -79,7 +79,7 @@ async def test_publish_retain(
     device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
 ):
     """Test publishing a retained raw payload to an TopicPublisher."""
-    await ecowitt.runtime._publisher.async_publish(
+    await ecowitt._runtime._publisher.async_publish(
         mock_asyncio_mqtt_client, device_data
     )
     mock_asyncio_mqtt_client.publish.assert_awaited_with(

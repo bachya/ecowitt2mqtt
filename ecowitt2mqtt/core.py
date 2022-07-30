@@ -27,9 +27,14 @@ class Ecowitt:  # pylint: disable=too-few-public-methods
             handlers=(TyperLoggerHandler(),),
         )
 
-        self.config = Config(params)
-        self.runtime = Runtime(self)
+        self._config = Config(params)
+        self._runtime = Runtime(self)
+
+    @property
+    def config(self) -> Config:
+        """Return the config object."""
+        return self._config
 
     async def async_start(self) -> None:
         """Start ecowitt2mqtt."""
-        await self.runtime.async_start()
+        await self._runtime.async_start()
