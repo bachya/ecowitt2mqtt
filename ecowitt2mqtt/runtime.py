@@ -45,10 +45,12 @@ class Runtime:
     def __init__(self, ecowitt: Ecowitt) -> None:
         """Initialize."""
         self._app = FastAPI()
-        self._new_payload_condition = asyncio.Condition()
-        self._latest_payload: dict[str, Any] | None = None
-        self._publisher = get_publisher(ecowitt)
-        self._runtime_tasks: list[asyncio.Task] = []
+        self._app.post(
+            ecowitt.config.endpoint,
+            status_code=status.HTTP_204_NO_CONTENT,
+            response_class=Response,
+        )(self._async_post_data)
+
         self._server = MyCustomUvicornServer(
             config=uvicorn.Config(
                 self._app,
@@ -57,6 +59,12 @@ class Runtime:
                 log_level="debug" if ecowitt.config.verbose else "info",
             )
         )
+        
+        self._new_payload_condition = asyncio.Condition()
+        self._latest_payload: dict[str, Any] | None = None
+        self._publisher = get_publisher(ecowitt)
+        self._runtime_tasks: list[asyncio.Task] = []
+        
         self.ecowitt = ecowitt
 
         # Remove the existing Uvicorn logger handler so that we don't get duplicates:
@@ -111,11 +119,6 @@ class Runtime:
     async def _async_create_server(self) -> None:
         """Create the REST API server."""
         LOGGER.debug("Starting REST API server")
-        self._app.post(
-            self.ecowitt.config.endpoint,
-            status_code=status.HTTP_204_NO_CONTENT,
-            response_class=Response,
-        )(self._async_post_data)
 
         try:
             await self._server.serve()
