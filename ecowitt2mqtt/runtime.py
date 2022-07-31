@@ -45,7 +45,7 @@ class Runtime:
     def __init__(self, ecowitt: Ecowitt) -> None:
         """Initialize."""
         self.ecowitt = ecowitt
- 
+
         app = FastAPI()
         app.post(
             ecowitt.config.endpoint,
