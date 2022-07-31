@@ -44,13 +44,14 @@ class Runtime:
 
     def __init__(self, ecowitt: Ecowitt) -> None:
         """Initialize."""
-        self._app = FastAPI()
-        self._app.post(
+        self.ecowitt = ecowitt
+ 
+        app = FastAPI()
+        app.post(
             ecowitt.config.endpoint,
             status_code=status.HTTP_204_NO_CONTENT,
             response_class=Response,
         )(self._async_post_data)
-
         self._server = MyCustomUvicornServer(
             config=uvicorn.Config(
                 self._app,
@@ -64,8 +65,6 @@ class Runtime:
         self._new_payload_condition = asyncio.Condition()
         self._publisher = get_publisher(ecowitt)
         self._runtime_tasks: list[asyncio.Task] = []
-        
-        self.ecowitt = ecowitt
 
         # Remove the existing Uvicorn logger handler so that we don't get duplicates:
         # https://github.com/encode/uvicorn/issues/1285
@@ -138,7 +137,7 @@ class Runtime:
         """Start the runtime."""
         loop = asyncio.get_running_loop()
 
-        def handle_exit_signal(sig: int, frame: FrameType | None) -> None:  # noqa: D202
+        def handle_exit_signal(sig: int, frame: FrameType | None) -> None:
             """Handle an exit signal."""
             if self._server.should_exit and sig == signal.SIGINT:
                 self._server.force_exit = True
