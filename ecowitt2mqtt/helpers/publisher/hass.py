@@ -5,7 +5,7 @@ import asyncio
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Any, TypedDict
 
-from asyncio_mqtt import MqttError
+from asyncio_mqtt import Client, MqttError
 
 from ecowitt2mqtt.backports.enum import StrEnum
 from ecowitt2mqtt.const import (
@@ -78,11 +78,7 @@ from ecowitt2mqtt.helpers.calculator.battery import (
     get_battery_strategy,
 )
 from ecowitt2mqtt.helpers.device import Device
-from ecowitt2mqtt.helpers.publisher import (
-    MqttPublisher,
-    PublishError,
-    generate_mqtt_payload,
-)
+from ecowitt2mqtt.helpers.publisher import MqttPublisher, generate_mqtt_payload
 from ecowitt2mqtt.helpers.typing import DataValueType
 
 if TYPE_CHECKING:
@@ -470,44 +466,42 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
 
         return payload
 
-    async def async_publish(self, data: dict[str, DataValueType]) -> None:
+    async def async_publish(
+        self, client: Client, data: dict[str, DataValueType]
+    ) -> None:
         """Publish to MQTT."""
         processed_data = ProcessedData(self.ecowitt, data)
         tasks = []
 
         try:
-            async with self.async_get_client() as client:
-                for payload_key, data_point in processed_data.output.items():
-                    discovery_payload = self._generate_discovery_payload(
-                        processed_data.device, payload_key, data_point
-                    )
+            for payload_key, data_point in processed_data.output.items():
+                discovery_payload = self._generate_discovery_payload(
+                    processed_data.device, payload_key, data_point
+                )
 
-                    for topic, payload in (
-                        (discovery_payload.topic, discovery_payload.payload),
-                        (
-                            discovery_payload.payload["availability_topic"],
-                            get_availability_payload(data_point),
-                        ),
-                        (discovery_payload.payload["state_topic"], data_point.value),
-                    ):
-                        tasks.append(
-                            asyncio.create_task(
-                                client.publish(
-                                    topic,
-                                    payload=generate_mqtt_payload(payload),
-                                    retain=self.ecowitt.config.mqtt_retain,
-                                )
+                for topic, payload in (
+                    (discovery_payload.topic, discovery_payload.payload),
+                    (
+                        discovery_payload.payload["availability_topic"],
+                        get_availability_payload(data_point),
+                    ),
+                    (discovery_payload.payload["state_topic"], data_point.value),
+                ):
+                    tasks.append(
+                        asyncio.create_task(
+                            client.publish(
+                                topic,
+                                payload=generate_mqtt_payload(payload),
+                                retain=self.ecowitt.config.mqtt_retain,
                             )
                         )
+                    )
 
-                        await asyncio.gather(*tasks)
-        except MqttError as err:
+                    await asyncio.gather(*tasks)
+        except MqttError:
             for task in tasks:
                 task.cancel()
-
-            raise PublishError(
-                f"Error while publishing to Home Assistant MQTT Discovery: {err}"
-            ) from err
+            raise
 
         LOGGER.info("Published to Home Assistant MQTT Discovery")
         LOGGER.debug("Published data: %s", processed_data.output)
