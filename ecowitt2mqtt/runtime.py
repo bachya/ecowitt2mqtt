@@ -59,9 +59,9 @@ class Runtime:
                 log_level="debug" if ecowitt.config.verbose else "info",
             )
         )
-        
-        self._new_payload_condition = asyncio.Condition()
+
         self._latest_payload: dict[str, Any] | None = None
+        self._new_payload_condition = asyncio.Condition()
         self._publisher = get_publisher(ecowitt)
         self._runtime_tasks: list[asyncio.Task] = []
         
