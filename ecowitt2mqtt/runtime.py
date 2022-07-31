@@ -66,7 +66,7 @@ class Runtime:
 
     async def _async_create_mqtt_loop(self) -> None:
         """Create the MQTT process loop."""
-        LOGGER.debug("Starting the MQTT process loop")
+        LOGGER.debug("Starting MQTT process loop")
 
         retry_attempt = 0
         while True:
@@ -93,7 +93,7 @@ class Runtime:
                             LOGGER.debug("*** DIAGNOSTICS COLLECTED")
                             self.stop()
             except asyncio.CancelledError:
-                LOGGER.debug("Stopping the MQTT process loop")
+                LOGGER.debug("Stopping MQTT process loop")
                 raise
             except MqttError as err:
                 LOGGER.error("There was an MQTT error: %s", err)
@@ -109,8 +109,8 @@ class Runtime:
             await asyncio.sleep(delay)
 
     async def _async_create_server(self) -> None:
-        """Create the server."""
-        LOGGER.debug("Starting runtime server")
+        """Create the REST API server."""
+        LOGGER.debug("Starting REST API server")
         self._app.post(
             self.ecowitt.config.endpoint,
             status_code=status.HTTP_204_NO_CONTENT,
@@ -120,7 +120,7 @@ class Runtime:
         try:
             await self._server.serve()
         except asyncio.CancelledError:
-            LOGGER.debug("Stopping the runtime server")
+            LOGGER.debug("Stopping REST API server")
             raise
 
     async def _async_post_data(self, request: Request) -> Response:
@@ -132,7 +132,7 @@ class Runtime:
             self._new_payload_condition.notify_all()
 
     async def async_start(self) -> None:
-        """Start the REST API server."""
+        """Start the runtime."""
         loop = asyncio.get_running_loop()
 
         def handle_exit_signal(sig: int, frame: FrameType | None) -> None:  # noqa: D202
@@ -158,7 +158,7 @@ class Runtime:
             await asyncio.gather(*self._runtime_tasks)
         except asyncio.CancelledError:
             await asyncio.sleep(0.1)
-            LOGGER.debug("Shutdown complete")
+            LOGGER.debug("Runtime shutdown complete")
 
     def stop(self) -> None:
         """Stop the REST API server."""
