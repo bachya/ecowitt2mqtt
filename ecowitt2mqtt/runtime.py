@@ -54,7 +54,7 @@ class Runtime:
         )(self._async_post_data)
         self._server = MyCustomUvicornServer(
             config=uvicorn.Config(
-                self._app,
+                app,
                 host=DEFAULT_HOST,
                 port=ecowitt.config.port,
                 log_level="debug" if ecowitt.config.verbose else "info",
