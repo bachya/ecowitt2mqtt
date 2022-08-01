@@ -52,7 +52,7 @@ pip install ecowitt2mqtt
 
 The datapoints within this library and documentation constitute estimates and are
 intended to help informed decision making. They should not replace analysis, advice, or
-diagnosis from a trained professionals. Use this data at your own discretion.
+diagnosis from trained professionals. Use this data at your own discretion.
 
 # Quick Start
 
