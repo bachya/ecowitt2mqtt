@@ -167,6 +167,7 @@ Options:
                                   ECOWITT2MQTT_RAW_DATA, RAW_DATA]
   -v, --verbose                   Increase verbosity of logged output.  [env
                                   var: ECOWITT2MQTT_VERBOSE]
+  --version                       Return the application version.
   --install-completion            Install completion for the current shell.
   --show-completion               Show completion for the current shell, to
                                   copy it or customize the installation.

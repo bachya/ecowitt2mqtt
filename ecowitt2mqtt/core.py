@@ -6,7 +6,12 @@ import os
 from typing import Any
 
 from ecowitt2mqtt.config import Config
-from ecowitt2mqtt.const import CONF_VERBOSE, LEGACY_ENV_LOG_LEVEL
+from ecowitt2mqtt.const import (
+    CONF_VERBOSE,
+    LEGACY_ENV_LOG_LEVEL,
+    LOGGER,
+    __version__ as ecowitt2mqtt_version,
+)
 from ecowitt2mqtt.helpers.logging import TyperLoggerHandler
 from ecowitt2mqtt.runtime import Runtime
 
@@ -37,4 +42,5 @@ class Ecowitt:  # pylint: disable=too-few-public-methods
 
     async def async_start(self) -> None:
         """Start ecowitt2mqtt."""
+        LOGGER.info("Starting ecowitt2mqtt (version %s)", ecowitt2mqtt_version)
         await self._runtime.async_start()
