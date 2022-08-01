@@ -44,6 +44,7 @@ from ecowitt2mqtt.const import (
     LEGACY_ENV_RAW_DATA,
     UNIT_SYSTEM_IMPERIAL,
     UNIT_SYSTEM_METRIC,
+    __version__ as ecowitt2mqtt_version,
 )
 from ecowitt2mqtt.core import Ecowitt
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
@@ -207,8 +208,17 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
         envvar=[ENV_VERBOSE],
         help="Increase verbosity of logged output.",
     ),
+    version: bool = typer.Option(
+        False,
+        "--version",
+        help="Return the application version.",
+    ),
 ) -> None:
     """ecowitt2mqtt sends Ecowitt device data to an MQTT broker."""
+    if version:
+        typer.echo(ecowitt2mqtt_version)
+        raise typer.Exit(code=0)
+
     loop = uvloop.new_event_loop()
     asyncio.set_event_loop(loop)
 
