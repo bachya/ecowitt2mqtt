@@ -16,6 +16,7 @@ device data to be sent to an MQTT broker.
 
 - [Installation](#installation)
 - [Python Versions](#python-versions)
+- [Disclaimer](#disclaimer)
 - [Quick Start](#quick-start)
 - [Configuration](#configuration)
   * [Command Line Options](#command-line-options)
@@ -46,6 +47,12 @@ pip install ecowitt2mqtt
 * Python 3.8
 * Python 3.9
 * Python 3.10
+
+# Disclaimer
+
+The data/guidelines within this library and documentation constitute estimates and are
+intended to help informed decision making. They should not replace analysis, advice or
+diagnosis from a trained medical professional.
 
 # Quick Start
 
@@ -277,32 +284,20 @@ In addition to the data coming from a gateway, `ecowitt2mqtt` will automatically
 and published several additional, calculated data points if the requisite underlying
 data exists:
 
-* **Absolute Humidity:** the actual volume of water vapor in the air
-* **Beaufort Scale:** the empirical measure that relates wind speed to observed
-  conditions at sea or on land
-* **Dew Point:** the temperature to which air must be cooled to become saturated with
-  water vapor, assuming constant air pressure and water content
-* **Feels Like:** how hot or how cold the air feels to the human body when factoring in
-  variables such as relative humidity, wind speeds, the amount of sunshine, etc.
-* **Frost Point:** the temperature below 32°F (0°C) at which moisture in the air will
-  condense as a layer of frost on exposed surfaces that are also at a temperature below
-  the frost point
-* **Frost Risk:** how likely the formation of frost is (based on the `frostpoint`)
-* **Heat Index:** how hot the air feels to the human body when factoring in relative
-  humidity (applicable when the apparent temperature is higher than the air temperature)
-* **Safe Exposure Times:** how long different skin types can be in the sun (unprotected)
-  before burning begins according to the
-  [Fitzpatrick Scale](https://en.wikipedia.org/wiki/Fitzpatrick_scale)
-* **Solar Radiation (lux):** the detected solar radiation (brightness) calculated in lux
-* **Solar Radiation (%):** the percentage of detected solar radiation (brightness) as
-  perceived by the human eye
-* **Simmer Index:** an alternative to heat index that describes how how the air feels to
-  the human body in relatively dry environments
+* **[Absolute Humidity](https://en.wikipedia.org/wiki/Humidity#Absolute_humidity):** the actual volume of water vapor in the air
+* **[Beaufort Scale](https://en.wikipedia.org/wiki/Beaufort_scale):** the empirical measure that relates wind speed to observed conditions at sea or on land
+* **[Dew Point](https://en.wikipedia.org/wiki/Dew_point):** the temperature to which air must be cooled to become saturated with water vapor, assuming constant air pressure and water content
+* **[Feels Like](https://en.wikipedia.org/wiki/Heat_index):** how hot or how cold the air feels to the human body when factoring in variables such as relative humidity, wind speeds, the amount of sunshine, etc.
+* **[Frost Point](https://en.wikipedia.org/wiki/Dew_point#Frost_point):** the temperature below 32°F (0°C) at which moisture in the air will condense as a layer of frost on exposed surfaces that are also at a temperature below the frost point
+* **[Frost Risk](https://en.wikipedia.org/wiki/Dew_point#Frost_point):** how likely the formation of frost is (based on the `frostpoint`)
+* **[Heat Index](https://en.wikipedia.org/wiki/Heat_index):** how hot the air feels to the human body when factoring in relative humidity (applicable when the apparent temperature is higher than the air temperature)
+* **[Safe Exposure Times](https://www.openuv.io/kb/skin-types-safe-exposure-time-calculation/):** how long different skin types can be in the sun (unprotected) before burning begins according to the [Fitzpatrick Scale](https://en.wikipedia.org/wiki/Fitzpatrick_scale)
+* **Solar Radiation (lux):** the detected solar radiation illuminance calculated in lux
+* **Solar Radiation (%):** the percentage of detected solar radiation illuminance as perceived by the human eye
+* **[Simmer Index](http://summersimmer.com/ssi_page2.htm):** an alternative to heat index that describes how how the air feels to the human body in relatively dry environments
 * **Simmer Zone:** a human-friendly interpretation of the Simmer Index
 * **Thermal Perception:** a human-friendly interpretation of the Dew Point
-* **Wind Chill:** how cold the air feels to the human body when factoring in relative
-  humidity, wind speed, etc. (applicable when the apparent temperature is lower than the
-  air temperature)
+* **[Wind Chill](https://en.wikipedia.org/wiki/Wind_chill):** how cold the air feels to the human body when factoring in relative humidity, wind speed, etc. (applicable when the apparent temperature is lower than the air temperature)
 
 If you would prefer to not have these sensors calculated and published, you can utilize
 the `--disable-calculated-data` configuration option.
