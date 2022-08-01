@@ -51,8 +51,8 @@ pip install ecowitt2mqtt
 # Disclaimer
 
 The datapoints within this library and documentation constitute estimates and are
-intended to help informed decision making. They should not replace analysis, advice or,
-diagnosis from a trained medical professional.
+intended to help informed decision making. They should not replace analysis, advice, or
+diagnosis from a trained professionals. Use this data at your own discretion.
 
 # Quick Start
 
