@@ -50,8 +50,8 @@ pip install ecowitt2mqtt
 
 # Disclaimer
 
-The data/guidelines within this library and documentation constitute estimates and are
-intended to help informed decision making. They should not replace analysis, advice or
+The datapoints within this library and documentation constitute estimates and are
+intended to help informed decision making. They should not replace analysis, advice or,
 diagnosis from a trained medical professional.
 
 # Quick Start
