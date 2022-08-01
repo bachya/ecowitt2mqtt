@@ -97,7 +97,7 @@ class BeaufortScaleRating:  # pylint: disable=too-many-instance-attributes
     maximum_kmh: float
     minimum_mph: float
     maximum_mph: float
-    friendly_name: str
+    description: str
     sea_conditions: str
     land_conditions: str
 
@@ -109,7 +109,7 @@ BEAUFORT_SCALE_RATINGS: list[BeaufortScaleRating] = [
         maximum_kmh=2.0,
         minimum_mph=0.0,
         maximum_mph=1.0,
-        friendly_name="Calm",
+        description="Calm",
         sea_conditions="Sea like a mirror",
         land_conditions="Smoke rises vertically",
     ),
@@ -119,7 +119,7 @@ BEAUFORT_SCALE_RATINGS: list[BeaufortScaleRating] = [
         maximum_kmh=6.0,
         minimum_mph=1.0,
         maximum_mph=4.0,
-        friendly_name="Light air",
+        description="Light air",
         sea_conditions=(
             "Ripples with appearance of scales are formed, without foam crests"
         ),
@@ -131,7 +131,7 @@ BEAUFORT_SCALE_RATINGS: list[BeaufortScaleRating] = [
         maximum_kmh=12.0,
         minimum_mph=4.0,
         maximum_mph=8.0,
-        friendly_name="Light breeze",
+        description="Light breeze",
         sea_conditions=(
             "Small wavelets still short but more pronounced; crests have a glassy "
             "appearance but do not break"
@@ -144,7 +144,7 @@ BEAUFORT_SCALE_RATINGS: list[BeaufortScaleRating] = [
         maximum_kmh=20.0,
         minimum_mph=8.0,
         maximum_mph=13.0,
-        friendly_name="Gentle breeze",
+        description="Gentle breeze",
         sea_conditions=(
             "Large wavelets; crests begin to break; foam of glassy appearance; perhaps "
             "scattered white horses"
@@ -159,7 +159,7 @@ BEAUFORT_SCALE_RATINGS: list[BeaufortScaleRating] = [
         maximum_kmh=29.0,
         minimum_mph=13.0,
         maximum_mph=19.0,
-        friendly_name="Moderate breeze",
+        description="Moderate breeze",
         sea_conditions="Small waves becoming longer; fairly frequent white horses",
         land_conditions="Raises dust and loose paper; small branches moved",
     ),
@@ -169,7 +169,7 @@ BEAUFORT_SCALE_RATINGS: list[BeaufortScaleRating] = [
         maximum_kmh=39.0,
         minimum_mph=19.0,
         maximum_mph=25.0,
-        friendly_name="Fresh breeze",
+        description="Fresh breeze",
         sea_conditions=(
             "Moderate waves taking a more pronounced long form; many white horses are "
             "formed; chance of some spray"
@@ -184,7 +184,7 @@ BEAUFORT_SCALE_RATINGS: list[BeaufortScaleRating] = [
         maximum_kmh=50.0,
         minimum_mph=25.0,
         maximum_mph=32.0,
-        friendly_name="Strong breeze",
+        description="Strong breeze",
         sea_conditions=(
             "Large waves begin to form; the white foam crests are more "
             "extensive everywhere; probably some spray"
@@ -200,7 +200,7 @@ BEAUFORT_SCALE_RATINGS: list[BeaufortScaleRating] = [
         maximum_kmh=62.0,
         minimum_mph=32.0,
         maximum_mph=39.0,
-        friendly_name="High wind, moderate gale, near gale",
+        description="High wind, moderate gale, near gale",
         sea_conditions=(
             "Sea heaps up and white foam from breaking waves begins to be "
             "blown in streaks along the direction of the wind; spindrift begins to be "
@@ -216,7 +216,7 @@ BEAUFORT_SCALE_RATINGS: list[BeaufortScaleRating] = [
         maximum_kmh=75.0,
         minimum_mph=39.0,
         maximum_mph=47.0,
-        friendly_name="Gale, fresh gale",
+        description="Gale, fresh gale",
         sea_conditions=(
             "Moderately high waves of greater length; edges of crests break into "
             "spindrift; foam is blown in well-marked streaks along the direction of "
@@ -230,7 +230,7 @@ BEAUFORT_SCALE_RATINGS: list[BeaufortScaleRating] = [
         maximum_kmh=89.0,
         minimum_mph=47.0,
         maximum_mph=55.0,
-        friendly_name="Strong/severe gale",
+        description="Strong/severe gale",
         sea_conditions=(
             "High waves; dense streaks of foam along the direction of the "
             "wind; sea begins to roll; spray affects visibility"
@@ -243,7 +243,7 @@ BEAUFORT_SCALE_RATINGS: list[BeaufortScaleRating] = [
         maximum_kmh=103.0,
         minimum_mph=55.0,
         maximum_mph=64.0,
-        friendly_name="Storm, whole gale",
+        description="Storm, whole gale",
         sea_conditions=(
             "Very high waves with long overhanging crests; resulting foam in great "
             "patches is blown in dense white streaks along the direction of the wind; "
@@ -260,7 +260,7 @@ BEAUFORT_SCALE_RATINGS: list[BeaufortScaleRating] = [
         maximum_kmh=118.0,
         minimum_mph=64.0,
         maximum_mph=73.0,
-        friendly_name="Violent storm",
+        description="Violent storm",
         sea_conditions=(
             "Exceptionally high waves; small- and medium-sized ships might be for a "
             "long time lost to view behind the waves; sea is covered with long white "
@@ -275,7 +275,7 @@ BEAUFORT_SCALE_RATINGS: list[BeaufortScaleRating] = [
         maximum_kmh=300.0,
         minimum_mph=73.0,
         maximum_mph=200.0,
-        friendly_name="Hurricane force",
+        description="Hurricane force",
         sea_conditions=(
             "The air is filled with foam and spray; sea is completely white with "
             "driving spray; visibility very seriously affected"
@@ -541,7 +541,7 @@ def calculate_beaufort_scale(
         data_point_key=data_point_key,
         value=rating.number,
         attributes={
-            "friendly_name": rating.friendly_name,
+            "description": rating.description,
             "sea_conditions": rating.sea_conditions,
             "land_conditions": rating.land_conditions,
         },

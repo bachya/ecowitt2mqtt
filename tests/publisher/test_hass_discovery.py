@@ -1664,7 +1664,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/attributes",
-                payload=b'{"friendly_name": "Light air", "sea_conditions": "Ripples with appearance of scales are formed, without foam crests", "land_conditions": "Direction shown by smoke drift but not by wind vanes"}',
+                payload=b'{"description": "Light air", "sea_conditions": "Ripples with appearance of scales are formed, without foam crests", "land_conditions": "Direction shown by smoke drift but not by wind vanes"}',
                 retain=False,
             ),
             call(
@@ -3689,7 +3689,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/attributes",
-                payload=b'{"friendly_name": "Light air", "sea_conditions": "Ripples with appearance of scales are formed, without foam crests", "land_conditions": "Direction shown by smoke drift but not by wind vanes"}',
+                payload=b'{"description": "Light air", "sea_conditions": "Ripples with appearance of scales are formed, without foam crests", "land_conditions": "Direction shown by smoke drift but not by wind vanes"}',
                 retain=False,
             ),
             call(
@@ -5738,7 +5738,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/attributes",
-                payload=b'{"friendly_name": "Light air", "sea_conditions": "Ripples with appearance of scales are formed, without foam crests", "land_conditions": "Direction shown by smoke drift but not by wind vanes"}',
+                payload=b'{"description": "Light air", "sea_conditions": "Ripples with appearance of scales are formed, without foam crests", "land_conditions": "Direction shown by smoke drift but not by wind vanes"}',
                 retain=False,
             ),
             call(
@@ -7785,7 +7785,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/attributes",
-                payload=b'{"friendly_name": "Light air", "sea_conditions": "Ripples with appearance of scales are formed, without foam crests", "land_conditions": "Direction shown by smoke drift but not by wind vanes"}',
+                payload=b'{"description": "Light air", "sea_conditions": "Ripples with appearance of scales are formed, without foam crests", "land_conditions": "Direction shown by smoke drift but not by wind vanes"}',
                 retain=False,
             ),
             call(

@@ -1368,7 +1368,7 @@ def test_missing_distance(device_data, ecowitt, request):
             value=1,
             unit=None,
             attributes={
-                "friendly_name": "Light air",
+                "description": "Light air",
                 "sea_conditions": (
                     "Ripples with appearance of scales are formed, without foam crests"
                 ),
@@ -1690,7 +1690,7 @@ def test_missing_distance(device_data, ecowitt, request):
                     value=5,
                     unit=None,
                     attributes={
-                        "friendly_name": "Fresh breeze",
+                        "description": "Fresh breeze",
                         "sea_conditions": (
                             "Moderate waves taking a more pronounced long form; many "
                             "white horses are formed; chance of some spray"
@@ -1992,7 +1992,7 @@ def test_missing_distance(device_data, ecowitt, request):
                     value=5,
                     unit=None,
                     attributes={
-                        "friendly_name": "Fresh breeze",
+                        "description": "Fresh breeze",
                         "sea_conditions": (
                             "Moderate waves taking a more pronounced long form; many "
                             "white horses are formed; chance of some spray"
@@ -2740,7 +2740,7 @@ def test_missing_distance(device_data, ecowitt, request):
                     value=1,
                     unit=None,
                     attributes={
-                        "friendly_name": "Light air",
+                        "description": "Light air",
                         "sea_conditions": (
                             "Ripples with appearance of scales are formed, without "
                             "foam crests"
@@ -3451,7 +3451,7 @@ def test_missing_distance(device_data, ecowitt, request):
                     value=1,
                     unit=None,
                     attributes={
-                        "friendly_name": "Light air",
+                        "description": "Light air",
                         "sea_conditions": (
                             "Ripples with appearance of scales are formed, without "
                             "foam crests"
@@ -3822,7 +3822,7 @@ def test_missing_distance(device_data, ecowitt, request):
                     value=1,
                     unit=None,
                     attributes={
-                        "friendly_name": "Light air",
+                        "description": "Light air",
                         "sea_conditions": (
                             "Ripples with appearance of scales are formed, without "
                             "foam crests"
@@ -4137,7 +4137,7 @@ def test_missing_distance(device_data, ecowitt, request):
                     value=1,
                     unit=None,
                     attributes={
-                        "friendly_name": "Light air",
+                        "description": "Light air",
                         "sea_conditions": (
                             "Ripples with appearance of scales are formed, without "
                             "foam crests"
@@ -4431,7 +4431,7 @@ def test_missing_distance(device_data, ecowitt, request):
                     value=2,
                     unit=None,
                     attributes={
-                        "friendly_name": "Light breeze",
+                        "description": "Light breeze",
                         "sea_conditions": (
                             "Small wavelets still short but more pronounced; crests "
                             "have a glassy appearance but do not break"
@@ -4768,7 +4768,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
             value=5,
             unit=None,
             attributes={
-                "friendly_name": "Fresh breeze",
+                "description": "Fresh breeze",
                 "sea_conditions": (
                     "Moderate waves taking a more pronounced long form; many white "
                     "horses are formed; chance of some spray"
@@ -5101,7 +5101,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
                     value=5,
                     unit=None,
                     attributes={
-                        "friendly_name": "Fresh breeze",
+                        "description": "Fresh breeze",
                         "sea_conditions": (
                             "Moderate waves taking a more pronounced long form; many white "
                             "horses are formed; chance of some spray"
@@ -5403,7 +5403,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
                     value=5,
                     unit=None,
                     attributes={
-                        "friendly_name": "Fresh breeze",
+                        "description": "Fresh breeze",
                         "sea_conditions": (
                             "Moderate waves taking a more pronounced long form; many white "
                             "horses are formed; chance of some spray"
@@ -5732,7 +5732,7 @@ def test_nonnumeric_value(device_data, ecowitt):
             value=5,
             unit=None,
             attributes={
-                "friendly_name": "Fresh breeze",
+                "description": "Fresh breeze",
                 "sea_conditions": (
                     "Moderate waves taking a more pronounced long form; many white "
                     "horses are formed; chance of some spray"
@@ -6055,7 +6055,7 @@ def test_unknown_battery(device_data, ecowitt):
             value=5,
             unit=None,
             attributes={
-                "friendly_name": "Fresh breeze",
+                "description": "Fresh breeze",
                 "sea_conditions": (
                     "Moderate waves taking a more pronounced long form; many white "
                     "horses are formed; chance of some spray"
