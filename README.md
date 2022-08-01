@@ -278,6 +278,8 @@ and published several additional, calculated data points if the requisite underl
 data exists:
 
 * **Absolute Humidity:** the actual volume of water vapor in the air
+* **Beaufort Scale:** the empirical measure that relates wind speed to observed
+  conditions at sea or on land
 * **Dew Point:** the temperature to which air must be cooled to become saturated with
   water vapor, assuming constant air pressure and water content
 * **Feels Like:** how hot or how cold the air feels to the human body when factoring in
