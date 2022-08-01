@@ -78,15 +78,6 @@ WIND_SPEED_UNIT_MAP = {
     UNIT_SYSTEM_METRIC: SPEED_KILOMETERS_PER_HOUR,
 }
 
-SAFE_EXPOSURE_CONSTANT_MAP: dict[str, float] = {
-    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1: 2.5,
-    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2: 3.0,
-    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_3: 4.0,
-    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4: 5.0,
-    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5: 8.0,
-    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6: 13.0,
-}
-
 
 @dataclass
 class BeaufortScaleRating:  # pylint: disable=too-many-instance-attributes
@@ -292,6 +283,66 @@ class FrostRisk(StrEnum):
     PROBABLE = "Probable"
     UNLIKELY = "Unlikely"
     VERY_PROBABLE = "Very probable"
+
+
+@dataclass
+class SafeExposureInfo:
+    """Define a dataclass to store information about a safe exposure level."""
+
+    constant: float
+    typical_features: str
+    tanning_ability: str
+    ethnicity: str
+
+
+SAFE_EXPOSURE_INFO_MAP: dict[str, SafeExposureInfo] = {
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1: SafeExposureInfo(
+        constant=2.5,
+        ethnicity="Scandinavian, Celtic",
+        tanning_ability="Always burns, does not tan",
+        typical_features=(
+            "Very fair skin, white; red or blond hair; light-colored eyes; freckles "
+            "likely"
+        ),
+    ),
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2: SafeExposureInfo(
+        constant=3.0,
+        ethnicity="Northern European (Caucasian)",
+        tanning_ability="Burns easily, tans poorly",
+        typical_features="Fair skin, white; light eyes; light hair",
+    ),
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_3: SafeExposureInfo(
+        constant=4.0,
+        ethnicity="Darker Caucasian (Central Europe)",
+        tanning_ability="Tans after initial burn",
+        typical_features=(
+            "Fair skin, cream white; any eye or hair color (very common skin type)"
+        ),
+    ),
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4: SafeExposureInfo(
+        constant=5.0,
+        ethnicity="Mediterranean, Asian, Hispanic",
+        tanning_ability="Burns minimally, tans easily",
+        typical_features=(
+            "Olive skin, typical Mediterranean Caucasian skin; dark brown hair; medium "
+            "to heavy pigmentation"
+        ),
+    ),
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5: SafeExposureInfo(
+        constant=8.0,
+        ethnicity="Middle eastern, Latin, light-skinned African-American, Indian",
+        tanning_ability="Rarely burns, tans darkly easily",
+        typical_features=(
+            "Brown skin, typical Middle Eastern skin; dark hair; rarely sun sensitive"
+        ),
+    ),
+    DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6: SafeExposureInfo(
+        constant=13.0,
+        ethnicity="Dark-skinned African American",
+        tanning_ability="Never burns, always tans darkly",
+        typical_features="Black skin; rarely sun sensitive",
+    ),
+}
 
 
 class SimmerZone(StrEnum):
@@ -796,15 +847,24 @@ def calculate_safe_exposure_time(
     ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate the number of minutes one can be safely exposed to a UV index."""
+    safe_exposure_info = SAFE_EXPOSURE_INFO_MAP[payload_key]
+
     try:
-        final_value = round(
-            (200 * SAFE_EXPOSURE_CONSTANT_MAP[payload_key]) / (3 * value), 1
-        )
+        final_value = round((200 * safe_exposure_info.constant) / (3 * value), 1)
     except ZeroDivisionError:
-        final_value = None
+        return CalculatedDataPoint(
+            data_point_key=data_point_key, value=None, unit=TIME_MINUTES
+        )
 
     return CalculatedDataPoint(
-        data_point_key=data_point_key, value=final_value, unit=TIME_MINUTES
+        data_point_key=data_point_key,
+        value=final_value,
+        unit=TIME_MINUTES,
+        attributes={
+            "ethnicity": safe_exposure_info.ethnicity,
+            "tanning_ability": safe_exposure_info.tanning_ability,
+            "typical_features": safe_exposure_info.typical_features,
+        },
     )
 
 

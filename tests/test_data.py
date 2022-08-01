@@ -1496,42 +1496,80 @@ def test_missing_distance(device_data, ecowitt, request):
                     "safe_exposure_time_skin_type_1",
                     83.3,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Scandinavian, Celtic",
+                        "tanning_ability": "Always burns, does not tan",
+                        "typical_features": (
+                            "Very fair skin, white; red or blond hair; light-colored eyes; "
+                            "freckles likely"
+                        ),
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_2": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_2",
                     100.0,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Northern European (Caucasian)",
+                        "tanning_ability": "Burns easily, tans poorly",
+                        "typical_features": "Fair skin, white; light eyes; light hair",
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_3": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_3",
                     133.3,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Darker Caucasian (Central Europe)",
+                        "tanning_ability": "Tans after initial burn",
+                        "typical_features": (
+                            "Fair skin, cream white; any eye or hair color (very common skin "
+                            "type)"
+                        ),
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_4": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_4",
                     166.7,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Mediterranean, Asian, Hispanic",
+                        "tanning_ability": "Burns minimally, tans easily",
+                        "typical_features": (
+                            "Olive skin, typical Mediterranean Caucasian skin; dark brown "
+                            "hair; medium to heavy pigmentation"
+                        ),
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_5": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_5",
                     266.7,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": (
+                            "Middle eastern, Latin, light-skinned African-American, Indian"
+                        ),
+                        "tanning_ability": "Rarely burns, tans darkly easily",
+                        "typical_features": (
+                            "Brown skin, typical Middle Eastern skin; dark hair; rarely sun "
+                            "sensitive"
+                        ),
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_6": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_6",
                     433.3,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Dark-skinned African American",
+                        "tanning_ability": "Never burns, always tans darkly",
+                        "typical_features": "Black skin; rarely sun sensitive",
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "rainrate": CalculatedDataPoint(
@@ -3632,42 +3670,81 @@ def test_missing_distance(device_data, ecowitt, request):
                     "safe_exposure_time_skin_type_1",
                     166.7,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Scandinavian, Celtic",
+                        "tanning_ability": "Always burns, does not tan",
+                        "typical_features": (
+                            "Very fair skin, white; red or blond hair; light-colored "
+                            "eyes; freckles likely"
+                        ),
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_2": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_2",
                     200.0,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Northern European (Caucasian)",
+                        "tanning_ability": "Burns easily, tans poorly",
+                        "typical_features": "Fair skin, white; light eyes; light hair",
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_3": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_3",
                     266.7,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Darker Caucasian (Central Europe)",
+                        "tanning_ability": "Tans after initial burn",
+                        "typical_features": (
+                            "Fair skin, cream white; any eye or hair color (very "
+                            "common skin type)"
+                        ),
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_4": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_4",
                     333.3,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Mediterranean, Asian, Hispanic",
+                        "tanning_ability": "Burns minimally, tans easily",
+                        "typical_features": (
+                            "Olive skin, typical Mediterranean Caucasian skin; dark "
+                            "brown hair; medium to heavy pigmentation"
+                        ),
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_5": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_5",
                     533.3,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": (
+                            "Middle eastern, Latin, light-skinned African-American, "
+                            "Indian"
+                        ),
+                        "tanning_ability": "Rarely burns, tans darkly easily",
+                        "typical_features": (
+                            "Brown skin, typical Middle Eastern skin; dark hair; "
+                            "rarely sun sensitive"
+                        ),
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_6": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_6",
                     866.7,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Dark-skinned African American",
+                        "tanning_ability": "Never burns, always tans darkly",
+                        "typical_features": "Black skin; rarely sun sensitive",
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "temp1": CalculatedDataPoint(
@@ -3947,42 +4024,81 @@ def test_missing_distance(device_data, ecowitt, request):
                     "safe_exposure_time_skin_type_1",
                     27.8,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Scandinavian, Celtic",
+                        "tanning_ability": "Always burns, does not tan",
+                        "typical_features": (
+                            "Very fair skin, white; red or blond hair; light-colored "
+                            "eyes; freckles likely"
+                        ),
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_2": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_2",
                     33.3,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Northern European (Caucasian)",
+                        "tanning_ability": "Burns easily, tans poorly",
+                        "typical_features": "Fair skin, white; light eyes; light hair",
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_3": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_3",
                     44.4,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Darker Caucasian (Central Europe)",
+                        "tanning_ability": "Tans after initial burn",
+                        "typical_features": (
+                            "Fair skin, cream white; any eye or hair color (very "
+                            "common skin type)"
+                        ),
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_4": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_4",
                     55.6,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Mediterranean, Asian, Hispanic",
+                        "tanning_ability": "Burns minimally, tans easily",
+                        "typical_features": (
+                            "Olive skin, typical Mediterranean Caucasian skin; dark "
+                            "brown hair; medium to heavy pigmentation"
+                        ),
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_5": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_5",
                     88.9,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": (
+                            "Middle eastern, Latin, light-skinned African-American, "
+                            "Indian"
+                        ),
+                        "tanning_ability": "Rarely burns, tans darkly easily",
+                        "typical_features": (
+                            "Brown skin, typical Middle Eastern skin; dark hair; "
+                            "rarely sun sensitive"
+                        ),
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_6": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_6",
                     144.4,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Dark-skinned African American",
+                        "tanning_ability": "Never burns, always tans darkly",
+                        "typical_features": "Black skin; rarely sun sensitive",
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "rainrate": CalculatedDataPoint(
@@ -4575,42 +4691,80 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
             "safe_exposure_time_skin_type_1",
             83.3,
             unit=TIME_MINUTES,
-            attributes=None,
+            attributes={
+                "ethnicity": "Scandinavian, Celtic",
+                "tanning_ability": "Always burns, does not tan",
+                "typical_features": (
+                    "Very fair skin, white; red or blond hair; light-colored eyes; "
+                    "freckles likely"
+                ),
+            },
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "safe_exposure_time_skin_type_2": CalculatedDataPoint(
             "safe_exposure_time_skin_type_2",
             100.0,
             unit=TIME_MINUTES,
-            attributes=None,
+            attributes={
+                "ethnicity": "Northern European (Caucasian)",
+                "tanning_ability": "Burns easily, tans poorly",
+                "typical_features": "Fair skin, white; light eyes; light hair",
+            },
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "safe_exposure_time_skin_type_3": CalculatedDataPoint(
             "safe_exposure_time_skin_type_3",
             133.3,
             unit=TIME_MINUTES,
-            attributes=None,
+            attributes={
+                "ethnicity": "Darker Caucasian (Central Europe)",
+                "tanning_ability": "Tans after initial burn",
+                "typical_features": (
+                    "Fair skin, cream white; any eye or hair color (very common skin "
+                    "type)"
+                ),
+            },
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "safe_exposure_time_skin_type_4": CalculatedDataPoint(
             "safe_exposure_time_skin_type_4",
             166.7,
             unit=TIME_MINUTES,
-            attributes=None,
+            attributes={
+                "ethnicity": "Mediterranean, Asian, Hispanic",
+                "tanning_ability": "Burns minimally, tans easily",
+                "typical_features": (
+                    "Olive skin, typical Mediterranean Caucasian skin; dark brown "
+                    "hair; medium to heavy pigmentation"
+                ),
+            },
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "safe_exposure_time_skin_type_5": CalculatedDataPoint(
             "safe_exposure_time_skin_type_5",
             266.7,
             unit=TIME_MINUTES,
-            attributes=None,
+            attributes={
+                "ethnicity": (
+                    "Middle eastern, Latin, light-skinned African-American, Indian"
+                ),
+                "tanning_ability": "Rarely burns, tans darkly easily",
+                "typical_features": (
+                    "Brown skin, typical Middle Eastern skin; dark hair; rarely sun "
+                    "sensitive"
+                ),
+            },
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "safe_exposure_time_skin_type_6": CalculatedDataPoint(
             "safe_exposure_time_skin_type_6",
             433.3,
             unit=TIME_MINUTES,
-            attributes=None,
+            attributes={
+                "ethnicity": "Dark-skinned African American",
+                "tanning_ability": "Never burns, always tans darkly",
+                "typical_features": "Black skin; rarely sun sensitive",
+            },
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "rainrate": CalculatedDataPoint(
@@ -4907,42 +5061,81 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
                     "safe_exposure_time_skin_type_1",
                     83.3,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Scandinavian, Celtic",
+                        "tanning_ability": "Always burns, does not tan",
+                        "typical_features": (
+                            "Very fair skin, white; red or blond hair; light-colored "
+                            "eyes; freckles likely"
+                        ),
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_2": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_2",
                     100.0,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Northern European (Caucasian)",
+                        "tanning_ability": "Burns easily, tans poorly",
+                        "typical_features": "Fair skin, white; light eyes; light hair",
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_3": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_3",
                     133.3,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Darker Caucasian (Central Europe)",
+                        "tanning_ability": "Tans after initial burn",
+                        "typical_features": (
+                            "Fair skin, cream white; any eye or hair color (very "
+                            "common skin type)"
+                        ),
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_4": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_4",
                     166.7,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Mediterranean, Asian, Hispanic",
+                        "tanning_ability": "Burns minimally, tans easily",
+                        "typical_features": (
+                            "Olive skin, typical Mediterranean Caucasian skin; dark "
+                            "brown hair; medium to heavy pigmentation"
+                        ),
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_5": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_5",
                     266.7,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": (
+                            "Middle eastern, Latin, light-skinned African-American, "
+                            "Indian"
+                        ),
+                        "tanning_ability": "Rarely burns, tans darkly easily",
+                        "typical_features": (
+                            "Brown skin, typical Middle Eastern skin; dark hair; "
+                            "rarely sun sensitive"
+                        ),
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "safe_exposure_time_skin_type_6": CalculatedDataPoint(
                     "safe_exposure_time_skin_type_6",
                     433.3,
                     unit=TIME_MINUTES,
-                    attributes=None,
+                    attributes={
+                        "ethnicity": "Dark-skinned African American",
+                        "tanning_ability": "Never burns, always tans darkly",
+                        "typical_features": "Black skin; rarely sun sensitive",
+                    },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "rainrate": CalculatedDataPoint(
@@ -5539,42 +5732,80 @@ def test_nonnumeric_value(device_data, ecowitt):
             "safe_exposure_time_skin_type_1",
             83.3,
             unit=TIME_MINUTES,
-            attributes=None,
+            attributes={
+                "ethnicity": "Scandinavian, Celtic",
+                "tanning_ability": "Always burns, does not tan",
+                "typical_features": (
+                    "Very fair skin, white; red or blond hair; light-colored eyes; "
+                    "freckles likely"
+                ),
+            },
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "safe_exposure_time_skin_type_2": CalculatedDataPoint(
             "safe_exposure_time_skin_type_2",
             100.0,
             unit=TIME_MINUTES,
-            attributes=None,
+            attributes={
+                "ethnicity": "Northern European (Caucasian)",
+                "tanning_ability": "Burns easily, tans poorly",
+                "typical_features": "Fair skin, white; light eyes; light hair",
+            },
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "safe_exposure_time_skin_type_3": CalculatedDataPoint(
             "safe_exposure_time_skin_type_3",
             133.3,
             unit=TIME_MINUTES,
-            attributes=None,
+            attributes={
+                "ethnicity": "Darker Caucasian (Central Europe)",
+                "tanning_ability": "Tans after initial burn",
+                "typical_features": (
+                    "Fair skin, cream white; any eye or hair color (very common skin "
+                    "type)"
+                ),
+            },
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "safe_exposure_time_skin_type_4": CalculatedDataPoint(
             "safe_exposure_time_skin_type_4",
             166.7,
             unit=TIME_MINUTES,
-            attributes=None,
+            attributes={
+                "ethnicity": "Mediterranean, Asian, Hispanic",
+                "tanning_ability": "Burns minimally, tans easily",
+                "typical_features": (
+                    "Olive skin, typical Mediterranean Caucasian skin; dark brown "
+                    "hair; medium to heavy pigmentation"
+                ),
+            },
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "safe_exposure_time_skin_type_5": CalculatedDataPoint(
             "safe_exposure_time_skin_type_5",
             266.7,
             unit=TIME_MINUTES,
-            attributes=None,
+            attributes={
+                "ethnicity": (
+                    "Middle eastern, Latin, light-skinned African-American, Indian"
+                ),
+                "tanning_ability": "Rarely burns, tans darkly easily",
+                "typical_features": (
+                    "Brown skin, typical Middle Eastern skin; dark hair; rarely sun "
+                    "sensitive"
+                ),
+            },
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "safe_exposure_time_skin_type_6": CalculatedDataPoint(
             "safe_exposure_time_skin_type_6",
             433.3,
             unit=TIME_MINUTES,
-            attributes=None,
+            attributes={
+                "ethnicity": "Dark-skinned African American",
+                "tanning_ability": "Never burns, always tans darkly",
+                "typical_features": "Black skin; rarely sun sensitive",
+            },
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "rainrate": CalculatedDataPoint(
@@ -5862,42 +6093,80 @@ def test_unknown_battery(device_data, ecowitt):
             "safe_exposure_time_skin_type_1",
             83.3,
             unit=TIME_MINUTES,
-            attributes=None,
+            attributes={
+                "ethnicity": "Scandinavian, Celtic",
+                "tanning_ability": "Always burns, does not tan",
+                "typical_features": (
+                    "Very fair skin, white; red or blond hair; light-colored eyes; "
+                    "freckles likely"
+                ),
+            },
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "safe_exposure_time_skin_type_2": CalculatedDataPoint(
             "safe_exposure_time_skin_type_2",
             100.0,
             unit=TIME_MINUTES,
-            attributes=None,
+            attributes={
+                "ethnicity": "Northern European (Caucasian)",
+                "tanning_ability": "Burns easily, tans poorly",
+                "typical_features": "Fair skin, white; light eyes; light hair",
+            },
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "safe_exposure_time_skin_type_3": CalculatedDataPoint(
             "safe_exposure_time_skin_type_3",
             133.3,
             unit=TIME_MINUTES,
-            attributes=None,
+            attributes={
+                "ethnicity": "Darker Caucasian (Central Europe)",
+                "tanning_ability": "Tans after initial burn",
+                "typical_features": (
+                    "Fair skin, cream white; any eye or hair color (very common skin "
+                    "type)"
+                ),
+            },
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "safe_exposure_time_skin_type_4": CalculatedDataPoint(
             "safe_exposure_time_skin_type_4",
             166.7,
             unit=TIME_MINUTES,
-            attributes=None,
+            attributes={
+                "ethnicity": "Mediterranean, Asian, Hispanic",
+                "tanning_ability": "Burns minimally, tans easily",
+                "typical_features": (
+                    "Olive skin, typical Mediterranean Caucasian skin; dark brown "
+                    "hair; medium to heavy pigmentation"
+                ),
+            },
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "safe_exposure_time_skin_type_5": CalculatedDataPoint(
             "safe_exposure_time_skin_type_5",
             266.7,
             unit=TIME_MINUTES,
-            attributes=None,
+            attributes={
+                "ethnicity": (
+                    "Middle eastern, Latin, light-skinned African-American, Indian"
+                ),
+                "tanning_ability": "Rarely burns, tans darkly easily",
+                "typical_features": (
+                    "Brown skin, typical Middle Eastern skin; dark hair; rarely sun "
+                    "sensitive"
+                ),
+            },
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "safe_exposure_time_skin_type_6": CalculatedDataPoint(
             "safe_exposure_time_skin_type_6",
             433.3,
             unit=TIME_MINUTES,
-            attributes=None,
+            attributes={
+                "ethnicity": "Dark-skinned African American",
+                "tanning_ability": "Never burns, always tans darkly",
+                "typical_features": "Black skin; rarely sun sensitive",
+            },
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "rainrate": CalculatedDataPoint(
