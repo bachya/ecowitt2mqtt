@@ -88,6 +88,15 @@ SAFE_EXPOSURE_CONSTANT_MAP: dict[str, float] = {
 }
 
 
+@dataclass
+class BeaufortScaleRating:
+    """Define a dataclass to store a Beaufort scale rating."""
+
+    zone: SimmerZone
+    minimum_f: float | None = None
+    maximum_f: float | None = None
+
+
 class FrostRisk(StrEnum):
     """Define types of frost risk."""
 
@@ -117,28 +126,6 @@ class SimmerZoneRating:
     zone: SimmerZone
     minimum_f: float | None = None
     maximum_f: float | None = None
-
-
-class ThermalPerception(StrEnum):
-    """Define types of thermal perception."""
-
-    COMFORTABLE = "Comfortable"
-    DRY = "Dry"
-    EXTREMELY_UNCOMFORTABLE = "Extremely uncomfortable"
-    OK_BUT_HUMID = "OK for most"
-    QUITE_UNCOMFORTABLE = "Quite uncomfortable"
-    SEVERELY_HIGH = "Severely high"
-    SOMEWHAT_UNCOMFORTABLE = "Somewhat uncomfortable"
-    VERY_COMFORTABLE = "Very comfortable"
-
-
-@dataclass
-class ThermalPerceptionRating:
-    """Define a dataclass to store a thermal perception rating."""
-
-    perception: ThermalPerception
-    minimum_c: float
-    maximum_c: float
 
 
 SIMMER_ZONE_RATINGS: list[SimmerZoneRating] = [
@@ -183,6 +170,28 @@ SIMMER_ZONE_RATINGS: list[SimmerZoneRating] = [
         maximum_f=200.0,
     ),
 ]
+
+
+class ThermalPerception(StrEnum):
+    """Define types of thermal perception."""
+
+    COMFORTABLE = "Comfortable"
+    DRY = "Dry"
+    EXTREMELY_UNCOMFORTABLE = "Extremely uncomfortable"
+    OK_BUT_HUMID = "OK for most"
+    QUITE_UNCOMFORTABLE = "Quite uncomfortable"
+    SEVERELY_HIGH = "Severely high"
+    SOMEWHAT_UNCOMFORTABLE = "Somewhat uncomfortable"
+    VERY_COMFORTABLE = "Very comfortable"
+
+
+@dataclass
+class ThermalPerceptionRating:
+    """Define a dataclass to store a thermal perception rating."""
+
+    perception: ThermalPerception
+    minimum_c: float
+    maximum_c: float
 
 
 THERMAL_PERCEPTION_RATINGS: list[ThermalPerceptionRating] = [
