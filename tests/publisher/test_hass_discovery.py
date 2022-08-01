@@ -63,11 +63,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/state",
                 payload=b"436796.0",
                 retain=False,
@@ -80,11 +75,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -103,11 +93,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/state",
                 payload=b"56.0",
                 retain=False,
@@ -120,11 +105,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -143,11 +123,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/state",
                 payload=b"29.509",
                 retain=False,
@@ -160,11 +135,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -183,11 +153,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/state",
                 payload=b"65.0",
                 retain=False,
@@ -200,11 +165,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -223,11 +183,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/state",
                 payload=b"2.24",
                 retain=False,
@@ -240,11 +195,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -263,11 +213,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/state",
                 payload=b"17.45",
                 retain=False,
@@ -283,16 +228,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/attributes", "name": "uv", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_uv", "unit_of_measurement": "UV index", "icon": "mdi:weather-sunny", "state_class": "measurement"}',
                 retain=False,
@@ -300,16 +235,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state",
-                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -323,16 +248,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/attributes", "name": "eventrain", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_eventrain", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -340,16 +255,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state",
-                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -363,16 +268,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/attributes", "name": "dailyrain", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_dailyrain", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -380,16 +275,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state",
-                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -403,16 +288,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/attributes", "name": "monthlyrain", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_monthlyrain", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -420,11 +295,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -443,11 +313,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/state",
                 payload=b"3.909",
                 retain=False,
@@ -463,16 +328,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/attributes", "name": "erain_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_erain_piezo", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -480,11 +335,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -503,16 +353,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/attributes", "name": "drain_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_drain_piezo", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -520,11 +360,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -543,11 +378,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wrain_piezo/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wrain_piezo/state",
                 payload=b"0.075",
                 retain=False,
@@ -560,11 +390,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/mrain_piezo/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/mrain_piezo/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -583,11 +408,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yrain_piezo/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yrain_piezo/state",
                 payload=b"4.114",
                 retain=False,
@@ -600,11 +420,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90cap_volt/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90cap_volt/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -623,11 +438,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp1/state",
                 payload=b"71.2",
                 retain=False,
@@ -640,11 +450,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity1/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity1/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -663,11 +468,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp2/state",
                 payload=b"71.2",
                 retain=False,
@@ -680,11 +480,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -703,11 +498,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp3/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp3/state",
                 payload=b"70.5",
                 retain=False,
@@ -720,11 +510,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity3/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity3/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -743,11 +528,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp4/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp4/state",
                 payload=b"73.0",
                 retain=False,
@@ -760,11 +540,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity4/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity4/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -783,11 +558,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp5/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp5/state",
                 payload=b"70.7",
                 retain=False,
@@ -800,11 +570,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity5/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity5/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -823,11 +588,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp6/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp6/state",
                 payload=b"72.7",
                 retain=False,
@@ -840,11 +600,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity6/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity6/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -863,11 +618,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp7/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp7/state",
                 payload=b"67.1",
                 retain=False,
@@ -880,11 +630,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity7/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity7/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -903,11 +648,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp8/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp8/state",
                 payload=b"68.0",
                 retain=False,
@@ -920,11 +660,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity8/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity8/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -943,11 +678,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture1/state",
                 payload=b"53.0",
                 retain=False,
@@ -960,11 +690,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -983,11 +708,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture3/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture3/state",
                 payload=b"59.0",
                 retain=False,
@@ -1000,11 +720,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture4/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture4/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1023,11 +738,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture5/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture5/state",
                 payload=b"52.0",
                 retain=False,
@@ -1040,11 +750,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_ch1/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_ch1/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1063,11 +768,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_avg_24h_ch1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_avg_24h_ch1/state",
                 payload=b"16.3",
                 retain=False,
@@ -1080,11 +780,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tf_co2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tf_co2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1103,11 +798,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humi_co2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humi_co2/state",
                 payload=b"61.0",
                 retain=False,
@@ -1120,11 +810,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_co2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_co2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1143,11 +828,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_24h_co2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_24h_co2/state",
                 payload=b"7.5",
                 retain=False,
@@ -1160,11 +840,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_co2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_co2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1183,11 +858,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_24h_co2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_24h_co2/state",
                 payload=b"7.8",
                 retain=False,
@@ -1200,11 +870,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1223,11 +888,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_24h/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_24h/state",
                 payload=b"473.0",
                 retain=False,
@@ -1240,11 +900,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1263,11 +918,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/state",
                 payload=b"0.6",
                 retain=False,
@@ -1280,11 +930,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_time/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_time/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1303,11 +948,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh80batt/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh80batt/state",
                 payload=b"3.28",
                 retain=False,
@@ -1320,11 +960,6 @@ async def test_publish(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1343,11 +978,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/state",
                 payload=b"OFF",
                 retain=False,
@@ -1360,11 +990,6 @@ async def test_publish(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1383,11 +1008,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/state",
                 payload=b"OFF",
                 retain=False,
@@ -1400,11 +1020,6 @@ async def test_publish(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1423,11 +1038,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/state",
                 payload=b"OFF",
                 retain=False,
@@ -1440,11 +1050,6 @@ async def test_publish(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1463,11 +1068,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/state",
                 payload=b"OFF",
                 retain=False,
@@ -1480,11 +1080,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1503,11 +1098,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt2/state",
                 payload=b"1.3",
                 retain=False,
@@ -1520,11 +1110,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt3/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt3/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1543,11 +1128,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt4/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt4/state",
                 payload=b"1.3",
                 retain=False,
@@ -1560,11 +1140,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt5/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt5/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1583,11 +1158,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25batt1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25batt1/state",
                 payload=b"60.0",
                 retain=False,
@@ -1600,11 +1170,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh57batt/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh57batt/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1623,11 +1188,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_batt/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_batt/state",
                 payload=b"120.0",
                 retain=False,
@@ -1640,11 +1200,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh90batt/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh90batt/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1683,11 +1238,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state",
                 payload=b"47.9",
                 retain=False,
@@ -1700,11 +1250,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1723,11 +1268,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/state",
                 payload=b"44.3",
                 retain=False,
@@ -1740,11 +1280,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1763,11 +1298,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state",
                 payload=b"58.4",
                 retain=False,
@@ -1783,16 +1313,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/attributes", "name": "humidityabsin", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabsin", "unit_of_measurement": "lbs/ft\\u00b3", "device_class": "humidity", "state_class": "measurement"}',
                 retain=False,
@@ -1800,16 +1320,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
-                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -1823,16 +1333,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/state",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/attributes", "name": "safe_exposure_time_skin_type_2", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_safe_exposure_time_skin_type_2", "unit_of_measurement": "min", "icon": "mdi:timer", "state_class": "measurement"}',
                 retain=False,
@@ -1840,16 +1340,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/state",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1863,16 +1353,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/state",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/attributes", "name": "safe_exposure_time_skin_type_4", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_safe_exposure_time_skin_type_4", "unit_of_measurement": "min", "icon": "mdi:timer", "state_class": "measurement"}',
                 retain=False,
@@ -1880,16 +1360,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/state",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1903,16 +1373,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/state",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/attributes", "name": "safe_exposure_time_skin_type_6", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_safe_exposure_time_skin_type_6", "unit_of_measurement": "min", "icon": "mdi:timer", "state_class": "measurement"}',
                 retain=False,
@@ -1920,16 +1380,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/state",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1943,16 +1393,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/state",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/attributes", "name": "simmerzone", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_simmerzone", "icon": "mdi:heat-wave"}',
                 retain=False,
@@ -1960,16 +1400,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -1983,16 +1413,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes", "name": "solarradiation_perceived", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_perceived", "unit_of_measurement": "%", "device_class": "illuminance", "state_class": "measurement"}',
                 retain=False,
@@ -2003,16 +1423,6 @@ async def test_publish(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/attributes", "name": "thermalperception", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_thermalperception", "icon": "mdi:water"}',
                 retain=False,
@@ -2020,11 +1430,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -2040,16 +1445,6 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state",
-                payload=b"None",
                 retain=False,
             ),
         ]
@@ -2088,11 +1483,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/state",
                 payload=b"436796.0",
                 retain=False,
@@ -2105,11 +1495,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -2128,11 +1513,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/state",
                 payload=b"56.0",
                 retain=False,
@@ -2145,11 +1525,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -2168,11 +1543,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/state",
                 payload=b"29.509",
                 retain=False,
@@ -2185,11 +1555,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -2208,11 +1573,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/state",
                 payload=b"65.0",
                 retain=False,
@@ -2225,11 +1585,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -2248,11 +1603,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/state",
                 payload=b"2.24",
                 retain=False,
@@ -2265,11 +1615,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -2288,11 +1633,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/state",
                 payload=b"17.45",
                 retain=False,
@@ -2308,16 +1648,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/attributes", "name": "test_prefix_uv", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_uv", "unit_of_measurement": "UV index", "icon": "mdi:weather-sunny", "state_class": "measurement"}',
                 retain=False,
@@ -2325,16 +1655,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state",
-                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -2348,16 +1668,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/attributes", "name": "test_prefix_eventrain", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_eventrain", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -2365,16 +1675,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state",
-                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -2388,16 +1688,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/attributes", "name": "test_prefix_dailyrain", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_dailyrain", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -2405,16 +1695,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state",
-                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -2428,16 +1708,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/attributes", "name": "test_prefix_monthlyrain", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_monthlyrain", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -2445,11 +1715,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -2468,11 +1733,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/state",
                 payload=b"3.909",
                 retain=False,
@@ -2488,16 +1748,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/attributes", "name": "test_prefix_erain_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_erain_piezo", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -2505,11 +1755,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -2528,16 +1773,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/attributes", "name": "test_prefix_drain_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_drain_piezo", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -2545,11 +1780,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -2568,11 +1798,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wrain_piezo/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wrain_piezo/state",
                 payload=b"0.075",
                 retain=False,
@@ -2585,11 +1810,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/mrain_piezo/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/mrain_piezo/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -2608,11 +1828,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yrain_piezo/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yrain_piezo/state",
                 payload=b"4.114",
                 retain=False,
@@ -2625,11 +1840,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90cap_volt/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90cap_volt/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -2648,11 +1858,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp1/state",
                 payload=b"71.2",
                 retain=False,
@@ -2665,11 +1870,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity1/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity1/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -2688,11 +1888,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp2/state",
                 payload=b"71.2",
                 retain=False,
@@ -2705,11 +1900,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -2728,11 +1918,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp3/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp3/state",
                 payload=b"70.5",
                 retain=False,
@@ -2745,11 +1930,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity3/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity3/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -2768,11 +1948,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp4/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp4/state",
                 payload=b"73.0",
                 retain=False,
@@ -2785,11 +1960,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity4/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity4/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -2808,11 +1978,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp5/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp5/state",
                 payload=b"70.7",
                 retain=False,
@@ -2825,11 +1990,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity5/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity5/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -2848,11 +2008,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp6/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp6/state",
                 payload=b"72.7",
                 retain=False,
@@ -2865,11 +2020,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity6/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity6/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -2888,11 +2038,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp7/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp7/state",
                 payload=b"67.1",
                 retain=False,
@@ -2905,11 +2050,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity7/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity7/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -2928,11 +2068,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp8/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp8/state",
                 payload=b"68.0",
                 retain=False,
@@ -2945,11 +2080,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity8/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity8/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -2968,11 +2098,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture1/state",
                 payload=b"53.0",
                 retain=False,
@@ -2985,11 +2110,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3008,11 +2128,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture3/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture3/state",
                 payload=b"59.0",
                 retain=False,
@@ -3025,11 +2140,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture4/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture4/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3048,11 +2158,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture5/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture5/state",
                 payload=b"52.0",
                 retain=False,
@@ -3065,11 +2170,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_ch1/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_ch1/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3088,11 +2188,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_avg_24h_ch1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_avg_24h_ch1/state",
                 payload=b"16.3",
                 retain=False,
@@ -3105,11 +2200,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tf_co2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tf_co2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3128,11 +2218,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humi_co2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humi_co2/state",
                 payload=b"61.0",
                 retain=False,
@@ -3145,11 +2230,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_co2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_co2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3168,11 +2248,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_24h_co2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_24h_co2/state",
                 payload=b"7.5",
                 retain=False,
@@ -3185,11 +2260,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_co2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_co2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3208,11 +2278,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_24h_co2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_24h_co2/state",
                 payload=b"7.8",
                 retain=False,
@@ -3225,11 +2290,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3248,11 +2308,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_24h/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_24h/state",
                 payload=b"473.0",
                 retain=False,
@@ -3265,11 +2320,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3288,11 +2338,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/state",
                 payload=b"0.6",
                 retain=False,
@@ -3305,11 +2350,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_time/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_time/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3328,11 +2368,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh80batt/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh80batt/state",
                 payload=b"3.28",
                 retain=False,
@@ -3345,11 +2380,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3368,11 +2398,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/state",
                 payload=b"OFF",
                 retain=False,
@@ -3385,11 +2410,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3408,11 +2428,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/state",
                 payload=b"OFF",
                 retain=False,
@@ -3425,11 +2440,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3448,11 +2458,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/state",
                 payload=b"OFF",
                 retain=False,
@@ -3465,11 +2470,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3488,11 +2488,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/state",
                 payload=b"OFF",
                 retain=False,
@@ -3505,11 +2500,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3528,11 +2518,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt2/state",
                 payload=b"1.3",
                 retain=False,
@@ -3545,11 +2530,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt3/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt3/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3568,11 +2548,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt4/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt4/state",
                 payload=b"1.3",
                 retain=False,
@@ -3585,11 +2560,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt5/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt5/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3608,11 +2578,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25batt1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25batt1/state",
                 payload=b"60.0",
                 retain=False,
@@ -3625,11 +2590,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh57batt/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh57batt/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3648,11 +2608,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_batt/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_batt/state",
                 payload=b"120.0",
                 retain=False,
@@ -3665,11 +2620,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh90batt/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh90batt/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3708,11 +2658,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state",
                 payload=b"47.9",
                 retain=False,
@@ -3725,11 +2670,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3748,11 +2688,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/state",
                 payload=b"44.3",
                 retain=False,
@@ -3765,11 +2700,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3788,11 +2718,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state",
                 payload=b"58.4",
                 retain=False,
@@ -3808,16 +2733,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/attributes", "name": "test_prefix_humidityabsin", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabsin", "unit_of_measurement": "lbs/ft\\u00b3", "device_class": "humidity", "state_class": "measurement"}',
                 retain=False,
@@ -3825,16 +2740,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
-                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -3848,16 +2753,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/state",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/attributes", "name": "test_prefix_safe_exposure_time_skin_type_2", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_safe_exposure_time_skin_type_2", "unit_of_measurement": "min", "icon": "mdi:timer", "state_class": "measurement"}',
                 retain=False,
@@ -3865,16 +2760,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/state",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3888,16 +2773,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/state",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/attributes", "name": "test_prefix_safe_exposure_time_skin_type_4", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_safe_exposure_time_skin_type_4", "unit_of_measurement": "min", "icon": "mdi:timer", "state_class": "measurement"}',
                 retain=False,
@@ -3905,16 +2780,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/state",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3928,16 +2793,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/state",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/attributes", "name": "test_prefix_safe_exposure_time_skin_type_6", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_safe_exposure_time_skin_type_6", "unit_of_measurement": "min", "icon": "mdi:timer", "state_class": "measurement"}',
                 retain=False,
@@ -3945,16 +2800,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/state",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -3968,16 +2813,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/state",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/attributes", "name": "test_prefix_simmerzone", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_simmerzone", "icon": "mdi:heat-wave"}',
                 retain=False,
@@ -3985,16 +2820,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -4008,16 +2833,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes", "name": "test_prefix_solarradiation_perceived", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_perceived", "unit_of_measurement": "%", "device_class": "illuminance", "state_class": "measurement"}',
                 retain=False,
@@ -4028,16 +2843,6 @@ async def test_publish_custom_entity_id_prefix(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/attributes", "name": "test_prefix_thermalperception", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_thermalperception", "icon": "mdi:water"}',
                 retain=False,
@@ -4045,11 +2850,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -4065,16 +2865,6 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state",
-                payload=b"None",
                 retain=False,
             ),
         ]
@@ -4137,11 +2927,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/state",
                 payload=b"436796.0",
                 retain=False,
@@ -4154,11 +2939,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -4177,11 +2957,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/state",
                 payload=b"56.0",
                 retain=False,
@@ -4194,11 +2969,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -4217,11 +2987,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/state",
                 payload=b"29.509",
                 retain=False,
@@ -4234,11 +2999,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -4257,11 +3017,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/state",
                 payload=b"65.0",
                 retain=False,
@@ -4274,11 +3029,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -4297,11 +3047,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/state",
                 payload=b"2.24",
                 retain=False,
@@ -4314,11 +3059,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -4337,11 +3077,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/state",
                 payload=b"17.45",
                 retain=False,
@@ -4357,16 +3092,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/attributes", "name": "uv", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_uv", "unit_of_measurement": "UV index", "icon": "mdi:weather-sunny", "state_class": "measurement"}',
                 retain=False,
@@ -4374,16 +3099,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state",
-                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -4397,16 +3112,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/attributes", "name": "eventrain", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_eventrain", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -4414,16 +3119,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state",
-                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -4437,16 +3132,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/attributes", "name": "dailyrain", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_dailyrain", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -4454,16 +3139,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state",
-                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -4477,16 +3152,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/attributes", "name": "monthlyrain", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_monthlyrain", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -4494,11 +3159,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -4517,11 +3177,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/state",
                 payload=b"3.909",
                 retain=False,
@@ -4537,16 +3192,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/attributes", "name": "erain_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_erain_piezo", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -4554,11 +3199,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -4577,16 +3217,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/attributes", "name": "drain_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_drain_piezo", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -4594,11 +3224,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -4617,11 +3242,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wrain_piezo/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wrain_piezo/state",
                 payload=b"0.075",
                 retain=False,
@@ -4634,11 +3254,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/mrain_piezo/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/mrain_piezo/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -4657,11 +3272,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yrain_piezo/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yrain_piezo/state",
                 payload=b"4.114",
                 retain=False,
@@ -4674,11 +3284,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90cap_volt/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90cap_volt/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -4697,11 +3302,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp1/state",
                 payload=b"71.2",
                 retain=False,
@@ -4714,11 +3314,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity1/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity1/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -4737,11 +3332,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp2/state",
                 payload=b"71.2",
                 retain=False,
@@ -4754,11 +3344,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -4777,11 +3362,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp3/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp3/state",
                 payload=b"70.5",
                 retain=False,
@@ -4794,11 +3374,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity3/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity3/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -4817,11 +3392,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp4/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp4/state",
                 payload=b"73.0",
                 retain=False,
@@ -4834,11 +3404,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity4/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity4/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -4857,11 +3422,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp5/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp5/state",
                 payload=b"70.7",
                 retain=False,
@@ -4874,11 +3434,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity5/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity5/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -4897,11 +3452,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp6/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp6/state",
                 payload=b"72.7",
                 retain=False,
@@ -4914,11 +3464,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity6/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity6/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -4937,11 +3482,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp7/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp7/state",
                 payload=b"67.1",
                 retain=False,
@@ -4954,11 +3494,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity7/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity7/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -4977,11 +3512,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp8/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp8/state",
                 payload=b"68.0",
                 retain=False,
@@ -4994,11 +3524,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity8/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity8/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -5017,11 +3542,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture1/state",
                 payload=b"53.0",
                 retain=False,
@@ -5034,11 +3554,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -5057,11 +3572,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture3/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture3/state",
                 payload=b"59.0",
                 retain=False,
@@ -5074,11 +3584,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture4/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture4/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -5097,11 +3602,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture5/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture5/state",
                 payload=b"52.0",
                 retain=False,
@@ -5114,11 +3614,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_ch1/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_ch1/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -5137,11 +3632,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_avg_24h_ch1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_avg_24h_ch1/state",
                 payload=b"16.3",
                 retain=False,
@@ -5154,11 +3644,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tf_co2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tf_co2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -5177,11 +3662,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humi_co2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humi_co2/state",
                 payload=b"61.0",
                 retain=False,
@@ -5194,11 +3674,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_co2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_co2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -5217,11 +3692,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_24h_co2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_24h_co2/state",
                 payload=b"7.5",
                 retain=False,
@@ -5234,11 +3704,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_co2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_co2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -5257,11 +3722,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_24h_co2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_24h_co2/state",
                 payload=b"7.8",
                 retain=False,
@@ -5274,11 +3734,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -5297,11 +3752,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_24h/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_24h/state",
                 payload=b"473.0",
                 retain=False,
@@ -5314,11 +3764,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -5337,11 +3782,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/state",
                 payload=b"0.6",
                 retain=False,
@@ -5354,11 +3794,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_time/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_time/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -5377,11 +3812,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh80batt/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh80batt/state",
                 payload=b"3.28",
                 retain=False,
@@ -5397,16 +3827,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/attributes", "name": "batt2", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt2", "unit_of_measurement": "V", "device_class": "voltage", "entity_category": "diagnostic", "state_class": "measurement"}',
                 retain=False,
@@ -5414,16 +3834,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/state",
-                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -5437,16 +3847,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/attributes", "name": "batt4", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt4", "unit_of_measurement": "V", "device_class": "voltage", "entity_category": "diagnostic", "state_class": "measurement"}',
                 retain=False,
@@ -5454,16 +3854,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/state",
-                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -5477,16 +3867,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/attributes", "name": "batt6", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt6", "unit_of_measurement": "V", "device_class": "voltage", "entity_category": "diagnostic", "state_class": "measurement"}',
                 retain=False,
@@ -5494,16 +3874,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/state",
-                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -5517,16 +3887,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/attributes", "name": "batt8", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_batt8", "unit_of_measurement": "V", "device_class": "voltage", "entity_category": "diagnostic", "state_class": "measurement"}',
                 retain=False,
@@ -5537,16 +3897,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/attributes", "name": "soilbatt1", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_soilbatt1", "unit_of_measurement": "V", "device_class": "voltage", "entity_category": "diagnostic", "state_class": "measurement"}',
                 retain=False,
@@ -5554,11 +3904,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -5577,11 +3922,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt2/state",
                 payload=b"1.3",
                 retain=False,
@@ -5594,11 +3934,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt3/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt3/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -5617,11 +3952,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt4/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt4/state",
                 payload=b"1.3",
                 retain=False,
@@ -5634,11 +3964,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt5/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt5/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -5657,11 +3982,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25batt1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25batt1/state",
                 payload=b"60.0",
                 retain=False,
@@ -5674,11 +3994,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh57batt/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh57batt/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -5697,11 +4012,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_batt/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_batt/state",
                 payload=b"120.0",
                 retain=False,
@@ -5714,11 +4024,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh90batt/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh90batt/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -5757,11 +4062,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state",
                 payload=b"47.9",
                 retain=False,
@@ -5774,11 +4074,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -5797,11 +4092,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/state",
                 payload=b"44.3",
                 retain=False,
@@ -5814,11 +4104,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -5837,11 +4122,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state",
                 payload=b"58.4",
                 retain=False,
@@ -5857,16 +4137,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/attributes", "name": "humidityabsin", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabsin", "unit_of_measurement": "lbs/ft\\u00b3", "device_class": "humidity", "state_class": "measurement"}',
                 retain=False,
@@ -5874,16 +4144,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
-                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -5897,16 +4157,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/state",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/attributes", "name": "safe_exposure_time_skin_type_2", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_safe_exposure_time_skin_type_2", "unit_of_measurement": "min", "icon": "mdi:timer", "state_class": "measurement"}',
                 retain=False,
@@ -5914,16 +4164,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/state",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -5937,16 +4177,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/state",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/attributes", "name": "safe_exposure_time_skin_type_4", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_safe_exposure_time_skin_type_4", "unit_of_measurement": "min", "icon": "mdi:timer", "state_class": "measurement"}',
                 retain=False,
@@ -5954,16 +4184,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/state",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -5977,16 +4197,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/state",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/attributes", "name": "safe_exposure_time_skin_type_6", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_safe_exposure_time_skin_type_6", "unit_of_measurement": "min", "icon": "mdi:timer", "state_class": "measurement"}',
                 retain=False,
@@ -5994,16 +4204,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/state",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -6017,16 +4217,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/state",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/attributes", "name": "simmerzone", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_simmerzone", "icon": "mdi:heat-wave"}',
                 retain=False,
@@ -6034,16 +4224,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -6057,16 +4237,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes", "name": "solarradiation_perceived", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_perceived", "unit_of_measurement": "%", "device_class": "illuminance", "state_class": "measurement"}',
                 retain=False,
@@ -6077,16 +4247,6 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/attributes", "name": "thermalperception", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_thermalperception", "icon": "mdi:water"}',
                 retain=False,
@@ -6094,11 +4254,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -6114,16 +4269,6 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state",
-                payload=b"None",
                 retain=False,
             ),
         ]
@@ -6164,11 +4309,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/state",
                 payload=b"436796.0",
                 retain=False,
@@ -6181,11 +4321,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -6204,11 +4339,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/state",
                 payload=b"56.0",
                 retain=False,
@@ -6221,11 +4351,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -6244,11 +4369,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/state",
                 payload=b"29.509",
                 retain=False,
@@ -6261,11 +4381,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -6284,11 +4399,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/state",
                 payload=b"65.0",
                 retain=False,
@@ -6301,11 +4411,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -6324,11 +4429,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/state",
                 payload=b"2.24",
                 retain=False,
@@ -6341,11 +4441,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -6364,11 +4459,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/state",
                 payload=b"17.45",
                 retain=False,
@@ -6384,16 +4474,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/attributes", "name": "uv", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_uv", "unit_of_measurement": "UV index", "icon": "mdi:weather-sunny", "state_class": "measurement"}',
                 retain=False,
@@ -6401,16 +4481,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state",
-                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -6424,16 +4494,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/attributes", "name": "eventrain", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_eventrain", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -6441,16 +4501,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state",
-                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -6464,16 +4514,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/attributes", "name": "dailyrain", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_dailyrain", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -6481,16 +4521,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state",
-                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -6504,16 +4534,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/attributes", "name": "monthlyrain", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_monthlyrain", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -6521,11 +4541,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -6544,11 +4559,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/state",
                 payload=b"3.909",
                 retain=False,
@@ -6564,16 +4574,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/attributes", "name": "erain_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_erain_piezo", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -6581,11 +4581,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -6604,16 +4599,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/attributes", "name": "drain_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_drain_piezo", "unit_of_measurement": "in", "icon": "mdi:water", "state_class": "total"}',
                 retain=False,
@@ -6621,11 +4606,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -6644,11 +4624,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wrain_piezo/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wrain_piezo/state",
                 payload=b"0.075",
                 retain=False,
@@ -6661,11 +4636,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/mrain_piezo/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/mrain_piezo/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -6684,11 +4654,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yrain_piezo/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yrain_piezo/state",
                 payload=b"4.114",
                 retain=False,
@@ -6701,11 +4666,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90cap_volt/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90cap_volt/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -6724,11 +4684,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp1/state",
                 payload=b"71.2",
                 retain=False,
@@ -6741,11 +4696,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity1/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity1/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -6764,11 +4714,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp2/state",
                 payload=b"71.2",
                 retain=False,
@@ -6781,11 +4726,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -6804,11 +4744,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp3/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp3/state",
                 payload=b"70.5",
                 retain=False,
@@ -6821,11 +4756,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity3/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity3/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -6844,11 +4774,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp4/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp4/state",
                 payload=b"73.0",
                 retain=False,
@@ -6861,11 +4786,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity4/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity4/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -6884,11 +4804,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp5/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp5/state",
                 payload=b"70.7",
                 retain=False,
@@ -6901,11 +4816,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity5/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity5/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -6924,11 +4834,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp6/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp6/state",
                 payload=b"72.7",
                 retain=False,
@@ -6941,11 +4846,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity6/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity6/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -6964,11 +4864,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp7/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp7/state",
                 payload=b"67.1",
                 retain=False,
@@ -6981,11 +4876,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity7/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity7/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7004,11 +4894,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp8/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp8/state",
                 payload=b"68.0",
                 retain=False,
@@ -7021,11 +4906,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity8/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity8/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7044,11 +4924,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture1/state",
                 payload=b"53.0",
                 retain=False,
@@ -7061,11 +4936,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7084,11 +4954,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture3/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture3/state",
                 payload=b"59.0",
                 retain=False,
@@ -7101,11 +4966,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture4/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture4/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7124,11 +4984,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture5/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture5/state",
                 payload=b"52.0",
                 retain=False,
@@ -7141,11 +4996,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_ch1/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_ch1/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7164,11 +5014,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_avg_24h_ch1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_avg_24h_ch1/state",
                 payload=b"16.3",
                 retain=False,
@@ -7181,11 +5026,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tf_co2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tf_co2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7204,11 +5044,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humi_co2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humi_co2/state",
                 payload=b"61.0",
                 retain=False,
@@ -7221,11 +5056,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_co2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_co2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7244,11 +5074,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_24h_co2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_24h_co2/state",
                 payload=b"7.5",
                 retain=False,
@@ -7261,11 +5086,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_co2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_co2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7284,11 +5104,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_24h_co2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_24h_co2/state",
                 payload=b"7.8",
                 retain=False,
@@ -7301,11 +5116,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7324,11 +5134,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_24h/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_24h/state",
                 payload=b"473.0",
                 retain=False,
@@ -7341,11 +5146,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7364,11 +5164,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/state",
                 payload=b"0.6",
                 retain=False,
@@ -7381,11 +5176,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_time/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_time/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7404,11 +5194,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh80batt/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh80batt/state",
                 payload=b"3.28",
                 retain=False,
@@ -7421,11 +5206,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7444,11 +5224,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/state",
                 payload=b"OFF",
                 retain=False,
@@ -7461,11 +5236,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7484,11 +5254,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/state",
                 payload=b"OFF",
                 retain=False,
@@ -7501,11 +5266,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7524,11 +5284,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/state",
                 payload=b"OFF",
                 retain=False,
@@ -7541,11 +5296,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7564,11 +5314,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/state",
                 payload=b"OFF",
                 retain=False,
@@ -7581,11 +5326,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7604,11 +5344,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt2/state",
                 payload=b"1.3",
                 retain=False,
@@ -7621,11 +5356,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt3/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt3/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7644,11 +5374,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt4/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt4/state",
                 payload=b"1.3",
                 retain=False,
@@ -7661,11 +5386,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt5/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt5/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7684,11 +5404,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25batt1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25batt1/state",
                 payload=b"60.0",
                 retain=False,
@@ -7701,11 +5416,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh57batt/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh57batt/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7724,11 +5434,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_batt/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_batt/state",
                 payload=b"120.0",
                 retain=False,
@@ -7744,11 +5449,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh90batt/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh90batt/state",
                 payload=b"3.22",
                 retain=False,
@@ -7761,11 +5461,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/random/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/random/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7804,11 +5499,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state",
                 payload=b"47.9",
                 retain=False,
@@ -7821,11 +5511,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7844,11 +5529,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/state",
                 payload=b"44.3",
                 retain=False,
@@ -7861,11 +5541,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7884,11 +5559,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state",
                 payload=b"58.4",
                 retain=False,
@@ -7904,16 +5574,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/attributes", "name": "humidityabsin", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabsin", "unit_of_measurement": "lbs/ft\\u00b3", "device_class": "humidity", "state_class": "measurement"}',
                 retain=False,
@@ -7921,16 +5581,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
-                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -7944,16 +5594,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/state",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/attributes", "name": "safe_exposure_time_skin_type_2", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_safe_exposure_time_skin_type_2", "unit_of_measurement": "min", "icon": "mdi:timer", "state_class": "measurement"}',
                 retain=False,
@@ -7961,16 +5601,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/state",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -7984,16 +5614,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/state",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/attributes", "name": "safe_exposure_time_skin_type_4", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_safe_exposure_time_skin_type_4", "unit_of_measurement": "min", "icon": "mdi:timer", "state_class": "measurement"}',
                 retain=False,
@@ -8001,16 +5621,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/state",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -8024,16 +5634,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/state",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/attributes", "name": "safe_exposure_time_skin_type_6", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_safe_exposure_time_skin_type_6", "unit_of_measurement": "min", "icon": "mdi:timer", "state_class": "measurement"}',
                 retain=False,
@@ -8041,16 +5641,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/state",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -8064,16 +5654,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/state",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/attributes", "name": "simmerzone", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_simmerzone", "icon": "mdi:heat-wave"}',
                 retain=False,
@@ -8081,16 +5661,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -8104,16 +5674,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes", "name": "solarradiation_perceived", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_perceived", "unit_of_measurement": "%", "device_class": "illuminance", "state_class": "measurement"}',
                 retain=False,
@@ -8124,16 +5684,6 @@ async def test_no_entity_description(
                 retain=False,
             ),
             call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state",
-                payload=b"0.0",
-                retain=False,
-            ),
-            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/attributes", "name": "thermalperception", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_thermalperception", "icon": "mdi:water"}',
                 retain=False,
@@ -8141,11 +5691,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability",
                 payload=b"online",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/attributes",
-                payload=b"None",
                 retain=False,
             ),
             call(
@@ -8161,16 +5706,6 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/availability",
                 payload=b"offline",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/attributes",
-                payload=b"None",
-                retain=False,
-            ),
-            call(
-                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state",
-                payload=b"None",
                 retain=False,
             ),
         ]
