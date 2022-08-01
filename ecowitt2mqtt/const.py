@@ -56,6 +56,7 @@ DATA_POINT_GLOB_WIND: Final = "wind"
 DATA_POINT_GLOB_WINDDIR: Final = "winddir"
 
 # Data points (specific):
+DATA_POINT_BEAUFORT_SCALE: Final = "beaufortscale"
 DATA_POINT_CO2: Final = "co2"
 DATA_POINT_CO2_24H: Final = "co2_24h"
 DATA_POINT_CO2_BATT: Final = "co2_batt"

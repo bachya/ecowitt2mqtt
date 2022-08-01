@@ -9,6 +9,7 @@ from asyncio_mqtt import Client, MqttError
 
 from ecowitt2mqtt.backports.enum import StrEnum
 from ecowitt2mqtt.const import (
+    DATA_POINT_BEAUFORT_SCALE,
     DATA_POINT_CO2,
     DATA_POINT_CO2_24H,
     DATA_POINT_DAILY_RAIN,
@@ -172,6 +173,10 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_BATTERY_PERCENTAGE: EntityDescription(
         device_class=DeviceClass.BATTERY,
         entity_category=EntityCategory.DIAGNOSTIC,
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_BEAUFORT_SCALE: EntityDescription(
+        icon="mdi:weather-windy",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_CO2: EntityDescription(
@@ -432,6 +437,7 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
                     "name": device.name,
                     "sw_version": device.station_type,
                 },
+                "json_attributes_topic": f"{base_topic}/attributes",
                 "name": name,
                 "qos": 1,
                 "retain": self.ecowitt.config.mqtt_retain,
@@ -441,6 +447,8 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
             f"{base_topic}/config",
         )
 
+        if data_point.attributes:
+            payload.payload["json_attributes_topic"] = f"{base_topic}/attributes"
         if data_point.unit:
             payload.payload["unit_of_measurement"] = data_point.unit
 
@@ -484,6 +492,10 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
                     (
                         discovery_payload.payload["availability_topic"],
                         get_availability_payload(data_point),
+                    ),
+                    (
+                        discovery_payload.payload["json_attributes_topic"],
+                        data_point.attributes,
                     ),
                     (discovery_payload.payload["state_topic"], data_point.value),
                 ):
