@@ -7,6 +7,7 @@ import traceback
 from typing import TYPE_CHECKING, Any, Callable, TypeVar
 
 from ecowitt2mqtt.const import (
+    DATA_POINT_BEAUFORT_SCALE,
     DATA_POINT_CO2,
     DATA_POINT_CO2_24H,
     DATA_POINT_DEWPOINT,
@@ -65,6 +66,7 @@ from ecowitt2mqtt.helpers.calculator.battery import calculate_battery
 from ecowitt2mqtt.helpers.calculator.leak import calculate_leak
 from ecowitt2mqtt.helpers.calculator.meteo import (
     calculate_absolute_humidity,
+    calculate_beaufort_scale,
     calculate_co2,
     calculate_dew_point,
     calculate_feels_like,
@@ -105,6 +107,7 @@ if TYPE_CHECKING:
 
 # Map which data calculator functions should apply to various data points:
 CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., CalculatedDataPoint]] = {
+    DATA_POINT_BEAUFORT_SCALE: calculate_beaufort_scale,
     DATA_POINT_CO2: calculate_co2,
     DATA_POINT_CO2_24H: calculate_co2,
     DATA_POINT_DEWPOINT: calculate_dew_point,
@@ -177,6 +180,7 @@ UNIT_SUFFIX_MAP = {
 # Map calculated data points to the data points they depend on - note that the order
 # of the input keys inside the tuple is important, as those values are passed to their
 # respective calculator (as args) in that order:
+BEAUFORT_SCALE_KEYS = (DATA_POINT_WINDSPEEDMPH,)
 DEW_POINT_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
 FEELS_LIKE_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY, DATA_POINT_WINDSPEEDMPH)
 FROST_KEYS = (DATA_POINT_TEMPF, DATA_POINT_HUMIDITY)
@@ -266,6 +270,7 @@ class ProcessedData:
         if not self.ecowitt.config.disable_calculated_data:
             # Process any from-scratch data points that can be calculated from others:
             for payload_key, input_keys in (
+                (DATA_POINT_BEAUFORT_SCALE, BEAUFORT_SCALE_KEYS),
                 (DATA_POINT_DEWPOINT, DEW_POINT_KEYS),
                 (DATA_POINT_FEELSLIKE, FEELS_LIKE_KEYS),
                 (DATA_POINT_FROST_POINT, FROST_KEYS),

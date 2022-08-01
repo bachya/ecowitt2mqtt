@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum
+from typing import Any
 
 from ecowitt2mqtt.helpers.typing import DataValueType
 
@@ -21,4 +22,5 @@ class CalculatedDataPoint:
     data_point_key: str
     value: DataValueType
     unit: str | None = None
+    attributes: dict[str, Any] | None = None
     data_type: DataPointType = DataPointType.NON_BOOLEAN
