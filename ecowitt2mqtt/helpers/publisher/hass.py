@@ -499,8 +499,6 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
                     ),
                     (discovery_payload.payload["state_topic"], data_point.value),
                 ):
-                    if payload is None:
-                        continue
                     tasks.append(
                         asyncio.create_task(
                             client.publish(

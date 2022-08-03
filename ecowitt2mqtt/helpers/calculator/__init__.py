@@ -1,7 +1,7 @@
 """Define various calculators."""
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any
 
@@ -22,5 +22,5 @@ class CalculatedDataPoint:
     data_point_key: str
     value: DataValueType
     unit: str | None = None
-    attributes: dict[str, Any] | None = None
+    attributes: dict[str, Any] = field(default_factory=dict)
     data_type: DataPointType = DataPointType.NON_BOOLEAN
