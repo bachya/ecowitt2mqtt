@@ -187,7 +187,7 @@ Options:
 * `ECOWITT2MQTT_CONFIG`: a path to a YAML or JSON config file (default: `None`)
 * `ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY`: the default battery config strategy to use (default: `boolean`)
 * `ECOWITT2MQTT_DIAGNOSTICS`: whether to output diagnostics (default: `false`)
-* `ECOWITT2MQTT_DISABLE_CALCULATE_DATA`: whether to disable the output of calculated sensors (default: `false`)
+* `ECOWITT2MQTT_DISABLE_CALCULATED_DATA`: whether to disable the output of calculated sensors (default: `false`)
 * `ECOWITT2MQTT_ENDPOINT`: the relative endpoint/path to serve ecowitt2mqtt on (default: `/data/report`)
 * `ECOWITT2MQTT_HASS_DISCOVERY_PREFIX`: the Home Assistant discovery prefix to use (default: `homeassistant`)
 * `ECOWITT2MQTT_HASS_DISCOVERY`: publish data in the Home Assistant MQTT Discovery format Idefault: `false`)
