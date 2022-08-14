@@ -22,9 +22,6 @@ if TYPE_CHECKING:
 DEFAULT_HOST = "0.0.0.0"
 DEFAULT_MAX_RETRY_INTERVAL = 60
 
-LOG_LEVEL_DEBUG = "debug"
-LOG_LEVEL_ERROR = "error"
-
 HANDLED_SIGNALS = (
     signal.SIGINT,  # Unix signal 2. Sent by Ctrl+C.
     signal.SIGTERM,  # Unix signal 15. Sent by `kill <pid>`.
@@ -57,7 +54,7 @@ class Runtime:
                 app,
                 host=DEFAULT_HOST,
                 port=ecowitt.config.port,
-                log_level="debug" if ecowitt.config.verbose else "info",
+                log_level="debug" if ecowitt.config.verbose else "error",
             )
         )
 
