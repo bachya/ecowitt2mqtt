@@ -19,7 +19,7 @@ RUN apk add --no-cache \
         openssl-dev \
         python3-dev \
     && python3 -m pip install --upgrade \
-        cryptography==37.0.2 \
+        cryptography \
         pip \
         poetry==1.1.13 \
     && python3 -m venv /venv
