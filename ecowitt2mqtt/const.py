@@ -114,6 +114,7 @@ DATA_POINT_WH90CAP_VOLT: Final = "ws90cap_volt"
 DATA_POINT_WINDCHILL: Final = "windchill"
 DATA_POINT_WINDSPEEDMPH: Final = "windspeedmph"
 DATA_POINT_WRAIN_PIEZO: Final = "wrain_piezo"
+DATA_POINT_WS90_VER: Final = "ws90_ver"
 DATA_POINT_YEARLY_RAIN: Final = "yearlyrain"
 DATA_POINT_YRAIN_PIEZO: Final = "yrain_piezo"
 
