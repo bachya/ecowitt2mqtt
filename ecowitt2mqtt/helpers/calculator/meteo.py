@@ -974,13 +974,16 @@ def calculate_temperature(
     """Calculate temperature in the appropriate unit system."""
     temp_obj = _get_temperature_object(value, ecowitt.config.input_unit_system)
 
+    unit = TEMP_UNIT_MAP[ecowitt.config.input_unit_system]
+
     if temp_obj.f < IMPERIAL_LOW_THRESHOLD or temp_obj.f > IMPERIAL_HIGH_THRESHOLD:
         LOGGER.warning(
             (
-                "Raw temperature value (%s) seems suspicious; have you set your input "
-                "unit system correctly?"
+                "Raw temperature value (%s%s) seems suspicious; are you using the "
+                "correct input unit system?"
             ),
             value,
+            unit,
         )
 
     if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
@@ -989,9 +992,7 @@ def calculate_temperature(
         final_value = round(temp_obj.c, 1)
 
     return CalculatedDataPoint(
-        data_point_key=data_point_key,
-        value=final_value,
-        unit=TEMP_UNIT_MAP[ecowitt.config.output_unit_system],
+        data_point_key=data_point_key, value=final_value, unit=unit
     )
 
 
