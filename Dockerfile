@@ -18,6 +18,7 @@ RUN apk add --no-cache \
         musl-dev \
         openssl-dev \
         python3-dev \
+        rust \
     && python3 -m pip install --upgrade pip \
     && python3 -m pip install \
         cryptography \
