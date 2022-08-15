@@ -18,10 +18,10 @@ RUN apk add --no-cache \
         musl-dev \
         openssl-dev \
         python3-dev \
-    && python3 -m pip install --upgrade \
+    && python3 -m pip install --upgrade pip \
+    && python3 -m pip install \
         cryptography \
-        pip \
-        poetry==1.1.13 \
+        poetry \
     && python3 -m venv /venv
 COPY pyproject.toml ./
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
