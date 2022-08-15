@@ -15,6 +15,8 @@ RUN apt-get update \
         build-essential \
         libffi-dev \
         python3-dev \
+    && python3 -m pip install --upgrade pip \
+    && python3 -m pip install cryptography \
     && python3 -m pip install poetry \
     && python3 -m venv /venv
 COPY pyproject.toml ./
