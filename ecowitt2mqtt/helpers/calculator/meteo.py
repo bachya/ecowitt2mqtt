@@ -1,4 +1,4 @@
-"""Define meteorological utilities."""
+"""Define meteorological helpers."""
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -47,6 +47,9 @@ if TYPE_CHECKING:
     from ecowitt2mqtt.core import Ecowitt
 
 FROST_RISK_HUMIDITY_ABS_THRESHOLD = 2.8
+
+IMPERIAL_HIGH_THRESHOLD = 110.0
+IMPERIAL_LOW_THRESHOLD = -10.0
 
 ABSOLUTE_HUMIDITY_MAP = {
     UNIT_SYSTEM_IMPERIAL: WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
@@ -970,6 +973,14 @@ def calculate_temperature(
 ) -> CalculatedDataPoint:
     """Calculate temperature in the appropriate unit system."""
     temp_obj = _get_temperature_object(value, ecowitt.config.input_unit_system)
+
+    if temp_obj.f < IMPERIAL_LOW_THRESHOLD or temp_obj.f > IMPERIAL_HIGH_THRESHOLD:
+        LOGGER.warning(
+            'Value of "%s" (%s) with input unit system "%s" seems suspicious',
+            payload_key,
+            value,
+            ecowitt.config.input_unit_system,
+        )
 
     if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
         final_value = round(temp_obj.f, 1)
