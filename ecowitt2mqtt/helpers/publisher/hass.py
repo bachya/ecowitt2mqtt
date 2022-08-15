@@ -338,6 +338,7 @@ ENTITY_DESCRIPTIONS = {
     ),
     DATA_POINT_RUNTIME: EntityDescription(
         device_class=DeviceClass.DURATION,
+        entity_category=EntityCategory.DIAGNOSTIC,
         icon="mdi:timer",
         state_class=StateClass.MEASUREMENT,
     ),
