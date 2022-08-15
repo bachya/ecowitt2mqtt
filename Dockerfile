@@ -13,6 +13,8 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends \
         build-essential \
+        libffi-dev \
+        python3-dev \
     && python3 -m pip install poetry \
     && python3 -m venv /venv
 COPY pyproject.toml ./
