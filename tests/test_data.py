@@ -4942,10 +4942,12 @@ def test_suspcious_temperature_value(caplog, device_data, ecowitt):
     """Test logging a warning when a suspicious temperature value is seen."""
     with pytest.raises(ValueError):
         _ = ProcessedData(ecowitt, device_data)
+
     assert any(
         m
         for m in caplog.messages
-        if "are you using the correct input unit system?" in m
+        if m
+        == 'Value of "tempf" (93.2) with input unit system "metric" seems suspicious'
     )
 
 
