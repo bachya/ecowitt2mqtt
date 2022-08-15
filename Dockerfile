@@ -15,7 +15,7 @@ RUN apt-get update \
         build-essential \
         cargo \
         libffi-dev \
-        libssl-dev \
+        librust-openssl-dev  \
         python3-dev \
     && python3 -m pip install --upgrade pip \
     && python3 -m pip install cryptography \
