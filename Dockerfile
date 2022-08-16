@@ -1,4 +1,4 @@
-FROM python:3.10-slim-bullseye as base
+FROM python:3.10-alpine as base
 ENV PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=random \
     PYTHONUNBUFFERED=1
@@ -8,15 +8,17 @@ ENV PIP_DEFAULT_TIMEOUT=100 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1
 WORKDIR /app
-# hadolint ignore=DL3008,DL3013
-RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y --no-install-recommends \
-        build-essential \
+# hadolint ignore=DL3018,DL3013
+RUN apk add --no-cache \
+        bash \
+        build-base \
+        gcc \
         libffi-dev \
-        python3-cryptography \
+        musl-dev \
+        openssl-dev \
         python3-dev \
     && python3 -m pip install --upgrade pip \
+    && python3 -m pip install cryptography \
     && python3 -m pip install poetry \
     && python3 -m venv /venv
 COPY pyproject.toml ./
