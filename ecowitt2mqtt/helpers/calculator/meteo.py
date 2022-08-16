@@ -741,7 +741,7 @@ def calculate_lightning_strike_distance(
     Note that lightning strike distances always have metric as the input unit system.
     """
     try:
-        final_value = int(value)
+        final_value = float(value)
     except ValueError:
         LOGGER.debug("Can't convert value to number: %s", value)
         return CalculatedDataPoint(data_point_key=data_point_key, value=None)
