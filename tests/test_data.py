@@ -1197,8 +1197,8 @@ def test_missing_distance(device_data, ecowitt, request):
         ),
         "lightning": CalculatedDataPoint(
             "lightning",
-            16.8,
-            unit=DISTANCE_MILES,
+            None,
+            unit=None,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
@@ -2975,8 +2975,8 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "lightning": CalculatedDataPoint(
                     "lightning",
-                    16.8,
-                    unit=DISTANCE_MILES,
+                    None,
+                    unit=None,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
