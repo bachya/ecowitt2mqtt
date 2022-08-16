@@ -150,8 +150,10 @@ class Runtime:
             for sig in HANDLED_SIGNALS:
                 signal.signal(sig, handle_exit_signal)
 
-        for coro_func in self._async_create_mqtt_loop, self._async_create_server:
-            self._runtime_tasks.append(asyncio.create_task(coro_func()))
+        self._runtime_tasks = [
+            asyncio.create_task(coro_func())
+            for coro_func in (self._async_create_mqtt_loop, self._async_create_server)
+        ]
 
         try:
             await asyncio.gather(*self._runtime_tasks)
