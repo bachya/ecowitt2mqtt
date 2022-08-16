@@ -20,6 +20,7 @@ def calculate_dt_from_epoch(
     except ValueError:
         LOGGER.debug("Can't convert value to number: %s", value)
         return CalculatedDataPoint(data_point_key=data_point_key, value=None)
+
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=datetime.utcfromtimestamp(float_value).replace(tzinfo=timezone.utc),

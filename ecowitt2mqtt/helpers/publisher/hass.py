@@ -288,7 +288,6 @@ ENTITY_DESCRIPTIONS = {
     ),
     DATA_POINT_LIGHTNING_TIME: EntityDescription(
         device_class=DeviceClass.TIMESTAMP,
-        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1: EntityDescription(
         icon="mdi:timer",
