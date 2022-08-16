@@ -163,7 +163,6 @@ DEFAULT_KEYS_TO_IGNORE = [
     "freq",
     "model",
     "stationtype",
-    "ws90_ver",
 ]
 
 # Map which data points tend to come with keys embedded at their end:
@@ -206,8 +205,11 @@ def get_calculator_function(
     return partial(func, ecowitt, key, data_point)
 
 
-def get_typed_value(value: T) -> float | T:
+def get_typed_value(value: T) -> int | float | T:
     """Take a string and return its properly typed counterpart (if possible)."""
+    if isinstance(value, str) and value.isdigit():
+        return int(value)
+
     try:
         return float(value)  # type: ignore[arg-type]
     except Exception as err:  # pylint: disable=broad-except

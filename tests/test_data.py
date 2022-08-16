@@ -982,6 +982,13 @@ def test_missing_distance(device_data, ecowitt, request):
     """Test that a distance key with an invalid value doesn't throw an error."""
     processed_data = ProcessedData(ecowitt, device_data)
     assert processed_data.output == {
+        "ws90_ver": CalculatedDataPoint(
+            data_point_key="ws90_ver",
+            value=119,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
         "runtime": CalculatedDataPoint(
             "runtime",
             3179,
@@ -2749,6 +2756,13 @@ def test_nonnumeric_value(device_data, ecowitt):
         (
             "payload_gw2000a_1.json",
             {
+                "ws90_ver": CalculatedDataPoint(
+                    data_point_key="ws90_ver",
+                    value=119,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
                 "runtime": CalculatedDataPoint(
                     "runtime",
                     3179,
@@ -3155,6 +3169,13 @@ def test_nonnumeric_value(device_data, ecowitt):
         (
             "payload_gw2000a_2.json",
             {
+                "ws90_ver": CalculatedDataPoint(
+                    data_point_key="ws90_ver",
+                    value=115,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
                 "runtime": CalculatedDataPoint(
                     "runtime",
                     436796,

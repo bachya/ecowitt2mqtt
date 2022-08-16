@@ -68,6 +68,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_WEEKLY_RAIN,
     DATA_POINT_WINDCHILL,
     DATA_POINT_WRAIN_PIEZO,
+    DATA_POINT_WS90_VER,
     DATA_POINT_YEARLY_RAIN,
     DATA_POINT_YRAIN_PIEZO,
     LOGGER,
@@ -361,6 +362,7 @@ ENTITY_DESCRIPTIONS = {
         device_class=DeviceClass.TEMPERATURE,
         state_class=StateClass.MEASUREMENT,
     ),
+    DATA_POINT_WS90_VER: EntityDescription(entity_category=EntityCategory.DIAGNOSTIC),
 }
 
 PLATFORM_MAP = {
