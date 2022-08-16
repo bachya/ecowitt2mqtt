@@ -13,12 +13,10 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends \
         build-essential \
-        cargo \
         libffi-dev \
-        librust-openssl-dev  \
+        python3-cryptography \
         python3-dev \
     && python3 -m pip install --upgrade pip \
-    && python3 -m pip install cryptography \
     && python3 -m pip install poetry \
     && python3 -m venv /venv
 COPY pyproject.toml ./
