@@ -3,7 +3,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from functools import partial
-import traceback
 from typing import TYPE_CHECKING, Any, Callable, TypeVar
 
 from ecowitt2mqtt.const import (
@@ -212,9 +211,7 @@ def get_typed_value(value: T) -> int | float | T:
 
     try:
         return float(value)  # type: ignore[arg-type]
-    except Exception as err:  # pylint: disable=broad-except
-        LOGGER.warning("Couldn't convert value to number: %s", value)
-        LOGGER.debug("".join(traceback.format_tb(err.__traceback__)))
+    except ValueError:
         return value
 
 

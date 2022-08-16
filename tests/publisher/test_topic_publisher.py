@@ -58,7 +58,7 @@ async def test_publish_error_unserializable(
     device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
 ):
     """Test handling a serialization error when publishing."""
-    device_data["Test"] = object()
+    device_data["Test"] = b"Binary value"
     publisher = get_publisher(ecowitt)
     with pytest.raises(TypeError):
         await publisher.async_publish(mock_asyncio_mqtt_client, device_data)
