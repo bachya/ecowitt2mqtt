@@ -158,7 +158,11 @@ class Runtime:
         try:
             await asyncio.gather(*self._runtime_tasks)
         except asyncio.CancelledError:
-            await asyncio.sleep(0.1)
+            for task in self._runtime_tasks:
+                try:
+                    await task
+                except asyncio.CancelledError:
+                    pass
             LOGGER.debug("Runtime shutdown complete")
 
     def stop(self) -> None:
