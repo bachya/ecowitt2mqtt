@@ -583,11 +583,11 @@ def calculate_beaufort_scale(
         for r in BEAUFORT_SCALE_RATINGS
         if (
             ecowitt.config.input_unit_system == UNIT_SYSTEM_IMPERIAL
-            and r.minimum_mph <= wind_speed <= r.maximum_mph
+            and r.minimum_mph <= wind_speed < r.maximum_mph
         )
         or (
             ecowitt.config.input_unit_system == UNIT_SYSTEM_METRIC
-            and r.minimum_kmh <= wind_speed <= r.maximum_kmh
+            and r.minimum_kmh <= wind_speed < r.maximum_kmh
         )
     ]
 
