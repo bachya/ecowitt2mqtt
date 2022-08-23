@@ -924,7 +924,7 @@ def calculate_simmer_zone(
     else:
         assert simmer_obj
         [rating] = [
-            r for r in SIMMER_ZONE_RATINGS if r.minimum_f <= simmer_obj.f <= r.maximum_f
+            r for r in SIMMER_ZONE_RATINGS if r.minimum_f <= simmer_obj.f < r.maximum_f
         ]
         final_value = rating.zone
 
