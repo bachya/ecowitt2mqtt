@@ -1014,7 +1014,7 @@ def calculate_thermal_perception(
     [rating] = [
         r
         for r in THERMAL_PERCEPTION_RATINGS
-        if r.minimum_c <= dew_point_obj.c <= r.maximum_c
+        if r.minimum_c <= dew_point_obj.c < r.maximum_c
     ]
 
     return CalculatedDataPoint(data_point_key=data_point_key, value=rating.perception)
