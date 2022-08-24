@@ -31,6 +31,7 @@ CONF_PORT: Final = "port"
 CONF_RAW_DATA: Final = "raw_data"
 CONF_VERBOSE: Final = "verbose"
 
+
 # Data points (glob):
 DATA_POINT_GLOB_BAROM: Final = "barom"
 DATA_POINT_GLOB_BATT: Final = "batt"
@@ -161,6 +162,12 @@ LEGACY_ENV_MQTT_USERNAME: Final = "MQTT_USERNAME"
 LEGACY_ENV_OUTPUT_UNIT_SYSTEM: Final = "OUTPUT_UNIT_SYSTEM"
 LEGACY_ENV_PORT: Final = "PORT"
 LEGACY_ENV_RAW_DATA: Final = "RAW_DATA"
+
+# Defaults:
+DEFAULT_ENDPOINT: Final = "/data/report"
+DEFAULT_HASS_DISCOVERY_PREFIX: Final = "homeassistant"
+DEFAULT_MQTT_PORT: Final = 1883
+DEFAULT_PORT: Final = 8080
 
 # Unit systems:
 UNIT_SYSTEM_IMPERIAL: UnitSystemType = "imperial"

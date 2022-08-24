@@ -245,3 +245,39 @@ class Config:  # pylint: disable=too-many-public-methods
     def verbose(self) -> bool:
         """Return whether verbose logging is enabled."""
         return cast(bool, self._config[CONF_VERBOSE])
+
+
+class ConfigFileManager:
+    """Define a manager of data loaded from a config file."""
+
+    def __init__(self) -> None:
+        """Initialize."""
+        self._cli_options_env_vars: dict[str, Any] = {}
+        self._config_file_data: dict[str, Any] = {}
+        self._configs: dict[str, Config] = {}
+
+    @property
+    def configs(self) -> dict[str, Config]:
+        """Return all parsed Config objects."""
+        return self._configs
+
+    def load_cli_options_env_vars(self, cli_options_env_vars: dict[str, Any]) -> None:
+        """Load config data from CLI options/env vars."""
+        self._cli_options_env_vars = cli_options_env_vars
+
+    def load_config_file(self, config_path: str) -> None:
+        """Load config data from a YAML or JSON file."""
+        parser = YAML(typ="safe")
+        with open(config_path, encoding="utf-8") as config_file:
+            self._config_file_data = parser.load(config_file)
+
+        if not isinstance(self._config_file_data, dict):
+            raise ConfigError(f"Unable to parse config file: {config_path}")
+
+        # default_config = file_config_data.get(CONF_DEFAULT, {})
+        # LOGGER.debug("Default config from config file: %s", default_config)
+        # gateways_config = file_config_data.get(CONF_GATEWAYS, {})
+        # LOGGER.debug("Gateway configs from config file: %s", gateways_config)
+
+        # for passkey, gateway_config in gateways_config.items():
+        #     merged_config = {**default_config, **gateway_config}
