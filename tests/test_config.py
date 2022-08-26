@@ -101,7 +101,7 @@ def test_battery_overrides_error(config):
         _ = Config(config)
 
     os.environ[ENV_BATTERY_OVERRIDES] = "some-random-string"
-    with pytest.raises(ConfigError) as err:
+    with pytest.raises(ConfigError):
         _ = Config(config)
     os.environ.pop(ENV_BATTERY_OVERRIDES)
 
