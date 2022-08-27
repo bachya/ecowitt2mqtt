@@ -8,6 +8,10 @@ import uvloop
 
 from ecowitt2mqtt.const import (
     CONF_VERBOSE,
+    DEFAULT_ENDPOINT,
+    DEFAULT_HASS_DISCOVERY_PREFIX,
+    DEFAULT_MQTT_PORT,
+    DEFAULT_PORT,
     ENV_BATTERY_OVERRIDE,
     ENV_CONFIG,
     ENV_DEFAULT_BATTERY_STRATEGY,
@@ -43,26 +47,11 @@ from ecowitt2mqtt.const import (
     LEGACY_ENV_PORT,
     LEGACY_ENV_RAW_DATA,
     UNIT_SYSTEM_IMPERIAL,
-    UNIT_SYSTEM_METRIC,
     __version__ as ecowitt2mqtt_version,
 )
 from ecowitt2mqtt.core import Ecowitt
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 from ecowitt2mqtt.helpers.logging import log_exception
-
-DEFAULT_ENDPOINT = "/data/report"
-DEFAULT_HASS_DISCOVERY_PREFIX = "homeassistant"
-DEFAULT_MQTT_PORT = 1883
-DEFAULT_PORT = 8080
-
-
-def validate_unit_system(value: str) -> str:
-    """Validate a passed unit system."""
-    if value not in (UNIT_SYSTEM_IMPERIAL, UNIT_SYSTEM_METRIC):
-        raise typer.BadParameter(
-            f"'{value}' is not one of '{UNIT_SYSTEM_IMPERIAL}', '{UNIT_SYSTEM_METRIC}'"
-        )
-    return value
 
 
 @log_exception()
@@ -78,10 +67,10 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
         None,
         "--config",
         "-c",
+        dir_okay=False,
         envvar=[ENV_CONFIG],
         exists=True,
         file_okay=True,
-        dir_okay=False,
         help="A path to a YAML or JSON config file.",
         resolve_path=True,
     ),
@@ -132,7 +121,6 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
     input_unit_system: str = typer.Option(
         UNIT_SYSTEM_IMPERIAL,
         "--input-unit-system",
-        callback=validate_unit_system,
         envvar=[ENV_INPUT_UNIT_SYSTEM, LEGACY_ENV_INPUT_UNIT_SYSTEM],
         help="The input unit system used by the device.",
     ),
@@ -185,7 +173,6 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
     output_unit_system: str = typer.Option(
         UNIT_SYSTEM_IMPERIAL,
         "--output-unit-system",
-        callback=validate_unit_system,
         envvar=[ENV_OUTPUT_UNIT_SYSTEM, LEGACY_ENV_OUTPUT_UNIT_SYSTEM],
         help="The unit system to use in output.",
     ),
@@ -222,10 +209,13 @@ def main(  # pylint: disable=too-many-arguments,too-many-locals
     loop = uvloop.new_event_loop()
     asyncio.set_event_loop(loop)
 
-    if diagnostics:
-        ctx.params[CONF_VERBOSE] = True
+    params = {**ctx.params}
+    params.pop("version")
 
-    ecowitt = Ecowitt(ctx.params)
+    if diagnostics:
+        params[CONF_VERBOSE] = True
+
+    ecowitt = Ecowitt(params)
     loop.run_until_complete(ecowitt.async_start())
 
 

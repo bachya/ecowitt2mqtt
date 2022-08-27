@@ -6,7 +6,6 @@ from ecowitt2mqtt.helpers.typing import UnitSystemType
 
 __version__ = "2022.08.4"
 
-
 LOGGER = logging.getLogger(__package__)
 
 # Configuration keys:
@@ -118,6 +117,12 @@ DATA_POINT_WS90_VER: Final = "ws90_ver"
 DATA_POINT_YEARLY_RAIN: Final = "yearlyrain"
 DATA_POINT_YRAIN_PIEZO: Final = "yrain_piezo"
 
+# Defaults:
+DEFAULT_ENDPOINT: Final = "/data/report"
+DEFAULT_HASS_DISCOVERY_PREFIX: Final = "homeassistant"
+DEFAULT_MQTT_PORT: Final = 1883
+DEFAULT_PORT: Final = 8080
+
 # Environment variables:
 ENV_BATTERY_OVERRIDE: Final = "ECOWITT2MQTT_BATTERY_OVERRIDE"
 ENV_CONFIG: Final = "ECOWITT2MQTT_CONFIG"
@@ -160,6 +165,7 @@ LEGACY_ENV_RAW_DATA: Final = "RAW_DATA"
 # Unit systems:
 UNIT_SYSTEM_IMPERIAL: UnitSystemType = "imperial"
 UNIT_SYSTEM_METRIC: UnitSystemType = "metric"
+UNIT_SYSTEMS: Final = [UNIT_SYSTEM_IMPERIAL, UNIT_SYSTEM_METRIC]
 
 # Degree units
 DEGREE: Final = "°"

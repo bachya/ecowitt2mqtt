@@ -94,6 +94,6 @@ async def setup_uvicorn_server_fixture(ecowitt):
     try:
         yield
     finally:
-        await ecowitt._runtime._server.shutdown()
+        await ecowitt.runtime._server.shutdown()
         start_task.cancel()
     await asyncio.sleep(0.1)

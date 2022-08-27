@@ -11,7 +11,6 @@ from ecowitt2mqtt.const import (
     CONF_DEFAULT_BATTERY_STRATEGY,
     CONF_MQTT_BROKER,
     ENV_BATTERY_OVERRIDE,
-    ENV_DEFAULT_BATTERY_STRATEGY,
     ENV_ENDPOINT,
     ENV_HASS_DISCOVERY,
     ENV_HASS_DISCOVERY_PREFIX,
@@ -119,10 +118,7 @@ def test_battery_overrides_env_vars(config):
     [
         {
             **TEST_CONFIG_JSON,
-            CONF_BATTERY_OVERRIDES: (
-                "testbatt0;boolean",
-                "testbatt1=numeric",
-            ),
+            CONF_BATTERY_OVERRIDES: ("testbatt0;boolean",),
         },
     ],
 )
@@ -131,10 +127,10 @@ def test_battery_overrides_error(config):
     with pytest.raises(ConfigError):
         _ = Config(config)
 
-    os.environ[ENV_DEFAULT_BATTERY_STRATEGY] = "some-random-string"
+    os.environ[ENV_BATTERY_OVERRIDE] = "some-random-string"
     with pytest.raises(ConfigError):
         _ = Config(config)
-    os.environ.pop(ENV_DEFAULT_BATTERY_STRATEGY)
+    os.environ.pop(ENV_BATTERY_OVERRIDE)
 
 
 def test_battery_overrides_missing(config):
@@ -162,7 +158,9 @@ def test_config_file_empty(config_filepath):
     """Test an empty config file with no overrides."""
     with pytest.raises(ConfigError) as err:
         _ = Config({CONF_CONFIG: config_filepath})
-    assert "Missing required option: --mqtt-broker" in str(err)
+    assert "Must provide an MQTT topic or enable Home Assistant MQTT Discovery" in str(
+        err
+    )
 
 
 @pytest.mark.parametrize(

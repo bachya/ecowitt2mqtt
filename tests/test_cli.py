@@ -7,19 +7,6 @@ from ecowitt2mqtt.cli import CLI_APP
 from ecowitt2mqtt.helpers.logging import TyperLoggerHandler
 
 
-@pytest.mark.parametrize(
-    "args,missing_args_str",
-    [
-        ([], "--mqtt-broker"),
-        (["-b", "127.0.0.1"], "--mqtt-topic or --hass-discovery"),
-    ],
-)
-def test_missing_required_options(args, caplog, missing_args_str, runner):
-    """Test that missing required options are handled."""
-    runner.invoke(CLI_APP, args)
-    assert caplog.messages[0] == f"Missing required option: {missing_args_str}"
-
-
 def test_startup_logging(caplog, config_filepath, runner):
     """Test startup logging at various levels."""
     caplog.set_level(logging.INFO)
