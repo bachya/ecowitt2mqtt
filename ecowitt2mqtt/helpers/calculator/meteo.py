@@ -861,6 +861,10 @@ def calculate_safe_exposure_time(
     try:
         final_value = round((200 * safe_exposure_info.constant) / (3 * value), 1)
     except ZeroDivisionError:
+        LOGGER.debug(
+            "Safe exposure times are only valid for non-zero UV indices (current: %s)",
+            value,
+        )
         return CalculatedDataPoint(
             data_point_key=data_point_key, value=None, unit=TIME_MINUTES
         )
