@@ -163,12 +163,6 @@ LEGACY_ENV_OUTPUT_UNIT_SYSTEM: Final = "OUTPUT_UNIT_SYSTEM"
 LEGACY_ENV_PORT: Final = "PORT"
 LEGACY_ENV_RAW_DATA: Final = "RAW_DATA"
 
-# Defaults:
-DEFAULT_ENDPOINT: Final = "/data/report"
-DEFAULT_HASS_DISCOVERY_PREFIX: Final = "homeassistant"
-DEFAULT_MQTT_PORT: Final = 1883
-DEFAULT_PORT: Final = 8080
-
 # Unit systems:
 UNIT_SYSTEM_IMPERIAL: UnitSystemType = "imperial"
 UNIT_SYSTEM_METRIC: UnitSystemType = "metric"
