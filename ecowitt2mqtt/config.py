@@ -72,6 +72,11 @@ CONFIG_SCHEMA = vol.All(
     vol.Schema(
         {
             vol.Required(CONF_MQTT_BROKER): str,
+            vol.Inclusive(CONF_MQTT_USERNAME, "mqtt_auth"): cv.optional_string,
+            vol.Inclusive(CONF_MQTT_PASSWORD, "mqtt_auth"): cv.optional_string,
+            vol.Optional(CONF_MQTT_PORT, default=DEFAULT_MQTT_PORT): cv.port,
+            vol.Optional(CONF_MQTT_RETAIN, default=False): cv.boolean,
+            vol.Optional(CONF_MQTT_TLS, default=False): cv.boolean,
             vol.Optional(CONF_BATTERY_OVERRIDES, default={}): cv.battery_override,
             vol.Optional(
                 CONF_DEFAULT_BATTERY_STRATEGY, default=BatteryStrategy.BOOLEAN
@@ -82,11 +87,6 @@ CONFIG_SCHEMA = vol.All(
             vol.Optional(CONF_INPUT_UNIT_SYSTEM, default=UNIT_SYSTEM_IMPERIAL): vol.All(
                 str, vol.In(UNIT_SYSTEMS)
             ),
-            vol.Optional(CONF_MQTT_PASSWORD): cv.optional_string,
-            vol.Optional(CONF_MQTT_PORT, default=DEFAULT_MQTT_PORT): cv.port,
-            vol.Optional(CONF_MQTT_RETAIN, default=False): cv.boolean,
-            vol.Optional(CONF_MQTT_TLS, default=False): cv.boolean,
-            vol.Optional(CONF_MQTT_USERNAME): cv.optional_string,
             vol.Optional(
                 CONF_OUTPUT_UNIT_SYSTEM, default=UNIT_SYSTEM_IMPERIAL
             ): vol.All(str, vol.In(UNIT_SYSTEMS)),
