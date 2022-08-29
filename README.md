@@ -495,9 +495,9 @@ Running the image is straightforward:
 
 ```
 docker run -it \
-    -e MQTT_BROKER=192.168.1.101 \
-    -e MQTT_USERNAME=user \
-    -e MQTT_PASSWORD=password \
+    -e ECOWITT2MQTT_MQTT_BROKER=192.168.1.101 \
+    -e ECOWITT2MQTT_MQTT_USERNAME=user \
+    -e ECOWITT2MQTT_MQTT_PASSWORD=password \
     -p 8080:8080 \
     bachya/ecowitt2mqtt:latest
 ```
