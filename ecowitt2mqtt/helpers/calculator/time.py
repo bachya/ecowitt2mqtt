@@ -8,11 +8,11 @@ from ecowitt2mqtt.const import LOGGER, TIME_SECONDS
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
 
 if TYPE_CHECKING:
-    from ecowitt2mqtt.core import Ecowitt
+    from ecowitt2mqtt.config import Config
 
 
 def calculate_dt_from_epoch(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float | str
+    config: Config, payload_key: str, data_point_key: str, value: float | str
 ) -> CalculatedDataPoint:
     """Calculate a datetime from an epoch."""
     try:
@@ -28,7 +28,7 @@ def calculate_dt_from_epoch(
 
 
 def calculate_runtime(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate a datetime from an epoch."""
     return CalculatedDataPoint(

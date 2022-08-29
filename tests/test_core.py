@@ -1,13 +1,10 @@
 """Test the core Ecowitt object."""
-import logging
 from unittest.mock import AsyncMock, patch
 
 import pytest
 
-from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import CONF_VERBOSE
 from ecowitt2mqtt.core import Ecowitt
-from ecowitt2mqtt.runtime import Runtime
 
 from tests.common import TEST_CONFIG_JSON
 
@@ -21,17 +18,13 @@ from tests.common import TEST_CONFIG_JSON
         },
     ],
 )
-def test_ecowitt_create(caplog, config):
+def test_ecowitt_create(config):
     """Test the creation of an Ecowitt object.
 
     This is a just a quick sanity check.
     """
-    caplog.set_level(logging.DEBUG)
     ecowitt = Ecowitt(config)
-    assert any(m for m in caplog.messages if "Loaded config" in m)
-    assert isinstance(ecowitt.config, Config)
-    assert ecowitt.config.verbose is True
-    assert isinstance(ecowitt.runtime, Runtime)
+    assert ecowitt.configs.default_config.verbose is True
 
 
 @pytest.mark.parametrize("config", [{}])

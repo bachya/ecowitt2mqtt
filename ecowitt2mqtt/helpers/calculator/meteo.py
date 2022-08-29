@@ -44,7 +44,7 @@ from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
 from ecowitt2mqtt.helpers.typing import UnitSystemType
 
 if TYPE_CHECKING:
-    from ecowitt2mqtt.core import Ecowitt
+    from ecowitt2mqtt.config import Config
 
 FROST_RISK_HUMIDITY_ABS_THRESHOLD = 2.8
 
@@ -552,28 +552,28 @@ def _get_temperature_object(
 
 
 def calculate_absolute_humidity(
-    ecowitt: Ecowitt,
+    config: Config,
     payload_key: str,
     data_point_key: str,
     temperature: float,
     relative_humidity: float,
 ) -> CalculatedDataPoint:
     """Calculate absolute humidity."""
-    temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
+    temp_obj = _get_temperature_object(temperature, config.input_unit_system)
     final_value = _get_absolute_humidity(temp_obj, relative_humidity)
 
-    if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+    if config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
         final_value /= 16018.46592051
 
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=round(final_value, 1),
-        unit=ABSOLUTE_HUMIDITY_MAP[ecowitt.config.output_unit_system],
+        unit=ABSOLUTE_HUMIDITY_MAP[config.output_unit_system],
     )
 
 
 def calculate_beaufort_scale(
-    ecowitt: Ecowitt,
+    config: Config,
     payload_key: str,
     data_point_key: str,
     wind_speed: float,
@@ -583,11 +583,11 @@ def calculate_beaufort_scale(
         r
         for r in BEAUFORT_SCALE_RATINGS
         if (
-            ecowitt.config.input_unit_system == UNIT_SYSTEM_IMPERIAL
+            config.input_unit_system == UNIT_SYSTEM_IMPERIAL
             and r.minimum_mph <= wind_speed < r.maximum_mph
         )
         or (
-            ecowitt.config.input_unit_system == UNIT_SYSTEM_METRIC
+            config.input_unit_system == UNIT_SYSTEM_METRIC
             and r.minimum_kmh <= wind_speed < r.maximum_kmh
         )
     ]
@@ -604,7 +604,7 @@ def calculate_beaufort_scale(
 
 
 def calculate_co2(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate CO2."""
     return CalculatedDataPoint(
@@ -613,17 +613,17 @@ def calculate_co2(
 
 
 def calculate_dew_point(
-    ecowitt: Ecowitt,
+    config: Config,
     payload_key: str,
     data_point_key: str,
     temperature: float,
     relative_humidity: float,
 ) -> CalculatedDataPoint:
     """Calculate dew point in the appropriate unit system."""
-    temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
+    temp_obj = _get_temperature_object(temperature, config.input_unit_system)
     dew_point_obj = meteocalc.dew_point(temp_obj, relative_humidity)
 
-    if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+    if config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
         final_value = round(dew_point_obj.f, 1)
     else:
         final_value = round(dew_point_obj.c, 1)
@@ -631,12 +631,12 @@ def calculate_dew_point(
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
-        unit=TEMP_UNIT_MAP[ecowitt.config.output_unit_system],
+        unit=TEMP_UNIT_MAP[config.output_unit_system],
     )
 
 
 def calculate_feels_like(  # pylint: disable=too-many-arguments
-    ecowitt: Ecowitt,
+    config: Config,
     payload_key: str,
     data_point_key: str,
     temperature: float,
@@ -644,10 +644,10 @@ def calculate_feels_like(  # pylint: disable=too-many-arguments
     wind_speed: float,
 ) -> CalculatedDataPoint:
     """Calculate "feels like" temperature in the appropriate unit system."""
-    temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
+    temp_obj = _get_temperature_object(temperature, config.input_unit_system)
     feels_like_obj = meteocalc.feels_like(temp_obj, relative_humidity, wind_speed)
 
-    if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+    if config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
         final_value = round(feels_like_obj.f, 1)
     else:
         final_value = round(feels_like_obj.c, 1)
@@ -655,22 +655,22 @@ def calculate_feels_like(  # pylint: disable=too-many-arguments
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
-        unit=TEMP_UNIT_MAP[ecowitt.config.output_unit_system],
+        unit=TEMP_UNIT_MAP[config.output_unit_system],
     )
 
 
 def calculate_frost_point(
-    ecowitt: Ecowitt,
+    config: Config,
     payload_key: str,
     data_point_key: str,
     temperature: float,
     relative_humidity: float,
 ) -> CalculatedDataPoint:
     """Calculate frost point in the appropriate unit system."""
-    temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
+    temp_obj = _get_temperature_object(temperature, config.input_unit_system)
     frost_point_obj = _get_frost_point_object(temp_obj, relative_humidity)
 
-    if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+    if config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
         final_value = round(frost_point_obj.f, 1)
     else:
         final_value = round(frost_point_obj.c, 1)
@@ -678,19 +678,19 @@ def calculate_frost_point(
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
-        unit=TEMP_UNIT_MAP[ecowitt.config.output_unit_system],
+        unit=TEMP_UNIT_MAP[config.output_unit_system],
     )
 
 
 def calculate_frost_risk(
-    ecowitt: Ecowitt,
+    config: Config,
     payload_key: str,
     data_point_key: str,
     temperature: float,
     relative_humidity: float,
 ) -> CalculatedDataPoint:
     """Calculate the risk of frost forming."""
-    temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
+    temp_obj = _get_temperature_object(temperature, config.input_unit_system)
     absolute_humidity = _get_absolute_humidity(temp_obj, relative_humidity)
     frost_point_obj = _get_frost_point_object(temp_obj, relative_humidity)
 
@@ -712,17 +712,17 @@ def calculate_frost_risk(
 
 
 def calculate_heat_index(
-    ecowitt: Ecowitt,
+    config: Config,
     payload_key: str,
     data_point_key: str,
     temperature: float,
     relative_humidity: float,
 ) -> CalculatedDataPoint:
     """Calculate heat index in the appropriate unit system."""
-    temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
+    temp_obj = _get_temperature_object(temperature, config.input_unit_system)
     heat_index_obj = meteocalc.heat_index(temp_obj, relative_humidity)
 
-    if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+    if config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
         final_value = round(heat_index_obj.f, 1)
     else:
         final_value = round(heat_index_obj.c, 1)
@@ -730,12 +730,12 @@ def calculate_heat_index(
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
-        unit=TEMP_UNIT_MAP[ecowitt.config.output_unit_system],
+        unit=TEMP_UNIT_MAP[config.output_unit_system],
     )
 
 
 def calculate_lightning_strike_distance(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate lightning strike distance in the appropriate unit system.
 
@@ -747,7 +747,7 @@ def calculate_lightning_strike_distance(
         LOGGER.debug("Can't convert value to number: %s", value)
         return CalculatedDataPoint(data_point_key=data_point_key, value=None)
 
-    if ecowitt.config.output_unit_system == UNIT_SYSTEM_METRIC:
+    if config.output_unit_system == UNIT_SYSTEM_METRIC:
         final_value = value
     else:
         final_value = round(value / 1.609, 1)
@@ -755,19 +755,19 @@ def calculate_lightning_strike_distance(
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
-        unit=DISTANCE_UNIT_MAP[ecowitt.config.output_unit_system],
+        unit=DISTANCE_UNIT_MAP[config.output_unit_system],
     )
 
 
 def calculate_lightning_strikes(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate lightning strikes."""
     return CalculatedDataPoint(data_point_key=data_point_key, value=value, unit=STRIKES)
 
 
 def calculate_moisture(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate moisture."""
     return CalculatedDataPoint(
@@ -776,7 +776,7 @@ def calculate_moisture(
 
 
 def calculate_pm25(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate PM2.5 pollution."""
     return CalculatedDataPoint(
@@ -787,7 +787,7 @@ def calculate_pm25(
 
 
 def calculate_pm10(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate PM10.0 pollution."""
     return CalculatedDataPoint(
@@ -798,12 +798,12 @@ def calculate_pm10(
 
 
 def calculate_pressure(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate pressure in the appropriate unit system."""
-    if ecowitt.config.input_unit_system == ecowitt.config.output_unit_system:
+    if config.input_unit_system == config.output_unit_system:
         final_value = value
-    elif ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+    elif config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
         final_value = round(value / 33.8639, 3)
     else:
         final_value = round(value * 33.8639, 3)
@@ -811,28 +811,26 @@ def calculate_pressure(
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
-        unit=PRESSURE_UNIT_MAP[ecowitt.config.output_unit_system],
+        unit=PRESSURE_UNIT_MAP[config.output_unit_system],
     )
 
 
 def calculate_rain_rate(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate rain rate in the appropriate unit system."""
-    data_point = calculate_rain_volume(
-        ecowitt, payload_key, data_point_key, value=value
-    )
+    data_point = calculate_rain_volume(config, payload_key, data_point_key, value=value)
     data_point.unit = f"{data_point.unit}/hr"
     return data_point
 
 
 def calculate_rain_volume(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate rain volume in the appropriate unit system."""
-    if ecowitt.config.input_unit_system == ecowitt.config.output_unit_system:
+    if config.input_unit_system == config.output_unit_system:
         final_value = value
-    elif ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+    elif config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
         final_value = round(value / 25.4, 1)
     else:
         final_value = round(value * 25.4, 1)
@@ -840,12 +838,12 @@ def calculate_rain_volume(
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
-        unit=RAIN_VOLUME_UNIT_MAP[ecowitt.config.output_unit_system],
+        unit=RAIN_VOLUME_UNIT_MAP[config.output_unit_system],
     )
 
 
 def calculate_relative_humidity(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate relative humidity."""
     return CalculatedDataPoint(
@@ -854,7 +852,7 @@ def calculate_relative_humidity(
 
 
 def calculate_safe_exposure_time(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate the number of minutes one can be safely exposed to a UV index."""
     safe_exposure_info = SAFE_EXPOSURE_INFO_MAP[payload_key]
@@ -883,25 +881,25 @@ def calculate_safe_exposure_time(
 
 
 def calculate_simmer_index(
-    ecowitt: Ecowitt,
+    config: Config,
     payload_key: str,
     data_point_key: str,
     temperature: float,
     relative_humidity: float,
 ) -> CalculatedDataPoint:
     """Calculate simmer index in the appropriate unit system."""
-    temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
+    temp_obj = _get_temperature_object(temperature, config.input_unit_system)
 
     try:
         simmer_obj = _get_simmer_index_object(
-            temp_obj, relative_humidity, ecowitt.config.input_unit_system
+            temp_obj, relative_humidity, config.input_unit_system
         )
     except ValueError as err:
         LOGGER.debug("%s (temperature: %s)", err, temp_obj)
         final_value = None
     else:
         assert simmer_obj
-        if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+        if config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
             final_value = round(simmer_obj.f, 1)
         else:
             final_value = round(simmer_obj.c, 1)
@@ -909,23 +907,23 @@ def calculate_simmer_index(
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
-        unit=TEMP_UNIT_MAP[ecowitt.config.output_unit_system],
+        unit=TEMP_UNIT_MAP[config.output_unit_system],
     )
 
 
 def calculate_simmer_zone(
-    ecowitt: Ecowitt,
+    config: Config,
     payload_key: str,
     data_point_key: str,
     temperature: float,
     relative_humidity: float,
 ) -> CalculatedDataPoint:
     """Calculate the human perception of comfort level related to temperature."""
-    temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
+    temp_obj = _get_temperature_object(temperature, config.input_unit_system)
 
     try:
         simmer_obj = _get_simmer_index_object(
-            temp_obj, relative_humidity, ecowitt.config.input_unit_system
+            temp_obj, relative_humidity, config.input_unit_system
         )
     except ValueError as err:
         LOGGER.debug("%s (temperature: %s)", err, temp_obj)
@@ -941,7 +939,7 @@ def calculate_simmer_zone(
 
 
 def calculate_solar_radiation_lux(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate solar radiation (lux)."""
     return CalculatedDataPoint(
@@ -952,11 +950,11 @@ def calculate_solar_radiation_lux(
 
 
 def calculate_solar_radiation_perceived(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate solar radiation (% perceived)."""
     lux_data_point = calculate_solar_radiation_lux(
-        ecowitt, payload_key, data_point_key, value=value
+        config, payload_key, data_point_key, value=value
     )
 
     assert isinstance(lux_data_point.value, float)
@@ -973,7 +971,7 @@ def calculate_solar_radiation_perceived(
 
 
 def calculate_solar_radiation_wm2(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate solar radiation (W/m²)."""
     return CalculatedDataPoint(
@@ -984,20 +982,20 @@ def calculate_solar_radiation_wm2(
 
 
 def calculate_temperature(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate temperature in the appropriate unit system."""
-    temp_obj = _get_temperature_object(value, ecowitt.config.input_unit_system)
+    temp_obj = _get_temperature_object(value, config.input_unit_system)
 
     if temp_obj.f < IMPERIAL_LOW_THRESHOLD or temp_obj.f > IMPERIAL_HIGH_THRESHOLD:
         LOGGER.warning(
             'Value of "%s" (%s) with input unit system "%s" seems suspicious',
             payload_key,
             value,
-            ecowitt.config.input_unit_system,
+            config.input_unit_system,
         )
 
-    if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+    if config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
         final_value = round(temp_obj.f, 1)
     else:
         final_value = round(temp_obj.c, 1)
@@ -1005,19 +1003,19 @@ def calculate_temperature(
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
-        unit=TEMP_UNIT_MAP[ecowitt.config.output_unit_system],
+        unit=TEMP_UNIT_MAP[config.output_unit_system],
     )
 
 
 def calculate_thermal_perception(
-    ecowitt: Ecowitt,
+    config: Config,
     payload_key: str,
     data_point_key: str,
     temperature: float,
     relative_humidity: float,
 ) -> CalculatedDataPoint:
     """Calculate the human perception of comfort level related to dew point."""
-    temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
+    temp_obj = _get_temperature_object(temperature, config.input_unit_system)
     dew_point_obj = meteocalc.dew_point(temp_obj, relative_humidity)
 
     [rating] = [
@@ -1030,7 +1028,7 @@ def calculate_thermal_perception(
 
 
 def calculate_uv_index(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate UV index."""
     return CalculatedDataPoint(
@@ -1039,7 +1037,7 @@ def calculate_uv_index(
 
 
 def calculate_wind_chill(
-    ecowitt: Ecowitt,
+    config: Config,
     payload_key: str,
     data_point_key: str,
     temperature: float,
@@ -1050,7 +1048,7 @@ def calculate_wind_chill(
     Note that because wind chill only applies at certain combinations of temperature
     and wind speed, it is possible for this method to return None.
     """
-    temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
+    temp_obj = _get_temperature_object(temperature, config.input_unit_system)
 
     try:
         wind_chill_obj = meteocalc.wind_chill(temp_obj, wind_speed)
@@ -1063,7 +1061,7 @@ def calculate_wind_chill(
         )
         final_value = None
     else:
-        if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+        if config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
             final_value = round(wind_chill_obj.f, 1)
         else:
             final_value = round(wind_chill_obj.c, 1)
@@ -1071,24 +1069,24 @@ def calculate_wind_chill(
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
-        unit=TEMP_UNIT_MAP[ecowitt.config.output_unit_system],
+        unit=TEMP_UNIT_MAP[config.output_unit_system],
     )
 
 
 def calculate_wind_dir(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate wind direction."""
     return CalculatedDataPoint(data_point_key=data_point_key, value=value, unit=DEGREE)
 
 
 def calculate_wind_speed(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate wind speed in the appropriate unit system."""
-    if ecowitt.config.input_unit_system == ecowitt.config.output_unit_system:
+    if config.input_unit_system == config.output_unit_system:
         final_value = value
-    elif ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+    elif config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
         final_value = round(value / 1.60934, 1)
     else:
         final_value = round(value * 1.60934, 1)
@@ -1096,5 +1094,5 @@ def calculate_wind_speed(
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
-        unit=WIND_SPEED_UNIT_MAP[ecowitt.config.output_unit_system],
+        unit=WIND_SPEED_UNIT_MAP[config.output_unit_system],
     )

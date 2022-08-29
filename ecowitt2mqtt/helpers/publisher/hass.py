@@ -3,11 +3,12 @@ from __future__ import annotations
 
 import asyncio
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Any, TypedDict
+from typing import Any, TypedDict
 
 from asyncio_mqtt import Client, MqttError
 
 from ecowitt2mqtt.backports.enum import StrEnum
+from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import (
     DATA_POINT_BEAUFORT_SCALE,
     DATA_POINT_CO2,
@@ -82,9 +83,6 @@ from ecowitt2mqtt.helpers.calculator.battery import (
 from ecowitt2mqtt.helpers.device import Device
 from ecowitt2mqtt.helpers.publisher import MqttPublisher, generate_mqtt_payload
 from ecowitt2mqtt.helpers.typing import DataValueType
-
-if TYPE_CHECKING:
-    from ecowitt2mqtt.core import Ecowitt
 
 
 class DeviceClass(StrEnum):
@@ -396,9 +394,9 @@ def get_availability_payload(data_point: CalculatedDataPoint) -> str:
 class HomeAssistantDiscoveryPublisher(MqttPublisher):
     """Define an MQTT publisher for the MQTT Discovery standard."""
 
-    def __init__(self, ecowitt: Ecowitt) -> None:
+    def __init__(self, config: Config, client: Client) -> None:
         """Initialize."""
-        super().__init__(ecowitt)
+        super().__init__(config, client)
 
         self._discovery_payloads: dict[str, HassDiscoveryPayload] = {}
 
@@ -409,7 +407,7 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
         # Since batteries can be one of many different strategies, we calculate an
         # entity description at runtime:
         if data_point.data_point_key in (DATA_POINT_GLOB_BATT, DATA_POINT_GLOB_VOLT):
-            strategy = get_battery_strategy(self.ecowitt, payload_key)
+            strategy = get_battery_strategy(self._config, payload_key)
             if strategy == BatteryStrategy.BOOLEAN:
                 data_point_key = DATA_POINT_BATTERY_BOOLEAN
             elif strategy == BatteryStrategy.NUMERIC:
@@ -419,14 +417,14 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
         else:
             data_point_key = data_point.data_point_key
 
-        if self.ecowitt.config.hass_entity_id_prefix:
-            name = f"{self.ecowitt.config.hass_entity_id_prefix}_{payload_key}"
+        if self._config.hass_entity_id_prefix:
+            name = f"{self._config.hass_entity_id_prefix}_{payload_key}"
         else:
             name = payload_key
 
         base_topic = (
-            f"{self.ecowitt.config.hass_discovery_prefix}"
-            f"/{PLATFORM_MAP[data_point.data_type]}/{device.unique_id}/{payload_key}"
+            f"{self._config.hass_discovery_prefix}/{PLATFORM_MAP[data_point.data_type]}"
+            f"/{device.unique_id}/{payload_key}"
         )
 
         payload = self._discovery_payloads[payload_key] = HassDiscoveryPayload(
@@ -442,7 +440,7 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
                 "json_attributes_topic": f"{base_topic}/attributes",
                 "name": name,
                 "qos": 1,
-                "retain": self.ecowitt.config.mqtt_retain,
+                "retain": self._config.mqtt_retain,
                 "state_topic": f"{base_topic}/state",
                 "unique_id": f"{device.unique_id}_{payload_key}",
             },
@@ -476,11 +474,9 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
 
         return payload
 
-    async def async_publish(
-        self, client: Client, data: dict[str, DataValueType]
-    ) -> None:
+    async def async_publish(self, data: dict[str, DataValueType]) -> None:
         """Publish to MQTT."""
-        processed_data = ProcessedData(self.ecowitt, data)
+        processed_data = ProcessedData(self._config, data)
         tasks = []
 
         try:
@@ -503,10 +499,10 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
                 ):
                     tasks.append(
                         asyncio.create_task(
-                            client.publish(
+                            self._client.publish(
                                 topic,
                                 payload=generate_mqtt_payload(payload),
-                                retain=self.ecowitt.config.mqtt_retain,
+                                retain=self._config.mqtt_retain,
                             )
                         )
                     )

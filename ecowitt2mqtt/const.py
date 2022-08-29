@@ -15,6 +15,7 @@ CONF_DEFAULT_BATTERY_STRATEGY: Final = "default_battery_strategy"
 CONF_DIAGNOSTICS: Final = "diagnostics"
 CONF_DISABLE_CALCULATED_DATA: Final = "disable_calculated_data"
 CONF_ENDPOINT: Final = "endpoint"
+CONF_GATEWAYS: Final = "gateways"
 CONF_HASS_DISCOVERY: Final = "hass_discovery"
 CONF_HASS_DISCOVERY_PREFIX: Final = "hass_discovery_prefix"
 CONF_HASS_ENTITY_ID_PREFIX: Final = "hass_entity_id_prefix"
@@ -30,6 +31,7 @@ CONF_OUTPUT_UNIT_SYSTEM: Final = "output_unit_system"
 CONF_PORT: Final = "port"
 CONF_RAW_DATA: Final = "raw_data"
 CONF_VERBOSE: Final = "verbose"
+
 
 # Data points (glob):
 DATA_POINT_GLOB_BAROM: Final = "barom"

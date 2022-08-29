@@ -9,6 +9,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 import pytest_asyncio
 
+from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.core import Ecowitt
 
 from tests.common import TEST_CONFIG_JSON, load_fixture

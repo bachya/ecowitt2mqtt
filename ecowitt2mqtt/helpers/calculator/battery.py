@@ -28,7 +28,7 @@ from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, DataPointType
 from ecowitt2mqtt.util import glob_search
 
 if TYPE_CHECKING:
-    from ecowitt2mqtt.core import Ecowitt
+    from ecowitt2mqtt.config import Config
 
 
 class BatteryStrategy(StrEnum):
@@ -67,10 +67,10 @@ BATTERY_STRATEGY_MAP = {
 
 
 def calculate_battery(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate a battery value."""
-    strategy = get_battery_strategy(ecowitt, payload_key)
+    strategy = get_battery_strategy(config, payload_key)
 
     if strategy == BatteryStrategy.NUMERIC:
         return CalculatedDataPoint(
@@ -100,9 +100,9 @@ def calculate_battery(
     )
 
 
-def get_battery_strategy(ecowitt: Ecowitt, key: str) -> BatteryStrategy:
+def get_battery_strategy(config: Config, key: str) -> BatteryStrategy:
     """Get the battery strategy for a particular key."""
-    strategies = [ecowitt.config.battery_overrides.get(key)]
+    strategies = [config.battery_overrides.get(key)]
 
     data_point, strategy = glob_search(BATTERY_STRATEGY_MAP, key)
     if data_point:
@@ -115,4 +115,4 @@ def get_battery_strategy(ecowitt: Ecowitt, key: str) -> BatteryStrategy:
         if strategy is not None:
             return strategy
 
-    return ecowitt.config.default_battery_strategy
+    return config.default_battery_strategy

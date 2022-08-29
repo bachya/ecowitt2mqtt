@@ -64,7 +64,7 @@ from tests.common import TEST_CONFIG_JSON
 @pytest.mark.parametrize("device_data_filename", ["payload_gw1100b.json"])
 def test_battery_config(device_data, ecowitt):
     """Test overriding a battery configuration."""
-    processed_data = ProcessedData(ecowitt, device_data)
+    processed_data = ProcessedData(ecowitt.configs.default_config, device_data)
     assert processed_data.output == {
         "tempin": CalculatedDataPoint(
             "temp",
@@ -417,7 +417,7 @@ def test_battery_config(device_data, ecowitt):
 @pytest.mark.parametrize("device_data_filename", ["payload_gw1100b.json"])
 def test_default_battery_strategy(device_data, ecowitt):
     """Test overriding the default battery configuration."""
-    processed_data = ProcessedData(ecowitt, device_data)
+    processed_data = ProcessedData(ecowitt.configs.default_config, device_data)
     assert processed_data.output == {
         "tempin": CalculatedDataPoint(
             "temp",
@@ -792,7 +792,7 @@ def test_default_battery_strategy(device_data, ecowitt):
 )
 def test_device(device, device_data, ecowitt):
     """Test that a device object is properly created from a data payload."""
-    processed_data = ProcessedData(ecowitt, device_data)
+    processed_data = ProcessedData(ecowitt.configs.default_config, device_data)
     assert processed_data.device == device
 
 
@@ -807,7 +807,7 @@ def test_device(device, device_data, ecowitt):
 )
 def test_disable_calculated_data(device_data, ecowitt):
     """Test the disabling of calculated sensors."""
-    processed_data = ProcessedData(ecowitt, device_data)
+    processed_data = ProcessedData(ecowitt.configs.default_config, device_data)
     assert processed_data.output == {
         "runtime": CalculatedDataPoint(
             "runtime",
@@ -980,7 +980,7 @@ def test_disable_calculated_data(device_data, ecowitt):
 @pytest.mark.parametrize("device_data_filename", ["payload_gw2000a_1.json"])
 def test_missing_distance(device_data, ecowitt, request):
     """Test that a distance key with an invalid value doesn't throw an error."""
-    processed_data = ProcessedData(ecowitt, device_data)
+    processed_data = ProcessedData(ecowitt.configs.default_config, device_data)
     assert processed_data.output == {
         "ws90_ver": CalculatedDataPoint(
             data_point_key="ws90_ver",
@@ -1391,7 +1391,7 @@ def test_missing_distance(device_data, ecowitt, request):
 def test_nonnumeric_value(device_data, ecowitt):
     """Test a value that can't be parsed as a number."""
     device_data["Random New Key"] = "Some Value"
-    processed_data = ProcessedData(ecowitt, device_data)
+    processed_data = ProcessedData(ecowitt.configs.default_config, device_data)
     assert processed_data.output == {
         "runtime": CalculatedDataPoint(
             "runtime",
@@ -4946,7 +4946,7 @@ def test_nonnumeric_value(device_data, ecowitt):
 )
 def test_process(device_data, ecowitt, expected_output, request):
     """Test processing a raw data payload."""
-    processed_data = ProcessedData(ecowitt, device_data)
+    processed_data = ProcessedData(ecowitt.configs.default_config, device_data)
     assert processed_data.output == expected_output
 
 
@@ -4962,7 +4962,7 @@ def test_process(device_data, ecowitt, expected_output, request):
 def test_suspcious_temperature_value(caplog, device_data, ecowitt):
     """Test logging a warning when a suspicious temperature value is seen."""
     with pytest.raises(ValueError):
-        _ = ProcessedData(ecowitt, device_data)
+        _ = ProcessedData(ecowitt.configs.default_config, device_data)
 
     assert any(
         m
@@ -4984,7 +4984,7 @@ def test_suspcious_temperature_value(caplog, device_data, ecowitt):
 @pytest.mark.parametrize("device_data_filename", ["payload_gw1000bpro_metric.json"])
 def test_unit_conversion_to_imperial(device_data, ecowitt):
     """Test conversion between units."""
-    processed_data = ProcessedData(ecowitt, device_data)
+    processed_data = ProcessedData(ecowitt.configs.default_config, device_data)
     assert processed_data.output == {
         "runtime": CalculatedDataPoint(
             "runtime",
@@ -6018,14 +6018,14 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
 )
 def test_unit_conversion_to_metric(device_data, ecowitt, expected_output):
     """Test conversion between units."""
-    processed_data = ProcessedData(ecowitt, device_data)
+    processed_data = ProcessedData(ecowitt.configs.default_config, device_data)
     assert processed_data.output == expected_output
 
 
 def test_unknown_battery(device_data, ecowitt):
     """Test that an unknown battery is given the default strategy."""
     device_data["playstationbattery1"] = 0
-    processed_data = ProcessedData(ecowitt, device_data)
+    processed_data = ProcessedData(ecowitt.configs.default_config, device_data)
     assert processed_data.output == {
         "runtime": CalculatedDataPoint(
             "runtime",

@@ -14,6 +14,7 @@ from ecowitt2mqtt.const import (
     CONF_DIAGNOSTICS,
     CONF_DISABLE_CALCULATED_DATA,
     CONF_ENDPOINT,
+    CONF_GATEWAYS,
     CONF_HASS_DISCOVERY,
     CONF_HASS_DISCOVERY_PREFIX,
     CONF_HASS_ENTITY_ID_PREFIX,
@@ -43,7 +44,6 @@ import ecowitt2mqtt.helpers.config_validation as cv
 from ecowitt2mqtt.helpers.typing import UnitSystemType
 
 CONF_DEFAULT = "default"
-CONF_GATEWAYS = "gateways"
 
 HASS_DISCOVERY_SCHEMA = vol.Schema(
     {
@@ -124,13 +124,7 @@ class Config:  # pylint: disable=too-many-public-methods
 
     def __init__(self, config: dict[str, Any]) -> None:
         """Initialize."""
-        self._config = {}
-
-        # If the user provides a config file, attempt to load it:
-        if config_path := config.get(CONF_CONFIG):
-            self._config = load_config_from_file(config_path)
-
-        self._config.update(config)
+        self._config = {**config}
 
         # The battery override env var is the only one that isn't passed through from
         # the CLI (given its special format), so check for it here:
@@ -142,7 +136,12 @@ class Config:  # pylint: disable=too-many-public-methods
         except vol.Invalid as err:
             raise ConfigError(err) from err
 
-    def __str__(self) -> str:
+        self._mqtt_connection_info = (
+            f"{self._config[CONF_MQTT_BROKER]}{self._config[CONF_MQTT_PORT]}"
+            f"{self._config.get(CONF_MQTT_USERNAME)}"
+        )
+
+    def __repr__(self) -> str:
         """Define a string representation of this object."""
         return str(self._config)
 
@@ -197,6 +196,11 @@ class Config:  # pylint: disable=too-many-public-methods
         return cast(str, self._config[CONF_MQTT_BROKER])
 
     @property
+    def mqtt_connection_info(self) -> str:
+        """Return a string representation of MQTT connection parameters."""
+        return self._mqtt_connection_info
+
+    @property
     def mqtt_password(self) -> str | None:
         """Return the MQTT broker password."""
         return self._config.get(CONF_MQTT_PASSWORD)
@@ -245,3 +249,38 @@ class Config:  # pylint: disable=too-many-public-methods
     def verbose(self) -> bool:
         """Return whether verbose logging is enabled."""
         return cast(bool, self._config[CONF_VERBOSE])
+
+
+class Configs:
+    """Define a coordinator of various Config objects."""
+
+    def __init__(self, config: dict[str, Any]) -> None:
+        """Initialize."""
+        self._configs: dict[str, Config] = {}
+        self._config_file_parser = YAML(typ="safe")
+
+        if config_path := config.get(CONF_CONFIG):
+            config_file_config = load_config_from_file(config_path)
+        else:
+            config_file_config = {}
+
+        # Store the default config:
+        self._configs[CONF_DEFAULT] = Config({**config_file_config, **config})
+
+        # Store configs for any gateways:
+        gateways_file_config = config_file_config.get(CONF_GATEWAYS, {})
+        for passkey, gateway_config in gateways_file_config.items():
+            self._configs[passkey] = Config({**gateway_config, **config})
+
+    def __repr__(self) -> str:
+        """Define a string representation of this object."""
+        return f"<Configs _configs={self._configs}"
+
+    @property
+    def default_config(self) -> Config:
+        """Return the default config."""
+        return self._configs[CONF_DEFAULT]
+
+    def get(self, passkey: str) -> Config:
+        """Get the config for a particular passkey (returning the default if none)."""
+        return self._configs.get(passkey, self.default_config)

@@ -13,7 +13,15 @@ from tests.common import TEST_CONFIG_JSON, TEST_ENDPOINT, TEST_PORT
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("config", [{**TEST_CONFIG_JSON, CONF_DIAGNOSTICS: True}])
+@pytest.mark.parametrize(
+    "config",
+    [
+        {
+            **TEST_CONFIG_JSON,
+            CONF_DIAGNOSTICS: True,
+        }
+    ],
+)
 async def test_get_diagnostics(
     caplog, device_data, ecowitt, setup_asyncio_mqtt, setup_uvicorn_server
 ):
