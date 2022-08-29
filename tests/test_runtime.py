@@ -1,11 +1,6 @@
 """Define tests for the API server."""
 from __future__ import annotations
 
-import asyncio
-import logging
-import os
-import signal
-import subprocess
 from unittest.mock import AsyncMock
 
 from aiohttp import ClientSession
@@ -23,7 +18,6 @@ async def test_get_diagnostics(
     caplog, device_data, ecowitt, setup_asyncio_mqtt, setup_uvicorn_server
 ):
     """Test getting diagnostics."""
-    caplog.set_level(logging.DEBUG)
     async with ClientSession() as session:
         resp = await session.request(
             "post",

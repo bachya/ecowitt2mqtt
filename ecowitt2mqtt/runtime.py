@@ -5,7 +5,6 @@ import asyncio
 import logging
 import signal
 from ssl import SSLContext
-import traceback
 from types import FrameType
 from typing import TYPE_CHECKING, Any
 
@@ -94,14 +93,13 @@ class Runtime:
                         retry_attempt = 0
 
                         if self.ecowitt.config.diagnostics:
-                            LOGGER.debug("*** DIAGNOSTICS COLLECTED")
+                            LOGGER.info("*** DIAGNOSTICS COLLECTED")
                             self.stop()
             except asyncio.CancelledError:
                 LOGGER.debug("Stopping MQTT process loop")
                 raise
             except MqttError as err:
                 LOGGER.error("There was an MQTT error: %s", err)
-                LOGGER.debug("".join(traceback.format_tb(err.__traceback__)))
 
             retry_attempt += 1
             delay = min(retry_attempt**2, DEFAULT_MAX_RETRY_INTERVAL)

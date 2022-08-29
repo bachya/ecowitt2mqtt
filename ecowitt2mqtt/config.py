@@ -33,36 +33,7 @@ from ecowitt2mqtt.const import (
     DEFAULT_HASS_DISCOVERY_PREFIX,
     DEFAULT_MQTT_PORT,
     DEFAULT_PORT,
-    ENV_BATTERY_OVERRIDE,
-    ENV_ENDPOINT,
-    ENV_HASS_DISCOVERY,
-    ENV_HASS_DISCOVERY_PREFIX,
-    ENV_HASS_ENTITY_ID_PREFIX,
-    ENV_INPUT_UNIT_SYSTEM,
-    ENV_MQTT_BROKER,
-    ENV_MQTT_PASSWORD,
-    ENV_MQTT_PORT,
-    ENV_MQTT_TOPIC,
-    ENV_MQTT_USERNAME,
-    ENV_OUTPUT_UNIT_SYSTEM,
-    ENV_PORT,
-    ENV_RAW_DATA,
-    ENV_VERBOSE,
-    LEGACY_ENV_ENDPOINT,
-    LEGACY_ENV_HASS_DISCOVERY,
-    LEGACY_ENV_HASS_DISCOVERY_PREFIX,
-    LEGACY_ENV_HASS_ENTITY_ID_PREFIX,
-    LEGACY_ENV_INPUT_UNIT_SYSTEM,
-    LEGACY_ENV_LOG_LEVEL,
-    LEGACY_ENV_MQTT_BROKER,
-    LEGACY_ENV_MQTT_PASSWORD,
-    LEGACY_ENV_MQTT_PORT,
-    LEGACY_ENV_MQTT_TOPIC,
-    LEGACY_ENV_MQTT_USERNAME,
-    LEGACY_ENV_OUTPUT_UNIT_SYSTEM,
-    LEGACY_ENV_PORT,
-    LEGACY_ENV_RAW_DATA,
-    LOGGER,
+    ENV_BATTERY_OVERRIDES,
     UNIT_SYSTEM_IMPERIAL,
     UNIT_SYSTEMS,
 )
@@ -71,29 +42,12 @@ from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 import ecowitt2mqtt.helpers.config_validation as cv
 from ecowitt2mqtt.helpers.typing import UnitSystemType
 
-DEPRECATED_ENV_VAR_MAP = {
-    LEGACY_ENV_ENDPOINT: ENV_ENDPOINT,
-    LEGACY_ENV_HASS_DISCOVERY: ENV_HASS_DISCOVERY,
-    LEGACY_ENV_HASS_DISCOVERY_PREFIX: ENV_HASS_DISCOVERY_PREFIX,
-    LEGACY_ENV_HASS_ENTITY_ID_PREFIX: ENV_HASS_ENTITY_ID_PREFIX,
-    LEGACY_ENV_INPUT_UNIT_SYSTEM: ENV_INPUT_UNIT_SYSTEM,
-    LEGACY_ENV_LOG_LEVEL: ENV_VERBOSE,
-    LEGACY_ENV_MQTT_BROKER: ENV_MQTT_BROKER,
-    LEGACY_ENV_MQTT_PASSWORD: ENV_MQTT_PASSWORD,
-    LEGACY_ENV_MQTT_PORT: ENV_MQTT_PORT,
-    LEGACY_ENV_MQTT_TOPIC: ENV_MQTT_TOPIC,
-    LEGACY_ENV_MQTT_USERNAME: ENV_MQTT_USERNAME,
-    LEGACY_ENV_OUTPUT_UNIT_SYSTEM: ENV_OUTPUT_UNIT_SYSTEM,
-    LEGACY_ENV_PORT: ENV_PORT,
-    LEGACY_ENV_RAW_DATA: ENV_RAW_DATA,
-}
-
 CONF_DEFAULT = "default"
 CONF_GATEWAYS = "gateways"
 
 HASS_DISCOVERY_SCHEMA = vol.Schema(
     {
-        vol.Required(CONF_HASS_DISCOVERY): vol.All(bool, True),
+        vol.Required(CONF_HASS_DISCOVERY): vol.All(cv.boolean, True),
         vol.Optional(
             CONF_HASS_DISCOVERY_PREFIX, default=DEFAULT_HASS_DISCOVERY_PREFIX
         ): str,
@@ -104,9 +58,6 @@ HASS_DISCOVERY_SCHEMA = vol.Schema(
 
 MQTT_TOPIC_SCHEMA = vol.Schema(
     {
-        # We use str instead of str because the CLI will send a value of None
-        # when this option isn't provided; str allows for None, but in this case,
-        # it's an invalid value:
         vol.Required(CONF_MQTT_TOPIC): str,
     },
     extra=vol.ALLOW_EXTRA,
@@ -125,23 +76,23 @@ CONFIG_SCHEMA = vol.All(
             vol.Optional(
                 CONF_DEFAULT_BATTERY_STRATEGY, default=BatteryStrategy.BOOLEAN
             ): vol.Coerce(BatteryStrategy),
-            vol.Optional(CONF_DIAGNOSTICS, default=False): bool,
-            vol.Optional(CONF_DISABLE_CALCULATED_DATA, default=False): bool,
+            vol.Optional(CONF_DIAGNOSTICS, default=False): cv.boolean,
+            vol.Optional(CONF_DISABLE_CALCULATED_DATA, default=False): cv.boolean,
             vol.Optional(CONF_ENDPOINT, default=DEFAULT_ENDPOINT): str,
             vol.Optional(CONF_INPUT_UNIT_SYSTEM, default=UNIT_SYSTEM_IMPERIAL): vol.All(
                 str, vol.In(UNIT_SYSTEMS)
             ),
             vol.Optional(CONF_MQTT_PASSWORD): cv.optional_string,
             vol.Optional(CONF_MQTT_PORT, default=DEFAULT_MQTT_PORT): cv.port,
-            vol.Optional(CONF_MQTT_RETAIN, default=False): bool,
-            vol.Optional(CONF_MQTT_TLS, default=False): bool,
+            vol.Optional(CONF_MQTT_RETAIN, default=False): cv.boolean,
+            vol.Optional(CONF_MQTT_TLS, default=False): cv.boolean,
             vol.Optional(CONF_MQTT_USERNAME): cv.optional_string,
             vol.Optional(
                 CONF_OUTPUT_UNIT_SYSTEM, default=UNIT_SYSTEM_IMPERIAL
             ): vol.All(str, vol.In(UNIT_SYSTEMS)),
             vol.Optional(CONF_PORT, default=DEFAULT_PORT): cv.port,
-            vol.Optional(CONF_RAW_DATA, default=False): bool,
-            vol.Optional(CONF_VERBOSE, default=False): bool,
+            vol.Optional(CONF_RAW_DATA, default=False): cv.boolean,
+            vol.Optional(CONF_VERBOSE, default=False): cv.boolean,
         },
         extra=vol.ALLOW_EXTRA,
     ),
@@ -173,18 +124,7 @@ class Config:  # pylint: disable=too-many-public-methods
 
     def __init__(self, config: dict[str, Any]) -> None:
         """Initialize."""
-        LOGGER.debug("Initializing config with CLI options/env vars: %s", config)
-
         self._config = {}
-
-        for legacy_env_var, new_env_var in DEPRECATED_ENV_VAR_MAP.items():
-            if os.getenv(legacy_env_var) is None:
-                continue
-            LOGGER.warning(
-                "Environment variable %s is deprecated; use %s instead",
-                legacy_env_var,
-                new_env_var,
-            )
 
         # If the user provides a config file, attempt to load it:
         if config_path := config.get(CONF_CONFIG):
@@ -193,8 +133,8 @@ class Config:  # pylint: disable=too-many-public-methods
         self._config.update(config)
 
         # The battery override env var is the only one that isn't passed through from
-        # the CLI, so check for it here:
-        if battery_overrides_env_var := os.getenv(ENV_BATTERY_OVERRIDE):
+        # the CLI (given its special format), so check for it here:
+        if battery_overrides_env_var := os.getenv(ENV_BATTERY_OVERRIDES):
             self._config[CONF_BATTERY_OVERRIDES] = battery_overrides_env_var
 
         try:
@@ -202,7 +142,9 @@ class Config:  # pylint: disable=too-many-public-methods
         except vol.Invalid as err:
             raise ConfigError(err) from err
 
-        LOGGER.debug("Loaded Config: %s", self._config)
+    def __str__(self) -> str:
+        """Define a string representation of this object."""
+        return str(self._config)
 
     @property
     def battery_overrides(self) -> dict[str, BatteryStrategy]:
@@ -232,7 +174,7 @@ class Config:  # pylint: disable=too-many-public-methods
     @property
     def hass_discovery(self) -> bool:
         """Return whether Home Assistant Discovery should be used."""
-        return cast(bool, self._config[CONF_HASS_DISCOVERY])
+        return cast(bool, self._config.get(CONF_HASS_DISCOVERY))
 
     @property
     def hass_discovery_prefix(self) -> str:

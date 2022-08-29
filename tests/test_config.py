@@ -10,35 +10,8 @@ from ecowitt2mqtt.const import (
     CONF_CONFIG,
     CONF_DEFAULT_BATTERY_STRATEGY,
     CONF_MQTT_BROKER,
-    ENV_BATTERY_OVERRIDE,
-    ENV_ENDPOINT,
-    ENV_HASS_DISCOVERY,
-    ENV_HASS_DISCOVERY_PREFIX,
-    ENV_HASS_ENTITY_ID_PREFIX,
-    ENV_INPUT_UNIT_SYSTEM,
-    ENV_MQTT_BROKER,
-    ENV_MQTT_PASSWORD,
-    ENV_MQTT_PORT,
-    ENV_MQTT_TOPIC,
-    ENV_MQTT_USERNAME,
-    ENV_OUTPUT_UNIT_SYSTEM,
-    ENV_PORT,
-    ENV_RAW_DATA,
-    ENV_VERBOSE,
-    LEGACY_ENV_ENDPOINT,
-    LEGACY_ENV_HASS_DISCOVERY,
-    LEGACY_ENV_HASS_DISCOVERY_PREFIX,
-    LEGACY_ENV_HASS_ENTITY_ID_PREFIX,
-    LEGACY_ENV_INPUT_UNIT_SYSTEM,
-    LEGACY_ENV_LOG_LEVEL,
-    LEGACY_ENV_MQTT_BROKER,
-    LEGACY_ENV_MQTT_PASSWORD,
-    LEGACY_ENV_MQTT_PORT,
-    LEGACY_ENV_MQTT_TOPIC,
-    LEGACY_ENV_MQTT_USERNAME,
-    LEGACY_ENV_OUTPUT_UNIT_SYSTEM,
-    LEGACY_ENV_PORT,
-    LEGACY_ENV_RAW_DATA,
+    CONF_VERBOSE,
+    ENV_BATTERY_OVERRIDES,
 )
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 
@@ -102,7 +75,7 @@ def test_battery_overrides_config_file(config_filepath):
 def test_battery_overrides_env_vars(config):
     """Test battery configs provided by environment variables."""
     os.environ[
-        ENV_BATTERY_OVERRIDE
+        ENV_BATTERY_OVERRIDES
     ] = "testbatt0=boolean;testbatt1=numeric;testbatt2=percentage"
     config = Config(config)
     assert config.battery_overrides == {
@@ -110,7 +83,7 @@ def test_battery_overrides_env_vars(config):
         "testbatt1": BatteryStrategy.NUMERIC,
         "testbatt2": BatteryStrategy.PERCENTAGE,
     }
-    os.environ.pop(ENV_BATTERY_OVERRIDE)
+    os.environ.pop(ENV_BATTERY_OVERRIDES)
 
 
 @pytest.mark.parametrize(
@@ -127,10 +100,10 @@ def test_battery_overrides_error(config):
     with pytest.raises(ConfigError):
         _ = Config(config)
 
-    os.environ[ENV_BATTERY_OVERRIDE] = "some-random-string"
-    with pytest.raises(ConfigError):
+    os.environ[ENV_BATTERY_OVERRIDES] = "some-random-string"
+    with pytest.raises(ConfigError) as err:
         _ = Config(config)
-    os.environ.pop(ENV_BATTERY_OVERRIDE)
+    os.environ.pop(ENV_BATTERY_OVERRIDES)
 
 
 def test_battery_overrides_missing(config):
@@ -202,32 +175,47 @@ def test_default_battery_strategy(config):
 
 
 @pytest.mark.parametrize(
-    "legacy_env_var,new_env_var,value",
+    "config",
     [
-        (LEGACY_ENV_ENDPOINT, ENV_ENDPOINT, "/data/output"),
-        (LEGACY_ENV_HASS_DISCOVERY, ENV_HASS_DISCOVERY, "True"),
-        (LEGACY_ENV_HASS_DISCOVERY_PREFIX, ENV_HASS_DISCOVERY_PREFIX, "homeassistant"),
-        (LEGACY_ENV_HASS_ENTITY_ID_PREFIX, ENV_HASS_ENTITY_ID_PREFIX, "ecowitt"),
-        (LEGACY_ENV_INPUT_UNIT_SYSTEM, ENV_INPUT_UNIT_SYSTEM, "imperial"),
-        (LEGACY_ENV_LOG_LEVEL, ENV_VERBOSE, "DEBUG"),
-        (LEGACY_ENV_MQTT_BROKER, ENV_MQTT_BROKER, "127.0.0.1"),
-        (LEGACY_ENV_MQTT_PASSWORD, ENV_MQTT_PASSWORD, "password"),
-        (LEGACY_ENV_MQTT_PORT, ENV_MQTT_PORT, "1883"),
-        (LEGACY_ENV_MQTT_TOPIC, ENV_MQTT_TOPIC, "topic"),
-        (LEGACY_ENV_MQTT_USERNAME, ENV_MQTT_USERNAME, "username"),
-        (LEGACY_ENV_OUTPUT_UNIT_SYSTEM, ENV_OUTPUT_UNIT_SYSTEM, "imperial"),
-        (LEGACY_ENV_PORT, ENV_PORT, "8080"),
-        (LEGACY_ENV_RAW_DATA, ENV_RAW_DATA, "True"),
+        {
+            **TEST_CONFIG_JSON,
+            CONF_VERBOSE: "This isn't a real value",
+        },
     ],
 )
-def test_deprecated_env_var(caplog, config, legacy_env_var, new_env_var, value):
-    """Test logging the usage of a deprecated environment variable."""
-    os.environ[legacy_env_var] = value
-    _ = Config(config)
-    assert any(
-        m
-        for m in caplog.messages
-        if f"Environment variable {legacy_env_var} is deprecated; use {new_env_var} instead"
-        in m
-    )
-    os.environ.pop(legacy_env_var)
+def test_invalid_boolean_config_validation(config):
+    """Test an invalid boolean config validation."""
+    with pytest.raises(ConfigError):
+        _ = Config(config)
+
+
+@pytest.mark.parametrize(
+    "config,verbose_value",
+    [
+        (
+            {
+                **TEST_CONFIG_JSON,
+                CONF_VERBOSE: "yes",
+            },
+            True,
+        ),
+        (
+            {
+                **TEST_CONFIG_JSON,
+                CONF_VERBOSE: "disable",
+            },
+            False,
+        ),
+        (
+            {
+                **TEST_CONFIG_JSON,
+                CONF_VERBOSE: 5,
+            },
+            True,
+        ),
+    ],
+)
+def test_valid_boolean_config_validation(config, verbose_value):
+    """Test that various boolean config validations work."""
+    config = Config(config)
+    assert config.verbose is verbose_value

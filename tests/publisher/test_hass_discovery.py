@@ -9,6 +9,7 @@ from ecowitt2mqtt.const import (
     CONF_DEFAULT_BATTERY_STRATEGY,
     CONF_HASS_DISCOVERY,
     CONF_HASS_ENTITY_ID_PREFIX,
+    CONF_VERBOSE,
 )
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 from ecowitt2mqtt.helpers.publisher.factory import get_publisher
@@ -6197,6 +6198,7 @@ async def test_publish_numeric_battery_strategy(
         {
             **TEST_CONFIG_JSON,
             CONF_HASS_DISCOVERY: True,
+            CONF_VERBOSE: True,
         }
     ],
 )

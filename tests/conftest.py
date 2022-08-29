@@ -8,7 +8,6 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 import pytest_asyncio
-from typer.testing import CliRunner
 
 from ecowitt2mqtt.core import Ecowitt
 
@@ -68,12 +67,6 @@ async def mqtt_publish_side_effect_fixture():
 def raw_config_fixture():
     """Define a fixture to return raw configuration data."""
     return json.dumps(TEST_CONFIG_JSON)
-
-
-@pytest.fixture(name="runner")
-def runner_fixture():
-    """Define a fixture to return a Typer CLI test runner."""
-    return CliRunner()
 
 
 @pytest_asyncio.fixture(name="setup_asyncio_mqtt")
