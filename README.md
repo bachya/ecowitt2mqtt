@@ -106,79 +106,58 @@ Within the `Upload Interval`, data should begin to appear in the MQTT broker.
 ## Command Line Options
 
 ```
-Usage: ecowitt2mqtt [OPTIONS] COMMAND [ARGS]...
+usage: ecowitt2mqtt [-h] [--version] [--battery-override BATTERY_OVERRIDE] [-c config]
+                    [--default-battery-strategy default_battery_strategy] [--diagnostics]
+                    [--disable-calculated-data] [-e endpoint] [--hass-discovery]
+                    [--hass-discovery-prefix hass_discovery_prefix]
+                    [--hass-entity-id-prefix hass_entity_id_prefix]
+                    [--input-unit-system input_unit_system] [-b mqtt_broker]
+                    [-p mqtt_password] [--mqtt-port mqtt_port] [--mqtt-retain] [--mqtt-tls]
+                    [-t mqtt_topic] [-u mqtt_username]
+                    [--output-unit-system output_unit_system] [--port port] [--raw-data] [-v]
 
-  ecowitt2mqtt sends Ecowitt device data to an MQTT broker.
+Send data from an Ecowitt gateway to an MQTT broker
 
-Options:
-  --battery-override TEXT         A battery configuration override (format:
-                                  key,value)  [env var:
-                                  ECOWITT2MQTT_BATTERY_OVERRIDE]
-  -c, --config FILE               A path to a YAML or JSON config file.  [env
-                                  var: ECOWITT2MQTT_CONFIG]
-  --default-battery-strategy TEXT
-                                  The default battery config strategy to use.
-                                  [env var:
-                                  ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY;
-                                  default: boolean]
-  --diagnostics                   Output diagnostics.  [env var:
-                                  ECOWITT2MQTT_DIAGNOSTICS]
-  --disable-calculated-data       Disable the output of calculated sensors.
-                                  [env var:
-                                  ECOWITT2MQTT_DISABLE_CALCULATED_DATA]
-  -e, --endpoint TEXT             The relative endpoint/path to serve
-                                  ecowitt2mqtt on.  [env var:
-                                  ECOWITT2MQTT_ENDPOINT, ENDPOINT; default:
-                                  /data/report]
-  --hass-discovery                Publish data in the Home Assistant MQTT
-                                  Discovery format.  [env var:
-                                  ECOWITT2MQTT_HASS_DISCOVERY, HASS_DISCOVERY]
-  --hass-discovery-prefix TEXT    The Home Assistant discovery prefix to use.
-                                  [env var:
-                                  ECOWITT2MQTT_HASS_DISCOVERY_PREFIX,
-                                  HASS_DISCOVERY_PREFIX; default:
-                                  homeassistant]
-  --hass-entity-id-prefix TEXT    The prefix to use for Home Assistant entity
-                                  IDs.  [env var:
-                                  ECOWITT2MQTT_HASS_ENTITY_ID_PREFIX,
-                                  HASS_ENTITY_ID_PREFIX]
-  --input-unit-system TEXT        The input unit system used by the device.
-                                  [env var: ECOWITT2MQTT_INPUT_UNIT_SYSTEM,
-                                  INPUT_UNIT_SYSTEM; default: imperial]
-  -b, --mqtt-broker TEXT          The hostname or IP address of an MQTT
-                                  broker.  [env var: ECOWITT2MQTT_MQTT_BROKER,
-                                  MQTT_BROKER]
-  -p, --mqtt-password TEXT        A valid password for the MQTT broker.  [env
-                                  var: ECOWITT2MQTT_MQTT_PASSWORD,
-                                  MQTT_PASSWORD]
-  --mqtt-port INTEGER             The listenting port of the MQTT broker.
-                                  [env var: ECOWITT2MQTT_MQTT_PORT, MQTT_PORT;
-                                  default: 1883]
-  --mqtt-retain                   Instruct the MQTT broker to retain messages.
-                                  [env var: ECOWITT2MQTT_MQTT_RETAIN]
-  --mqtt-tls                      Enable MQTT over TLS.  [env var:
-                                  ECOWITT2MQTT_MQTT_TLS]
-  -t, --mqtt-topic TEXT           The MQTT topic to publish device data to.
-                                  [env var: ECOWITT2MQTT_MQTT_TOPIC,
-                                  MQTT_TOPIC]
-  -u, --mqtt-username TEXT        A valid username for the MQTT broker.  [env
-                                  var: ECOWITT2MQTT_MQTT_USERNAME,
-                                  MQTT_USERNAME]
-  --output-unit-system TEXT       The unit system to use in output.  [env var:
-                                  ECOWITT2MQTT_OUTPUT_UNIT_SYSTEM,
-                                  OUTPUT_UNIT_SYSTEM; default: imperial]
-  --port INTEGER                  The port to serve ecowitt2mqtt on.  [env
-                                  var: ECOWITT2MQTT_PORT, PORT; default: 8080]
-  --raw-data                      Return raw data (don't attempt to translate
-                                  any values).  [env var:
-                                  ECOWITT2MQTT_RAW_DATA, RAW_DATA]
-  -v, --verbose                   Increase verbosity of logged output.  [env
-                                  var: ECOWITT2MQTT_VERBOSE]
-  --version                       Return the application version.
-  --install-completion            Install completion for the current shell.
-  --show-completion               Show completion for the current shell, to
-                                  copy it or customize the installation.
-  --help                          Show this message and exit.
+options:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --battery-override BATTERY_OVERRIDE
+                        A battery configuration override (format: key,value)
+  -c config, --config config
+                        A path to a YAML or JSON config file
+  --default-battery-strategy default_battery_strategy
+                        The default battery config strategy to use (default: boolean)
+  --diagnostics         Output diagnostics
+  --disable-calculated-data
+                        Disable the output of calculated sensors
+  -e endpoint, --endpoint endpoint
+                        The relative endpoint/path to serve ecowitt2mqtt on (default:
+                        /data/report)
+  --hass-discovery      Publish data in the Home Assistant MQTT Discovery format
+  --hass-discovery-prefix hass_discovery_prefix
+                        The Home Assistant MQTT Discovery topic prefix to use (default:
+                        homeassistant)
+  --hass-entity-id-prefix hass_entity_id_prefix
+                        The prefix to use for Home Assistant entity IDs
+  --input-unit-system input_unit_system
+                        The input unit system used by the gateway (default: imperial)
+  -b mqtt_broker, --mqtt-broker mqtt_broker
+                        The hostname or IP address of an MQTT broker
+  -p mqtt_password, --mqtt-password mqtt_password
+                        A valid password for the MQTT broker
+  --mqtt-port mqtt_port
+                        The listenting port of the MQTT broker (default: 1883)
+  --mqtt-retain         Instruct the MQTT broker to retain messages
+  --mqtt-tls            Enable MQTT over TLS
+  -t mqtt_topic, --mqtt-topic mqtt_topic
+                        The MQTT topic to publish device data to
+  -u mqtt_username, --mqtt-username mqtt_username
+                        A valid username for the MQTT broker
+  --output-unit-system output_unit_system
+                        The output unit system used by the gateway (default: imperial)
+  --port port           The port to serve ecowitt2mqtt on (default: 8080)
+  --raw-data            Return raw data (don't attempt to translate any values)
+  -v, --verbose         Increase verbosity of logged output
 ```
 
 ## Environment Variables
@@ -253,7 +232,7 @@ verbose: false
   "mqtt_broker": "127.0.0.1",
   "mqtt_password": "password",
   "mqtt_port": 1883,
-  "mqtt_retain": 1883,
+  "mqtt_retain": true,
   "mqtt_tls": false,
   "mqtt_topic": "Test",
   "mqtt_username": "user",
@@ -264,17 +243,81 @@ verbose: false
 }
 ```
 
+### Multiple Gateways
+
+When using the configuration file, it is possible to define specific configuration
+parameters for multiple Ecowitt gateways. This is useful if different gateways should
+publish to different MQTT brokers, in different formats, etc.
+
+First, you must determine the unique ID for each gateway. This can be observed in the
+logs when `verbose` is enabled – look for the `PASSKEY` value that the gateway has:
+
+```
+Received data from the Ecowitt device: {'PASSKEY': 'abcde12345', ...}
+```
+
+Then, in the configuration file, simply add a `gateways` key that contains a mapping of any
+of the existing configuration options. Options that remain at the root level of the file
+are treated as defaults.
+
+For example, this YAML configuration file:
+
+```yaml
+---
+mqtt_broker: 127.0.0.1
+mqtt_password: password
+mqtt_topic: Test
+mqtt_username: user
+
+gateways:
+  abcde12345:
+    hass_discovery: true
+```
+
+...defines two gateway definitions:
+
+* One that publishes to the `Test` topic on an MQTT broker at `127.0.0.1`
+* One (with a `PASSKEY` of `abcde12345`) that publishes to the same broker, but in Home
+  Assistant MQTT Discovery format.
+
+In another example, this JSON configuration file:
+
+```json
+{
+  "mqtt_broker": "127.0.0.1",
+  "mqtt_password": "password",
+  "mqtt_port": 1883,
+  "mqtt_topic": "Test",
+  "mqtt_username": "user",
+  "gateways": {
+    "abcde12345": {
+      "mqtt_broker": "192.168.1.100",
+      "mqtt_retain": true,
+      "output_unit_system": "metric"
+    }
+  }
+}
+```
+
+...defines two gateway definitions:
+
+* One that publishes to the `Test` topic on an MQTT broker at `127.0.0.1`
+* One (with a `PASSKEY` of `abcde12345`) that publishes to a different broker
+  (`192.168.1.100`), outputs the data in metric, and retains the data on the broker
+
 ## Merging Configuration Options
 
 When parsing configuration options, `ecowitt2mqtt` looks at the configuration sources in
 the following order:
 
-1. Configuration File
-2. Environment Variables
-3. CLI Options
+1. Configuration File (Specific Gateway)
+2. Configuration File (Defaults)
+3. Environment Variables
+4. CLI Options
 
 This allows you to mix and match sources – for instance, you might have "defaults" in
 the configuration file and override them via environment variables.
+
 
 # Advanced Usage
 
