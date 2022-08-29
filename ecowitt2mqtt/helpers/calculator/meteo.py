@@ -521,12 +521,13 @@ def _get_frost_point_object(
 
 
 def _get_simmer_index_object(
-    temp_obj: meteocalc.Temp, relative_humidity: float
+    temp_obj: meteocalc.Temp, relative_humidity: float, unit_system: UnitSystemType
 ) -> meteocalc.Temp | None:
     """Get a simmer index object."""
     if temp_obj.f < 70:
         raise ValueError(
-            "Simmer Index is only valid for temperatures above 70°F (21.1 °C)"
+            "Simmer Index is only valid for temperatures above "
+            f"{'70°F' if unit_system == UNIT_SYSTEM_IMPERIAL else '21.1°C'}"
         )
 
     return _get_temperature_object(
@@ -892,7 +893,9 @@ def calculate_simmer_index(
     temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
 
     try:
-        simmer_obj = _get_simmer_index_object(temp_obj, relative_humidity)
+        simmer_obj = _get_simmer_index_object(
+            temp_obj, relative_humidity, ecowitt.config.input_unit_system
+        )
     except ValueError as err:
         LOGGER.debug("%s (temperature: %s)", err, temp_obj)
         final_value = None
@@ -921,7 +924,9 @@ def calculate_simmer_zone(
     temp_obj = _get_temperature_object(temperature, ecowitt.config.input_unit_system)
 
     try:
-        simmer_obj = _get_simmer_index_object(temp_obj, relative_humidity)
+        simmer_obj = _get_simmer_index_object(
+            temp_obj, relative_humidity, ecowitt.config.input_unit_system
+        )
     except ValueError as err:
         LOGGER.debug("%s (temperature: %s)", err, temp_obj)
         final_value = None
@@ -1050,7 +1055,12 @@ def calculate_wind_chill(
     try:
         wind_chill_obj = meteocalc.wind_chill(temp_obj, wind_speed)
     except ValueError as err:
-        LOGGER.debug("%s (temperature: %s, wind speed: %s)", err, temp_obj, wind_speed)
+        LOGGER.debug(
+            "%s (current temperature: %s°F, current wind speed: %smph)",
+            err,
+            temp_obj.f,
+            wind_speed,
+        )
         final_value = None
     else:
         if ecowitt.config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
