@@ -9,6 +9,7 @@ from ecowitt2mqtt.const import (
     CONF_DEFAULT_BATTERY_STRATEGY,
     CONF_HASS_DISCOVERY,
     CONF_HASS_ENTITY_ID_PREFIX,
+    CONF_VERBOSE,
 )
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 from ecowitt2mqtt.helpers.publisher.factory import get_publisher
@@ -47,7 +48,7 @@ async def test_publish(
     device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
 ):
     """Test publishing a payload."""
-    await ecowitt._runtime._publisher.async_publish(
+    await ecowitt.runtime._publisher.async_publish(
         mock_asyncio_mqtt_client, device_data
     )
     mock_asyncio_mqtt_client.publish.assert_has_awaits(
@@ -2092,7 +2093,7 @@ async def test_publish_custom_entity_id_prefix(
     device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
 ):
     """Test publishing a payload with custom HASS entity ID prefix."""
-    await ecowitt._runtime._publisher.async_publish(
+    await ecowitt.runtime._publisher.async_publish(
         mock_asyncio_mqtt_client, device_data
     )
     mock_asyncio_mqtt_client.publish.assert_has_awaits(
@@ -4140,7 +4141,7 @@ async def test_publish_error_mqtt(
 ):
     """Test handling an asyncio-mqtt error when publishing."""
     with pytest.raises(MqttError):
-        await ecowitt._runtime._publisher.async_publish(
+        await ecowitt.runtime._publisher.async_publish(
             mock_asyncio_mqtt_client, device_data
         )
 
@@ -4161,7 +4162,7 @@ async def test_publish_numeric_battery_strategy(
     device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
 ):
     """Test publishing a payload with numeric battery strategy."""
-    await ecowitt._runtime._publisher.async_publish(
+    await ecowitt.runtime._publisher.async_publish(
         mock_asyncio_mqtt_client, device_data
     )
     mock_asyncio_mqtt_client.publish.assert_has_awaits(
@@ -6197,6 +6198,7 @@ async def test_publish_numeric_battery_strategy(
         {
             **TEST_CONFIG_JSON,
             CONF_HASS_DISCOVERY: True,
+            CONF_VERBOSE: True,
         }
     ],
 )
@@ -6208,7 +6210,7 @@ async def test_no_entity_description(
     caplog.set_level(logging.DEBUG)
     device_data["random"] = "value"
 
-    await ecowitt._runtime._publisher.async_publish(
+    await ecowitt.runtime._publisher.async_publish(
         mock_asyncio_mqtt_client, device_data
     )
     mock_asyncio_mqtt_client.publish.assert_has_awaits(

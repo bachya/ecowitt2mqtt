@@ -67,14 +67,15 @@ classifiers = [
 [tool.poetry.dependencies]
 "ruamel.yaml" = "^0.17.21"
 asyncio-mqtt = ">=0.12.1"
+colorlog = "^6.6.0"
 fastapi = "^0.79.0"
 meteocalc = "^1.1.0"
 python = "^3.8.0"
 python-multipart = "^0.0.5"
 thefuzz = {extras = ["speedup"], version = "^0.19.0"}
-typer = {extras = ["all"], version = "^0.6.0"}
 uvicorn = "^0.18.0"
 uvloop = "^0.16.0"
+voluptuous = "^0.13.1"
 
 [tool.poetry.dev-dependencies]
 aiohttp = "^3.8.1"
@@ -85,7 +86,7 @@ pytest-asyncio = "^0.19.0"
 pytest-cov = "^3.0.0"
 
 [tool.poetry.scripts]
-ecowitt2mqtt = "ecowitt2mqtt.cli:CLI_APP"
+ecowitt2mqtt = "ecowitt2mqtt.__main__:main"
 
 [tool.pylint.BASIC]
 expected-line-ending-format = "LF"

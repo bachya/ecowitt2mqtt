@@ -8,7 +8,6 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 import pytest_asyncio
-from typer.testing import CliRunner
 
 from ecowitt2mqtt.core import Ecowitt
 
@@ -70,12 +69,6 @@ def raw_config_fixture():
     return json.dumps(TEST_CONFIG_JSON)
 
 
-@pytest.fixture(name="runner")
-def runner_fixture():
-    """Define a fixture to return a Typer CLI test runner."""
-    return CliRunner()
-
-
 @pytest_asyncio.fixture(name="setup_asyncio_mqtt")
 async def setup_asyncio_mqtt_fixture(ecowitt, mock_asyncio_mqtt_client):
     """Define a fixture to patch asyncio-mqtt properly."""
@@ -94,6 +87,6 @@ async def setup_uvicorn_server_fixture(ecowitt):
     try:
         yield
     finally:
-        await ecowitt._runtime._server.shutdown()
+        await ecowitt.runtime._server.shutdown()
         start_task.cancel()
     await asyncio.sleep(0.1)
