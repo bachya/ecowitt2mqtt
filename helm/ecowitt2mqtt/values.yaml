@@ -1,0 +1,147 @@
+# Default values for ecowitt2mqtt.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: bachya/ecowitt2mqtt
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+mqtt:
+  auth:
+    enabled: true
+    username: mqttUser
+    password: mqttPass
+
+envvar:
+  - name: ECOWITT2MQTT_BATTERY_OVERRIDE
+    value: numeric
+    # a semicolon-delimited list of key=value battery overrides (default: numeric)
+  - name: ECOWITT2MQTT_CONFIG
+    value: None
+    # a path to a YAML or JSON config file (default: None)
+  - name: ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY
+    value: boolean
+    # the default battery config strategy to use (default: boolean)
+  - name: ECOWITT2MQTT_DIAGNOSTICS
+    value: false
+    # whether to output diagnostics (default: false)
+  - name: ECOWITT2MQTT_DISABLE_CALCULATED_DATA
+    value: false
+    # whether to disable the output of calculated sensors (default: false)
+  - name: ECOWITT2MQTT_ENDPOINT
+    value: /data/report
+    # the relative endpoint/path to serve ecowitt2mqtt on (default: /data/report)
+  - name: ECOWITT2MQTT_HASS_DISCOVERY_PREFIX
+    value: homeassistant
+    # the Home Assistant discovery prefix to use (default: homeassistant)
+  - name: ECOWITT2MQTT_HASS_DISCOVERY
+    value: false
+    # publish data in the Home Assistant MQTT Discovery format default: false)
+  - name: ECOWITT2MQTT_HASS_ENTITY_ID_PREFIX
+    value: ""
+    # the prefix to use for Home Assistant entity IDs (default: "")
+  - name: ECOWITT2MQTT_INPUT_UNIT_SYSTEM
+    value: imperial
+    # the input unit system used by the device (default: imperial)
+  - name: ECOWITT2MQTT_MQTT_BROKER
+    value: ""
+    # the hostname or IP address of an MQTT broker
+  - name: ECOWITT2MQTT_MQTT_PORT
+    value: 1883
+    # the listenting port of the MQTT broker (default: 1883)
+  - name: ECOWITT2MQTT_MQTT_RETAIN
+    value: false
+    # whether to instruct the MQTT broker to retain messages (default: false)
+  - name: ECOWITT2MQTT_MQTT_TLS
+    value: false
+    # publish data via MQTT over TLS (default: false)
+  - name: ECOWITT2MQTT_MQTT_TOPIC
+    value: "pws"
+    # the MQTT topic to publish device data to
+  - name: ECOWITT2MQTT_OUTPUT_UNIT_SYSTEM
+    value: imperial
+    # the unit system to use in output (default: imperial)
+  - name: ECOWITT2MQTT_PORT
+    value: 8080
+    # the port to serve ecowitt2mqtt on (default: 8080)
+  - name: ECOWITT2MQTT_RAW_DATA
+    value: false
+    # return raw data (don't attempt to translate any values) (default: false)
+  - name: ECOWITT2MQTT_VERBOSE
+    value: false
+    # increase verbosity of logged output (default: false)
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+      kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
