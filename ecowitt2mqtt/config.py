@@ -137,8 +137,8 @@ class Config:  # pylint: disable=too-many-public-methods
             raise ConfigError(err) from err
 
         self._mqtt_connection_info = (
-            f"{self._config[CONF_MQTT_BROKER]}{self._config[CONF_MQTT_PORT]}"
-            f"{self._config.get(CONF_MQTT_USERNAME)}"
+            f"{self._config.get(CONF_MQTT_USERNAME)}@{self._config[CONF_MQTT_BROKER]}"
+            f":{self._config[CONF_MQTT_PORT]}"
         )
 
     def __repr__(self) -> str:
