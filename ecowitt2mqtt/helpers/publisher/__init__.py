@@ -4,14 +4,12 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from datetime import datetime
 import json
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 from asyncio_mqtt import Client
 
+from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.helpers.typing import DataValueType
-
-if TYPE_CHECKING:
-    from ecowitt2mqtt.core import Ecowitt
 
 
 def generate_mqtt_payload(data: DataValueType) -> bytes:
@@ -35,11 +33,12 @@ def json_serializer(obj: Any) -> Any:
 class MqttPublisher(ABC):
     """Define a base MQTT publisher."""
 
-    def __init__(self, ecowitt: Ecowitt) -> None:
+    def __init__(self, config: Config, client: Client) -> None:
         """Initialize."""
-        self.ecowitt = ecowitt
+        self._client = client
+        self._config = config
 
     @abstractmethod
-    async def async_publish(self, client: Client, data: dict[str, Any]) -> None:
+    async def async_publish(self, data: dict[str, Any]) -> None:
         """Publish the data."""
         raise NotImplementedError()

@@ -7,7 +7,7 @@ from ecowitt2mqtt.backports.enum import StrEnum
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, DataPointType
 
 if TYPE_CHECKING:
-    from ecowitt2mqtt.core import Ecowitt
+    from ecowitt2mqtt.config import Config
 
 
 class LeakState(StrEnum):
@@ -18,7 +18,7 @@ class LeakState(StrEnum):
 
 
 def calculate_leak(
-    ecowitt: Ecowitt, payload_key: str, data_point_key: str, value: float
+    config: Config, payload_key: str, data_point_key: str, value: float
 ) -> CalculatedDataPoint:
     """Calculate a boolean leak state."""
     if value == 0.0:

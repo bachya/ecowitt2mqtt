@@ -4,12 +4,14 @@ import os
 
 import pytest
 
-from ecowitt2mqtt.config import Config, ConfigError
+from ecowitt2mqtt.config import ConfigError, Configs
 from ecowitt2mqtt.const import (
     CONF_BATTERY_OVERRIDES,
     CONF_CONFIG,
     CONF_DEFAULT_BATTERY_STRATEGY,
+    CONF_GATEWAYS,
     CONF_MQTT_BROKER,
+    CONF_MQTT_TOPIC,
     CONF_VERBOSE,
     ENV_BATTERY_OVERRIDES,
 )
@@ -19,6 +21,8 @@ from tests.common import (
     TEST_CONFIG_JSON,
     TEST_CONFIG_RAW_YAML,
     TEST_ENDPOINT,
+    TEST_MQTT_BROKER,
+    TEST_MQTT_TOPIC,
     TEST_PORT,
 )
 
@@ -38,13 +42,13 @@ from tests.common import (
 )
 def test_battery_overrides_cli_options(config):
     """Test battery configs provided by CLI options."""
-    config = Config(config)
-    assert config.battery_overrides == {
+    configs = Configs(config)
+    assert configs.default_config.battery_overrides == {
         "testbatt0": BatteryStrategy.BOOLEAN,
         "testbatt1": BatteryStrategy.NUMERIC,
         "testbatt2": BatteryStrategy.PERCENTAGE,
     }
-    assert config.default_battery_strategy == BatteryStrategy.BOOLEAN
+    assert configs.default_config.default_battery_strategy == BatteryStrategy.BOOLEAN
 
 
 @pytest.mark.parametrize(
@@ -64,8 +68,8 @@ def test_battery_overrides_cli_options(config):
 )
 def test_battery_overrides_config_file(config_filepath):
     """Test battery configs provided by a config file."""
-    config = Config({CONF_CONFIG: config_filepath})
-    assert config.battery_overrides == {
+    configs = Configs({CONF_CONFIG: config_filepath})
+    assert configs.default_config.battery_overrides == {
         "testbatt0": BatteryStrategy.BOOLEAN,
         "testbatt1": BatteryStrategy.NUMERIC,
         "testbatt2": BatteryStrategy.PERCENTAGE,
@@ -77,8 +81,8 @@ def test_battery_overrides_env_vars(config):
     os.environ[
         ENV_BATTERY_OVERRIDES
     ] = "testbatt0=boolean;testbatt1=numeric;testbatt2=percentage"
-    config = Config(config)
-    assert config.battery_overrides == {
+    configs = Configs(config)
+    assert configs.default_config.battery_overrides == {
         "testbatt0": BatteryStrategy.BOOLEAN,
         "testbatt1": BatteryStrategy.NUMERIC,
         "testbatt2": BatteryStrategy.PERCENTAGE,
@@ -98,18 +102,18 @@ def test_battery_overrides_env_vars(config):
 def test_battery_overrides_error(config):
     """Test handling invalid battery configs."""
     with pytest.raises(ConfigError):
-        _ = Config(config)
+        _ = Configs(config)
 
     os.environ[ENV_BATTERY_OVERRIDES] = "some-random-string"
     with pytest.raises(ConfigError):
-        _ = Config(config)
+        _ = Configs(config)
     os.environ.pop(ENV_BATTERY_OVERRIDES)
 
 
 def test_battery_overrides_missing(config):
     """Test that missing battery configs doesn't cause an issue."""
-    config = Config(config)
-    assert config.battery_overrides == {}
+    configs = Configs(config)
+    assert configs.default_config.battery_overrides == {}
 
 
 @pytest.mark.parametrize(
@@ -121,19 +125,54 @@ def test_battery_overrides_missing(config):
 )
 def test_config_file(config_filepath):
     """Test successfully loading a valid config file."""
-    config = Config({CONF_CONFIG: config_filepath})
-    assert config.endpoint == TEST_ENDPOINT
-    assert config.port == TEST_PORT
+    configs = Configs({CONF_CONFIG: config_filepath})
+    assert configs.default_config.endpoint == TEST_ENDPOINT
+    assert configs.default_config.port == TEST_PORT
 
 
 @pytest.mark.parametrize("raw_config", ["{}"])
 def test_config_file_empty(config_filepath):
     """Test an empty config file with no overrides."""
     with pytest.raises(ConfigError) as err:
-        _ = Config({CONF_CONFIG: config_filepath})
+        _ = Configs({CONF_CONFIG: config_filepath})
     assert "Must provide an MQTT topic or enable Home Assistant MQTT Discovery" in str(
         err
     )
+
+
+@pytest.mark.parametrize(
+    "raw_config",
+    [
+        json.dumps(
+            {
+                **TEST_CONFIG_JSON,
+                CONF_GATEWAYS: {
+                    "passkey123": {
+                        CONF_MQTT_BROKER: "my.mqtt.local",
+                        CONF_MQTT_TOPIC: "Some Topic",
+                    }
+                },
+            }
+        ),
+    ],
+)
+def test_config_file_multiple_gateways(config_filepath):
+    """Test successfully loading a config file with multiple gateways."""
+    configs = Configs({CONF_CONFIG: config_filepath})
+
+    # Test that the default config is returned with an invalid passkey:
+    assert configs.get("some_other_passkey") == configs.default_config
+
+    # Test three values of the default config: one that should be the same no matter
+    # what and two that will be different for a gateway config:
+    assert configs.default_config.endpoint == TEST_ENDPOINT
+    assert configs.default_config.mqtt_broker == TEST_MQTT_BROKER
+    assert configs.default_config.mqtt_topic == TEST_MQTT_TOPIC
+
+    gateway_config = configs.get("passkey123")
+    assert gateway_config.endpoint == TEST_ENDPOINT
+    assert gateway_config.mqtt_broker == "my.mqtt.local"
+    assert gateway_config.mqtt_topic == "Some Topic"
 
 
 @pytest.mark.parametrize(
@@ -147,15 +186,15 @@ def test_config_file_empty(config_filepath):
 )
 def test_config_file_overrides(config):
     """Test a config file with overrides."""
-    config = Config(config)
-    assert config.mqtt_broker == "192.168.1.100"
+    configs = Configs(config)
+    assert configs.default_config.mqtt_broker == "192.168.1.100"
 
 
 @pytest.mark.parametrize("raw_config", ["Fake configuration!"])
 def test_config_file_unparsable(config_filepath):
     """Test a config file that can't be parsed as JSON or YAML."""
     with pytest.raises(ConfigError) as err:
-        _ = Config({CONF_CONFIG: config_filepath})
+        _ = Configs({CONF_CONFIG: config_filepath})
     assert "Unable to parse config file" in str(err)
 
 
@@ -170,8 +209,8 @@ def test_config_file_unparsable(config_filepath):
 )
 def test_default_battery_strategy(config):
     """Test the default battery config."""
-    config = Config(config)
-    assert config.default_battery_strategy == BatteryStrategy.NUMERIC
+    configs = Configs(config)
+    assert configs.default_config.default_battery_strategy == BatteryStrategy.NUMERIC
 
 
 @pytest.mark.parametrize(
@@ -186,7 +225,7 @@ def test_default_battery_strategy(config):
 def test_invalid_boolean_config_validation(config):
     """Test an invalid boolean config validation."""
     with pytest.raises(ConfigError):
-        _ = Config(config)
+        _ = Configs(config)
 
 
 @pytest.mark.parametrize(
@@ -217,5 +256,5 @@ def test_invalid_boolean_config_validation(config):
 )
 def test_valid_boolean_config_validation(config, verbose_value):
     """Test that various boolean config validations work."""
-    config = Config(config)
-    assert config.verbose is verbose_value
+    configs = Configs(config)
+    assert configs.default_config.verbose is verbose_value

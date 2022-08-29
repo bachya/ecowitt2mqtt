@@ -8,7 +8,7 @@ from typing import Any
 
 import colorlog
 
-from ecowitt2mqtt.config import Config, ConfigError
+from ecowitt2mqtt.config import ConfigError, Configs
 from ecowitt2mqtt.const import LEGACY_ENV_LOG_LEVEL, LOGGER, __version__
 from ecowitt2mqtt.runtime import Runtime
 
@@ -44,15 +44,15 @@ class Ecowitt:  # pylint: disable=too-few-public-methods
     def __init__(self, params: dict[str, Any]) -> None:
         """Initialize."""
         try:
-            self.config = Config(params)
+            self.configs = Configs(params)
         except ConfigError as err:
             LOGGER.error(err)
             self.exit(1)
 
-        configure_logging(self.config.verbose)
+        configure_logging(self.configs.default_config.verbose)
 
         LOGGER.debug("Input CLI options/environment variables: %s", params)
-        LOGGER.debug("Loaded config: %s", self.config)
+        LOGGER.debug("Configs loaded: %s", self.configs)
 
         self.runtime = Runtime(self)
 

@@ -3,8 +3,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from functools import partial
-from typing import TYPE_CHECKING, Any, Callable, TypeVar
+from typing import Any, Callable, TypeVar
 
+from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import (
     DATA_POINT_BEAUFORT_SCALE,
     DATA_POINT_CO2,
@@ -101,9 +102,6 @@ from ecowitt2mqtt.helpers.calculator.time import (
 from ecowitt2mqtt.helpers.device import Device, get_device_from_raw_payload
 from ecowitt2mqtt.util import glob_search
 
-if TYPE_CHECKING:
-    from ecowitt2mqtt.core import Ecowitt
-
 # Map which data calculator functions should apply to various data points:
 CALCULATOR_FUNCTION_MAP: dict[str, Callable[..., CalculatedDataPoint]] = {
     DATA_POINT_BEAUFORT_SCALE: calculate_beaufort_scale,
@@ -195,13 +193,13 @@ T = TypeVar("T")
 
 
 def get_calculator_function(
-    ecowitt: Ecowitt, key: str
+    config: Config, key: str
 ) -> partial[CalculatedDataPoint] | None:
     """Get a data calculator function for a particular data key (if it exists)."""
     data_point, func = glob_search(CALCULATOR_FUNCTION_MAP, key)
     if not data_point or not func:
         return None
-    return partial(func, ecowitt, key, data_point)
+    return partial(func, config, key, data_point)
 
 
 def get_typed_value(value: T) -> int | float | T:
@@ -236,7 +234,7 @@ def remove_unit_from_key(key: str) -> str:
 class ProcessedData:
     """Define a processed data payload."""
 
-    ecowitt: Ecowitt
+    config: Config
     data: dict[str, Any]
     device: Device = field(init=False)
     output: dict[str, CalculatedDataPoint] = field(default_factory=dict)
@@ -253,7 +251,7 @@ class ProcessedData:
             key = remove_unit_from_key(payload_key)
             value = get_typed_value(payload_value)
 
-            if calculator := get_calculator_function(self.ecowitt, payload_key):
+            if calculator := get_calculator_function(self.config, payload_key):
                 LOGGER.debug(
                     "Calculator found for %s: %s (key: %s, value: %s)",
                     payload_key,
@@ -266,7 +264,7 @@ class ProcessedData:
                 LOGGER.debug("No calculator found for %s", payload_key)
                 self.output[key] = CalculatedDataPoint(data_point_key=key, value=value)
 
-        if not self.ecowitt.config.disable_calculated_data:
+        if not self.config.disable_calculated_data:
             # Process any from-scratch data points that can be calculated from others:
             for payload_key, input_keys in (
                 (DATA_POINT_BEAUFORT_SCALE, BEAUFORT_SCALE_KEYS),
@@ -293,7 +291,7 @@ class ProcessedData:
                 if not all(k in self.data for k in input_keys):
                     continue
 
-                if calculator := get_calculator_function(self.ecowitt, payload_key):
+                if calculator := get_calculator_function(self.config, payload_key):
                     self.output[payload_key] = calculator(
                         *(get_typed_value(self.data[key]) for key in input_keys)
                     )

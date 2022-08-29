@@ -5,13 +5,15 @@ import asyncio
 import logging
 import signal
 from ssl import SSLContext
+import traceback
 from types import FrameType
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 from asyncio_mqtt import Client, MqttError
 from fastapi import FastAPI, Request, Response, status
 import uvicorn
 
+from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import LOGGER
 from ecowitt2mqtt.helpers.publisher.factory import get_publisher
 
@@ -26,8 +28,11 @@ HANDLED_SIGNALS = (
     signal.SIGTERM,  # Unix signal 15. Sent by `kill <pid>`.
 )
 
+UVICORN_LOG_LEVEL_DEBUG = "debug"
+UVICORN_LOG_LEVEL_ERROR = "error"
 
-class MyCustomUvicornServer(uvicorn.Server):  # type: ignore
+
+class DeSignaledUvicornServer(uvicorn.Server):  # type: ignore
     """Define a Uvicorn server that doesn't swallow signals."""
 
     def install_signal_handlers(self) -> None:
@@ -35,98 +40,132 @@ class MyCustomUvicornServer(uvicorn.Server):  # type: ignore
         pass
 
 
-class Runtime:
+class Runtime:  # pylint: disable=too-many-instance-attributes
     """Define the runtime manager."""
 
     def __init__(self, ecowitt: Ecowitt) -> None:
         """Initialize."""
         self.ecowitt = ecowitt
 
+        if ecowitt.configs.default_config.verbose:
+            uvicorn_log_level = UVICORN_LOG_LEVEL_DEBUG
+        else:
+            uvicorn_log_level = UVICORN_LOG_LEVEL_ERROR
+
         app = FastAPI()
         app.post(
-            ecowitt.config.endpoint,
+            ecowitt.configs.default_config.endpoint,
             status_code=status.HTTP_204_NO_CONTENT,
             response_class=Response,
         )(self._async_post_data)
-        self._server = MyCustomUvicornServer(
+        self._server = DeSignaledUvicornServer(
             config=uvicorn.Config(
                 app,
                 host=DEFAULT_HOST,
-                port=ecowitt.config.port,
-                log_level="debug" if ecowitt.config.verbose else "error",
+                port=ecowitt.configs.default_config.port,
+                log_level=uvicorn_log_level,
             )
         )
 
-        self._latest_payload: dict[str, Any] | None = None
-        self._new_payload_condition = asyncio.Condition()
-        self._publisher = get_publisher(ecowitt)
-        self._runtime_tasks: list[asyncio.Task] = []
+        self._payload_events: dict[str, asyncio.Event] = {}
+        self._mqtt_loop_tasks: list[asyncio.Task] = []
+        self._payload_lock = asyncio.Lock()
+        self._payload_queues: dict[str, asyncio.Queue] = {}
+        self._rest_api_server_task: asyncio.Task | None = None
 
         # Remove the existing Uvicorn logger handler so that we don't get duplicates:
         # https://github.com/encode/uvicorn/issues/1285
         uvicorn_logger = logging.getLogger("uvicorn")
         uvicorn_logger.removeHandler(uvicorn_logger.handlers[0])
 
-    async def _async_create_mqtt_loop(self) -> None:
-        """Create the MQTT process loop."""
-        LOGGER.debug("Starting MQTT process loop")
+    def _async_create_mqtt_loop_task(
+        self,
+        config: Config,
+        queue: asyncio.Queue,
+        mqtt_ready_event: asyncio.Event,
+        payload_event: asyncio.Event,
+    ) -> asyncio.Task:
+        """Create a task that contains a new MQTT loop."""
+        LOGGER.debug("Creating MQTT loop: %s:%s", config.mqtt_connection_info)
 
-        retry_attempt = 0
-        while True:
-            try:
-                async with Client(
-                    self.ecowitt.config.mqtt_broker,
-                    logger=LOGGER,
-                    password=self.ecowitt.config.mqtt_password,
-                    port=self.ecowitt.config.mqtt_port,
-                    tls_context=SSLContext() if self.ecowitt.config.mqtt_tls else None,
-                    username=self.ecowitt.config.mqtt_username,
-                ) as client:
-                    while True:
-                        async with self._new_payload_condition:
-                            await self._new_payload_condition.wait()
-                            LOGGER.debug("Publishing payload: %s", self._latest_payload)
-                            assert self._latest_payload
-                            await self._publisher.async_publish(
-                                client, self._latest_payload
-                            )
-                        retry_attempt = 0
+        async def create_loop() -> None:
+            """Create the loop."""
+            retry_attempt = 0
+            while True:
+                try:
+                    async with Client(
+                        config.mqtt_broker,
+                        logger=LOGGER,
+                        password=config.mqtt_password,
+                        port=config.mqtt_port,
+                        tls_context=SSLContext() if config.mqtt_tls else None,
+                        username=config.mqtt_username,
+                    ) as client:
+                        publisher = get_publisher(config, client)
+                        mqtt_ready_event.set()
+                        while True:
+                            await payload_event.wait()
+                            while not queue.empty():
+                                payload = await queue.get()
+                                LOGGER.debug("Publishing payload: %s", payload)
+                                await publisher.async_publish(payload)
 
-                        if self.ecowitt.config.diagnostics:
-                            LOGGER.info("*** DIAGNOSTICS COLLECTED")
-                            self.stop()
-            except asyncio.CancelledError:
-                LOGGER.debug("Stopping MQTT process loop")
-                raise
-            except MqttError as err:
-                LOGGER.error("There was an MQTT error: %s", err)
+                            if config.diagnostics:
+                                LOGGER.info("*** DIAGNOSTICS COLLECTED")
+                                self.stop()
 
-            retry_attempt += 1
-            delay = min(retry_attempt**2, DEFAULT_MAX_RETRY_INTERVAL)
-            LOGGER.info(
-                "Attempting MQTT reconnection in %s seconds (attempt %s)",
-                delay,
-                retry_attempt,
-            )
-            await asyncio.sleep(delay)
+                            payload_event.clear()
+                            retry_attempt = 0
+                except asyncio.CancelledError:
+                    LOGGER.debug("Stopping MQTT process loop")
+                    raise
+                except MqttError as err:
+                    LOGGER.error("There was an MQTT error: %s", err)
+                    LOGGER.debug("".join(traceback.format_tb(err.__traceback__)))
 
-    async def _async_create_server(self) -> None:
-        """Create the REST API server."""
-        LOGGER.debug("Starting REST API server")
+                payload_event.clear()
+                retry_attempt += 1
+                delay = min(retry_attempt**2, DEFAULT_MAX_RETRY_INTERVAL)
+                LOGGER.info(
+                    "Attempting MQTT reconnection in %s seconds (attempt %s)",
+                    delay,
+                    retry_attempt,
+                )
+                await asyncio.sleep(delay)
 
-        try:
-            await self._server.serve()
-        except asyncio.CancelledError:
-            LOGGER.debug("Stopping REST API server")
-            raise
+        return asyncio.create_task(create_loop())
 
     async def _async_post_data(self, request: Request) -> Response:
         """Define an endpoint for the Ecowitt device to post data to."""
-        payload = dict(await request.form())
-        LOGGER.debug("Received data from the Ecowitt device: %s", payload)
-        async with self._new_payload_condition:
-            self._latest_payload = payload
-            self._new_payload_condition.notify_all()
+        form_data = await request.form()
+        payload = dict(form_data)
+        LOGGER.debug("Received data from an Ecowitt device: %s", payload)
+
+        config = self.ecowitt.configs.get(payload["PASSKEY"])
+
+        # Store the payload in the appropriate queue:
+        queue = self._payload_queues.setdefault(
+            config.mqtt_connection_info, asyncio.Queue()
+        )
+        queue.put_nowait(payload)
+
+        # If there isn't an active MQTT loop for this payload, create it first and once
+        # it's ready to publish, proceed:
+        if (
+            payload_event := self._payload_events.get(config.mqtt_connection_info)
+        ) is None:
+            mqtt_ready_event = asyncio.Event()
+            payload_event = self._payload_events[
+                config.mqtt_connection_info
+            ] = asyncio.Event()
+            self._mqtt_loop_tasks.append(
+                self._async_create_mqtt_loop_task(
+                    config, queue, mqtt_ready_event, payload_event
+                )
+            )
+            await mqtt_ready_event.wait()
+
+        payload_event.set()
 
     async def async_start(self) -> None:
         """Start the runtime."""
@@ -148,15 +187,13 @@ class Runtime:
             for sig in HANDLED_SIGNALS:
                 signal.signal(sig, handle_exit_signal)
 
-        self._runtime_tasks = [
-            asyncio.create_task(coro_func())
-            for coro_func in (self._async_create_mqtt_loop, self._async_create_server)
-        ]
-
+        LOGGER.debug("Starting runtime")
+        self._rest_api_server_task = asyncio.create_task(self._server.serve())
         try:
-            await asyncio.gather(*self._runtime_tasks)
+            await self._rest_api_server_task
         except asyncio.CancelledError:
-            for task in self._runtime_tasks:
+            for task in self._mqtt_loop_tasks:
+                task.cancel()
                 try:
                     await task
                 except asyncio.CancelledError:
@@ -165,5 +202,6 @@ class Runtime:
 
     def stop(self) -> None:
         """Stop the REST API server."""
-        for task in self._runtime_tasks:
-            task.cancel()
+        LOGGER.debug("Stopping runtime")
+        if self._rest_api_server_task:
+            self._rest_api_server_task.cancel()
