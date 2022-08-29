@@ -86,7 +86,7 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
         payload_event: asyncio.Event,
     ) -> asyncio.Task:
         """Create a task that contains a new MQTT loop."""
-        LOGGER.debug("Creating MQTT loop: %s:%s", config.mqtt_connection_info)
+        LOGGER.debug("Creating MQTT loop: %s", config.mqtt_connection_info)
 
         async def create_loop() -> None:
             """Create the loop."""
