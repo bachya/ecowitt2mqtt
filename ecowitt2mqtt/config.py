@@ -36,7 +36,6 @@ from ecowitt2mqtt.const import (
     DEFAULT_PORT,
     ENV_BATTERY_OVERRIDES,
     UNIT_SYSTEM_IMPERIAL,
-    UNIT_SYSTEMS,
 )
 from ecowitt2mqtt.errors import EcowittError
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
@@ -84,12 +83,12 @@ CONFIG_SCHEMA = vol.All(
             vol.Optional(CONF_DIAGNOSTICS, default=False): cv.boolean,
             vol.Optional(CONF_DISABLE_CALCULATED_DATA, default=False): cv.boolean,
             vol.Optional(CONF_ENDPOINT, default=DEFAULT_ENDPOINT): str,
-            vol.Optional(CONF_INPUT_UNIT_SYSTEM, default=UNIT_SYSTEM_IMPERIAL): vol.All(
-                str, vol.In(UNIT_SYSTEMS)
-            ),
+            vol.Optional(
+                CONF_INPUT_UNIT_SYSTEM, default=UNIT_SYSTEM_IMPERIAL
+            ): cv.unit_system,
             vol.Optional(
                 CONF_OUTPUT_UNIT_SYSTEM, default=UNIT_SYSTEM_IMPERIAL
-            ): vol.All(str, vol.In(UNIT_SYSTEMS)),
+            ): cv.unit_system,
             vol.Optional(CONF_PORT, default=DEFAULT_PORT): cv.port,
             vol.Optional(CONF_RAW_DATA, default=False): cv.boolean,
             vol.Optional(CONF_VERBOSE, default=False): cv.boolean,

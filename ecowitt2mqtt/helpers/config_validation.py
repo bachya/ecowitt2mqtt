@@ -6,6 +6,7 @@ from typing import Any
 
 import voluptuous as vol
 
+from ecowitt2mqtt.const import UNIT_SYSTEMS
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 
 
@@ -51,3 +52,4 @@ def boolean(value: Any) -> bool:
 
 optional_string = vol.Any(str, None)
 port = vol.All(vol.Coerce(int), vol.Range(min=1, max=65535))
+unit_system = vol.All(vol.Coerce(str), vol.In(UNIT_SYSTEMS))
