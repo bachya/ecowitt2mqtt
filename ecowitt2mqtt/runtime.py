@@ -82,7 +82,6 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
         self,
         config: Config,
         queue: asyncio.Queue,
-        mqtt_ready_event: asyncio.Event,
         payload_event: asyncio.Event,
     ) -> asyncio.Task:
         """Create a task that contains a new MQTT loop."""
@@ -102,7 +101,6 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
                         username=config.mqtt_username,
                     ) as client:
                         publisher = get_publisher(config, client)
-                        mqtt_ready_event.set()
                         while True:
                             await payload_event.wait()
                             while not queue.empty():
@@ -154,16 +152,12 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
         if (
             payload_event := self._payload_events.get(config.mqtt_connection_info)
         ) is None:
-            mqtt_ready_event = asyncio.Event()
             payload_event = self._payload_events[
                 config.mqtt_connection_info
             ] = asyncio.Event()
             self._mqtt_loop_tasks.append(
-                self._async_create_mqtt_loop_task(
-                    config, queue, mqtt_ready_event, payload_event
-                )
+                self._async_create_mqtt_loop_task(config, queue, payload_event)
             )
-            await mqtt_ready_event.wait()
 
         payload_event.set()
 
