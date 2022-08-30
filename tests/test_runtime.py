@@ -63,3 +63,21 @@ async def test_publish_success(
             data=device_data,
         )
         assert resp.status == 204
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "mqtt_publish_side_effect",
+    [AsyncMock(side_effect=Exception("Something horrible happened"))],
+)
+async def test_unknown_exception_shutdown(
+    caplog, device_data, ecowitt, setup_asyncio_mqtt, setup_uvicorn_server
+):
+    """Test that an unknown exception successfully shuts down the runtime."""
+    async with ClientSession() as session:
+        await session.request(
+            "post",
+            f"http://0.0.0.0:{TEST_PORT}{TEST_ENDPOINT}",
+            data=device_data,
+        )
+    assert any(m for m in caplog.messages if "Something horrible happened" in m)

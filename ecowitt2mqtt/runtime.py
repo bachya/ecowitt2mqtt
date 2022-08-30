@@ -117,20 +117,22 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
                                 retry_attempt = 0
                     except MqttError as err:
                         LOGGER.error("There was an MQTT error: %s", err)
-                        LOGGER.debug("".join(traceback.format_tb(err.__traceback__)))
-
-                    payload_event.clear()
-                    retry_attempt += 1
-                    delay = min(retry_attempt**2, DEFAULT_MAX_RETRY_INTERVAL)
-                    LOGGER.info(
-                        "Attempting MQTT reconnection in %s seconds (attempt %s)",
-                        delay,
-                        retry_attempt,
-                    )
-                    await asyncio.sleep(delay)
+                        payload_event.clear()
+                        retry_attempt += 1
+                        delay = min(retry_attempt**2, DEFAULT_MAX_RETRY_INTERVAL)
+                        LOGGER.info(
+                            "Attempting MQTT reconnection in %s seconds (attempt %s)",
+                            delay,
+                            retry_attempt,
+                        )
+                        await asyncio.sleep(delay)
             except asyncio.CancelledError:
                 LOGGER.debug("Stopping MQTT process loop")
                 raise
+            except Exception as err:  # pylint: disable=broad-except
+                LOGGER.exception("Exception caused a shutdown: %s", err)
+                LOGGER.debug("".join(traceback.format_tb(err.__traceback__)))
+                self.stop()
 
         return asyncio.create_task(create_loop())
 
@@ -188,6 +190,8 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
             await self._rest_api_server_task
         except asyncio.CancelledError:
             for task in self._mqtt_loop_tasks:
+                if task.done():
+                    continue
                 task.cancel()
                 try:
                     await task
