@@ -90,46 +90,47 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
         async def create_loop() -> None:
             """Create the loop."""
             retry_attempt = 0
-            while True:
-                try:
-                    async with Client(
-                        config.mqtt_broker,
-                        logger=LOGGER,
-                        password=config.mqtt_password,
-                        port=config.mqtt_port,
-                        tls_context=SSLContext() if config.mqtt_tls else None,
-                        username=config.mqtt_username,
-                    ) as client:
-                        publisher = get_publisher(config, client)
-                        while True:
-                            await payload_event.wait()
-                            while not queue.empty():
-                                payload = await queue.get()
-                                LOGGER.debug("Publishing payload: %s", payload)
-                                await publisher.async_publish(payload)
+            try:
+                while True:
+                    try:
+                        async with Client(
+                            config.mqtt_broker,
+                            logger=LOGGER,
+                            password=config.mqtt_password,
+                            port=config.mqtt_port,
+                            tls_context=SSLContext() if config.mqtt_tls else None,
+                            username=config.mqtt_username,
+                        ) as client:
+                            publisher = get_publisher(config, client)
+                            while True:
+                                await payload_event.wait()
+                                while not queue.empty():
+                                    payload = await queue.get()
+                                    LOGGER.debug("Publishing payload: %s", payload)
+                                    await publisher.async_publish(payload)
 
-                            if config.diagnostics:
-                                LOGGER.info("*** DIAGNOSTICS COLLECTED")
-                                self.stop()
+                                if config.diagnostics:
+                                    LOGGER.info("*** DIAGNOSTICS COLLECTED")
+                                    self.stop()
 
-                            payload_event.clear()
-                            retry_attempt = 0
-                except asyncio.CancelledError:
-                    LOGGER.debug("Stopping MQTT process loop")
-                    raise
-                except MqttError as err:
-                    LOGGER.error("There was an MQTT error: %s", err)
-                    LOGGER.debug("".join(traceback.format_tb(err.__traceback__)))
+                                payload_event.clear()
+                                retry_attempt = 0
+                    except MqttError as err:
+                        LOGGER.error("There was an MQTT error: %s", err)
+                        LOGGER.debug("".join(traceback.format_tb(err.__traceback__)))
 
-                payload_event.clear()
-                retry_attempt += 1
-                delay = min(retry_attempt**2, DEFAULT_MAX_RETRY_INTERVAL)
-                LOGGER.info(
-                    "Attempting MQTT reconnection in %s seconds (attempt %s)",
-                    delay,
-                    retry_attempt,
-                )
-                await asyncio.sleep(delay)
+                    payload_event.clear()
+                    retry_attempt += 1
+                    delay = min(retry_attempt**2, DEFAULT_MAX_RETRY_INTERVAL)
+                    LOGGER.info(
+                        "Attempting MQTT reconnection in %s seconds (attempt %s)",
+                        delay,
+                        retry_attempt,
+                    )
+                    await asyncio.sleep(delay)
+            except asyncio.CancelledError:
+                LOGGER.debug("Stopping MQTT process loop")
+                raise
 
         return asyncio.create_task(create_loop())
 
