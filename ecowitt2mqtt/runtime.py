@@ -150,8 +150,8 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
         )
         queue.put_nowait(payload)
 
-        # If there isn't an active MQTT loop for this payload, create it first and once
-        # it's ready to publish, proceed:
+        # If there isn't an active MQTT loop for this payload, create it first and
+        # instruct it to publish the payload once it's connected:
         if (
             payload_event := self._payload_events.get(config.mqtt_connection_info)
         ) is None:
