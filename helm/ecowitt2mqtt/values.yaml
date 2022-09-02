@@ -17,14 +17,14 @@ mqtt:
     password: password
 
 envvar:
-  #- name: ECOWITT2MQTT_BATTERY_OVERRIDE
-  #  value: numeric
+  - name: ECOWITT2MQTT_BATTERY_OVERRIDE
+    value: wh60_batt1=numeric
     # a semicolon-delimited list of key=value battery overrides (default: numeric)
-  #- name: ECOWITT2MQTT_CONFIG
-  #  value: None
+  - name: ECOWITT2MQTT_CONFIG
+    value: ""
     # a path to a YAML or JSON config file (default: None)
-  #- name: ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY
-  #  value: boolean
+  - name: ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY
+    value: boolean
     # the default battery config strategy to use (default: boolean)
   - name: ECOWITT2MQTT_DIAGNOSTICS
     value: false
