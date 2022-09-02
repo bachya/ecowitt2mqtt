@@ -35,7 +35,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             {{ if .Values.mqtt.auth.enabled }}
-            - name: "ECOTWITT2MQTT_MQTT_USERNAME"
+            - name: "ECOWITT2MQTT_MQTT_USERNAME"
               valueFrom:
                 secretKeyRef:
                   key: username
@@ -48,19 +48,19 @@ spec:
             {{- end }}
             {{- range $idx, $val := .Values.envvar }}
             - name: {{ $val.name }}
-              value: {{ $val.value }}
+              value: {{ $val.value | quote }}
             {{- end }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /health/liveness
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /health/readiness
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

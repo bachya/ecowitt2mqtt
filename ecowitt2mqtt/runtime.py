@@ -67,6 +67,15 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
             )
         )
 
+        @app.get("/health/liveness")
+        async def _async_liveness():
+            return { "status": "Online"}
+
+        # TODO: check MQTT is reachable or return 503
+        @app.get("/health/readiness")
+        async def _async_readiness():
+            return { "status": "Ready"}
+
         self._payload_events: dict[str, asyncio.Event] = {}
         self._mqtt_loop_tasks: list[asyncio.Task] = []
         self._payload_lock = asyncio.Lock()
