@@ -36,7 +36,7 @@ COPY --from=builder /venv /venv
 ENV PATH="/venv/bin:${PATH}"
 ENV VIRTUAL_ENV="/venv"
 COPY docker-entrypoint.sh /usr/local/bin/
-RUN chown -R ecowitt2mqtt:ecowitt2mqtt /venv /app \
+RUN chown -R ecowitt2mqtt:ecowitt2mqtt ${VIRTUAL_ENV} /app \
     && chown ecowitt2mqtt:ecowitt2mqtt /usr/local/bin/docker-entrypoint.sh
 USER 1000
 ENTRYPOINT ["docker-entrypoint.sh"]
