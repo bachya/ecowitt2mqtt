@@ -30,8 +30,13 @@ RUN poetry build && /venv/bin/python3 -m pip install dist/*.whl
 
 FROM base as final
 WORKDIR /app
+RUN addgroup -g 1000 -S ecowitt2mqtt \
+    && adduser -u 1000 -S ecowitt2mqtt -G ecowitt2mqtt
 COPY --from=builder /venv /venv
 ENV PATH="/venv/bin:${PATH}"
 ENV VIRTUAL_ENV="/venv"
-COPY docker-entrypoint.sh ./
-CMD ["./docker-entrypoint.sh"]
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chown -R ecowitt2mqtt:ecowitt2mqtt /venv /app \
+    && chown ecowitt2mqtt:ecowitt2mqtt /usr/local/bin/docker-entrypoint.sh
+USER 1000
+ENTRYPOINT ["docker-entrypoint.sh"]
