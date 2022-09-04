@@ -88,6 +88,9 @@ pytest-cov = "^3.0.0"
 [tool.poetry.scripts]
 ecowitt2mqtt = "ecowitt2mqtt.__main__:main"
 
+[tool.pylint.main]
+ignore-paths=["helm/"]
+
 [tool.pylint.BASIC]
 expected-line-ending-format = "LF"
 
