@@ -69,11 +69,11 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
         )
 
         @app.get("/health/liveness")
-        async def _async_liveness():
+        async def _async_liveness() -> dict:
             return {"status": "Online"}
 
         @app.get("/health/readiness")
-        async def _async_readiness(response: Response):
+        async def _async_readiness(response: Response) -> dict:
             if self.mqtt_connected:
                 return {"status": "Ready"}
             response.status_code = status.HTTP_503_SERVICE_UNAVAILABLE
