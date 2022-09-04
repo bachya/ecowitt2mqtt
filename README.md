@@ -556,7 +556,14 @@ Note that this is intended to be a dev environment for quickly testing the repo 
 in production, you should refer to one of the
 [Docker Hub](https://hub.docker.com/r/bachya/ecowitt2mqtt) images.
 
-## Helm
+## Kubernetes
+
+Kubernetes users may deploy `ecowitt2mqtt` via the Helm chart included in this repo. Note that this chart is not currently hosted on any [ChartMuseum](https://chartmuseum.com/).
+
+1. Clone this repo.
+2. Update (`helm/ecowitt2mqtt/values.yaml`](https://github.com/bachya/ecowitt2mqtt/tree/dev/helm/ecowitt2mqtt/values.yaml) with the correct settings for your environment. As with any other deployment method, you must specify at least (a) an MQTT broker and (b) either an MQTT Topic or Home Assistant MQTT Discovery mode.
+3. `cd` into the `helm/ecowitt2mqtt`.
+4. Run `helm template . --name-template prod | kubectl apply -f -`
 
 Another deployment method supported is Helm, currently the chart is NOT uploaded to any chartmuseum, 
 however it is still possible to use the chart.
