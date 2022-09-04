@@ -46,7 +46,7 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
     def __init__(self, ecowitt: Ecowitt) -> None:
         """Initialize."""
         self.ecowitt = ecowitt
-        self.mqtt_connected = False
+        self._mqtt_connected = False
 
         if ecowitt.configs.default_config.verbose:
             uvicorn_log_level = UVICORN_LOG_LEVEL_DEBUG
