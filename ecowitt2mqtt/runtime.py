@@ -46,6 +46,7 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
     def __init__(self, ecowitt: Ecowitt) -> None:
         """Initialize."""
         self.ecowitt = ecowitt
+        self.mqtt_connected = False
 
         if ecowitt.configs.default_config.verbose:
             uvicorn_log_level = UVICORN_LOG_LEVEL_DEBUG
@@ -69,12 +70,14 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
 
         @app.get("/health/liveness")
         async def _async_liveness():
-            return { "status": "Online"}
+            return {"status": "Online"}
 
-        # TODO: check MQTT is reachable or return 503
         @app.get("/health/readiness")
-        async def _async_readiness():
-            return { "status": "Ready"}
+        async def _async_readiness(response: Response):
+            if self.mqtt_connected:
+                return {"status": "Ready"}
+            response.status_code = status.HTTP_503_SERVICE_UNAVAILABLE
+            return {"status": "Not Ready"}
 
         self._payload_events: dict[str, asyncio.Event] = {}
         self._mqtt_loop_tasks: list[asyncio.Task] = []
@@ -111,6 +114,7 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
                             username=config.mqtt_username,
                         ) as client:
                             publisher = get_publisher(config, client)
+                            self.mqtt_connected = True
                             while True:
                                 await payload_event.wait()
                                 while not queue.empty():
@@ -126,6 +130,7 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
                                 retry_attempt = 0
                     except MqttError as err:
                         LOGGER.error("There was an MQTT error: %s", err)
+                        self.mqtt_connected = False
                         payload_event.clear()
                         retry_attempt += 1
                         delay = min(retry_attempt**2, DEFAULT_MAX_RETRY_INTERVAL)
