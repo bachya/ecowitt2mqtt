@@ -5,7 +5,7 @@
 [![Docker Hub](https://img.shields.io/docker/pulls/bachya/ecowitt2mqtt)](https://hub.docker.com/r/bachya/ecowitt2mqtt)
 [![Version](https://img.shields.io/pypi/pyversions/ecowitt2mqtt.svg)](https://pypi.python.org/pypi/ecowitt2mqtt)
 [![License](https://img.shields.io/pypi/l/ecowitt2mqtt.svg)](https://github.com/bachya/ecowitt2mqtt/blob/main/LICENSE)
-[![Code Coverage](https://codecov.io/gh/bachya/ecowitt2mqtt/branch/main/graph/badge.svg)](https://codecov.io/gh/bachya/ecowitt2mqtt)
+[![Code Coverage](https://codecov.io/gh/bachya/ecowitt2mqtt/branch/dev/graph/badge.svg)](https://codecov.io/gh/bachya/ecowitt2mqtt)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a03c9e96f19a3dc37f98/maintainability)](https://codeclimate.com/github/bachya/ecowitt2mqtt/maintainability)
 [![Say Thanks](https://img.shields.io/badge/SayThanks-!-1EAEDB.svg)](https://saythanks.io/to/bachya)
 
