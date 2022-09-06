@@ -53,11 +53,17 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
             uvicorn_log_level = UVICORN_LOG_LEVEL_ERROR
 
         app = FastAPI()
-        app.post(
+
+        for route in (
             ecowitt.configs.default_config.endpoint,
-            status_code=status.HTTP_204_NO_CONTENT,
-            response_class=Response,
-        )(self._async_post_data)
+            f"{ecowitt.configs.default_config.endpoint}/",
+        ):
+            app.post(
+                route,
+                status_code=status.HTTP_204_NO_CONTENT,
+                response_class=Response,
+            )(self._async_post_data)
+
         self._server = DeSignaledUvicornServer(
             config=uvicorn.Config(
                 app,

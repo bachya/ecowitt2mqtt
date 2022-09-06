@@ -52,16 +52,19 @@ async def test_publish_failure(
 
 
 @pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "route",
+    [
+        f"http://0.0.0.0:{TEST_PORT}{TEST_ENDPOINT}",
+        f"http://0.0.0.0:{TEST_PORT}{TEST_ENDPOINT}/",
+    ],
+)
 async def test_publish_success(
-    device_data, ecowitt, setup_asyncio_mqtt, setup_uvicorn_server
+    device_data, ecowitt, route, setup_asyncio_mqtt, setup_uvicorn_server
 ):
     """Test a successful MQTT publish."""
     async with ClientSession() as session:
-        resp = await session.request(
-            "post",
-            f"http://0.0.0.0:{TEST_PORT}{TEST_ENDPOINT}",
-            data=device_data,
-        )
+        resp = await session.request("post", route, data=device_data)
         assert resp.status == 204
 
 

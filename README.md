@@ -81,8 +81,7 @@ Fill out the form with these values and tap `Save`:
 
 * `Protocol Type Same As`: `Ecowitt`
 * `Server IP / Hostname`: the IP address/hostname of the device running `ecowitt2mqtt`
-* `Path`: `/data/report` (note that unlike the default in the WS View App, there shouldn't
-  be a trailing slash)
+* `Path`: `/data/report/`
 * `Port`: `8080` (the default port on which `ecowitt2mqtt` is served)
 * `Upload Interval`: `60` (change this to alter the frequency with which data is published)
 
