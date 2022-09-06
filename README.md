@@ -565,14 +565,6 @@ Kubernetes users may deploy `ecowitt2mqtt` via the Helm chart included in this r
 3. `cd` into the `helm/ecowitt2mqtt`.
 4. Run `helm template . --name-template prod | kubectl apply -f -`
 
-Another deployment method supported is Helm, currently the chart is NOT uploaded to any chartmuseum,
-however it is still possible to use the chart.
-
-1. Update the values.yaml in `helm/ecowitt2mqtt` with the correct settings for your environment.
-(at a minimum set the MQTT Broker)
-2. cd `helm/ecowitt2mqtt`
-3. `helm template . --name-template prod | kubectl apply -f -`
-
 # Diagnostics
 
 You may run `ecowitt2mqtt` in diagnostics mode by providing the `--diagnostics` flag. In
