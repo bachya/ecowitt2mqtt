@@ -73,10 +73,6 @@ jobs:
           python-version: "3.x"
           architecture: x64
 
-      - run: |
-          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-          cd helm/ecowitt2mqtt && helm lint .
-
       - uses: pre-commit/action@v3.0.0
         env:
           SKIP: no-commit-to-branch
