@@ -22,7 +22,7 @@ RUN apk add --no-cache \
 
 RUN \
     if [ "$(uname -m)" = "armv7l" ]; then \
-        printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf ; \
+        printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n\n" > /etc/pip.conf ; \
     fi
 
 # hadolint ignore=DL3013
