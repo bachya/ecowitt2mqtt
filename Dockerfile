@@ -20,15 +20,11 @@ RUN apk add --no-cache \
         openssl-dev \
         python3-dev
 
-RUN \
-    if [ "$(uname -m)" = "armv7l" ]; then \
-        printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n\n" > /etc/pip.conf ; \
-    fi
-
 # hadolint ignore=DL3013
 RUN python3 -m pip install --upgrade pip \
-    && python3 -m pip install cryptography \
-    && python3 -m pip install poetry \
+    && python3 -m pip install --extra-index-url https://www.piwheels.hostedpi.com/simple \
+        cryptography \
+        poetry \
     && python3 -m venv /venv
 COPY pyproject.toml ./
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
