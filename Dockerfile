@@ -18,8 +18,7 @@ RUN apk add --no-cache \
         libffi-dev \
         musl-dev \
         openssl-dev \
-        python3-dev \
-    && apk del --purge py-cryptography
+        python3-dev
 
 RUN \
     if [ "$(uname -m)" = "armv7l" ]; then \
