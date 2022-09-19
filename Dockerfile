@@ -14,15 +14,17 @@ WORKDIR /app
 RUN apk add --no-cache \
         bash \
         build-base \
+        cargo \
         gcc \
         libffi-dev \
         musl-dev \
         openssl-dev \
-        py-cryptography \
         python3-dev
 
 # hadolint ignore=DL3013
-RUN python3 -m pip install poetry \
+RUN python3 -m pip install --upgrade pip \
+    && python3 -m pip install cryptography \
+    && python3 -m pip install poetry \
     && python3 -m venv /venv
 COPY pyproject.toml ./
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
