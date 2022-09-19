@@ -4532,13 +4532,6 @@ def test_nonnumeric_value(device_data, ecowitt):
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
-                "totalain": CalculatedDataPoint(
-                    "totalain",
-                    0.000,
-                    unit=RAINFALL_INCHES,
-                    attributes={},
-                    data_type=DataPointType.NON_BOOLEAN,
-                ),
                 "wh65batt": CalculatedDataPoint(
                     "batt",
                     BooleanBatteryState.OFF,
