@@ -21,7 +21,7 @@ RUN apk add --no-cache \
         python3-dev
 
 RUN \
-    if [ "$(uname -r)" = "armhf" ]; then \
+    if [ "$(uname -r)" = "armv7l" ]; then \
         printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf ; \
     fi
 
