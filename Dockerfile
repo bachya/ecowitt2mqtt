@@ -13,17 +13,21 @@ WORKDIR /app
 # hadolint ignore=DL3008
 RUN apt-get update \
     && apt-get upgrade -y \
-    && apt-get install -y --no-install-recommends \
-        build-essential \
-        libffi-dev
+    && apt-get install -y --no-install-recommends build-essential
 
 RUN \
-    if [ "$(uname -m)" = "armv7l" ]; then \
+    if [ "$(dpkg --print-architecture)" = "armhf" ]; then \
         printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf ; \
     fi
 
 # hadolint ignore=DL3013
 RUN python3 -m pip install --upgrade pip \
+    && python3 -m pip install \
+        cffi \
+        cryptography \
+        dulwich \
+        msgpack \
+        pyrsistent \
     && python3 -m pip install poetry \
     && python3 -m venv /venv
 COPY pyproject.toml ./
