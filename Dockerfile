@@ -25,6 +25,8 @@ RUN \
         printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf ; \
     fi
 
+RUN cat /etc/pip.conf
+
 # hadolint ignore=DL3013
 RUN python3 -m pip install \
         cryptography \
