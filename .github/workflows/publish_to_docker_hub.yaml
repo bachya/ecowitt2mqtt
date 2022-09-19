@@ -12,7 +12,8 @@ on:
       - "*"
 
 jobs:
-  publish_to_docker_hub:
+  publish:
+    name: Publish Images
 
     runs-on: ubuntu-latest
 
