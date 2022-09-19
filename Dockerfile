@@ -1,4 +1,4 @@
-FROM python:3.10-slim-bullseye as base
+FROM python:3.10-alpine as base
 ENV PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=random \
     PYTHONUNBUFFERED=1
@@ -10,22 +10,21 @@ ENV PIP_DEFAULT_TIMEOUT=100 \
 
 WORKDIR /app
 
-# hadolint ignore=DL3008
-RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y --no-install-recommends \
-        build-essential \
-        libffi-dev
-
-RUN \
-    if [ "$(dpkg --print-architecture)" = "armhf" ]; then \
-        printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf ; \
-    fi
+# hadolint ignore=DL3018
+RUN apk add --no-cache \
+        bash \
+        build-base \
+        cargo \
+        gcc \
+        libffi-dev \
+        musl-dev \
+        openssl-dev \
+        python3-dev
 
 # hadolint ignore=DL3013
 RUN python3 -m pip install --upgrade pip \
-    && python3 -m pip install cryptography \
-    && python3 -m pip install poetry \
+    && python3 -m pip -v install cryptography \
+    && python3 -m pip -v install poetry \
     && python3 -m venv /venv
 COPY pyproject.toml ./
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -36,8 +35,8 @@ RUN poetry build && /venv/bin/python3 -m pip install dist/*.whl
 
 FROM base as final
 WORKDIR /app
-RUN groupadd -g 1000 ecowitt2mqtt \
-    && useradd ecowitt2mqtt -u 1000 -g 1000
+RUN addgroup -g 1000 -S ecowitt2mqtt \
+    && adduser -u 1000 -S ecowitt2mqtt -G ecowitt2mqtt
 COPY --from=builder /venv /venv
 ENV PATH="/venv/bin:${PATH}"
 ENV VIRTUAL_ENV="/venv"
