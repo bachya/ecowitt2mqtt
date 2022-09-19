@@ -1,4 +1,4 @@
-FROM python:3.10-alpine as base
+FROM python:3.10-slim-bullseye as base
 ENV PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=random \
     PYTHONUNBUFFERED=1
@@ -10,15 +10,10 @@ ENV PIP_DEFAULT_TIMEOUT=100 \
 
 WORKDIR /app
 
-# hadolint ignore=DL3018
-RUN apk add --no-cache \
-        bash \
-        build-base \
-        gcc \
-        libffi-dev \
-        musl-dev \
-        openssl-dev \
-        python3-dev
+# hadolint ignore=DL3008
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y --no-install-recommends build-essential
 
 RUN \
     if [ "$(uname -m)" = "armv7l" ]; then \
@@ -27,8 +22,7 @@ RUN \
 
 # hadolint ignore=DL3013
 RUN python3 -m pip install --upgrade pip \
-    && python3 -m pip -v install cryptography \
-    && python3 -m pip -v install poetry \
+    && python3 -m pip install poetry \
     && python3 -m venv /venv
 COPY pyproject.toml ./
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
