@@ -17,6 +17,8 @@ RUN apk add --no-cache \
         musl-dev \
         openssl-dev \
         python3-dev \
+    && [ "$(uname -r)" = "armhf" ] \
+        && printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf \
     && python3 -m pip install --upgrade pip \
     && python3 -m pip install cryptography \
     && python3 -m pip install poetry \
