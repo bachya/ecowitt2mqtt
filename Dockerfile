@@ -11,15 +11,15 @@ ENV PIP_DEFAULT_TIMEOUT=100 \
 WORKDIR /app
 
 RUN uname -r
-# # hadolint ignore=DL3018
-# RUN apk add --no-cache \
-#         bash \
-#         build-base \
-#         gcc \
-#         libffi-dev \
-#         musl-dev \
-#         openssl-dev \
-#         python3-dev
+# hadolint ignore=DL3018,DL3059
+RUN apk add --no-cache \
+        bash \
+        build-base \
+        gcc \
+        libffi-dev \
+        musl-dev \
+        openssl-dev \
+        python3-dev
 
 # RUN \
 #     if [ "$(uname -r)" = "armv7l" ]; then \
