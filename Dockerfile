@@ -10,7 +10,7 @@ ENV PIP_DEFAULT_TIMEOUT=100 \
 
 WORKDIR /app
 
-RUN uname -r
+RUN uname -m
 # hadolint ignore=DL3018,DL3059
 RUN apk add --no-cache \
         bash \
