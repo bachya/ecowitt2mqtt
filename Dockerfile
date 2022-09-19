@@ -14,17 +14,22 @@ WORKDIR /app
 RUN apk add --no-cache \
         bash \
         build-base \
-        cargo \
         gcc \
         libffi-dev \
         musl-dev \
         openssl-dev \
-        python3-dev
+        python3-dev \
+    && apk del --purge py-cryptography
+
+RUN \
+    if [ "$(uname -m)" = "armv7l" ]; then \
+        printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf ; \
+    fi
 
 # hadolint ignore=DL3013
 RUN python3 -m pip install --upgrade pip \
-    && python3 -m pip install cryptography \
-    && python3 -m pip install poetry \
+    && python3 -m pip -v install cryptography \
+    && python3 -m pip -v install poetry \
     && python3 -m venv /venv
 COPY pyproject.toml ./
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
