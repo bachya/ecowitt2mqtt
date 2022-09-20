@@ -7,19 +7,24 @@ FROM base as builder
 ENV PIP_DEFAULT_TIMEOUT=100 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1
+
 WORKDIR /app
-# hadolint ignore=DL3018,DL3013
+
+# hadolint ignore=DL3018
 RUN apk add --no-cache \
         bash \
         build-base \
+        cargo \
         gcc \
         libffi-dev \
         musl-dev \
         openssl-dev \
-        python3-dev \
-    && python3 -m pip install --upgrade pip \
-    && python3 -m pip install cryptography \
-    && python3 -m pip install poetry \
+        python3-dev
+
+# hadolint ignore=DL3013
+RUN python3 -m pip install --upgrade pip \
+    && python3 -m pip -v install cryptography \
+    && python3 -m pip -v install poetry \
     && python3 -m venv /venv
 COPY pyproject.toml ./
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
