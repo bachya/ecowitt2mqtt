@@ -289,7 +289,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -309,7 +309,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state",
-                payload=b"unknown",
+                payload=b"0",
                 retain=False,
             ),
             call(
@@ -329,7 +329,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -349,7 +349,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -369,7 +369,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -389,7 +389,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -409,7 +409,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -469,7 +469,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -509,7 +509,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -1809,7 +1809,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -1829,7 +1829,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -2009,7 +2009,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -2029,7 +2029,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -2333,7 +2333,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -2353,7 +2353,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state",
-                payload=b"unknown",
+                payload=b"0",
                 retain=False,
             ),
             call(
@@ -2373,7 +2373,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -2393,7 +2393,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -2413,7 +2413,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -2433,7 +2433,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -2453,7 +2453,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -2513,7 +2513,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -2553,7 +2553,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -3853,7 +3853,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -3873,7 +3873,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -4053,7 +4053,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -4073,7 +4073,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -4400,7 +4400,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -4420,7 +4420,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state",
-                payload=b"unknown",
+                payload=b"0",
                 retain=False,
             ),
             call(
@@ -4440,7 +4440,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -4460,7 +4460,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -4480,7 +4480,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -4500,7 +4500,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -4520,7 +4520,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -4580,7 +4580,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -4620,7 +4620,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -5460,7 +5460,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/state",
-                payload=b"unknown",
+                payload=b"0",
                 retain=False,
             ),
             call(
@@ -5480,7 +5480,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/state",
-                payload=b"unknown",
+                payload=b"0",
                 retain=False,
             ),
             call(
@@ -5500,7 +5500,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/state",
-                payload=b"unknown",
+                payload=b"0",
                 retain=False,
             ),
             call(
@@ -5520,7 +5520,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/state",
-                payload=b"unknown",
+                payload=b"0",
                 retain=False,
             ),
             call(
@@ -5540,7 +5540,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/state",
-                payload=b"unknown",
+                payload=b"0",
                 retain=False,
             ),
             call(
@@ -5560,7 +5560,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/state",
-                payload=b"unknown",
+                payload=b"0",
                 retain=False,
             ),
             call(
@@ -5580,7 +5580,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/state",
-                payload=b"unknown",
+                payload=b"0",
                 retain=False,
             ),
             call(
@@ -5600,7 +5600,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/state",
-                payload=b"unknown",
+                payload=b"0",
                 retain=False,
             ),
             call(
@@ -5920,7 +5920,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -5940,7 +5940,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -6120,7 +6120,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -6140,7 +6140,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -6447,7 +6447,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -6467,7 +6467,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state",
-                payload=b"unknown",
+                payload=b"0",
                 retain=False,
             ),
             call(
@@ -6487,7 +6487,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -6507,7 +6507,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -6527,7 +6527,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -6547,7 +6547,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -6567,7 +6567,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -6627,7 +6627,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -6667,7 +6667,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -7987,7 +7987,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -8007,7 +8007,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -8187,7 +8187,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
@@ -8207,7 +8207,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state",
-                payload=b"unknown",
+                payload=b"0.0",
                 retain=False,
             ),
             call(
