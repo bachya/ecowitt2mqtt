@@ -391,7 +391,7 @@ def get_availability_payload(data_point: CalculatedDataPoint) -> str:
 
 def get_state_payload(data_point: CalculatedDataPoint) -> DataValueType:
     """Get the state payload for a data point."""
-    if not data_point.value:
+    if data_point.value is None:
         return STATE_UNKNOWN
     return data_point.value
 
