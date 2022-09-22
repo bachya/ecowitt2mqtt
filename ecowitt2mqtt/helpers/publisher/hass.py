@@ -378,12 +378,22 @@ STATE_CLASS_OVERRIDES = {
     DATA_POINT_YRAIN_PIEZO: StateClass.TOTAL,
 }
 
+STATE_UNKNOWN = "unknown"
+
 
 def get_availability_payload(data_point: CalculatedDataPoint) -> str:
-    """Get the availability payload for a data point."""
-    if data_point.value is None:
-        return AVAILABILITY_OFFLINE
+    """Get the availability payload for a data point.
+
+    Right now, this is hardcoded to always available.
+    """
     return AVAILABILITY_ONLINE
+
+
+def get_state_payload(data_point: CalculatedDataPoint) -> DataValueType:
+    """Get the state payload for a data point."""
+    if not data_point.value:
+        return STATE_UNKNOWN
+    return data_point.value
 
 
 class HomeAssistantDiscoveryPublisher(MqttPublisher):
@@ -490,7 +500,10 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
                         discovery_payload.payload["json_attributes_topic"],
                         data_point.attributes,
                     ),
-                    (discovery_payload.payload["state_topic"], data_point.value),
+                    (
+                        discovery_payload.payload["state_topic"],
+                        get_state_payload(data_point),
+                    ),
                 ):
                     tasks.append(
                         asyncio.create_task(

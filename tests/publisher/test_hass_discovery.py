@@ -289,7 +289,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -309,7 +309,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state",
-                payload=b"0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -329,7 +329,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -349,7 +349,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -369,7 +369,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -389,7 +389,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -409,7 +409,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -469,7 +469,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -509,7 +509,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -1809,7 +1809,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -1829,7 +1829,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -1839,7 +1839,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -1849,7 +1849,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -1859,7 +1859,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -1869,7 +1869,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -1879,7 +1879,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -1889,7 +1889,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -1899,7 +1899,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -1909,7 +1909,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -1919,7 +1919,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -1929,7 +1929,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -1939,7 +1939,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -1949,7 +1949,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -1959,7 +1959,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -1969,7 +1969,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -1979,7 +1979,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -1989,7 +1989,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -2009,7 +2009,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -2029,7 +2029,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -2059,7 +2059,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -2069,7 +2069,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
         ]
@@ -2333,7 +2333,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -2353,7 +2353,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state",
-                payload=b"0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -2373,7 +2373,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -2393,7 +2393,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -2413,7 +2413,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -2433,7 +2433,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -2453,7 +2453,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -2513,7 +2513,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -2553,7 +2553,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -3853,7 +3853,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -3873,7 +3873,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -3883,7 +3883,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -3893,7 +3893,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -3903,7 +3903,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -3913,7 +3913,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -3923,7 +3923,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -3933,7 +3933,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -3943,7 +3943,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -3953,7 +3953,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -3963,7 +3963,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -3973,7 +3973,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -3983,7 +3983,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -3993,7 +3993,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -4003,7 +4003,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -4013,7 +4013,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -4023,7 +4023,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -4033,7 +4033,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -4053,7 +4053,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -4073,7 +4073,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -4103,7 +4103,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -4113,7 +4113,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
         ]
@@ -4400,7 +4400,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -4420,7 +4420,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state",
-                payload=b"0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -4440,7 +4440,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -4460,7 +4460,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -4480,7 +4480,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -4500,7 +4500,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -4520,7 +4520,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -4580,7 +4580,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -4620,7 +4620,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -5460,7 +5460,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/state",
-                payload=b"0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -5480,7 +5480,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/state",
-                payload=b"0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -5500,7 +5500,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/state",
-                payload=b"0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -5520,7 +5520,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/state",
-                payload=b"0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -5540,7 +5540,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/state",
-                payload=b"0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -5560,7 +5560,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/state",
-                payload=b"0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -5580,7 +5580,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/state",
-                payload=b"0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -5600,7 +5600,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/state",
-                payload=b"0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -5920,7 +5920,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -5940,7 +5940,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -5950,7 +5950,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -5960,7 +5960,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -5970,7 +5970,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -5980,7 +5980,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -5990,7 +5990,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -6000,7 +6000,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -6010,7 +6010,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -6020,7 +6020,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -6030,7 +6030,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -6040,7 +6040,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -6050,7 +6050,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -6060,7 +6060,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -6070,7 +6070,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -6080,7 +6080,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -6090,7 +6090,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -6100,7 +6100,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -6120,7 +6120,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -6140,7 +6140,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -6170,7 +6170,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -6180,7 +6180,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
         ]
@@ -6447,7 +6447,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -6467,7 +6467,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state",
-                payload=b"0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -6487,7 +6487,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -6507,7 +6507,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -6527,7 +6527,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -6547,7 +6547,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -6567,7 +6567,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -6627,7 +6627,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -6667,7 +6667,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -7987,7 +7987,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -8007,7 +8007,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -8017,7 +8017,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -8027,7 +8027,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -8037,7 +8037,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -8047,7 +8047,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -8057,7 +8057,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -8067,7 +8067,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -8077,7 +8077,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -8087,7 +8087,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -8097,7 +8097,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -8107,7 +8107,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -8117,7 +8117,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -8127,7 +8127,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -8137,7 +8137,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -8147,7 +8147,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -8157,7 +8157,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -8167,7 +8167,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -8187,7 +8187,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_lux/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -8207,7 +8207,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state",
-                payload=b"0.0",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -8237,7 +8237,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/availability",
-                payload=b"offline",
+                payload=b"online",
                 retain=False,
             ),
             call(
@@ -8247,7 +8247,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state",
-                payload=b"None",
+                payload=b"unknown",
                 retain=False,
             ),
         ]
