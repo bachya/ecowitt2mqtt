@@ -175,9 +175,9 @@ class Config:  # pylint: disable=too-many-public-methods
         return cast(bool, self._config.get(CONF_HASS_DISCOVERY))
 
     @property
-    def hass_discovery_prefix(self) -> str:
+    def hass_discovery_prefix(self) -> str | None:
         """Return the Home Assistant Discovery MQTT prefix."""
-        return cast(str, self._config[CONF_HASS_DISCOVERY_PREFIX])
+        return self._config.get(CONF_HASS_DISCOVERY_PREFIX)
 
     @property
     def hass_entity_id_prefix(self) -> str | None:
