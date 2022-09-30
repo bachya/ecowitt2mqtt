@@ -6,7 +6,6 @@ ENV PYTHONFAULTHANDLER=1 \
 FROM base as builder
 ENV PIP_DEFAULT_TIMEOUT=100 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    PIP_ONLY_BINARY=cmake \
     PIP_NO_CACHE_DIR=1
 
 WORKDIR /app
@@ -16,6 +15,7 @@ RUN apk add --no-cache \
         bash \
         build-base \
         cargo \
+        cmake \
         gcc \
         libffi-dev \
         musl-dev \
