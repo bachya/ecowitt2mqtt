@@ -15,6 +15,7 @@ RUN apk add --no-cache \
         bash \
         build-base \
         cargo \
+        cmake \
         gcc \
         libffi-dev \
         musl-dev \
@@ -24,7 +25,6 @@ RUN apk add --no-cache \
 # hadolint ignore=DL3013
 RUN python3 -m pip install --upgrade pip \
     && python3 -m pip -v install \
-      cmake \
       cryptography \
       ninja \
     && python3 -m pip -v install poetry \
