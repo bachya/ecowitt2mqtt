@@ -1,4 +1,4 @@
-FROM python:3.10-alpine as base
+FROM python:3.9.14-alpine as base
 ENV PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=random \
     PYTHONUNBUFFERED=1
@@ -15,8 +15,6 @@ RUN printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/
   && apk add --no-cache \
         bash \
         build-base \
-        cargo \
-        cmake \
         gcc \
         libffi-dev \
         musl-dev \
@@ -25,9 +23,8 @@ RUN printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/
 
 # hadolint ignore=DL3013
 RUN python3 -m pip install --upgrade pip \
-    && python3 -m pip -v install \
-      cryptography \
-    && python3 -m pip -v install poetry \
+    && python3 -m pip install cryptography --prefer-binary \
+    && python3 -m pip install poetry \
     && python3 -m venv /venv
 COPY pyproject.toml ./
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
