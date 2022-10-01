@@ -11,7 +11,8 @@ ENV PIP_DEFAULT_TIMEOUT=100 \
 WORKDIR /app
 
 # hadolint ignore=DL3018
-RUN apk add --no-cache \
+RUN printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf \
+  && apk add --no-cache \
         bash \
         build-base \
         cargo \
@@ -26,7 +27,6 @@ RUN apk add --no-cache \
 RUN python3 -m pip install --upgrade pip \
     && python3 -m pip -v install \
       cryptography \
-      ninja \
     && python3 -m pip -v install poetry \
     && python3 -m venv /venv
 COPY pyproject.toml ./
