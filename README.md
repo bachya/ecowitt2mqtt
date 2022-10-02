@@ -463,9 +463,6 @@ $ ecowitt2mqtt \
     --hass-discovery
 ```
 
-Note that if both `--hass-discovery` and `--mqtt-topic` are provided, `--hass-discovery` will
-win out.
-
 ### Custom Entity ID Prefix
 
 You can provide a custom prefix for all Home Assistant entities via the
