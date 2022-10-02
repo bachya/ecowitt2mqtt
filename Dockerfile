@@ -23,7 +23,7 @@ RUN printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/
 
 # hadolint ignore=DL3013
 RUN python3 -m pip install --upgrade pip \
-    && python3 -m pip install cryptography --prefer-binary \
+    && python3 -m pip install cryptography \
     && python3 -m pip install poetry \
     && python3 -m venv /venv
 COPY pyproject.toml ./
