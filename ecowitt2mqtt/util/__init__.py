@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from typing import TypeVar
 
-from thefuzz import fuzz
+from rapidfuzz import fuzz
 
 T = TypeVar("T")
 
