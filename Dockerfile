@@ -7,9 +7,7 @@ FROM base as builder
 ENV PIP_DEFAULT_TIMEOUT=100 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1
-
 WORKDIR /app
-
 RUN apk add --no-cache \
     bash==5.1.16-r2 \
     build-base==0.5-r3 \
@@ -17,7 +15,6 @@ RUN apk add --no-cache \
     musl-dev==1.2.3-r0 \
     openssl-dev==1.1.1q-r0 \
     python3-dev==3.10.5-r0
-
 RUN printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf \
     && python3 -m pip install cryptography==38.0.1 \
     && python3 -m pip install poetry==1.2.1 \
