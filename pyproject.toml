@@ -68,13 +68,13 @@ classifiers = [
 "ruamel.yaml" = "^0.17.21"
 asyncio-mqtt = ">=0.12.1"
 colorlog = "^6.6.0"
-fastapi = "^0.81.0"
+fastapi = "^0.85.0"
 meteocalc = "^1.1.0"
 python = "^3.8.0"
 python-multipart = "^0.0.5"
 rapidfuzz = "^2.10.3"
 uvicorn = "^0.18.0"
-uvloop = "^0.16.0"
+uvloop = "^0.17.0"
 voluptuous = "^0.13.1"
 
 [tool.poetry.dev-dependencies]
@@ -83,7 +83,7 @@ nox = "^2022.1.7"
 pre-commit = "^2.15.0"
 pytest = "^7.0.0"
 pytest-asyncio = "^0.19.0"
-pytest-cov = "^3.0.0"
+pytest-cov = "^4.0.0"
 
 [tool.poetry.scripts]
 ecowitt2mqtt = "ecowitt2mqtt.__main__:main"
