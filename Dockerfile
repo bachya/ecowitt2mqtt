@@ -11,18 +11,17 @@ ENV PIP_DEFAULT_TIMEOUT=100 \
 WORKDIR /app
 
 # hadolint ignore=DL3018
-RUN printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf \
-  && apk add --no-cache \
-        bash \
-        build-base \
-        gcc \
-        libffi-dev \
-        musl-dev \
-        openssl-dev \
-        python3-dev
-
+RUN apk add --no-cache \
+    bash \
+    build-base \
+    libffi-dev \
+    musl-dev \
+    openssl-dev \
+    python3-dev
+  
 # hadolint ignore=DL3013
-RUN python3 -m pip install --upgrade pip \
+RUN printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf \
+    && python3 -m pip install --upgrade pip \
     && python3 -m pip install cryptography \
     && python3 -m pip install poetry \
     && python3 -m venv /venv
