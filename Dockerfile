@@ -15,6 +15,7 @@ RUN apk add --no-cache \
     musl-dev==1.2.3-r0 \
     openssl-dev==1.1.1q-r0 \
     python3-dev==3.10.5-r0
+# hadolint ignore=DL3013
 RUN printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf \
     && pip install --upgrade pip \
     && python3 -m pip install cryptography==38.0.1 \
