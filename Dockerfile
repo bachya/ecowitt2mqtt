@@ -11,6 +11,7 @@ WORKDIR /app
 RUN apk add --no-cache \
     bash==5.1.16-r2 \
     build-base==0.5-r3 \
+    cargo==1.64.0-r2 \
     libffi-dev==3.4.2-r1 \
     musl-dev==1.2.3-r0 \
     openssl-dev==1.1.1q-r0 \
