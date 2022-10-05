@@ -58,7 +58,7 @@ RUN apk add --no-cache --virtual .build-dependencies \
        esac \
     && S6_VERSION="3.1.2.1" \
     && echo "AARON" \
-    && echo "${TARGETVARIANT}" \
+    && echo "${TARGETPLATFORM}" \
     && echo "https://github.com/just-containers/s6-overlay/releases/download/v${S6_VERSION}/s6-overlay-${S6_ARCH}.tar.xz" \
     && curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_VERSION}/s6-overlay-noarch.tar.xz" \
         | tar -C / -Jxpf - \
