@@ -69,4 +69,9 @@ RUN apk add --no-cache --virtual .build-dependencies \
     && apk del --no-cache --purge .build-dependencies \
     && rm -f -r /tmp/*
 
+RUN addgroup -g 1000 -S ecowitt2mqtt \
+    && adduser -u 1000 -S ecowitt2mqtt -G ecowitt2mqtt
+RUN chown -R ecowitt2mqtt:ecowitt2mqtt ${VIRTUAL_ENV}
+USER 1000
+
 ENTRYPOINT ["/init"]
