@@ -51,9 +51,9 @@ RUN apk add --no-cache --virtual .build-dependencies \
       tar==1.34-r0 \
       xz==5.2.5-r1 \
     && case ${BUILD_ARCH} in \
-         "amd64")        S6_ARCH=x86_64  ;; \
-         "arm64")        S6_ARCH=aarch64  ;; \
-         "i386")         S6_ARCH=i686  ;; \
+         "linux/amd64")  S6_ARCH=x86_64  ;; \
+         "linux/arm64")  S6_ARCH=aarch64  ;; \
+         "linux/i386")   S6_ARCH=i686  ;; \
          "linux/arm/v6") S6_ARCH=arm32  ;; \
          "linux/arm/v7") S6_ARCH=arm32  ;; \
        esac \
