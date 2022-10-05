@@ -37,7 +37,7 @@ RUN poetry build && /venv/bin/python3 -m pip install dist/*.whl
 
 # Define the final image:
 FROM base as final
-ARG BUILD_ARCH="${TARGETARCH}"
+ARG BUILD_ARCH="${RUNNER_ARCH}"
 
 COPY ./s6/rootfs /
 
@@ -51,15 +51,14 @@ RUN apk add --no-cache --virtual .build-dependencies \
       tar==1.34-r0 \
       xz==5.2.5-r1 \
     && case ${BUILD_ARCH} in \
-         "linux/amd64")  S6_ARCH=x86_64  ;; \
-         "linux/arm/v6") S6_ARCH=arm32  ;; \
-         "linux/arm/v7") S6_ARCH=arm32  ;; \
-         "linux/arm64")  S6_ARCH=aarch64  ;; \
-         "linux/i386")   S6_ARCH=i686  ;; \
+         "ARM")    S6_ARCH=arm32 ;; \
+         "ARM64")  S6_ARCH=aarch64 ;; \
+         "X64")    S6_ARCH=x86_64 ;; \
+         "X86")    S6_ARCH=i686 ;; \
        esac \
     && S6_VERSION="3.1.2.1" \
     && echo "AARON" \
-    && echo "$RUNNER_ARCH" \
+    && echo "${TARGETARCH}" \
     && echo "https://github.com/just-containers/s6-overlay/releases/download/v${S6_VERSION}/s6-overlay-${S6_ARCH}.tar.xz" \
     && curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_VERSION}/s6-overlay-noarch.tar.xz" \
         | tar -C / -Jxpf - \
