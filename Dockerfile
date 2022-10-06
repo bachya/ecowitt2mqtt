@@ -2,7 +2,8 @@
 FROM python:3.9.14-alpine as base
 ENV PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=random \
-    PYTHONUNBUFFERED=1
+    PYTHONUNBUFFERED=1 \
+    TARGETPLATFORM=${TARGETPLATFORM}
 
 # Define the builder image:
 FROM base as builder
@@ -37,7 +38,6 @@ RUN poetry build && /venv/bin/python3 -m pip install dist/*.whl
 
 # Define the final image:
 FROM base as final
-ARG BUILD_ARCH="${RUNNER_ARCH}"
 
 COPY ./s6/rootfs /
 
@@ -50,16 +50,16 @@ RUN apk add --no-cache --virtual .build-dependencies \
       curl==7.83.1-r3 \
       tar==1.34-r0 \
       xz==5.2.5-r1 \
-    && case ${BUILD_ARCH} in \
-         "ARM")    S6_ARCH=arm32 ;; \
-         "ARM64")  S6_ARCH=aarch64 ;; \
-         "X64")    S6_ARCH=x86_64 ;; \
-         "X86")    S6_ARCH=i686 ;; \
+    && case ${TARGETPLATFORM} in \
+         "linux/amd64")  S6_ARCH=x86_64  ;; \
+         "linux/arm/v6") S6_ARCH=arm32  ;; \
+         "linux/arm/v7") S6_ARCH=arm32  ;; \
+         "linux/arm64")  S6_ARCH=aarch64  ;; \
+         "linux/i386")   S6_ARCH=i686  ;; \
        esac \
     && S6_VERSION="3.1.2.1" \
     && echo "AARON" \
-    && echo "$TARGETPLATFORM" \
-    && echo "$BUILDPLATFORM" \
+    && echo "$RUNNER_ARCH" \
     && echo "https://github.com/just-containers/s6-overlay/releases/download/v${S6_VERSION}/s6-overlay-${S6_ARCH}.tar.xz" \
     && curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_VERSION}/s6-overlay-noarch.tar.xz" \
         | tar -C / -Jxpf - \
