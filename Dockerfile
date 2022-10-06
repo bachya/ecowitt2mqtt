@@ -2,12 +2,11 @@
 FROM python:3.9.14-alpine as base
 ENV PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=random \
-    PYTHONUNBUFFERED=1 \
-    TARGETPLATFORM=${TARGETPLATFORM}
+    PYTHONUNBUFFERED=1
 
 # Define the builder image:
 FROM base as builder
-
+ARG TARGETPLATFORM
 ENV PIP_DEFAULT_TIMEOUT=100 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1 \
@@ -38,6 +37,7 @@ RUN poetry build && /venv/bin/python3 -m pip install dist/*.whl
 
 # Define the final image:
 FROM base as final
+ARG TARGETPLATFORM
 
 COPY ./s6/rootfs /
 
@@ -59,7 +59,8 @@ RUN apk add --no-cache --virtual .build-dependencies \
        esac \
     && S6_VERSION="3.1.2.1" \
     && echo "AARON" \
-    && echo "$RUNNER_ARCH" \
+    && echo "$TARGETPLATFORM" \
+    && echo "$S6_ARCH" \
     && echo "https://github.com/just-containers/s6-overlay/releases/download/v${S6_VERSION}/s6-overlay-${S6_ARCH}.tar.xz" \
     && curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_VERSION}/s6-overlay-noarch.tar.xz" \
         | tar -C / -Jxpf - \
