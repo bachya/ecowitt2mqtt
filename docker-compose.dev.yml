@@ -6,6 +6,8 @@ services:
   ecowitt2mqtt:
     build:
       context: .
+      args:
+        TARGETPLATFORM: linux/amd64
     container_name: ecowitt2mqtt
     environment:
       ECOWITT2MQTT_MQTT_BROKER: vernemq
