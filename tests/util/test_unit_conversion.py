@@ -5,16 +5,16 @@ from ecowitt2mqtt.util.unit_conversion import SpeedConverter, UnitConversionErro
 
 
 @pytest.mark.parametrize(
-    "unit_class,from_unit,to_unit",
+    "unit_class,converter,from_unit,to_unit",
     [
-        ("speed", "mph", "whatever"),
-        ("speed", "whatever", "m/s"),
+        ("speed", SpeedConverter, "mph", "whatever"),
+        ("speed", SpeedConverter, "whatever", "m/s"),
     ],
 )
-def test_invalid_units(from_unit, to_unit, unit_class):
+def test_invalid_units(converter, from_unit, to_unit, unit_class):
     """Test that invalid units raise an error."""
     with pytest.raises(UnitConversionError) as err:
-        _ = SpeedConverter.convert(10, from_unit, to_unit)
+        _ = converter.convert(10, from_unit, to_unit)
         assert f"is not a recognized {unit_class} unit" in str(err)
 
 
