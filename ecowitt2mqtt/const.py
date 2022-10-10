@@ -173,8 +173,8 @@ DEGREE: Final = "°"
 # Electric_potential units:
 ELECTRIC_POTENTIAL_VOLT: Final = "V"
 
-# Irradiation units
-IRRADIATION_WATTS_PER_SQUARE_METER: Final = "W/m²"
+# Illuminance units:
+ILLUMINANCE_WATTS_PER_SQUARE_METER: Final = "W/m²"
 
 # Length units:
 LENGTH_CENTIMETERS: Final = "cm"

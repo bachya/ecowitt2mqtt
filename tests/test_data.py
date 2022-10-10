@@ -13,7 +13,7 @@ from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_SYSTEM,
     DEGREE,
     ELECTRIC_POTENTIAL_VOLT,
-    IRRADIATION_WATTS_PER_SQUARE_METER,
+    ILLUMINANCE_WATTS_PER_SQUARE_METER,
     LENGTH_KILOMETERS,
     LENGTH_MILES,
     LIGHT_LUX,
@@ -891,7 +891,7 @@ def test_disable_calculated_data(device_data, ecowitt):
         "solarradiation": CalculatedDataPoint(
             "solarradiation",
             264.61,
-            unit=IRRADIATION_WATTS_PER_SQUARE_METER,
+            unit=ILLUMINANCE_WATTS_PER_SQUARE_METER,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
@@ -1071,7 +1071,7 @@ def test_missing_distance(device_data, ecowitt, request):
         "solarradiation": CalculatedDataPoint(
             "solarradiation",
             0.00,
-            unit=IRRADIATION_WATTS_PER_SQUARE_METER,
+            unit=ILLUMINANCE_WATTS_PER_SQUARE_METER,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
@@ -1475,7 +1475,7 @@ def test_nonnumeric_value(device_data, ecowitt):
         "solarradiation": CalculatedDataPoint(
             "solarradiation",
             264.61,
-            unit=IRRADIATION_WATTS_PER_SQUARE_METER,
+            unit=ILLUMINANCE_WATTS_PER_SQUARE_METER,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
@@ -1837,7 +1837,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 "solarradiation": CalculatedDataPoint(
                     "solarradiation",
                     264.61,
-                    unit=IRRADIATION_WATTS_PER_SQUARE_METER,
+                    unit=ILLUMINANCE_WATTS_PER_SQUARE_METER,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
@@ -2188,7 +2188,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 "solarradiation": CalculatedDataPoint(
                     "solarradiation",
                     25.56,
-                    unit=IRRADIATION_WATTS_PER_SQUARE_METER,
+                    unit=ILLUMINANCE_WATTS_PER_SQUARE_METER,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
@@ -2845,7 +2845,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 "solarradiation": CalculatedDataPoint(
                     "solarradiation",
                     0.0,
-                    unit=IRRADIATION_WATTS_PER_SQUARE_METER,
+                    unit=ILLUMINANCE_WATTS_PER_SQUARE_METER,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
@@ -3258,7 +3258,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 "solarradiation": CalculatedDataPoint(
                     "solarradiation",
                     0.00,
-                    unit=IRRADIATION_WATTS_PER_SQUARE_METER,
+                    unit=ILLUMINANCE_WATTS_PER_SQUARE_METER,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
@@ -4025,7 +4025,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 "solarradiation": CalculatedDataPoint(
                     "solarradiation",
                     174.81,
-                    unit=IRRADIATION_WATTS_PER_SQUARE_METER,
+                    unit=ILLUMINANCE_WATTS_PER_SQUARE_METER,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
@@ -4379,7 +4379,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 "solarradiation": CalculatedDataPoint(
                     "solarradiation",
                     642.38,
-                    unit=IRRADIATION_WATTS_PER_SQUARE_METER,
+                    unit=ILLUMINANCE_WATTS_PER_SQUARE_METER,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
@@ -4768,7 +4768,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 "solarradiation": CalculatedDataPoint(
                     "solarradiation",
                     0.00,
-                    unit=IRRADIATION_WATTS_PER_SQUARE_METER,
+                    unit=ILLUMINANCE_WATTS_PER_SQUARE_METER,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
@@ -5061,7 +5061,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
         "solarradiation": CalculatedDataPoint(
             "solarradiation",
             264.61,
-            unit=IRRADIATION_WATTS_PER_SQUARE_METER,
+            unit=ILLUMINANCE_WATTS_PER_SQUARE_METER,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
@@ -5431,7 +5431,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
                 "solarradiation": CalculatedDataPoint(
                     "solarradiation",
                     264.61,
-                    unit=IRRADIATION_WATTS_PER_SQUARE_METER,
+                    unit=ILLUMINANCE_WATTS_PER_SQUARE_METER,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
@@ -5783,7 +5783,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
                 "solarradiation": CalculatedDataPoint(
                     "solarradiation",
                     25.56,
-                    unit=IRRADIATION_WATTS_PER_SQUARE_METER,
+                    unit=ILLUMINANCE_WATTS_PER_SQUARE_METER,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
@@ -6102,7 +6102,7 @@ def test_unknown_battery(device_data, ecowitt):
         "solarradiation": CalculatedDataPoint(
             "solarradiation",
             264.61,
-            unit=IRRADIATION_WATTS_PER_SQUARE_METER,
+            unit=ILLUMINANCE_WATTS_PER_SQUARE_METER,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
