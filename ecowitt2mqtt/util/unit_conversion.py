@@ -12,6 +12,9 @@ from ecowitt2mqtt.const import (
     SPEED_METERS_PER_SECOND,
     SPEED_MILES_PER_HOUR,
     SPEED_MILLIMETERS_PER_DAY,
+    TEMP_CELSIUS,
+    TEMP_FAHRENHEIT,
+    TEMP_KELVIN,
 )
 from ecowitt2mqtt.errors import EcowittError
 
@@ -94,3 +97,76 @@ class SpeedConverter(BaseUnitConverter):
         SPEED_MILES_PER_HOUR: _HRS_TO_SECS / _MILE_TO_M,
         SPEED_MILLIMETERS_PER_DAY: _DAYS_TO_SECS / _MM_TO_M,
     }
+
+
+class TemperatureConverter(BaseUnitConverter):
+    """Utility to convert temperature values."""
+
+    UNIT_CLASS = "temperature"
+    NORMALIZED_UNIT = TEMP_CELSIUS
+    VALID_UNITS = {
+        TEMP_CELSIUS,
+        TEMP_FAHRENHEIT,
+        TEMP_KELVIN,
+    }
+
+    _UNIT_CONVERSION = {
+        TEMP_CELSIUS: 1.0,
+        TEMP_FAHRENHEIT: 1.8,
+        TEMP_KELVIN: 1.0,
+    }
+
+    @classmethod
+    def _celsius_to_fahrenheit(cls, celsius: float) -> float:
+        """Convert a temperature in Celsius to Fahrenheit."""
+        return celsius * 1.8 + 32.0
+
+    @classmethod
+    def _celsius_to_kelvin(cls, celsius: float) -> float:
+        """Convert a temperature in Celsius to Kelvin."""
+        return celsius + 273.15
+
+    @classmethod
+    def _fahrenheit_to_celsius(cls, fahrenheit: float) -> float:
+        """Convert a temperature in Fahrenheit to Celsius."""
+        return (fahrenheit - 32.0) / 1.8
+
+    @classmethod
+    def _kelvin_to_celsius(cls, kelvin: float) -> float:
+        """Convert a temperature in Kelvin to Celsius."""
+        return kelvin - 273.15
+
+    @classmethod
+    def convert(cls, value: float, from_unit: str, to_unit: str) -> float:
+        """Convert a temperature from one unit to another.
+
+        We cannot use the implementation from BaseUnitConverter because the temperature
+        units do not use the same floor (0°C and 0°F do not align).
+        """
+        if from_unit == to_unit:
+            return value
+
+        for unit in (from_unit, to_unit):
+            if unit in cls.VALID_UNITS:
+                continue
+            raise UnitConversionError(
+                UNIT_NOT_RECOGNIZED_TEMPLATE.format(unit, cls.UNIT_CLASS)
+            )
+
+        if from_unit == TEMP_CELSIUS:
+            if to_unit == TEMP_FAHRENHEIT:
+                value = cls._celsius_to_fahrenheit(value)
+            elif to_unit == TEMP_KELVIN:
+                value = cls._celsius_to_kelvin(value)
+        elif from_unit == TEMP_FAHRENHEIT:
+            if to_unit == TEMP_CELSIUS:
+                value = cls._fahrenheit_to_celsius(value)
+            elif to_unit == TEMP_KELVIN:
+                value = cls._celsius_to_kelvin(cls._fahrenheit_to_celsius(value))
+        elif from_unit == TEMP_KELVIN:
+            if to_unit == TEMP_CELSIUS:
+                value = cls._kelvin_to_celsius(value)
+            if to_unit == TEMP_FAHRENHEIT:
+                value = cls._celsius_to_fahrenheit(cls._kelvin_to_celsius(value))
+
+        return value

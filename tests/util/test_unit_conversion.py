@@ -1,7 +1,11 @@
 """Test unit conversion helpers."""
 import pytest
 
-from ecowitt2mqtt.util.unit_conversion import SpeedConverter, UnitConversionError
+from ecowitt2mqtt.util.unit_conversion import (
+    SpeedConverter,
+    TemperatureConverter,
+    UnitConversionError,
+)
 
 
 @pytest.mark.parametrize(
@@ -9,6 +13,8 @@ from ecowitt2mqtt.util.unit_conversion import SpeedConverter, UnitConversionErro
     [
         ("speed", SpeedConverter, "mph", "km/s"),
         ("speed", SpeedConverter, "km/d", "m/s"),
+        ("temperature", TemperatureConverter, "°C", "Bolts"),
+        ("temperature", TemperatureConverter, "Fake", "°C"),
     ],
 )
 def test_invalid_units(converter, from_unit, to_unit, unit_class):
@@ -36,3 +42,20 @@ def test_invalid_units(converter, from_unit, to_unit, unit_class):
 def test_speed_conversion(converted_value, from_unit, to_unit, value):
     """Test speed conversions."""
     assert SpeedConverter.convert(value, from_unit, to_unit) == converted_value
+
+
+@pytest.mark.parametrize(
+    "value,from_unit,to_unit,converted_value",
+    [
+        (20, "°C", "°C", 20.0),
+        (20, "°C", "°F", 68.0),
+        (10, "°C", "K", 283.15),
+        (80, "°F", "°C", 26.666666666666664),
+        (70, "°F", "K", 294.26111111111106),
+        (200, "K", "°C", -73.14999999999998),
+        (350, "K", "°F", 170.33000000000004),
+    ],
+)
+def test_temperature_conversion(converted_value, from_unit, to_unit, value):
+    """Test temperature conversions."""
+    assert TemperatureConverter.convert(value, from_unit, to_unit) == converted_value
