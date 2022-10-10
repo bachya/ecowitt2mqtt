@@ -12,6 +12,10 @@ from ecowitt2mqtt.const import (
     LENGTH_MILES,
     LENGTH_MILLIMETERS,
     LENGTH_YARD,
+    PRECIPITATION_INCHES,
+    PRECIPITATION_INCHES_PER_HOUR,
+    PRECIPITATION_MILLIMETERS,
+    PRECIPITATION_MILLIMETERS_PER_HOUR,
     PRESSURE_BAR,
     PRESSURE_CBAR,
     PRESSURE_HPA,
@@ -117,6 +121,27 @@ class DistanceConverter(BaseUnitConverter):
         LENGTH_FEET: 1 / _FOOT_TO_M,
         LENGTH_YARD: 1 / _YARD_TO_M,
         LENGTH_MILES: 1 / _MILE_TO_M,
+    }
+
+
+class PrecipitationConverter(BaseUnitConverter):
+    """Utility to convert precipitation values."""
+
+    UNIT_CLASS = "precipitation"
+    # Note that we can accept either mm or mm/h as the normalized unit:
+    NORMALIZED_UNIT = PRECIPITATION_MILLIMETERS
+    VALID_UNITS = {
+        PRECIPITATION_MILLIMETERS,
+        PRECIPITATION_MILLIMETERS_PER_HOUR,
+        PRECIPITATION_INCHES,
+        PRECIPITATION_INCHES_PER_HOUR,
+    }
+
+    _UNIT_CONVERSION = {
+        PRECIPITATION_MILLIMETERS: 1,
+        PRECIPITATION_MILLIMETERS_PER_HOUR: 1,
+        PRECIPITATION_INCHES: 1 * _MM_TO_M / _IN_TO_M,
+        PRECIPITATION_INCHES_PER_HOUR: 1 * _MM_TO_M / _IN_TO_M,
     }
 
 

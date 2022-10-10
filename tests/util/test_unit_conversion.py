@@ -3,6 +3,7 @@ import pytest
 
 from ecowitt2mqtt.util.unit_conversion import (
     DistanceConverter,
+    PrecipitationConverter,
     PressureConverter,
     SpeedConverter,
     TemperatureConverter,
@@ -15,6 +16,8 @@ from ecowitt2mqtt.util.unit_conversion import (
     [
         ("distance", DistanceConverter, "miles", "ft"),
         ("distance", DistanceConverter, "m", "dm"),
+        ("precipitation", PrecipitationConverter, "mm/s", "mm/h"),
+        ("precipitation", PrecipitationConverter, "in/h", "yd/yr"),
         ("pressure", PressureConverter, "hPa", "hPa/s"),
         ("pressure", PressureConverter, "units", "hPa"),
         ("speed", SpeedConverter, "mph", "km/s"),
@@ -46,6 +49,22 @@ def test_invalid_units(converter, from_unit, to_unit, unit_class):
 def test_distance_conversion(converted_value, from_unit, to_unit, value):
     """Test distance conversions."""
     assert DistanceConverter.convert(value, from_unit, to_unit) == converted_value
+
+
+@pytest.mark.parametrize(
+    "value,from_unit,to_unit,converted_value",
+    [
+        (10, "mm", "mm", 10.0),
+        (10, "in", "mm", 254.0),
+        (10, "mm", "in", 0.39370078740157477),
+        (10, "mm/h", "mm/h", 10.0),
+        (10, "in/h", "mm/h", 254.0),
+        (10, "mm/h", "in/h", 0.39370078740157477),
+    ],
+)
+def test_precipitation_conversion(converted_value, from_unit, to_unit, value):
+    """Test precipitation conversions."""
+    assert PrecipitationConverter.convert(value, from_unit, to_unit) == converted_value
 
 
 @pytest.mark.parametrize(
