@@ -1,7 +1,7 @@
 """Test unit conversion helpers."""
 import pytest
 
-from ecowitt2mqtt.helpers.unit_conversion import SpeedConverter, UnitConversionError
+from ecowitt2mqtt.util.unit_conversion import SpeedConverter, UnitConversionError
 
 
 @pytest.mark.parametrize(
@@ -30,6 +30,7 @@ def test_invalid_units(from_unit, to_unit, unit_class):
         (100, "mph", "m/s", 44.70399999999999),
         (10000, "mm/d", "m/s", 0.00011574074074074075),
         (1, "m/s", "in/d", 3401574.8031496066),
+        (10, "in/h", "km/h", 0.000254),
     ],
 )
 def test_speed_conversion(converted_value, from_unit, to_unit, value):
