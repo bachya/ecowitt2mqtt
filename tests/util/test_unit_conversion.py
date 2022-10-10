@@ -143,3 +143,21 @@ def test_speed_conversion(converted_value, from_unit, to_unit, value):
 def test_temperature_conversion(converted_value, from_unit, to_unit, value):
     """Test temperature conversions."""
     assert TemperatureConverter.convert(value, from_unit, to_unit) == converted_value
+
+
+@pytest.mark.parametrize(
+    "converter,from_unit,to_unit,ratio",
+    [
+        (DistanceConverter, "km", "m", 0.001),
+        (DistanceConverter, "mi", "m", 0.000621371192237334),
+        (DistanceConverter, "ft", "m", 3.280839895013124),
+        (DistanceConverter, "m", "m", 1.0),
+        (DistanceConverter, "cm", "m", 100.0),
+        (DistanceConverter, "mm", "m", 1000.0),
+        (DistanceConverter, "in", "m", 39.37007874015748),
+        (DistanceConverter, "yd", "m", 1.093613298337708),
+    ],
+)
+def test_unit_ratio(converter, from_unit, ratio, to_unit):
+    """Test the ratio between two units."""
+    assert converter.get_unit_ratio(from_unit, to_unit) == ratio

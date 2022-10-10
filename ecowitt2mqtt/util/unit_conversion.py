@@ -103,6 +103,11 @@ class BaseUnitConverter:
         new_value = value / from_ratio
         return new_value * to_ratio
 
+    @classmethod
+    def get_unit_ratio(cls, from_unit: str, to_unit: str) -> float:
+        """Get unit ratio between units of measurement."""
+        return cls._UNIT_CONVERSION[from_unit] / cls._UNIT_CONVERSION[to_unit]
+
 
 class DistanceConverter(BaseUnitConverter):
     """Utility to convert distance values."""
