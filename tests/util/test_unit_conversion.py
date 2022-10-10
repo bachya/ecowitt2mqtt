@@ -3,6 +3,7 @@ import pytest
 
 from ecowitt2mqtt.util.unit_conversion import (
     DistanceConverter,
+    IlluminanceConverter,
     PrecipitationConverter,
     PressureConverter,
     SpeedConverter,
@@ -16,6 +17,8 @@ from ecowitt2mqtt.util.unit_conversion import (
     [
         ("distance", DistanceConverter, "miles", "ft"),
         ("distance", DistanceConverter, "m", "dm"),
+        ("illuminance", IlluminanceConverter, "lux", "bulbs"),
+        ("illuminance", IlluminanceConverter, "sunbeams", "klux"),
         ("precipitation", PrecipitationConverter, "mm/s", "mm/h"),
         ("precipitation", PrecipitationConverter, "in/h", "yd/yr"),
         ("pressure", PressureConverter, "hPa", "hPa/s"),
@@ -49,6 +52,24 @@ def test_invalid_units(converter, from_unit, to_unit, unit_class):
 def test_distance_conversion(converted_value, from_unit, to_unit, value):
     """Test distance conversions."""
     assert DistanceConverter.convert(value, from_unit, to_unit) == converted_value
+
+
+@pytest.mark.parametrize(
+    "value,from_unit,to_unit,converted_value",
+    [
+        (10, "lux", "lux", 10.0),
+        (10, "lux", "fc", 0.9290312990644656),
+        (10, "lux", "kfc", 0.0009290312990644657),
+        (10, "lux", "klux", 0.01),
+        (10, "lux", "W/m²", 0.07900000000000001),
+        (10, "W/m²", "lux", 1265.8227848101264),
+        (10, "fc", "lux", 107.639),
+        (10, "fc", "klux", 0.107639),
+    ],
+)
+def test_illuminance_conversion(converted_value, from_unit, to_unit, value):
+    """Test illuminance conversions."""
+    assert IlluminanceConverter.convert(value, from_unit, to_unit) == converted_value
 
 
 @pytest.mark.parametrize(

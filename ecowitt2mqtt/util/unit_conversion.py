@@ -4,6 +4,11 @@ from __future__ import annotations
 from typing import Final
 
 from ecowitt2mqtt.const import (
+    ILLUMINANCE_FOOT_CANDLES,
+    ILLUMINANCE_KILOFOOT_CANDLES,
+    ILLUMINANCE_KILOLUX,
+    ILLUMINANCE_LUX,
+    ILLUMINANCE_WATTS_PER_SQUARE_METER,
     LENGTH_CENTIMETERS,
     LENGTH_FEET,
     LENGTH_INCHES,
@@ -40,20 +45,23 @@ from ecowitt2mqtt.const import (
 from ecowitt2mqtt.errors import EcowittError
 
 # Distance conversion constants:
-_MM_TO_M = 0.001
 _CM_TO_M = 0.01
-_KM_TO_M = 1000
-
 _IN_TO_M = 0.0254
+_KM_TO_M = 1000
+_MM_TO_M = 0.001
+_NAUTICAL_MILE_TO_M = 1852
 _FOOT_TO_M = _IN_TO_M * 12
 _YARD_TO_M = _FOOT_TO_M * 3
 _MILE_TO_M = _YARD_TO_M * 1760
 
-_NAUTICAL_MILE_TO_M = 1852
-
 # Duration conversion constants:
 _HRS_TO_SECS = 60 * 60
 _DAYS_TO_SECS = _HRS_TO_SECS * 24
+
+# Illuminance conversion constants:
+_KLUX_TO_LUX = 1000
+_FC_TO_LUX = 10.7639
+_WM2_TO_LUX = 0.0079
 
 # Pressure conversion constants:
 _STANDARD_GRAVITY = 9.80665
@@ -124,6 +132,28 @@ class DistanceConverter(BaseUnitConverter):
     }
 
 
+class IlluminanceConverter(BaseUnitConverter):
+    """Utility to convert illuminance values."""
+
+    UNIT_CLASS = "illuminance"
+    NORMALIZED_UNIT = ILLUMINANCE_LUX
+    VALID_UNITS = {
+        ILLUMINANCE_FOOT_CANDLES,
+        ILLUMINANCE_KILOFOOT_CANDLES,
+        ILLUMINANCE_KILOLUX,
+        ILLUMINANCE_LUX,
+        ILLUMINANCE_WATTS_PER_SQUARE_METER,
+    }
+
+    _UNIT_CONVERSION = {
+        ILLUMINANCE_FOOT_CANDLES: 1 / _FC_TO_LUX,
+        ILLUMINANCE_KILOFOOT_CANDLES: 1 / _FC_TO_LUX / 1000,
+        ILLUMINANCE_KILOLUX: 1 / _KLUX_TO_LUX,
+        ILLUMINANCE_LUX: 1,
+        ILLUMINANCE_WATTS_PER_SQUARE_METER: 1 * _WM2_TO_LUX,
+    }
+
+
 class PrecipitationConverter(BaseUnitConverter):
     """Utility to convert precipitation values."""
 
@@ -138,10 +168,10 @@ class PrecipitationConverter(BaseUnitConverter):
     }
 
     _UNIT_CONVERSION = {
-        PRECIPITATION_MILLIMETERS: 1,
-        PRECIPITATION_MILLIMETERS_PER_HOUR: 1,
         PRECIPITATION_INCHES: 1 * _MM_TO_M / _IN_TO_M,
         PRECIPITATION_INCHES_PER_HOUR: 1 * _MM_TO_M / _IN_TO_M,
+        PRECIPITATION_MILLIMETERS: 1,
+        PRECIPITATION_MILLIMETERS_PER_HOUR: 1,
     }
 
 
