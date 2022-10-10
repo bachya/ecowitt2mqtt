@@ -2,6 +2,7 @@
 import pytest
 
 from ecowitt2mqtt.util.unit_conversion import (
+    DistanceConverter,
     PressureConverter,
     SpeedConverter,
     TemperatureConverter,
@@ -12,6 +13,8 @@ from ecowitt2mqtt.util.unit_conversion import (
 @pytest.mark.parametrize(
     "unit_class,converter,from_unit,to_unit",
     [
+        ("distance", DistanceConverter, "miles", "ft"),
+        ("distance", DistanceConverter, "m", "dm"),
         ("pressure", PressureConverter, "hPa", "hPa/s"),
         ("pressure", PressureConverter, "units", "hPa"),
         ("speed", SpeedConverter, "mph", "km/s"),
@@ -25,6 +28,24 @@ def test_invalid_units(converter, from_unit, to_unit, unit_class):
     with pytest.raises(UnitConversionError) as err:
         _ = converter.convert(10, from_unit, to_unit)
         assert f"is not a recognized {unit_class} unit" in str(err)
+
+
+@pytest.mark.parametrize(
+    "value,from_unit,to_unit,converted_value",
+    [
+        (10, "km", "km", 10.0),
+        (10, "km", "mi", 6.21371192237334),
+        (10, "km", "ft", 32808.39895013124),
+        (10, "km", "m", 10000.0),
+        (10, "km", "cm", 1000000.0),
+        (10, "km", "mm", 10000000.0),
+        (10, "km", "in", 393700.78740157484),
+        (10, "km", "yd", 10936.13298337708),
+    ],
+)
+def test_distance_conversion(converted_value, from_unit, to_unit, value):
+    """Test distance conversions."""
+    assert DistanceConverter.convert(value, from_unit, to_unit) == converted_value
 
 
 @pytest.mark.parametrize(

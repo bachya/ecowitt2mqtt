@@ -4,6 +4,14 @@ from __future__ import annotations
 from typing import Final
 
 from ecowitt2mqtt.const import (
+    LENGTH_CENTIMETERS,
+    LENGTH_FEET,
+    LENGTH_INCHES,
+    LENGTH_KILOMETERS,
+    LENGTH_METERS,
+    LENGTH_MILES,
+    LENGTH_MILLIMETERS,
+    LENGTH_YARD,
     PRESSURE_BAR,
     PRESSURE_CBAR,
     PRESSURE_HPA,
@@ -82,6 +90,34 @@ class BaseUnitConverter:
         to_ratio = cls._UNIT_CONVERSION[to_unit]
         new_value = value / from_ratio
         return new_value * to_ratio
+
+
+class DistanceConverter(BaseUnitConverter):
+    """Utility to convert distance values."""
+
+    UNIT_CLASS = "distance"
+    NORMALIZED_UNIT = LENGTH_METERS
+    VALID_UNITS = {
+        LENGTH_KILOMETERS,
+        LENGTH_MILES,
+        LENGTH_FEET,
+        LENGTH_METERS,
+        LENGTH_CENTIMETERS,
+        LENGTH_MILLIMETERS,
+        LENGTH_INCHES,
+        LENGTH_YARD,
+    }
+
+    _UNIT_CONVERSION = {
+        LENGTH_METERS: 1,
+        LENGTH_MILLIMETERS: 1 / _MM_TO_M,
+        LENGTH_CENTIMETERS: 1 / _CM_TO_M,
+        LENGTH_KILOMETERS: 1 / _KM_TO_M,
+        LENGTH_INCHES: 1 / _IN_TO_M,
+        LENGTH_FEET: 1 / _FOOT_TO_M,
+        LENGTH_YARD: 1 / _YARD_TO_M,
+        LENGTH_MILES: 1 / _MILE_TO_M,
+    }
 
 
 class PressureConverter(BaseUnitConverter):
