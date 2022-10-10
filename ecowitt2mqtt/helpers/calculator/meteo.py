@@ -18,7 +18,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6,
     DEGREE,
-    IRRADIATION_WATTS_PER_SQUARE_METER,
+    ILLUMINANCE_WATTS_PER_SQUARE_METER,
     LENGTH_KILOMETERS,
     LENGTH_MILES,
     LIGHT_LUX,
@@ -977,7 +977,7 @@ def calculate_solar_radiation_wm2(
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=value,
-        unit=IRRADIATION_WATTS_PER_SQUARE_METER,
+        unit=ILLUMINANCE_WATTS_PER_SQUARE_METER,
     )
 
 
