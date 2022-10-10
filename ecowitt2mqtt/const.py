@@ -195,8 +195,15 @@ CONCENTRATION_MICROGRAMS_PER_CUBIC_METER: Final = "µg/m³"
 CONCENTRATION_PARTS_PER_MILLION: Final = "ppm"
 
 # Pressure units:
+PRESSURE_BAR: Final = "bar"
+PRESSURE_CBAR: Final = "cbar"
 PRESSURE_HPA: Final = "hPa"
 PRESSURE_INHG: Final = "inHg"
+PRESSURE_KPA: Final = "kPa"
+PRESSURE_MBAR: Final = "mbar"
+PRESSURE_MMHG: Final = "mmHg"
+PRESSURE_PA: Final = "Pa"
+PRESSURE_PSI: Final = "psi"
 
 # Speed units:
 SPEED_FEET_PER_SECOND: Final = "ft/s"
