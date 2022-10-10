@@ -7,8 +7,8 @@ from ecowitt2mqtt.util.unit_conversion import SpeedConverter, UnitConversionErro
 @pytest.mark.parametrize(
     "unit_class,converter,from_unit,to_unit",
     [
-        ("speed", SpeedConverter, "mph", "whatever"),
-        ("speed", SpeedConverter, "whatever", "m/s"),
+        ("speed", SpeedConverter, "mph", "km/s"),
+        ("speed", SpeedConverter, "km/d", "m/s"),
     ],
 )
 def test_invalid_units(converter, from_unit, to_unit, unit_class):
