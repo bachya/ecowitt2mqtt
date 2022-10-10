@@ -2,6 +2,7 @@
 import pytest
 
 from ecowitt2mqtt.util.unit_conversion import (
+    PressureConverter,
     SpeedConverter,
     TemperatureConverter,
     UnitConversionError,
@@ -11,6 +12,8 @@ from ecowitt2mqtt.util.unit_conversion import (
 @pytest.mark.parametrize(
     "unit_class,converter,from_unit,to_unit",
     [
+        ("pressure", PressureConverter, "hPa", "hPa/s"),
+        ("pressure", PressureConverter, "units", "hPa"),
         ("speed", SpeedConverter, "mph", "km/s"),
         ("speed", SpeedConverter, "km/d", "m/s"),
         ("temperature", TemperatureConverter, "°C", "Bolts"),
@@ -22,6 +25,26 @@ def test_invalid_units(converter, from_unit, to_unit, unit_class):
     with pytest.raises(UnitConversionError) as err:
         _ = converter.convert(10, from_unit, to_unit)
         assert f"is not a recognized {unit_class} unit" in str(err)
+
+
+@pytest.mark.parametrize(
+    "value,from_unit,to_unit,converted_value",
+    [
+        (10, "bar", "Pa", 999999.9999999999),
+        (10, "cbar", "Pa", 10000.0),
+        (10, "hPa", "Pa", 1000.0),
+        (10, "inHg", "Pa", 33863.88640341),
+        (10, "kPa", "Pa", 10000.0),
+        (10, "mbar", "Pa", 1000.0),
+        (10, "mmHg", "Pa", 1333.22387415),
+        (10, "Pa", "Pa", 10.0),
+        (10, "Pa", "psi", 0.0014503774389728313),
+        (10, "inHg", "cbar", 33.86388640341),
+    ],
+)
+def test_pressure_conversion(converted_value, from_unit, to_unit, value):
+    """Test pressure conversions."""
+    assert PressureConverter.convert(value, from_unit, to_unit) == converted_value
 
 
 @pytest.mark.parametrize(

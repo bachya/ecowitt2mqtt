@@ -4,6 +4,15 @@ from __future__ import annotations
 from typing import Final
 
 from ecowitt2mqtt.const import (
+    PRESSURE_BAR,
+    PRESSURE_CBAR,
+    PRESSURE_HPA,
+    PRESSURE_INHG,
+    PRESSURE_KPA,
+    PRESSURE_MBAR,
+    PRESSURE_MMHG,
+    PRESSURE_PA,
+    PRESSURE_PSI,
     SPEED_FEET_PER_SECOND,
     SPEED_INCHES_PER_DAY,
     SPEED_INCHES_PER_HOUR,
@@ -33,6 +42,10 @@ _NAUTICAL_MILE_TO_M = 1852
 # Duration conversion constants:
 _HRS_TO_SECS = 60 * 60
 _DAYS_TO_SECS = _HRS_TO_SECS * 24
+
+# Pressure conversion constants:
+_STANDARD_GRAVITY = 9.80665
+_MERCURY_DENSITY = 13.5951
 
 UNIT_NOT_RECOGNIZED_TEMPLATE: Final = '"{}" is not a recognized {} unit'
 
@@ -71,8 +84,38 @@ class BaseUnitConverter:
         return new_value * to_ratio
 
 
+class PressureConverter(BaseUnitConverter):
+    """Define a utility to convert pressure values."""
+
+    UNIT_CLASS = "pressure"
+    NORMALIZED_UNIT = PRESSURE_PA
+    VALID_UNITS = {
+        PRESSURE_BAR,
+        PRESSURE_CBAR,
+        PRESSURE_HPA,
+        PRESSURE_INHG,
+        PRESSURE_KPA,
+        PRESSURE_MBAR,
+        PRESSURE_MMHG,
+        PRESSURE_PA,
+        PRESSURE_PSI,
+    }
+
+    _UNIT_CONVERSION = {
+        PRESSURE_BAR: 1 / 100000,
+        PRESSURE_CBAR: 1 / 1000,
+        PRESSURE_HPA: 1 / 100,
+        PRESSURE_INHG: 1 / (_IN_TO_M * 1000 * _STANDARD_GRAVITY * _MERCURY_DENSITY),
+        PRESSURE_KPA: 1 / 1000,
+        PRESSURE_MBAR: 1 / 100,
+        PRESSURE_MMHG: 1 / (_MM_TO_M * 1000 * _STANDARD_GRAVITY * _MERCURY_DENSITY),
+        PRESSURE_PA: 1,
+        PRESSURE_PSI: 1 / 6894.757,
+    }
+
+
 class SpeedConverter(BaseUnitConverter):
-    """Utility to convert speed values."""
+    """Define a utility to convert speed values."""
 
     UNIT_CLASS = "speed"
     NORMALIZED_UNIT = SPEED_METERS_PER_SECOND
@@ -87,7 +130,7 @@ class SpeedConverter(BaseUnitConverter):
         SPEED_MILLIMETERS_PER_DAY,
     }
 
-    _UNIT_CONVERSION: dict[str, float] = {
+    _UNIT_CONVERSION = {
         SPEED_FEET_PER_SECOND: 1 / _FOOT_TO_M,
         SPEED_INCHES_PER_DAY: _DAYS_TO_SECS / _IN_TO_M,
         SPEED_INCHES_PER_HOUR: _HRS_TO_SECS / _IN_TO_M,
@@ -100,7 +143,7 @@ class SpeedConverter(BaseUnitConverter):
 
 
 class TemperatureConverter(BaseUnitConverter):
-    """Utility to convert temperature values."""
+    """Define a utility to convert temperature values."""
 
     UNIT_CLASS = "temperature"
     NORMALIZED_UNIT = TEMP_CELSIUS
