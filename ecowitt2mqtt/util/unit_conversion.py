@@ -55,20 +55,15 @@ class BaseUnitConverter:
         if from_unit == to_unit:
             return value
 
-        try:
-            from_ratio = cls._UNIT_CONVERSION[from_unit]
-        except KeyError as err:
+        for unit in (from_unit, to_unit):
+            if unit in cls.VALID_UNITS:
+                continue
             raise UnitConversionError(
-                UNIT_NOT_RECOGNIZED_TEMPLATE.format(from_unit, cls.UNIT_CLASS)
-            ) from err
+                UNIT_NOT_RECOGNIZED_TEMPLATE.format(unit, cls.UNIT_CLASS)
+            )
 
-        try:
-            to_ratio = cls._UNIT_CONVERSION[to_unit]
-        except KeyError as err:
-            raise UnitConversionError(
-                UNIT_NOT_RECOGNIZED_TEMPLATE.format(to_unit, cls.UNIT_CLASS)
-            ) from err
-
+        from_ratio = cls._UNIT_CONVERSION[from_unit]
+        to_ratio = cls._UNIT_CONVERSION[to_unit]
         new_value = value / from_ratio
         return new_value * to_ratio
 
