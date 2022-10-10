@@ -199,12 +199,19 @@ PRESSURE_HPA: Final = "hPa"
 PRESSURE_INHG: Final = "inHg"
 
 # Speed units:
+SPEED_FEET_PER_SECOND: Final = "ft/s"
+SPEED_INCHES_PER_DAY: Final = "in/d"
+SPEED_INCHES_PER_HOUR: Final = "in/h"
 SPEED_KILOMETERS_PER_HOUR: Final = "km/h"
+SPEED_KNOTS: Final = "kn"
+SPEED_METERS_PER_SECOND: Final = "m/s"
 SPEED_MILES_PER_HOUR: Final = "mph"
+SPEED_MILLIMETERS_PER_DAY: Final = "mm/d"
 
 # Temperature units:
 TEMP_CELSIUS: Final = "°C"
 TEMP_FAHRENHEIT: Final = "°F"
+TEMP_KELVIN: Final = "K"
 
 # Time units
 TIME_MINUTES: Final = "min"
