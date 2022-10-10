@@ -174,6 +174,10 @@ DEGREE: Final = "°"
 ELECTRIC_POTENTIAL_VOLT: Final = "V"
 
 # Illuminance units:
+ILLUMINANCE_FOOT_CANDLES: Final = "fc"
+ILLUMINANCE_KILOFOOT_CANDLES: Final = "kfc"
+ILLUMINANCE_KILOLUX: Final = "klux"
+ILLUMINANCE_LUX: Final = "lux"
 ILLUMINANCE_WATTS_PER_SQUARE_METER: Final = "W/m²"
 
 # Length units:
