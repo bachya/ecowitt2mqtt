@@ -211,6 +211,7 @@ SPEED_MILLIMETERS_PER_DAY: Final = "mm/d"
 # Temperature units:
 TEMP_CELSIUS: Final = "°C"
 TEMP_FAHRENHEIT: Final = "°F"
+TEMP_KELVIN: Final = "K"
 
 # Time units
 TIME_MINUTES: Final = "min"
