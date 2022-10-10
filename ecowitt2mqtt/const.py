@@ -194,6 +194,12 @@ PERCENTAGE: Final = "%"
 CONCENTRATION_MICROGRAMS_PER_CUBIC_METER: Final = "µg/m³"
 CONCENTRATION_PARTS_PER_MILLION: Final = "ppm"
 
+# Precipitation units:
+PRECIPITATION_MILLIMETERS: Final = "mm"
+PRECIPITATION_MILLIMETERS_PER_HOUR: Final = "mm/h"
+PRECIPITATION_INCHES: Final = "in"
+PRECIPITATION_INCHES_PER_HOUR: Final = "in/h"
+
 # Pressure units:
 PRESSURE_BAR: Final = "bar"
 PRESSURE_CBAR: Final = "cbar"
@@ -228,7 +234,5 @@ TIME_SECONDS: Final = "s"
 UV_INDEX: Final = "UV index"
 
 # Volume units:
-RAINFALL_INCHES: Final = "in"
-RAINFALL_MILLIMETERS: Final = "mm"
 WATER_VAPOR_GRAMS_PER_CUBIC_METER: Final = "g/m³"
 WATER_VAPOR_POUNDS_PER_CUBIC_FOOT: Final = "lbs/ft³"

@@ -24,10 +24,10 @@ from ecowitt2mqtt.const import (
     LIGHT_LUX,
     LOGGER,
     PERCENTAGE,
+    PRECIPITATION_INCHES,
+    PRECIPITATION_MILLIMETERS,
     PRESSURE_HPA,
     PRESSURE_INHG,
-    RAINFALL_INCHES,
-    RAINFALL_MILLIMETERS,
     SPEED_KILOMETERS_PER_HOUR,
     SPEED_MILES_PER_HOUR,
     STRIKES,
@@ -67,8 +67,8 @@ PRESSURE_UNIT_MAP = {
 }
 
 RAIN_VOLUME_UNIT_MAP = {
-    UNIT_SYSTEM_IMPERIAL: RAINFALL_INCHES,
-    UNIT_SYSTEM_METRIC: RAINFALL_MILLIMETERS,
+    UNIT_SYSTEM_IMPERIAL: PRECIPITATION_INCHES,
+    UNIT_SYSTEM_METRIC: PRECIPITATION_MILLIMETERS,
 }
 
 TEMP_UNIT_MAP = {
@@ -820,7 +820,7 @@ def calculate_rain_rate(
 ) -> CalculatedDataPoint:
     """Calculate rain rate in the appropriate unit system."""
     data_point = calculate_rain_volume(config, payload_key, data_point_key, value=value)
-    data_point.unit = f"{data_point.unit}/hr"
+    data_point.unit = f"{data_point.unit}/h"
     return data_point
 
 
