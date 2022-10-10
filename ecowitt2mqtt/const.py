@@ -32,7 +32,6 @@ CONF_PORT: Final = "port"
 CONF_RAW_DATA: Final = "raw_data"
 CONF_VERBOSE: Final = "verbose"
 
-
 # Data points (glob):
 DATA_POINT_GLOB_BAROM: Final = "barom"
 DATA_POINT_GLOB_BATT: Final = "batt"
@@ -171,15 +170,21 @@ UNIT_SYSTEMS: Final = [UNIT_SYSTEM_IMPERIAL, UNIT_SYSTEM_METRIC]
 # Degree units
 DEGREE: Final = "°"
 
-# Distance units:
-DISTANCE_KILOMETERS: Final = "km"
-DISTANCE_MILES: Final = "mi"
-
 # Electric_potential units:
 ELECTRIC_POTENTIAL_VOLT: Final = "V"
 
 # Irradiation units
 IRRADIATION_WATTS_PER_SQUARE_METER: Final = "W/m²"
+
+# Length units:
+LENGTH_CENTIMETERS: Final = "cm"
+LENGTH_FEET: Final = "ft"
+LENGTH_INCHES: Final = "in"
+LENGTH_KILOMETERS: Final = "km"
+LENGTH_METERS: Final = "m"
+LENGTH_MILES: Final = "mi"
+LENGTH_MILLIMETERS: Final = "mm"
+LENGTH_YARD: Final = "yd"
 
 # Light units:
 LIGHT_LUX: Final = "lx"

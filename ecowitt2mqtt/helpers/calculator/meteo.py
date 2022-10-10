@@ -18,9 +18,9 @@ from ecowitt2mqtt.const import (
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6,
     DEGREE,
-    DISTANCE_KILOMETERS,
-    DISTANCE_MILES,
     IRRADIATION_WATTS_PER_SQUARE_METER,
+    LENGTH_KILOMETERS,
+    LENGTH_MILES,
     LIGHT_LUX,
     LOGGER,
     PERCENTAGE,
@@ -56,9 +56,9 @@ ABSOLUTE_HUMIDITY_MAP = {
     UNIT_SYSTEM_METRIC: WATER_VAPOR_GRAMS_PER_CUBIC_METER,
 }
 
-DISTANCE_UNIT_MAP = {
-    UNIT_SYSTEM_IMPERIAL: DISTANCE_MILES,
-    UNIT_SYSTEM_METRIC: DISTANCE_KILOMETERS,
+LENGTH_UNIT_MAP = {
+    UNIT_SYSTEM_IMPERIAL: LENGTH_MILES,
+    UNIT_SYSTEM_METRIC: LENGTH_KILOMETERS,
 }
 
 PRESSURE_UNIT_MAP = {
@@ -755,7 +755,7 @@ def calculate_lightning_strike_distance(
     return CalculatedDataPoint(
         data_point_key=data_point_key,
         value=final_value,
-        unit=DISTANCE_UNIT_MAP[config.output_unit_system],
+        unit=LENGTH_UNIT_MAP[config.output_unit_system],
     )
 
 

@@ -12,10 +12,10 @@ from ecowitt2mqtt.const import (
     CONF_INPUT_UNIT_SYSTEM,
     CONF_OUTPUT_UNIT_SYSTEM,
     DEGREE,
-    DISTANCE_KILOMETERS,
-    DISTANCE_MILES,
     ELECTRIC_POTENTIAL_VOLT,
     IRRADIATION_WATTS_PER_SQUARE_METER,
+    LENGTH_KILOMETERS,
+    LENGTH_MILES,
     LIGHT_LUX,
     PERCENTAGE,
     PRECIPITATION_INCHES,
@@ -961,7 +961,7 @@ def test_disable_calculated_data(device_data, ecowitt):
         "lightning": CalculatedDataPoint(
             "lightning",
             0.6,
-            unit=DISTANCE_MILES,
+            unit=LENGTH_MILES,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
@@ -1639,7 +1639,7 @@ def test_nonnumeric_value(device_data, ecowitt):
         "lightning": CalculatedDataPoint(
             "lightning",
             0.6,
-            unit=DISTANCE_MILES,
+            unit=LENGTH_MILES,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
@@ -2001,7 +2001,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 "lightning": CalculatedDataPoint(
                     "lightning",
                     0.6,
-                    unit=DISTANCE_MILES,
+                    unit=LENGTH_MILES,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
@@ -3657,7 +3657,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 "lightning": CalculatedDataPoint(
                     "lightning",
                     0.6,
-                    unit=DISTANCE_MILES,
+                    unit=LENGTH_MILES,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
@@ -5225,7 +5225,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
         "lightning": CalculatedDataPoint(
             "lightning",
             0.6,
-            unit=DISTANCE_MILES,
+            unit=LENGTH_MILES,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
@@ -5596,7 +5596,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
                 "lightning": CalculatedDataPoint(
                     "lightning",
                     1.0,
-                    unit=DISTANCE_KILOMETERS,
+                    unit=LENGTH_KILOMETERS,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
@@ -6266,7 +6266,7 @@ def test_unknown_battery(device_data, ecowitt):
         "lightning": CalculatedDataPoint(
             "lightning",
             0.6,
-            unit=DISTANCE_MILES,
+            unit=LENGTH_MILES,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
