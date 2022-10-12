@@ -28,7 +28,7 @@ def glob_search(data: dict[str, T], key: str) -> tuple[str, T] | tuple[None, Non
     #   Matches: ["wind", "winddir"]
     #   Closest Match: "winddir"
     sorted_matches = sorted(
-        matches, key=lambda m: fuzz.ratio(key, m), reverse=True  # type: ignore
+        matches, key=lambda m: fuzz.ratio(key, m), reverse=True
     )
     match = sorted_matches[0]
     return (match, data[match])

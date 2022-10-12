@@ -1,13 +1,13 @@
-"""Define moisture utilities."""
+"""Define moisture calculators."""
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from ecowitt2mqtt.backports.enum import StrEnum
-from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, DataPointType
-
-if TYPE_CHECKING:
-    from ecowitt2mqtt.config import Config
+from ecowitt2mqtt.helpers.calculator import (
+    CalculatedDataPoint,
+    Calculator,
+    DataPointType,
+)
+from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
 
 
 class LeakState(StrEnum):
@@ -17,18 +17,17 @@ class LeakState(StrEnum):
     ON = "ON"
 
 
-def calculate_leak(
-    config: Config, payload_key: str, data_point_key: str, value: float
-) -> CalculatedDataPoint:
-    """Calculate a boolean leak state."""
-    if value == 0.0:
-        return CalculatedDataPoint(
-            data_point_key=data_point_key,
-            value=LeakState.OFF,
-            data_type=DataPointType.BOOLEAN,
+class LeakCalculator(Calculator):
+    """Define a boolean leak calculator."""
+
+    def calculate_from_value(
+        self, value: PreCalculatedValueType
+    ) -> CalculatedDataPoint:
+        """Perform the calculation."""
+        if value == 0.0:
+            return self.get_calculated_data_point(
+                LeakState.OFF, data_type=DataPointType.BOOLEAN
+            )
+        return self.get_calculated_data_point(
+            LeakState.ON, data_type=DataPointType.BOOLEAN
         )
-    return CalculatedDataPoint(
-        data_point_key=data_point_key,
-        value=LeakState.ON,
-        data_type=DataPointType.BOOLEAN,
-    )
