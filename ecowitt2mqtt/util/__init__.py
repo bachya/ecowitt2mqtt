@@ -1,7 +1,7 @@
 """Define utilities."""
 from __future__ import annotations
 
-from typing import TypeVar
+from typing import TypeVar, cast
 
 from rapidfuzz import fuzz
 
@@ -28,7 +28,7 @@ def glob_search(data: dict[str, T], key: str) -> tuple[str, T] | tuple[None, Non
     #   Matches: ["wind", "winddir"]
     #   Closest Match: "winddir"
     sorted_matches = sorted(
-        matches, key=lambda m: fuzz.ratio(key, m), reverse=True
+        matches, key=lambda m: cast(str, fuzz.ratio(key, m)), reverse=True
     )
     match = sorted_matches[0]
     return (match, data[match])

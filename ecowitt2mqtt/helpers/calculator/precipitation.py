@@ -3,12 +3,12 @@ from __future__ import annotations
 
 from ecowitt2mqtt.const import (
     PRECIPITATION_INCHES,
-    PRECIPITATION_MILLIMETERS,
     PRECIPITATION_INCHES_PER_HOUR,
+    PRECIPITATION_MILLIMETERS,
     PRECIPITATION_MILLIMETERS_PER_HOUR,
     UNIT_SYSTEM_IMPERIAL,
 )
-from ecowitt2mqtt.helpers.calculator import Calculator, CalculatedDataPoint
+from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, Calculator
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
 
 
@@ -26,6 +26,8 @@ class RainRateCalculator(Calculator):
         self, value: PreCalculatedValueType
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
+        assert isinstance(value, float)
+
         if self._config.input_unit_system == self._config.output_unit_system:
             rain_volume = value
         elif self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
@@ -49,6 +51,8 @@ class RainVolumeCalculator(Calculator):
         self, value: PreCalculatedValueType
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
+        assert isinstance(value, float)
+
         if self._config.input_unit_system == self._config.output_unit_system:
             final_value = value
         elif self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:

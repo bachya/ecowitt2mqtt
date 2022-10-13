@@ -142,7 +142,7 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
 
         return asyncio.create_task(create_loop())
 
-    async def _async_post_data(self, request: Request) -> Response:
+    async def _async_post_data(self, request: Request) -> None:
         """Define an endpoint for the Ecowitt device to post data to."""
         form_data = await request.form()
         payload: dict[str, Any] = dict(form_data)

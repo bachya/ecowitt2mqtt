@@ -9,10 +9,10 @@ from typing import Any
 from asyncio_mqtt import Client
 
 from ecowitt2mqtt.config import Config
-from ecowitt2mqtt.helpers.typing import DataValueType
+from ecowitt2mqtt.helpers.typing import CalculatedValueType
 
 
-def generate_mqtt_payload(data: DataValueType) -> bytes:
+def generate_mqtt_payload(data: CalculatedValueType) -> bytes:
     """Generate a binary MQTT payload from input data."""
     if isinstance(data, dict):
         converted_data = json.dumps(data, default=json_serializer)
@@ -23,11 +23,10 @@ def generate_mqtt_payload(data: DataValueType) -> bytes:
     return converted_data.encode("utf-8")
 
 
-def json_serializer(obj: Any) -> Any:
+def json_serializer(obj: Any) -> Any:  # pylint: disable=inconsistent-return-statements
     """Define a custom JSON serializer."""
     if isinstance(obj, datetime):
         return obj.isoformat()
-    raise TypeError(f"Type {type(obj)} not serializable")
 
 
 class MqttPublisher(ABC):

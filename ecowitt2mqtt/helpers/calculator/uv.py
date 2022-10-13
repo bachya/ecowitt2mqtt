@@ -10,7 +10,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6,
-    DATA_POINT_SOLARRADIATION,
+    DATA_POINT_UV,
     LOGGER,
     TIME_MINUTES,
     UV_INDEX,
@@ -19,7 +19,6 @@ from ecowitt2mqtt.helpers.calculator import (
     CalculatedDataPoint,
     Calculator,
     SimpleCalculator,
-    requires_keys,
 )
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
 
@@ -92,22 +91,23 @@ class SafeExposureCalculator(Calculator):
         """Get the output unit of measurement for this calculation."""
         return TIME_MINUTES
 
-    @requires_keys(DATA_POINT_SOLARRADIATION)
+    @Calculator.requires_keys(DATA_POINT_UV)
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
+        assert isinstance(payload[DATA_POINT_UV], float)
+
         safe_exposure_info = SAFE_EXPOSURE_INFO_MAP[self._payload_key]
 
         try:
             final_value = round(
-                (200 * safe_exposure_info.constant)
-                / (3 * payload[DATA_POINT_SOLARRADIATION]),
+                (200 * safe_exposure_info.constant) / (3 * payload[DATA_POINT_UV]),
                 1,
             )
         except ZeroDivisionError:
             LOGGER.debug(
-                "Safe exposure times are only valid for non-zero UV indices (current: %s)",
+                "Safe exposure only valid for non-zero UV indices (current: %s)",
                 payload,
             )
             return self.get_calculated_data_point(None)

@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, TypeVar, Union
+from typing import Any
 
 from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import (
@@ -50,15 +50,17 @@ from ecowitt2mqtt.const import (
     DATA_POINT_SOLARRADIATION,
     DATA_POINT_SOLARRADIATION_LUX,
     DATA_POINT_SOLARRADIATION_PERCEIVED,
-    DATA_POINT_TEMPF,
-    DATA_POINT_TEMPINF,
     DATA_POINT_TF_CO2,
     DATA_POINT_THERMAL_PERCEPTION,
     DATA_POINT_UV,
     DATA_POINT_WINDCHILL,
     LOGGER,
 )
-from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, Calculator
+from ecowitt2mqtt.helpers.calculator import (
+    CalculatedDataPoint,
+    CalculationKeysMissingError,
+    Calculator,
+)
 from ecowitt2mqtt.helpers.calculator.battery import BatteryCalculator
 from ecowitt2mqtt.helpers.calculator.humidity import (
     AbsoluteHumidityCalculator,
@@ -128,6 +130,7 @@ CALCULATOR_MAP: dict[str, type[Calculator]] = {
     DATA_POINT_GLOB_WIND: WindSpeedCalculator,
     DATA_POINT_GLOB_WINDDIR: WindDirCalculator,
     DATA_POINT_HEATINDEX: HeatIndexCalculator,
+    DATA_POINT_HUMIDITY: RelativeHumidityCalculator,
     DATA_POINT_HUMIDITY_ABS: AbsoluteHumidityCalculator,
     DATA_POINT_HUMIDITY_ABS_IN: AbsoluteHumidityCalculator,
     DATA_POINT_HUMI_CO2: RelativeHumidityCalculator,
@@ -171,8 +174,6 @@ UNIT_SUFFIX_MAP = {
     DATA_POINT_RAIN_RATE: "in",
 }
 
-PreCalculatedValueType = TypeVar("PreCalculatedValueType", bound=Union[float, int, str])
-
 
 def get_calculator_instance(config: Config, payload_key: str) -> Calculator | None:
     """Get the appropriate calculator for a payload key."""
@@ -182,14 +183,12 @@ def get_calculator_instance(config: Config, payload_key: str) -> Calculator | No
     return calculator_class(config, payload_key, data_point_key)
 
 
-def get_typed_value(value: int | float | str) -> PreCalculatedValueType:
+def get_typed_value(value: float | int | str) -> float | str:
     """Take a string and return its properly typed counterpart (if possible)."""
-    if isinstance(value, str) and value.isdigit():
-        return int(value)
     try:
-        return float(value)  # type: ignore[arg-type]
+        return float(value)
     except ValueError:
-        return value
+        return str(value)
 
 
 def remove_unit_from_key(key: str) -> str:
@@ -235,7 +234,11 @@ class ProcessedData:
     def _process_calculated_data_points(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> None:
-        """Process "from-scratch" data points that can be calculated from others."""
+        """Process "from-scratch" data points that can be calculated from others.
+
+        Unlike raw data points, if a calculator doesn't exist for some reason or the
+        keys necessary to calculate the data point don't exist, we silently move on.
+        """
         for key in (
             DATA_POINT_BEAUFORT_SCALE,
             DATA_POINT_DEWPOINT,
@@ -259,9 +262,12 @@ class ProcessedData:
             DATA_POINT_WINDCHILL,
         ):
             if calculator := get_calculator_instance(self.config, key):
-                self.output[key] = calculator.calculate(payload)
-            else:
-                self.output[key] = CalculatedDataPoint(data_point_key=key, value=None)
+                try:
+                    self.output[key] = calculator.calculate_from_payload(payload)
+                except CalculationKeysMissingError:
+                    # If the data payload doesn't have the keys necessary to calculate
+                    # this data point, ignore and move on:
+                    continue
 
     def _process_raw_data_points(
         self, payload: dict[str, PreCalculatedValueType]
@@ -276,7 +282,7 @@ class ProcessedData:
                     key,
                     value,
                 )
-                self.output[key] = calculator.calculate(value)
+                self.output[key] = calculator.calculate_from_value(value)
             else:
                 LOGGER.debug("No calculator found for %s", key)
                 self.output[key] = CalculatedDataPoint(data_point_key=key, value=value)

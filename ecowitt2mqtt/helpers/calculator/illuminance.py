@@ -9,12 +9,10 @@ from ecowitt2mqtt.const import (
     LIGHT_LUX,
     PERCENTAGE,
 )
-
 from ecowitt2mqtt.helpers.calculator import (
     CalculatedDataPoint,
     Calculator,
     SimpleCalculator,
-    requires_keys,
 )
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
 
@@ -27,11 +25,13 @@ class IlluminanceLuxCalculator(Calculator):
         """Get the output unit of measurement for this calculation."""
         return LIGHT_LUX
 
-    @requires_keys(DATA_POINT_SOLARRADIATION)
+    @Calculator.requires_keys(DATA_POINT_SOLARRADIATION)
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
+        assert isinstance(payload[DATA_POINT_SOLARRADIATION], float)
+
         return self.get_calculated_data_point(
             round(float(payload[DATA_POINT_SOLARRADIATION]) / 0.0079, 1)
         )
@@ -45,11 +45,13 @@ class IlluminancePerceivedCalculator(Calculator):
         """Get the output unit of measurement for this calculation."""
         return PERCENTAGE
 
-    @requires_keys(DATA_POINT_SOLARRADIATION)
+    @Calculator.requires_keys(DATA_POINT_SOLARRADIATION)
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
+        assert isinstance(payload[DATA_POINT_SOLARRADIATION], float)
+
         lux_value = round(float(payload[DATA_POINT_SOLARRADIATION]) / 0.0079, 1)
 
         try:

@@ -2,18 +2,17 @@
 from __future__ import annotations
 
 from ecowitt2mqtt.const import (
-    DATA_POINT_TEMP,
     DATA_POINT_HUMIDITY,
+    DATA_POINT_TEMP,
     PERCENTAGE,
     UNIT_SYSTEM_IMPERIAL,
     WATER_VAPOR_GRAMS_PER_CUBIC_METER,
     WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
 )
 from ecowitt2mqtt.helpers.calculator import (
-    Calculator,
     CalculatedDataPoint,
+    Calculator,
     SimpleCalculator,
-    requires_keys,
 )
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
 from ecowitt2mqtt.util.meteo import (
@@ -32,7 +31,7 @@ class AbsoluteHumidityCalculator(Calculator):
             return WATER_VAPOR_POUNDS_PER_CUBIC_FOOT
         return WATER_VAPOR_GRAMS_PER_CUBIC_METER
 
-    @requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
+    @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:

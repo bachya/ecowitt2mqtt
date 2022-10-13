@@ -7,7 +7,6 @@ from ecowitt2mqtt.const import (
     DATA_POINT_CO2,
     DATA_POINT_CO2_24H,
 )
-
 from ecowitt2mqtt.helpers.calculator import SimpleCalculator
 
 

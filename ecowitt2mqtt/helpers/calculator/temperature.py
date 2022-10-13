@@ -3,21 +3,17 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from ecowitt2mqtt.backports.enum import StrEnum
 from ecowitt2mqtt.const import (
-    DATA_POINT_TEMP,
     DATA_POINT_HUMIDITY,
+    DATA_POINT_TEMP,
     DATA_POINT_WINDSPEED,
     LOGGER,
     TEMP_CELSIUS,
     TEMP_FAHRENHEIT,
     UNIT_SYSTEM_IMPERIAL,
 )
-from ecowitt2mqtt.backports.enum import StrEnum
-from ecowitt2mqtt.helpers.calculator import (
-    Calculator,
-    CalculatedDataPoint,
-    requires_keys,
-)
+from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, Calculator
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
 from ecowitt2mqtt.util.meteo import (
     get_absolute_humidity,
@@ -191,11 +187,14 @@ class TemperatureUnitConverter(Calculator):
 class DewPointCalculator(TemperatureUnitConverter):
     """Define a dew point calculator."""
 
-    @requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
+    @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
+        assert isinstance(payload[DATA_POINT_TEMP], float)
+        assert isinstance(payload[DATA_POINT_HUMIDITY], float)
+
         dew_point_obj = get_dew_point_meteocalc_object(
             payload[DATA_POINT_TEMP],
             payload[DATA_POINT_HUMIDITY],
@@ -213,11 +212,17 @@ class DewPointCalculator(TemperatureUnitConverter):
 class FeelsLikeCalculator(TemperatureUnitConverter):
     """Define a "feels like" calculator."""
 
-    @requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY, DATA_POINT_WINDSPEED)
+    @Calculator.requires_keys(
+        DATA_POINT_TEMP, DATA_POINT_HUMIDITY, DATA_POINT_WINDSPEED
+    )
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
+        assert isinstance(payload[DATA_POINT_TEMP], float)
+        assert isinstance(payload[DATA_POINT_HUMIDITY], float)
+        assert isinstance(payload[DATA_POINT_WINDSPEED], float)
+
         feels_like_obj = get_feels_like_meteocalc_object(
             payload[DATA_POINT_TEMP],
             payload[DATA_POINT_HUMIDITY],
@@ -236,11 +241,14 @@ class FeelsLikeCalculator(TemperatureUnitConverter):
 class FrostPointCalculator(TemperatureUnitConverter):
     """Define a frost point calculator."""
 
-    @requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
+    @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
+        assert isinstance(payload[DATA_POINT_TEMP], float)
+        assert isinstance(payload[DATA_POINT_HUMIDITY], float)
+
         temp_obj = get_temperature_meteocalc_object(
             payload[DATA_POINT_TEMP], self._config.input_unit_system
         )
@@ -259,11 +267,14 @@ class FrostPointCalculator(TemperatureUnitConverter):
 class FrostRiskCalculator(Calculator):
     """Define a frost risk calculator."""
 
-    @requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
+    @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
+        assert isinstance(payload[DATA_POINT_TEMP], float)
+        assert isinstance(payload[DATA_POINT_HUMIDITY], float)
+
         temp_obj = get_temperature_meteocalc_object(
             payload[DATA_POINT_TEMP], self._config.input_unit_system
         )
@@ -299,11 +310,14 @@ class FrostRiskCalculator(Calculator):
 class HeatIndexCalculator(TemperatureUnitConverter):
     """Define a heat index calculator."""
 
-    @requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
+    @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
+        assert isinstance(payload[DATA_POINT_TEMP], float)
+        assert isinstance(payload[DATA_POINT_HUMIDITY], float)
+
         heat_index_obj = get_heat_index_meteocalc_object(
             payload[DATA_POINT_TEMP],
             payload[DATA_POINT_HUMIDITY],
@@ -321,11 +335,14 @@ class HeatIndexCalculator(TemperatureUnitConverter):
 class SimmerIndexCalculator(TemperatureUnitConverter):
     """Define a simmer index calculator."""
 
-    @requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
+    @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
+        assert isinstance(payload[DATA_POINT_TEMP], float)
+        assert isinstance(payload[DATA_POINT_HUMIDITY], float)
+
         temp_obj = get_temperature_meteocalc_object(
             payload[DATA_POINT_TEMP], self._config.input_unit_system
         )
@@ -338,6 +355,7 @@ class SimmerIndexCalculator(TemperatureUnitConverter):
             LOGGER.debug("%s (temperature: %s)", err, temp_obj)
             value = None
         else:
+            assert simmer_obj
             if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
                 value = round(simmer_obj.f, 1)
             else:
@@ -349,11 +367,14 @@ class SimmerIndexCalculator(TemperatureUnitConverter):
 class SimmerZoneCalculator(Calculator):
     """Define a simmer zone calculator."""
 
-    @requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
+    @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
+        assert isinstance(payload[DATA_POINT_TEMP], float)
+        assert isinstance(payload[DATA_POINT_HUMIDITY], float)
+
         temp_obj = get_temperature_meteocalc_object(
             payload[DATA_POINT_TEMP], self._config.input_unit_system
         )
@@ -366,6 +387,7 @@ class SimmerZoneCalculator(Calculator):
             LOGGER.debug("%s (temperature: %s)", err, temp_obj)
             value = None
         else:
+            assert simmer_obj
             [rating] = [
                 r
                 for r in SIMMER_ZONE_RATINGS
@@ -379,8 +401,12 @@ class SimmerZoneCalculator(Calculator):
 class TemperatureCalculator(TemperatureUnitConverter):
     """Define a temperature calculator."""
 
-    def calculate_from_value(self, value: PreCalculatedValueType) -> CalculatedDataPoint:
+    def calculate_from_value(
+        self, value: PreCalculatedValueType
+    ) -> CalculatedDataPoint:
         """Perform the calculation."""
+        assert isinstance(value, float)
+
         temp_obj = get_temperature_meteocalc_object(
             value, self._config.input_unit_system
         )
@@ -404,11 +430,14 @@ class TemperatureCalculator(TemperatureUnitConverter):
 class ThermalPerceptionCalculator(Calculator):
     """Define a thermal perception calculator."""
 
-    @requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
+    @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
+        assert isinstance(payload[DATA_POINT_TEMP], float)
+        assert isinstance(payload[DATA_POINT_HUMIDITY], float)
+
         dew_point_obj = get_dew_point_meteocalc_object(
             payload[DATA_POINT_TEMP],
             payload[DATA_POINT_HUMIDITY],
@@ -427,11 +456,14 @@ class ThermalPerceptionCalculator(Calculator):
 class WindChillCalculator(TemperatureUnitConverter):
     """Define a wind chill calculator."""
 
-    @requires_keys(DATA_POINT_TEMP, DATA_POINT_WINDSPEED)
+    @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_WINDSPEED)
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
+        assert isinstance(payload[DATA_POINT_TEMP], float)
+        assert isinstance(payload[DATA_POINT_WINDSPEED], float)
+
         wind_speed = payload[DATA_POINT_WINDSPEED]
 
         try:

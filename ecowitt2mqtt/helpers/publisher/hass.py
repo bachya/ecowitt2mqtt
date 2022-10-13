@@ -81,7 +81,7 @@ from ecowitt2mqtt.helpers.calculator.battery import (
 )
 from ecowitt2mqtt.helpers.device import Device
 from ecowitt2mqtt.helpers.publisher import MqttPublisher, generate_mqtt_payload
-from ecowitt2mqtt.helpers.typing import DataValueType
+from ecowitt2mqtt.helpers.typing import CalculatedValueType
 
 
 class DeviceClass(StrEnum):
@@ -389,7 +389,7 @@ def get_availability_payload(data_point: CalculatedDataPoint) -> str:
     return AVAILABILITY_ONLINE
 
 
-def get_state_payload(data_point: CalculatedDataPoint) -> DataValueType:
+def get_state_payload(data_point: CalculatedDataPoint) -> CalculatedValueType:
     """Get the state payload for a data point."""
     if data_point.value is None:
         return STATE_UNKNOWN
@@ -479,10 +479,10 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
 
         return payload
 
-    async def async_publish(self, data: dict[str, DataValueType]) -> None:
+    async def async_publish(self, data: dict[str, CalculatedValueType]) -> None:
         """Publish to MQTT."""
         processed_data = ProcessedData(self._config, data)
-        tasks = []
+        tasks: list[asyncio.Task] = []
 
         try:
             for payload_key, data_point in processed_data.output.items():

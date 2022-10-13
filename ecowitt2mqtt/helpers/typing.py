@@ -1,11 +1,7 @@
 """Define typing helpers."""
 from datetime import datetime
-from typing import Collection, Literal, TypeVar, Union
+from typing import Collection, Literal, Union
 
-CalculatedValueType = TypeVar(
-    "CalculatedValueType", bound=Union[Collection[str], float, str, datetime, None]
-)
-PreCalculatedValueType = TypeVar(
-    "PreCalculatedValueType", bound=Union[float, int, str, None]
-)
+CalculatedValueType = Union[Collection[str], float, str, datetime, None]
+PreCalculatedValueType = Union[float, str]
 UnitSystemType = Literal["imperial", "metric"]

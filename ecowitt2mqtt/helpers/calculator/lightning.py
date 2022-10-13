@@ -10,8 +10,8 @@ from ecowitt2mqtt.const import (
     UNIT_SYSTEM_METRIC,
 )
 from ecowitt2mqtt.helpers.calculator import (
-    Calculator,
     CalculatedDataPoint,
+    Calculator,
     SimpleCalculator,
 )
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
@@ -43,15 +43,13 @@ class LightningStrikeDistanceCalculator(Calculator):
         self, value: PreCalculatedValueType
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
-        try:
-            final_value = float(value)
-        except ValueError:
+        if isinstance(value, str):
             LOGGER.debug("Can't convert value to number: %s", value)
             return self.get_calculated_data_point(None)
 
         if self._config.output_unit_system == UNIT_SYSTEM_METRIC:
             final_value = value
         else:
-            final_value = round(final_value / 1.609, 1)
+            final_value = round(value / 1.609, 1)
 
         return self.get_calculated_data_point(final_value)

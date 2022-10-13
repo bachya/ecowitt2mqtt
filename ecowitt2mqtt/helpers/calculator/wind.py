@@ -15,7 +15,6 @@ from ecowitt2mqtt.helpers.calculator import (
     CalculatedDataPoint,
     Calculator,
     SimpleCalculator,
-    requires_keys,
 )
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
 
@@ -220,12 +219,15 @@ BEAUFORT_SCALE_RATINGS: list[BeaufortScaleRating] = [
 class BeaufortScaleCalculator(Calculator):
     """Define a Beaufort Scale calculator."""
 
-    @requires_keys(DATA_POINT_WINDSPEED)
+    @Calculator.requires_keys(DATA_POINT_WINDSPEED)
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
+        assert isinstance(payload[DATA_POINT_WINDSPEED], float)
+
         wind_speed = payload[DATA_POINT_WINDSPEED]
+
         [rating] = [
             r
             for r in BEAUFORT_SCALE_RATINGS
@@ -268,8 +270,12 @@ class WindSpeedCalculator(Calculator):
             return SPEED_MILES_PER_HOUR
         return SPEED_KILOMETERS_PER_HOUR
 
-    def calculate_from_value(self, value: PreCalculatedValueType) -> CalculatedDataPoint:
+    def calculate_from_value(
+        self, value: PreCalculatedValueType
+    ) -> CalculatedDataPoint:
         """Perform the calculation."""
+        assert isinstance(value, float)
+
         if self._config.input_unit_system == self._config.output_unit_system:
             final_value = value
         elif self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
