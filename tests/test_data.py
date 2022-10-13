@@ -40,7 +40,7 @@ from ecowitt2mqtt.data import ProcessedData
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, DataPointType
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy, BooleanBatteryState
 from ecowitt2mqtt.helpers.calculator.leak import LeakState
-from ecowitt2mqtt.helpers.calculator.meteo import (
+from ecowitt2mqtt.helpers.calculator.temperature import (
     FrostRisk,
     SimmerZone,
     ThermalPerception,
@@ -357,14 +357,14 @@ def test_battery_config(device_data, ecowitt):
         ),
         "humidityabs": CalculatedDataPoint(
             data_point_key="humidityabs",
-            value=0.0,
+            value=0.0010682939389712453,
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "humidityabsin": CalculatedDataPoint(
             data_point_key="humidityabsin",
-            value=0.0,
+            value=0.0010682939389712453,
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -710,14 +710,14 @@ def test_default_battery_strategy(device_data, ecowitt):
         ),
         "humidityabs": CalculatedDataPoint(
             data_point_key="humidityabs",
-            value=0.0,
+            value=0.0010682939389712453,
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "humidityabsin": CalculatedDataPoint(
             data_point_key="humidityabsin",
-            value=0.0,
+            value=0.0010682939389712453,
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -1200,7 +1200,7 @@ def test_missing_distance(device_data, ecowitt, request):
         "lightning": CalculatedDataPoint(
             "lightning",
             None,
-            unit=None,
+            unit=LENGTH_MILES,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
@@ -1325,14 +1325,14 @@ def test_missing_distance(device_data, ecowitt, request):
         ),
         "humidityabs": CalculatedDataPoint(
             data_point_key="humidityabs",
-            value=0.0,
+            value=0.0006244951787920211,
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "humidityabsin": CalculatedDataPoint(
             data_point_key="humidityabsin",
-            value=0.0,
+            value=0.0006244951787920211,
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -1683,14 +1683,14 @@ def test_nonnumeric_value(device_data, ecowitt):
         ),
         "humidityabs": CalculatedDataPoint(
             data_point_key="humidityabs",
-            value=0.0,
+            value=0.0015016432317109568,
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "humidityabsin": CalculatedDataPoint(
             data_point_key="humidityabsin",
-            value=0.0,
+            value=0.0015016432317109568,
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -2046,14 +2046,14 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "humidityabs": CalculatedDataPoint(
                     data_point_key="humidityabs",
-                    value=0.0,
+                    value=0.0015016432317109568,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=0.0,
+                    value=0.0015016432317109568,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -2348,14 +2348,14 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "humidityabs": CalculatedDataPoint(
                     data_point_key="humidityabs",
-                    value=0.0,
+                    value=0.00006656409124785666,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=0.0,
+                    value=0.00006656409124785666,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -2706,14 +2706,14 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "humidityabs": CalculatedDataPoint(
                     data_point_key="humidityabs",
-                    value=0.0,
+                    value=0.0010682939389712453,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=0.0,
+                    value=0.0010682939389712453,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -2978,7 +2978,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 "lightning": CalculatedDataPoint(
                     "lightning",
                     None,
-                    unit=None,
+                    unit=LENGTH_MILES,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
@@ -3103,14 +3103,14 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "humidityabs": CalculatedDataPoint(
                     data_point_key="humidityabs",
-                    value=0.0,
+                    value=0.0006244951787920211,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=0.0,
+                    value=0.0006244951787920211,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -3821,14 +3821,14 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "humidityabs": CalculatedDataPoint(
                     data_point_key="humidityabs",
-                    value=0.0,
+                    value=0.0005325591890076764,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=0.0,
+                    value=0.0005325591890076764,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4231,14 +4231,14 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "humidityabs": CalculatedDataPoint(
                     data_point_key="humidityabs",
-                    value=0.0,
+                    value=0.00020514233433793967,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=0.0,
+                    value=0.00020514233433793967,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4578,14 +4578,14 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "humidityabs": CalculatedDataPoint(
                     data_point_key="humidityabs",
-                    value=0.0,
+                    value=0.0007588985209272155,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=0.0,
+                    value=0.0007588985209272155,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4872,14 +4872,14 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "humidityabs": CalculatedDataPoint(
                     data_point_key="humidityabs",
-                    value=0.0,
+                    value=0.00020457441081601316,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=0.0,
+                    value=0.00020457441081601316,
                     unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4959,12 +4959,11 @@ def test_suspcious_temperature_value(caplog, device_data, ecowitt):
     with pytest.raises(ValueError):
         _ = ProcessedData(ecowitt.configs.default_config, device_data)
 
-    assert any(
-        m
-        for m in caplog.messages
-        if m
-        == 'Value of "tempf" (93.2) with input unit system "metric" seems suspicious'
-    )
+    for message in (
+        'Value of "temp" (93.2) with input unit system "metric" seems suspicious',
+        'Value of "tempin" (79.52) with input unit system "metric" seems suspicious',
+    ):
+        assert any(m for m in caplog.messages if m == message)
 
 
 @pytest.mark.parametrize(
@@ -5269,14 +5268,14 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
         ),
         "humidityabs": CalculatedDataPoint(
             data_point_key="humidityabs",
-            value=0.0,
+            value=0.00016449983631080156,
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "humidityabsin": CalculatedDataPoint(
             data_point_key="humidityabsin",
-            value=0.0,
+            value=0.00016449983631080156,
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -5641,14 +5640,14 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
                 ),
                 "humidityabs": CalculatedDataPoint(
                     data_point_key="humidityabs",
-                    value=24.1,
+                    value=24.054020931926463,
                     unit=WATER_VAPOR_GRAMS_PER_CUBIC_METER,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=15.9,
+                    value=24.054020931926463,
                     unit=WATER_VAPOR_GRAMS_PER_CUBIC_METER,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -5943,14 +5942,14 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
                 ),
                 "humidityabs": CalculatedDataPoint(
                     data_point_key="humidityabs",
-                    value=1.1,
+                    value=1.0662546271835098,
                     unit=WATER_VAPOR_GRAMS_PER_CUBIC_METER,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=6.2,
+                    value=1.0662546271835098,
                     unit=WATER_VAPOR_GRAMS_PER_CUBIC_METER,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -6310,14 +6309,14 @@ def test_unknown_battery(device_data, ecowitt):
         ),
         "humidityabs": CalculatedDataPoint(
             data_point_key="humidityabs",
-            value=0.0,
+            value=0.0015016432317109568,
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "humidityabsin": CalculatedDataPoint(
             data_point_key="humidityabsin",
-            value=0.0,
+            value=0.0015016432317109568,
             unit=WATER_VAPOR_POUNDS_PER_CUBIC_FOOT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,

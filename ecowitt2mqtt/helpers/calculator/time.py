@@ -1,36 +1,36 @@
-"""Define time utilities."""
+"""Define time calculators."""
 from __future__ import annotations
 
 from datetime import datetime, timezone
-from typing import TYPE_CHECKING
 
 from ecowitt2mqtt.const import LOGGER, TIME_SECONDS
-from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint
-
-if TYPE_CHECKING:
-    from ecowitt2mqtt.config import Config
-
-
-def calculate_dt_from_epoch(
-    config: Config, payload_key: str, data_point_key: str, value: float | str
-) -> CalculatedDataPoint:
-    """Calculate a datetime from an epoch."""
-    try:
-        float_value = float(value)
-    except ValueError:
-        LOGGER.debug("Can't convert value to number: %s", value)
-        return CalculatedDataPoint(data_point_key=data_point_key, value=None)
-
-    return CalculatedDataPoint(
-        data_point_key=data_point_key,
-        value=datetime.utcfromtimestamp(float_value).replace(tzinfo=timezone.utc),
-    )
+from ecowitt2mqtt.helpers.calculator import (
+    CalculatedDataPoint,
+    Calculator,
+    SimpleCalculator,
+)
+from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
 
 
-def calculate_runtime(
-    config: Config, payload_key: str, data_point_key: str, value: float
-) -> CalculatedDataPoint:
-    """Calculate a datetime from an epoch."""
-    return CalculatedDataPoint(
-        data_point_key=data_point_key, value=value, unit=TIME_SECONDS
-    )
+class EpochCalculator(Calculator):
+    """Define a time-since-epoch calculator."""
+
+    def calculate_from_value(
+        self, value: PreCalculatedValueType
+    ) -> CalculatedDataPoint:
+        """Perform the calculation."""
+        if isinstance(value, str):
+            LOGGER.debug("Can't convert value to number: %s", value)
+            return self.get_calculated_data_point(None)
+
+        timestamp = datetime.utcfromtimestamp(value).replace(tzinfo=timezone.utc)
+        return self.get_calculated_data_point(timestamp)
+
+
+class RuntimeCalculator(SimpleCalculator):
+    """Define a runtime calculator."""
+
+    @property
+    def output_unit(self) -> str | None:
+        """Get the output unit of measurement for this calculation."""
+        return TIME_SECONDS

@@ -4,13 +4,13 @@ from __future__ import annotations
 from ecowitt2mqtt.const import LOGGER
 from ecowitt2mqtt.data import ProcessedData
 from ecowitt2mqtt.helpers.publisher import MqttPublisher, generate_mqtt_payload
-from ecowitt2mqtt.helpers.typing import DataValueType
+from ecowitt2mqtt.helpers.typing import CalculatedValueType
 
 
 class TopicPublisher(MqttPublisher):
     """Define an MQTT publisher that publishes to a topic."""
 
-    async def async_publish(self, data: dict[str, DataValueType]) -> None:
+    async def async_publish(self, data: dict[str, CalculatedValueType]) -> None:
         """Publish to MQTT."""
         if not self._config.raw_data:
             processed_data = ProcessedData(self._config, data)

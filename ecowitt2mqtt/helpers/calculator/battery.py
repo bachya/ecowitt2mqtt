@@ -1,4 +1,4 @@
-"""Define battery utilities."""
+"""Define battery calculators."""
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -24,7 +24,12 @@ from ecowitt2mqtt.const import (
     ELECTRIC_POTENTIAL_VOLT,
     PERCENTAGE,
 )
-from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, DataPointType
+from ecowitt2mqtt.helpers.calculator import (
+    CalculatedDataPoint,
+    Calculator,
+    DataPointType,
+)
+from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
 from ecowitt2mqtt.util import glob_search
 
 if TYPE_CHECKING:
@@ -66,40 +71,6 @@ BATTERY_STRATEGY_MAP = {
 }
 
 
-def calculate_battery(
-    config: Config, payload_key: str, data_point_key: str, value: float
-) -> CalculatedDataPoint:
-    """Calculate a battery value."""
-    strategy = get_battery_strategy(config, payload_key)
-
-    if strategy == BatteryStrategy.NUMERIC:
-        return CalculatedDataPoint(
-            data_point_key=data_point_key, value=value, unit=ELECTRIC_POTENTIAL_VOLT
-        )
-    if strategy == BatteryStrategy.PERCENTAGE:
-        # Percentage batteries occur in "steps":
-        #   * 1 = 20%
-        #   * 2 = 40%
-        #   * 3 = 60%
-        #   * 4 = 80%
-        #   * 5 = 100%
-        #   * 6 = 120% (plugged into mains voltage)
-        return CalculatedDataPoint(
-            data_point_key=data_point_key, value=value * 20, unit=PERCENTAGE
-        )
-    if value == 0.0:
-        return CalculatedDataPoint(
-            data_point_key=data_point_key,
-            value=BooleanBatteryState.OFF,
-            data_type=DataPointType.BOOLEAN,
-        )
-    return CalculatedDataPoint(
-        data_point_key=data_point_key,
-        value=BooleanBatteryState.ON,
-        data_type=DataPointType.BOOLEAN,
-    )
-
-
 def get_battery_strategy(config: Config, key: str) -> BatteryStrategy:
     """Get the battery strategy for a particular key."""
     strategies = [config.battery_overrides.get(key)]
@@ -116,3 +87,49 @@ def get_battery_strategy(config: Config, key: str) -> BatteryStrategy:
             return strategy
 
     return config.default_battery_strategy
+
+
+class BatteryCalculator(Calculator):
+    """Define a battery calculator."""
+
+    def __init__(self, config: Config, payload_key: str, data_point_key: str) -> None:
+        """Initialize."""
+        super().__init__(config, payload_key, data_point_key)
+
+        self._battery_strategy = get_battery_strategy(config, payload_key)
+
+    @property
+    def output_unit(self) -> str | None:
+        """Get the output unit of measurement for this calculation."""
+        if self._battery_strategy == BatteryStrategy.NUMERIC:
+            return ELECTRIC_POTENTIAL_VOLT
+        if self._battery_strategy == BatteryStrategy.PERCENTAGE:
+            return PERCENTAGE
+        return None
+
+    def calculate_from_value(
+        self, value: PreCalculatedValueType
+    ) -> CalculatedDataPoint:
+        """Perform the calculation."""
+        assert isinstance(value, float)
+
+        if self._battery_strategy == BatteryStrategy.NUMERIC:
+            return self.get_calculated_data_point(value)
+
+        if self._battery_strategy == BatteryStrategy.PERCENTAGE:
+            # Percentage batteries occur in "steps":
+            #   * 1 = 20%
+            #   * 2 = 40%
+            #   * 3 = 60%
+            #   * 4 = 80%
+            #   * 5 = 100%
+            #   * 6 = 120% (plugged into mains voltage)
+            return self.get_calculated_data_point(value * 20)
+
+        if value == 0.0:
+            return self.get_calculated_data_point(
+                BooleanBatteryState.OFF, data_type=DataPointType.BOOLEAN
+            )
+        return self.get_calculated_data_point(
+            BooleanBatteryState.ON, data_type=DataPointType.BOOLEAN
+        )

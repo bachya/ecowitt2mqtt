@@ -2,5 +2,6 @@
 from datetime import datetime
 from typing import Collection, Literal, Union
 
-DataValueType = Union[Collection[str], float, str, datetime, None]
+CalculatedValueType = Union[Collection[str], float, str, datetime, None]
+PreCalculatedValueType = Union[float, str]
 UnitSystemType = Literal["imperial", "metric"]
