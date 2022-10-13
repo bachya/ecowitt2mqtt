@@ -9,6 +9,7 @@ from ecowitt2mqtt.util.unit_conversion import (
     SpeedConverter,
     TemperatureConverter,
     UnitConversionError,
+    VolumeConverter,
 )
 
 
@@ -27,6 +28,8 @@ from ecowitt2mqtt.util.unit_conversion import (
         ("speed", SpeedConverter, "km/d", "m/s"),
         ("temperature", TemperatureConverter, "°C", "Bolts"),
         ("temperature", TemperatureConverter, "Fake", "°C"),
+        ("volume", VolumeConverter, "g/m³", "sparrows"),
+        ("volume", VolumeConverter, "g/km³", "lbs/ft³"),
     ],
 )
 def test_invalid_units(converter, from_unit, to_unit, unit_class):
@@ -161,3 +164,15 @@ def test_temperature_conversion(converted_value, from_unit, to_unit, value):
 def test_unit_ratio(converter, from_unit, ratio, to_unit):
     """Test the ratio between two units."""
     assert converter.get_unit_ratio(from_unit, to_unit) == ratio
+
+
+@pytest.mark.parametrize(
+    "value,from_unit,to_unit,converted_value",
+    [
+        (10, "g/m³", "lbs/ft³", 0.0006242796057614459),
+        (10, "lbs/ft³", "g/m³", 160184.63373960144),
+    ],
+)
+def test_volume_conversion(converted_value, from_unit, to_unit, value):
+    """Test volume conversions."""
+    assert VolumeConverter.convert(value, from_unit, to_unit) == converted_value

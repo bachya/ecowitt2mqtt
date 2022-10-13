@@ -243,5 +243,5 @@ TIME_SECONDS: Final = "s"
 UV_INDEX: Final = "UV index"
 
 # Volume units:
-WATER_VAPOR_GRAMS_PER_CUBIC_METER: Final = "g/m³"
-WATER_VAPOR_POUNDS_PER_CUBIC_FOOT: Final = "lbs/ft³"
+VOLUME_GRAMS_PER_CUBIC_METER: Final = "g/m³"
+VOLUME_POUNDS_PER_CUBIC_FOOT: Final = "lbs/ft³"

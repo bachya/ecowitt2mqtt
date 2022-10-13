@@ -41,6 +41,8 @@ from ecowitt2mqtt.const import (
     TEMP_CELSIUS,
     TEMP_FAHRENHEIT,
     TEMP_KELVIN,
+    VOLUME_GRAMS_PER_CUBIC_METER,
+    VOLUME_POUNDS_PER_CUBIC_FOOT,
 )
 from ecowitt2mqtt.errors import EcowittError
 
@@ -63,9 +65,15 @@ _KLUX_TO_LUX = 1000
 _FC_TO_LUX = 10.7639
 _WM2_TO_LUX = 0.0079
 
+# Mass conversion constants:
+_POUND_TO_GRAM = 453.59237
+
 # Pressure conversion constants:
 _STANDARD_GRAVITY = 9.80665
 _MERCURY_DENSITY = 13.5951
+
+# Volume conversion constants:
+_CUBIC_FOOT_TO_CUBIC_METER = pow(_FOOT_TO_M, 3)
 
 UNIT_NOT_RECOGNIZED_TEMPLATE: Final = '"{}" is not a recognized {} unit'
 
@@ -80,8 +88,11 @@ class BaseUnitConverter:
     """Define the format of a conversion utility."""
 
     UNIT_CLASS: str
-    NORMALIZED_UNIT: str
     VALID_UNITS: set[str]
+
+    # This the unit to/from which calculations are done and is stored primarily for
+    # documentation:
+    NORMALIZED_UNIT: str
 
     _UNIT_CONVERSION: dict[str, float]
 
@@ -113,7 +124,6 @@ class DistanceConverter(BaseUnitConverter):
     """Utility to convert distance values."""
 
     UNIT_CLASS = "distance"
-    NORMALIZED_UNIT = LENGTH_METERS
     VALID_UNITS = {
         LENGTH_KILOMETERS,
         LENGTH_MILES,
@@ -124,6 +134,7 @@ class DistanceConverter(BaseUnitConverter):
         LENGTH_INCHES,
         LENGTH_YARD,
     }
+    NORMALIZED_UNIT = LENGTH_METERS
 
     _UNIT_CONVERSION = {
         LENGTH_METERS: 1,
@@ -141,7 +152,6 @@ class IlluminanceConverter(BaseUnitConverter):
     """Utility to convert illuminance values."""
 
     UNIT_CLASS = "illuminance"
-    NORMALIZED_UNIT = ILLUMINANCE_LUX
     VALID_UNITS = {
         ILLUMINANCE_FOOT_CANDLES,
         ILLUMINANCE_KILOFOOT_CANDLES,
@@ -149,6 +159,7 @@ class IlluminanceConverter(BaseUnitConverter):
         ILLUMINANCE_LUX,
         ILLUMINANCE_WATTS_PER_SQUARE_METER,
     }
+    NORMALIZED_UNIT = ILLUMINANCE_LUX
 
     _UNIT_CONVERSION = {
         ILLUMINANCE_FOOT_CANDLES: 1 / _FC_TO_LUX,
@@ -163,14 +174,14 @@ class PrecipitationConverter(BaseUnitConverter):
     """Utility to convert precipitation values."""
 
     UNIT_CLASS = "precipitation"
-    # Note that we can accept either mm or mm/h as the normalized unit:
-    NORMALIZED_UNIT = PRECIPITATION_MILLIMETERS
     VALID_UNITS = {
         PRECIPITATION_MILLIMETERS,
         PRECIPITATION_MILLIMETERS_PER_HOUR,
         PRECIPITATION_INCHES,
         PRECIPITATION_INCHES_PER_HOUR,
     }
+    # Note that we can accept either mm or mm/h as the normalized unit:
+    NORMALIZED_UNIT = PRECIPITATION_MILLIMETERS
 
     _UNIT_CONVERSION = {
         PRECIPITATION_INCHES: 1 * _MM_TO_M / _IN_TO_M,
@@ -184,7 +195,6 @@ class PressureConverter(BaseUnitConverter):
     """Define a utility to convert pressure values."""
 
     UNIT_CLASS = "pressure"
-    NORMALIZED_UNIT = PRESSURE_PA
     VALID_UNITS = {
         PRESSURE_BAR,
         PRESSURE_CBAR,
@@ -196,6 +206,7 @@ class PressureConverter(BaseUnitConverter):
         PRESSURE_PA,
         PRESSURE_PSI,
     }
+    NORMALIZED_UNIT = PRESSURE_PA
 
     _UNIT_CONVERSION = {
         PRESSURE_BAR: 1 / 100000,
@@ -214,7 +225,6 @@ class SpeedConverter(BaseUnitConverter):
     """Define a utility to convert speed values."""
 
     UNIT_CLASS = "speed"
-    NORMALIZED_UNIT = SPEED_METERS_PER_SECOND
     VALID_UNITS = {
         SPEED_FEET_PER_SECOND,
         SPEED_INCHES_PER_DAY,
@@ -225,6 +235,7 @@ class SpeedConverter(BaseUnitConverter):
         SPEED_MILES_PER_HOUR,
         SPEED_MILLIMETERS_PER_DAY,
     }
+    NORMALIZED_UNIT = SPEED_METERS_PER_SECOND
 
     _UNIT_CONVERSION = {
         SPEED_FEET_PER_SECOND: 1 / _FOOT_TO_M,
@@ -242,12 +253,12 @@ class TemperatureConverter(BaseUnitConverter):
     """Define a utility to convert temperature values."""
 
     UNIT_CLASS = "temperature"
-    NORMALIZED_UNIT = TEMP_CELSIUS
     VALID_UNITS = {
         TEMP_CELSIUS,
         TEMP_FAHRENHEIT,
         TEMP_KELVIN,
     }
+    NORMALIZED_UNIT = TEMP_CELSIUS
 
     _UNIT_CONVERSION = {
         TEMP_CELSIUS: 1.0,
@@ -309,3 +320,19 @@ class TemperatureConverter(BaseUnitConverter):
                 value = cls._celsius_to_fahrenheit(cls._kelvin_to_celsius(value))
 
         return value
+
+
+class VolumeConverter(BaseUnitConverter):
+    """Utility to convert volume values."""
+
+    UNIT_CLASS = "volume"
+    VALID_UNITS = {
+        VOLUME_GRAMS_PER_CUBIC_METER,
+        VOLUME_POUNDS_PER_CUBIC_FOOT,
+    }
+    NORMALIZED_UNIT = VOLUME_GRAMS_PER_CUBIC_METER
+
+    _UNIT_CONVERSION = {
+        VOLUME_GRAMS_PER_CUBIC_METER: 1,
+        VOLUME_POUNDS_PER_CUBIC_FOOT: 1 * _CUBIC_FOOT_TO_CUBIC_METER / _POUND_TO_GRAM,
+    }
