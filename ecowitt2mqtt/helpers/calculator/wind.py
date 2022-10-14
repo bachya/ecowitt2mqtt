@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import cast
 
 from ecowitt2mqtt.const import (
     DATA_POINT_WINDSPEED,
@@ -17,6 +18,7 @@ from ecowitt2mqtt.helpers.calculator import (
     SimpleCalculator,
 )
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
+from ecowitt2mqtt.util.unit_conversion import SpeedConverter
 
 
 @dataclass
@@ -224,9 +226,7 @@ class BeaufortScaleCalculator(Calculator):
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
-        assert isinstance(payload[DATA_POINT_WINDSPEED], float)
-
-        wind_speed = payload[DATA_POINT_WINDSPEED]
+        wind_speed = cast(float, payload[DATA_POINT_WINDSPEED])
 
         [rating] = [
             r
@@ -255,18 +255,15 @@ class WindDirCalculator(SimpleCalculator):
     """Define a wind direction calculator."""
 
     @property
-    def output_unit_imperial(self) -> str:
-        """Get the default unit (imperial)."""
-        return DEGREE
-
-    @property
-    def output_unit_metric(self) -> str:
-        """Get the default unit (metric)."""
+    def output_unit(self) -> str:
+        """Get the output unit of measurement for this calculation."""
         return DEGREE
 
 
 class WindSpeedCalculator(Calculator):
     """Define a wind speed calculator."""
+
+    DEFAULT_INPUT_UNIT = SPEED_MILES_PER_HOUR
 
     @property
     def output_unit_imperial(self) -> str:
@@ -283,12 +280,5 @@ class WindSpeedCalculator(Calculator):
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
         assert isinstance(value, float)
-
-        if self._config.input_unit_system == self._config.output_unit_system:
-            final_value = value
-        elif self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            final_value = round(value / 1.60934, 1)
-        else:
-            final_value = round(value * 1.60934, 1)
-
-        return self.get_calculated_data_point(final_value)
+        converted_value = self.convert_value(SpeedConverter, value)
+        return self.get_calculated_data_point(converted_value)
