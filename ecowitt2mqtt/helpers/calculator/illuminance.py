@@ -1,11 +1,14 @@
 """Define illuminance calculators."""
 from __future__ import annotations
 
+from typing import cast
+
 from ecowitt2mqtt.const import (
     DATA_POINT_SOLARRADIATION,
     ILLUMINANCE_LUX,
     ILLUMINANCE_WATTS_PER_SQUARE_METER,
     PERCENTAGE,
+    UNIT_SYSTEM_METRIC,
 )
 from ecowitt2mqtt.helpers.calculator import (
     CalculatedDataPoint,
@@ -16,17 +19,18 @@ from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
 from ecowitt2mqtt.util.unit_conversion import IlluminanceConverter
 
 
-class IlluminanceLuxCalculator(Calculator):
+class BaseIlluminanceCalculator(Calculator):
+    """Define a base illuminance calculator."""
+
+    DEFAULT_INPUT_UNIT = IlluminanceConverter.DEFAULT_UNITS[UNIT_SYSTEM_METRIC]
+
+
+class IlluminanceLuxCalculator(BaseIlluminanceCalculator):
     """Define a illuminance calculator (lux)."""
 
     @property
-    def default_imperial_unit(self) -> str:
-        """Get the default unit (imperial)."""
-        return ILLUMINANCE_LUX
-
-    @property
-    def default_metric_unit(self) -> str:
-        """Get the default unit (metric)."""
+    def output_unit(self) -> str:
+        """Get the output unit of measurement for this calculation."""
         return ILLUMINANCE_LUX
 
     @Calculator.requires_keys(DATA_POINT_SOLARRADIATION)
@@ -34,28 +38,17 @@ class IlluminanceLuxCalculator(Calculator):
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
-        assert isinstance(payload[DATA_POINT_SOLARRADIATION], float)
-
-        value = IlluminanceConverter.convert(
-            payload[DATA_POINT_SOLARRADIATION],
-            ILLUMINANCE_WATTS_PER_SQUARE_METER,
-            ILLUMINANCE_LUX,
-        )
-
-        return self.get_calculated_data_point(value)
+        solar_rad = cast(float, payload[DATA_POINT_SOLARRADIATION])
+        converted_value = self.convert_value(IlluminanceConverter, solar_rad)
+        return self.get_calculated_data_point(converted_value)
 
 
-class IlluminancePerceivedCalculator(Calculator):
+class IlluminancePerceivedCalculator(BaseIlluminanceCalculator):
     """Define a illuminance calculator (perceived)."""
 
     @property
-    def default_imperial_unit(self) -> str:
-        """Get the default unit (imperial)."""
-        return PERCENTAGE
-
-    @property
-    def default_metric_unit(self) -> str:
-        """Get the default unit (metric)."""
+    def output_unit(self) -> str:
+        """Get the output unit of measurement for this calculation."""
         return PERCENTAGE
 
     @Calculator.requires_keys(DATA_POINT_SOLARRADIATION)
@@ -63,24 +56,17 @@ class IlluminancePerceivedCalculator(Calculator):
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
-        assert isinstance(payload[DATA_POINT_SOLARRADIATION], float)
-
-        value = IlluminanceConverter.convert_to_percentage(
-            payload[DATA_POINT_SOLARRADIATION], ILLUMINANCE_WATTS_PER_SQUARE_METER
+        solar_rad = cast(float, payload[DATA_POINT_SOLARRADIATION])
+        converted_value = IlluminanceConverter.convert_to_percentage(
+            solar_rad, ILLUMINANCE_WATTS_PER_SQUARE_METER
         )
-
-        return self.get_calculated_data_point(value)
+        return self.get_calculated_data_point(converted_value)
 
 
 class IlluminanceWM2Calculator(SimpleCalculator):
     """Define a illuminance calculator (W/m²)."""
 
     @property
-    def default_imperial_unit(self) -> str:
-        """Get the default unit (imperial)."""
-        return ILLUMINANCE_WATTS_PER_SQUARE_METER
-
-    @property
-    def default_metric_unit(self) -> str:
-        """Get the default unit (metric)."""
+    def output_unit(self) -> str:
+        """Get the output unit of measurement for this calculation."""
         return ILLUMINANCE_WATTS_PER_SQUARE_METER

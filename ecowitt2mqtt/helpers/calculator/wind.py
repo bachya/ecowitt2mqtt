@@ -255,12 +255,12 @@ class WindDirCalculator(SimpleCalculator):
     """Define a wind direction calculator."""
 
     @property
-    def default_imperial_unit(self) -> str:
+    def output_unit_imperial(self) -> str:
         """Get the default unit (imperial)."""
         return DEGREE
 
     @property
-    def default_metric_unit(self) -> str:
+    def output_unit_metric(self) -> str:
         """Get the default unit (metric)."""
         return DEGREE
 
@@ -269,12 +269,12 @@ class WindSpeedCalculator(Calculator):
     """Define a wind speed calculator."""
 
     @property
-    def default_imperial_unit(self) -> str:
+    def output_unit_imperial(self) -> str:
         """Get the default unit (imperial)."""
         return SPEED_MILES_PER_HOUR
 
     @property
-    def default_metric_unit(self) -> str:
+    def output_unit_metric(self) -> str:
         """Get the default unit (metric)."""
         return SPEED_KILOMETERS_PER_HOUR
 

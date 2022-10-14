@@ -20,12 +20,12 @@ class LightningStrikeCountCalculator(SimpleCalculator):
     """Define a lightning strike count calculator."""
 
     @property
-    def default_imperial_unit(self) -> str:
+    def output_unit_imperial(self) -> str:
         """Get the default unit (imperial)."""
         return STRIKES
 
     @property
-    def default_metric_unit(self) -> str:
+    def output_unit_metric(self) -> str:
         """Get the default unit (metric)."""
         return STRIKES
 
@@ -37,12 +37,12 @@ class LightningStrikeDistanceCalculator(Calculator):
     """
 
     @property
-    def default_imperial_unit(self) -> str:
+    def output_unit_imperial(self) -> str:
         """Get the default unit (imperial)."""
         return LENGTH_MILES
 
     @property
-    def default_metric_unit(self) -> str:
+    def output_unit_metric(self) -> str:
         """Get the default unit (metric)."""
         return LENGTH_KILOMETERS
 

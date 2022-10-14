@@ -87,12 +87,12 @@ class SafeExposureCalculator(Calculator):
     """Define a safe exposure calculator."""
 
     @property
-    def default_imperial_unit(self) -> str:
+    def output_unit_imperial(self) -> str:
         """Get the default unit (imperial)."""
         return TIME_MINUTES
 
     @property
-    def default_metric_unit(self) -> str:
+    def output_unit_metric(self) -> str:
         """Get the default unit (metric)."""
         return TIME_MINUTES
 
@@ -131,11 +131,11 @@ class UVIndexCalculator(SimpleCalculator):
     """Define a UV index calculator."""
 
     @property
-    def default_imperial_unit(self) -> str:
+    def output_unit_imperial(self) -> str:
         """Get the default unit (imperial)."""
         return UV_INDEX
 
     @property
-    def default_metric_unit(self) -> str:
+    def output_unit_metric(self) -> str:
         """Get the default unit (metric)."""
         return UV_INDEX
