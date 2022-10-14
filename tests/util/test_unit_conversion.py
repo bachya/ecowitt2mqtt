@@ -53,14 +53,14 @@ def test_distance_conversion(converted_value, from_unit, to_unit, value):
 @pytest.mark.parametrize(
     "value,from_unit,to_unit,converted_value",
     [
-        (10, "lux", "lux", 10.0),
-        (10, "lux", "fc", 0.9290312990644656),
-        (10, "lux", "kfc", 0.0009290312990644657),
-        (10, "lux", "klux", 0.01),
-        (10, "lux", "W/m²", 0.07900000000000001),
-        (10, "W/m²", "lux", 1265.8227848101264),
-        (10, "fc", "lux", 107.639),
-        (10, "fc", "klux", 0.107639),
+        (10, "lx", "lx", 10.0),
+        (10, "lx", "fc", 0.9290312990644656),
+        (10, "lx", "kfc", 0.0009290312990644657),
+        (10, "lx", "klx", 0.01),
+        (10, "lx", "W/m²", 0.07900000000000001),
+        (10, "W/m²", "lx", 1265.8227848101264),
+        (10, "fc", "lx", 107.639),
+        (10, "fc", "klx", 0.107639),
     ],
 )
 def test_illuminance_conversion(converted_value, from_unit, to_unit, value):
@@ -75,8 +75,8 @@ def test_illuminance_conversion(converted_value, from_unit, to_unit, value):
         ("accumulated_precipitation", AccumulatedPrecipitationConverter, "mm", "dm"),
         ("distance", DistanceConverter, "m", "dm"),
         ("distance", DistanceConverter, "miles", "ft"),
-        ("illuminance", IlluminanceConverter, "lux", "bulbs"),
-        ("illuminance", IlluminanceConverter, "sunbeams", "klux"),
+        ("illuminance", IlluminanceConverter, "lx", "bulbs"),
+        ("illuminance", IlluminanceConverter, "sunbeams", "klx"),
         ("pressure", PressureConverter, "hPa", "hPa/s"),
         ("pressure", PressureConverter, "units", "hPa"),
         ("speed", SpeedConverter, "km/d", "m/s"),
