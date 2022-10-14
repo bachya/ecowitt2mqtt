@@ -1,13 +1,14 @@
 """Define humidity calculators."""
 from __future__ import annotations
 
+from typing import cast
+
 from ecowitt2mqtt.const import (
     DATA_POINT_HUMIDITY,
     DATA_POINT_TEMP,
     PERCENTAGE,
     UNIT_SYSTEM_IMPERIAL,
-    VOLUME_GRAMS_PER_CUBIC_METER,
-    VOLUME_POUNDS_PER_CUBIC_FOOT,
+    UNIT_SYSTEM_METRIC,
 )
 from ecowitt2mqtt.helpers.calculator import (
     CalculatedDataPoint,
@@ -25,46 +26,37 @@ from ecowitt2mqtt.util.unit_conversion import VolumeConverter
 class AbsoluteHumidityCalculator(Calculator):
     """Define an absolute humidity calculator."""
 
-    @property
-    def default_imperial_unit(self) -> str:
-        """Get the default unit (imperial)."""
-        return VOLUME_POUNDS_PER_CUBIC_FOOT
+    DEFAULT_INPUT_UNIT = VolumeConverter.DEFAULT_UNITS[UNIT_SYSTEM_METRIC]
 
     @property
-    def default_metric_unit(self) -> str:
+    def output_unit_imperial(self) -> str:
+        """Get the default unit (imperial)."""
+        return VolumeConverter.DEFAULT_UNITS[UNIT_SYSTEM_IMPERIAL]
+
+    @property
+    def output_unit_metric(self) -> str:
         """Get the default unit (metric)."""
-        return VOLUME_GRAMS_PER_CUBIC_METER
+        return VolumeConverter.DEFAULT_UNITS[UNIT_SYSTEM_METRIC]
 
     @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
-        assert isinstance(payload[DATA_POINT_TEMP], float)
-        assert isinstance(payload[DATA_POINT_HUMIDITY], float)
-
+        temp = cast(float, payload[DATA_POINT_TEMP])
+        humidity = cast(float, payload[DATA_POINT_HUMIDITY])
         temp_obj = get_temperature_meteocalc_object(
-            payload[DATA_POINT_TEMP], self._config.input_unit_system
+            temp, self._config.input_unit_system
         )
-
-        value = get_absolute_humidity_in_metric(temp_obj, payload[DATA_POINT_HUMIDITY])
-        if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            value = VolumeConverter.convert(
-                value, VOLUME_GRAMS_PER_CUBIC_METER, VOLUME_POUNDS_PER_CUBIC_FOOT
-            )
-
-        return self.get_calculated_data_point(value)
+        value = get_absolute_humidity_in_metric(temp_obj, humidity)
+        converted_value = self.convert_value(VolumeConverter, value)
+        return self.get_calculated_data_point(converted_value)
 
 
 class RelativeHumidityCalculator(SimpleCalculator):
     """Define a boolean leak calculator."""
 
     @property
-    def default_imperial_unit(self) -> str:
-        """Get the default unit (imperial)."""
-        return PERCENTAGE
-
-    @property
-    def default_metric_unit(self) -> str:
-        """Get the default unit (metric)."""
+    def output_unit(self) -> str:
+        """Get the output unit of measurement for this calculation."""
         return PERCENTAGE

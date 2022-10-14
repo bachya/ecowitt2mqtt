@@ -10,6 +10,7 @@ from typing import TYPE_CHECKING, Any, Callable, Dict, TypeVar
 from ecowitt2mqtt.const import UNIT_SYSTEM_IMPERIAL
 from ecowitt2mqtt.errors import EcowittError
 from ecowitt2mqtt.helpers.typing import CalculatedValueType, PreCalculatedValueType
+from ecowitt2mqtt.util.unit_conversion import BaseUnitConverter
 
 if TYPE_CHECKING:
     from ecowitt2mqtt.config import Config
@@ -47,6 +48,8 @@ class CalculatedDataPoint:
 class Calculator:
     """Define a calculator."""
 
+    DEFAULT_INPUT_UNIT: str
+
     def __init__(self, config: Config, payload_key: str, data_point_key: str) -> None:
         """Initialize."""
         self._config = config
@@ -54,12 +57,12 @@ class Calculator:
         self._payload_key = payload_key
 
     @property
-    def default_imperial_unit(self) -> str | None:
+    def output_unit_imperial(self) -> str | None:
         """Get the default unit (imperial)."""
         return None
 
     @property
-    def default_metric_unit(self) -> str | None:
+    def output_unit_metric(self) -> str | None:
         """Get the default unit (metric)."""
         return None
 
@@ -67,8 +70,8 @@ class Calculator:
     def output_unit(self) -> str | None:
         """Get the output unit of measurement for this calculation."""
         if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            return self.default_imperial_unit
-        return self.default_metric_unit
+            return self.output_unit_imperial
+        return self.output_unit_metric
 
     def calculate_from_value(
         self, value: PreCalculatedValueType
@@ -79,6 +82,13 @@ class Calculator:
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
+
+    def convert_value(
+        self, unit_converter: type[BaseUnitConverter], value: float
+    ) -> float:
+        """Perform the calculation."""
+        assert self.output_unit
+        return unit_converter.convert(value, self.DEFAULT_INPUT_UNIT, self.output_unit)
 
     def get_calculated_data_point(
         self,

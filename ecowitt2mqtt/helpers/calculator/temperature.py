@@ -177,12 +177,12 @@ class TemperatureUnitConverter(Calculator):
     """Define a base temperature calculator."""
 
     @property
-    def default_imperial_unit(self) -> str:
+    def output_unit_imperial(self) -> str:
         """Get the default unit (imperial)."""
         return TEMP_FAHRENHEIT
 
     @property
-    def default_metric_unit(self) -> str:
+    def output_unit_metric(self) -> str:
         """Get the default unit (metric)."""
         return TEMP_CELSIUS
 

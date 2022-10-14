@@ -10,12 +10,12 @@ class PressureCalculator(Calculator):
     """Define a pressure calculator."""
 
     @property
-    def default_imperial_unit(self) -> str:
+    def output_unit_imperial(self) -> str:
         """Get the default unit (imperial)."""
         return PRESSURE_INHG
 
     @property
-    def default_metric_unit(self) -> str:
+    def output_unit_metric(self) -> str:
         """Get the default unit (metric)."""
         return PRESSURE_HPA
 
