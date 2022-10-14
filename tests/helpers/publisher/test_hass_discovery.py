@@ -1709,7 +1709,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state",
-                payload=b"47.9",
+                payload=b"47.92744533120437",
                 retain=False,
             ),
             call(
@@ -1749,7 +1749,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/state",
-                payload=b"44.3",
+                payload=b"44.317785974114166",
                 retain=False,
             ),
             call(
@@ -1789,7 +1789,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state",
-                payload=b"58.4",
+                payload=b"58.425000000000004",
                 retain=False,
             ),
             call(
@@ -3753,7 +3753,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state",
-                payload=b"47.9",
+                payload=b"47.92744533120437",
                 retain=False,
             ),
             call(
@@ -3793,7 +3793,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/state",
-                payload=b"44.3",
+                payload=b"44.317785974114166",
                 retain=False,
             ),
             call(
@@ -3833,7 +3833,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state",
-                payload=b"58.4",
+                payload=b"58.425000000000004",
                 retain=False,
             ),
             call(
@@ -5820,7 +5820,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state",
-                payload=b"47.9",
+                payload=b"47.92744533120437",
                 retain=False,
             ),
             call(
@@ -5860,7 +5860,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/state",
-                payload=b"44.3",
+                payload=b"44.317785974114166",
                 retain=False,
             ),
             call(
@@ -5900,7 +5900,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state",
-                payload=b"58.4",
+                payload=b"58.425000000000004",
                 retain=False,
             ),
             call(
@@ -7887,7 +7887,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state",
-                payload=b"47.9",
+                payload=b"47.92744533120437",
                 retain=False,
             ),
             call(
@@ -7927,7 +7927,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/state",
-                payload=b"44.3",
+                payload=b"44.317785974114166",
                 retain=False,
             ),
             call(
@@ -7967,7 +7967,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state",
-                payload=b"58.4",
+                payload=b"58.425000000000004",
                 retain=False,
             ),
             call(
