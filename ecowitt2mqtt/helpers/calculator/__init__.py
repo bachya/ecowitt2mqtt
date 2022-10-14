@@ -66,7 +66,9 @@ class Calculator:
     @property
     def output_unit(self) -> str | None:
         """Get the output unit of measurement for this calculation."""
-        return None
+        if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+            return self.default_imperial_unit
+        return self.default_metric_unit
 
     def calculate_from_value(
         self, value: PreCalculatedValueType
@@ -86,19 +88,8 @@ class Calculator:
         data_type: DataPointType | None = None,
     ) -> CalculatedDataPoint:
         """Get the output unit for this calculation."""
-        output_unit: str | None
-
-        # If the user explicitly sets self.output_unit, use it if it's truthy;
-        # otherwise, default to the standard output unit for the unit system:
-        if self.output_unit:
-            output_unit = self.output_unit
-        elif self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            output_unit = self.default_imperial_unit
-        else:
-            output_unit = self.default_metric_unit
-
         data_point = CalculatedDataPoint(
-            data_point_key=self._data_point_key, value=value, unit=output_unit
+            data_point_key=self._data_point_key, value=value, unit=self.output_unit
         )
 
         if attributes:

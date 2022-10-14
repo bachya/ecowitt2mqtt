@@ -16,7 +16,7 @@ from ecowitt2mqtt.const import (
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, Calculator
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
 from ecowitt2mqtt.util.meteo import (
-    get_absolute_humidity,
+    get_absolute_humidity_in_metric,
     get_dew_point_meteocalc_object,
     get_feels_like_meteocalc_object,
     get_frost_point_meteocalc_object,
@@ -281,7 +281,7 @@ class FrostRiskCalculator(Calculator):
         temp_obj = get_temperature_meteocalc_object(
             payload[DATA_POINT_TEMP], self._config.input_unit_system
         )
-        absolute_humidity = get_absolute_humidity(
+        absolute_humidity = get_absolute_humidity_in_metric(
             temp_obj, payload[DATA_POINT_HUMIDITY]
         )
         frost_point_obj = get_frost_point_meteocalc_object(

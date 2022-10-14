@@ -10,8 +10,10 @@ from ecowitt2mqtt.const import UNIT_SYSTEM_IMPERIAL, UNIT_SYSTEM_METRIC
 from ecowitt2mqtt.helpers.typing import UnitSystemType
 
 
-def get_absolute_humidity(temp_obj: meteocalc.Temp, relative_humidity: float) -> float:
-    """Get the absolute humidity (amount of water vapor in the air)."""
+def get_absolute_humidity_in_metric(
+    temp_obj: meteocalc.Temp, relative_humidity: float
+) -> float:
+    """Get the absolute humidity (amount of water vapor in the air) in metric."""
     return cast(
         float,
         (
