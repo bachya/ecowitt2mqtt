@@ -166,6 +166,17 @@ UNIT_SYSTEM_IMPERIAL: UnitSystemType = "imperial"
 UNIT_SYSTEM_METRIC: UnitSystemType = "metric"
 UNIT_SYSTEMS: Final = [UNIT_SYSTEM_IMPERIAL, UNIT_SYSTEM_METRIC]
 
+# Unit classes:
+DISTANCE: Final = "length"
+ILLUMINANCE: Final = "illuminance"
+PRECIPITATION: Final = "precipitation"
+PRESSURE: Final = "pressure"
+SPEED: Final = "speed"
+TEMPERATURE: Final = "temperature"
+VOLUME: Final = "volume"
+
+UNIT_NOT_RECOGNIZED_TEMPLATE: Final = '"{}" is not a recognized {} unit'
+
 # Degree units
 DEGREE: Final = "°"
 
