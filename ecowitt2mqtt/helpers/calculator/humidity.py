@@ -49,8 +49,9 @@ class AbsoluteHumidityCalculator(Calculator):
 
         value = get_absolute_humidity_in_metric(temp_obj, payload[DATA_POINT_HUMIDITY])
         if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+            assert self.output_unit
             value = VolumeConverter.convert(
-                value, self.default_metric_unit, self.default_imperial_unit
+                value, self.default_metric_unit, self.output_unit
             )
 
         return self.get_calculated_data_point(value)
