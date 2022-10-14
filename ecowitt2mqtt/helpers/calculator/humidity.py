@@ -16,9 +16,10 @@ from ecowitt2mqtt.helpers.calculator import (
 )
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
 from ecowitt2mqtt.util.meteo import (
-    get_absolute_humidity,
+    get_absolute_humidity_in_metric,
     get_temperature_meteocalc_object,
 )
+from ecowitt2mqtt.util.unit_conversion import VolumeConverter
 
 
 class AbsoluteHumidityCalculator(Calculator):
@@ -45,10 +46,12 @@ class AbsoluteHumidityCalculator(Calculator):
         temp_obj = get_temperature_meteocalc_object(
             payload[DATA_POINT_TEMP], self._config.input_unit_system
         )
-        value = get_absolute_humidity(temp_obj, payload[DATA_POINT_HUMIDITY])
 
+        value = get_absolute_humidity_in_metric(temp_obj, payload[DATA_POINT_HUMIDITY])
         if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            value /= 16018.46592051
+            value = VolumeConverter.convert(
+                value, self.default_metric_unit, self.default_imperial_unit
+            )
 
         return self.get_calculated_data_point(value)
 

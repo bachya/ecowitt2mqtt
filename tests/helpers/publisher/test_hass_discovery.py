@@ -1809,7 +1809,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state",
-                payload=b"0.0005325591890076764",
+                payload=b"0.0005325592736717602",
                 retain=False,
             ),
             call(
@@ -1829,7 +1829,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
-                payload=b"0.0005325591890076764",
+                payload=b"0.0005325592736717602",
                 retain=False,
             ),
             call(
@@ -3853,7 +3853,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state",
-                payload=b"0.0005325591890076764",
+                payload=b"0.0005325592736717602",
                 retain=False,
             ),
             call(
@@ -3873,7 +3873,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
-                payload=b"0.0005325591890076764",
+                payload=b"0.0005325592736717602",
                 retain=False,
             ),
             call(
@@ -5920,7 +5920,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state",
-                payload=b"0.0005325591890076764",
+                payload=b"0.0005325592736717602",
                 retain=False,
             ),
             call(
@@ -5940,7 +5940,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
-                payload=b"0.0005325591890076764",
+                payload=b"0.0005325592736717602",
                 retain=False,
             ),
             call(
@@ -7987,7 +7987,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state",
-                payload=b"0.0005325591890076764",
+                payload=b"0.0005325592736717602",
                 retain=False,
             ),
             call(
@@ -8007,7 +8007,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
-                payload=b"0.0005325591890076764",
+                payload=b"0.0005325592736717602",
                 retain=False,
             ),
             call(
