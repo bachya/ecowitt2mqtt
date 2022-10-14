@@ -1,9 +1,9 @@
 """Define unit conversion helpers."""
 from __future__ import annotations
 
-from typing import Final
-
 from ecowitt2mqtt.const import (
+    DISTANCE,
+    ILLUMINANCE,
     ILLUMINANCE_FOOT_CANDLES,
     ILLUMINANCE_KILOFOOT_CANDLES,
     ILLUMINANCE_KILOLUX,
@@ -17,10 +17,12 @@ from ecowitt2mqtt.const import (
     LENGTH_MILES,
     LENGTH_MILLIMETERS,
     LENGTH_YARD,
+    PRECIPITATION,
     PRECIPITATION_INCHES,
     PRECIPITATION_INCHES_PER_HOUR,
     PRECIPITATION_MILLIMETERS,
     PRECIPITATION_MILLIMETERS_PER_HOUR,
+    PRESSURE,
     PRESSURE_BAR,
     PRESSURE_CBAR,
     PRESSURE_HPA,
@@ -30,6 +32,7 @@ from ecowitt2mqtt.const import (
     PRESSURE_MMHG,
     PRESSURE_PA,
     PRESSURE_PSI,
+    SPEED,
     SPEED_FEET_PER_SECOND,
     SPEED_INCHES_PER_DAY,
     SPEED_INCHES_PER_HOUR,
@@ -41,6 +44,9 @@ from ecowitt2mqtt.const import (
     TEMP_CELSIUS,
     TEMP_FAHRENHEIT,
     TEMP_KELVIN,
+    TEMPERATURE,
+    UNIT_NOT_RECOGNIZED_TEMPLATE,
+    VOLUME,
     VOLUME_GRAMS_PER_CUBIC_METER,
     VOLUME_POUNDS_PER_CUBIC_FOOT,
 )
@@ -74,8 +80,6 @@ _MERCURY_DENSITY = 13.5951
 
 # Volume conversion constants:
 _CUBIC_FOOT_TO_CUBIC_METER = pow(_FOOT_TO_M, 3)
-
-UNIT_NOT_RECOGNIZED_TEMPLATE: Final = '"{}" is not a recognized {} unit'
 
 
 class UnitConversionError(EcowittError):
@@ -123,7 +127,7 @@ class BaseUnitConverter:
 class DistanceConverter(BaseUnitConverter):
     """Utility to convert distance values."""
 
-    UNIT_CLASS = "distance"
+    UNIT_CLASS = DISTANCE
     VALID_UNITS = {
         LENGTH_KILOMETERS,
         LENGTH_MILES,
@@ -151,7 +155,7 @@ class DistanceConverter(BaseUnitConverter):
 class IlluminanceConverter(BaseUnitConverter):
     """Utility to convert illuminance values."""
 
-    UNIT_CLASS = "illuminance"
+    UNIT_CLASS = ILLUMINANCE
     VALID_UNITS = {
         ILLUMINANCE_FOOT_CANDLES,
         ILLUMINANCE_KILOFOOT_CANDLES,
@@ -173,7 +177,7 @@ class IlluminanceConverter(BaseUnitConverter):
 class PrecipitationConverter(BaseUnitConverter):
     """Utility to convert precipitation values."""
 
-    UNIT_CLASS = "precipitation"
+    UNIT_CLASS = PRECIPITATION
     VALID_UNITS = {
         PRECIPITATION_MILLIMETERS,
         PRECIPITATION_MILLIMETERS_PER_HOUR,
@@ -194,7 +198,7 @@ class PrecipitationConverter(BaseUnitConverter):
 class PressureConverter(BaseUnitConverter):
     """Define a utility to convert pressure values."""
 
-    UNIT_CLASS = "pressure"
+    UNIT_CLASS = PRESSURE
     VALID_UNITS = {
         PRESSURE_BAR,
         PRESSURE_CBAR,
@@ -224,7 +228,7 @@ class PressureConverter(BaseUnitConverter):
 class SpeedConverter(BaseUnitConverter):
     """Define a utility to convert speed values."""
 
-    UNIT_CLASS = "speed"
+    UNIT_CLASS = SPEED
     VALID_UNITS = {
         SPEED_FEET_PER_SECOND,
         SPEED_INCHES_PER_DAY,
@@ -252,7 +256,7 @@ class SpeedConverter(BaseUnitConverter):
 class TemperatureConverter(BaseUnitConverter):
     """Define a utility to convert temperature values."""
 
-    UNIT_CLASS = "temperature"
+    UNIT_CLASS = TEMPERATURE
     VALID_UNITS = {
         TEMP_CELSIUS,
         TEMP_FAHRENHEIT,
@@ -325,7 +329,7 @@ class TemperatureConverter(BaseUnitConverter):
 class VolumeConverter(BaseUnitConverter):
     """Utility to convert volume values."""
 
-    UNIT_CLASS = "volume"
+    UNIT_CLASS = VOLUME
     VALID_UNITS = {
         VOLUME_GRAMS_PER_CUBIC_METER,
         VOLUME_POUNDS_PER_CUBIC_FOOT,
