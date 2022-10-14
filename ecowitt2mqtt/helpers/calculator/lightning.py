@@ -1,13 +1,7 @@
 """Define lightning-related calculators."""
 from __future__ import annotations
 
-from ecowitt2mqtt.const import (
-    LENGTH_KILOMETERS,
-    LENGTH_MILES,
-    LOGGER,
-    STRIKES,
-    UNIT_SYSTEM_METRIC,
-)
+from ecowitt2mqtt.const import LENGTH_KILOMETERS, LENGTH_MILES, LOGGER, STRIKES
 from ecowitt2mqtt.helpers.calculator import (
     CalculatedDataPoint,
     Calculator,
@@ -32,7 +26,7 @@ class LightningStrikeDistanceCalculator(Calculator):
     Note that lightning strike distances always have metric as the input unit system.
     """
 
-    DEFAULT_INPUT_UNIT = DistanceConverter.DEFAULT_UNITS[UNIT_SYSTEM_METRIC]
+    DEFAULT_INPUT_UNIT = LENGTH_KILOMETERS
 
     @property
     def output_unit_imperial(self) -> str:

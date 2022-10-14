@@ -8,7 +8,6 @@ from ecowitt2mqtt.const import (
     ILLUMINANCE_LUX,
     ILLUMINANCE_WATTS_PER_SQUARE_METER,
     PERCENTAGE,
-    UNIT_SYSTEM_METRIC,
 )
 from ecowitt2mqtt.helpers.calculator import (
     CalculatedDataPoint,
@@ -22,7 +21,7 @@ from ecowitt2mqtt.util.unit_conversion import IlluminanceConverter
 class BaseIlluminanceCalculator(Calculator):
     """Define a base illuminance calculator."""
 
-    DEFAULT_INPUT_UNIT = IlluminanceConverter.DEFAULT_UNITS[UNIT_SYSTEM_METRIC]
+    DEFAULT_INPUT_UNIT = ILLUMINANCE_WATTS_PER_SQUARE_METER
 
 
 class IlluminanceLuxCalculator(BaseIlluminanceCalculator):
