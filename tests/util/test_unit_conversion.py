@@ -2,9 +2,10 @@
 import pytest
 
 from ecowitt2mqtt.util.unit_conversion import (
+    AccumulatedPrecipitationConverter,
     DistanceConverter,
     IlluminanceConverter,
-    PrecipitationConverter,
+    PrecipitationRateConverter,
     PressureConverter,
     SpeedConverter,
     TemperatureConverter,
@@ -14,29 +15,21 @@ from ecowitt2mqtt.util.unit_conversion import (
 
 
 @pytest.mark.parametrize(
-    "unit_class,converter,from_unit,to_unit",
+    "value,from_unit,to_unit,converted_value",
     [
-        ("distance", DistanceConverter, "miles", "ft"),
-        ("distance", DistanceConverter, "m", "dm"),
-        ("illuminance", IlluminanceConverter, "lux", "bulbs"),
-        ("illuminance", IlluminanceConverter, "sunbeams", "klux"),
-        ("precipitation", PrecipitationConverter, "mm/s", "mm/h"),
-        ("precipitation", PrecipitationConverter, "in/h", "yd/yr"),
-        ("pressure", PressureConverter, "hPa", "hPa/s"),
-        ("pressure", PressureConverter, "units", "hPa"),
-        ("speed", SpeedConverter, "mph", "km/s"),
-        ("speed", SpeedConverter, "km/d", "m/s"),
-        ("temperature", TemperatureConverter, "°C", "Bolts"),
-        ("temperature", TemperatureConverter, "Fake", "°C"),
-        ("volume", VolumeConverter, "g/m³", "sparrows"),
-        ("volume", VolumeConverter, "g/km³", "lbs/ft³"),
+        (10, "mm", "mm", 10.0),
+        (10, "in", "mm", 254.0),
+        (10, "mm", "in", 0.39370078740157477),
     ],
 )
-def test_invalid_units(converter, from_unit, to_unit, unit_class):
-    """Test that invalid units raise an error."""
-    with pytest.raises(UnitConversionError) as err:
-        _ = converter.convert(10, from_unit, to_unit)
-        assert f"is not a recognized {unit_class} unit" in str(err)
+def test_accumulated_precipitation_conversion(
+    converted_value, from_unit, to_unit, value
+):
+    """Test accumulated precipitation conversions."""
+    assert (
+        AccumulatedPrecipitationConverter.convert(value, from_unit, to_unit)
+        == converted_value
+    )
 
 
 @pytest.mark.parametrize(
@@ -76,19 +69,44 @@ def test_illuminance_conversion(converted_value, from_unit, to_unit, value):
 
 
 @pytest.mark.parametrize(
+    "unit_class,converter,from_unit,to_unit",
+    [
+        ("accumulated_precipitation", AccumulatedPrecipitationConverter, "in", "yd"),
+        ("accumulated_precipitation", AccumulatedPrecipitationConverter, "mm", "dm"),
+        ("distance", DistanceConverter, "m", "dm"),
+        ("distance", DistanceConverter, "miles", "ft"),
+        ("illuminance", IlluminanceConverter, "lux", "bulbs"),
+        ("illuminance", IlluminanceConverter, "sunbeams", "klux"),
+        ("pressure", PressureConverter, "hPa", "hPa/s"),
+        ("pressure", PressureConverter, "units", "hPa"),
+        ("speed", SpeedConverter, "km/d", "m/s"),
+        ("speed", SpeedConverter, "mph", "km/s"),
+        ("temperature", TemperatureConverter, "Fake", "°C"),
+        ("temperature", TemperatureConverter, "°C", "Bolts"),
+        ("volume", VolumeConverter, "g/km³", "lbs/ft³"),
+        ("volume", VolumeConverter, "g/m³", "sparrows"),
+    ],
+)
+def test_invalid_units(converter, from_unit, to_unit, unit_class):
+    """Test that invalid units raise an error."""
+    with pytest.raises(UnitConversionError) as err:
+        _ = converter.convert(10, from_unit, to_unit)
+        assert f"is not a recognized {unit_class} unit" in str(err)
+
+
+@pytest.mark.parametrize(
     "value,from_unit,to_unit,converted_value",
     [
-        (10, "mm", "mm", 10.0),
-        (10, "in", "mm", 254.0),
-        (10, "mm", "in", 0.39370078740157477),
         (10, "mm/h", "mm/h", 10.0),
         (10, "in/h", "mm/h", 254.0),
         (10, "mm/h", "in/h", 0.39370078740157477),
     ],
 )
-def test_precipitation_conversion(converted_value, from_unit, to_unit, value):
-    """Test precipitation conversions."""
-    assert PrecipitationConverter.convert(value, from_unit, to_unit) == converted_value
+def test_precipitation_rate_conversion(converted_value, from_unit, to_unit, value):
+    """Test precipitation rate conversions."""
+    assert (
+        PrecipitationRateConverter.convert(value, from_unit, to_unit) == converted_value
+    )
 
 
 @pytest.mark.parametrize(
