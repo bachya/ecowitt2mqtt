@@ -31,11 +31,6 @@ class RuntimeCalculator(SimpleCalculator):
     """Define a runtime calculator."""
 
     @property
-    def output_unit_imperial(self) -> str:
-        """Get the default unit (imperial)."""
-        return TIME_SECONDS
-
-    @property
-    def output_unit_metric(self) -> str:
-        """Get the default unit (metric)."""
+    def output_unit(self) -> str:
+        """Get the output unit of measurement for this calculation."""
         return TIME_SECONDS

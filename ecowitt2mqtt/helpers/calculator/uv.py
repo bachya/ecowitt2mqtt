@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import cast
 
 from ecowitt2mqtt.const import (
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1,
@@ -87,13 +88,8 @@ class SafeExposureCalculator(Calculator):
     """Define a safe exposure calculator."""
 
     @property
-    def output_unit_imperial(self) -> str:
-        """Get the default unit (imperial)."""
-        return TIME_MINUTES
-
-    @property
-    def output_unit_metric(self) -> str:
-        """Get the default unit (metric)."""
+    def output_unit(self) -> str:
+        """Get the output unit of measurement for this calculation."""
         return TIME_MINUTES
 
     @Calculator.requires_keys(DATA_POINT_UV)
@@ -101,13 +97,12 @@ class SafeExposureCalculator(Calculator):
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
-        assert isinstance(payload[DATA_POINT_UV], float)
-
+        uv_index = cast(float, payload[DATA_POINT_UV])
         safe_exposure_info = SAFE_EXPOSURE_INFO_MAP[self._payload_key]
 
         try:
-            final_value = round(
-                (200 * safe_exposure_info.constant) / (3 * payload[DATA_POINT_UV]),
+            value = round(
+                (200 * safe_exposure_info.constant) / (3 * uv_index),
                 1,
             )
         except ZeroDivisionError:
@@ -118,7 +113,7 @@ class SafeExposureCalculator(Calculator):
             return self.get_calculated_data_point(None)
 
         return self.get_calculated_data_point(
-            final_value,
+            value,
             attributes={
                 "ethnicity": safe_exposure_info.ethnicity,
                 "tanning_ability": safe_exposure_info.tanning_ability,
@@ -131,11 +126,6 @@ class UVIndexCalculator(SimpleCalculator):
     """Define a UV index calculator."""
 
     @property
-    def output_unit_imperial(self) -> str:
-        """Get the default unit (imperial)."""
-        return UV_INDEX
-
-    @property
-    def output_unit_metric(self) -> str:
-        """Get the default unit (metric)."""
+    def output_unit(self) -> str:
+        """Get the output unit of measurement for this calculation."""
         return UV_INDEX

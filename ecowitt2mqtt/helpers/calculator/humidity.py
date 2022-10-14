@@ -45,9 +45,11 @@ class AbsoluteHumidityCalculator(Calculator):
         """Perform the calculation."""
         temp = cast(float, payload[DATA_POINT_TEMP])
         humidity = cast(float, payload[DATA_POINT_HUMIDITY])
+
         temp_obj = get_temperature_meteocalc_object(
             temp, self._config.input_unit_system
         )
+
         value = get_absolute_humidity_in_metric(temp_obj, humidity)
         converted_value = self.convert_value(VolumeConverter, value)
         return self.get_calculated_data_point(converted_value)
