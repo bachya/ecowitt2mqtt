@@ -6,42 +6,19 @@ from ecowitt2mqtt.const import (
     PRECIPITATION_INCHES_PER_HOUR,
     PRECIPITATION_MILLIMETERS,
     PRECIPITATION_MILLIMETERS_PER_HOUR,
-    UNIT_SYSTEM_IMPERIAL,
 )
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, Calculator
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
+from ecowitt2mqtt.util.unit_conversion import (
+    AccumulatedPrecipitationConverter,
+    PrecipitationRateConverter,
+)
 
 
-class RainRateCalculator(Calculator):
-    """Define a rain rate calculator."""
-
-    @property
-    def output_unit_imperial(self) -> str:
-        """Get the default unit (imperial)."""
-        return PRECIPITATION_INCHES_PER_HOUR
-
-    @property
-    def output_unit_metric(self) -> str:
-        """Get the default unit (metric)."""
-        return PRECIPITATION_MILLIMETERS_PER_HOUR
-
-    def calculate_from_value(
-        self, value: PreCalculatedValueType
-    ) -> CalculatedDataPoint:
-        """Perform the calculation."""
-        assert isinstance(value, float)
-
-        if self._config.input_unit_system == self._config.output_unit_system:
-            rain_volume = value
-        elif self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            rain_volume = round(value / 25.4, 1)
-        else:
-            rain_volume = round(value * 25.4, 1)
-        return self.get_calculated_data_point(rain_volume)
-
-
-class RainVolumeCalculator(Calculator):
+class AccumulatedPrecipitationCalculator(Calculator):
     """Define a rain volume calculator."""
+
+    DEFAULT_INPUT_UNIT = PRECIPITATION_INCHES
 
     @property
     def output_unit_imperial(self) -> str:
@@ -58,12 +35,29 @@ class RainVolumeCalculator(Calculator):
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
         assert isinstance(value, float)
+        converted_value = self.convert_value(AccumulatedPrecipitationConverter, value)
+        return self.get_calculated_data_point(converted_value)
 
-        if self._config.input_unit_system == self._config.output_unit_system:
-            final_value = value
-        elif self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            final_value = round(value / 25.4, 1)
-        else:
-            final_value = round(value * 25.4, 1)
 
-        return self.get_calculated_data_point(final_value)
+class PrecipitationRateCalculator(Calculator):
+    """Define a rain rate calculator."""
+
+    DEFAULT_INPUT_UNIT = PRECIPITATION_INCHES_PER_HOUR
+
+    @property
+    def output_unit_imperial(self) -> str:
+        """Get the default unit (imperial)."""
+        return PRECIPITATION_INCHES_PER_HOUR
+
+    @property
+    def output_unit_metric(self) -> str:
+        """Get the default unit (metric)."""
+        return PRECIPITATION_MILLIMETERS_PER_HOUR
+
+    def calculate_from_value(
+        self, value: PreCalculatedValueType
+    ) -> CalculatedDataPoint:
+        """Perform the calculation."""
+        assert isinstance(value, float)
+        converted_value = self.convert_value(PrecipitationRateConverter, value)
+        return self.get_calculated_data_point(converted_value)
