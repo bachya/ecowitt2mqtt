@@ -1,13 +1,16 @@
 """Define pressure calculators."""
 from __future__ import annotations
 
-from ecowitt2mqtt.const import PRESSURE_HPA, PRESSURE_INHG, UNIT_SYSTEM_IMPERIAL
+from ecowitt2mqtt.const import PRESSURE_HPA, PRESSURE_INHG
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, Calculator
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
+from ecowitt2mqtt.util.unit_conversion import PressureConverter
 
 
 class PressureCalculator(Calculator):
     """Define a pressure calculator."""
+
+    DEFAULT_INPUT_UNIT = PRESSURE_INHG
 
     @property
     def output_unit_imperial(self) -> str:
@@ -24,12 +27,5 @@ class PressureCalculator(Calculator):
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
         assert isinstance(value, float)
-
-        if self._config.input_unit_system == self._config.output_unit_system:
-            final_value = value
-        elif self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            final_value = round(value / 33.8639, 3)
-        else:
-            final_value = round(value * 33.8639, 3)
-
-        return self.get_calculated_data_point(final_value)
+        converted_value = self.convert_value(PressureConverter, value)
+        return self.get_calculated_data_point(converted_value)
