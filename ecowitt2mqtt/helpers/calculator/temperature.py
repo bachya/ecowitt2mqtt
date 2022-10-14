@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import cast
 
 from ecowitt2mqtt.backports.enum import StrEnum
 from ecowitt2mqtt.const import (
@@ -11,7 +12,6 @@ from ecowitt2mqtt.const import (
     LOGGER,
     TEMP_CELSIUS,
     TEMP_FAHRENHEIT,
-    UNIT_SYSTEM_IMPERIAL,
 )
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, Calculator
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
@@ -25,6 +25,7 @@ from ecowitt2mqtt.util.meteo import (
     get_temperature_meteocalc_object,
     get_wind_chill_meteocalc_object,
 )
+from ecowitt2mqtt.util.unit_conversion import TemperatureConverter
 
 FROST_RISK_HUMIDITY_ABS_THRESHOLD = 2.8
 
@@ -176,6 +177,8 @@ THERMAL_PERCEPTION_RATINGS: list[ThermalPerceptionRating] = [
 class TemperatureUnitConverter(Calculator):
     """Define a base temperature calculator."""
 
+    DEFAULT_INPUT_UNIT = TEMP_FAHRENHEIT
+
     @property
     def output_unit_imperial(self) -> str:
         """Get the default unit (imperial)."""
@@ -195,21 +198,15 @@ class DewPointCalculator(TemperatureUnitConverter):
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
-        assert isinstance(payload[DATA_POINT_TEMP], float)
-        assert isinstance(payload[DATA_POINT_HUMIDITY], float)
+        temp = cast(float, payload[DATA_POINT_TEMP])
+        humidity = cast(float, payload[DATA_POINT_HUMIDITY])
 
         dew_point_obj = get_dew_point_meteocalc_object(
-            payload[DATA_POINT_TEMP],
-            payload[DATA_POINT_HUMIDITY],
-            self._config.input_unit_system,
+            temp, humidity, self._config.input_unit_system
         )
 
-        if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            value = round(dew_point_obj.f, 1)
-        else:
-            value = round(dew_point_obj.c, 1)
-
-        return self.get_calculated_data_point(value)
+        converted_value = self.convert_value(TemperatureConverter, dew_point_obj.f)
+        return self.get_calculated_data_point(converted_value)
 
 
 class FeelsLikeCalculator(TemperatureUnitConverter):
@@ -222,23 +219,16 @@ class FeelsLikeCalculator(TemperatureUnitConverter):
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
-        assert isinstance(payload[DATA_POINT_TEMP], float)
-        assert isinstance(payload[DATA_POINT_HUMIDITY], float)
-        assert isinstance(payload[DATA_POINT_WINDSPEED], float)
+        temp = cast(float, payload[DATA_POINT_TEMP])
+        humidity = cast(float, payload[DATA_POINT_HUMIDITY])
+        wind_speed = cast(float, payload[DATA_POINT_WINDSPEED])
 
         feels_like_obj = get_feels_like_meteocalc_object(
-            payload[DATA_POINT_TEMP],
-            payload[DATA_POINT_HUMIDITY],
-            payload[DATA_POINT_WINDSPEED],
-            self._config.input_unit_system,
+            temp, humidity, wind_speed, self._config.input_unit_system
         )
 
-        if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            value = round(feels_like_obj.f, 1)
-        else:
-            value = round(feels_like_obj.c, 1)
-
-        return self.get_calculated_data_point(value)
+        converted_value = self.convert_value(TemperatureConverter, feels_like_obj.f)
+        return self.get_calculated_data_point(converted_value)
 
 
 class FrostPointCalculator(TemperatureUnitConverter):
@@ -249,22 +239,16 @@ class FrostPointCalculator(TemperatureUnitConverter):
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
-        assert isinstance(payload[DATA_POINT_TEMP], float)
-        assert isinstance(payload[DATA_POINT_HUMIDITY], float)
+        temp = cast(float, payload[DATA_POINT_TEMP])
+        humidity = cast(float, payload[DATA_POINT_HUMIDITY])
 
         temp_obj = get_temperature_meteocalc_object(
-            payload[DATA_POINT_TEMP], self._config.input_unit_system
+            temp, self._config.input_unit_system
         )
-        frost_point_obj = get_frost_point_meteocalc_object(
-            temp_obj, payload[DATA_POINT_HUMIDITY]
-        )
+        frost_point_obj = get_frost_point_meteocalc_object(temp_obj, humidity)
 
-        if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            value = round(frost_point_obj.f, 1)
-        else:
-            value = round(frost_point_obj.c, 1)
-
-        return self.get_calculated_data_point(value)
+        converted_value = self.convert_value(TemperatureConverter, frost_point_obj.f)
+        return self.get_calculated_data_point(converted_value)
 
 
 class FrostRiskCalculator(Calculator):
@@ -275,23 +259,14 @@ class FrostRiskCalculator(Calculator):
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
-        assert isinstance(payload[DATA_POINT_TEMP], float)
-        assert isinstance(payload[DATA_POINT_HUMIDITY], float)
+        temp = cast(float, payload[DATA_POINT_TEMP])
+        humidity = cast(float, payload[DATA_POINT_HUMIDITY])
 
         temp_obj = get_temperature_meteocalc_object(
-            payload[DATA_POINT_TEMP], self._config.input_unit_system
+            temp, self._config.input_unit_system
         )
-        absolute_humidity = get_absolute_humidity_in_metric(
-            temp_obj, payload[DATA_POINT_HUMIDITY]
-        )
-        frost_point_obj = get_frost_point_meteocalc_object(
-            temp_obj, payload[DATA_POINT_HUMIDITY]
-        )
-
-        if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            value = round(frost_point_obj.f, 1)
-        else:
-            value = round(frost_point_obj.c, 1)
+        absolute_humidity = get_absolute_humidity_in_metric(temp_obj, humidity)
+        frost_point_obj = get_frost_point_meteocalc_object(temp_obj, humidity)
 
         if temp_obj.c <= 1.0 and frost_point_obj.c <= 0:
             if absolute_humidity <= FROST_RISK_HUMIDITY_ABS_THRESHOLD:
@@ -318,21 +293,15 @@ class HeatIndexCalculator(TemperatureUnitConverter):
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
-        assert isinstance(payload[DATA_POINT_TEMP], float)
-        assert isinstance(payload[DATA_POINT_HUMIDITY], float)
+        temp = cast(float, payload[DATA_POINT_TEMP])
+        humidity = cast(float, payload[DATA_POINT_HUMIDITY])
 
         heat_index_obj = get_heat_index_meteocalc_object(
-            payload[DATA_POINT_TEMP],
-            payload[DATA_POINT_HUMIDITY],
-            self._config.input_unit_system,
+            temp, humidity, self._config.input_unit_system
         )
 
-        if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            value = round(heat_index_obj.f, 1)
-        else:
-            value = round(heat_index_obj.c, 1)
-
-        return self.get_calculated_data_point(value)
+        converted_value = self.convert_value(TemperatureConverter, heat_index_obj.f)
+        return self.get_calculated_data_point(converted_value)
 
 
 class SimmerIndexCalculator(TemperatureUnitConverter):
@@ -343,28 +312,23 @@ class SimmerIndexCalculator(TemperatureUnitConverter):
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
-        assert isinstance(payload[DATA_POINT_TEMP], float)
-        assert isinstance(payload[DATA_POINT_HUMIDITY], float)
+        temp = cast(float, payload[DATA_POINT_TEMP])
+        humidity = cast(float, payload[DATA_POINT_HUMIDITY])
 
         temp_obj = get_temperature_meteocalc_object(
-            payload[DATA_POINT_TEMP], self._config.input_unit_system
+            temp, self._config.input_unit_system
         )
-
         try:
             simmer_obj = get_simmer_index_meteocalc_object(
-                temp_obj, payload[DATA_POINT_HUMIDITY], self._config.input_unit_system
+                temp_obj, humidity, self._config.input_unit_system
             )
         except ValueError as err:
             LOGGER.debug("%s (temperature: %s)", err, temp_obj)
-            value = None
-        else:
-            assert simmer_obj
-            if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-                value = round(simmer_obj.f, 1)
-            else:
-                value = round(simmer_obj.c, 1)
+            return self.get_calculated_data_point(None)
 
-        return self.get_calculated_data_point(value)
+        assert simmer_obj
+        converted_value = self.convert_value(TemperatureConverter, simmer_obj.f)
+        return self.get_calculated_data_point(converted_value)
 
 
 class SimmerZoneCalculator(Calculator):
@@ -375,30 +339,25 @@ class SimmerZoneCalculator(Calculator):
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
-        assert isinstance(payload[DATA_POINT_TEMP], float)
-        assert isinstance(payload[DATA_POINT_HUMIDITY], float)
+        temp = cast(float, payload[DATA_POINT_TEMP])
+        humidity = cast(float, payload[DATA_POINT_HUMIDITY])
 
         temp_obj = get_temperature_meteocalc_object(
-            payload[DATA_POINT_TEMP], self._config.input_unit_system
+            temp, self._config.input_unit_system
         )
-
         try:
             simmer_obj = get_simmer_index_meteocalc_object(
-                temp_obj, payload[DATA_POINT_HUMIDITY], self._config.input_unit_system
+                temp_obj, humidity, self._config.input_unit_system
             )
         except ValueError as err:
             LOGGER.debug("%s (temperature: %s)", err, temp_obj)
-            value = None
-        else:
-            assert simmer_obj
-            [rating] = [
-                r
-                for r in SIMMER_ZONE_RATINGS
-                if r.minimum_f <= simmer_obj.f < r.maximum_f
-            ]
-            value = rating.zone
+            return self.get_calculated_data_point(None)
 
-        return self.get_calculated_data_point(value)
+        assert simmer_obj
+        [rating] = [
+            r for r in SIMMER_ZONE_RATINGS if r.minimum_f <= simmer_obj.f < r.maximum_f
+        ]
+        return self.get_calculated_data_point(rating.zone)
 
 
 class TemperatureCalculator(TemperatureUnitConverter):
@@ -422,12 +381,8 @@ class TemperatureCalculator(TemperatureUnitConverter):
                 self._config.input_unit_system,
             )
 
-        if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            value = round(temp_obj.f, 1)
-        else:
-            value = round(temp_obj.c, 1)
-
-        return self.get_calculated_data_point(value)
+        converted_value = self.convert_value(TemperatureConverter, temp_obj.f)
+        return self.get_calculated_data_point(converted_value)
 
 
 class ThermalPerceptionCalculator(Calculator):
@@ -438,13 +393,11 @@ class ThermalPerceptionCalculator(Calculator):
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
-        assert isinstance(payload[DATA_POINT_TEMP], float)
-        assert isinstance(payload[DATA_POINT_HUMIDITY], float)
+        temp = cast(float, payload[DATA_POINT_TEMP])
+        humidity = cast(float, payload[DATA_POINT_HUMIDITY])
 
         dew_point_obj = get_dew_point_meteocalc_object(
-            payload[DATA_POINT_TEMP],
-            payload[DATA_POINT_HUMIDITY],
-            self._config.input_unit_system,
+            temp, humidity, self._config.input_unit_system
         )
 
         [rating] = [
@@ -452,7 +405,6 @@ class ThermalPerceptionCalculator(Calculator):
             for r in THERMAL_PERCEPTION_RATINGS
             if r.minimum_c <= dew_point_obj.c < r.maximum_c
         ]
-
         return self.get_calculated_data_point(rating.perception)
 
 
@@ -464,27 +416,21 @@ class WindChillCalculator(TemperatureUnitConverter):
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
-        assert isinstance(payload[DATA_POINT_TEMP], float)
-        assert isinstance(payload[DATA_POINT_WINDSPEED], float)
-
-        wind_speed = payload[DATA_POINT_WINDSPEED]
+        temp = cast(float, payload[DATA_POINT_TEMP])
+        wind_speed = cast(float, payload[DATA_POINT_WINDSPEED])
 
         try:
             wind_chill_obj = get_wind_chill_meteocalc_object(
-                payload[DATA_POINT_TEMP], wind_speed, self._config.input_unit_system
+                temp, wind_speed, self._config.input_unit_system
             )
         except ValueError as err:
             LOGGER.debug(
                 "%s (current temperature: %s, current wind speed: %s)",
                 err,
-                payload[DATA_POINT_TEMP],
+                temp,
                 wind_speed,
             )
-            value = None
-        else:
-            if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-                value = round(wind_chill_obj.f, 1)
-            else:
-                value = round(wind_chill_obj.c, 1)
+            return self.get_calculated_data_point(None)
 
-        return self.get_calculated_data_point(value)
+        converted_value = self.convert_value(TemperatureConverter, wind_chill_obj.f)
+        return self.get_calculated_data_point(converted_value)

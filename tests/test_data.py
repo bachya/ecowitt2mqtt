@@ -343,14 +343,14 @@ def test_battery_config(device_data, ecowitt):
         ),
         "dewpoint": CalculatedDataPoint(
             "dewpoint",
-            68.9,
+            68.94187855398938,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "heatindex": CalculatedDataPoint(
             "heatindex",
-            96.3,
+            96.31383009280017,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -378,7 +378,7 @@ def test_battery_config(device_data, ecowitt):
         ),
         "frostpoint": CalculatedDataPoint(
             data_point_key="frostpoint",
-            value=60.3,
+            value=60.34798837725798,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -392,7 +392,7 @@ def test_battery_config(device_data, ecowitt):
         ),
         "simmerindex": CalculatedDataPoint(
             data_point_key="simmerindex",
-            value=105.2,
+            value=105.228248,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -696,14 +696,14 @@ def test_default_battery_strategy(device_data, ecowitt):
         ),
         "dewpoint": CalculatedDataPoint(
             "dewpoint",
-            68.9,
+            68.94187855398938,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "heatindex": CalculatedDataPoint(
             "heatindex",
-            96.3,
+            96.31383009280017,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -731,7 +731,7 @@ def test_default_battery_strategy(device_data, ecowitt):
         ),
         "frostpoint": CalculatedDataPoint(
             data_point_key="frostpoint",
-            value=60.3,
+            value=60.34798837725798,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -745,7 +745,7 @@ def test_default_battery_strategy(device_data, ecowitt):
         ),
         "simmerindex": CalculatedDataPoint(
             data_point_key="simmerindex",
-            value=105.2,
+            value=105.228248,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -820,7 +820,7 @@ def test_disable_calculated_data(device_data, ecowitt):
         ),
         "tempin": CalculatedDataPoint(
             "temp",
-            79.5,
+            79.52,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -1297,7 +1297,7 @@ def test_missing_distance(device_data, ecowitt, request):
         ),
         "dewpoint": CalculatedDataPoint(
             "dewpoint",
-            53.0,
+            52.958965353493454,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -1311,7 +1311,7 @@ def test_missing_distance(device_data, ecowitt, request):
         ),
         "heatindex": CalculatedDataPoint(
             "heatindex",
-            73.9,
+            73.85900000000001,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -1346,7 +1346,7 @@ def test_missing_distance(device_data, ecowitt, request):
         ),
         "frostpoint": CalculatedDataPoint(
             data_point_key="frostpoint",
-            value=47.1,
+            value=47.136193624907584,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -1360,7 +1360,7 @@ def test_missing_distance(device_data, ecowitt, request):
         ),
         "simmerindex": CalculatedDataPoint(
             data_point_key="simmerindex",
-            value=81.2,
+            value=81.156695,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -1404,7 +1404,7 @@ def test_nonnumeric_value(device_data, ecowitt):
         ),
         "tempin": CalculatedDataPoint(
             "temp",
-            79.5,
+            79.52,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -1655,21 +1655,21 @@ def test_nonnumeric_value(device_data, ecowitt):
         ),
         "dewpoint": CalculatedDataPoint(
             "dewpoint",
-            79.2,
+            79.19328776816637,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "feelslike": CalculatedDataPoint(
             "feelslike",
-            111.1,
+            111.0553021896001,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "heatindex": CalculatedDataPoint(
             "heatindex",
-            111.1,
+            111.0553021896001,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -1704,7 +1704,7 @@ def test_nonnumeric_value(device_data, ecowitt):
         ),
         "frostpoint": CalculatedDataPoint(
             data_point_key="frostpoint",
-            value=70.3,
+            value=70.28882284994654,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -1718,7 +1718,7 @@ def test_nonnumeric_value(device_data, ecowitt):
         ),
         "simmerindex": CalculatedDataPoint(
             data_point_key="simmerindex",
-            value=113.9,
+            value=113.90619200000002,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -1766,7 +1766,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "tempin": CalculatedDataPoint(
                     "temp",
-                    79.5,
+                    79.52,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -2018,21 +2018,21 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "dewpoint": CalculatedDataPoint(
                     "dewpoint",
-                    79.2,
+                    79.19328776816637,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "feelslike": CalculatedDataPoint(
                     "feelslike",
-                    111.1,
+                    111.0553021896001,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "heatindex": CalculatedDataPoint(
                     "heatindex",
-                    111.1,
+                    111.0553021896001,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -2067,7 +2067,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "frostpoint": CalculatedDataPoint(
                     data_point_key="frostpoint",
-                    value=70.3,
+                    value=70.28882284994654,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -2081,7 +2081,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "simmerindex": CalculatedDataPoint(
                     data_point_key="simmerindex",
-                    value=113.9,
+                    value=113.90619200000002,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -2320,28 +2320,28 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "dewpoint": CalculatedDataPoint(
                     "dewpoint",
-                    -2.8,
+                    -2.8272427636912454,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "feelslike": CalculatedDataPoint(
                     "feelslike",
-                    12.4,
+                    12.393839000642238,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "heatindex": CalculatedDataPoint(
                     "heatindex",
-                    20.3,
+                    20.339000000000002,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "windchill": CalculatedDataPoint(
                     "windchill",
-                    12.4,
+                    12.393839000642238,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -2369,7 +2369,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "frostpoint": CalculatedDataPoint(
                     data_point_key="frostpoint",
-                    value=-2.2,
+                    value=-2.2097628046276228,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -2692,14 +2692,14 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "dewpoint": CalculatedDataPoint(
                     "dewpoint",
-                    68.9,
+                    68.94187855398938,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "heatindex": CalculatedDataPoint(
                     "heatindex",
-                    96.3,
+                    96.31383009280017,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -2727,7 +2727,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "frostpoint": CalculatedDataPoint(
                     data_point_key="frostpoint",
-                    value=60.3,
+                    value=60.34798837725798,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -2741,7 +2741,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "simmerindex": CalculatedDataPoint(
                     data_point_key="simmerindex",
-                    value=105.2,
+                    value=105.228248,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -3075,7 +3075,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "dewpoint": CalculatedDataPoint(
                     "dewpoint",
-                    53.0,
+                    52.958965353493454,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -3089,7 +3089,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "heatindex": CalculatedDataPoint(
                     "heatindex",
-                    73.9,
+                    73.85900000000001,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -3124,7 +3124,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "frostpoint": CalculatedDataPoint(
                     data_point_key="frostpoint",
-                    value=47.1,
+                    value=47.136193624907584,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -3138,7 +3138,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "simmerindex": CalculatedDataPoint(
                     data_point_key="simmerindex",
-                    value=81.2,
+                    value=81.156695,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -3793,7 +3793,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "dewpoint": CalculatedDataPoint(
                     "dewpoint",
-                    47.9,
+                    47.92744533120437,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -3807,7 +3807,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "heatindex": CalculatedDataPoint(
                     "heatindex",
-                    58.4,
+                    58.425000000000004,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -3842,7 +3842,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "frostpoint": CalculatedDataPoint(
                     data_point_key="frostpoint",
-                    value=44.3,
+                    value=44.317785974114166,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4203,7 +4203,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "dewpoint": CalculatedDataPoint(
                     "dewpoint",
-                    22.7,
+                    22.733806357836578,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4217,7 +4217,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "heatindex": CalculatedDataPoint(
                     "heatindex",
-                    31.2,
+                    31.240000000000006,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4252,7 +4252,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "frostpoint": CalculatedDataPoint(
                     data_point_key="frostpoint",
-                    value=22.4,
+                    value=22.354858984522355,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4308,7 +4308,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "tempin": CalculatedDataPoint(
                     "temp",
-                    71.2,
+                    71.24,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4336,7 +4336,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "temp": CalculatedDataPoint(
                     "temp",
-                    76.3,
+                    76.28,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4550,21 +4550,21 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "dewpoint": CalculatedDataPoint(
                     "dewpoint",
-                    58.4,
+                    58.42008048089305,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "feelslike": CalculatedDataPoint(
                     "feelslike",
-                    76.3,
+                    76.28,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "heatindex": CalculatedDataPoint(
                     "heatindex",
-                    76.1,
+                    76.146,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4599,7 +4599,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "frostpoint": CalculatedDataPoint(
                     data_point_key="frostpoint",
-                    value=52.3,
+                    value=52.317737019026325,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4613,7 +4613,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "simmerindex": CalculatedDataPoint(
                     data_point_key="simmerindex",
-                    value=85.0,
+                    value=85.04721679999999,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4851,7 +4851,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "feelslike": CalculatedDataPoint(
                     "feelslike",
-                    13.5,
+                    13.527908542090355,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4865,7 +4865,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "windchill": CalculatedDataPoint(
                     "windchill",
-                    13.5,
+                    13.527908542090355,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4893,7 +4893,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "frostpoint": CalculatedDataPoint(
                     data_point_key="frostpoint",
-                    value=23.1,
+                    value=23.14125937732599,
                     unit=TEMP_FAHRENHEIT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4989,7 +4989,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
         ),
         "tempin": CalculatedDataPoint(
             "temp",
-            79.5,
+            79.52,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -5017,7 +5017,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
         ),
         "temp": CalculatedDataPoint(
             "temp",
-            24.1,
+            24.08,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -5240,28 +5240,28 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
         ),
         "dewpoint": CalculatedDataPoint(
             "dewpoint",
-            17.0,
+            17.003700506238328,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "feelslike": CalculatedDataPoint(
             "feelslike",
-            6.3,
+            6.296417532871434,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "heatindex": CalculatedDataPoint(
             "heatindex",
-            19.7,
+            19.666,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "windchill": CalculatedDataPoint(
             "windchill",
-            6.3,
+            6.296417532871434,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -5289,7 +5289,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
         ),
         "frostpoint": CalculatedDataPoint(
             data_point_key="frostpoint",
-            value=17.9,
+            value=17.915538220062125,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -5612,21 +5612,21 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
                 ),
                 "dewpoint": CalculatedDataPoint(
                     "dewpoint",
-                    26.2,
+                    26.218493204536873,
                     unit=TEMP_CELSIUS,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "feelslike": CalculatedDataPoint(
                     "feelslike",
-                    43.9,
+                    43.91961232755561,
                     unit=TEMP_CELSIUS,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "heatindex": CalculatedDataPoint(
                     "heatindex",
-                    43.9,
+                    43.91961232755561,
                     unit=TEMP_CELSIUS,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -5661,7 +5661,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
                 ),
                 "frostpoint": CalculatedDataPoint(
                     data_point_key="frostpoint",
-                    value=21.3,
+                    value=21.2715682499703,
                     unit=TEMP_CELSIUS,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -5675,7 +5675,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
                 ),
                 "simmerindex": CalculatedDataPoint(
                     data_point_key="simmerindex",
-                    value=45.5,
+                    value=45.50344000000001,
                     unit=TEMP_CELSIUS,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -5711,7 +5711,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
             {
                 "tempin": CalculatedDataPoint(
                     "temp",
-                    24.9,
+                    24.888888888888886,
                     unit=TEMP_CELSIUS,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -5739,7 +5739,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
                 ),
                 "temp": CalculatedDataPoint(
                     "temp",
-                    -2.9,
+                    -2.9444444444444446,
                     unit=TEMP_CELSIUS,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -5914,28 +5914,28 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
                 ),
                 "dewpoint": CalculatedDataPoint(
                     "dewpoint",
-                    -19.3,
+                    -19.348468202050693,
                     unit=TEMP_CELSIUS,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "feelslike": CalculatedDataPoint(
                     "feelslike",
-                    -10.9,
+                    -10.892311666309867,
                     unit=TEMP_CELSIUS,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "heatindex": CalculatedDataPoint(
                     "heatindex",
-                    -6.5,
+                    -6.478333333333332,
                     unit=TEMP_CELSIUS,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
                 "windchill": CalculatedDataPoint(
                     "windchill",
-                    -10.9,
+                    -10.892311666309867,
                     unit=TEMP_CELSIUS,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -5963,7 +5963,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
                 ),
                 "frostpoint": CalculatedDataPoint(
                     data_point_key="frostpoint",
-                    value=-19.0,
+                    value=-19.00542378034868,
                     unit=TEMP_CELSIUS,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -6030,7 +6030,7 @@ def test_unknown_battery(device_data, ecowitt):
         ),
         "tempin": CalculatedDataPoint(
             "temp",
-            79.5,
+            79.52,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -6281,21 +6281,21 @@ def test_unknown_battery(device_data, ecowitt):
         ),
         "dewpoint": CalculatedDataPoint(
             "dewpoint",
-            79.2,
+            79.19328776816637,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "feelslike": CalculatedDataPoint(
             "feelslike",
-            111.1,
+            111.0553021896001,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "heatindex": CalculatedDataPoint(
             "heatindex",
-            111.1,
+            111.0553021896001,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -6330,7 +6330,7 @@ def test_unknown_battery(device_data, ecowitt):
         ),
         "frostpoint": CalculatedDataPoint(
             data_point_key="frostpoint",
-            value=70.3,
+            value=70.28882284994654,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -6344,7 +6344,7 @@ def test_unknown_battery(device_data, ecowitt):
         ),
         "simmerindex": CalculatedDataPoint(
             data_point_key="simmerindex",
-            value=113.9,
+            value=113.90619200000002,
             unit=TEMP_FAHRENHEIT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
