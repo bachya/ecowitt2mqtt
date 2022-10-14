@@ -78,8 +78,8 @@ from ecowitt2mqtt.helpers.calculator.lightning import (
 )
 from ecowitt2mqtt.helpers.calculator.pollution import PollutantCalculator
 from ecowitt2mqtt.helpers.calculator.precipitation import (
-    RainRateCalculator,
-    RainVolumeCalculator,
+    AccumulatedPrecipitationCalculator,
+    PrecipitationRateCalculator,
 )
 from ecowitt2mqtt.helpers.calculator.pressure import PressureCalculator
 from ecowitt2mqtt.helpers.calculator.temperature import (
@@ -121,8 +121,8 @@ CALCULATOR_MAP: dict[str, type[Calculator]] = {
     DATA_POINT_GLOB_MOISTURE: RelativeHumidityCalculator,
     DATA_POINT_GLOB_PM10: PollutantCalculator,
     DATA_POINT_GLOB_PM25: PollutantCalculator,
-    DATA_POINT_GLOB_RAIN: RainVolumeCalculator,
-    DATA_POINT_GLOB_R_RAIN: RainRateCalculator,
+    DATA_POINT_GLOB_RAIN: AccumulatedPrecipitationCalculator,
+    DATA_POINT_GLOB_R_RAIN: PrecipitationRateCalculator,
     DATA_POINT_GLOB_TEMP: TemperatureCalculator,
     DATA_POINT_GLOB_TF: TemperatureCalculator,
     DATA_POINT_GLOB_VOLT: BatteryCalculator,
@@ -137,7 +137,7 @@ CALCULATOR_MAP: dict[str, type[Calculator]] = {
     DATA_POINT_LIGHTNING: LightningStrikeDistanceCalculator,
     DATA_POINT_LIGHTNING_NUM: LightningStrikeCountCalculator,
     DATA_POINT_LIGHTNING_TIME: EpochCalculator,
-    DATA_POINT_RAIN_RATE: RainRateCalculator,
+    DATA_POINT_RAIN_RATE: PrecipitationRateCalculator,
     DATA_POINT_RUNTIME: RuntimeCalculator,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1: SafeExposureCalculator,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2: SafeExposureCalculator,
