@@ -1,12 +1,10 @@
 """Define illuminance calculators."""
 from __future__ import annotations
 
-import math
-
 from ecowitt2mqtt.const import (
     DATA_POINT_SOLARRADIATION,
+    ILLUMINANCE_LUX,
     ILLUMINANCE_WATTS_PER_SQUARE_METER,
-    LIGHT_LUX,
     PERCENTAGE,
 )
 from ecowitt2mqtt.helpers.calculator import (
@@ -15,6 +13,7 @@ from ecowitt2mqtt.helpers.calculator import (
     SimpleCalculator,
 )
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
+from ecowitt2mqtt.util.unit_conversion import IlluminanceConverter
 
 
 class IlluminanceLuxCalculator(Calculator):
@@ -23,12 +22,12 @@ class IlluminanceLuxCalculator(Calculator):
     @property
     def default_imperial_unit(self) -> str:
         """Get the default unit (imperial)."""
-        return LIGHT_LUX
+        return ILLUMINANCE_LUX
 
     @property
     def default_metric_unit(self) -> str:
         """Get the default unit (metric)."""
-        return LIGHT_LUX
+        return ILLUMINANCE_LUX
 
     @Calculator.requires_keys(DATA_POINT_SOLARRADIATION)
     def calculate_from_payload(
@@ -37,9 +36,13 @@ class IlluminanceLuxCalculator(Calculator):
         """Perform the calculation."""
         assert isinstance(payload[DATA_POINT_SOLARRADIATION], float)
 
-        return self.get_calculated_data_point(
-            round(float(payload[DATA_POINT_SOLARRADIATION]) / 0.0079, 1)
+        value = IlluminanceConverter.convert(
+            payload[DATA_POINT_SOLARRADIATION],
+            ILLUMINANCE_WATTS_PER_SQUARE_METER,
+            ILLUMINANCE_LUX,
         )
+
+        return self.get_calculated_data_point(value)
 
 
 class IlluminancePerceivedCalculator(Calculator):
@@ -62,16 +65,11 @@ class IlluminancePerceivedCalculator(Calculator):
         """Perform the calculation."""
         assert isinstance(payload[DATA_POINT_SOLARRADIATION], float)
 
-        lux_value = round(float(payload[DATA_POINT_SOLARRADIATION]) / 0.0079, 1)
+        value = IlluminanceConverter.convert_to_percentage(
+            payload[DATA_POINT_SOLARRADIATION], ILLUMINANCE_WATTS_PER_SQUARE_METER
+        )
 
-        try:
-            final_value = round(math.log10(lux_value) / 5, 2) * 100
-        except ValueError:
-            # If we've approached negative infinity, we'll get a math domain error; in
-            # that case, return 0.0:
-            final_value = 0.0
-
-        return self.get_calculated_data_point(final_value)
+        return self.get_calculated_data_point(value)
 
 
 class IlluminanceWM2Calculator(SimpleCalculator):

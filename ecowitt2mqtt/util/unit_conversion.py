@@ -20,6 +20,7 @@ from ecowitt2mqtt.const import (
     LENGTH_MILES,
     LENGTH_MILLIMETERS,
     LENGTH_YARD,
+    PERCENTAGE,
     PRECIPITATION_INCHES,
     PRECIPITATION_INCHES_PER_HOUR,
     PRECIPITATION_MILLIMETERS,
@@ -193,6 +194,7 @@ class IlluminanceConverter(BaseUnitConverter):
         ILLUMINANCE_KILOLUX,
         ILLUMINANCE_LUX,
         ILLUMINANCE_WATTS_PER_SQUARE_METER,
+        PERCENTAGE,
     }
     NORMALIZED_UNIT = ILLUMINANCE_LUX
 
@@ -203,6 +205,20 @@ class IlluminanceConverter(BaseUnitConverter):
         ILLUMINANCE_LUX: 1,
         ILLUMINANCE_WATTS_PER_SQUARE_METER: 1 * _WM2_TO_LUX,
     }
+
+    @classmethod
+    def convert_to_percentage(cls, value: float, from_unit: str) -> float:
+        """Convert an illuminance into a percentage of human-perceived brightness."""
+        lux = cls.convert(value, from_unit, ILLUMINANCE_LUX)
+
+        try:
+            value = round(math.log10(lux) / 5, 2) * 100
+        except ValueError:
+            # If we've approached negative infinity, we'll get a math domain error; in
+            # that case, return 0.0:
+            value = 0.0
+
+        return value
 
 
 class PrecipitationRateConverter(BaseUnitConverter):
