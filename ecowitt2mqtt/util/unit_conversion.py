@@ -1,6 +1,8 @@
 """Define unit conversion helpers."""
 from __future__ import annotations
 
+import math
+
 from ecowitt2mqtt.const import (
     DISTANCE,
     ILLUMINANCE,
@@ -101,6 +103,17 @@ class BaseUnitConverter:
     _UNIT_CONVERSION: dict[str, float]
 
     @classmethod
+    def _trim_value_precision_to_ratio(
+        cls, value: float, from_unit: str, to_unit: str
+    ) -> float:
+        """Trim a value to the appropriate precision using the unit ratio."""
+        value_s = str(value)
+        precision = len(value_s) - value_s.index(".") - 1 if "." in value_s else 0
+        ratio_log = max(0, math.log10(cls.get_unit_ratio(from_unit, to_unit)))
+        precision = precision + math.floor(ratio_log)
+        return round(value) if precision == 0 else round(value, precision)
+
+    @classmethod
     def convert(cls, value: float, from_unit: str, to_unit: str) -> float:
         """Convert one unit of measurement to another."""
         if from_unit == to_unit:
@@ -115,8 +128,9 @@ class BaseUnitConverter:
 
         from_ratio = cls._UNIT_CONVERSION[from_unit]
         to_ratio = cls._UNIT_CONVERSION[to_unit]
-        new_value = value / from_ratio
-        return new_value * to_ratio
+        value = value / from_ratio
+        value = value * to_ratio
+        return cls._trim_value_precision_to_ratio(value, from_unit, to_unit)
 
     @classmethod
     def get_unit_ratio(cls, from_unit: str, to_unit: str) -> float:
@@ -323,7 +337,7 @@ class TemperatureConverter(BaseUnitConverter):
             if to_unit == TEMP_FAHRENHEIT:
                 value = cls._celsius_to_fahrenheit(cls._kelvin_to_celsius(value))
 
-        return value
+        return cls._trim_value_precision_to_ratio(value, from_unit, to_unit)
 
 
 class VolumeConverter(BaseUnitConverter):
