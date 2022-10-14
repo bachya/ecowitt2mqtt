@@ -167,9 +167,10 @@ UNIT_SYSTEM_METRIC: UnitSystemType = "metric"
 UNIT_SYSTEMS: Final = [UNIT_SYSTEM_IMPERIAL, UNIT_SYSTEM_METRIC]
 
 # Unit classes:
+ACCUMULATED_PRECIPITATION: Final = "accumulated_precipitation"
 DISTANCE: Final = "length"
 ILLUMINANCE: Final = "illuminance"
-PRECIPITATION: Final = "precipitation"
+PRECIPITATION_RATE: Final = "precipitation_rate"
 PRESSURE: Final = "pressure"
 SPEED: Final = "speed"
 TEMPERATURE: Final = "temperature"

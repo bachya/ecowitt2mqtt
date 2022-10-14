@@ -4,6 +4,7 @@ from __future__ import annotations
 import math
 
 from ecowitt2mqtt.const import (
+    ACCUMULATED_PRECIPITATION,
     DISTANCE,
     ILLUMINANCE,
     ILLUMINANCE_FOOT_CANDLES,
@@ -19,11 +20,11 @@ from ecowitt2mqtt.const import (
     LENGTH_MILES,
     LENGTH_MILLIMETERS,
     LENGTH_YARD,
-    PRECIPITATION,
     PRECIPITATION_INCHES,
     PRECIPITATION_INCHES_PER_HOUR,
     PRECIPITATION_MILLIMETERS,
     PRECIPITATION_MILLIMETERS_PER_HOUR,
+    PRECIPITATION_RATE,
     PRESSURE,
     PRESSURE_BAR,
     PRESSURE_CBAR,
@@ -138,6 +139,22 @@ class BaseUnitConverter:
         return cls._UNIT_CONVERSION[from_unit] / cls._UNIT_CONVERSION[to_unit]
 
 
+class AccumulatedPrecipitationConverter(BaseUnitConverter):
+    """Utility to convert accumulated precipitation values."""
+
+    UNIT_CLASS = ACCUMULATED_PRECIPITATION
+    VALID_UNITS = {
+        PRECIPITATION_MILLIMETERS,
+        PRECIPITATION_INCHES,
+    }
+    NORMALIZED_UNIT = PRECIPITATION_MILLIMETERS
+
+    _UNIT_CONVERSION = {
+        PRECIPITATION_INCHES: 1 * _MM_TO_M / _IN_TO_M,
+        PRECIPITATION_MILLIMETERS: 1,
+    }
+
+
 class DistanceConverter(BaseUnitConverter):
     """Utility to convert distance values."""
 
@@ -188,23 +205,18 @@ class IlluminanceConverter(BaseUnitConverter):
     }
 
 
-class PrecipitationConverter(BaseUnitConverter):
-    """Utility to convert precipitation values."""
+class PrecipitationRateConverter(BaseUnitConverter):
+    """Utility to convert precipitation rate values."""
 
-    UNIT_CLASS = PRECIPITATION
+    UNIT_CLASS = PRECIPITATION_RATE
     VALID_UNITS = {
-        PRECIPITATION_MILLIMETERS,
         PRECIPITATION_MILLIMETERS_PER_HOUR,
-        PRECIPITATION_INCHES,
         PRECIPITATION_INCHES_PER_HOUR,
     }
-    # Note that we can accept either mm or mm/h as the normalized unit:
-    NORMALIZED_UNIT = PRECIPITATION_MILLIMETERS
+    NORMALIZED_UNIT = PRECIPITATION_MILLIMETERS_PER_HOUR
 
     _UNIT_CONVERSION = {
-        PRECIPITATION_INCHES: 1 * _MM_TO_M / _IN_TO_M,
         PRECIPITATION_INCHES_PER_HOUR: 1 * _MM_TO_M / _IN_TO_M,
-        PRECIPITATION_MILLIMETERS: 1,
         PRECIPITATION_MILLIMETERS_PER_HOUR: 1,
     }
 
