@@ -55,12 +55,12 @@ class Calculator:
 
     @property
     def default_imperial_unit(self) -> str | None:
-        """Get the default input unit (imperial)."""
+        """Get the default unit (imperial)."""
         return None
 
     @property
     def default_metric_unit(self) -> str | None:
-        """Get the default input unit (metric)."""
+        """Get the default unit (metric)."""
         return None
 
     @property
@@ -87,6 +87,9 @@ class Calculator:
     ) -> CalculatedDataPoint:
         """Get the output unit for this calculation."""
         output_unit: str | None
+
+        # If the user explicitly sets self.output_unit, use it if it's truthy;
+        # otherwise, default to the standard output unit for the unit system:
         if self.output_unit:
             output_unit = self.output_unit
         elif self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:

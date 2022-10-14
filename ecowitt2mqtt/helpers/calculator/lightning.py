@@ -6,7 +6,6 @@ from ecowitt2mqtt.const import (
     LENGTH_MILES,
     LOGGER,
     STRIKES,
-    UNIT_SYSTEM_IMPERIAL,
     UNIT_SYSTEM_METRIC,
 )
 from ecowitt2mqtt.helpers.calculator import (
@@ -21,8 +20,13 @@ class LightningStrikeCountCalculator(SimpleCalculator):
     """Define a lightning strike count calculator."""
 
     @property
-    def output_unit(self) -> str | None:
-        """Get the output unit of measurement for this calculation."""
+    def default_imperial_unit(self) -> str:
+        """Get the default unit (imperial)."""
+        return STRIKES
+
+    @property
+    def default_metric_unit(self) -> str:
+        """Get the default unit (metric)."""
         return STRIKES
 
 
@@ -33,10 +37,13 @@ class LightningStrikeDistanceCalculator(Calculator):
     """
 
     @property
-    def output_unit(self) -> str | None:
-        """Get the output unit of measurement for this calculation."""
-        if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            return LENGTH_MILES
+    def default_imperial_unit(self) -> str:
+        """Get the default unit (imperial)."""
+        return LENGTH_MILES
+
+    @property
+    def default_metric_unit(self) -> str:
+        """Get the default unit (metric)."""
         return LENGTH_KILOMETERS
 
     def calculate_from_value(

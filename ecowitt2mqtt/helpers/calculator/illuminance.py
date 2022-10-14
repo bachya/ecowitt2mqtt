@@ -21,8 +21,13 @@ class IlluminanceLuxCalculator(Calculator):
     """Define a illuminance calculator (lux)."""
 
     @property
-    def output_unit(self) -> str | None:
-        """Get the output unit of measurement for this calculation."""
+    def default_imperial_unit(self) -> str:
+        """Get the default unit (imperial)."""
+        return LIGHT_LUX
+
+    @property
+    def default_metric_unit(self) -> str:
+        """Get the default unit (metric)."""
         return LIGHT_LUX
 
     @Calculator.requires_keys(DATA_POINT_SOLARRADIATION)
@@ -41,8 +46,13 @@ class IlluminancePerceivedCalculator(Calculator):
     """Define a illuminance calculator (perceived)."""
 
     @property
-    def output_unit(self) -> str | None:
-        """Get the output unit of measurement for this calculation."""
+    def default_imperial_unit(self) -> str:
+        """Get the default unit (imperial)."""
+        return PERCENTAGE
+
+    @property
+    def default_metric_unit(self) -> str:
+        """Get the default unit (metric)."""
         return PERCENTAGE
 
     @Calculator.requires_keys(DATA_POINT_SOLARRADIATION)
@@ -68,6 +78,11 @@ class IlluminanceWM2Calculator(SimpleCalculator):
     """Define a illuminance calculator (W/m²)."""
 
     @property
-    def output_unit(self) -> str | None:
-        """Get the output unit of measurement for this calculation."""
+    def default_imperial_unit(self) -> str:
+        """Get the default unit (imperial)."""
+        return ILLUMINANCE_WATTS_PER_SQUARE_METER
+
+    @property
+    def default_metric_unit(self) -> str:
+        """Get the default unit (metric)."""
         return ILLUMINANCE_WATTS_PER_SQUARE_METER

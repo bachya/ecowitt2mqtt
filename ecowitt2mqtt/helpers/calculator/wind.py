@@ -255,8 +255,13 @@ class WindDirCalculator(SimpleCalculator):
     """Define a wind direction calculator."""
 
     @property
-    def output_unit(self) -> str | None:
-        """Get the output unit of measurement for this calculation."""
+    def default_imperial_unit(self) -> str:
+        """Get the default unit (imperial)."""
+        return DEGREE
+
+    @property
+    def default_metric_unit(self) -> str:
+        """Get the default unit (metric)."""
         return DEGREE
 
 
@@ -264,10 +269,13 @@ class WindSpeedCalculator(Calculator):
     """Define a wind speed calculator."""
 
     @property
-    def output_unit(self) -> str | None:
-        """Get the output unit of measurement for this calculation."""
-        if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            return SPEED_MILES_PER_HOUR
+    def default_imperial_unit(self) -> str:
+        """Get the default unit (imperial)."""
+        return SPEED_MILES_PER_HOUR
+
+    @property
+    def default_metric_unit(self) -> str:
+        """Get the default unit (metric)."""
         return SPEED_KILOMETERS_PER_HOUR
 
     def calculate_from_value(
