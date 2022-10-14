@@ -25,10 +25,13 @@ class AbsoluteHumidityCalculator(Calculator):
     """Define an absolute humidity calculator."""
 
     @property
-    def output_unit(self) -> str | None:
-        """Get the output unit of measurement for this calculation."""
-        if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            return VOLUME_POUNDS_PER_CUBIC_FOOT
+    def default_imperial_unit(self) -> str:
+        """Get the default unit (imperial)."""
+        return VOLUME_POUNDS_PER_CUBIC_FOOT
+
+    @property
+    def default_metric_unit(self) -> str:
+        """Get the default unit (metric)."""
         return VOLUME_GRAMS_PER_CUBIC_METER
 
     @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
@@ -54,6 +57,11 @@ class RelativeHumidityCalculator(SimpleCalculator):
     """Define a boolean leak calculator."""
 
     @property
-    def output_unit(self) -> str | None:
-        """Get the output unit of measurement for this calculation."""
+    def default_imperial_unit(self) -> str:
+        """Get the default unit (imperial)."""
+        return PERCENTAGE
+
+    @property
+    def default_metric_unit(self) -> str:
+        """Get the default unit (metric)."""
         return PERCENTAGE

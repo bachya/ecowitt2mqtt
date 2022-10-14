@@ -16,10 +16,13 @@ class RainRateCalculator(Calculator):
     """Define a rain rate calculator."""
 
     @property
-    def output_unit(self) -> str | None:
-        """Get the output unit of measurement for this calculation."""
-        if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            return PRECIPITATION_INCHES_PER_HOUR
+    def default_imperial_unit(self) -> str:
+        """Get the default unit (imperial)."""
+        return PRECIPITATION_INCHES_PER_HOUR
+
+    @property
+    def default_metric_unit(self) -> str:
+        """Get the default unit (metric)."""
         return PRECIPITATION_MILLIMETERS_PER_HOUR
 
     def calculate_from_value(
@@ -41,10 +44,13 @@ class RainVolumeCalculator(Calculator):
     """Define a rain volume calculator."""
 
     @property
-    def output_unit(self) -> str | None:
-        """Get the output unit of measurement for this calculation."""
-        if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
-            return PRECIPITATION_INCHES
+    def default_imperial_unit(self) -> str:
+        """Get the default unit (imperial)."""
+        return PRECIPITATION_INCHES
+
+    @property
+    def default_metric_unit(self) -> str:
+        """Get the default unit (metric)."""
         return PRECIPITATION_MILLIMETERS
 
     def calculate_from_value(
