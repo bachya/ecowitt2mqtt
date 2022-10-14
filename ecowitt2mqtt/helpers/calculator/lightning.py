@@ -14,19 +14,15 @@ from ecowitt2mqtt.helpers.calculator import (
     SimpleCalculator,
 )
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
+from ecowitt2mqtt.util.unit_conversion import DistanceConverter
 
 
 class LightningStrikeCountCalculator(SimpleCalculator):
     """Define a lightning strike count calculator."""
 
     @property
-    def output_unit_imperial(self) -> str:
-        """Get the default unit (imperial)."""
-        return STRIKES
-
-    @property
-    def output_unit_metric(self) -> str:
-        """Get the default unit (metric)."""
+    def output_unit(self) -> str:
+        """Get the output unit of measurement for this calculation."""
         return STRIKES
 
 
@@ -35,6 +31,8 @@ class LightningStrikeDistanceCalculator(Calculator):
 
     Note that lightning strike distances always have metric as the input unit system.
     """
+
+    DEFAULT_INPUT_UNIT = DistanceConverter.DEFAULT_UNITS[UNIT_SYSTEM_METRIC]
 
     @property
     def output_unit_imperial(self) -> str:
@@ -54,9 +52,5 @@ class LightningStrikeDistanceCalculator(Calculator):
             LOGGER.debug("Can't convert value to number: %s", value)
             return self.get_calculated_data_point(None)
 
-        if self._config.output_unit_system == UNIT_SYSTEM_METRIC:
-            final_value = value
-        else:
-            final_value = round(value / 1.609, 1)
-
-        return self.get_calculated_data_point(final_value)
+        converted_value = self.convert_value(DistanceConverter, value)
+        return self.get_calculated_data_point(converted_value)

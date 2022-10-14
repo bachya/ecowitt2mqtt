@@ -960,7 +960,7 @@ def test_disable_calculated_data(device_data, ecowitt):
         ),
         "lightning": CalculatedDataPoint(
             "lightning",
-            0.6,
+            0.6213711922373341,
             unit=LENGTH_MILES,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -1638,7 +1638,7 @@ def test_nonnumeric_value(device_data, ecowitt):
         ),
         "lightning": CalculatedDataPoint(
             "lightning",
-            0.6,
+            0.6213711922373341,
             unit=LENGTH_MILES,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -2000,7 +2000,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "lightning": CalculatedDataPoint(
                     "lightning",
-                    0.6,
+                    0.6213711922373341,
                     unit=LENGTH_MILES,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -3656,7 +3656,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "lightning": CalculatedDataPoint(
                     "lightning",
-                    0.6,
+                    0.6213711922373341,
                     unit=LENGTH_MILES,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -5223,7 +5223,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
         ),
         "lightning": CalculatedDataPoint(
             "lightning",
-            0.6,
+            0.6213711922373341,
             unit=LENGTH_MILES,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -6264,7 +6264,7 @@ def test_unknown_battery(device_data, ecowitt):
         ),
         "lightning": CalculatedDataPoint(
             "lightning",
-            0.6,
+            0.6213711922373341,
             unit=LENGTH_MILES,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
