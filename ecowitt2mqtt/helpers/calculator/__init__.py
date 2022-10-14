@@ -7,6 +7,7 @@ from enum import Enum
 from functools import wraps
 from typing import TYPE_CHECKING, Any, Callable, Dict, TypeVar
 
+from ecowitt2mqtt.const import UNIT_SYSTEM_IMPERIAL
 from ecowitt2mqtt.errors import EcowittError
 from ecowitt2mqtt.helpers.typing import CalculatedValueType, PreCalculatedValueType
 
@@ -53,6 +54,16 @@ class Calculator:
         self._payload_key = payload_key
 
     @property
+    def default_imperial_unit(self) -> str | None:
+        """Get the default input unit (imperial)."""
+        return None
+
+    @property
+    def default_metric_unit(self) -> str | None:
+        """Get the default input unit (metric)."""
+        return None
+
+    @property
     def output_unit(self) -> str | None:
         """Get the output unit of measurement for this calculation."""
         return None
@@ -75,8 +86,16 @@ class Calculator:
         data_type: DataPointType | None = None,
     ) -> CalculatedDataPoint:
         """Get the output unit for this calculation."""
+        output_unit: str | None
+        if self.output_unit:
+            output_unit = self.output_unit
+        elif self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+            output_unit = self.default_imperial_unit
+        else:
+            output_unit = self.default_metric_unit
+
         data_point = CalculatedDataPoint(
-            data_point_key=self._data_point_key, value=value, unit=self.output_unit
+            data_point_key=self._data_point_key, value=value, unit=output_unit
         )
 
         if attributes:
