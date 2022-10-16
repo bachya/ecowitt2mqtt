@@ -33,6 +33,7 @@ from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_ILLUMINANCE,
     CONF_OUTPUT_UNIT_PRECIPITATION_RATE,
     CONF_OUTPUT_UNIT_PRESSURE,
+    CONF_OUTPUT_UNIT_SPEED,
     CONF_OUTPUT_UNIT_SYSTEM,
     CONF_OUTPUT_UNIT_TEMPERATURE,
     CONF_PORT,
@@ -65,6 +66,7 @@ from ecowitt2mqtt.const import (
     ENV_OUTPUT_UNIT_ILLUMINANCE,
     ENV_OUTPUT_UNIT_PRECIPITATION_RATE,
     ENV_OUTPUT_UNIT_PRESSURE,
+    ENV_OUTPUT_UNIT_SPEED,
     ENV_OUTPUT_UNIT_SYSTEM,
     ENV_OUTPUT_UNIT_TEMPERATURE,
     ENV_PORT,
@@ -134,6 +136,7 @@ ENV_VAR_TO_CONF_MAP = {
     ENV_OUTPUT_UNIT_ILLUMINANCE: CONF_OUTPUT_UNIT_ILLUMINANCE,
     ENV_OUTPUT_UNIT_PRECIPITATION_RATE: CONF_OUTPUT_UNIT_PRECIPITATION_RATE,
     ENV_OUTPUT_UNIT_PRESSURE: CONF_OUTPUT_UNIT_PRESSURE,
+    ENV_OUTPUT_UNIT_SPEED: CONF_OUTPUT_UNIT_SPEED,
     ENV_OUTPUT_UNIT_SYSTEM: CONF_OUTPUT_UNIT_SYSTEM,
     ENV_OUTPUT_UNIT_TEMPERATURE: CONF_OUTPUT_UNIT_TEMPERATURE,
     ENV_PORT: CONF_PORT,
@@ -389,6 +392,15 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
             "(default: the default used by the output unit system)"
         ),
         metavar=CONF_OUTPUT_UNIT_PRESSURE,
+    )
+    parser.add_argument(
+        "--output-unit-speed",
+        dest=CONF_OUTPUT_UNIT_SPEED,
+        help=(
+            "The output unit to use for speed data points "
+            "(default: the default used by the output unit system)"
+        ),
+        metavar=CONF_OUTPUT_UNIT_SPEED,
     )
     parser.add_argument(
         "--output-unit-temperature",

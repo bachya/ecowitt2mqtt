@@ -514,6 +514,19 @@ Config Option: `--output-unit-pressure`
 * `Pa`
 * `psi`
 
+#### Speed
+
+Config Option: `--output-unit-speed`
+
+* `ft/s`
+* `in/d`
+* `in/h`
+* `km/h`
+* `kn`
+* `m/s`
+* `mph`
+* `mm/d`
+
 #### Temperature
 
 Config Option: `--output-unit-temperature`

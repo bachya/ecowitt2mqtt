@@ -32,6 +32,7 @@ from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_ILLUMINANCE,
     CONF_OUTPUT_UNIT_PRECIPITATION_RATE,
     CONF_OUTPUT_UNIT_PRESSURE,
+    CONF_OUTPUT_UNIT_SPEED,
     CONF_OUTPUT_UNIT_SYSTEM,
     CONF_OUTPUT_UNIT_TEMPERATURE,
     CONF_PORT,
@@ -54,6 +55,7 @@ from ecowitt2mqtt.util.unit_conversion import (
     IlluminanceConverter,
     PrecipitationRateConverter,
     PressureConverter,
+    SpeedConverter,
     TemperatureConverter,
     VolumeConverter,
 )
@@ -123,6 +125,9 @@ CONFIG_SCHEMA = vol.All(
             ),
             vol.Optional(CONF_OUTPUT_UNIT_PRESSURE): vol.All(
                 str, vol.In(PressureConverter.VALID_UNITS)
+            ),
+            vol.Optional(CONF_OUTPUT_UNIT_SPEED): vol.All(
+                str, vol.In(SpeedConverter.VALID_UNITS)
             ),
             vol.Optional(CONF_OUTPUT_UNIT_TEMPERATURE): vol.All(
                 str, vol.In(TemperatureConverter.VALID_UNITS)
@@ -301,6 +306,11 @@ class Config:  # pylint: disable=too-many-public-methods
     def output_unit_pressure(self) -> str | None:
         """Return the output unit for pressure."""
         return self._config.get(CONF_OUTPUT_UNIT_PRESSURE)
+
+    @property
+    def output_unit_speed(self) -> str | None:
+        """Return the output unit for speed."""
+        return self._config.get(CONF_OUTPUT_UNIT_SPEED)
 
     @property
     def output_unit_temperature(self) -> str | None:
