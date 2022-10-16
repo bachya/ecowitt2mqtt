@@ -35,8 +35,9 @@ class AccumulatedPrecipitationCalculator(Calculator):
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
         assert isinstance(value, float)
-        converted_value = self.convert_value(AccumulatedPrecipitationConverter, value)
-        return self.get_calculated_data_point(converted_value)
+        return self.get_calculated_data_point(
+            value, unit_converter=AccumulatedPrecipitationConverter
+        )
 
 
 class PrecipitationRateCalculator(Calculator):
@@ -59,5 +60,6 @@ class PrecipitationRateCalculator(Calculator):
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
         assert isinstance(value, float)
-        converted_value = self.convert_value(PrecipitationRateConverter, value)
-        return self.get_calculated_data_point(converted_value)
+        return self.get_calculated_data_point(
+            value, unit_converter=PrecipitationRateConverter
+        )

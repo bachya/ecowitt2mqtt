@@ -45,6 +45,4 @@ class LightningStrikeDistanceCalculator(Calculator):
         if isinstance(value, str):
             LOGGER.debug("Can't convert value to number: %s", value)
             return self.get_calculated_data_point(None)
-
-        converted_value = self.convert_value(DistanceConverter, value)
-        return self.get_calculated_data_point(converted_value)
+        return self.get_calculated_data_point(value, unit_converter=DistanceConverter)

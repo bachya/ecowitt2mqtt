@@ -51,8 +51,7 @@ class AbsoluteHumidityCalculator(Calculator):
         )
 
         value = get_absolute_humidity_in_metric(temp_obj, humidity)
-        converted_value = self.convert_value(VolumeConverter, value)
-        return self.get_calculated_data_point(converted_value)
+        return self.get_calculated_data_point(value, unit_converter=VolumeConverter)
 
 
 class RelativeHumidityCalculator(SimpleCalculator):
