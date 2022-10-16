@@ -62,6 +62,7 @@ def test_distance_conversion(converted_value, from_unit, to_unit, value):
         (10, "fc", "lx", 107.639),
         (10, "fc", "klx", 0.107639),
         (264.61, "W/m²", "%", 90.0),
+        (87.0, "%", "%", 87.0),
     ],
 )
 def test_illuminance_conversion(converted_value, from_unit, to_unit, value):

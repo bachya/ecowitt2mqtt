@@ -210,6 +210,9 @@ class IlluminanceConverter(BaseUnitConverter):
     def convert(cls, value: float, from_unit: str, to_unit: str) -> float:
         """Convert one unit of measurement to another."""
         if to_unit == PERCENTAGE:
+            if from_unit == PERCENTAGE:
+                return value
+
             lux = cls.convert(value, from_unit, ILLUMINANCE_LUX)
             try:
                 return round(math.log10(lux) / 5, 2) * 100
