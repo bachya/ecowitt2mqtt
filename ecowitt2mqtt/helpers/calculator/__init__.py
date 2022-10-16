@@ -49,7 +49,7 @@ class Calculator:
     """Define a calculator."""
 
     DEFAULT_INPUT_UNIT: str
-    UNIT_OVERRIDE_CONFIG_OPTION: str | None = None
+    UNIT_OVERRIDE_CONFIG_OPTION: str = ""
 
     def __init__(self, config: Config, payload_key: str, data_point_key: str) -> None:
         """Initialize."""
