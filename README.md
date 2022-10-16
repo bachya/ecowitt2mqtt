@@ -469,12 +469,13 @@ temperature data points in Kelvin – you would provide `--output-unit-system=me
 `--output-unit-temperature=K` as config options. As expected, the value is properly
 converted to the new unit.
 
-Here is a comprehensive list of the units you can specify:
+#### Temperature
 
-* Temperature (specified via the `--output-unit-temperature` config option)
-    * `°C`
-    * `°F`
-    * `K`
+Overridden temperature units specified via the `--output-unit-temperature` config option.
+
+* `°C`
+* `°F`
+* `K`
 
 ## Raw Data
 
