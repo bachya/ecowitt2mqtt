@@ -471,7 +471,7 @@ converted to the new unit.
 
 #### Temperature
 
-Overridden temperature units specified via the `--output-unit-temperature` config option.
+Config Option: `--output-unit-temperatue`
 
 * `°C`
 * `°F`
