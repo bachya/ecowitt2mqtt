@@ -5,7 +5,7 @@ from collections.abc import Iterable
 from dataclasses import dataclass, field
 from enum import Enum
 from functools import wraps
-from typing import TYPE_CHECKING, Any, Callable, Dict, TypeVar
+from typing import TYPE_CHECKING, Any, Callable, Dict, TypeVar, Union, cast
 
 from ecowitt2mqtt.const import UNIT_SYSTEM_IMPERIAL
 from ecowitt2mqtt.errors import EcowittError
@@ -49,6 +49,7 @@ class Calculator:
     """Define a calculator."""
 
     DEFAULT_INPUT_UNIT: str
+    UNIT_OVERRIDE_CONFIG_OPTION: str | None = None
 
     def __init__(self, config: Config, payload_key: str, data_point_key: str) -> None:
         """Initialize."""
@@ -69,6 +70,11 @@ class Calculator:
     @property
     def output_unit(self) -> str | None:
         """Get the output unit of measurement for this calculation."""
+        if override := cast(
+            Union[str, None],
+            getattr(self._config, str(self.UNIT_OVERRIDE_CONFIG_OPTION), None),
+        ):
+            return override
         if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
             return self.output_unit_imperial
         return self.output_unit_metric

@@ -12,8 +12,10 @@ from ecowitt2mqtt.const import (
     CONF_GATEWAYS,
     CONF_MQTT_BROKER,
     CONF_MQTT_TOPIC,
+    CONF_OUTPUT_UNIT_TEMPERATURE,
     CONF_VERBOSE,
     ENV_BATTERY_OVERRIDES,
+    TEMP_CELSIUS,
 )
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 
@@ -224,6 +226,32 @@ def test_default_battery_strategy(config):
 )
 def test_invalid_boolean_config_validation(config):
     """Test an invalid boolean config validation."""
+    with pytest.raises(ConfigError):
+        _ = Configs(config)
+
+
+@pytest.mark.parametrize(
+    "config_option,value",
+    [
+        (CONF_OUTPUT_UNIT_TEMPERATURE, TEMP_CELSIUS),
+    ],
+)
+def test_output_units(config_option, value):
+    """Test output unit classes."""
+    config = {**TEST_CONFIG_JSON, config_option: value}
+    configs = Configs(config)
+    assert getattr(configs.default_config, config_option) == value
+
+
+@pytest.mark.parametrize(
+    "config_option,value",
+    [
+        (CONF_OUTPUT_UNIT_TEMPERATURE, "Some Temperature"),
+    ],
+)
+def test_output_units_invalid(config_option, value):
+    """Test output unit classes with invalid values."""
+    config = {**TEST_CONFIG_JSON, config_option: value}
     with pytest.raises(ConfigError):
         _ = Configs(config)
 
