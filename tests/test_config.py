@@ -12,10 +12,12 @@ from ecowitt2mqtt.const import (
     CONF_GATEWAYS,
     CONF_MQTT_BROKER,
     CONF_MQTT_TOPIC,
+    CONF_OUTPUT_UNIT_HUMIDITY,
     CONF_OUTPUT_UNIT_TEMPERATURE,
     CONF_VERBOSE,
     ENV_BATTERY_OVERRIDES,
     TEMP_CELSIUS,
+    VOLUME_GRAMS_PER_CUBIC_METER,
 )
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 
@@ -233,6 +235,7 @@ def test_invalid_boolean_config_validation(config):
 @pytest.mark.parametrize(
     "config_option,value",
     [
+        (CONF_OUTPUT_UNIT_HUMIDITY, VOLUME_GRAMS_PER_CUBIC_METER),
         (CONF_OUTPUT_UNIT_TEMPERATURE, TEMP_CELSIUS),
     ],
 )
@@ -246,6 +249,7 @@ def test_output_units(config_option, value):
 @pytest.mark.parametrize(
     "config_option,value",
     [
+        (CONF_OUTPUT_UNIT_HUMIDITY, "Some Humidity"),
         (CONF_OUTPUT_UNIT_TEMPERATURE, "Some Temperature"),
     ],
 )
