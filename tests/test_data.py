@@ -1488,7 +1488,7 @@ def test_nonnumeric_value(device_data, ecowitt):
         ),
         "solarradiation_perceived": CalculatedDataPoint(
             "solarradiation_perceived",
-            90.0,
+            90.49958322993245,
             unit=PERCENTAGE,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -1850,7 +1850,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "solarradiation_perceived": CalculatedDataPoint(
                     "solarradiation_perceived",
-                    90.0,
+                    90.49958322993245,
                     unit=PERCENTAGE,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -2201,7 +2201,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "solarradiation_perceived": CalculatedDataPoint(
                     "solarradiation_perceived",
-                    70.0,
+                    70.19867516391842,
                     unit=PERCENTAGE,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4038,7 +4038,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "solarradiation_perceived": CalculatedDataPoint(
                     "solarradiation_perceived",
-                    87.0,
+                    86.89878363038743,
                     unit=PERCENTAGE,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4301,7 +4301,7 @@ def test_nonnumeric_value(device_data, ecowitt):
             {
                 "runtime": CalculatedDataPoint(
                     "runtime",
-                    49030,
+                    49030.0,
                     unit=TIME_SECONDS,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4392,7 +4392,7 @@ def test_nonnumeric_value(device_data, ecowitt):
                 ),
                 "solarradiation_perceived": CalculatedDataPoint(
                     "solarradiation_perceived",
-                    98.0,
+                    98.20329839541778,
                     unit=PERCENTAGE,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -5073,7 +5073,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
         ),
         "solarradiation_perceived": CalculatedDataPoint(
             "solarradiation_perceived",
-            90.0,
+            90.49958322993245,
             unit=PERCENTAGE,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -5443,7 +5443,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
                 ),
                 "solarradiation_perceived": CalculatedDataPoint(
                     "solarradiation_perceived",
-                    90.0,
+                    90.49958322993245,
                     unit=PERCENTAGE,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -5795,7 +5795,7 @@ def test_unit_conversion_to_imperial(device_data, ecowitt):
                 ),
                 "solarradiation_perceived": CalculatedDataPoint(
                     "solarradiation_perceived",
-                    70.0,
+                    70.19867516391842,
                     unit=PERCENTAGE,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -6114,7 +6114,7 @@ def test_unknown_battery(device_data, ecowitt):
         ),
         "solarradiation_perceived": CalculatedDataPoint(
             "solarradiation_perceived",
-            90.0,
+            90.49958322993245,
             unit=PERCENTAGE,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
