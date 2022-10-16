@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from typing import cast
 
 from ecowitt2mqtt.const import (
+    CONF_OUTPUT_UNIT_SPEED,
     DATA_POINT_WINDSPEED,
     DEGREE,
     SPEED_KILOMETERS_PER_HOUR,
@@ -264,6 +265,7 @@ class WindSpeedCalculator(Calculator):
     """Define a wind speed calculator."""
 
     DEFAULT_INPUT_UNIT = SPEED_MILES_PER_HOUR
+    UNIT_OVERRIDE_CONFIG_OPTION = CONF_OUTPUT_UNIT_SPEED
 
     @property
     def output_unit_imperial(self) -> str:
