@@ -174,7 +174,7 @@ THERMAL_PERCEPTION_RATINGS: list[ThermalPerceptionRating] = [
 ]
 
 
-class TemperatureUnitConverter(Calculator):
+class BaseTemperatureCalculator(Calculator):
     """Define a base temperature calculator."""
 
     DEFAULT_INPUT_UNIT = TEMP_FAHRENHEIT
@@ -190,7 +190,7 @@ class TemperatureUnitConverter(Calculator):
         return TEMP_CELSIUS
 
 
-class DewPointCalculator(TemperatureUnitConverter):
+class DewPointCalculator(BaseTemperatureCalculator):
     """Define a dew point calculator."""
 
     @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
@@ -205,11 +205,12 @@ class DewPointCalculator(TemperatureUnitConverter):
             temp, humidity, self._config.input_unit_system
         )
 
-        converted_value = self.convert_value(TemperatureConverter, dew_point_obj.f)
-        return self.get_calculated_data_point(converted_value)
+        return self.get_calculated_data_point(
+            dew_point_obj.f, unit_converter=TemperatureConverter
+        )
 
 
-class FeelsLikeCalculator(TemperatureUnitConverter):
+class FeelsLikeCalculator(BaseTemperatureCalculator):
     """Define a "feels like" calculator."""
 
     @Calculator.requires_keys(
@@ -227,11 +228,12 @@ class FeelsLikeCalculator(TemperatureUnitConverter):
             temp, humidity, wind_speed, self._config.input_unit_system
         )
 
-        converted_value = self.convert_value(TemperatureConverter, feels_like_obj.f)
-        return self.get_calculated_data_point(converted_value)
+        return self.get_calculated_data_point(
+            feels_like_obj.f, unit_converter=TemperatureConverter
+        )
 
 
-class FrostPointCalculator(TemperatureUnitConverter):
+class FrostPointCalculator(BaseTemperatureCalculator):
     """Define a frost point calculator."""
 
     @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
@@ -247,8 +249,9 @@ class FrostPointCalculator(TemperatureUnitConverter):
         )
         frost_point_obj = get_frost_point_meteocalc_object(temp_obj, humidity)
 
-        converted_value = self.convert_value(TemperatureConverter, frost_point_obj.f)
-        return self.get_calculated_data_point(converted_value)
+        return self.get_calculated_data_point(
+            frost_point_obj.f, unit_converter=TemperatureConverter
+        )
 
 
 class FrostRiskCalculator(Calculator):
@@ -285,7 +288,7 @@ class FrostRiskCalculator(Calculator):
         return self.get_calculated_data_point(value)
 
 
-class HeatIndexCalculator(TemperatureUnitConverter):
+class HeatIndexCalculator(BaseTemperatureCalculator):
     """Define a heat index calculator."""
 
     @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
@@ -300,11 +303,12 @@ class HeatIndexCalculator(TemperatureUnitConverter):
             temp, humidity, self._config.input_unit_system
         )
 
-        converted_value = self.convert_value(TemperatureConverter, heat_index_obj.f)
-        return self.get_calculated_data_point(converted_value)
+        return self.get_calculated_data_point(
+            heat_index_obj.f, unit_converter=TemperatureConverter
+        )
 
 
-class SimmerIndexCalculator(TemperatureUnitConverter):
+class SimmerIndexCalculator(BaseTemperatureCalculator):
     """Define a simmer index calculator."""
 
     @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
@@ -327,8 +331,9 @@ class SimmerIndexCalculator(TemperatureUnitConverter):
             return self.get_calculated_data_point(None)
 
         assert simmer_obj
-        converted_value = self.convert_value(TemperatureConverter, simmer_obj.f)
-        return self.get_calculated_data_point(converted_value)
+        return self.get_calculated_data_point(
+            simmer_obj.f, unit_converter=TemperatureConverter
+        )
 
 
 class SimmerZoneCalculator(Calculator):
@@ -360,7 +365,7 @@ class SimmerZoneCalculator(Calculator):
         return self.get_calculated_data_point(rating.zone)
 
 
-class TemperatureCalculator(TemperatureUnitConverter):
+class TemperatureCalculator(BaseTemperatureCalculator):
     """Define a temperature calculator."""
 
     def calculate_from_value(
@@ -381,8 +386,9 @@ class TemperatureCalculator(TemperatureUnitConverter):
                 self._config.input_unit_system,
             )
 
-        converted_value = self.convert_value(TemperatureConverter, temp_obj.f)
-        return self.get_calculated_data_point(converted_value)
+        return self.get_calculated_data_point(
+            temp_obj.f, unit_converter=TemperatureConverter
+        )
 
 
 class ThermalPerceptionCalculator(Calculator):
@@ -408,7 +414,7 @@ class ThermalPerceptionCalculator(Calculator):
         return self.get_calculated_data_point(rating.perception)
 
 
-class WindChillCalculator(TemperatureUnitConverter):
+class WindChillCalculator(BaseTemperatureCalculator):
     """Define a wind chill calculator."""
 
     @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_WINDSPEED)
@@ -432,5 +438,6 @@ class WindChillCalculator(TemperatureUnitConverter):
             )
             return self.get_calculated_data_point(None)
 
-        converted_value = self.convert_value(TemperatureConverter, wind_chill_obj.f)
-        return self.get_calculated_data_point(converted_value)
+        return self.get_calculated_data_point(
+            wind_chill_obj.f, unit_converter=TemperatureConverter
+        )

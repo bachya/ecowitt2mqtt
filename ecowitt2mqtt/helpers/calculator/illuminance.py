@@ -38,8 +38,9 @@ class IlluminanceLuxCalculator(BaseIlluminanceCalculator):
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
         solar_rad = cast(float, payload[DATA_POINT_SOLARRADIATION])
-        converted_value = self.convert_value(IlluminanceConverter, solar_rad)
-        return self.get_calculated_data_point(converted_value)
+        return self.get_calculated_data_point(
+            solar_rad, unit_converter=IlluminanceConverter
+        )
 
 
 class IlluminancePerceivedCalculator(BaseIlluminanceCalculator):
@@ -56,8 +57,9 @@ class IlluminancePerceivedCalculator(BaseIlluminanceCalculator):
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
         solar_rad = cast(float, payload[DATA_POINT_SOLARRADIATION])
-        converted_value = self.convert_value(IlluminanceConverter, solar_rad)
-        return self.get_calculated_data_point(converted_value)
+        return self.get_calculated_data_point(
+            solar_rad, unit_converter=IlluminanceConverter
+        )
 
 
 class IlluminanceWM2Calculator(SimpleCalculator):

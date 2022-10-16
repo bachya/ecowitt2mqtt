@@ -280,5 +280,4 @@ class WindSpeedCalculator(Calculator):
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
         assert isinstance(value, float)
-        converted_value = self.convert_value(SpeedConverter, value)
-        return self.get_calculated_data_point(converted_value)
+        return self.get_calculated_data_point(value, unit_converter=SpeedConverter)

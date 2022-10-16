@@ -83,21 +83,22 @@ class Calculator:
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
 
-    def convert_value(
-        self, unit_converter: type[BaseUnitConverter], value: float
-    ) -> float:
-        """Perform the calculation."""
-        assert self.output_unit
-        return unit_converter.convert(value, self.DEFAULT_INPUT_UNIT, self.output_unit)
-
     def get_calculated_data_point(
         self,
         value: CalculatedValueType,
         *,
+        unit_converter: type[BaseUnitConverter] | None = None,
         attributes: dict[str, Any] | None = None,
         data_type: DataPointType | None = None,
     ) -> CalculatedDataPoint:
         """Get the output unit for this calculation."""
+        if unit_converter:
+            assert self.output_unit
+            assert isinstance(value, float)
+            value = unit_converter.convert(
+                value, self.DEFAULT_INPUT_UNIT, self.output_unit
+            )
+
         data_point = CalculatedDataPoint(
             data_point_key=self._data_point_key, value=value, unit=self.output_unit
         )
