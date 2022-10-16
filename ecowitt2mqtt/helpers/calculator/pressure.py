@@ -1,7 +1,7 @@
 """Define pressure calculators."""
 from __future__ import annotations
 
-from ecowitt2mqtt.const import PRESSURE_HPA, PRESSURE_INHG
+from ecowitt2mqtt.const import CONF_OUTPUT_UNIT_PRESSURE, PRESSURE_HPA, PRESSURE_INHG
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, Calculator
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
 from ecowitt2mqtt.util.unit_conversion import PressureConverter
@@ -11,6 +11,7 @@ class PressureCalculator(Calculator):
     """Define a pressure calculator."""
 
     DEFAULT_INPUT_UNIT = PRESSURE_INHG
+    UNIT_OVERRIDE_CONFIG_OPTION = CONF_OUTPUT_UNIT_PRESSURE
 
     @property
     def output_unit_imperial(self) -> str:

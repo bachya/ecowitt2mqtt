@@ -500,6 +500,20 @@ Config Option: `--output-unit-precipitation-rate`
 * `in/h`
 * `mm/h`
 
+#### Pressure
+
+Config Option: `--output-unit-pressure`
+
+* `bar`
+* `cbar`
+* `hPa`
+* `inHg`
+* `kPa`
+* `mbar`
+* `mmHg`
+* `Pa`
+* `psi`
+
 #### Temperature
 
 Config Option: `--output-unit-temperature`
