@@ -70,7 +70,10 @@ class Calculator:
     @property
     def output_unit(self) -> str | None:
         """Get the output unit of measurement for this calculation."""
-        if override := cast(Union[str, None], getattr(self._config, str(self.UNIT_OVERRIDE_CONFIG_OPTION))):
+        if override := cast(
+            Union[str, None],
+            getattr(self._config, str(self.UNIT_OVERRIDE_CONFIG_OPTION))
+        ):
             return override
         if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
             return self.output_unit_imperial
