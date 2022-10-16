@@ -71,7 +71,7 @@ class Calculator:
     def output_unit(self) -> str | None:
         """Get the output unit of measurement for this calculation."""
         if override := getattr(
-            self_config, self.UNIT_OVERRIDE_CONFIG_OPTION, None
+            self._config, self.UNIT_OVERRIDE_CONFIG_OPTION, None
         ):
             return override
         if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
