@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 from ecowitt2mqtt.const import (
+    CONF_OUTPUT_UNIT_ACCUMULATED_PRECIPITATION,
+    CONF_OUTPUT_UNIT_PRECIPITATION_RATE,
     PRECIPITATION_INCHES,
     PRECIPITATION_INCHES_PER_HOUR,
     PRECIPITATION_MILLIMETERS,
@@ -19,6 +21,7 @@ class AccumulatedPrecipitationCalculator(Calculator):
     """Define a rain volume calculator."""
 
     DEFAULT_INPUT_UNIT = PRECIPITATION_INCHES
+    UNIT_OVERRIDE_CONFIG_OPTION = CONF_OUTPUT_UNIT_ACCUMULATED_PRECIPITATION
 
     @property
     def output_unit_imperial(self) -> str:
@@ -44,6 +47,7 @@ class PrecipitationRateCalculator(Calculator):
     """Define a rain rate calculator."""
 
     DEFAULT_INPUT_UNIT = PRECIPITATION_INCHES_PER_HOUR
+    UNIT_OVERRIDE_CONFIG_OPTION = CONF_OUTPUT_UNIT_PRECIPITATION_RATE
 
     @property
     def output_unit_imperial(self) -> str:

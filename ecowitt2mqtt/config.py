@@ -26,9 +26,11 @@ from ecowitt2mqtt.const import (
     CONF_MQTT_TLS,
     CONF_MQTT_TOPIC,
     CONF_MQTT_USERNAME,
+    CONF_OUTPUT_UNIT_ACCUMULATED_PRECIPITATION,
     CONF_OUTPUT_UNIT_DISTANCE,
     CONF_OUTPUT_UNIT_HUMIDITY,
     CONF_OUTPUT_UNIT_ILLUMINANCE,
+    CONF_OUTPUT_UNIT_PRECIPITATION_RATE,
     CONF_OUTPUT_UNIT_SYSTEM,
     CONF_OUTPUT_UNIT_TEMPERATURE,
     CONF_PORT,
@@ -46,8 +48,10 @@ from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 import ecowitt2mqtt.helpers.config_validation as cv
 from ecowitt2mqtt.helpers.typing import UnitSystemType
 from ecowitt2mqtt.util.unit_conversion import (
+    AccumulatedPrecipitationConverter,
     DistanceConverter,
     IlluminanceConverter,
+    PrecipitationRateConverter,
     TemperatureConverter,
     VolumeConverter,
 )
@@ -100,6 +104,9 @@ CONFIG_SCHEMA = vol.All(
             vol.Optional(
                 CONF_OUTPUT_UNIT_SYSTEM, default=UNIT_SYSTEM_IMPERIAL
             ): cv.unit_system,
+            vol.Optional(CONF_OUTPUT_UNIT_ACCUMULATED_PRECIPITATION): vol.All(
+                str, vol.In(AccumulatedPrecipitationConverter.VALID_UNITS)
+            ),
             vol.Optional(CONF_OUTPUT_UNIT_DISTANCE): vol.All(
                 str, vol.In(DistanceConverter.VALID_UNITS)
             ),
@@ -108,6 +115,9 @@ CONFIG_SCHEMA = vol.All(
             ),
             vol.Optional(CONF_OUTPUT_UNIT_ILLUMINANCE): vol.All(
                 str, vol.In(IlluminanceConverter.VALID_UNITS)
+            ),
+            vol.Optional(CONF_OUTPUT_UNIT_PRECIPITATION_RATE): vol.All(
+                str, vol.In(PrecipitationRateConverter.VALID_UNITS)
             ),
             vol.Optional(CONF_OUTPUT_UNIT_TEMPERATURE): vol.All(
                 str, vol.In(TemperatureConverter.VALID_UNITS)
@@ -258,6 +268,11 @@ class Config:  # pylint: disable=too-many-public-methods
         return cast(UnitSystemType, self._config[CONF_OUTPUT_UNIT_SYSTEM])
 
     @property
+    def output_unit_accumulated_precipitation(self) -> str | None:
+        """Return the output unit for accumulated precipitation."""
+        return self._config.get(CONF_OUTPUT_UNIT_ACCUMULATED_PRECIPITATION)
+
+    @property
     def output_unit_distance(self) -> str | None:
         """Return the output unit for distance."""
         return self._config.get(CONF_OUTPUT_UNIT_DISTANCE)
@@ -271,6 +286,11 @@ class Config:  # pylint: disable=too-many-public-methods
     def output_unit_illuminance(self) -> str | None:
         """Return the output unit for illuminance."""
         return self._config.get(CONF_OUTPUT_UNIT_ILLUMINANCE)
+
+    @property
+    def output_unit_precipitation_rate(self) -> str | None:
+        """Return the output unit for precipitation rate."""
+        return self._config.get(CONF_OUTPUT_UNIT_PRECIPITATION_RATE)
 
     @property
     def output_unit_temperature(self) -> str | None:
