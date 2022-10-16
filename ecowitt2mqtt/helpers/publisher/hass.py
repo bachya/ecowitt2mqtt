@@ -59,7 +59,6 @@ from ecowitt2mqtt.const import (
     DATA_POINT_SIMMER_INDEX,
     DATA_POINT_SIMMER_ZONE,
     DATA_POINT_SOLARRADIATION,
-    DATA_POINT_SOLARRADIATION_LUX,
     DATA_POINT_SOLARRADIATION_PERCEIVED,
     DATA_POINT_TF_CO2,
     DATA_POINT_THERMAL_PERCEPTION,
@@ -318,10 +317,6 @@ ENTITY_DESCRIPTIONS = {
         icon="mdi:heat-wave",
     ),
     DATA_POINT_SOLARRADIATION: EntityDescription(
-        device_class=DeviceClass.ILLUMINANCE,
-        state_class=StateClass.MEASUREMENT,
-    ),
-    DATA_POINT_SOLARRADIATION_LUX: EntityDescription(
         device_class=DeviceClass.ILLUMINANCE,
         state_class=StateClass.MEASUREMENT,
     ),

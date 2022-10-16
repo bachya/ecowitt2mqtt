@@ -93,7 +93,6 @@ DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6: Final = "safe_exposure_time_skin_type
 DATA_POINT_SIMMER_INDEX: Final = "simmerindex"
 DATA_POINT_SIMMER_ZONE: Final = "simmerzone"
 DATA_POINT_SOLARRADIATION: Final = "solarradiation"
-DATA_POINT_SOLARRADIATION_LUX: Final = "solarradiation_lux"
 DATA_POINT_SOLARRADIATION_PERCEIVED: Final = "solarradiation_perceived"
 DATA_POINT_TEMP: Final = "temp"
 DATA_POINT_TF_CO2: Final = "tf_co2"
