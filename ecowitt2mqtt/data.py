@@ -48,7 +48,6 @@ from ecowitt2mqtt.const import (
     DATA_POINT_SIMMER_INDEX,
     DATA_POINT_SIMMER_ZONE,
     DATA_POINT_SOLARRADIATION,
-    DATA_POINT_SOLARRADIATION_LUX,
     DATA_POINT_SOLARRADIATION_PERCEIVED,
     DATA_POINT_TF_CO2,
     DATA_POINT_THERMAL_PERCEPTION,
@@ -67,9 +66,8 @@ from ecowitt2mqtt.helpers.calculator.humidity import (
     RelativeHumidityCalculator,
 )
 from ecowitt2mqtt.helpers.calculator.illuminance import (
-    IlluminanceLuxCalculator,
+    IlluminanceCalculator,
     IlluminancePerceivedCalculator,
-    IlluminanceWM2Calculator,
 )
 from ecowitt2mqtt.helpers.calculator.leak import LeakCalculator
 from ecowitt2mqtt.helpers.calculator.lightning import (
@@ -147,8 +145,7 @@ CALCULATOR_MAP: dict[str, type[Calculator]] = {
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6: SafeExposureCalculator,
     DATA_POINT_SIMMER_INDEX: SimmerIndexCalculator,
     DATA_POINT_SIMMER_ZONE: SimmerZoneCalculator,
-    DATA_POINT_SOLARRADIATION: IlluminanceWM2Calculator,
-    DATA_POINT_SOLARRADIATION_LUX: IlluminanceLuxCalculator,
+    DATA_POINT_SOLARRADIATION: IlluminanceCalculator,
     DATA_POINT_SOLARRADIATION_PERCEIVED: IlluminancePerceivedCalculator,
     DATA_POINT_TF_CO2: TemperatureCalculator,
     DATA_POINT_THERMAL_PERCEPTION: ThermalPerceptionCalculator,
@@ -256,7 +253,6 @@ class ProcessedData:
             DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6,
             DATA_POINT_SIMMER_INDEX,
             DATA_POINT_SIMMER_ZONE,
-            DATA_POINT_SOLARRADIATION_LUX,
             DATA_POINT_SOLARRADIATION_PERCEIVED,
             DATA_POINT_THERMAL_PERCEPTION,
             DATA_POINT_WINDCHILL,
