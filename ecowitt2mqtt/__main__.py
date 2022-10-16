@@ -201,7 +201,7 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
         "--config",
         dest=CONF_CONFIG,
         help="A path to a YAML or JSON config file",
-        metavar="config",
+        metavar=CONF_CONFIG,
     )
     parser.add_argument(
         "--default-battery-strategy",
@@ -210,19 +210,19 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
             "The default battery config strategy to use "
             f"(default: {BatteryStrategy.BOOLEAN})"
         ),
-        metavar="default_battery_strategy",
+        metavar=CONF_DEFAULT_BATTERY_STRATEGY,
     )
     parser.add_argument(
         "--diagnostics",
         action="store_true",
         dest=CONF_DIAGNOSTICS,
-        help="Output diagnostics",
+        help=CONF_DIAGNOSTICS,
     )
     parser.add_argument(
         "--disable-calculated-data",
         action="store_true",
         dest=CONF_DISABLE_CALCULATED_DATA,
-        help="Disable the output of calculated sensors",
+        help=CONF_DISABLE_CALCULATED_DATA,
     )
     parser.add_argument(
         "-e",
@@ -232,7 +232,7 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
             "The relative endpoint/path to serve ecowitt2mqtt on "
             f"(default: {DEFAULT_ENDPOINT})"
         ),
-        metavar="endpoint",
+        metavar=CONF_ENDPOINT,
     )
     parser.add_argument(
         "--hass-discovery",
@@ -247,13 +247,13 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
             "The Home Assistant MQTT Discovery topic prefix to use "
             f"(default: {DEFAULT_HASS_DISCOVERY_PREFIX})"
         ),
-        metavar="hass_discovery_prefix",
+        metavar=CONF_HASS_DISCOVERY_PREFIX,
     )
     parser.add_argument(
         "--hass-entity-id-prefix",
         dest=CONF_HASS_ENTITY_ID_PREFIX,
         help="The prefix to use for Home Assistant entity IDs",
-        metavar="hass_entity_id_prefix",
+        metavar=CONF_HASS_ENTITY_ID_PREFIX,
     )
     parser.add_argument(
         "--input-unit-system",
@@ -262,27 +262,27 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
             "The input unit system used by the gateway "
             f"(default: {UNIT_SYSTEM_IMPERIAL})"
         ),
-        metavar="input_unit_system",
+        metavar=CONF_INPUT_UNIT_SYSTEM,
     )
     parser.add_argument(
         "-b",
         "--mqtt-broker",
         dest=CONF_MQTT_BROKER,
         help="The hostname or IP address of an MQTT broker",
-        metavar="mqtt_broker",
+        metavar=CONF_MQTT_BROKER,
     )
     parser.add_argument(
         "-p",
         "--mqtt-password",
         dest=CONF_MQTT_PASSWORD,
         help="A valid password for the MQTT broker",
-        metavar="mqtt_password",
+        metavar=CONF_MQTT_PASSWORD,
     )
     parser.add_argument(
         "--mqtt-port",
         dest=CONF_MQTT_PORT,
         help=f"The listenting port of the MQTT broker (default: {DEFAULT_MQTT_PORT})",
-        metavar="mqtt_port",
+        metavar=CONF_MQTT_PORT,
     )
     parser.add_argument(
         "--mqtt-retain",
@@ -301,14 +301,14 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
         "--mqtt-topic",
         dest=CONF_MQTT_TOPIC,
         help="The MQTT topic to publish device data to",
-        metavar="mqtt_topic",
+        metavar=CONF_MQTT_TOPIC,
     )
     parser.add_argument(
         "-u",
         "--mqtt-username",
         dest=CONF_MQTT_USERNAME,
         help="A valid username for the MQTT broker",
-        metavar="mqtt_username",
+        metavar=CONF_MQTT_USERNAME,
     )
     parser.add_argument(
         "--output-unit-system",
@@ -317,7 +317,7 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
             "The output unit system used by the gateway "
             f"(default: {UNIT_SYSTEM_IMPERIAL})"
         ),
-        metavar="output_unit_system",
+        metavar=CONF_OUTPUT_UNIT_SYSTEM,
     )
     parser.add_argument(
         "--output-unit-humidity",
@@ -326,7 +326,7 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
             "The output unit to use for humidity data points "
             "(default: the default used by the output unit system)"
         ),
-        metavar="output_unit_humidity",
+        metavar=CONF_OUTPUT_UNIT_HUMIDITY,
     )
     parser.add_argument(
         "--output-unit-temperature",
@@ -335,13 +335,13 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
             "The output unit to use for temperature data points "
             "(default: the default used by the output unit system)"
         ),
-        metavar="output_unit_temperature",
+        metavar=CONF_OUTPUT_UNIT_TEMPERATURE,
     )
     parser.add_argument(
         "--port",
         dest=CONF_PORT,
         help=f"The port to serve ecowitt2mqtt on (default: {DEFAULT_PORT})",
-        metavar="port",
+        metavar=CONF_PORT,
     )
     parser.add_argument(
         "--raw-data",
