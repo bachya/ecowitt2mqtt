@@ -27,6 +27,7 @@ from ecowitt2mqtt.const import (
     CONF_MQTT_TLS,
     CONF_MQTT_TOPIC,
     CONF_MQTT_USERNAME,
+    CONF_OUTPUT_UNIT_HUMIDITY,
     CONF_OUTPUT_UNIT_SYSTEM,
     CONF_OUTPUT_UNIT_TEMPERATURE,
     CONF_PORT,
@@ -53,6 +54,7 @@ from ecowitt2mqtt.const import (
     ENV_MQTT_TLS,
     ENV_MQTT_TOPIC,
     ENV_MQTT_USERNAME,
+    ENV_OUTPUT_UNIT_HUMIDITY,
     ENV_OUTPUT_UNIT_SYSTEM,
     ENV_OUTPUT_UNIT_TEMPERATURE,
     ENV_PORT,
@@ -115,6 +117,7 @@ ENV_VAR_TO_CONF_MAP = {
     ENV_MQTT_TOPIC: CONF_MQTT_TOPIC,
     ENV_MQTT_USERNAME: CONF_MQTT_USERNAME,
     ENV_OUTPUT_UNIT_SYSTEM: CONF_OUTPUT_UNIT_SYSTEM,
+    ENV_OUTPUT_UNIT_HUMIDITY: CONF_OUTPUT_UNIT_HUMIDITY,
     ENV_OUTPUT_UNIT_TEMPERATURE: CONF_OUTPUT_UNIT_TEMPERATURE,
     ENV_PORT: CONF_PORT,
     ENV_RAW_DATA: CONF_RAW_DATA,
@@ -315,6 +318,15 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
             f"(default: {UNIT_SYSTEM_IMPERIAL})"
         ),
         metavar="output_unit_system",
+    )
+    parser.add_argument(
+        "--output-unit-humidity",
+        dest=CONF_OUTPUT_UNIT_HUMIDITY,
+        help=(
+            "The output unit to use for humidity data points "
+            "(default: the default used by the output unit system)"
+        ),
+        metavar="output_unit_humidity",
     )
     parser.add_argument(
         "--output-unit-temperature",

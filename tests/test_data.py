@@ -10,6 +10,7 @@ from ecowitt2mqtt.const import (
     CONF_DEFAULT_BATTERY_STRATEGY,
     CONF_DISABLE_CALCULATED_DATA,
     CONF_INPUT_UNIT_SYSTEM,
+    CONF_OUTPUT_UNIT_HUMIDITY,
     CONF_OUTPUT_UNIT_SYSTEM,
     CONF_OUTPUT_UNIT_TEMPERATURE,
     DEGREE,
@@ -1757,6 +1758,7 @@ def test_nonnumeric_value(device_data, ecowitt):
     [
         {
             **TEST_CONFIG_JSON,
+            CONF_OUTPUT_UNIT_HUMIDITY: VOLUME_GRAMS_PER_CUBIC_METER,
             CONF_OUTPUT_UNIT_TEMPERATURE: TEMP_CELSIUS,
         }
     ],
@@ -2054,15 +2056,15 @@ def test_output_units(device_data, ecowitt):
         ),
         "humidityabs": CalculatedDataPoint(
             data_point_key="humidityabs",
-            value=0.001501643470436062,
-            unit=VOLUME_POUNDS_PER_CUBIC_FOOT,
+            value=24.054020931926463,
+            unit=VOLUME_GRAMS_PER_CUBIC_METER,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "humidityabsin": CalculatedDataPoint(
             data_point_key="humidityabsin",
-            value=0.001501643470436062,
-            unit=VOLUME_POUNDS_PER_CUBIC_FOOT,
+            value=24.054020931926463,
+            unit=VOLUME_GRAMS_PER_CUBIC_METER,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
