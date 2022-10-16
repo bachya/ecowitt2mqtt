@@ -26,6 +26,7 @@ from ecowitt2mqtt.const import (
     CONF_MQTT_TLS,
     CONF_MQTT_TOPIC,
     CONF_MQTT_USERNAME,
+    CONF_OUTPUT_UNIT_DISTANCE,
     CONF_OUTPUT_UNIT_HUMIDITY,
     CONF_OUTPUT_UNIT_ILLUMINANCE,
     CONF_OUTPUT_UNIT_SYSTEM,
@@ -45,6 +46,7 @@ from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 import ecowitt2mqtt.helpers.config_validation as cv
 from ecowitt2mqtt.helpers.typing import UnitSystemType
 from ecowitt2mqtt.util.unit_conversion import (
+    DistanceConverter,
     IlluminanceConverter,
     TemperatureConverter,
     VolumeConverter,
@@ -98,6 +100,9 @@ CONFIG_SCHEMA = vol.All(
             vol.Optional(
                 CONF_OUTPUT_UNIT_SYSTEM, default=UNIT_SYSTEM_IMPERIAL
             ): cv.unit_system,
+            vol.Optional(CONF_OUTPUT_UNIT_DISTANCE): vol.All(
+                str, vol.In(DistanceConverter.VALID_UNITS)
+            ),
             vol.Optional(CONF_OUTPUT_UNIT_HUMIDITY): vol.All(
                 str, vol.In(VolumeConverter.VALID_UNITS)
             ),
@@ -251,6 +256,11 @@ class Config:  # pylint: disable=too-many-public-methods
     def output_unit_system(self) -> UnitSystemType:
         """Return the output unit system."""
         return cast(UnitSystemType, self._config[CONF_OUTPUT_UNIT_SYSTEM])
+
+    @property
+    def output_unit_distance(self) -> str | None:
+        """Return the output unit for distance."""
+        return self._config.get(CONF_OUTPUT_UNIT_DISTANCE)
 
     @property
     def output_unit_humidity(self) -> str | None:

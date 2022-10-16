@@ -10,6 +10,7 @@ from ecowitt2mqtt.const import (
     CONF_DEFAULT_BATTERY_STRATEGY,
     CONF_DISABLE_CALCULATED_DATA,
     CONF_INPUT_UNIT_SYSTEM,
+    CONF_OUTPUT_UNIT_DISTANCE,
     CONF_OUTPUT_UNIT_HUMIDITY,
     CONF_OUTPUT_UNIT_ILLUMINANCE,
     CONF_OUTPUT_UNIT_SYSTEM,
@@ -1745,6 +1746,7 @@ def test_nonnumeric_value(device_data, ecowitt):
     [
         {
             **TEST_CONFIG_JSON,
+            CONF_OUTPUT_UNIT_DISTANCE: LENGTH_KILOMETERS,
             CONF_OUTPUT_UNIT_HUMIDITY: VOLUME_GRAMS_PER_CUBIC_METER,
             CONF_OUTPUT_UNIT_ILLUMINANCE: ILLUMINANCE_LUX,
             CONF_OUTPUT_UNIT_TEMPERATURE: TEMP_CELSIUS,
@@ -1991,8 +1993,8 @@ def test_output_units(device_data, ecowitt):
         ),
         "lightning": CalculatedDataPoint(
             "lightning",
-            0.6213711922373341,
-            unit=LENGTH_MILES,
+            1.0,
+            unit=LENGTH_KILOMETERS,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),

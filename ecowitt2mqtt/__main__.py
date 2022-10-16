@@ -27,6 +27,7 @@ from ecowitt2mqtt.const import (
     CONF_MQTT_TLS,
     CONF_MQTT_TOPIC,
     CONF_MQTT_USERNAME,
+    CONF_OUTPUT_UNIT_DISTANCE,
     CONF_OUTPUT_UNIT_HUMIDITY,
     CONF_OUTPUT_UNIT_ILLUMINANCE,
     CONF_OUTPUT_UNIT_SYSTEM,
@@ -55,6 +56,7 @@ from ecowitt2mqtt.const import (
     ENV_MQTT_TLS,
     ENV_MQTT_TOPIC,
     ENV_MQTT_USERNAME,
+    ENV_OUTPUT_UNIT_DISTANCE,
     ENV_OUTPUT_UNIT_HUMIDITY,
     ENV_OUTPUT_UNIT_ILLUMINANCE,
     ENV_OUTPUT_UNIT_SYSTEM,
@@ -119,6 +121,7 @@ ENV_VAR_TO_CONF_MAP = {
     ENV_MQTT_TOPIC: CONF_MQTT_TOPIC,
     ENV_MQTT_USERNAME: CONF_MQTT_USERNAME,
     ENV_OUTPUT_UNIT_SYSTEM: CONF_OUTPUT_UNIT_SYSTEM,
+    ENV_OUTPUT_UNIT_DISTANCE: CONF_OUTPUT_UNIT_DISTANCE,
     ENV_OUTPUT_UNIT_HUMIDITY: CONF_OUTPUT_UNIT_HUMIDITY,
     ENV_OUTPUT_UNIT_ILLUMINANCE: CONF_OUTPUT_UNIT_ILLUMINANCE,
     ENV_OUTPUT_UNIT_TEMPERATURE: CONF_OUTPUT_UNIT_TEMPERATURE,
@@ -321,6 +324,15 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
             f"(default: {UNIT_SYSTEM_IMPERIAL})"
         ),
         metavar=CONF_OUTPUT_UNIT_SYSTEM,
+    )
+    parser.add_argument(
+        "--output-unit-distance",
+        dest=CONF_OUTPUT_UNIT_DISTANCE,
+        help=(
+            "The output unit to use for distance data points "
+            "(default: the default used by the output unit system)"
+        ),
+        metavar=CONF_OUTPUT_UNIT_DISTANCE,
     )
     parser.add_argument(
         "--output-unit-humidity",
