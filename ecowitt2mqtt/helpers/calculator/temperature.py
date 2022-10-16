@@ -6,6 +6,7 @@ from typing import cast
 
 from ecowitt2mqtt.backports.enum import StrEnum
 from ecowitt2mqtt.const import (
+    CONF_OUTPUT_UNIT_TEMPERATURE,
     DATA_POINT_HUMIDITY,
     DATA_POINT_TEMP,
     DATA_POINT_WINDSPEED,
@@ -178,13 +179,7 @@ class BaseTemperatureCalculator(Calculator):
     """Define a base temperature calculator."""
 
     DEFAULT_INPUT_UNIT = TEMP_FAHRENHEIT
-
-    @property
-    def output_unit(self) -> str | None:
-        """Get the output unit of measurement for this calculation."""
-        if self._config.output_unit_temperature:
-            return self._config.output_unit_temperature
-        return super().output_unit
+    UNIT_OVERRIDE_CONFIG_OPTION = CONF_OUTPUT_UNIT_TEMPERATURE
 
     @property
     def output_unit_imperial(self) -> str:
