@@ -502,7 +502,7 @@ Config Option: `--output-unit-precipitation-rate`
 
 #### Temperature
 
-Config Option: `--output-unit-temperatue`
+Config Option: `--output-unit-temperature`
 
 * `°C`
 * `°F`
