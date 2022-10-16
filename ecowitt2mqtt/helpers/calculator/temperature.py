@@ -180,6 +180,13 @@ class BaseTemperatureCalculator(Calculator):
     DEFAULT_INPUT_UNIT = TEMP_FAHRENHEIT
 
     @property
+    def output_unit(self) -> str | None:
+        """Get the output unit of measurement for this calculation."""
+        if self._config.output_unit_temperature:
+            return self._config.output_unit_temperature
+        return super().output_unit
+
+    @property
     def output_unit_imperial(self) -> str:
         """Get the default unit (imperial)."""
         return TEMP_FAHRENHEIT
