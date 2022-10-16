@@ -72,7 +72,7 @@ class Calculator:
         """Get the output unit of measurement for this calculation."""
         if override := cast(
             Union[str, None],
-            getattr(self._config, str(self.UNIT_OVERRIDE_CONFIG_OPTION))
+            getattr(self._config, str(self.UNIT_OVERRIDE_CONFIG_OPTION)),
         ):
             return override
         if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
