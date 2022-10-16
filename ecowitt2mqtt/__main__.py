@@ -28,6 +28,7 @@ from ecowitt2mqtt.const import (
     CONF_MQTT_TOPIC,
     CONF_MQTT_USERNAME,
     CONF_OUTPUT_UNIT_HUMIDITY,
+    CONF_OUTPUT_UNIT_ILLUMINANCE,
     CONF_OUTPUT_UNIT_SYSTEM,
     CONF_OUTPUT_UNIT_TEMPERATURE,
     CONF_PORT,
@@ -55,6 +56,7 @@ from ecowitt2mqtt.const import (
     ENV_MQTT_TOPIC,
     ENV_MQTT_USERNAME,
     ENV_OUTPUT_UNIT_HUMIDITY,
+    ENV_OUTPUT_UNIT_ILLUMINANCE,
     ENV_OUTPUT_UNIT_SYSTEM,
     ENV_OUTPUT_UNIT_TEMPERATURE,
     ENV_PORT,
@@ -118,6 +120,7 @@ ENV_VAR_TO_CONF_MAP = {
     ENV_MQTT_USERNAME: CONF_MQTT_USERNAME,
     ENV_OUTPUT_UNIT_SYSTEM: CONF_OUTPUT_UNIT_SYSTEM,
     ENV_OUTPUT_UNIT_HUMIDITY: CONF_OUTPUT_UNIT_HUMIDITY,
+    ENV_OUTPUT_UNIT_ILLUMINANCE: CONF_OUTPUT_UNIT_ILLUMINANCE,
     ENV_OUTPUT_UNIT_TEMPERATURE: CONF_OUTPUT_UNIT_TEMPERATURE,
     ENV_PORT: CONF_PORT,
     ENV_RAW_DATA: CONF_RAW_DATA,
@@ -327,6 +330,15 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
             "(default: the default used by the output unit system)"
         ),
         metavar=CONF_OUTPUT_UNIT_HUMIDITY,
+    )
+    parser.add_argument(
+        "--output-unit-illuminance",
+        dest=CONF_OUTPUT_UNIT_ILLUMINANCE,
+        help=(
+            "The output unit to use for illuminance data points "
+            "(default: the default used by the output unit system)"
+        ),
+        metavar=CONF_OUTPUT_UNIT_ILLUMINANCE,
     )
     parser.add_argument(
         "--output-unit-temperature",

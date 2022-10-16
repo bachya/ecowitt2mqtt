@@ -11,6 +11,7 @@ from ecowitt2mqtt.const import (
     CONF_DISABLE_CALCULATED_DATA,
     CONF_INPUT_UNIT_SYSTEM,
     CONF_OUTPUT_UNIT_HUMIDITY,
+    CONF_OUTPUT_UNIT_ILLUMINANCE,
     CONF_OUTPUT_UNIT_SYSTEM,
     CONF_OUTPUT_UNIT_TEMPERATURE,
     DEGREE,
@@ -1745,6 +1746,7 @@ def test_nonnumeric_value(device_data, ecowitt):
         {
             **TEST_CONFIG_JSON,
             CONF_OUTPUT_UNIT_HUMIDITY: VOLUME_GRAMS_PER_CUBIC_METER,
+            CONF_OUTPUT_UNIT_ILLUMINANCE: ILLUMINANCE_LUX,
             CONF_OUTPUT_UNIT_TEMPERATURE: TEMP_CELSIUS,
         }
     ],
@@ -1832,8 +1834,8 @@ def test_output_units(device_data, ecowitt):
         ),
         "solarradiation": CalculatedDataPoint(
             "solarradiation",
-            264.61,
-            unit=ILLUMINANCE_WATTS_PER_SQUARE_METER,
+            33494.93670886076,
+            unit=ILLUMINANCE_LUX,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),

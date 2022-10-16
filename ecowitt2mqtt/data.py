@@ -67,7 +67,7 @@ from ecowitt2mqtt.helpers.calculator.humidity import (
 )
 from ecowitt2mqtt.helpers.calculator.illuminance import (
     IlluminanceCalculator,
-    IlluminancePerceivedCalculator,
+    PerceivedIlluminanceCalculator,
 )
 from ecowitt2mqtt.helpers.calculator.leak import LeakCalculator
 from ecowitt2mqtt.helpers.calculator.lightning import (
@@ -146,7 +146,7 @@ CALCULATOR_MAP: dict[str, type[Calculator]] = {
     DATA_POINT_SIMMER_INDEX: SimmerIndexCalculator,
     DATA_POINT_SIMMER_ZONE: SimmerZoneCalculator,
     DATA_POINT_SOLARRADIATION: IlluminanceCalculator,
-    DATA_POINT_SOLARRADIATION_PERCEIVED: IlluminancePerceivedCalculator,
+    DATA_POINT_SOLARRADIATION_PERCEIVED: PerceivedIlluminanceCalculator,
     DATA_POINT_TF_CO2: TemperatureCalculator,
     DATA_POINT_THERMAL_PERCEPTION: ThermalPerceptionCalculator,
     DATA_POINT_UV: UVIndexCalculator,
