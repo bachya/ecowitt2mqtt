@@ -469,6 +469,13 @@ temperature data points in Kelvin – you would provide `--output-unit-system=me
 `--output-unit-temperature=K` as config options. As expected, the value is properly
 converted to the new unit.
 
+#### Accumulated Precipitation
+
+Config Option: `--output-unit-accumulated-precipitation`
+
+* `in`
+* `mm`
+
 #### Absolute Humidity
 
 Config Option: `--output-unit-humidity`
@@ -485,6 +492,13 @@ Config Option: `--output-unit-illuminance`
 * `klx`
 * `lx`
 * `W/m²`
+
+#### Precipitation Rate
+
+Config Option: `--output-unit-precipitation-rate`
+
+* `in/h`
+* `mm/h`
 
 #### Temperature
 
