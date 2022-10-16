@@ -49,7 +49,7 @@ class Calculator:
     """Define a calculator."""
 
     DEFAULT_INPUT_UNIT: str
-    UNIT_OVERRIDE_CONFIG_OPTION: str = ""
+    UNIT_OVERRIDE_CONFIG_OPTION: str | None = None
 
     def __init__(self, config: Config, payload_key: str, data_point_key: str) -> None:
         """Initialize."""
@@ -70,7 +70,7 @@ class Calculator:
     @property
     def output_unit(self) -> str | None:
         """Get the output unit of measurement for this calculation."""
-        if override := getattr(self._config, self.UNIT_OVERRIDE_CONFIG_OPTION, None):
+        if override := getattr(self._config, str(self.UNIT_OVERRIDE_CONFIG_OPTION)):
             return override
         if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
             return self.output_unit_imperial
