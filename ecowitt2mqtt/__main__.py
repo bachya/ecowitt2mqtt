@@ -32,6 +32,7 @@ from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_HUMIDITY,
     CONF_OUTPUT_UNIT_ILLUMINANCE,
     CONF_OUTPUT_UNIT_PRECIPITATION_RATE,
+    CONF_OUTPUT_UNIT_PRESSURE,
     CONF_OUTPUT_UNIT_SYSTEM,
     CONF_OUTPUT_UNIT_TEMPERATURE,
     CONF_PORT,
@@ -63,6 +64,7 @@ from ecowitt2mqtt.const import (
     ENV_OUTPUT_UNIT_HUMIDITY,
     ENV_OUTPUT_UNIT_ILLUMINANCE,
     ENV_OUTPUT_UNIT_PRECIPITATION_RATE,
+    ENV_OUTPUT_UNIT_PRESSURE,
     ENV_OUTPUT_UNIT_SYSTEM,
     ENV_OUTPUT_UNIT_TEMPERATURE,
     ENV_PORT,
@@ -131,6 +133,7 @@ ENV_VAR_TO_CONF_MAP = {
     ENV_OUTPUT_UNIT_HUMIDITY: CONF_OUTPUT_UNIT_HUMIDITY,
     ENV_OUTPUT_UNIT_ILLUMINANCE: CONF_OUTPUT_UNIT_ILLUMINANCE,
     ENV_OUTPUT_UNIT_PRECIPITATION_RATE: CONF_OUTPUT_UNIT_PRECIPITATION_RATE,
+    ENV_OUTPUT_UNIT_PRESSURE: CONF_OUTPUT_UNIT_PRESSURE,
     ENV_OUTPUT_UNIT_SYSTEM: CONF_OUTPUT_UNIT_SYSTEM,
     ENV_OUTPUT_UNIT_TEMPERATURE: CONF_OUTPUT_UNIT_TEMPERATURE,
     ENV_PORT: CONF_PORT,
@@ -377,6 +380,15 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
             "(default: the default used by the output unit system)"
         ),
         metavar=CONF_OUTPUT_UNIT_PRECIPITATION_RATE,
+    )
+    parser.add_argument(
+        "--output-unit-pressure",
+        dest=CONF_OUTPUT_UNIT_PRESSURE,
+        help=(
+            "The output unit to use for pressure data points "
+            "(default: the default used by the output unit system)"
+        ),
+        metavar=CONF_OUTPUT_UNIT_PRESSURE,
     )
     parser.add_argument(
         "--output-unit-temperature",
