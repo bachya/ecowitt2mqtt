@@ -207,18 +207,18 @@ class IlluminanceConverter(BaseUnitConverter):
     }
 
     @classmethod
-    def convert_to_percentage(cls, value: float, from_unit: str) -> float:
-        """Convert an illuminance into a percentage of human-perceived brightness."""
-        lux = cls.convert(value, from_unit, ILLUMINANCE_LUX)
+    def convert(cls, value: float, from_unit: str, to_unit: str) -> float:
+        """Convert one unit of measurement to another."""
+        if to_unit == PERCENTAGE:
+            lux = cls.convert(value, from_unit, ILLUMINANCE_LUX)
+            try:
+                return round(math.log10(lux) / 5, 2) * 100
+            except ValueError:
+                # If we've approached negative infinity, we'll get a math domain error;
+                # in that case, return 0.0:
+                return 0.0
 
-        try:
-            value = round(math.log10(lux) / 5, 2) * 100
-        except ValueError:
-            # If we've approached negative infinity, we'll get a math domain error; in
-            # that case, return 0.0:
-            value = 0.0
-
-        return value
+        return super().convert(value, from_unit, to_unit)
 
 
 class PrecipitationRateConverter(BaseUnitConverter):
