@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import cast
 
 from ecowitt2mqtt.const import (
+    CONF_OUTPUT_UNIT_HUMIDITY,
     DATA_POINT_HUMIDITY,
     DATA_POINT_TEMP,
     PERCENTAGE,
@@ -27,6 +28,7 @@ class AbsoluteHumidityCalculator(Calculator):
     """Define an absolute humidity calculator."""
 
     DEFAULT_INPUT_UNIT = VOLUME_GRAMS_PER_CUBIC_METER
+    UNIT_OVERRIDE_CONFIG_OPTION = CONF_OUTPUT_UNIT_HUMIDITY
 
     @property
     def output_unit_imperial(self) -> str:

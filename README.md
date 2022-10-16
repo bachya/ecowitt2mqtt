@@ -469,6 +469,13 @@ temperature data points in Kelvin – you would provide `--output-unit-system=me
 `--output-unit-temperature=K` as config options. As expected, the value is properly
 converted to the new unit.
 
+#### Absolute Humidity
+
+Config Option: `--output-unit-humidity`
+
+* `g/m³`
+* `lbs/ft³`
+
 #### Temperature
 
 Config Option: `--output-unit-temperatue`
