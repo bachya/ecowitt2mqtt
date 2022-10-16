@@ -92,9 +92,9 @@ CONFIG_SCHEMA = vol.All(
             vol.Optional(
                 CONF_OUTPUT_UNIT_SYSTEM, default=UNIT_SYSTEM_IMPERIAL
             ): cv.unit_system,
-            vol.Optional(
-                CONF_OUTPUT_UNIT_TEMPERATURE
-            ): vol.All(str, vol.In(TemperatureConverter.VALID_UNITS)),
+            vol.Optional(CONF_OUTPUT_UNIT_TEMPERATURE): vol.All(
+                str, vol.In(TemperatureConverter.VALID_UNITS)
+            ),
             vol.Optional(CONF_PORT, default=DEFAULT_PORT): cv.port,
             vol.Optional(CONF_RAW_DATA, default=False): cv.boolean,
             vol.Optional(CONF_VERBOSE, default=False): cv.boolean,
