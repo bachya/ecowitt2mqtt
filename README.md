@@ -461,14 +461,15 @@ via the `--input-unit-system` and `--output-unit-system` config options, respect
 These are fairly self-explanatory, but take care to use an `--input-unit-system` that is
 consistent with what your device provides (otherwise, your data will be very "off").
 
-### Overriding Units for Data Point Categories
+### Overriding Units for Data Categories
 
-If you wish, you can change the unit (and the underlying value) for individual data
-point categories. For example, let's say you wanted the use metric for the output unit
-system, but wanted to represent all temperature data points in Kelvin – you would
-provide `--output-unit-system=metric` and `--output-unit-temperature=K` as config options.
+If you wish, you can change the unit for individual data categories. For example, let's
+say you wanted to use metric for the output unit system, but wanted to represent all
+temperature data points in Kelvin – you would provide `--output-unit-system=metric` and
+`--output-unit-temperature=K` as config options. As expected, the value is properly
+converted to the new unit.
 
-Here is a comprehensive list of the units you can use:
+Here is a comprehensive list of the units you can specify:
 
 * Temperature (specified via the `--output-unit-temperature` config option)
     * `°C`
