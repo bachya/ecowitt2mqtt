@@ -56,9 +56,7 @@ class IlluminancePerceivedCalculator(BaseIlluminanceCalculator):
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
         solar_rad = cast(float, payload[DATA_POINT_SOLARRADIATION])
-        converted_value = IlluminanceConverter.convert_to_percentage(
-            solar_rad, ILLUMINANCE_WATTS_PER_SQUARE_METER
-        )
+        converted_value = self.convert_value(IlluminanceConverter, solar_rad)
         return self.get_calculated_data_point(converted_value)
 
 
