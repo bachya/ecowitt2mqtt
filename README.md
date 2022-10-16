@@ -476,6 +476,16 @@ Config Option: `--output-unit-humidity`
 * `g/m³`
 * `lbs/ft³`
 
+#### Illuminance
+
+Config Option: `--output-unit-illuminance`
+
+* `fc`
+* `kfc`
+* `klx`
+* `lx`
+* `W/m²`
+
 #### Temperature
 
 Config Option: `--output-unit-temperatue`

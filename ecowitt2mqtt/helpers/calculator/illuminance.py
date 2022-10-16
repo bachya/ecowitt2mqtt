@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import cast
 
 from ecowitt2mqtt.const import (
+    CONF_OUTPUT_UNIT_ILLUMINANCE,
     DATA_POINT_SOLARRADIATION,
     ILLUMINANCE_WATTS_PER_SQUARE_METER,
     PERCENTAGE,
@@ -21,6 +22,8 @@ class BaseIlluminanceCalculator(Calculator):
 
 class IlluminanceCalculator(BaseIlluminanceCalculator):
     """Define an illuminance calculator."""
+
+    UNIT_OVERRIDE_CONFIG_OPTION = CONF_OUTPUT_UNIT_ILLUMINANCE
 
     @property
     def output_unit_imperial(self) -> str:
@@ -41,7 +44,7 @@ class IlluminanceCalculator(BaseIlluminanceCalculator):
         )
 
 
-class IlluminancePerceivedCalculator(BaseIlluminanceCalculator):
+class PerceivedIlluminanceCalculator(BaseIlluminanceCalculator):
     """Define a perceived illuminance calculator."""
 
     @property

@@ -13,9 +13,11 @@ from ecowitt2mqtt.const import (
     CONF_MQTT_BROKER,
     CONF_MQTT_TOPIC,
     CONF_OUTPUT_UNIT_HUMIDITY,
+    CONF_OUTPUT_UNIT_ILLUMINANCE,
     CONF_OUTPUT_UNIT_TEMPERATURE,
     CONF_VERBOSE,
     ENV_BATTERY_OVERRIDES,
+    ILLUMINANCE_LUX,
     TEMP_CELSIUS,
     VOLUME_GRAMS_PER_CUBIC_METER,
 )
@@ -236,6 +238,7 @@ def test_invalid_boolean_config_validation(config):
     "config_option,value",
     [
         (CONF_OUTPUT_UNIT_HUMIDITY, VOLUME_GRAMS_PER_CUBIC_METER),
+        (CONF_OUTPUT_UNIT_ILLUMINANCE, ILLUMINANCE_LUX),
         (CONF_OUTPUT_UNIT_TEMPERATURE, TEMP_CELSIUS),
     ],
 )
@@ -247,15 +250,16 @@ def test_output_units(config_option, value):
 
 
 @pytest.mark.parametrize(
-    "config_option,value",
+    "config_option",
     [
-        (CONF_OUTPUT_UNIT_HUMIDITY, "Some Humidity"),
-        (CONF_OUTPUT_UNIT_TEMPERATURE, "Some Temperature"),
+        CONF_OUTPUT_UNIT_HUMIDITY,
+        CONF_OUTPUT_UNIT_ILLUMINANCE,
+        CONF_OUTPUT_UNIT_TEMPERATURE,
     ],
 )
-def test_output_units_invalid(config_option, value):
+def test_output_units_invalid(config_option):
     """Test output unit classes with invalid values."""
-    config = {**TEST_CONFIG_JSON, config_option: value}
+    config = {**TEST_CONFIG_JSON, config_option: "Some Fake Value"}
     with pytest.raises(ConfigError):
         _ = Configs(config)
 
