@@ -36,6 +36,7 @@ from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_SYSTEM,
     CONF_OUTPUT_UNIT_TEMPERATURE,
     CONF_PORT,
+    CONF_PRECISION,
     CONF_RAW_DATA,
     CONF_VERBOSE,
     DEFAULT_ENDPOINT,
@@ -133,6 +134,7 @@ CONFIG_SCHEMA = vol.All(
                 str, vol.In(TemperatureConverter.VALID_UNITS)
             ),
             vol.Optional(CONF_PORT, default=DEFAULT_PORT): cv.port,
+            vol.Optional(CONF_PRECISION): vol.Coerce(int),
             vol.Optional(CONF_RAW_DATA, default=False): cv.boolean,
             vol.Optional(CONF_VERBOSE, default=False): cv.boolean,
         },
@@ -321,6 +323,11 @@ class Config:  # pylint: disable=too-many-public-methods
     def port(self) -> int:
         """Return the ecowitt2mqtt API port."""
         return cast(int, self._config[CONF_PORT])
+
+    @property
+    def precision(self) -> int | None:
+        """Return the precision for output data."""
+        return self._config.get(CONF_PRECISION)
 
     @property
     def raw_data(self) -> bool:

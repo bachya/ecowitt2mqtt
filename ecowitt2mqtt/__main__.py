@@ -37,6 +37,7 @@ from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_SYSTEM,
     CONF_OUTPUT_UNIT_TEMPERATURE,
     CONF_PORT,
+    CONF_PRECISION,
     CONF_RAW_DATA,
     CONF_VERBOSE,
     DEFAULT_ENDPOINT,
@@ -70,6 +71,7 @@ from ecowitt2mqtt.const import (
     ENV_OUTPUT_UNIT_SYSTEM,
     ENV_OUTPUT_UNIT_TEMPERATURE,
     ENV_PORT,
+    ENV_PRECISION,
     ENV_RAW_DATA,
     ENV_VERBOSE,
     LEGACY_ENV_ENDPOINT,
@@ -140,6 +142,7 @@ ENV_VAR_TO_CONF_MAP = {
     ENV_OUTPUT_UNIT_SYSTEM: CONF_OUTPUT_UNIT_SYSTEM,
     ENV_OUTPUT_UNIT_TEMPERATURE: CONF_OUTPUT_UNIT_TEMPERATURE,
     ENV_PORT: CONF_PORT,
+    ENV_PRECISION: CONF_PRECISION,
     ENV_RAW_DATA: CONF_RAW_DATA,
     ENV_VERBOSE: CONF_VERBOSE,
 }
@@ -416,6 +419,12 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
         dest=CONF_PORT,
         help=f"The port to serve ecowitt2mqtt on (default: {DEFAULT_PORT})",
         metavar=CONF_PORT,
+    )
+    parser.add_argument(
+        "--precision",
+        dest=CONF_PRECISION,
+        help="The precision to output data points at (default: no limit)",
+        metavar=CONF_PRECISION,
     )
     parser.add_argument(
         "--raw-data",

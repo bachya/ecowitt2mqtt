@@ -94,8 +94,8 @@ class Calculator:
         value: CalculatedValueType,
         *,
         unit_converter: type[BaseUnitConverter] | None = None,
+        data_type: DataPointType = DataPointType.NON_BOOLEAN,
         attributes: dict[str, Any] | None = None,
-        data_type: DataPointType | None = None,
     ) -> CalculatedDataPoint:
         """Get the output unit for this calculation."""
         if unit_converter:
@@ -105,14 +105,18 @@ class Calculator:
                 value, self.DEFAULT_INPUT_UNIT, self.output_unit
             )
 
+        if self._config.precision and isinstance(value, float):
+            value = round(value, self._config.precision)
+
         data_point = CalculatedDataPoint(
-            data_point_key=self._data_point_key, value=value, unit=self.output_unit
+            data_point_key=self._data_point_key,
+            value=value,
+            unit=self.output_unit,
+            data_type=data_type,
         )
 
         if attributes:
             data_point.attributes = attributes
-        if data_type:
-            data_point.data_type = data_type
 
         return data_point
 
