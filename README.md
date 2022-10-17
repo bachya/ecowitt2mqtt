@@ -105,22 +105,16 @@ Within the `Upload Interval`, data should begin to appear in the MQTT broker.
 ## Command Line Options
 
 ```
-usage: ecowitt2mqtt [-h] [--version]
-                    [--battery-override BATTERY_OVERRIDE]
-                    [-c config]
-                    [--default-battery-strategy default_battery_strategy]
-                    [--diagnostics] [--disable-calculated-data]
-                    [-e endpoint] [--hass-discovery]
-                    [--hass-discovery-prefix hass_discovery_prefix]
-                    [--hass-entity-id-prefix hass_entity_id_prefix]
-                    [--input-unit-system input_unit_system]
-                    [-b mqtt_broker] [-p mqtt_password]
-                    [--mqtt-port mqtt_port] [--mqtt-retain]
-                    [--mqtt-tls] [-t mqtt_topic]
-                    [-u mqtt_username]
-                    [--output-unit-system output_unit_system]
-                    [--output-unit-temperature output_unit_temperature]
-                    [--port port] [--raw-data] [-v]
+usage: ecowitt2mqtt [-h] [--version] [--battery-override BATTERY_OVERRIDE] [-c config] [--default-battery-strategy default_battery_strategy]
+                    [--diagnostics] [--disable-calculated-data] [-e endpoint] [--hass-discovery]
+                    [--hass-discovery-prefix hass_discovery_prefix] [--hass-entity-id-prefix hass_entity_id_prefix]
+                    [--input-unit-system input_unit_system] [-b mqtt_broker] [-p mqtt_password] [--mqtt-port mqtt_port] [--mqtt-retain]
+                    [--mqtt-tls] [-t mqtt_topic] [-u mqtt_username] [--output-unit-system output_unit_system]
+                    [--output-unit-accumulated-precipitation output_unit_accumulated_precipitation]
+                    [--output-unit-distance output_unit_distance] [--output-unit-humidity output_unit_humidity]
+                    [--output-unit-illuminance output_unit_illuminance] [--output-unit-precipitation-rate output_unit_precipitation_rate]
+                    [--output-unit-pressure output_unit_pressure] [--output-unit-speed output_unit_speed]
+                    [--output-unit-temperature output_unit_temperature] [--port port] [--precision precision] [--raw-data] [-v]
 
 Send data from an Ecowitt gateway to an MQTT broker
 
@@ -128,56 +122,58 @@ options:
   -h, --help            show this help message and exit
   --version             show program's version number and exit
   --battery-override BATTERY_OVERRIDE
-                        A battery configuration override (format:
-                        key,value)
+                        A battery configuration override (format: key,value)
   -c config, --config config
                         A path to a YAML or JSON config file
   --default-battery-strategy default_battery_strategy
-                        The default battery config strategy to use
-                        (default: boolean)
+                        The default battery config strategy to use (default: boolean)
   --diagnostics         Output diagnostics
   --disable-calculated-data
                         Disable the output of calculated sensors
   -e endpoint, --endpoint endpoint
-                        The relative endpoint/path to serve
-                        ecowitt2mqtt on (default: /data/report)
-  --hass-discovery      Publish data in the Home Assistant MQTT
-                        Discovery format
+                        The relative endpoint/path to serve ecowitt2mqtt on (default: /data/report)
+  --hass-discovery      Publish data in the Home Assistant MQTT Discovery format
   --hass-discovery-prefix hass_discovery_prefix
-                        The Home Assistant MQTT Discovery topic
-                        prefix to use (default: homeassistant)
+                        The Home Assistant MQTT Discovery topic prefix to use (default: homeassistant)
   --hass-entity-id-prefix hass_entity_id_prefix
-                        The prefix to use for Home Assistant
-                        entity IDs
+                        The prefix to use for Home Assistant entity IDs
   --input-unit-system input_unit_system
-                        The input unit system used by the gateway
-                        (default: imperial)
+                        The input unit system used by the gateway (default: imperial)
   -b mqtt_broker, --mqtt-broker mqtt_broker
-                        The hostname or IP address of an MQTT
-                        broker
+                        The hostname or IP address of an MQTT broker
   -p mqtt_password, --mqtt-password mqtt_password
                         A valid password for the MQTT broker
   --mqtt-port mqtt_port
-                        The listenting port of the MQTT broker
-                        (default: 1883)
-  --mqtt-retain         Instruct the MQTT broker to retain
-                        messages
+                        The listenting port of the MQTT broker (default: 1883)
+  --mqtt-retain         Instruct the MQTT broker to retain messages
   --mqtt-tls            Enable MQTT over TLS
   -t mqtt_topic, --mqtt-topic mqtt_topic
                         The MQTT topic to publish device data to
   -u mqtt_username, --mqtt-username mqtt_username
                         A valid username for the MQTT broker
   --output-unit-system output_unit_system
-                        The output unit system used by the gateway
-                        (default: imperial)
+                        The output unit system used by the gateway (default: imperial)
+  --output-unit-accumulated-precipitation output_unit_accumulated_precipitation
+                        The output unit to use for accumulated precipitation data points (default: the default used by the output unit
+                        system)
+  --output-unit-distance output_unit_distance
+                        The output unit to use for distance data points (default: the default used by the output unit system)
+  --output-unit-humidity output_unit_humidity
+                        The output unit to use for humidity data points (default: the default used by the output unit system)
+  --output-unit-illuminance output_unit_illuminance
+                        The output unit to use for illuminance data points (default: the default used by the output unit system)
+  --output-unit-precipitation-rate output_unit_precipitation_rate
+                        The output unit to use for precipitation rate data points (default: the default used by the output unit system)
+  --output-unit-pressure output_unit_pressure
+                        The output unit to use for pressure data points (default: the default used by the output unit system)
+  --output-unit-speed output_unit_speed
+                        The output unit to use for speed data points (default: the default used by the output unit system)
   --output-unit-temperature output_unit_temperature
-                        The output unit to use for temperature
-                        data points (default: the default used by
-                        the output unit system)
-  --port port           The port to serve ecowitt2mqtt on
-                        (default: 8080)
-  --raw-data            Return raw data (don't attempt to
-                        translate any values)
+                        The output unit to use for temperature data points (default: the default used by the output unit system)
+  --port port           The port to serve ecowitt2mqtt on (default: 8080)
+  --precision precision
+                        The precision to output data points at (default: no limit)
+  --raw-data            Return raw data (don't attempt to translate any values)
   -v, --verbose         Increase verbosity of logged output
 ```
 
@@ -203,6 +199,7 @@ options:
 * `ECOWITT2MQTT_OUTPUT_UNIT_SYSTEM`: the unit system to use in output (default: `imperial`)
 * `ECOWITT2MQTT_OUTPUT_UNIT_TEMPERATURE`: the output unit to use for temperature data points (default: the default used by the output unit system)
 * `ECOWITT2MQTT_PORT`: the port to serve ecowitt2mqtt on (default: `8080`)
+* `ECOWITT2MQTT_PRECISION`: the precision to output data points at (default: no limit)
 * `ECOWITT2MQTT_RAW_DATA`: return raw data (don't attempt to translate any values) (default: `false`)
 * `ECOWITT2MQTT_VERBOSE`: increase verbosity of logged output (default: `false`)
 

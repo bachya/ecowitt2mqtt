@@ -20,6 +20,7 @@ from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_PRESSURE,
     CONF_OUTPUT_UNIT_SPEED,
     CONF_OUTPUT_UNIT_TEMPERATURE,
+    CONF_PRECISION,
     CONF_VERBOSE,
     ENV_BATTERY_OVERRIDES,
     ILLUMINANCE_LUX,
@@ -282,6 +283,13 @@ def test_output_units_invalid(config_option):
     config = {**TEST_CONFIG_JSON, config_option: "Some Fake Value"}
     with pytest.raises(ConfigError):
         _ = Configs(config)
+
+
+def test_precision():
+    """Test whether precision is configured."""
+    config = {**TEST_CONFIG_JSON, CONF_PRECISION: 2}
+    configs = Configs(config)
+    assert configs.default_config.precision == 2
 
 
 @pytest.mark.parametrize(
