@@ -127,9 +127,9 @@ options:
                         A path to a YAML or JSON config file
   --default-battery-strategy default_battery_strategy
                         The default battery config strategy to use (default: boolean)
-  --diagnostics         Output a diagnostics dump and exit
+  --diagnostics         Output diagnostics
   --disable-calculated-data
-                        Disable calculated data points
+                        Disable the output of calculated sensors
   -e endpoint, --endpoint endpoint
                         The relative endpoint/path to serve ecowitt2mqtt on (default: /data/report)
   --hass-discovery      Publish data in the Home Assistant MQTT Discovery format

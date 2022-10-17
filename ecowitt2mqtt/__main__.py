@@ -239,13 +239,13 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
         "--diagnostics",
         action="store_true",
         dest=CONF_DIAGNOSTICS,
-        help="Output a diagnostics dump and exit",
+        help="Output diagnostics",
     )
     parser.add_argument(
         "--disable-calculated-data",
         action="store_true",
         dest=CONF_DISABLE_CALCULATED_DATA,
-        help="Disable calculated data points",
+        help="Disable the output of calculated sensors",
     )
     parser.add_argument(
         "-e",
