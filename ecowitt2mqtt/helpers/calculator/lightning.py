@@ -5,11 +5,11 @@ from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_DISTANCE,
     LENGTH_KILOMETERS,
     LENGTH_MILES,
-    LOGGER,
     STRIKES,
 )
 from ecowitt2mqtt.helpers.calculator import (
     CalculatedDataPoint,
+    CalculationFailedError,
     Calculator,
     SimpleCalculator,
 )
@@ -50,6 +50,6 @@ class LightningStrikeDistanceCalculator(Calculator):
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
         if isinstance(value, str):
-            LOGGER.debug("Can't convert value to number: %s", value)
-            return self.get_calculated_data_point(None)
+            raise CalculationFailedError("Cannot parse value as a number")
+
         return self.get_calculated_data_point(value, unit_converter=DistanceConverter)

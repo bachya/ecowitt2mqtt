@@ -1199,13 +1199,6 @@ def test_missing_distance(device_data, ecowitt, request):
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
-        "lightning": CalculatedDataPoint(
-            "lightning",
-            None,
-            unit=LENGTH_MILES,
-            attributes={},
-            data_type=DataPointType.NON_BOOLEAN,
-        ),
         "wh57batt": CalculatedDataPoint(
             "batt",
             100,
@@ -3669,13 +3662,6 @@ def test_precision(device_data, ecowitt):
                     "lightning_num",
                     1,
                     unit=STRIKES,
-                    attributes={},
-                    data_type=DataPointType.NON_BOOLEAN,
-                ),
-                "lightning": CalculatedDataPoint(
-                    "lightning",
-                    None,
-                    unit=LENGTH_MILES,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
