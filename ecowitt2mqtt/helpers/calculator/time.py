@@ -3,9 +3,10 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 
-from ecowitt2mqtt.const import LOGGER, TIME_SECONDS
+from ecowitt2mqtt.const import TIME_SECONDS
 from ecowitt2mqtt.helpers.calculator import (
     CalculatedDataPoint,
+    CalculationFailedError,
     Calculator,
     SimpleCalculator,
 )
@@ -20,8 +21,7 @@ class EpochCalculator(Calculator):
     ) -> CalculatedDataPoint:
         """Perform the calculation."""
         if isinstance(value, str):
-            LOGGER.debug("Can't convert value to number: %s", value)
-            return self.get_calculated_data_point(None)
+            raise CalculationFailedError("Cannot parse value as datetime")
 
         timestamp = datetime.utcfromtimestamp(value).replace(tzinfo=timezone.utc)
         return self.get_calculated_data_point(timestamp)

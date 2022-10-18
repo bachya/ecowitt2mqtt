@@ -57,6 +57,7 @@ from ecowitt2mqtt.const import (
 )
 from ecowitt2mqtt.helpers.calculator import (
     CalculatedDataPoint,
+    CalculationFailedError,
     CalculationKeysMissingError,
     Calculator,
 )
@@ -261,24 +262,27 @@ class ProcessedData:
                 try:
                     self.output[key] = calculator.calculate_from_payload(payload)
                 except CalculationKeysMissingError:
-                    # If the data payload doesn't have the keys necessary to calculate
-                    # this data point, ignore and move on:
-                    continue
+                    LOGGER.debug("Cannot calculate %s due to missing keys", key)
 
     def _process_raw_data_points(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> None:
         """Process data points for which raw data was provided."""
         for key, value in payload.items():
-            if calculator := get_calculator_instance(self.config, key):
-                LOGGER.debug(
-                    "Calculator found for %s: %s (key: %s, value: %s)",
-                    key,
-                    calculator,
-                    key,
-                    value,
-                )
-                self.output[key] = calculator.calculate_from_value(value)
-            else:
+            if (calculator := get_calculator_instance(self.config, key)) is None:
                 LOGGER.debug("No calculator found for %s", key)
                 self.output[key] = CalculatedDataPoint(data_point_key=key, value=value)
+                continue
+
+            LOGGER.debug(
+                "Calculator found for %s: %s (key: %s, value: %s)",
+                key,
+                calculator,
+                key,
+                value,
+            )
+
+            try:
+                self.output[key] = calculator.calculate_from_value(value)
+            except CalculationFailedError as err:
+                LOGGER.debug("Cannot calculate %s (raw value: %s): %s", key, value, err)

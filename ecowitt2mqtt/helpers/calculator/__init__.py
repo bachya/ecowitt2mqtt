@@ -21,6 +21,12 @@ _CalculateFromPayloadFuncType = Callable[
 ]
 
 
+class CalculationFailedError(EcowittError):
+    """Define an error when calcuation fails."""
+
+    pass
+
+
 class CalculationKeysMissingError(EcowittError):
     """Define an error when keys required for a calculated data point are missing."""
 
