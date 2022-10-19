@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import asyncio
-import logging
 import signal
 from ssl import SSLContext
 import traceback
@@ -78,11 +77,6 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
         self._payload_lock = asyncio.Lock()
         self._payload_queues: dict[str, asyncio.Queue] = {}
         self._rest_api_server_task: asyncio.Task | None = None
-
-        # Remove the existing Uvicorn logger handler so that we don't get duplicates:
-        # https://github.com/encode/uvicorn/issues/1285
-        uvicorn_logger = logging.getLogger("uvicorn")
-        uvicorn_logger.removeHandler(uvicorn_logger.handlers[0])
 
     def _async_create_mqtt_loop_task(
         self,
