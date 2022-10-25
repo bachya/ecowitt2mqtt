@@ -19,7 +19,7 @@ from ecowitt2mqtt.helpers.publisher.factory import get_publisher
 if TYPE_CHECKING:
     from ecowitt2mqtt.core import Ecowitt
 
-DEFAULT_HOST = "0.0.0.0"
+DEFAULT_HOST = "127.0.0.1"
 DEFAULT_MAX_RETRY_INTERVAL = 60
 
 HANDLED_SIGNALS = (

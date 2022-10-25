@@ -29,7 +29,7 @@ async def test_get_diagnostics(
     async with ClientSession() as session:
         resp = await session.request(
             "post",
-            f"http://0.0.0.0:{TEST_PORT}{TEST_ENDPOINT}",
+            f"http://127.0.0.1:{TEST_PORT}{TEST_ENDPOINT}",
             data=device_data,
         )
         assert resp.status == 204
@@ -45,7 +45,7 @@ async def test_publish_failure(
     async with ClientSession() as session:
         await session.request(
             "post",
-            f"http://0.0.0.0:{TEST_PORT}{TEST_ENDPOINT}",
+            f"http://127.0.0.1:{TEST_PORT}{TEST_ENDPOINT}",
             data=device_data,
         )
     assert any(m for m in caplog.messages if "There was an MQTT error" in m)
@@ -55,8 +55,8 @@ async def test_publish_failure(
 @pytest.mark.parametrize(
     "route",
     [
-        f"http://0.0.0.0:{TEST_PORT}{TEST_ENDPOINT}",
-        f"http://0.0.0.0:{TEST_PORT}{TEST_ENDPOINT}/",
+        f"http://127.0.0.1:{TEST_PORT}{TEST_ENDPOINT}",
+        f"http://127.0.0.1:{TEST_PORT}{TEST_ENDPOINT}/",
     ],
 )
 async def test_publish_success(
@@ -80,7 +80,7 @@ async def test_unknown_exception_shutdown(
     async with ClientSession() as session:
         await session.request(
             "post",
-            f"http://0.0.0.0:{TEST_PORT}{TEST_ENDPOINT}",
+            f"http://127.0.0.1:{TEST_PORT}{TEST_ENDPOINT}",
             data=device_data,
         )
     assert any(m for m in caplog.messages if "Something horrible happened" in m)

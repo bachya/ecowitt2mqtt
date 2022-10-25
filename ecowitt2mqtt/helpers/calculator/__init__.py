@@ -22,7 +22,7 @@ _CalculateFromPayloadFuncType = Callable[
 
 
 class CalculationFailedError(EcowittError):
-    """Define an error when calcuation fails."""
+    """Define an error when calculation fails."""
 
     pass
 
