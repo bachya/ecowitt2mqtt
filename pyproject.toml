@@ -35,7 +35,7 @@ disallow_untyped_defs = true
 follow_imports = "silent"
 ignore_missing_imports = true
 no_implicit_optional = true
-python_version = "3.8"
+python_version = "3.10"
 show_error_codes = true
 strict_equality = true
 warn_incomplete_stub = true
@@ -57,7 +57,6 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -71,7 +70,7 @@ asyncio-mqtt = ">=0.12.1"
 colorlog = "^6.6.0"
 fastapi = "^0.85.0"
 meteocalc = "^1.1.0"
-python = "^3.8.0"
+python = ">=3.9.0"
 python-multipart = "^0.0.5"
 rapidfuzz = "^2.10.3"
 uvicorn = ">=0.19.0"
