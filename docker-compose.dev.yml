@@ -3,21 +3,21 @@ version: "3"
 
 services:
 
-  # ecowitt2mqtt:
-  #   build:
-  #     context: .
-  #     args:
-  #       TARGETPLATFORM: linux/amd64
-  #   container_name: ecowitt2mqtt
-  #   environment:
-  #     ECOWITT2MQTT_MQTT_BROKER: vernemq
-  #     ECOWITT2MQTT_MQTT_PASSWORD: password
-  #     ECOWITT2MQTT_MQTT_TOPIC: Test
-  #     ECOWITT2MQTT_MQTT_USERNAME: ecowitt
-  #     ECOWITT2MQTT_VERBOSE: "true"
-  #   ports:
-  #     - "8080:8080/tcp"
-  #   restart: unless-stopped
+  ecowitt2mqtt:
+    build:
+      context: .
+      args:
+        TARGETPLATFORM: linux/amd64
+    container_name: ecowitt2mqtt
+    environment:
+      ECOWITT2MQTT_MQTT_BROKER: vernemq
+      ECOWITT2MQTT_MQTT_PASSWORD: password
+      ECOWITT2MQTT_MQTT_TOPIC: Test
+      ECOWITT2MQTT_MQTT_USERNAME: ecowitt
+      ECOWITT2MQTT_VERBOSE: "true"
+    ports:
+      - "8080:8080/tcp"
+    restart: unless-stopped
 
   vernemq:
     container_name: vernemq
