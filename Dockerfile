@@ -47,7 +47,7 @@ ENV VIRTUAL_ENV="/venv"
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 RUN apk add --no-cache --virtual .build-dependencies \
-      curl==7.83.1-r3 \
+      curl==7.83.1-r4 \
       tar==1.34-r0 \
       xz==5.2.5-r1 \
     && case ${TARGETPLATFORM} in \
