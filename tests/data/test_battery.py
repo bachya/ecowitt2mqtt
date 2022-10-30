@@ -1,4 +1,5 @@
 """Define tests for batteries and battery strategies."""
+# pylint: disable=R0801
 from __future__ import annotations
 
 from datetime import datetime, timezone
