@@ -1,7 +1,9 @@
 """Define typing helpers."""
+from collections.abc import Collection
 from datetime import datetime
-from typing import Literal
+from typing import Literal, Union
 
-CalculatedValueType = list[str] | float | str | datetime | None
-PreCalculatedValueType = float | str
+# pylint: disable=consider-alternative-union-syntax
+CalculatedValueType = Union[Collection[str], float, str, datetime, None]
+PreCalculatedValueType = Union[float, str]
 UnitSystemType = Literal["imperial", "metric"]

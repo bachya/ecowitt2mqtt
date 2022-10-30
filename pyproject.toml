@@ -148,9 +148,8 @@ score = false
 
 [tool.pylint.SIMILARITIES]
 # Minimum lines number of a similarity.
-# We set this higher because of some cases where V2 and V3 functionality are
-# similar, but abstracting them isn't feasible.
-min-similarity-lines = 8
+# We set this higher because of tests where data payloads look similar.
+min-similarity-lines = 20
 
 # Ignore comments when computing similarities.
 ignore-comments = true
