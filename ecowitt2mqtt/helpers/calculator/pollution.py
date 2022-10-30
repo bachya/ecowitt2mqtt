@@ -15,7 +15,11 @@ class PollutantCalculator(SimpleCalculator):
 
     @property
     def output_unit(self) -> str | None:
-        """Get the output unit of measurement for this calculation."""
+        """Get the output unit of measurement for this calculation.
+
+        Returns:
+            A unit string.
+        """
         if self._data_point_key in (DATA_POINT_CO2, DATA_POINT_CO2_24H):
             return CONCENTRATION_PARTS_PER_MILLION
         return CONCENTRATION_MICROGRAMS_PER_CUBIC_METER

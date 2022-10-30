@@ -1,13 +1,14 @@
 """Define MQTT publishing."""
+# pylint: disable=unused-argument
 from __future__ import annotations
 
 import asyncio
 from dataclasses import dataclass
+from enum import Enum
 from typing import Any, TypedDict
 
 from asyncio_mqtt import Client, MqttError
 
-from ecowitt2mqtt.backports.enum import StrEnum
 from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import (
     DATA_POINT_BEAUFORT_SCALE,
@@ -83,7 +84,7 @@ from ecowitt2mqtt.helpers.publisher import MqttPublisher, generate_mqtt_payload
 from ecowitt2mqtt.helpers.typing import CalculatedValueType
 
 
-class DeviceClass(StrEnum):
+class DeviceClass(str, Enum):
     """Define a device class enum."""
 
     BATTERY = "battery"
@@ -100,21 +101,21 @@ class DeviceClass(StrEnum):
     VOLTAGE = "voltage"
 
 
-class EntityCategory(StrEnum):
+class EntityCategory(str, Enum):
     """Define an entity category enum."""
 
     CONFIG = "config"
     DIAGNOSTIC = "diagnostic"
 
 
-class Platform(StrEnum):
+class Platform(str, Enum):
     """Define a platform enum."""
 
     BINARY_SENSOR = "binary_sensor"
     SENSOR = "sensor"
 
 
-class StateClass(StrEnum):
+class StateClass(str, Enum):
     """Define a state class enum."""
 
     MEASUREMENT = "measurement"
@@ -376,34 +377,65 @@ STATE_CLASS_OVERRIDES = {
 STATE_UNKNOWN = "unknown"
 
 
-def get_availability_payload(data_point: CalculatedDataPoint) -> str:
+def get_availability_payload(
+    data_point: CalculatedDataPoint,
+) -> str:
     """Get the availability payload for a data point.
 
     Right now, this is hardcoded to always available.
+
+    Args:
+        data_point: A parsed CalculatedDataPoint object.
+
+    Returns:
+        An availability string.
     """
     return AVAILABILITY_ONLINE
 
 
 def get_state_payload(data_point: CalculatedDataPoint) -> CalculatedValueType:
-    """Get the state payload for a data point."""
+    """Get the state payload for a data point.
+
+    Args:
+        data_point: A parsed CalculatedDataPoint object.
+
+    Returns:
+        A state string.
+    """
     if data_point.value is None:
         return STATE_UNKNOWN
     return data_point.value
 
 
-class HomeAssistantDiscoveryPublisher(MqttPublisher):
+class HomeAssistantDiscoveryPublisher(
+    MqttPublisher
+):  # pylint: disable=too-few-public-methods
     """Define an MQTT publisher for the MQTT Discovery standard."""
 
     def __init__(self, config: Config, client: Client) -> None:
-        """Initialize."""
+        """Initialize.
+
+        Args:
+            config: A Config object.
+            client: An MQTT Client object.
+        """
         super().__init__(config, client)
 
         self._discovery_payloads: dict[str, HassDiscoveryPayload] = {}
 
-    def _generate_discovery_payload(
+    def _generate_discovery_payload(  # pylint: disable=too-many-branches
         self, device: Device, payload_key: str, data_point: CalculatedDataPoint
     ) -> HassDiscoveryPayload:
-        """Generate a discovery payload for an entity."""
+        """Generate a discovery payload for an entity.
+
+        Args:
+            device: A Device object.
+            payload_key: The Ecowitt payload key.
+            data_point: A CalculatedDataPoint object.
+
+        Returns:
+            A parsed HassDiscoveryPayload object.
+        """
         # Since batteries can be one of many different strategies, we calculate an
         # entity description at runtime:
         if data_point.data_point_key in (DATA_POINT_GLOB_BATT, DATA_POINT_GLOB_VOLT):
@@ -475,7 +507,14 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):
         return payload
 
     async def async_publish(self, data: dict[str, CalculatedValueType]) -> None:
-        """Publish to MQTT."""
+        """Publish to MQTT.
+
+        Args:
+            data: A data payload.
+
+        Raises:
+            MqttError: Raised on any MQTT error.
+        """
         processed_data = ProcessedData(self._config, data)
         tasks: list[asyncio.Task] = []
 

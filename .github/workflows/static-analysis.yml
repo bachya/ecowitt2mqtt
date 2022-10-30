@@ -1,0 +1,67 @@
+---
+name: Linting and Static Analysis
+
+"on":
+  pull_request:
+    branches:
+      - dev
+      - main
+
+  push:
+    branches:
+      - dev
+      - main
+
+jobs:
+  lint:
+    name: "Linting & Static Analysis"
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@v3
+
+      - name: 🏗 Set up Python 3.9
+        id: setup-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: ⤵️ Get pip cache directory
+        id: pip-cache
+        run: |
+          echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
+
+      - name: ⤵️ Establish pip cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pip-cache.outputs.dir }}
+          key: "${{ runner.os }}-pip-\
+            ${{ hashFiles('.github/workflows/requirements.txt') }}"
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: 🏗 Install workflow dependencies
+        run: |
+          pip install -r .github/workflows/requirements.txt
+          poetry config virtualenvs.create true
+          poetry config virtualenvs.in-project true
+
+      - name: ⤵️ Establish poetry cache
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: "venv-${{ steps.setup-python.outputs.python-version }}-\
+            ${{ hashFiles('poetry.lock') }}"
+          restore-keys: |
+            venv-${{ steps.setup-python.outputs.python-version }}-
+
+      - name: 🏗 Install package dependencies
+        run: |
+          poetry install --no-interaction
+
+      - name: 🚀 Run pre-commit hooks
+        uses: pre-commit/action@v3.0.0
+        env:
+          SKIP: no-commit-to-branch,pytest

@@ -19,7 +19,17 @@ class EpochCalculator(Calculator):
     def calculate_from_value(
         self, value: PreCalculatedValueType
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            value: calculated value.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+
+        Raises:
+            CalculationFailedError: Raised if the calculation fails.
+        """
         if isinstance(value, str):
             raise CalculationFailedError("Cannot parse value as datetime")
 
@@ -32,5 +42,9 @@ class RuntimeCalculator(SimpleCalculator):
 
     @property
     def output_unit(self) -> str:
-        """Get the output unit of measurement for this calculation."""
+        """Get the output unit of measurement for this calculation.
+
+        Returns:
+            A unit string.
+        """
         return TIME_SECONDS

@@ -1,7 +1,8 @@
 """Test the main entrypoint."""
+from __future__ import annotations
+
 import os
-import sys
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import pytest
 
@@ -60,20 +61,32 @@ from ecowitt2mqtt.const import (
         (LEGACY_ENV_RAW_DATA, ENV_RAW_DATA, "True"),
     ],
 )
-def test_deprecated_env_var(caplog, legacy_env_var, new_env_var, value):
-    """Test logging the usage of a deprecated environment variable."""
+def test_deprecated_env_var(
+    caplog: Mock, legacy_env_var: str, new_env_var: str, value: str
+) -> None:
+    """Test logging the usage of a deprecated environment variable.
+
+    Args:
+        caplog: A mock logging utility.
+        legacy_env_var: A legacy environment variable name.
+        new_env_var: The new environment variable name to use.
+        value: The environment variable's value.
+    """
     os.environ[legacy_env_var] = value
     _ = get_env_vars()
     assert any(
         m
         for m in caplog.messages
-        if f"Environment variable {legacy_env_var} is deprecated; use {new_env_var} instead"
+        if (
+            f"Environment variable {legacy_env_var} is deprecated; use {new_env_var} "
+            "instead"
+        )
         in m
     )
     os.environ.pop(legacy_env_var)
 
 
-def test_get_cli_arguments():
+def test_get_cli_arguments() -> None:
     """Test getting all set CLI arguments."""
     cli_arguments = get_cli_arguments(
         ["--mqtt-broker", "127.0.0.1", "--mqtt-topic", "Test"]
@@ -81,7 +94,7 @@ def test_get_cli_arguments():
     assert cli_arguments == {CONF_MQTT_BROKER: "127.0.0.1", CONF_MQTT_TOPIC: "Test"}
 
 
-def test_get_env_vars():
+def test_get_env_vars() -> None:
     """Test getting all set environment variables."""
     os.environ[ENV_VERBOSE] = "TRUE"
     env_vars = get_env_vars()
@@ -89,7 +102,7 @@ def test_get_env_vars():
     os.environ.pop(ENV_VERBOSE)
 
 
-def test_main():
+def test_main() -> None:
     """Test the main entrypoint.
 
     This is effectively a quick sanity check to ensure that the CLI doesn't blow up.

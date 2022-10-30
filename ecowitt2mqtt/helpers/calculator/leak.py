@@ -1,7 +1,8 @@
 """Define moisture calculators."""
 from __future__ import annotations
 
-from ecowitt2mqtt.backports.enum import StrEnum
+from enum import Enum
+
 from ecowitt2mqtt.helpers.calculator import (
     CalculatedDataPoint,
     Calculator,
@@ -10,7 +11,7 @@ from ecowitt2mqtt.helpers.calculator import (
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
 
 
-class LeakState(StrEnum):
+class LeakState(str, Enum):
     """Define types of battery configuration."""
 
     OFF = "OFF"
@@ -23,7 +24,14 @@ class LeakCalculator(Calculator):
     def calculate_from_value(
         self, value: PreCalculatedValueType
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            value: calculated value.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
         if value == 0.0:
             return self.get_calculated_data_point(
                 LeakState.OFF, data_type=DataPointType.BOOLEAN

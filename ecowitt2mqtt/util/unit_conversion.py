@@ -108,7 +108,16 @@ class BaseUnitConverter:
     def _trim_value_precision_to_ratio(
         cls, value: float, from_unit: str, to_unit: str
     ) -> float:
-        """Trim a value to the appropriate precision using the unit ratio."""
+        """Trim a value to the appropriate precision using the unit ratio.
+
+        Args:
+            value: The value to trim.
+            from_unit: The unit we are converting from.
+            to_unit: The unit we are converting to.
+
+        Returns:
+            A trimmed value.
+        """
         value_s = str(value)
         precision = len(value_s) - value_s.index(".") - 1 if "." in value_s else 0
         ratio_log = max(0, math.log10(cls.get_unit_ratio(from_unit, to_unit)))
@@ -117,7 +126,19 @@ class BaseUnitConverter:
 
     @classmethod
     def convert(cls, value: float, from_unit: str, to_unit: str) -> float:
-        """Convert one unit of measurement to another."""
+        """Convert one unit of measurement to another.
+
+        Args:
+            value: The value to convert.
+            from_unit: The unit we are converting from.
+            to_unit: The unit we are converting to.
+
+        Returns:
+            A converted value.
+
+        Raises:
+            UnitConversionError: Raised when a unit cannot be recognized.
+        """
         if from_unit == to_unit:
             return value
 
@@ -136,7 +157,15 @@ class BaseUnitConverter:
 
     @classmethod
     def get_unit_ratio(cls, from_unit: str, to_unit: str) -> float:
-        """Get unit ratio between units of measurement."""
+        """Get unit ratio between units of measurement.
+
+        Args:
+            from_unit: The unit we are converting from.
+            to_unit: The unit we are converting to.
+
+        Returns:
+            A unit ratio.
+        """
         return cls._UNIT_CONVERSION[from_unit] / cls._UNIT_CONVERSION[to_unit]
 
 
@@ -208,7 +237,16 @@ class IlluminanceConverter(BaseUnitConverter):
 
     @classmethod
     def convert(cls, value: float, from_unit: str, to_unit: str) -> float:
-        """Convert one unit of measurement to another."""
+        """Convert one unit of measurement to another.
+
+        Args:
+            value: The value to convert.
+            from_unit: The unit we are converting from.
+            to_unit: The unit we are converting to.
+
+        Returns:
+            A converted value.
+        """
         if from_unit == to_unit:
             return value
 
@@ -321,22 +359,50 @@ class TemperatureConverter(BaseUnitConverter):
 
     @classmethod
     def _celsius_to_fahrenheit(cls, celsius: float) -> float:
-        """Convert a temperature in Celsius to Fahrenheit."""
+        """Convert a temperature in Celsius to Fahrenheit.
+
+        Args:
+            celsius: A Celsius temperature
+
+        Returns:
+            A converted temperature.
+        """
         return celsius * 1.8 + 32.0
 
     @classmethod
     def _celsius_to_kelvin(cls, celsius: float) -> float:
-        """Convert a temperature in Celsius to Kelvin."""
+        """Convert a temperature in Celsius to Kelvin.
+
+        Args:
+            celsius: A Celsius temperature
+
+        Returns:
+            A converted temperature.
+        """
         return celsius + 273.15
 
     @classmethod
     def _fahrenheit_to_celsius(cls, fahrenheit: float) -> float:
-        """Convert a temperature in Fahrenheit to Celsius."""
+        """Convert a temperature in Fahrenheit to Celsius.
+
+        Args:
+            fahrenheit: A Fahrenheit temperature
+
+        Returns:
+            A converted temperature.
+        """
         return (fahrenheit - 32.0) / 1.8
 
     @classmethod
     def _kelvin_to_celsius(cls, kelvin: float) -> float:
-        """Convert a temperature in Kelvin to Celsius."""
+        """Convert a temperature in Kelvin to Celsius.
+
+        Args:
+            kelvin: A Kelvin temperature
+
+        Returns:
+            A converted temperature.
+        """
         return kelvin - 273.15
 
     @classmethod
@@ -345,6 +411,17 @@ class TemperatureConverter(BaseUnitConverter):
 
         We cannot use the implementation from BaseUnitConverter because the temperature
         units do not use the same floor (0°C and 0°F do not align).
+
+        Args:
+            value: The value to convert.
+            from_unit: The unit we are converting from.
+            to_unit: The unit we are converting to.
+
+        Returns:
+            A converted value.
+
+        Raises:
+            UnitConversionError: Raised when a unit cannot be recognized.
         """
         if from_unit == to_unit:
             return value

@@ -29,7 +29,7 @@ TEST_ENDPOINT = "/data/report"
 TEST_HASS_DISCOVERY_PREFIX = "homeassistant"
 TEST_HASS_ENTITY_ID_PREFIX = "test_prefix"
 TEST_MQTT_BROKER = "127.0.0.1"
-TEST_MQTT_PASSWORD = "password"
+TEST_MQTT_PASSWORD = "password"  # noqa: S105
 TEST_MQTT_PORT = 1883
 TEST_MQTT_TOPIC = "topic/"
 TEST_MQTT_USERNAME = "username"
@@ -81,8 +81,15 @@ TEST_CONFIG_RAW_YAML = f"""
 """
 
 
-def load_fixture(filename):
-    """Load a fixture."""
+def load_fixture(filename: str) -> str:
+    """Load a fixture.
+
+    Args:
+        filename: The filename of the fixtures/ file to load.
+
+    Returns:
+        A string containing the contents of the file.
+    """
     path = os.path.join(os.path.dirname(__file__), "fixtures", filename)
     with open(path, encoding="utf-8") as fptr:
         return fptr.read()

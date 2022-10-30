@@ -2,28 +2,21 @@
 requires = ["setuptools >= 35.0.2", "wheel >= 0.29.0", "poetry>=0.12"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.black]
+target-version = ["py39"]
+
 [tool.coverage.report]
 exclude_lines = ["TYPE_CHECKING", "NotImplementedError", "handle_exit_signal"]
 fail_under = 100
+show_missing = true
 
 [tool.coverage.run]
 source = ["ecowitt2mqtt"]
-omit = ["ecowitt2mqtt/cli.py"]
 
 [tool.isort]
-combine_as_imports = true
-default_section = "THIRDPARTY"
-force_grid_wrap = 0
-force_sort_within_sections = true
-forced_separate = "tests"
-include_trailing_comma = true
-indent = "    "
-known_first_party = "ecowitt2mqtt"
-line_length = 88
+known_first_party = "ecowitt2mqtt,examples,tests"
 multi_line_output = 3
-not_skip = "__init__.py"
-sections = "FUTURE,STDLIB,INBETWEENS,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
-use_parentheses = true
+profile = "black"
 
 [tool.mypy]
 check_untyped_defs = true
@@ -35,6 +28,7 @@ disallow_untyped_defs = true
 follow_imports = "silent"
 ignore_missing_imports = true
 no_implicit_optional = true
+platform = "linux"
 python_version = "3.10"
 show_error_codes = true
 strict_equality = true
@@ -70,37 +64,83 @@ asyncio-mqtt = ">=0.12.1"
 colorlog = "^6.6.0"
 fastapi = "^0.85.0"
 meteocalc = "^1.1.0"
-python = ">=3.9.0"
+python = "^3.9.0"
 python-multipart = "^0.0.5"
 rapidfuzz = "^2.10.3"
 uvicorn = ">=0.19.0"
 uvloop = "^0.17.0"
 voluptuous = "^0.13.1"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 aiohttp = "^3.8.1"
-nox = "^2022.1.7"
-pre-commit = "^2.15.0"
-pytest = "^7.0.0"
-pytest-asyncio = "^0.19.0"
+aresponses = "^2.1.6"
+bandit = "^1.7.4"
+black = "^22.10.0"
+blacken-docs = "^1.12.1"
+codespell = "^2.2.2"
+coverage = {version = "^6.5", extras = ["toml"]}
+darglint = "^1.8.1"
+flake8 = "^4.0.1"
+flake8-bandit = "^3.0.0"
+flake8-bugbear = "^22.10.27"
+flake8-builtins = "^2.0.0"
+flake8-comprehensions = "^3.10.0"
+flake8-docstrings = "^1.5.0"
+flake8-eradicate = "^1.4.0"
+flake8-markdown = "^0.3.0"
+flake8-simplify = "^0.19.3"
+isort = "^5.10.1"
+mypy = "^0.982"
+pre-commit = "^2.20.0"
+pre-commit-hooks = "^4.3.0"
+pylint = "^2.15.5"
+pytest = "^7.2.0"
+pytest-aiohttp = "^1.0.0"
+pytest-asyncio = "^0.20.1"
 pytest-cov = "^4.0.0"
+pyupgrade = "^3.1.0"
+safety = "^2.3.1"
 typing-extensions = "^4.4.0"
+vulture = "^2.6"
+yamllint = "^1.28.0"
 
 [tool.poetry.scripts]
 ecowitt2mqtt = "ecowitt2mqtt.__main__:main"
 
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/bachya/ecowitt2mqtt/issues"
+Changelog = "https://github.com/bachya/ecowitt2mqtt/releases"
+
 [tool.pylint.BASIC]
 expected-line-ending-format = "LF"
 
+[tool.pylint.DESIGN]
+max-attributes = 20
+
+[tool.pylint.FORMAT]
+max-line-length = 88
+
+[tool.pylint.MASTER]
+ignore = [
+  "tests",
+]
+load-plugins = [
+  "pylint.extensions.bad_builtin",
+  "pylint.extensions.code_style",
+  "pylint.extensions.docparams",
+  "pylint.extensions.docstyle",
+  "pylint.extensions.empty_comment",
+  "pylint.extensions.overlapping_exceptions",
+  "pylint.extensions.typing",
+]
+
 [tool.pylint."MESSAGES CONTROL"]
 # Reasons disabled:
-# too-few-public-methods - Often irrelevant
+# too-many-lines – We deal with a lot of data, so tests can be large
 # unnecessary-pass - This can hurt readability
-# unused-argument – Typer's modeling uses this everywhere
 disable = [
-  "too-few-public-methods",
-  "unnecessary-pass",
-  "unused-argument",
+  "too-many-lines",
+  "unnecessary-pass"
 ]
 
 [tool.pylint.REPORTS]
@@ -110,7 +150,7 @@ score = false
 # Minimum lines number of a similarity.
 # We set this higher because of some cases where V2 and V3 functionality are
 # similar, but abstracting them isn't feasible.
-min-similarity-lines = 5
+min-similarity-lines = 8
 
 # Ignore comments when computing similarities.
 ignore-comments = true
@@ -121,10 +161,7 @@ ignore-docstrings = true
 # Ignore imports when computing similarities.
 ignore-imports = true
 
-[tool.pylint.TYPECHECK]
-ignored-modules = [
-    "math"
-]
-
-[tool.pytest.ini_options]
-asyncio_mode = "strict"
+[tool.vulture]
+min_confidence = 80
+paths = ["ecowitt2mqtt", "tests"]
+verbose = false

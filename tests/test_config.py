@@ -1,6 +1,9 @@
 """Define tests for configuration management."""
+from __future__ import annotations
+
 import json
 import os
+from typing import Any
 
 import pytest
 
@@ -33,7 +36,6 @@ from ecowitt2mqtt.const import (
     VOLUME_GRAMS_PER_CUBIC_METER,
 )
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
-
 from tests.common import (
     TEST_CONFIG_JSON,
     TEST_CONFIG_RAW_YAML,
@@ -47,18 +49,22 @@ from tests.common import (
 @pytest.mark.parametrize(
     "config",
     [
-        {
-            **TEST_CONFIG_JSON,
+        TEST_CONFIG_JSON
+        | {
             CONF_BATTERY_OVERRIDES: (
                 "testbatt0=boolean",
                 "testbatt1=numeric",
                 "testbatt2=percentage",
-            ),
-        },
+            )
+        }
     ],
 )
-def test_battery_overrides_cli_options(config):
-    """Test battery configs provided by CLI options."""
+def test_battery_overrides_cli_options(config: dict[str, Any]) -> None:
+    """Test battery configs provided by CLI options.
+
+    Args:
+        config: A configuration dictionary.
+    """
     configs = Configs(config)
     assert configs.default_config.battery_overrides == {
         "testbatt0": BatteryStrategy.BOOLEAN,
@@ -83,8 +89,12 @@ def test_battery_overrides_cli_options(config):
         )
     ],
 )
-def test_battery_overrides_config_file(config_filepath):
-    """Test battery configs provided by a config file."""
+def test_battery_overrides_config_file(config_filepath: str) -> None:
+    """Test battery configs provided by a config file.
+
+    Args:
+        config_filepath: A configuration file path.
+    """
     configs = Configs({CONF_CONFIG: config_filepath})
     assert configs.default_config.battery_overrides == {
         "testbatt0": BatteryStrategy.BOOLEAN,
@@ -93,8 +103,12 @@ def test_battery_overrides_config_file(config_filepath):
     }
 
 
-def test_battery_overrides_env_vars(config):
-    """Test battery configs provided by environment variables."""
+def test_battery_overrides_env_vars(config: dict[str, Any]) -> None:
+    """Test battery configs provided by environment variables.
+
+    Args:
+        config: A configuration dictionary.
+    """
     os.environ[
         ENV_BATTERY_OVERRIDES
     ] = "testbatt0=boolean;testbatt1=numeric;testbatt2=percentage"
@@ -108,16 +122,14 @@ def test_battery_overrides_env_vars(config):
 
 
 @pytest.mark.parametrize(
-    "config",
-    [
-        {
-            **TEST_CONFIG_JSON,
-            CONF_BATTERY_OVERRIDES: ("testbatt0;boolean",),
-        },
-    ],
+    "config", [TEST_CONFIG_JSON | {CONF_BATTERY_OVERRIDES: ("testbatt0;boolean",)}]
 )
-def test_battery_overrides_error(config):
-    """Test handling invalid battery configs."""
+def test_battery_overrides_error(config: dict[str, Any]) -> None:
+    """Test handling invalid battery configs.
+
+    Args:
+        config: A configuration dictionary.
+    """
     with pytest.raises(ConfigError):
         _ = Configs(config)
 
@@ -127,8 +139,12 @@ def test_battery_overrides_error(config):
     os.environ.pop(ENV_BATTERY_OVERRIDES)
 
 
-def test_battery_overrides_missing(config):
-    """Test that missing battery configs doesn't cause an issue."""
+def test_battery_overrides_missing(config: dict[str, Any]) -> None:
+    """Test that missing battery configs doesn't cause an issue.
+
+    Args:
+        config: A configuration dictionary.
+    """
     configs = Configs(config)
     assert configs.default_config.battery_overrides == {}
 
@@ -140,16 +156,24 @@ def test_battery_overrides_missing(config):
         TEST_CONFIG_RAW_YAML,
     ],
 )
-def test_config_file(config_filepath):
-    """Test successfully loading a valid config file."""
+def test_config_file(config_filepath: str) -> None:
+    """Test successfully loading a valid config file.
+
+    Args:
+        config_filepath: A configuration file path.
+    """
     configs = Configs({CONF_CONFIG: config_filepath})
     assert configs.default_config.endpoint == TEST_ENDPOINT
     assert configs.default_config.port == TEST_PORT
 
 
 @pytest.mark.parametrize("raw_config", ["{}"])
-def test_config_file_empty(config_filepath):
-    """Test an empty config file with no overrides."""
+def test_config_file_empty(config_filepath: str) -> None:
+    """Test an empty config file with no overrides.
+
+    Args:
+        config_filepath: A configuration file path.
+    """
     with pytest.raises(ConfigError) as err:
         _ = Configs({CONF_CONFIG: config_filepath})
     assert "Must provide an MQTT topic or enable Home Assistant MQTT Discovery" in str(
@@ -173,8 +197,12 @@ def test_config_file_empty(config_filepath):
         ),
     ],
 )
-def test_config_file_multiple_gateways(config_filepath):
-    """Test successfully loading a config file with multiple gateways."""
+def test_config_file_multiple_gateways(config_filepath: str) -> None:
+    """Test successfully loading a config file with multiple gateways.
+
+    Args:
+        config_filepath: A configuration file path.
+    """
     configs = Configs({CONF_CONFIG: config_filepath})
 
     # Test that the default config is returned with an invalid passkey:
@@ -193,23 +221,25 @@ def test_config_file_multiple_gateways(config_filepath):
 
 
 @pytest.mark.parametrize(
-    "config",
-    [
-        {
-            **TEST_CONFIG_JSON,
-            CONF_MQTT_BROKER: "192.168.1.100",
-        }
-    ],
+    "config", [TEST_CONFIG_JSON | {CONF_MQTT_BROKER: "192.168.1.100"}]
 )
-def test_config_file_overrides(config):
-    """Test a config file with overrides."""
+def test_config_file_overrides(config: dict[str, Any]) -> None:
+    """Test a config file with overrides.
+
+    Args:
+        config: A configuration dictionary.
+    """
     configs = Configs(config)
     assert configs.default_config.mqtt_broker == "192.168.1.100"
 
 
 @pytest.mark.parametrize("raw_config", ["Fake configuration!"])
-def test_config_file_unparsable(config_filepath):
-    """Test a config file that can't be parsed as JSON or YAML."""
+def test_config_file_unparsable(config_filepath: str) -> None:
+    """Test a config file that can't be parsed as JSON or YAML.
+
+    Args:
+        config_filepath: A configuration file path.
+    """
     with pytest.raises(ConfigError) as err:
         _ = Configs({CONF_CONFIG: config_filepath})
     assert "Unable to parse config file" in str(err)
@@ -217,30 +247,27 @@ def test_config_file_unparsable(config_filepath):
 
 @pytest.mark.parametrize(
     "config",
-    [
-        {
-            **TEST_CONFIG_JSON,
-            CONF_DEFAULT_BATTERY_STRATEGY: BatteryStrategy.NUMERIC,
-        },
-    ],
+    [TEST_CONFIG_JSON | {CONF_DEFAULT_BATTERY_STRATEGY: BatteryStrategy.NUMERIC}],
 )
-def test_default_battery_strategy(config):
-    """Test the default battery config."""
+def test_default_battery_strategy(config: dict[str, Any]) -> None:
+    """Test the default battery config.
+
+    Args:
+        config: A configuration dictionary.
+    """
     configs = Configs(config)
     assert configs.default_config.default_battery_strategy == BatteryStrategy.NUMERIC
 
 
 @pytest.mark.parametrize(
-    "config",
-    [
-        {
-            **TEST_CONFIG_JSON,
-            CONF_VERBOSE: "This isn't a real value",
-        },
-    ],
+    "config", [TEST_CONFIG_JSON | {CONF_VERBOSE: "This isn't a real value"}]
 )
-def test_invalid_boolean_config_validation(config):
-    """Test an invalid boolean config validation."""
+def test_invalid_boolean_config_validation(config: dict[str, Any]) -> None:
+    """Test an invalid boolean config validation.
+
+    Args:
+        config: A configuration dictionary.
+    """
     with pytest.raises(ConfigError):
         _ = Configs(config)
 
@@ -258,9 +285,14 @@ def test_invalid_boolean_config_validation(config):
         (CONF_OUTPUT_UNIT_TEMPERATURE, TEMP_CELSIUS),
     ],
 )
-def test_output_units(config_option, value):
-    """Test output unit classes."""
-    config = {**TEST_CONFIG_JSON, config_option: value}
+def test_output_units(config_option: str, value: str) -> None:
+    """Test output unit classes.
+
+    Args:
+        config_option: A unit configuration option.
+        value: A value to use for the configuration option.
+    """
+    config = TEST_CONFIG_JSON | {config_option: value}
     configs = Configs(config)
     assert getattr(configs.default_config, config_option) == value
 
@@ -278,16 +310,20 @@ def test_output_units(config_option, value):
         CONF_OUTPUT_UNIT_TEMPERATURE,
     ],
 )
-def test_output_units_invalid(config_option):
-    """Test output unit classes with invalid values."""
-    config = {**TEST_CONFIG_JSON, config_option: "Some Fake Value"}
+def test_output_units_invalid(config_option: str) -> None:
+    """Test output unit classes with invalid values.
+
+    Args:
+        config_option: A unit configuration option.
+    """
+    config = TEST_CONFIG_JSON | {config_option: "Some Fake Value"}
     with pytest.raises(ConfigError):
         _ = Configs(config)
 
 
-def test_precision():
+def test_precision() -> None:
     """Test whether precision is configured."""
-    config = {**TEST_CONFIG_JSON, CONF_PRECISION: 2}
+    config = TEST_CONFIG_JSON | {CONF_PRECISION: 2}
     configs = Configs(config)
     assert configs.default_config.precision == 2
 
@@ -295,30 +331,19 @@ def test_precision():
 @pytest.mark.parametrize(
     "config,verbose_value",
     [
-        (
-            {
-                **TEST_CONFIG_JSON,
-                CONF_VERBOSE: "yes",
-            },
-            True,
-        ),
-        (
-            {
-                **TEST_CONFIG_JSON,
-                CONF_VERBOSE: "disable",
-            },
-            False,
-        ),
-        (
-            {
-                **TEST_CONFIG_JSON,
-                CONF_VERBOSE: 5,
-            },
-            True,
-        ),
+        (TEST_CONFIG_JSON | {CONF_VERBOSE: "yes"}, True),
+        (TEST_CONFIG_JSON | {CONF_VERBOSE: "disable"}, False),
+        (TEST_CONFIG_JSON | {CONF_VERBOSE: 5}, True),
     ],
 )
-def test_valid_boolean_config_validation(config, verbose_value):
-    """Test that various boolean config validations work."""
+def test_valid_boolean_config_validation(
+    config: dict[str, Any], verbose_value: Any
+) -> None:
+    """Test that various boolean config validations work.
+
+    Args:
+        config: A configuration dictionary.
+        verbose_value: A value to the `--verbose` config option.
+    """
     configs = Configs(config)
     assert configs.default_config.verbose is verbose_value

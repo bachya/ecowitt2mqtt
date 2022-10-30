@@ -1,9 +1,11 @@
 """Define tests for the Home Assistant MQTT Discovery publisher."""
+# pylint: disable=line-too-long
 import logging
-from unittest.mock import call
+from typing import Any
+from unittest.mock import MagicMock, Mock, call
 
-from asyncio_mqtt import MqttError
 import pytest
+from asyncio_mqtt import MqttError
 
 from ecowitt2mqtt.const import (
     CONF_DEFAULT_BATTERY_STRATEGY,
@@ -11,43 +13,42 @@ from ecowitt2mqtt.const import (
     CONF_HASS_ENTITY_ID_PREFIX,
     CONF_VERBOSE,
 )
+from ecowitt2mqtt.core import Ecowitt
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 from ecowitt2mqtt.helpers.publisher.factory import get_publisher
 from ecowitt2mqtt.helpers.publisher.hass import HomeAssistantDiscoveryPublisher
-
 from tests.common import TEST_CONFIG_JSON, TEST_HASS_ENTITY_ID_PREFIX
 
 
-@pytest.mark.parametrize(
-    "config",
-    [
-        {
-            **TEST_CONFIG_JSON,
-            CONF_HASS_DISCOVERY: True,
-        }
-    ],
-)
-def test_get_publisher(ecowitt, mock_asyncio_mqtt_client):
-    """Test getting a publisher via the factory."""
+@pytest.mark.parametrize("config", [TEST_CONFIG_JSON | {CONF_HASS_DISCOVERY: True}])
+def test_get_publisher(ecowitt: Ecowitt, mock_asyncio_mqtt_client: MagicMock) -> None:
+    """Test getting a publisher via the factory.
+
+    Args:
+        ecowitt: A parsed Ecowitt object.
+        mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
+    """
     publisher = get_publisher(ecowitt.configs.default_config, mock_asyncio_mqtt_client)
     assert isinstance(publisher, HomeAssistantDiscoveryPublisher)
 
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    "config",
-    [
-        {
-            **TEST_CONFIG_JSON,
-            CONF_HASS_DISCOVERY: True,
-        }
-    ],
+    "config,device_data_filename",
+    [(TEST_CONFIG_JSON | {CONF_HASS_DISCOVERY: True}, "payload_gw2000a_2.json")],
 )
-@pytest.mark.parametrize("device_data_filename", ["payload_gw2000a_2.json"])
 async def test_publish(
-    device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
-):
-    """Test publishing a payload."""
+    device_data: dict[str, Any],
+    ecowitt: Ecowitt,
+    mock_asyncio_mqtt_client: MagicMock,
+) -> None:
+    """Test publishing a payload.
+
+    Args:
+        device_data: A dictionary of device data.
+        ecowitt: A parsed Ecowitt object.
+        mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
+    """
     publisher = get_publisher(ecowitt.configs.default_config, mock_asyncio_mqtt_client)
     await publisher.async_publish(device_data)
     mock_asyncio_mqtt_client.publish.assert_has_awaits(
@@ -2058,20 +2059,30 @@ async def test_publish(
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    "config",
+    "config,device_data_filename",
     [
-        {
-            **TEST_CONFIG_JSON,
-            CONF_HASS_DISCOVERY: True,
-            CONF_HASS_ENTITY_ID_PREFIX: TEST_HASS_ENTITY_ID_PREFIX,
-        }
+        (
+            TEST_CONFIG_JSON
+            | {
+                CONF_HASS_DISCOVERY: True,
+                CONF_HASS_ENTITY_ID_PREFIX: TEST_HASS_ENTITY_ID_PREFIX,
+            },
+            "payload_gw2000a_2.json",
+        )
     ],
 )
-@pytest.mark.parametrize("device_data_filename", ["payload_gw2000a_2.json"])
 async def test_publish_custom_entity_id_prefix(
-    device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
-):
-    """Test publishing a payload with custom HASS entity ID prefix."""
+    device_data: dict[str, Any],
+    ecowitt: Ecowitt,
+    mock_asyncio_mqtt_client: MagicMock,
+) -> None:
+    """Test publishing a payload with custom HASS entity ID prefix.
+
+    Args:
+        device_data: A dictionary of device data.
+        ecowitt: A parsed Ecowitt object.
+        mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
+    """
     publisher = get_publisher(ecowitt.configs.default_config, mock_asyncio_mqtt_client)
     await publisher.async_publish(device_data)
     mock_asyncio_mqtt_client.publish.assert_has_awaits(
@@ -4085,19 +4096,24 @@ async def test_publish_custom_entity_id_prefix(
     "config,device_data_filename,mqtt_publish_side_effect",
     [
         (
-            {
-                **TEST_CONFIG_JSON,
-                CONF_HASS_DISCOVERY: True,
-            },
+            TEST_CONFIG_JSON | {CONF_HASS_DISCOVERY: True},
             "payload_gw2000a_2.json",
             [None, None, None, MqttError],
-        ),
+        )
     ],
 )
 async def test_publish_error_mqtt(
-    device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
-):
-    """Test handling an asyncio-mqtt error when publishing."""
+    device_data: dict[str, Any],
+    ecowitt: Ecowitt,
+    mock_asyncio_mqtt_client: MagicMock,
+) -> None:
+    """Test handling an asyncio-mqtt error when publishing.
+
+    Args:
+        device_data: A dictionary of device data.
+        ecowitt: A parsed Ecowitt object.
+        mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
+    """
     publisher = get_publisher(ecowitt.configs.default_config, mock_asyncio_mqtt_client)
     with pytest.raises(MqttError):
         await publisher.async_publish(device_data)
@@ -4107,8 +4123,8 @@ async def test_publish_error_mqtt(
 @pytest.mark.parametrize(
     "config",
     [
-        {
-            **TEST_CONFIG_JSON,
+        TEST_CONFIG_JSON
+        | {
             CONF_DEFAULT_BATTERY_STRATEGY: BatteryStrategy.NUMERIC,
             CONF_HASS_DISCOVERY: True,
         }
@@ -4116,9 +4132,17 @@ async def test_publish_error_mqtt(
 )
 @pytest.mark.parametrize("device_data_filename", ["payload_gw2000a_2.json"])
 async def test_publish_numeric_battery_strategy(
-    device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
-):
-    """Test publishing a payload with numeric battery strategy."""
+    device_data: dict[str, Any],
+    ecowitt: Ecowitt,
+    mock_asyncio_mqtt_client: MagicMock,
+) -> None:
+    """Test publishing a payload with numeric battery strategy.
+
+    Args:
+        device_data: A dictionary of device data.
+        ecowitt: A parsed Ecowitt object.
+        mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
+    """
     publisher = get_publisher(ecowitt.configs.default_config, mock_asyncio_mqtt_client)
     await publisher.async_publish(device_data)
     mock_asyncio_mqtt_client.publish.assert_has_awaits(
@@ -6129,20 +6153,23 @@ async def test_publish_numeric_battery_strategy(
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    "config",
-    [
-        {
-            **TEST_CONFIG_JSON,
-            CONF_HASS_DISCOVERY: True,
-            CONF_VERBOSE: True,
-        }
-    ],
+    "config", [TEST_CONFIG_JSON | {CONF_HASS_DISCOVERY: True, CONF_VERBOSE: True}]
 )
 @pytest.mark.parametrize("device_data_filename", ["payload_gw2000a_2.json"])
 async def test_no_entity_description(
-    caplog, device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
-):
-    """Test that a key with no entity description is handled."""
+    caplog: Mock,
+    device_data: dict[str, Any],
+    ecowitt: Ecowitt,
+    mock_asyncio_mqtt_client: MagicMock,
+) -> None:
+    """Test that a key with no entity description is handled.
+
+    Args:
+        caplog: A mock logging utility.
+        device_data: A dictionary of device data.
+        ecowitt: A parsed Ecowitt object.
+        mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
+    """
     caplog.set_level(logging.DEBUG)
     device_data["random"] = "value"
 

@@ -22,7 +22,11 @@ class LightningStrikeCountCalculator(SimpleCalculator):
 
     @property
     def output_unit(self) -> str:
-        """Get the output unit of measurement for this calculation."""
+        """Get the output unit of measurement for this calculation.
+
+        Returns:
+            A unit string.
+        """
         return STRIKES
 
 
@@ -37,19 +41,36 @@ class LightningStrikeDistanceCalculator(Calculator):
 
     @property
     def output_unit_imperial(self) -> str:
-        """Get the default unit (imperial)."""
+        """Get the default unit (imperial).
+
+        Returns:
+            A unit string.
+        """
         return LENGTH_MILES
 
     @property
     def output_unit_metric(self) -> str:
-        """Get the default unit (metric)."""
+        """Get the default unit (metric).
+
+        Returns:
+            A unit string.
+        """
         return LENGTH_KILOMETERS
 
     def calculate_from_value(
         self, value: PreCalculatedValueType
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            value: calculated value.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+
+        Raises:
+            CalculationFailedError: Raised if the calculation fails.
+        """
         if isinstance(value, str):
             raise CalculationFailedError("Cannot parse value as a number")
-
         return self.get_calculated_data_point(value, unit_converter=DistanceConverter)

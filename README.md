@@ -19,24 +19,24 @@ device data to be sent to an MQTT broker.
 - [Disclaimer](#disclaimer)
 - [Quick Start](#quick-start)
 - [Configuration](#configuration)
-  * [Command Line Options](#command-line-options)
-  * [Environment Variables](#environment-variables)
-  * [Configuration File](#configuration-file)
-  * [Merging Configuration Options](#merging-configuration-options)
+  - [Command Line Options](#command-line-options)
+  - [Environment Variables](#environment-variables)
+  - [Configuration File](#configuration-file)
+  - [Merging Configuration Options](#merging-configuration-options)
 - [Advanced Usage](#advanced-usage)
-  * [Calculated Sensors](#calculated-sensors)
-  * [Battery Configurations](#battery-configurations)
-  * [Unit Systems](#unit-systems)
-  * [Raw Data](#raw-data)
-  * [Home Assistant](#home-assistant)
-  * [Running in the Background](#running-in-the-background)
-  * [Docker](#docker)
+  - [Calculated Sensors](#calculated-sensors)
+  - [Battery Configurations](#battery-configurations)
+  - [Unit Systems](#unit-systems)
+  - [Raw Data](#raw-data)
+  - [Home Assistant](#home-assistant)
+  - [Running in the Background](#running-in-the-background)
+  - [Docker](#docker)
 - [Diagnostics](#diagnostics)
 - [Contributing](#contributing)
 
 # Installation
 
-```python
+```bash
 pip install ecowitt2mqtt
 ```
 
@@ -44,9 +44,9 @@ pip install ecowitt2mqtt
 
 `ecowitt2mqtt` is currently supported on:
 
-* Python 3.9
-* Python 3.10
-* Python 3.11
+- Python 3.9
+- Python 3.10
+- Python 3.11
 
 # Disclaimer
 
@@ -58,8 +58,8 @@ diagnosis from trained professionals. Use this data at your own discretion.
 
 Note that this README assumes that:
 
-* you have access to an MQTT broker.
-* you have already paired your Ecowitt device with the WS View Android/iOS app from
+- you have access to an MQTT broker.
+- you have already paired your Ecowitt device with the WS View Android/iOS app from
   Ecowitt.
 
 First, install `ecowitt2mqtt` via `pip`:
@@ -79,11 +79,11 @@ Press `Next` until you reach the `Customized` screen:
 
 Fill out the form with these values and tap `Save`:
 
-* `Protocol Type Same As`: `Ecowitt`
-* `Server IP / Hostname`: the IP address/hostname of the device running `ecowitt2mqtt`
-* `Path`: `/data/report/`
-* `Port`: `8080` (the default port on which `ecowitt2mqtt` is served)
-* `Upload Interval`: `60` (change this to alter the frequency with which data is published)
+- `Protocol Type Same As`: `Ecowitt`
+- `Server IP / Hostname`: the IP address/hostname of the device running `ecowitt2mqtt`
+- `Path`: `/data/report/`
+- `Port`: `8080` (the default port on which `ecowitt2mqtt` is served)
+- `Upload Interval`: `60` (change this to alter the frequency with which data is published)
 
 Then, on the machine where you installed `ecowitt2mqtt`, run it:
 
@@ -179,29 +179,29 @@ options:
 
 ## Environment Variables
 
-* `ECOWITT2MQTT_BATTERY_OVERRIDE`: a semicolon-delimited list of key=value battery overrides (default: `numeric`)
-* `ECOWITT2MQTT_CONFIG`: a path to a YAML or JSON config file (default: `None`)
-* `ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY`: the default battery config strategy to use (default: `boolean`)
-* `ECOWITT2MQTT_DIAGNOSTICS`: whether to output diagnostics (default: `false`)
-* `ECOWITT2MQTT_DISABLE_CALCULATED_DATA`: whether to disable the output of calculated sensors (default: `false`)
-* `ECOWITT2MQTT_ENDPOINT`: the relative endpoint/path to serve ecowitt2mqtt on (default: `/data/report`)
-* `ECOWITT2MQTT_HASS_DISCOVERY_PREFIX`: the Home Assistant discovery prefix to use (default: `homeassistant`)
-* `ECOWITT2MQTT_HASS_DISCOVERY`: publish data in the Home Assistant MQTT Discovery format Idefault: `false`)
-* `ECOWITT2MQTT_HASS_ENTITY_ID_PREFIX`: the prefix to use for Home Assistant entity IDs (default: `""`)
-* `ECOWITT2MQTT_INPUT_UNIT_SYSTEM`: the input unit system used by the device (default: `imperial`)
-* `ECOWITT2MQTT_MQTT_BROKER`: the hostname or IP address of an MQTT broker
-* `ECOWITT2MQTT_MQTT_PASSWORD`: a valid password for the MQTT broker
-* `ECOWITT2MQTT_MQTT_PORT`: the listenting port of the MQTT broker (default: `1883`)
-* `ECOWITT2MQTT_MQTT_RETAIN`: whether to instruct the MQTT broker to retain messages (default: `false`)
-* `ECOWITT2MQTT_MQTT_TLS`: publish data via MQTT over TLS (default: `false`)
-* `ECOWITT2MQTT_MQTT_TOPIC`: the MQTT topic to publish device data to
-* `ECOWITT2MQTT_MQTT_USERNAME`: a valid username for the MQTT broker
-* `ECOWITT2MQTT_OUTPUT_UNIT_SYSTEM`: the unit system to use in output (default: `imperial`)
-* `ECOWITT2MQTT_OUTPUT_UNIT_TEMPERATURE`: the output unit to use for temperature data points (default: the default used by the output unit system)
-* `ECOWITT2MQTT_PORT`: the port to serve ecowitt2mqtt on (default: `8080`)
-* `ECOWITT2MQTT_PRECISION`: the precision to output data points at (default: no limit)
-* `ECOWITT2MQTT_RAW_DATA`: return raw data (don't attempt to translate any values) (default: `false`)
-* `ECOWITT2MQTT_VERBOSE`: increase verbosity of logged output (default: `false`)
+- `ECOWITT2MQTT_BATTERY_OVERRIDE`: a semicolon-delimited list of key=value battery overrides (default: `numeric`)
+- `ECOWITT2MQTT_CONFIG`: a path to a YAML or JSON config file (default: `None`)
+- `ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY`: the default battery config strategy to use (default: `boolean`)
+- `ECOWITT2MQTT_DIAGNOSTICS`: whether to output diagnostics (default: `false`)
+- `ECOWITT2MQTT_DISABLE_CALCULATED_DATA`: whether to disable the output of calculated sensors (default: `false`)
+- `ECOWITT2MQTT_ENDPOINT`: the relative endpoint/path to serve ecowitt2mqtt on (default: `/data/report`)
+- `ECOWITT2MQTT_HASS_DISCOVERY_PREFIX`: the Home Assistant discovery prefix to use (default: `homeassistant`)
+- `ECOWITT2MQTT_HASS_DISCOVERY`: publish data in the Home Assistant MQTT Discovery format Idefault: `false`)
+- `ECOWITT2MQTT_HASS_ENTITY_ID_PREFIX`: the prefix to use for Home Assistant entity IDs (default: `""`)
+- `ECOWITT2MQTT_INPUT_UNIT_SYSTEM`: the input unit system used by the device (default: `imperial`)
+- `ECOWITT2MQTT_MQTT_BROKER`: the hostname or IP address of an MQTT broker
+- `ECOWITT2MQTT_MQTT_PASSWORD`: a valid password for the MQTT broker
+- `ECOWITT2MQTT_MQTT_PORT`: the listenting port of the MQTT broker (default: `1883`)
+- `ECOWITT2MQTT_MQTT_RETAIN`: whether to instruct the MQTT broker to retain messages (default: `false`)
+- `ECOWITT2MQTT_MQTT_TLS`: publish data via MQTT over TLS (default: `false`)
+- `ECOWITT2MQTT_MQTT_TOPIC`: the MQTT topic to publish device data to
+- `ECOWITT2MQTT_MQTT_USERNAME`: a valid username for the MQTT broker
+- `ECOWITT2MQTT_OUTPUT_UNIT_SYSTEM`: the unit system to use in output (default: `imperial`)
+- `ECOWITT2MQTT_OUTPUT_UNIT_TEMPERATURE`: the output unit to use for temperature data points (default: the default used by the output unit system)
+- `ECOWITT2MQTT_PORT`: the port to serve ecowitt2mqtt on (default: `8080`)
+- `ECOWITT2MQTT_PRECISION`: the precision to output data points at (default: no limit)
+- `ECOWITT2MQTT_RAW_DATA`: return raw data (don't attempt to translate any values) (default: `false`)
+- `ECOWITT2MQTT_VERBOSE`: increase verbosity of logged output (default: `false`)
 
 ## Configuration File
 
@@ -233,7 +233,6 @@ verbose: false
 ```
 
 ...or JSON
-
 
 ```json
 {
@@ -297,8 +296,8 @@ gateways:
 
 ...defines two gateway definitions:
 
-* One that publishes to the `Test` topic on an MQTT broker at `127.0.0.1`
-* One (with a `PASSKEY` of `abcde12345`) that publishes to the same broker, but in Home
+- One that publishes to the `Test` topic on an MQTT broker at `127.0.0.1`
+- One (with a `PASSKEY` of `abcde12345`) that publishes to the same broker, but in Home
   Assistant MQTT Discovery format.
 
 In another example, this JSON configuration file:
@@ -322,8 +321,8 @@ In another example, this JSON configuration file:
 
 ...defines two gateway definitions:
 
-* One that publishes to the `Test` topic on an MQTT broker at `127.0.0.1`
-* One (with a `PASSKEY` of `abcde12345`) that publishes to a different broker
+- One that publishes to the `Test` topic on an MQTT broker at `127.0.0.1`
+- One (with a `PASSKEY` of `abcde12345`) that publishes to a different broker
   (`192.168.1.100`), outputs the data in metric, and retains the data on the broker
 
 ## Merging Configuration Options
@@ -339,7 +338,6 @@ the following order:
 This allows you to mix and match sources – for instance, you might have "defaults" in
 the configuration file and override them via environment variables.
 
-
 # Advanced Usage
 
 ## Calculated Sensors
@@ -348,19 +346,19 @@ In addition to the data coming from a gateway, `ecowitt2mqtt` will automatically
 and published several additional, calculated data points if the requisite underlying
 data exists:
 
-* **[Absolute Humidity](https://en.wikipedia.org/wiki/Humidity#Absolute_humidity):** the actual volume of water vapor in the air
-* **[Beaufort Scale](https://en.wikipedia.org/wiki/Beaufort_scale):** the empirical measure that relates wind speed to observed conditions at sea or on land
-* **[Dew Point](https://en.wikipedia.org/wiki/Dew_point):** the temperature to which air must be cooled to become saturated with water vapor, assuming constant air pressure and water content
-* **[Feels Like](https://en.wikipedia.org/wiki/Heat_index):** how hot or how cold the air feels to the human body when factoring in variables such as relative humidity, wind speeds, the amount of sunshine, etc.
-* **[Frost Point](https://en.wikipedia.org/wiki/Dew_point#Frost_point):** the temperature below 32°F (0°C) at which moisture in the air will condense as a layer of frost on exposed surfaces that are also at a temperature below the frost point
-* **[Frost Risk](https://en.wikipedia.org/wiki/Dew_point#Frost_point):** how likely the formation of frost is (based on the `frostpoint`)
-* **[Heat Index](https://en.wikipedia.org/wiki/Heat_index):** how hot the air feels to the human body when factoring in relative humidity (applicable when the apparent temperature is higher than the air temperature)
-* **[Safe Exposure Times](https://www.openuv.io/kb/skin-types-safe-exposure-time-calculation/):** how long different skin types can be in the sun (unprotected) before burning begins according to the [Fitzpatrick Scale](https://en.wikipedia.org/wiki/Fitzpatrick_scale)
-* **Solar Radiation (%):** the percentage of detected solar radiation illuminance as perceived by the human eye
-* **[Simmer Index](http://summersimmer.com/ssi_page2.htm):** an alternative to heat index that describes how how the air feels to the human body in relatively dry environments
-* **Simmer Zone:** a human-friendly interpretation of the Simmer Index
-* **Thermal Perception:** a human-friendly interpretation of the Dew Point
-* **[Wind Chill](https://en.wikipedia.org/wiki/Wind_chill):** how cold the air feels to the human body when factoring in relative humidity, wind speed, etc. (applicable when the apparent temperature is lower than the air temperature)
+- **[Absolute Humidity](https://en.wikipedia.org/wiki/Humidity#Absolute_humidity):** the actual volume of water vapor in the air
+- **[Beaufort Scale](https://en.wikipedia.org/wiki/Beaufort_scale):** the empirical measure that relates wind speed to observed conditions at sea or on land
+- **[Dew Point](https://en.wikipedia.org/wiki/Dew_point):** the temperature to which air must be cooled to become saturated with water vapor, assuming constant air pressure and water content
+- **[Feels Like](https://en.wikipedia.org/wiki/Heat_index):** how hot or how cold the air feels to the human body when factoring in variables such as relative humidity, wind speeds, the amount of sunshine, etc.
+- **[Frost Point](https://en.wikipedia.org/wiki/Dew_point#Frost_point):** the temperature below 32°F (0°C) at which moisture in the air will condense as a layer of frost on exposed surfaces that are also at a temperature below the frost point
+- **[Frost Risk](https://en.wikipedia.org/wiki/Dew_point#Frost_point):** how likely the formation of frost is (based on the `frostpoint`)
+- **[Heat Index](https://en.wikipedia.org/wiki/Heat_index):** how hot the air feels to the human body when factoring in relative humidity (applicable when the apparent temperature is higher than the air temperature)
+- **[Safe Exposure Times](https://www.openuv.io/kb/skin-types-safe-exposure-time-calculation/):** how long different skin types can be in the sun (unprotected) before burning begins according to the [Fitzpatrick Scale](https://en.wikipedia.org/wiki/Fitzpatrick_scale)
+- **Solar Radiation (%):** the percentage of detected solar radiation illuminance as perceived by the human eye
+- **[Simmer Index](http://summersimmer.com/ssi_page2.htm):** an alternative to heat index that describes how how the air feels to the human body in relatively dry environments
+- **Simmer Zone:** a human-friendly interpretation of the Simmer Index
+- **Thermal Perception:** a human-friendly interpretation of the Dew Point
+- **[Wind Chill](https://en.wikipedia.org/wiki/Wind_chill):** how cold the air feels to the human body when factoring in relative humidity, wind speed, etc. (applicable when the apparent temperature is lower than the air temperature)
 
 If you would prefer to not have these sensors calculated and published, you can utilize
 the `--disable-calculated-data` configuration option.
@@ -369,12 +367,12 @@ the `--disable-calculated-data` configuration option.
 
 Ecowitt devices report battery levels in three different formats:
 
-* `boolean`: `0` represents `OFF` (i.e., the battery is in normal condition) and `1`
-   represents `ON` (i.e., the battery is low).
-* `numeric`: the raw numeric value is interpreted as the number of volts remaining in
-   the battery.
-* `percentage`: the raw numeric value is interpreted as the percentage of voltage
-   remaining the battery.
+- `boolean`: `0` represents `OFF` (i.e., the battery is in normal condition) and `1`
+  represents `ON` (i.e., the battery is low).
+- `numeric`: the raw numeric value is interpreted as the number of volts remaining in
+  the battery.
+- `percentage`: the raw numeric value is interpreted as the percentage of voltage
+  remaining the battery.
 
 `ecowitt2mqtt` provides three mechanisms to handle this complexity:
 
@@ -397,11 +395,11 @@ unknown battery types should be treated by default.
 Individual batteries can be overridden and given a new strategy. How this is
 accomplished differs slightly based on the configuration method used:
 
-* Command Line Options: provide one or more `--battery-override "batt1=boolean"` options
-* Environment Variables: provide a `ECOWITT2MQTT_BATTERY_OVERRIDE` variable that is a
+- Command Line Options: provide one or more `--battery-override "batt1=boolean"` options
+- Environment Variables: provide a `ECOWITT2MQTT_BATTERY_OVERRIDE` variable that is a
   semicolon-delimited pair of "key=value" strings (e.g.,
   `ECOWITT2MQTT_BATTERY_OVERRIDE="batt1=boolean;batt2=numeric"`)
-* Config File: include a dictionary of key/value pairs in either YAML or JSON format
+- Config File: include a dictionary of key/value pairs in either YAML or JSON format
 
 These overrides work on both known and unknown battery types; that said, if you should
 find the need to override a known battery type because `ecowitt2mqtt` has an incorrect
@@ -469,67 +467,67 @@ converted to the new unit.
 
 Config Option: `--output-unit-accumulated-precipitation`
 
-* `in`
-* `mm`
+- `in`
+- `mm`
 
 #### Absolute Humidity
 
 Config Option: `--output-unit-humidity`
 
-* `g/m³`
-* `lbs/ft³`
+- `g/m³`
+- `lbs/ft³`
 
 #### Illuminance
 
 Config Option: `--output-unit-illuminance`
 
-* `fc`
-* `kfc`
-* `klx`
-* `lx`
-* `W/m²`
+- `fc`
+- `kfc`
+- `klx`
+- `lx`
+- `W/m²`
 
 #### Precipitation Rate
 
 Config Option: `--output-unit-precipitation-rate`
 
-* `in/h`
-* `mm/h`
+- `in/h`
+- `mm/h`
 
 #### Pressure
 
 Config Option: `--output-unit-pressure`
 
-* `bar`
-* `cbar`
-* `hPa`
-* `inHg`
-* `kPa`
-* `mbar`
-* `mmHg`
-* `Pa`
-* `psi`
+- `bar`
+- `cbar`
+- `hPa`
+- `inHg`
+- `kPa`
+- `mbar`
+- `mmHg`
+- `Pa`
+- `psi`
 
 #### Speed
 
 Config Option: `--output-unit-speed`
 
-* `ft/s`
-* `in/d`
-* `in/h`
-* `km/h`
-* `kn`
-* `m/s`
-* `mph`
-* `mm/d`
+- `ft/s`
+- `in/d`
+- `in/h`
+- `km/h`
+- `kn`
+- `m/s`
+- `mph`
+- `mm/d`
 
 #### Temperature
 
 Config Option: `--output-unit-temperature`
 
-* `°C`
-* `°F`
-* `K`
+- `°C`
+- `°F`
+- `K`
 
 ## Raw Data
 
@@ -660,14 +658,14 @@ debugging, and issue reporting.
 # Contributing
 
 1. [Check for open features/bugs](https://github.com/bachya/ecowitt2mqtt/issues)
-  or [initiate a discussion on one](https://github.com/bachya/ecowitt2mqtt/issues/new).
+   or [initiate a discussion on one](https://github.com/bachya/ecowitt2mqtt/issues/new).
 2. [Fork the repository](https://github.com/bachya/ecowitt2mqtt/fork).
 3. (_optional, but highly recommended_) Create a virtual environment: `python3 -m venv .venv`
 4. (_optional, but highly recommended_) Enter the virtual environment: `source ./.venv/bin/activate`
 5. Install the dev environment: `script/setup`
 6. Code your new feature or bug fix.
 7. Write tests that cover your new functionality.
-8. Run tests and ensure 100% code coverage: `nox -rs coverage`
+8. Run tests and ensure 100% code coverage: `poetry run pytest --cov ecowitt2mqtt tests`
 9. Update `README.md` with any new documentation.
 10. Add yourself to `AUTHORS.md`.
 11. Submit a pull request!

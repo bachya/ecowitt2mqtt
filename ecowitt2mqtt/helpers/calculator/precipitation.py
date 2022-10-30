@@ -1,6 +1,8 @@
 """Define precipitation calculators."""
 from __future__ import annotations
 
+from typing import cast
+
 from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_ACCUMULATED_PRECIPITATION,
     CONF_OUTPUT_UNIT_PRECIPITATION_RATE,
@@ -25,21 +27,36 @@ class AccumulatedPrecipitationCalculator(Calculator):
 
     @property
     def output_unit_imperial(self) -> str:
-        """Get the default unit (imperial)."""
+        """Get the default unit (imperial).
+
+        Returns:
+            A unit string.
+        """
         return PRECIPITATION_INCHES
 
     @property
     def output_unit_metric(self) -> str:
-        """Get the default unit (metric)."""
+        """Get the default unit (metric).
+
+        Returns:
+            A unit string.
+        """
         return PRECIPITATION_MILLIMETERS
 
     def calculate_from_value(
         self, value: PreCalculatedValueType
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
-        assert isinstance(value, float)
+        """Perform the calculation.
+
+        Args:
+            value: calculated value.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
+        float_value = cast(float, value)
         return self.get_calculated_data_point(
-            value, unit_converter=AccumulatedPrecipitationConverter
+            float_value, unit_converter=AccumulatedPrecipitationConverter
         )
 
 
@@ -51,19 +68,34 @@ class PrecipitationRateCalculator(Calculator):
 
     @property
     def output_unit_imperial(self) -> str:
-        """Get the default unit (imperial)."""
+        """Get the default unit (imperial).
+
+        Returns:
+            A unit string.
+        """
         return PRECIPITATION_INCHES_PER_HOUR
 
     @property
     def output_unit_metric(self) -> str:
-        """Get the default unit (metric)."""
+        """Get the default unit (metric).
+
+        Returns:
+            A unit string.
+        """
         return PRECIPITATION_MILLIMETERS_PER_HOUR
 
     def calculate_from_value(
         self, value: PreCalculatedValueType
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
-        assert isinstance(value, float)
+        """Perform the calculation.
+
+        Args:
+            value: calculated value.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
+        float_value = cast(float, value)
         return self.get_calculated_data_point(
-            value, unit_converter=PrecipitationRateConverter
+            float_value, unit_converter=PrecipitationRateConverter
         )

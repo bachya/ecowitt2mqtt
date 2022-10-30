@@ -3,6 +3,7 @@ import pytest
 
 from ecowitt2mqtt.util.unit_conversion import (
     AccumulatedPrecipitationConverter,
+    BaseUnitConverter,
     DistanceConverter,
     IlluminanceConverter,
     PrecipitationRateConverter,
@@ -23,9 +24,16 @@ from ecowitt2mqtt.util.unit_conversion import (
     ],
 )
 def test_accumulated_precipitation_conversion(
-    converted_value, from_unit, to_unit, value
-):
-    """Test accumulated precipitation conversions."""
+    converted_value: float, from_unit: str, to_unit: str, value: float
+) -> None:
+    """Test accumulated precipitation conversions.
+
+    Args:
+        converted_value: The converted value.
+        from_unit: The unit being converted from.
+        to_unit: The unit being converted to.
+        value: The original value:
+    """
     assert (
         AccumulatedPrecipitationConverter.convert(value, from_unit, to_unit)
         == converted_value
@@ -45,8 +53,17 @@ def test_accumulated_precipitation_conversion(
         (10, "km", "yd", 10936.13298337708),
     ],
 )
-def test_distance_conversion(converted_value, from_unit, to_unit, value):
-    """Test distance conversions."""
+def test_distance_conversion(
+    converted_value: float, from_unit: str, to_unit: str, value: float
+) -> None:
+    """Test distance conversions.
+
+    Args:
+        converted_value: The converted value.
+        from_unit: The unit being converted from.
+        to_unit: The unit being converted to.
+        value: The original value:
+    """
     assert DistanceConverter.convert(value, from_unit, to_unit) == converted_value
 
 
@@ -66,8 +83,17 @@ def test_distance_conversion(converted_value, from_unit, to_unit, value):
         (90.0, "%", "%", 90.0),
     ],
 )
-def test_illuminance_conversion(converted_value, from_unit, to_unit, value):
-    """Test illuminance conversions."""
+def test_illuminance_conversion(
+    converted_value: float, from_unit: str, to_unit: str, value: float
+) -> None:
+    """Test illuminance conversions.
+
+    Args:
+        converted_value: The converted value.
+        from_unit: The unit being converted from.
+        to_unit: The unit being converted to.
+        value: The original value:
+    """
     assert IlluminanceConverter.convert(value, from_unit, to_unit) == converted_value
 
 
@@ -90,7 +116,9 @@ def test_illuminance_conversion(converted_value, from_unit, to_unit, value):
         ("volume", VolumeConverter, "g/m³", "sparrows"),
     ],
 )
-def test_invalid_units(converter, from_unit, to_unit, unit_class):
+def test_invalid_units(
+    converter: type[BaseUnitConverter], from_unit: str, to_unit: str, unit_class: str
+) -> None:
     """Test that invalid units raise an error."""
     with pytest.raises(UnitConversionError) as err:
         _ = converter.convert(10, from_unit, to_unit)
@@ -105,8 +133,17 @@ def test_invalid_units(converter, from_unit, to_unit, unit_class):
         (10, "mm/h", "in/h", 0.39370078740157477),
     ],
 )
-def test_precipitation_rate_conversion(converted_value, from_unit, to_unit, value):
-    """Test precipitation rate conversions."""
+def test_precipitation_rate_conversion(
+    converted_value: float, from_unit: str, to_unit: str, value: float
+) -> None:
+    """Test precipitation rate conversions.
+
+    Args:
+        converted_value: The converted value.
+        from_unit: The unit being converted from.
+        to_unit: The unit being converted to.
+        value: The original value:
+    """
     assert (
         PrecipitationRateConverter.convert(value, from_unit, to_unit) == converted_value
     )
@@ -127,8 +164,17 @@ def test_precipitation_rate_conversion(converted_value, from_unit, to_unit, valu
         (10, "inHg", "cbar", 33.86388640341),
     ],
 )
-def test_pressure_conversion(converted_value, from_unit, to_unit, value):
-    """Test pressure conversions."""
+def test_pressure_conversion(
+    converted_value: float, from_unit: str, to_unit: str, value: float
+) -> None:
+    """Test pressure conversions.
+
+    Args:
+        converted_value: The converted value.
+        from_unit: The unit being converted from.
+        to_unit: The unit being converted to.
+        value: The original value:
+    """
     assert PressureConverter.convert(value, from_unit, to_unit) == converted_value
 
 
@@ -147,8 +193,17 @@ def test_pressure_conversion(converted_value, from_unit, to_unit, value):
         (10, "in/h", "km/h", 0.000254),
     ],
 )
-def test_speed_conversion(converted_value, from_unit, to_unit, value):
-    """Test speed conversions."""
+def test_speed_conversion(
+    converted_value: float, from_unit: str, to_unit: str, value: float
+) -> None:
+    """Test speed conversions.
+
+    Args:
+        converted_value: The converted value.
+        from_unit: The unit being converted from.
+        to_unit: The unit being converted to.
+        value: The original value:
+    """
     assert SpeedConverter.convert(value, from_unit, to_unit) == converted_value
 
 
@@ -164,8 +219,17 @@ def test_speed_conversion(converted_value, from_unit, to_unit, value):
         (350, "K", "°F", 170.33000000000004),
     ],
 )
-def test_temperature_conversion(converted_value, from_unit, to_unit, value):
-    """Test temperature conversions."""
+def test_temperature_conversion(
+    converted_value: float, from_unit: str, to_unit: str, value: float
+) -> None:
+    """Test temperature conversions.
+
+    Args:
+        converted_value: The converted value.
+        from_unit: The unit being converted from.
+        to_unit: The unit being converted to.
+        value: The original value:
+    """
     assert TemperatureConverter.convert(value, from_unit, to_unit) == converted_value
 
 
@@ -182,8 +246,17 @@ def test_temperature_conversion(converted_value, from_unit, to_unit, value):
         (DistanceConverter, "yd", "m", 1.093613298337708),
     ],
 )
-def test_unit_ratio(converter, from_unit, ratio, to_unit):
-    """Test the ratio between two units."""
+def test_unit_ratio(
+    converter: type[BaseUnitConverter], from_unit: str, to_unit: str, ratio: float
+) -> None:
+    """Test the ratio between two units.
+
+    Args:
+        converter: A BaseUnitConverter subclass.
+        from_unit: The unit being converted from.
+        to_unit: The unit being converted to.
+        ratio: The unit ratio.
+    """
     assert converter.get_unit_ratio(from_unit, to_unit) == ratio
 
 
@@ -194,6 +267,15 @@ def test_unit_ratio(converter, from_unit, ratio, to_unit):
         (10, "lbs/ft³", "g/m³", 160184.63373960144),
     ],
 )
-def test_volume_conversion(converted_value, from_unit, to_unit, value):
-    """Test volume conversions."""
+def test_volume_conversion(
+    converted_value: float, from_unit: str, to_unit: str, value: float
+) -> None:
+    """Test volume conversions.
+
+    Args:
+        converted_value: The converted value.
+        from_unit: The unit being converted from.
+        to_unit: The unit being converted to.
+        value: The original value:
+    """
     assert VolumeConverter.convert(value, from_unit, to_unit) == converted_value

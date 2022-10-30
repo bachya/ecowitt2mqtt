@@ -1,9 +1,9 @@
 """Define battery calculators."""
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from enum import Enum
+from typing import TYPE_CHECKING, cast
 
-from ecowitt2mqtt.backports.enum import StrEnum
 from ecowitt2mqtt.const import (
     DATA_POINT_CO2_BATT,
     DATA_POINT_GLOB_LEAFBATT,
@@ -36,7 +36,7 @@ if TYPE_CHECKING:
     from ecowitt2mqtt.config import Config
 
 
-class BatteryStrategy(StrEnum):
+class BatteryStrategy(str, Enum):
     """Define types of battery configuration."""
 
     BOOLEAN = "boolean"
@@ -44,7 +44,7 @@ class BatteryStrategy(StrEnum):
     PERCENTAGE = "percentage"
 
 
-class BooleanBatteryState(StrEnum):
+class BooleanBatteryState(str, Enum):
     """Define types of battery configuration."""
 
     OFF = "OFF"
@@ -72,7 +72,15 @@ BATTERY_STRATEGY_MAP = {
 
 
 def get_battery_strategy(config: Config, key: str) -> BatteryStrategy:
-    """Get the battery strategy for a particular key."""
+    """Get the battery strategy for a particular key.
+
+    Args:
+        config: A Config object.
+        key: A key from an Ecowitt data payload.
+
+    Returns:
+        A parsed BatteryStrategy object.
+    """
     strategies = [config.battery_overrides.get(key)]
 
     data_point, strategy = glob_search(BATTERY_STRATEGY_MAP, key)
@@ -93,14 +101,24 @@ class BatteryCalculator(Calculator):
     """Define a battery calculator."""
 
     def __init__(self, config: Config, payload_key: str, data_point_key: str) -> None:
-        """Initialize."""
+        """Initialize.
+
+        Args:
+            config: A Config object.
+            payload_key: The Ecowitt payload key.
+            data_point_key: The data point type for this key.
+        """
         super().__init__(config, payload_key, data_point_key)
 
         self._battery_strategy = get_battery_strategy(config, payload_key)
 
     @property
     def output_unit(self) -> str | None:
-        """Get the output unit of measurement for this calculation."""
+        """Get the output unit of measurement for this calculation.
+
+        Returns:
+            An optional string.
+        """
         if self._battery_strategy == BatteryStrategy.NUMERIC:
             return ELECTRIC_POTENTIAL_VOLT
         if self._battery_strategy == BatteryStrategy.PERCENTAGE:
@@ -110,11 +128,18 @@ class BatteryCalculator(Calculator):
     def calculate_from_value(
         self, value: PreCalculatedValueType
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
-        assert isinstance(value, float)
+        """Perform the calculation.
+
+        Args:
+            value: A pre-calculated value.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
+        float_value = cast(float, value)
 
         if self._battery_strategy == BatteryStrategy.NUMERIC:
-            return self.get_calculated_data_point(value)
+            return self.get_calculated_data_point(float_value)
 
         if self._battery_strategy == BatteryStrategy.PERCENTAGE:
             # Percentage batteries occur in "steps":
@@ -124,9 +149,9 @@ class BatteryCalculator(Calculator):
             #   * 4 = 80%
             #   * 5 = 100%
             #   * 6 = 120% (plugged into mains voltage)
-            return self.get_calculated_data_point(value * 20)
+            return self.get_calculated_data_point(float_value * 20)
 
-        if value == 0.0:
+        if float_value == 0.0:
             return self.get_calculated_data_point(
                 BooleanBatteryState.OFF, data_type=DataPointType.BOOLEAN
             )

@@ -1,11 +1,11 @@
 """Define various calculators."""
 from __future__ import annotations
 
-from collections.abc import Iterable
+from collections.abc import Callable, Iterable
 from dataclasses import dataclass, field
 from enum import Enum
 from functools import wraps
-from typing import TYPE_CHECKING, Any, Callable, Dict, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from ecowitt2mqtt.const import UNIT_SYSTEM_IMPERIAL
 from ecowitt2mqtt.errors import EcowittError
@@ -15,9 +15,11 @@ from ecowitt2mqtt.util.unit_conversion import BaseUnitConverter
 if TYPE_CHECKING:
     from ecowitt2mqtt.config import Config
 
-_CalculatorType = TypeVar("_CalculatorType", bound="Calculator")
+_CalculatorType = TypeVar(  # pylint: disable=invalid-name
+    "_CalculatorType", bound="Calculator"
+)
 _CalculateFromPayloadFuncType = Callable[
-    [_CalculatorType, Dict[str, PreCalculatedValueType]], "CalculatedDataPoint"
+    [_CalculatorType, dict[str, PreCalculatedValueType]], "CalculatedDataPoint"
 ]
 
 
@@ -58,26 +60,44 @@ class Calculator:
     UNIT_OVERRIDE_CONFIG_OPTION: str | None = None
 
     def __init__(self, config: Config, payload_key: str, data_point_key: str) -> None:
-        """Initialize."""
+        """Initialize.
+
+        Args:
+            config: A Config object.
+            payload_key: The Ecowitt payload key.
+            data_point_key: The data point type for this key.
+        """
         self._config = config
         self._data_point_key = data_point_key
         self._payload_key = payload_key
 
     @property
-    def output_unit_imperial(self) -> str | None:
-        """Get the default unit (imperial)."""
+    def output_unit_imperial(self) -> str | None:  # pylint: disable=W9008
+        """Get the default unit (imperial).
+
+        Returns:
+            A string or None if appropriate.
+        """
         return None
 
     @property
-    def output_unit_metric(self) -> str | None:
-        """Get the default unit (metric)."""
+    def output_unit_metric(self) -> str | None:  # pylint: disable=W9008
+        """Get the default unit (metric).
+
+        Returns:
+            A string or None if appropriate.
+        """
         return None
 
     @property
     def output_unit(self) -> str | None:
-        """Get the output unit of measurement for this calculation."""
+        """Get the output unit of measurement for this calculation.
+
+        Returns:
+            A string or None if appropriate.
+        """
         if override := cast(
-            Union[str, None],
+            str | None,
             getattr(self._config, str(self.UNIT_OVERRIDE_CONFIG_OPTION), None),
         ):
             return override
@@ -88,12 +108,20 @@ class Calculator:
     def calculate_from_value(
         self, value: PreCalculatedValueType
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            value: A pre-calculated value.
+        """
 
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+        """
 
     def get_calculated_data_point(
         self,
@@ -103,10 +131,18 @@ class Calculator:
         data_type: DataPointType = DataPointType.NON_BOOLEAN,
         attributes: dict[str, Any] | None = None,
     ) -> CalculatedDataPoint:
-        """Get the output unit for this calculation."""
-        if unit_converter:
-            assert self.output_unit
-            assert isinstance(value, float)
+        """Get the output unit for this calculation.
+
+        Args:
+            value: The parsed value to use in a CalculatedDataPoint.
+            unit_converter: An option BaseUnitConverter subclass.
+            data_type: A DataPointType value.
+            attributes: Optional attributes to add to the final CalculatedDataPoint.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
+        if unit_converter and self.output_unit and isinstance(value, float):
             value = unit_converter.convert(
                 value, self.DEFAULT_INPUT_UNIT, self.output_unit
             )
@@ -130,18 +166,43 @@ class Calculator:
     def requires_keys(
         *keys: Iterable[str],
     ) -> Callable[[_CalculateFromPayloadFuncType], _CalculateFromPayloadFuncType]:
-        """Define a decorator that requires certain payload keys to exist."""
+        """Define a decorator that requires certain payload keys to exist.
+
+        Args:
+            keys: A series of strings.
+
+        Returns:
+            A decorated Callable.
+        """
 
         def decorator(
             func: _CalculateFromPayloadFuncType,
         ) -> _CalculateFromPayloadFuncType:
-            """Decorate."""
+            """Decorate.
+
+            Args:
+                func: The Callable to decorate.
+
+            Returns:
+                A decorated Callable.
+            """
 
             @wraps(func)
             def wrapper(
                 calculator: _CalculatorType, payload: dict[str, PreCalculatedValueType]
             ) -> CalculatedDataPoint:
-                """Wrap."""
+                """Wrap.
+
+                Args:
+                    calculator: A Calculator subclass.
+                    payload: A payload to run the calculator on.
+
+                Returns:
+                    A parsed CalculatedDataPoint object.
+
+                Raises:
+                    CalculationKeysMissingError: Raised if required keys are missing.
+                """
                 if not all(k in payload for k in keys):
                     raise CalculationKeysMissingError
                 return func(calculator, payload)
@@ -157,5 +218,12 @@ class SimpleCalculator(Calculator):
     def calculate_from_value(
         self, value: PreCalculatedValueType
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            value: A pre-calculated value.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
         return self.get_calculated_data_point(value)

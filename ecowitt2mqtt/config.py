@@ -2,11 +2,12 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Dict, cast
+from typing import Any, cast
 
-from ruamel.yaml import YAML
 import voluptuous as vol
+from ruamel.yaml import YAML
 
+import ecowitt2mqtt.helpers.config_validation as cv
 from ecowitt2mqtt.const import (
     CONF_BATTERY_OVERRIDES,
     CONF_CONFIG,
@@ -48,7 +49,6 @@ from ecowitt2mqtt.const import (
 )
 from ecowitt2mqtt.errors import EcowittError
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
-import ecowitt2mqtt.helpers.config_validation as cv
 from ecowitt2mqtt.helpers.typing import UnitSystemType
 from ecowitt2mqtt.util.unit_conversion import (
     AccumulatedPrecipitationConverter,
@@ -150,7 +150,17 @@ class ConfigError(EcowittError):
 
 
 def load_config_from_file(config_path: str) -> dict[str, Any]:
-    """Load config data from a YAML or JSON file."""
+    """Load config data from a YAML or JSON file.
+
+    Args:
+        config_path: A path to a configuration file.
+
+    Returns:
+        A dictionary of parsed config options.
+
+    Raises:
+        ConfigError: Raises if the config file contains unparsable data.
+    """
     config_file_data = {}
 
     parser = YAML(typ="safe")
@@ -167,7 +177,14 @@ class Config:  # pylint: disable=too-many-public-methods
     """Define the configuration management object."""
 
     def __init__(self, config: dict[str, Any]) -> None:
-        """Initialize."""
+        """Initialize.
+
+        Args:
+            config: A dictionary of configuration options.
+
+        Raises:
+            ConfigError: Raises if unparsable data is found.
+        """
         self._config = {**config}
 
         # The battery override env var is the only one that isn't passed through from
@@ -186,157 +203,281 @@ class Config:  # pylint: disable=too-many-public-methods
         )
 
     def __repr__(self) -> str:
-        """Define a string representation of this object."""
+        """Define a string representation of this object.
+
+        Returns:
+            A string representation.
+        """
         return str(self._config)
 
     @property
     def battery_overrides(self) -> dict[str, BatteryStrategy]:
-        """Return the battery overrides."""
-        return cast(Dict[str, BatteryStrategy], self._config[CONF_BATTERY_OVERRIDES])
+        """Return the battery overrides.
+
+        Returns:
+            A dictionary of keys to BatteryStrategy objects.
+        """
+        return cast(dict[str, BatteryStrategy], self._config[CONF_BATTERY_OVERRIDES])
 
     @property
     def default_battery_strategy(self) -> BatteryStrategy:
-        """Return the default battery strategy."""
+        """Return the default battery strategy.
+
+        Returns:
+            A BatteryStrategy object.
+        """
         return cast(BatteryStrategy, self._config[CONF_DEFAULT_BATTERY_STRATEGY])
 
     @property
     def diagnostics(self) -> bool:
-        """Return whether diagnostics is enabled."""
+        """Return whether diagnostics is enabled.
+
+        Returns:
+            Whether the property is true.
+        """
         return cast(bool, self._config[CONF_DIAGNOSTICS])
 
     @property
     def disable_calculated_data(self) -> bool:
-        """Return whether calculated sensor output is disabled."""
+        """Return whether calculated sensor output is disabled.
+
+        Returns:
+            Whether the property is true.
+        """
         return cast(bool, self._config[CONF_DISABLE_CALCULATED_DATA])
 
     @property
     def endpoint(self) -> str:
-        """Return the ecowitt2mqtt API endpoint."""
+        """Return the ecowitt2mqtt API endpoint.
+
+        Returns:
+            The endpoint string.
+        """
         return cast(str, self._config[CONF_ENDPOINT])
 
     @property
     def hass_discovery(self) -> bool:
-        """Return whether Home Assistant Discovery should be used."""
+        """Return whether Home Assistant Discovery should be used.
+
+        Returns:
+            Whether the property is true.
+        """
         return cast(bool, self._config.get(CONF_HASS_DISCOVERY))
 
     @property
     def hass_discovery_prefix(self) -> str | None:
-        """Return the Home Assistant Discovery MQTT prefix."""
+        """Return the Home Assistant Discovery MQTT prefix.
+
+        Returns:
+            The string (if it exists).
+        """
         return self._config.get(CONF_HASS_DISCOVERY_PREFIX)
 
     @property
     def hass_entity_id_prefix(self) -> str | None:
-        """Return the Home Assistant entity ID prefix."""
+        """Return the Home Assistant entity ID prefix.
+
+        Returns:
+            The string (if it exists).
+        """
         return self._config.get(CONF_HASS_ENTITY_ID_PREFIX)
 
     @property
     def input_unit_system(self) -> UnitSystemType:
-        """Return the input unit system."""
+        """Return the input unit system.
+
+        Returns:
+            The unit system string.
+        """
         return cast(UnitSystemType, self._config[CONF_INPUT_UNIT_SYSTEM])
 
     @property
     def mqtt_broker(self) -> str:
-        """Return the MQTT broker host/IP address."""
+        """Return the MQTT broker host/IP address.
+
+        Returns:
+            The MQTT broker info string.
+        """
         return cast(str, self._config[CONF_MQTT_BROKER])
 
     @property
     def mqtt_connection_info(self) -> str:
-        """Return a string representation of MQTT connection parameters."""
+        """Return a string representation of MQTT connection parameters.
+
+        Returns:
+            The connection info string.
+        """
         return self._mqtt_connection_info
 
     @property
     def mqtt_password(self) -> str | None:
-        """Return the MQTT broker password."""
+        """Return the MQTT broker password.
+
+        Returns:
+            The MQTT password string.
+        """
         return self._config.get(CONF_MQTT_PASSWORD)
 
     @property
     def mqtt_port(self) -> int:
-        """Return the MQTT broker port."""
+        """Return the MQTT broker port.
+
+        Returns:
+            The MQTT port string.
+        """
         return cast(int, self._config[CONF_MQTT_PORT])
 
     @property
     def mqtt_retain(self) -> bool:
-        """Return whether MQTT messages should be retained."""
+        """Return whether MQTT messages should be retained.
+
+        Returns:
+            Whether the property is true.
+        """
         return cast(bool, self._config[CONF_MQTT_RETAIN])
 
     @property
     def mqtt_tls(self) -> bool:
-        """Return whether MQTT over TLS is configured."""
+        """Return whether MQTT over TLS is configured.
+
+        Returns:
+            Whether the property is true.
+        """
         return cast(bool, self._config[CONF_MQTT_TLS])
 
     @property
     def mqtt_topic(self) -> str | None:
-        """Return the MQTT broker topic."""
+        """Return the MQTT broker topic.
+
+        Returns:
+            The MQTT topic string.
+        """
         return self._config.get(CONF_MQTT_TOPIC)
 
     @property
     def mqtt_username(self) -> str | None:
-        """Return the MQTT broker username."""
+        """Return the MQTT broker username.
+
+        Returns:
+            The MQTT username string.
+        """
         return self._config.get(CONF_MQTT_USERNAME)
 
     @property
     def output_unit_system(self) -> UnitSystemType:
-        """Return the output unit system."""
+        """Return the output unit system.
+
+        Returns:
+            The unit system string.
+        """
         return cast(UnitSystemType, self._config[CONF_OUTPUT_UNIT_SYSTEM])
 
     @property
     def output_unit_accumulated_precipitation(self) -> str | None:
-        """Return the output unit for accumulated precipitation."""
+        """Return the output unit for accumulated precipitation.
+
+        Returns:
+            The unit string (if it exists).
+        """
         return self._config.get(CONF_OUTPUT_UNIT_ACCUMULATED_PRECIPITATION)
 
     @property
     def output_unit_distance(self) -> str | None:
-        """Return the output unit for distance."""
+        """Return the output unit for distance.
+
+        Returns:
+            The unit string (if it exists).
+        """
         return self._config.get(CONF_OUTPUT_UNIT_DISTANCE)
 
     @property
     def output_unit_humidity(self) -> str | None:
-        """Return the output unit for humidity."""
+        """Return the output unit for humidity.
+
+        Returns:
+            The unit string (if it exists).
+        """
         return self._config.get(CONF_OUTPUT_UNIT_HUMIDITY)
 
     @property
     def output_unit_illuminance(self) -> str | None:
-        """Return the output unit for illuminance."""
+        """Return the output unit for illuminance.
+
+        Returns:
+            The unit string (if it exists).
+        """
         return self._config.get(CONF_OUTPUT_UNIT_ILLUMINANCE)
 
     @property
     def output_unit_precipitation_rate(self) -> str | None:
-        """Return the output unit for precipitation rate."""
+        """Return the output unit for precipitation rate.
+
+        Returns:
+            The unit string (if it exists).
+        """
         return self._config.get(CONF_OUTPUT_UNIT_PRECIPITATION_RATE)
 
     @property
     def output_unit_pressure(self) -> str | None:
-        """Return the output unit for pressure."""
+        """Return the output unit for pressure.
+
+        Returns:
+            The unit string (if it exists).
+        """
         return self._config.get(CONF_OUTPUT_UNIT_PRESSURE)
 
     @property
     def output_unit_speed(self) -> str | None:
-        """Return the output unit for speed."""
+        """Return the output unit for speed.
+
+        Returns:
+            The unit string (if it exists).
+        """
         return self._config.get(CONF_OUTPUT_UNIT_SPEED)
 
     @property
     def output_unit_temperature(self) -> str | None:
-        """Return the output unit for temperature."""
+        """Return the output unit for temperature.
+
+        Returns:
+            The unit string (if it exists).
+        """
         return self._config.get(CONF_OUTPUT_UNIT_TEMPERATURE)
 
     @property
     def port(self) -> int:
-        """Return the ecowitt2mqtt API port."""
+        """Return the ecowitt2mqtt API port.
+
+        Returns:
+            The port string.
+        """
         return cast(int, self._config[CONF_PORT])
 
     @property
     def precision(self) -> int | None:
-        """Return the precision for output data."""
+        """Return the precision for output data.
+
+        Returns:
+            The precision integer (if it exists).
+        """
         return self._config.get(CONF_PRECISION)
 
     @property
     def raw_data(self) -> bool:
-        """Return whether raw data is configured."""
+        """Return whether raw data is configured.
+
+        Returns:
+            Whether the property is true.
+        """
         return cast(bool, self._config[CONF_RAW_DATA])
 
     @property
     def verbose(self) -> bool:
-        """Return whether verbose logging is enabled."""
+        """Return whether verbose logging is enabled.
+
+        Returns:
+            Whether the property is true.
+        """
         return cast(bool, self._config[CONF_VERBOSE])
 
 
@@ -344,7 +485,11 @@ class Configs:
     """Define a coordinator of various Config objects."""
 
     def __init__(self, config: dict[str, Any]) -> None:
-        """Initialize."""
+        """Initialize.
+
+        Args:
+            config: Raw configuration data.
+        """
         self._configs: dict[str, Config] = {}
         self._config_file_parser = YAML(typ="safe")
 
@@ -362,14 +507,29 @@ class Configs:
             self._configs[passkey] = Config({**gateway_config, **config})
 
     def __repr__(self) -> str:
-        """Define a string representation of this object."""
+        """Define a string representation of this object.
+
+        Returns:
+            A string representation.
+        """
         return f"<Configs _configs={self._configs}"
 
     @property
     def default_config(self) -> Config:
-        """Return the default config."""
+        """Return the default config.
+
+        Returns:
+            A parsed Config object.
+        """
         return self._configs[CONF_DEFAULT]
 
     def get(self, passkey: str) -> Config:
-        """Get the config for a particular passkey (returning the default if none)."""
+        """Get the config for a particular passkey (returning the default if none).
+
+        Args:
+            passkey: An Ecowitt passkey.
+
+        Returns:
+            A parsed Config object.
+        """
         return self._configs.get(passkey, self.default_config)

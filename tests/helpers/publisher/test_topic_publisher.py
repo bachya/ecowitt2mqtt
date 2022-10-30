@@ -1,26 +1,42 @@
 """Define tests for the MQTT Topic publisher."""
-from asyncio_mqtt import Client, MqttError
+# pylint: disable=line-too-long
+from typing import Any
+from unittest.mock import MagicMock
+
 import pytest
 
 from ecowitt2mqtt.const import CONF_MQTT_RETAIN, CONF_RAW_DATA
+from ecowitt2mqtt.core import Ecowitt
 from ecowitt2mqtt.helpers.publisher import generate_mqtt_payload
 from ecowitt2mqtt.helpers.publisher.factory import get_publisher
 from ecowitt2mqtt.helpers.publisher.topic import TopicPublisher
-
 from tests.common import TEST_CONFIG_JSON, TEST_MQTT_TOPIC
 
 
-def test_get_publisher(ecowitt, mock_asyncio_mqtt_client):
-    """Test getting a publisher via the factory."""
+def test_get_publisher(ecowitt: Ecowitt, mock_asyncio_mqtt_client: MagicMock) -> None:
+    """Test getting a publisher via the factory.
+
+    Args:
+        ecowitt: A parsed Ecowitt object.
+        mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
+    """
     publisher = get_publisher(ecowitt.configs.default_config, mock_asyncio_mqtt_client)
     assert isinstance(publisher, TopicPublisher)
 
 
 @pytest.mark.asyncio
 async def test_publish_processed(
-    device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
-):
-    """Test publishing a processed payload to an TopicPublisher."""
+    device_data: dict[str, Any],
+    ecowitt: Ecowitt,
+    mock_asyncio_mqtt_client: MagicMock,
+) -> None:
+    """Test publishing a processed payload to an TopicPublisher.
+
+    Args:
+        device_data: A dictionary of device data.
+        ecowitt: A parsed Ecowitt object.
+        mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
+    """
     publisher = get_publisher(ecowitt.configs.default_config, mock_asyncio_mqtt_client)
     await publisher.async_publish(device_data)
     mock_asyncio_mqtt_client.publish.assert_awaited_with(
@@ -31,19 +47,19 @@ async def test_publish_processed(
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize(
-    "config",
-    [
-        {
-            **TEST_CONFIG_JSON,
-            CONF_RAW_DATA: True,
-        }
-    ],
-)
+@pytest.mark.parametrize("config", [TEST_CONFIG_JSON | {CONF_RAW_DATA: True}])
 async def test_publish_raw(
-    device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
-):
-    """Test publishing a raw payload to an TopicPublisher."""
+    device_data: dict[str, Any],
+    ecowitt: Ecowitt,
+    mock_asyncio_mqtt_client: MagicMock,
+) -> None:
+    """Test publishing a raw payload to an TopicPublisher.
+
+    Args:
+        device_data: A dictionary of device data.
+        ecowitt: A parsed Ecowitt object.
+        mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
+    """
     publisher = get_publisher(ecowitt.configs.default_config, mock_asyncio_mqtt_client)
     await publisher.async_publish(device_data)
     mock_asyncio_mqtt_client.publish.assert_awaited_with(
@@ -53,19 +69,20 @@ async def test_publish_raw(
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    "config",
-    [
-        {
-            **TEST_CONFIG_JSON,
-            CONF_MQTT_RETAIN: True,
-            CONF_RAW_DATA: True,
-        }
-    ],
+    "config", [TEST_CONFIG_JSON | {CONF_MQTT_RETAIN: True, CONF_RAW_DATA: True}]
 )
 async def test_publish_retain(
-    device_data, ecowitt, mock_asyncio_mqtt_client, setup_asyncio_mqtt
-):
-    """Test publishing a retained raw payload to an TopicPublisher."""
+    device_data: dict[str, Any],
+    ecowitt: Ecowitt,
+    mock_asyncio_mqtt_client: MagicMock,
+) -> None:
+    """Test publishing a retained raw payload to an TopicPublisher.
+
+    Args:
+        device_data: A dictionary of device data.
+        ecowitt: A parsed Ecowitt object.
+        mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
+    """
     publisher = get_publisher(ecowitt.configs.default_config, mock_asyncio_mqtt_client)
     await publisher.async_publish(device_data)
     mock_asyncio_mqtt_client.publish.assert_awaited_with(

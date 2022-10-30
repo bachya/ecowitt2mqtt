@@ -13,7 +13,17 @@ from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 def battery_override(
     value: str | tuple[str, str] | dict[str, Any]
 ) -> dict[str, BatteryStrategy]:
-    """Validate and coerce one or more battery overrides."""
+    """Validate and coerce one or more battery overrides.
+
+    Args:
+        value: The value to validate.
+
+    Returns:
+        A dictionary of key to parsed BatteryStrategy.
+
+    Raises:
+        Invalid: Raises on an invalid battery strategy.
+    """
     try:
         if isinstance(value, dict):
             return {key: BatteryStrategy(val) for key, val in value.items()}
@@ -35,7 +45,17 @@ def battery_override(
 
 
 def boolean(value: Any) -> bool:
-    """Validate and coerce a boolean value."""
+    """Validate and coerce a boolean value.
+
+    Args:
+        value: The value to validate.
+
+    Returns:
+        A parsed boolean.
+
+    Raises:
+        Invalid: Raises on an invalid boolean.
+    """
     if isinstance(value, bool):
         return value
     if isinstance(value, str):

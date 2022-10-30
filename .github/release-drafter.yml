@@ -2,20 +2,26 @@
 categories:
   - title: "🚨 Breaking Changes"
     labels:
-      - "breaking change"
+      - "breaking-change"
+
   - title: "🚀 Features"
     labels:
       - "enhancement"
+
   - title: "🐛 Bug Fixes"
     labels:
       - "bug"
+
+  - title: "📕 Documentation"
+    labels:
+      - "documentation"
+
   - title: "🧰 Maintenance"
     labels:
-      - "ci/cd"
       - "dependencies"
-      - "documentation"
       - "maintenance"
       - "tooling"
+
 change-template: "- $TITLE (#$NUMBER)"
 name-template: "$NEXT_PATCH_VERSION"
 tag-template: "$NEXT_PATCH_VERSION"

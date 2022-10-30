@@ -11,16 +11,25 @@ DEFAULT_NAME = "Unknown Device"
 DEFAULT_STATION_TYPE = "Unknown Station Type"
 DEFAULT_UNIQUE_ID = "default"
 
-DEVICE_DATA = {
-    "GW1000": ("Ecowitt", "GW1000"),
-    "GW1100": ("Ecowitt", "GW1100"),
-    "GW2000A": ("Ecowitt", "GW2000A"),
-    "GW2000B": ("Ecowitt", "GW2000B"),
-    "GW2000C": ("Ecowitt", "GW2000C"),
-    "HP2550_Pro": ("Misol", "HP2250_Pro"),
-    "PT-HP2550": ("Fine Offset", "HP2550"),
-    "WH2650": ("Fine Offset", "WH2650"),
-    "WS2900": ("Ambient Weather", "WS-2902C"),
+
+@dataclass
+class MappedDevice:
+    """Define a registered device."""
+
+    brand: str
+    model: str
+
+
+DEVICE_MAP = {
+    "GW1000": MappedDevice("Ecowitt", "GW1000"),
+    "GW1100": MappedDevice("Ecowitt", "GW1100"),
+    "GW2000A": MappedDevice("Ecowitt", "GW2000A"),
+    "GW2000B": MappedDevice("Ecowitt", "GW2000B"),
+    "GW2000C": MappedDevice("Ecowitt", "GW2000C"),
+    "HP2550_Pro": MappedDevice("Misol", "HP2250_Pro"),
+    "PT-HP2550": MappedDevice("Fine Offset", "HP2550"),
+    "WH2650": MappedDevice("Fine Offset", "WH2650"),
+    "WS2900": MappedDevice("Ambient Weather", "WS-2902C"),
 }
 
 
@@ -35,17 +44,23 @@ class Device:
 
 
 def get_device_from_raw_payload(payload: dict[str, Any]) -> Device:
-    """Return a device based upon a model string."""
+    """Return a device based upon a model string.
+
+    Args:
+        payload: An Ecowitt device payload.
+
+    Returns:
+        A parsed Device object.
+    """
     model = payload["model"]
     station_type = payload.get("stationtype", DEFAULT_STATION_TYPE)
     unique_id = payload.get("PASSKEY", DEFAULT_UNIQUE_ID)
 
-    if model in DEVICE_DATA:
-        manufacturer, name = DEVICE_DATA[model]
+    if model in DEVICE_MAP:
+        mapped_device = DEVICE_MAP[model]
     else:
-        matches = [v for k, v in DEVICE_DATA.items() if k in model]
-        if matches:
-            manufacturer, name = matches[0]
+        if matches := [v for k, v in DEVICE_MAP.items() if k in model]:
+            mapped_device = matches[0]
         else:
             LOGGER.info(
                 (
@@ -54,7 +69,6 @@ def get_device_from_raw_payload(payload: dict[str, Any]) -> Device:
                 ),
                 payload,
             )
-            manufacturer = DEFAULT_MANUFACTURER
-            name = DEFAULT_NAME
+            mapped_device = MappedDevice(DEFAULT_MANUFACTURER, DEFAULT_NAME)
 
-    return Device(unique_id, manufacturer, name, station_type)
+    return Device(unique_id, mapped_device.brand, mapped_device.model, station_type)
