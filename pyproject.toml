@@ -136,9 +136,11 @@ load-plugins = [
 
 [tool.pylint."MESSAGES CONTROL"]
 # Reasons disabled:
+# duplicate-code – The tests contain a lot of duplicated data payloads
 # too-many-lines – We deal with a lot of data, so tests can be large
 # unnecessary-pass - This can hurt readability
 disable = [
+  "duplicate-code",
   "too-many-lines",
   "unnecessary-pass"
 ]
