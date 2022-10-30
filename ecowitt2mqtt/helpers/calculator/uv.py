@@ -89,14 +89,25 @@ class SafeExposureCalculator(Calculator):
 
     @property
     def output_unit(self) -> str:
-        """Get the output unit of measurement for this calculation."""
+        """Get the output unit of measurement for this calculation.
+
+        Returns:
+            A unit string.
+        """
         return TIME_MINUTES
 
     @Calculator.requires_keys(DATA_POINT_UV)
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
         uv_index = cast(float, payload[DATA_POINT_UV])
         safe_exposure_info = SAFE_EXPOSURE_INFO_MAP[self._payload_key]
 
@@ -127,5 +138,9 @@ class UVIndexCalculator(SimpleCalculator):
 
     @property
     def output_unit(self) -> str:
-        """Get the output unit of measurement for this calculation."""
+        """Get the output unit of measurement for this calculation.
+
+        Returns:
+            A unit string.
+        """
         return UV_INDEX

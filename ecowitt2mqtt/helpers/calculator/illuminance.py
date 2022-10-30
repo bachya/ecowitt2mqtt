@@ -27,18 +27,33 @@ class IlluminanceCalculator(BaseIlluminanceCalculator):
 
     @property
     def output_unit_imperial(self) -> str:
-        """Get the default unit (imperial)."""
+        """Get the default unit (imperial).
+
+        Returns:
+            A unit string.
+        """
         return ILLUMINANCE_WATTS_PER_SQUARE_METER
 
     @property
     def output_unit_metric(self) -> str:
-        """Get the default unit (metric)."""
+        """Get the default unit (metric).
+
+        Returns:
+            A unit string.
+        """
         return ILLUMINANCE_WATTS_PER_SQUARE_METER
 
     def calculate_from_value(
         self, value: PreCalculatedValueType
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            value: calculated value.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
         return self.get_calculated_data_point(
             value, unit_converter=IlluminanceConverter
         )
@@ -49,14 +64,25 @@ class PerceivedIlluminanceCalculator(BaseIlluminanceCalculator):
 
     @property
     def output_unit(self) -> str:
-        """Get the output unit of measurement for this calculation."""
+        """Get the output unit of measurement for this calculation.
+
+        Returns:
+            A unit string.
+        """
         return PERCENTAGE
 
     @Calculator.requires_keys(DATA_POINT_SOLARRADIATION)
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
         solar_rad = cast(float, payload[DATA_POINT_SOLARRADIATION])
         return self.get_calculated_data_point(
             solar_rad, unit_converter=IlluminanceConverter

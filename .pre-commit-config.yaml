@@ -1,79 +1,177 @@
 ---
 repos:
-  - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.4
+  - repo: local
     hooks:
       - id: bandit
-        args:
-          - --quiet
-          - --format=custom
-          - --configfile=.bandit.yaml
-        files: ^ecowitt2mqtt/.+\.py$
-  - repo: https://github.com/python/black
-    rev: 22.10.0
-    hooks:
+        name: 🎰 Checking for vulnerabilities using bandit
+        language: system
+        types: [python]
+        entry: poetry run bandit
+        files: ^ecowitt2mqtt/
+        require_serial: true
       - id: black
-        args:
-          - --safe
-          - --quiet
-        language_version: python3
-        files: ^((ecowitt2mqtt|tests)/.+)?[^/]+\.py$
-  - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.2
-    hooks:
+        name: ☕️ Formatting code using black
+        language: system
+        types: [python]
+        entry: poetry run black
+        require_serial: true
+      - id: blacken-docs
+        name: ☕️ Format documentation using black
+        language: system
+        files: '\.(rst|md|markdown|py|tex)$'
+        entry: poetry run blacken-docs
+        require_serial: true
+      - id: check-ast
+        name: 🐍 Checking Python AST
+        language: system
+        types: [python]
+        entry: poetry run check-ast
+      - id: check-case-conflict
+        name: 🔠 Checking for case conflicts
+        language: system
+        entry: poetry run check-case-conflict
+      - id: check-docstring-first
+        name: ℹ️  Checking docstrings are first
+        language: system
+        types: [python]
+        entry: poetry run check-docstring-first
+      - id: check-executables-have-shebangs
+        name: 🧐 Checking that executables have shebangs
+        language: system
+        types: [text, executable]
+        entry: poetry run check-executables-have-shebangs
+        stages: [commit, push, manual]
+      - id: check-json
+        name: ｛ Checking JSON files
+        language: system
+        types: [json]
+        entry: poetry run check-json
+      - id: check-merge-conflict
+        name: 💥 Checking for merge conflicts
+        language: system
+        types: [text]
+        entry: poetry run check-merge-conflict
+      - id: check-symlinks
+        name: 🔗 Checking for broken symlinks
+        language: system
+        types: [symlink]
+        entry: poetry run check-symlinks
+      - id: check-toml
+        name: ✅ Checking TOML files
+        language: system
+        types: [toml]
+        entry: poetry run check-toml
+      - id: check-yaml
+        name: ✅ Checking YAML files
+        language: system
+        types: [yaml]
+        entry: poetry run check-yaml
       - id: codespell
-        args:
-          - --skip="./.*,*.json"
-          - --quiet-level=4
-          - -L HASS,hass
-        exclude_types: [json]
-  - repo: https://gitlab.com/pycqa/flake8
-    rev: 5.0.4
-    hooks:
+        name: ✅ Checking code for misspellings
+        language: system
+        types: [text]
+        exclude: ^poetry\.lock$
+        entry: poetry run codespell -L HASS,hass
+      - id: debug-statements
+        name: 🪵 Checking for debug statements and imports (Python)
+        language: system
+        types: [python]
+        entry: poetry run debug-statement-hook
+      - id: detect-private-key
+        name: 🕵️  Detecting private keys
+        language: system
+        types: [text]
+        entry: poetry run detect-private-key
+      - id: end-of-file-fixer
+        name: 🔚 Checking end of files
+        language: system
+        types: [text]
+        entry: poetry run end-of-file-fixer
+        stages: [commit, push, manual]
+      - id: fix-byte-order-marker
+        name: 🚏 Checking UTF-8 byte order marker
+        language: system
+        types: [text]
+        entry: poetry run fix-byte-order-marker
       - id: flake8
-        additional_dependencies:
-          - flake8-bugbear
-          - flake8-docstrings
-          - pydocstyle
-        files: ^ecowitt2mqtt/.+\.py$
+        name: 👔 Enforcing style guide with flake8
+        language: system
+        types: [python]
+        entry: poetry run flake8
+        exclude: ^vulture_whitelist\.py$
+        require_serial: true
+      - id: isort
+        name: 🔀 Sorting all imports with isort
+        language: system
+        types: [python]
+        entry: poetry run isort
+      - id: mypy
+        name: 🆎 Performing static type checking using mypy
+        language: system
+        types: [python]
+        entry: poetry run mypy
+        exclude: ^vulture_whitelist\.py$
+        require_serial: true
+      - id: no-commit-to-branch
+        name: 🛑 Checking for commit to protected branch
+        language: system
+        entry: poetry run no-commit-to-branch
+        pass_filenames: false
+        always_run: true
+        args:
+          - --branch=dev
+          - --branch=main
+      - id: poetry
+        name: 📜 Checking pyproject with Poetry
+        language: system
+        entry: poetry check
+        pass_filenames: false
+        always_run: true
+      - id: pylint
+        name: 🌟 Starring code with pylint
+        language: system
+        types: [python]
+        entry: poetry run pylint
+        exclude: ^vulture_whitelist\.py$
+      - id: pytest
+        name: 🧪 Running tests and test coverage with pytest
+        language: system
+        types: [python]
+        entry: poetry run pytest ecowitt2mqtt tests
+        pass_filenames: false
+      - id: pyupgrade
+        name: 🆙 Checking for upgradable syntax with pyupgrade
+        language: system
+        types: [python]
+        entry: poetry run pyupgrade
+        args: [--py39-plus, --keep-runtime-typing]
+      - id: trailing-whitespace
+        name: ✄  Trimming trailing whitespace
+        language: system
+        types: [text]
+        entry: poetry run trailing-whitespace-fixer
+        stages: [commit, push, manual]
+      - id: vulture
+        name: 🔍 Finding unused Python code with Vulture
+        language: system
+        types: [python]
+        entry: poetry run vulture ecowitt2mqtt tests vulture_whitelist.py
+        pass_filenames: false
+        require_serial: true
+      - id: yamllint
+        name: 🎗  Checking YAML files with yamllint
+        language: system
+        types: [yaml]
+        entry: poetry run yamllint
+
   - repo: https://github.com/AleksaC/hadolint-py
     rev: v2.10.0
     hooks:
       - id: hadolint
-  - repo: https://github.com/PyCQA/isort
-    rev: 5.10.1
+        name: 📄 Checking Dockerfile with hadolint
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: "v3.0.0-alpha.4"
     hooks:
-      - id: isort
-        additional_dependencies:
-          - toml
-        files: ^(ecowitt2mqtt|tests)/.+\.py$
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.982
-    hooks:
-      - id: mypy
-        files: ^ecowitt2mqtt/.+\.py$
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.3.0
-    hooks:
-      - id: check-json
-      - id: check-yaml
-      - id: end-of-file-fixer
-      - id: no-commit-to-branch
-        args:
-          - --branch=dev
-          - --branch=master
-      - id: trailing-whitespace
-  - repo: https://github.com/PyCQA/pydocstyle
-    rev: 6.1.1
-    hooks:
-      - id: pydocstyle
-        files: ^((ecowitt2mqtt|tests)/.+)?[^/]+\.py$
-  - repo: https://github.com/gruntwork-io/pre-commit
-    rev: v0.1.17
-    hooks:
-      - id: shellcheck
-        files: ^script/.+
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.1.0
-    hooks:
-      - id: pyupgrade
+      - id: prettier
+        name: 💄 Ensuring files are prettier

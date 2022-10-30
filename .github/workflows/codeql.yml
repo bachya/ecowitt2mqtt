@@ -1,0 +1,32 @@
+---
+name: CodeQL
+
+"on":
+  push:
+    branches:
+      - dev
+      - main
+
+  pull_request:
+    branches:
+      - dev
+      - main
+
+  workflow_dispatch:
+
+  schedule:
+    - cron: "30 1 * * 0"
+
+jobs:
+  codeql:
+    name: Scanning
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@v3
+
+      - name: 🏗 Initialize CodeQL
+        uses: github/codeql-action/init@v2
+
+      - name: 🚀 Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2

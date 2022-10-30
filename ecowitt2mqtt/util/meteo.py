@@ -13,7 +13,15 @@ from ecowitt2mqtt.helpers.typing import UnitSystemType
 def get_absolute_humidity_in_metric(
     temp_obj: meteocalc.Temp, relative_humidity: float
 ) -> float:
-    """Get the absolute humidity (amount of water vapor in the air) in metric."""
+    """Get the absolute humidity (amount of water vapor in the air) in metric.
+
+    Args:
+        temp_obj: A meteocalc.Temp object.
+        relative_humidity: A float representing relative humidity.
+
+    Returns:
+        A float representing absolute humidity.
+    """
     return cast(
         float,
         (
@@ -29,7 +37,16 @@ def get_absolute_humidity_in_metric(
 def get_dew_point_meteocalc_object(
     temperature: float, relative_humidity: float, unit_system: UnitSystemType
 ) -> meteocalc.Temp:
-    """Get a dew point meteocalc object."""
+    """Get a dew point meteocalc object.
+
+    Args:
+        temperature: A float representing temperature.
+        relative_humidity: A float representing relative humidity.
+        unit_system: The target unit system.
+
+    Returns:
+        A meteocalc.Temp object.
+    """
     temp_obj = get_temperature_meteocalc_object(temperature, unit_system)
     return meteocalc.dew_point(temp_obj, relative_humidity)
 
@@ -40,7 +57,17 @@ def get_feels_like_meteocalc_object(
     wind_speed: float,
     unit_system: UnitSystemType,
 ) -> meteocalc.Temp:
-    """Get a "feels like" meteocalc object."""
+    """Get a "feels like" meteocalc object.
+
+    Args:
+        temperature: A float representing temperature.
+        relative_humidity: A float representing relative humidity.
+        wind_speed: A float representing wind speed.
+        unit_system: The target unit system.
+
+    Returns:
+        A meteocalc.Temp object.
+    """
     temp_obj = get_temperature_meteocalc_object(temperature, unit_system)
     return meteocalc.feels_like(temp_obj, relative_humidity, wind_speed)
 
@@ -48,7 +75,15 @@ def get_feels_like_meteocalc_object(
 def get_frost_point_meteocalc_object(
     temp_obj: meteocalc.Temp, relative_humidity: float
 ) -> meteocalc.Temp:
-    """Get a frost point meteocalc object."""
+    """Get a frost point meteocalc object.
+
+    Args:
+        temp_obj: A meteocalc.Temp object.
+        relative_humidity: A float representing relative humidity.
+
+    Returns:
+        A meteocalc.Temp object.
+    """
     dew_point_obj = meteocalc.dew_point(temp_obj, relative_humidity)
     absolute_temp_c = temp_obj.c + 273.15
     absolute_dew_point_c = dew_point_obj.c + 273.15
@@ -76,7 +111,16 @@ def get_heat_index_meteocalc_object(
     relative_humidity: float,
     unit_system: UnitSystemType,
 ) -> meteocalc.Temp:
-    """Get a heat index meteocalc object."""
+    """Get a heat index meteocalc object.
+
+    Args:
+        temperature: A float representing temperature.
+        relative_humidity: A float representing relative humidity.
+        unit_system: A target unit system.
+
+    Returns:
+        A meteocalc.Temp object.
+    """
     temp_obj = get_temperature_meteocalc_object(temperature, unit_system)
     return meteocalc.heat_index(temp_obj, relative_humidity)
 
@@ -84,7 +128,19 @@ def get_heat_index_meteocalc_object(
 def get_simmer_index_meteocalc_object(
     temp_obj: meteocalc.Temp, relative_humidity: float, unit_system: UnitSystemType
 ) -> meteocalc.Temp | None:
-    """Get a simmer index meteocalc object."""
+    """Get a simmer index meteocalc object.
+
+    Args:
+        temp_obj: A meteocalc.Temp object.
+        relative_humidity: A float representing relative humidity.
+        unit_system: A target unit system.
+
+    Returns:
+        A meteocalc.Temp object (if it exists).
+
+    Raises:
+        ValueError: Raised when the index cannot be calculated.
+    """
     if temp_obj.f < 70:
         raise ValueError(
             "Simmer Index is only valid for temperatures above "
@@ -104,7 +160,15 @@ def get_simmer_index_meteocalc_object(
 def get_temperature_meteocalc_object(
     temperature: float, unit_system: UnitSystemType
 ) -> meteocalc.Temp:
-    """Get a temperature meteocalc object."""
+    """Get a temperature meteocalc object.
+
+    Args:
+        temperature: A float representing temperature.
+        unit_system: A target unit system.
+
+    Returns:
+        A meteocalc.Temp object.
+    """
     if unit_system == UNIT_SYSTEM_IMPERIAL:
         unit = "f"
     else:
@@ -117,6 +181,15 @@ def get_wind_chill_meteocalc_object(
     wind_speed: float,
     unit_system: UnitSystemType,
 ) -> meteocalc.Temp:
-    """Get a wind chill meteocalc object."""
+    """Get a wind chill meteocalc object.
+
+    Args:
+        temperature: A float representing temperature.
+        wind_speed: A float representing wind speed.
+        unit_system: A target unit system.
+
+    Returns:
+        A meteocalc.Temp object.
+    """
     temp_obj = get_temperature_meteocalc_object(temperature, unit_system)
     return meteocalc.wind_chill(temp_obj, wind_speed)

@@ -174,7 +174,15 @@ UNIT_SUFFIX_MAP = {
 
 
 def get_calculator_instance(config: Config, payload_key: str) -> Calculator | None:
-    """Get the appropriate calculator for a payload key."""
+    """Get the appropriate calculator for a payload key.
+
+    Args:
+        config: A Config object.
+        payload_key: The Ecowitt payload key.
+
+    Returns:
+        A parsed Calculator object (if it exists).
+    """
     data_point_key, calculator_class = glob_search(CALCULATOR_MAP, payload_key)
     if not data_point_key or not calculator_class:
         return None
@@ -182,7 +190,14 @@ def get_calculator_instance(config: Config, payload_key: str) -> Calculator | No
 
 
 def get_typed_value(value: float | int | str) -> float | str:
-    """Take a string and return its properly typed counterpart (if possible)."""
+    """Take a string and return its properly typed counterpart (if possible).
+
+    Args:
+        value: An input value.
+
+    Returns:
+        An appropriuately typed value.
+    """
     try:
         return float(value)
     except ValueError:
@@ -190,7 +205,14 @@ def get_typed_value(value: float | int | str) -> float | str:
 
 
 def remove_unit_from_key(key: str) -> str:
-    """Remove a unit from the end of a key."""
+    """Remove a unit from the end of a key.
+
+    Args:
+        key: An Ecowitt payload key.
+
+    Returns:
+        A de-unit'd key.
+    """
     data_point, _ = glob_search(CALCULATOR_MAP, key)
 
     if not data_point:
@@ -236,6 +258,9 @@ class ProcessedData:
 
         Unlike raw data points, if a calculator doesn't exist for some reason or the
         keys necessary to calculate the data point don't exist, we silently move on.
+
+        Args:
+            payload: A dictionary of keys to PreCalculatedValueType objects.
         """
         for key in (
             DATA_POINT_BEAUFORT_SCALE,
@@ -267,7 +292,11 @@ class ProcessedData:
     def _process_raw_data_points(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> None:
-        """Process data points for which raw data was provided."""
+        """Process data points for which raw data was provided.
+
+        Args:
+            payload: A dictionary of keys to PreCalculatedValueType objects.
+        """
         for key, value in payload.items():
             if (calculator := get_calculator_instance(self.config, key)) is None:
                 LOGGER.debug("No calculator found for %s", key)

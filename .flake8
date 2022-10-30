@@ -1,5 +1,8 @@
 [flake8]
-ignore = B008,E203,E266,E501,F811,W503
+ignore = E203,E266,E501,F811,W503
 max-line-length = 80
 max-complexity = 18
+per-file-ignores =
+  tests/*:DAR,S101
+  tests/helpers/publisher/*:B950,DAR,S101
 select = B,B9,LK,C,D,E,F,I,S,W

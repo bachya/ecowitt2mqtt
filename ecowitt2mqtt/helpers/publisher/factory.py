@@ -10,7 +10,15 @@ from ecowitt2mqtt.helpers.publisher.topic import TopicPublisher
 
 
 def get_publisher(config: Config, client: Client) -> MqttPublisher:
-    """Get an MQTT publisher."""
+    """Get an MQTT publisher.
+
+    Args:
+        config: A Config object.
+        client: An MQTT Client object.
+
+    Returns:
+        An MqttPublisher object.
+    """
     if config.hass_discovery:
         return HomeAssistantDiscoveryPublisher(config, client)
     return TopicPublisher(config, client)

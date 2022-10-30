@@ -1,35 +1,37 @@
 """Test the core Ecowitt object."""
-from unittest.mock import AsyncMock, patch
+from __future__ import annotations
+
+from typing import Any
+from unittest.mock import AsyncMock, Mock, patch
 
 import pytest
 
 from ecowitt2mqtt.const import CONF_VERBOSE
 from ecowitt2mqtt.core import Ecowitt
-
 from tests.common import TEST_CONFIG_JSON
 
 
-@pytest.mark.parametrize(
-    "config",
-    [
-        {
-            **TEST_CONFIG_JSON,
-            CONF_VERBOSE: "yes",
-        },
-    ],
-)
-def test_ecowitt_create(config):
+@pytest.mark.parametrize("config", [TEST_CONFIG_JSON | {CONF_VERBOSE: "yes"}])
+def test_ecowitt_create(config: dict[str, Any]) -> None:
     """Test the creation of an Ecowitt object.
 
     This is a just a quick sanity check.
+
+    Args:
+        config: A configuration dictionary.
     """
     ecowitt = Ecowitt(config)
     assert ecowitt.configs.default_config.verbose is True
 
 
 @pytest.mark.parametrize("config", [{}])
-def test_invalid_config(caplog, config):
-    """Test that an invalid config is caught."""
+def test_invalid_config(caplog: Mock, config: dict[str, Any]) -> None:
+    """Test that an invalid config is caught.
+
+    Args:
+        caplog: A mock logging utility.
+        config: A configuration dictionary.
+    """
     with pytest.raises(SystemExit):
         _ = Ecowitt(config)
     assert any(
@@ -40,8 +42,13 @@ def test_invalid_config(caplog, config):
 
 
 @pytest.mark.asyncio
-async def test_unhandled_runtime_error(caplog, config):
-    """Test an unhandled runtime error."""
+async def test_unhandled_runtime_error(caplog: Mock, config: dict[str, Any]) -> None:
+    """Test an unhandled runtime error.
+
+    Args:
+        caplog: A mock logging utility.
+        config: A configuration dictionary.
+    """
     ecowitt = Ecowitt(config)
     with patch.object(
         ecowitt.runtime,

@@ -3,14 +3,15 @@ from __future__ import annotations
 
 import asyncio
 import signal
-from ssl import SSLContext
 import traceback
+from contextlib import suppress
+from ssl import SSLContext
 from types import FrameType
 from typing import TYPE_CHECKING, Any
 
+import uvicorn
 from asyncio_mqtt import Client, MqttError
 from fastapi import FastAPI, Request, Response, status
-import uvicorn
 
 from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import LOGGER
@@ -31,7 +32,7 @@ UVICORN_LOG_LEVEL_DEBUG = "debug"
 UVICORN_LOG_LEVEL_ERROR = "error"
 
 
-class DeSignaledUvicornServer(uvicorn.Server):  # type: ignore
+class DeSignaledUvicornServer(uvicorn.Server):
     """Define a Uvicorn server that doesn't swallow signals."""
 
     def install_signal_handlers(self) -> None:
@@ -43,7 +44,11 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
     """Define the runtime manager."""
 
     def __init__(self, ecowitt: Ecowitt) -> None:
-        """Initialize."""
+        """Initialize.
+
+        Args:
+            ecowitt: An Ecowitt object.
+        """
         self.ecowitt = ecowitt
 
         if ecowitt.configs.default_config.verbose:
@@ -84,11 +89,24 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
         queue: asyncio.Queue,
         payload_event: asyncio.Event,
     ) -> asyncio.Task:
-        """Create a task that contains a new MQTT loop."""
+        """Create a task that contains a new MQTT loop.
+
+        Args:
+            config: A Config object.
+            queue: An asyncio Queue object.
+            payload_event: An asyncio Event object.
+
+        Returns:
+            An asyncio Task object.
+        """
         LOGGER.debug("Creating MQTT loop: %s", config.mqtt_connection_info)
 
         async def create_loop() -> None:
-            """Create the loop."""
+            """Create the loop.
+
+            Raises:
+                asyncio.CancelledError: Raised when the task is cancelled.
+            """
             retry_attempt = 0
             try:
                 while True:
@@ -137,7 +155,11 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
         return asyncio.create_task(create_loop())
 
     async def _async_post_data(self, request: Request) -> None:
-        """Define an endpoint for the Ecowitt device to post data to."""
+        """Define an endpoint for the Ecowitt device to post data to.
+
+        Args:
+            request: A FastAPI Request object.
+        """
         form_data = await request.form()
         payload: dict[str, Any] = dict(form_data)
 
@@ -169,8 +191,12 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
         """Start the runtime."""
         loop = asyncio.get_running_loop()
 
-        def handle_exit_signal(sig: int, frame: FrameType | None) -> None:
-            """Handle an exit signal."""
+        def handle_exit_signal(sig: int, _: FrameType | None) -> None:
+            """Handle an exit signal.
+
+            Args:
+                sig: The signal to handle.
+            """
             if self._server.should_exit and sig == signal.SIGINT:
                 self._server.force_exit = True
             else:
@@ -193,11 +219,8 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
             for task in self._mqtt_loop_tasks:
                 if task.done():
                     continue
-                task.cancel()
-                try:
-                    await task
-                except asyncio.CancelledError:
-                    pass
+                with suppress(asyncio.CancelledError):
+                    task.cancel()
             LOGGER.debug("Runtime shutdown complete")
 
     def stop(self) -> None:

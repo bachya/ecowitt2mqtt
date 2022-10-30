@@ -149,7 +149,11 @@ ENV_VAR_TO_CONF_MAP = {
 
 
 def get_env_vars() -> dict[str, str]:
-    """Get environment variables."""
+    """Get environment variables.
+
+    Returns:
+        A dictionary of environment variables to config options.
+    """
     env_vars = {}
 
     for env_var in (
@@ -208,7 +212,14 @@ def get_env_vars() -> dict[str, str]:
 
 
 def get_cli_arguments(args: list[str]) -> dict[str, Any]:
-    """Get CLI arguments."""
+    """Get CLI arguments.
+
+    Args:
+        args: A list of CLI arguments.
+
+    Returns:
+        A dictionary of parsed config options.
+    """
     parser = argparse.ArgumentParser(
         argument_default=argparse.SUPPRESS,
         description="Send data from an Ecowitt gateway to an MQTT broker",

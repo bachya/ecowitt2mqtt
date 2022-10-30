@@ -14,7 +14,11 @@ from ecowitt2mqtt.runtime import Runtime
 
 
 def configure_logging(verbose: bool) -> None:
-    """Configure logging."""
+    """Configure logging.
+
+    Args:
+        verbose: Whether verbose logging should be included.
+    """
     if verbose or os.getenv(LEGACY_ENV_LOG_LEVEL):
         log_level = logging.DEBUG
     else:
@@ -42,7 +46,11 @@ class Ecowitt:  # pylint: disable=too-few-public-methods
     """Define the base application object."""
 
     def __init__(self, params: dict[str, Any]) -> None:
-        """Initialize."""
+        """Initialize.
+
+        Args:
+            params: CLI options and environment variables.
+        """
         try:
             self.configs = Configs(params)
         except ConfigError as err:
@@ -66,5 +74,12 @@ class Ecowitt:  # pylint: disable=too-few-public-methods
             self.exit(1)
 
     def exit(self, status_code: int = 0) -> int:
-        """Stop the application."""
+        """Stop the application.
+
+        Args:
+            status_code: The status code to exit with.
+
+        Returns:
+            The passed status code.
+        """
         return sys.exit(status_code)

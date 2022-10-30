@@ -2,9 +2,11 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from enum import Enum
 from typing import cast
 
-from ecowitt2mqtt.backports.enum import StrEnum
+import meteocalc
+
 from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_TEMPERATURE,
     DATA_POINT_HUMIDITY,
@@ -34,7 +36,7 @@ IMPERIAL_HIGH_THRESHOLD = 110.0
 IMPERIAL_LOW_THRESHOLD = -10.0
 
 
-class FrostRisk(StrEnum):
+class FrostRisk(str, Enum):
     """Define types of frost risk."""
 
     NO_RISK = "No risk"
@@ -43,7 +45,7 @@ class FrostRisk(StrEnum):
     VERY_PROBABLE = "Very probable"
 
 
-class SimmerZone(StrEnum):
+class SimmerZone(str, Enum):
     """Define types of simmer zone."""
 
     CAUTION_HEAT_EXHAUSTION = "Caution: Heat exhaustion"
@@ -109,7 +111,7 @@ SIMMER_ZONE_RATINGS: list[SimmerZoneRating] = [
 ]
 
 
-class ThermalPerception(StrEnum):
+class ThermalPerception(str, Enum):
     """Define types of thermal perception."""
 
     COMFORTABLE = "Comfortable"
@@ -183,12 +185,20 @@ class BaseTemperatureCalculator(Calculator):
 
     @property
     def output_unit_imperial(self) -> str:
-        """Get the default unit (imperial)."""
+        """Get the default unit (imperial).
+
+        Returns:
+            A unit string.
+        """
         return TEMP_FAHRENHEIT
 
     @property
     def output_unit_metric(self) -> str:
-        """Get the default unit (metric)."""
+        """Get the default unit (metric).
+
+        Returns:
+            A unit string.
+        """
         return TEMP_CELSIUS
 
 
@@ -199,7 +209,14 @@ class DewPointCalculator(BaseTemperatureCalculator):
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
         temp = cast(float, payload[DATA_POINT_TEMP])
         humidity = cast(float, payload[DATA_POINT_HUMIDITY])
 
@@ -221,7 +238,14 @@ class FeelsLikeCalculator(BaseTemperatureCalculator):
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
         temp = cast(float, payload[DATA_POINT_TEMP])
         humidity = cast(float, payload[DATA_POINT_HUMIDITY])
         wind_speed = cast(float, payload[DATA_POINT_WINDSPEED])
@@ -242,7 +266,14 @@ class FrostPointCalculator(BaseTemperatureCalculator):
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
         temp = cast(float, payload[DATA_POINT_TEMP])
         humidity = cast(float, payload[DATA_POINT_HUMIDITY])
 
@@ -263,7 +294,14 @@ class FrostRiskCalculator(Calculator):
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
         temp = cast(float, payload[DATA_POINT_TEMP])
         humidity = cast(float, payload[DATA_POINT_HUMIDITY])
 
@@ -297,7 +335,14 @@ class HeatIndexCalculator(BaseTemperatureCalculator):
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
         temp = cast(float, payload[DATA_POINT_TEMP])
         humidity = cast(float, payload[DATA_POINT_HUMIDITY])
 
@@ -317,7 +362,14 @@ class SimmerIndexCalculator(BaseTemperatureCalculator):
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
         temp = cast(float, payload[DATA_POINT_TEMP])
         humidity = cast(float, payload[DATA_POINT_HUMIDITY])
 
@@ -331,8 +383,9 @@ class SimmerIndexCalculator(BaseTemperatureCalculator):
         except ValueError as err:
             LOGGER.debug("%s (temperature: %s)", err, temp_obj)
             return self.get_calculated_data_point(None)
+        else:
+            simmer_obj = cast(meteocalc.Temp, simmer_obj)
 
-        assert simmer_obj
         return self.get_calculated_data_point(
             simmer_obj.f, unit_converter=TemperatureConverter
         )
@@ -345,7 +398,14 @@ class SimmerZoneCalculator(Calculator):
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
         temp = cast(float, payload[DATA_POINT_TEMP])
         humidity = cast(float, payload[DATA_POINT_HUMIDITY])
 
@@ -359,8 +419,9 @@ class SimmerZoneCalculator(Calculator):
         except ValueError as err:
             LOGGER.debug("%s (temperature: %s)", err, temp_obj)
             return self.get_calculated_data_point(None)
+        else:
+            simmer_obj = cast(meteocalc.Temp, simmer_obj)
 
-        assert simmer_obj
         [rating] = [
             r for r in SIMMER_ZONE_RATINGS if r.minimum_f <= simmer_obj.f < r.maximum_f
         ]
@@ -373,18 +434,25 @@ class TemperatureCalculator(BaseTemperatureCalculator):
     def calculate_from_value(
         self, value: PreCalculatedValueType
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
-        assert isinstance(value, float)
+        """Perform the calculation.
+
+        Args:
+            value: calculated value.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
+        float_value = cast(float, value)
 
         temp_obj = get_temperature_meteocalc_object(
-            value, self._config.input_unit_system
+            float_value, self._config.input_unit_system
         )
 
         if temp_obj.f < IMPERIAL_LOW_THRESHOLD or temp_obj.f > IMPERIAL_HIGH_THRESHOLD:
             LOGGER.warning(
                 'Value of "%s" (%s) with input unit system "%s" seems suspicious',
                 self._payload_key,
-                value,
+                float_value,
                 self._config.input_unit_system,
             )
 
@@ -400,7 +468,14 @@ class ThermalPerceptionCalculator(Calculator):
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
         temp = cast(float, payload[DATA_POINT_TEMP])
         humidity = cast(float, payload[DATA_POINT_HUMIDITY])
 
@@ -423,7 +498,14 @@ class WindChillCalculator(BaseTemperatureCalculator):
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
         temp = cast(float, payload[DATA_POINT_TEMP])
         wind_speed = cast(float, payload[DATA_POINT_WINDSPEED])
 

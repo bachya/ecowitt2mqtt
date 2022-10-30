@@ -1,0 +1,43 @@
+---
+- name: "breaking-change"
+  color: ee0701
+  description: "A breaking change for existing users"
+- name: "bug"
+  color: ee0701
+  description: "Bugs or issues which will cause a problem for users"
+- name: "documentation"
+  color: 0052cc
+  description: "Project documentation"
+- name: "enhancement"
+  color: 1d76db
+  description: "Enhancement of the code, not introducing new features."
+- name: "maintenance"
+  color: 2af79e
+  description: "Generic library tasks"
+- name: "dependencies"
+  color: 1d76db
+  description: "Upgrade or downgrade of project dependencies"
+
+- name: "in-progress"
+  color: fbca04
+  description: "Issue is currently being resolved by a developer"
+- name: "stale"
+  color: fef2c0
+  description: "There has not been activity on this issue or PR for some time"
+- name: "no-stale"
+  color: fef2c0
+  description: "This issue or PR is exempted from the stale bot"
+
+- name: "security"
+  color: ee0701
+  description: "Marks a security issue that needs to be resolved ASAP"
+- name: "incomplete"
+  color: fef2c0
+  description: "Marks a PR or issue that is missing information"
+- name: "invalid"
+  color: fef2c0
+  description: "Marks a PR or issue that is missing information"
+
+- name: "help-wanted"
+  color: 0e8a16
+  description: "Needs a helping hang or expertise in order to resolve"

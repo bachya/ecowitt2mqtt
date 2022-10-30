@@ -32,19 +32,34 @@ class AbsoluteHumidityCalculator(Calculator):
 
     @property
     def output_unit_imperial(self) -> str:
-        """Get the default unit (imperial)."""
+        """Get the default unit (imperial).
+
+        Returns:
+            A unit string.
+        """
         return VOLUME_POUNDS_PER_CUBIC_FOOT
 
     @property
     def output_unit_metric(self) -> str:
-        """Get the default unit (metric)."""
+        """Get the default unit (metric).
+
+        Returns:
+            A unit string.
+        """
         return VOLUME_GRAMS_PER_CUBIC_METER
 
     @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
         temp = cast(float, payload[DATA_POINT_TEMP])
         humidity = cast(float, payload[DATA_POINT_HUMIDITY])
 
@@ -61,5 +76,9 @@ class RelativeHumidityCalculator(SimpleCalculator):
 
     @property
     def output_unit(self) -> str:
-        """Get the output unit of measurement for this calculation."""
+        """Get the output unit of measurement for this calculation.
+
+        Returns:
+            A unit string.
+        """
         return PERCENTAGE

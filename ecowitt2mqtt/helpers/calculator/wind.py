@@ -226,7 +226,14 @@ class BeaufortScaleCalculator(Calculator):
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
         wind_speed = cast(float, payload[DATA_POINT_WINDSPEED])
 
         [rating] = [
@@ -257,7 +264,11 @@ class WindDirCalculator(SimpleCalculator):
 
     @property
     def output_unit(self) -> str:
-        """Get the output unit of measurement for this calculation."""
+        """Get the output unit of measurement for this calculation.
+
+        Returns:
+            A unit string.
+        """
         return DEGREE
 
 
@@ -269,17 +280,34 @@ class WindSpeedCalculator(Calculator):
 
     @property
     def output_unit_imperial(self) -> str:
-        """Get the default unit (imperial)."""
+        """Get the default unit (imperial).
+
+        Returns:
+            A unit string.
+        """
         return SPEED_MILES_PER_HOUR
 
     @property
     def output_unit_metric(self) -> str:
-        """Get the default unit (metric)."""
+        """Get the default unit (metric).
+
+        Returns:
+            A unit string.
+        """
         return SPEED_KILOMETERS_PER_HOUR
 
     def calculate_from_value(
         self, value: PreCalculatedValueType
     ) -> CalculatedDataPoint:
-        """Perform the calculation."""
-        assert isinstance(value, float)
-        return self.get_calculated_data_point(value, unit_converter=SpeedConverter)
+        """Perform the calculation.
+
+        Args:
+            value: calculated value.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
+        float_value = cast(float, value)
+        return self.get_calculated_data_point(
+            float_value, unit_converter=SpeedConverter
+        )
