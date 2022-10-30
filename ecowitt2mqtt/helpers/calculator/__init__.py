@@ -96,11 +96,12 @@ class Calculator:
         Returns:
             A string or None if appropriate.
         """
-        if override := cast(
-            str | None,
-            getattr(self._config, str(self.UNIT_OVERRIDE_CONFIG_OPTION), None),
-        ):
-            return override
+        if (
+            override := getattr(
+                self._config, str(self.UNIT_OVERRIDE_CONFIG_OPTION), None
+            )
+        ) is not None:
+            return cast(str, override)
         if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
             return self.output_unit_imperial
         return self.output_unit_metric
