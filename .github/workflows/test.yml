@@ -150,8 +150,4 @@ jobs:
 
     needs: coverage
 
-    runs-on: ubuntu-latest
-
-    jobs:
-      call-publish-docker-workflow:
-        uses: ./.github/workflows/publish-docker.yml
+    uses: ./.github/workflows/publish-docker.yml
