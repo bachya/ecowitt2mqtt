@@ -12,10 +12,10 @@ name: CodeQL
       - dev
       - main
 
-  workflow_dispatch:
-
   schedule:
     - cron: "30 1 * * 0"
+
+  workflow_dispatch:
 
 jobs:
   codeql:

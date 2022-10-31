@@ -13,6 +13,8 @@ name: Publish Docker Images
       DOCKER_HUB_USERNAME:
         required: true
 
+  workflow_dispatch:
+
 jobs:
   publish:
     name: Publish Docker Images

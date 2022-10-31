@@ -12,6 +12,8 @@ name: Linting and Static Analysis
       - dev
       - main
 
+  workflow_dispatch:
+
 jobs:
   lint:
     name: "Linting & Static Analysis"

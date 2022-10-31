@@ -12,6 +12,8 @@ name: Tests and Coverage
       - dev
       - main
 
+  workflow_dispatch:
+
 jobs:
   test:
     name: Tests
