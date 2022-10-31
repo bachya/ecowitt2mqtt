@@ -10,6 +10,11 @@ name: Publish Docker Images
       - "*"
 
   workflow_call:
+    secrets:
+      DOCKER_HUB_PASSWORD:
+        required: true
+      DOCKER_HUB_USERNAME:
+        required: true
 
 jobs:
   publish-docker-hub:
@@ -44,7 +49,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
       - name: 🔐 Login to ghcr.io
         uses: docker/login-action@v2

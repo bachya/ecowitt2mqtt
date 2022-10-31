@@ -151,3 +151,6 @@ jobs:
     needs: coverage
 
     uses: ./.github/workflows/publish-docker.yml
+    secrets:
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
