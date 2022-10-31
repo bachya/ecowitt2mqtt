@@ -3,9 +3,6 @@ name: Publish Docker Images
 
 "on":
   push:
-    branches:
-      - dev
-      - main
     tags:
       - "*"
 
@@ -15,6 +12,8 @@ name: Publish Docker Images
         required: true
       DOCKER_HUB_USERNAME:
         required: true
+
+  workflow_dispatch:
 
 jobs:
   publish:
