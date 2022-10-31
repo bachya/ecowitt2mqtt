@@ -153,5 +153,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@v3
+
       - name: 🚦 'Run the "Publish Docker Images" workflow'
         uses: ./.github/workflows/publish-docker.yml
