@@ -1,5 +1,5 @@
 ---
-name: Publish to Docker Hub
+name: Publish Docker Images
 
 "on":
   push:
@@ -9,8 +9,12 @@ name: Publish to Docker Hub
     tags:
       - "*"
 
+  workflow_call:
+
 jobs:
-  publish:
+  publish-docker-hub:
+    name: Publish to Docker Hub
+
     runs-on: ubuntu-latest
 
     steps:
@@ -21,7 +25,9 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: bachya/ecowitt2mqtt
+          images: |
+            bachya/ecowitt2mqtt
+            ghcr.io/bachya/ecowitt2mqtt
           tags: |
             type=ref,event=branch
             type=ref,event=pr

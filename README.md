@@ -622,9 +622,10 @@ $ systemctl enable ecowitt2mqtt
 
 ## Docker
 
-The library is available via a Docker image
-([`bachya/ecowitt2mqtt`](https://hub.docker.com/r/bachya/ecowitt2mqtt)). It is configured
-by using the same environment variables listed [above](#environment-variables).
+The library is available via a Docker image from both
+[Docker Hub](https://hub.docker.com/r/bachya/ecowitt2mqtt) and
+[ghcr.io](https://ghcr.io/bachya/ecowitt2mqtt). It is configured by using the same
+environment variables listed [above](#environment-variables).
 
 Running the image is straightforward:
 
@@ -645,8 +646,7 @@ exposed via the same port on the host.
 configuration file at
 [`docker-compose.dev.yml`](https://github.com/bachya/ecowitt2mqtt/blob/dev/docker-compose.dev.yml).
 Note that this is intended to be a dev environment for quickly testing the repo itself;
-in production, you should refer to one of the
-[Docker Hub](https://hub.docker.com/r/bachya/ecowitt2mqtt) images.
+in production, you should refer to one of the published images.
 
 # Diagnostics
 
