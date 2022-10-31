@@ -146,8 +146,6 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   publish_docker_image:
-    name: Publish PR Docker Images
-
     needs: coverage
 
     uses: ./.github/workflows/publish-docker.yml
