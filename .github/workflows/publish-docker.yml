@@ -17,8 +17,8 @@ name: Publish Docker Images
         required: true
 
 jobs:
-  publish-docker-hub:
-    name: Publish to Docker Hub
+  publish:
+    name: Publish Docker Images
 
     runs-on: ubuntu-latest
 
