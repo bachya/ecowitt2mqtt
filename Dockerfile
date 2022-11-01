@@ -21,11 +21,11 @@ RUN apk add --no-cache \
       cargo==1.60.0-r2 \
       libffi-dev==3.4.2-r1 \
       musl-dev==1.2.3-r0 \
-      openssl-dev==1.1.1q-r0 \
+      openssl-dev==1.1.1s-r0 \
       python3-dev==3.10.5-r0
 RUN printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf \
     && python3 -m pip install cryptography==38.0.1 \
-    && python3 -m pip install poetry==1.2.1 \
+    && python3 -m pip install poetry==1.2.2 \
     && python3 -m venv /venv
 
 COPY pyproject.toml ./
