@@ -12,8 +12,6 @@ name: Tests and Coverage
       - dev
       - main
 
-  workflow_dispatch:
-
 jobs:
   test:
     name: Tests
@@ -31,11 +29,11 @@ jobs:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v3
 
-      - name: 🏗 Set up Python 3.9
+      - name: 🏗 Set up Python
         id: setup-python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.9
+          python-version: ${{ matrix.python-version }}
 
       - name: ⤵️ Get pip cache directory
         id: pip-cache
@@ -85,11 +83,6 @@ jobs:
     needs: test
 
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        python-version:
-          - "3.9"
 
     steps:
       - name: ⤵️ Check out code from GitHub
@@ -146,13 +139,3 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-
-  publish_docker_image:
-    name: Publish Docker Images Workflow
-
-    needs: coverage
-
-    uses: ./.github/workflows/publish-docker.yml
-    secrets:
-      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-      DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
