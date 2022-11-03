@@ -88,6 +88,15 @@ from ecowitt2mqtt.helpers.device import Device
         (
             Device(
                 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "La Crosse",
+                "WS-2350",
+                "EasyWeatherV1.6.4",
+            ),
+            "payload_ws2350.json",
+        ),
+        (
+            Device(
+                "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 "Ambient Weather",
                 "WS-2902C",
                 "EasyWeatherV1.5.9",
