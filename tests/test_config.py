@@ -78,14 +78,14 @@ def test_battery_overrides_cli_options(config: dict[str, Any]) -> None:
     "raw_config",
     [
         json.dumps(
-            {
-                **TEST_CONFIG_JSON,
+            TEST_CONFIG_JSON
+            | {
                 CONF_BATTERY_OVERRIDES: {
                     "testbatt0": "boolean",
                     "testbatt1": "numeric",
                     "testbatt2": "percentage",
-                },
-            }
+                }
+            },
         )
     ],
 )
@@ -185,15 +185,15 @@ def test_config_file_empty(config_filepath: str) -> None:
     "raw_config",
     [
         json.dumps(
-            {
-                **TEST_CONFIG_JSON,
+            TEST_CONFIG_JSON
+            | {
                 CONF_GATEWAYS: {
                     "passkey123": {
                         CONF_MQTT_BROKER: "my.mqtt.local",
                         CONF_MQTT_TOPIC: "Some Topic",
                     }
-                },
-            }
+                }
+            },
         ),
     ],
 )
