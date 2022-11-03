@@ -29,6 +29,7 @@ DEVICE_MAP = {
     "HP2550_Pro": MappedDevice("Misol", "HP2250_Pro"),
     "PT-HP2550": MappedDevice("Fine Offset", "HP2550"),
     "WH2650": MappedDevice("Fine Offset", "WH2650"),
+    "WS2350": MappedDevice("La Crosse", "WS-2350"),
     "WS2900": MappedDevice("Ambient Weather", "WS-2902C"),
 }
 
