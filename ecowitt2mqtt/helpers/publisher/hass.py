@@ -160,220 +160,218 @@ DATA_POINT_BATTERY_PERCENTAGE = "battery_percentage"
 
 ENTITY_DESCRIPTIONS = {
     DATA_POINT_BATTERY_BOOLEAN: EntityDescription(
-        device_class=DeviceClass.BATTERY.value,
-        entity_category=EntityCategory.DIAGNOSTIC.value,
+        device_class=DeviceClass.BATTERY,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     DATA_POINT_BATTERY_NUMERIC: EntityDescription(
-        device_class=DeviceClass.VOLTAGE.value,
-        entity_category=EntityCategory.DIAGNOSTIC.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.VOLTAGE,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_BATTERY_PERCENTAGE: EntityDescription(
-        device_class=DeviceClass.BATTERY.value,
-        entity_category=EntityCategory.DIAGNOSTIC.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.BATTERY,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_BEAUFORT_SCALE: EntityDescription(
         icon="mdi:weather-windy",
-        state_class=StateClass.MEASUREMENT.value,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_CO2: EntityDescription(
-        device_class=DeviceClass.CO2.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.CO2,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_CO2_24H: EntityDescription(
-        device_class=DeviceClass.CO2.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.CO2,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_DEWPOINT: EntityDescription(
-        device_class=DeviceClass.TEMPERATURE.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.TEMPERATURE,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_FEELSLIKE: EntityDescription(
-        device_class=DeviceClass.TEMPERATURE.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.TEMPERATURE,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_FROST_POINT: EntityDescription(
-        device_class=DeviceClass.TEMPERATURE.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.TEMPERATURE,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_FROST_RISK: EntityDescription(
         icon="mdi:snowflake-alert",
     ),
     DATA_POINT_GLOB_BAROM: EntityDescription(
-        device_class=DeviceClass.PRESSURE.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.PRESSURE,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_GUST: EntityDescription(
         icon="mdi:weather-windy",
-        state_class=StateClass.MEASUREMENT.value,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_HUMIDITY: EntityDescription(
-        device_class=DeviceClass.HUMIDITY.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.HUMIDITY,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_LEAK: EntityDescription(
-        device_class=DeviceClass.MOISTURE.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.MOISTURE,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_MOISTURE: EntityDescription(
         icon="mdi:water-percent",
-        state_class=StateClass.MEASUREMENT.value,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_PM10: EntityDescription(
-        device_class=DeviceClass.PM10.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.PM10,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_PM25: EntityDescription(
-        device_class=DeviceClass.PM25.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.PM25,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_R_RAIN: EntityDescription(
         icon="mdi:water",
-        state_class=StateClass.MEASUREMENT.value,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_RAIN: EntityDescription(
         icon="mdi:water",
-        state_class=StateClass.MEASUREMENT.value,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_TEMP: EntityDescription(
-        device_class=DeviceClass.TEMPERATURE.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.TEMPERATURE,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_TF: EntityDescription(
-        device_class=DeviceClass.TEMPERATURE.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.TEMPERATURE,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_VOLT: EntityDescription(
-        device_class=DeviceClass.VOLTAGE.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.VOLTAGE,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_WETNESS: EntityDescription(
         icon="mdi:water-percent",
-        state_class=StateClass.MEASUREMENT.value,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_WIND: EntityDescription(
         icon="mdi:weather-windy",
-        state_class=StateClass.MEASUREMENT.value,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_WINDDIR: EntityDescription(
         icon="mdi:compass",
     ),
     DATA_POINT_HEATINDEX: EntityDescription(
-        device_class=DeviceClass.TEMPERATURE.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.TEMPERATURE,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_HUMI_CO2: EntityDescription(
-        device_class=DeviceClass.HUMIDITY.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.HUMIDITY,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_HUMIDITY_ABS: EntityDescription(
-        device_class=DeviceClass.HUMIDITY.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.HUMIDITY,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_HUMIDITY_ABS_IN: EntityDescription(
-        device_class=DeviceClass.HUMIDITY.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.HUMIDITY,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_LIGHTNING: EntityDescription(
         icon="mdi:map-marker-distance",
-        state_class=StateClass.MEASUREMENT.value,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_LIGHTNING_NUM: EntityDescription(
         icon="mdi:weather-lightning",
-        state_class=StateClass.TOTAL.value,
+        state_class=StateClass.TOTAL,
     ),
     DATA_POINT_LIGHTNING_TIME: EntityDescription(
-        device_class=DeviceClass.TIMESTAMP.value,
+        device_class=DeviceClass.TIMESTAMP,
     ),
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1: EntityDescription(
         icon="mdi:timer",
-        state_class=StateClass.MEASUREMENT.value,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2: EntityDescription(
         icon="mdi:timer",
-        state_class=StateClass.MEASUREMENT.value,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_3: EntityDescription(
         icon="mdi:timer",
-        state_class=StateClass.MEASUREMENT.value,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4: EntityDescription(
         icon="mdi:timer",
-        state_class=StateClass.MEASUREMENT.value,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5: EntityDescription(
         icon="mdi:timer",
-        state_class=StateClass.MEASUREMENT.value,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6: EntityDescription(
         icon="mdi:timer",
-        state_class=StateClass.MEASUREMENT.value,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_SIMMER_INDEX: EntityDescription(
-        device_class=DeviceClass.TEMPERATURE.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.TEMPERATURE,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_SIMMER_ZONE: EntityDescription(
         icon="mdi:heat-wave",
     ),
     DATA_POINT_SOLARRADIATION: EntityDescription(
-        device_class=DeviceClass.ILLUMINANCE.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.ILLUMINANCE,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_SOLARRADIATION_PERCEIVED: EntityDescription(
-        device_class=DeviceClass.ILLUMINANCE.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.ILLUMINANCE,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_RAIN_RATE: EntityDescription(
         icon="mdi:water",
-        state_class=StateClass.MEASUREMENT.value,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_RUNTIME: EntityDescription(
-        device_class=DeviceClass.DURATION.value,
-        entity_category=EntityCategory.DIAGNOSTIC.value,
+        device_class=DeviceClass.DURATION,
+        entity_category=EntityCategory.DIAGNOSTIC,
         icon="mdi:timer",
-        state_class=StateClass.MEASUREMENT.value,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_THERMAL_PERCEPTION: EntityDescription(
         icon="mdi:water",
     ),
     DATA_POINT_TF_CO2: EntityDescription(
-        device_class=DeviceClass.TEMPERATURE.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.TEMPERATURE,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_UV: EntityDescription(
         icon="mdi:weather-sunny",
-        state_class=StateClass.MEASUREMENT.value,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_WINDCHILL: EntityDescription(
-        device_class=DeviceClass.TEMPERATURE.value,
-        state_class=StateClass.MEASUREMENT.value,
+        device_class=DeviceClass.TEMPERATURE,
+        state_class=StateClass.MEASUREMENT,
     ),
-    DATA_POINT_WS90_VER: EntityDescription(
-        entity_category=EntityCategory.DIAGNOSTIC.value
-    ),
+    DATA_POINT_WS90_VER: EntityDescription(entity_category=EntityCategory.DIAGNOSTIC),
 }
 
 PLATFORM_MAP = {
-    DataPointType.BOOLEAN: Platform.BINARY_SENSOR.value,
-    DataPointType.NON_BOOLEAN: Platform.SENSOR.value,
+    DataPointType.BOOLEAN: Platform.BINARY_SENSOR,
+    DataPointType.NON_BOOLEAN: Platform.SENSOR,
 }
 
 STATE_CLASS_OVERRIDES = {
-    DATA_POINT_DAILY_RAIN: StateClass.TOTAL.value,
-    DATA_POINT_DRAIN_PIEZO: StateClass.TOTAL.value,
-    DATA_POINT_ERAIN_PIEZO: StateClass.TOTAL.value,
-    DATA_POINT_EVENT_RAIN: StateClass.TOTAL.value,
-    DATA_POINT_HOURLY_RAIN: StateClass.TOTAL.value,
-    DATA_POINT_HRAIN_PIEZO: StateClass.TOTAL.value,
-    DATA_POINT_MONTHLY_RAIN: StateClass.TOTAL.value,
-    DATA_POINT_MRAIN_PIEZO: StateClass.TOTAL.value,
-    DATA_POINT_TOTAL_RAIN: StateClass.TOTAL.value,
-    DATA_POINT_WEEKLY_RAIN: StateClass.TOTAL.value,
-    DATA_POINT_WRAIN_PIEZO: StateClass.TOTAL.value,
-    DATA_POINT_YEARLY_RAIN: StateClass.TOTAL.value,
-    DATA_POINT_YRAIN_PIEZO: StateClass.TOTAL.value,
+    DATA_POINT_DAILY_RAIN: StateClass.TOTAL,
+    DATA_POINT_DRAIN_PIEZO: StateClass.TOTAL,
+    DATA_POINT_ERAIN_PIEZO: StateClass.TOTAL,
+    DATA_POINT_EVENT_RAIN: StateClass.TOTAL,
+    DATA_POINT_HOURLY_RAIN: StateClass.TOTAL,
+    DATA_POINT_HRAIN_PIEZO: StateClass.TOTAL,
+    DATA_POINT_MONTHLY_RAIN: StateClass.TOTAL,
+    DATA_POINT_MRAIN_PIEZO: StateClass.TOTAL,
+    DATA_POINT_TOTAL_RAIN: StateClass.TOTAL,
+    DATA_POINT_WEEKLY_RAIN: StateClass.TOTAL,
+    DATA_POINT_WRAIN_PIEZO: StateClass.TOTAL,
+    DATA_POINT_YEARLY_RAIN: StateClass.TOTAL,
+    DATA_POINT_YRAIN_PIEZO: StateClass.TOTAL,
 }
 
 STATE_UNKNOWN = "unknown"
