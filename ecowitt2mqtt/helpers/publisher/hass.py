@@ -4,11 +4,11 @@ from __future__ import annotations
 
 import asyncio
 from dataclasses import dataclass
-from enum import Enum
 from typing import Any, TypedDict
 
 from asyncio_mqtt import Client, MqttError
 
+from ecowitt2mqtt.backports.enum import StrEnum
 from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import (
     DATA_POINT_BEAUFORT_SCALE,
@@ -84,7 +84,7 @@ from ecowitt2mqtt.helpers.publisher import MqttPublisher, generate_mqtt_payload
 from ecowitt2mqtt.helpers.typing import CalculatedValueType
 
 
-class DeviceClass(str, Enum):
+class DeviceClass(StrEnum):
     """Define a device class enum."""
 
     BATTERY = "battery"
@@ -101,21 +101,21 @@ class DeviceClass(str, Enum):
     VOLTAGE = "voltage"
 
 
-class EntityCategory(str, Enum):
+class EntityCategory(StrEnum):
     """Define an entity category enum."""
 
     CONFIG = "config"
     DIAGNOSTIC = "diagnostic"
 
 
-class Platform(str, Enum):
+class Platform(StrEnum):
     """Define a platform enum."""
 
     BINARY_SENSOR = "binary_sensor"
     SENSOR = "sensor"
 
 
-class StateClass(str, Enum):
+class StateClass(StrEnum):
     """Define a state class enum."""
 
     MEASUREMENT = "measurement"

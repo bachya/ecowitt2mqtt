@@ -1,9 +1,9 @@
 """Define battery calculators."""
 from __future__ import annotations
 
-from enum import Enum
 from typing import TYPE_CHECKING, cast
 
+from ecowitt2mqtt.backports.enum import StrEnum
 from ecowitt2mqtt.const import (
     DATA_POINT_CO2_BATT,
     DATA_POINT_GLOB_LEAFBATT,
@@ -36,7 +36,7 @@ if TYPE_CHECKING:
     from ecowitt2mqtt.config import Config
 
 
-class BatteryStrategy(str, Enum):
+class BatteryStrategy(StrEnum):
     """Define types of battery configuration."""
 
     BOOLEAN = "boolean"
@@ -44,7 +44,7 @@ class BatteryStrategy(str, Enum):
     PERCENTAGE = "percentage"
 
 
-class BooleanBatteryState(str, Enum):
+class BooleanBatteryState(StrEnum):
     """Define types of battery configuration."""
 
     OFF = "OFF"
