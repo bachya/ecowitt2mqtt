@@ -2,11 +2,11 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import Enum
 from typing import cast
 
 import meteocalc
 
+from ecowitt2mqtt.backports.enum import StrEnum
 from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_TEMPERATURE,
     DATA_POINT_HUMIDITY,
@@ -36,7 +36,7 @@ IMPERIAL_HIGH_THRESHOLD = 110.0
 IMPERIAL_LOW_THRESHOLD = -10.0
 
 
-class FrostRisk(str, Enum):
+class FrostRisk(StrEnum):
     """Define types of frost risk."""
 
     NO_RISK = "No risk"
@@ -45,7 +45,7 @@ class FrostRisk(str, Enum):
     VERY_PROBABLE = "Very probable"
 
 
-class SimmerZone(str, Enum):
+class SimmerZone(StrEnum):
     """Define types of simmer zone."""
 
     CAUTION_HEAT_EXHAUSTION = "Caution: Heat exhaustion"
@@ -111,7 +111,7 @@ SIMMER_ZONE_RATINGS: list[SimmerZoneRating] = [
 ]
 
 
-class ThermalPerception(str, Enum):
+class ThermalPerception(StrEnum):
     """Define types of thermal perception."""
 
     COMFORTABLE = "Comfortable"

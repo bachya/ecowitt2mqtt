@@ -1,8 +1,7 @@
 """Define moisture calculators."""
 from __future__ import annotations
 
-from enum import Enum
-
+from ecowitt2mqtt.backports.enum import StrEnum
 from ecowitt2mqtt.helpers.calculator import (
     CalculatedDataPoint,
     Calculator,
@@ -11,7 +10,7 @@ from ecowitt2mqtt.helpers.calculator import (
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
 
 
-class LeakState(str, Enum):
+class LeakState(StrEnum):
     """Define types of battery configuration."""
 
     OFF = "OFF"

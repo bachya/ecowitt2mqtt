@@ -139,3 +139,13 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  publish_docker_image:
+    name: Publish Docker Images Workflow
+
+    needs: coverage
+
+    uses: ./.github/workflows/publish-docker.yml
+    secrets:
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
