@@ -15,6 +15,10 @@ name: Publish Docker Images
 
   workflow_dispatch:
 
+permissions:
+  # We increase permissions so that Dependabot-generated PRs can publish images:
+  pull-requests: write
+
 jobs:
   publish:
     name: Publish Docker Images
