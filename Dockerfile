@@ -16,13 +16,13 @@ WORKDIR /app
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 RUN apk add --no-cache \
-      bash==5.1.16-r2 \
-      build-base==0.5-r3 \
-      cargo==1.60.0-r2 \
-      libffi-dev==3.4.2-r1 \
-      musl-dev==1.2.3-r1 \
-      openssl-dev==1.1.1s-r0 \
-      python3-dev==3.10.5-r0
+      bash \
+      build-base \
+      cargo \
+      libffi-dev \
+      musl-dev \
+      openssl-dev \
+      python3-dev
 RUN printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf \
     && python3 -m pip install cryptography==38.0.1 \
     && python3 -m pip install poetry==1.2.2 \
