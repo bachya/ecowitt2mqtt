@@ -15,11 +15,9 @@ from ecowitt2mqtt.util.unit_conversion import BaseUnitConverter
 if TYPE_CHECKING:
     from ecowitt2mqtt.config import Config
 
-_CalculatorType = TypeVar(  # pylint: disable=invalid-name
-    "_CalculatorType", bound="Calculator"
-)
-_CalculateFromPayloadFuncType = Callable[
-    [_CalculatorType, dict[str, PreCalculatedValueType]], "CalculatedDataPoint"
+_CalculatorT = TypeVar("_CalculatorT", bound="Calculator")
+_CalculateFromPayloadFuncT = Callable[
+    [_CalculatorT, dict[str, PreCalculatedValueType]], "CalculatedDataPoint"
 ]
 
 
@@ -166,7 +164,7 @@ class Calculator:
     @staticmethod
     def requires_keys(
         *keys: Iterable[str],
-    ) -> Callable[[_CalculateFromPayloadFuncType], _CalculateFromPayloadFuncType]:
+    ) -> Callable[[_CalculateFromPayloadFuncT], _CalculateFromPayloadFuncT]:
         """Define a decorator that requires certain payload keys to exist.
 
         Args:
@@ -177,8 +175,8 @@ class Calculator:
         """
 
         def decorator(
-            func: _CalculateFromPayloadFuncType,
-        ) -> _CalculateFromPayloadFuncType:
+            func: _CalculateFromPayloadFuncT,
+        ) -> _CalculateFromPayloadFuncT:
             """Decorate.
 
             Args:
@@ -190,7 +188,7 @@ class Calculator:
 
             @wraps(func)
             def wrapper(
-                calculator: _CalculatorType, payload: dict[str, PreCalculatedValueType]
+                calculator: _CalculatorT, payload: dict[str, PreCalculatedValueType]
             ) -> CalculatedDataPoint:
                 """Wrap.
 
