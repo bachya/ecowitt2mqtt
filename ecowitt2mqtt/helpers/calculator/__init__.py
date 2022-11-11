@@ -175,8 +175,8 @@ class Calculator:
         """
 
         def decorator(
-            func: _CalculateFromPayloadFuncType,
-        ) -> _CalculateFromPayloadFuncType:
+            func: _CalculateFromPayloadFuncT,
+        ) -> _CalculateFromPayloadFuncT:
             """Decorate.
 
             Args:
@@ -188,7 +188,7 @@ class Calculator:
 
             @wraps(func)
             def wrapper(
-                calculator: _CalculatorT, payload: dict[str, PreCalculatedValueT]
+                calculator: _CalculatorT, payload: dict[str, PreCalculatedValueType]
             ) -> CalculatedDataPoint:
                 """Wrap.
 
