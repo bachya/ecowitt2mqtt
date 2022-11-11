@@ -15,7 +15,7 @@ from ecowitt2mqtt.util.unit_conversion import BaseUnitConverter
 if TYPE_CHECKING:
     from ecowitt2mqtt.config import Config
 
-_CalculatorT = TypeVar("_CalculatorType", bound="Calculator")
+_CalculatorT = TypeVar("_CalculatorT", bound="Calculator")
 _CalculateFromPayloadFuncT = Callable[
     [_CalculatorT, dict[str, PreCalculatedValueType]], "CalculatedDataPoint"
 ]
