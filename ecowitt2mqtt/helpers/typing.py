@@ -5,5 +5,5 @@ from typing import Literal, Union
 
 # pylint: disable=consider-alternative-union-syntax
 CalculatedValueType = Union[Collection[str], float, str, datetime, None]
-PreCalculatedValueType = float | str
+PreCalculatedValueType = Union[float, str]
 UnitSystemType = Literal["imperial", "metric"]
