@@ -92,15 +92,20 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "asyncio-mqtt"
-version = "0.13.0"
-description = "Idomatic asyncio wrapper around paho-mqtt."
+version = "0.14.0"
+description = "Idomatic asyncio wrapper around paho-mqtt"
 category = "main"
 optional = false
-python-versions = "*"
+python-versions = ">=3.7"
 
 [package.dependencies]
 paho-mqtt = ">=1.6.0"
 typing-extensions = {version = "*", markers = "python_version < \"3.10\""}
+
+[package.extras]
+format = ["black (>=22.10.0)", "isort (>=5.10.1)"]
+lint = ["flake8 (>=5.0.4)", "mypy (>=0.982)", "types-paho-mqtt (>=1.6.0.1)"]
+tests = ["anyio (>=3.6.2)", "pytest (>=7.2.0)", "pytest-cov (>=4.0.0)"]
 
 [[package]]
 name = "attrs"
@@ -1298,8 +1303,8 @@ async-timeout = [
     {file = "async_timeout-4.0.2-py3-none-any.whl", hash = "sha256:8ca1e4fcf50d07413d66d1a5e416e42cfdf5851c981d679a09851a6853383b3c"},
 ]
 asyncio-mqtt = [
-    {file = "asyncio_mqtt-0.13.0-py3-none-any.whl", hash = "sha256:438842f57e27b85e3daf65a4d4001460ba6d46ed3b85923c44a1bd75e56d5d53"},
-    {file = "asyncio_mqtt-0.13.0.tar.gz", hash = "sha256:f3bee8dfdd080524e93feccec562c644786314ae4bb47ef6d2bd9a667970b825"},
+    {file = "asyncio_mqtt-0.14.0-py3-none-any.whl", hash = "sha256:8744fcb1a20349426cf4a8ddf1d5315bcab3d1b07bfe5931c552f58c669713ec"},
+    {file = "asyncio_mqtt-0.14.0.tar.gz", hash = "sha256:0de45018c7261fb7299978384158ce4719308b6679b10b7a74e26b2d17163942"},
 ]
 attrs = [
     {file = "attrs-22.1.0-py2.py3-none-any.whl", hash = "sha256:86efa402f67bf2df34f51a335487cf46b1ec130d02b8d39fd248abfd30da551c"},
