@@ -24,6 +24,7 @@ from ecowitt2mqtt.util.meteo import (
     get_feels_like_meteocalc_object,
     get_frost_point_meteocalc_object,
     get_heat_index_meteocalc_object,
+    get_humidex,
     get_simmer_index_meteocalc_object,
     get_temperature_meteocalc_object,
     get_wind_chill_meteocalc_object,
@@ -353,6 +354,29 @@ class HeatIndexCalculator(BaseTemperatureCalculator):
         return self.get_calculated_data_point(
             heat_index_obj.f, unit_converter=TemperatureConverter
         )
+
+
+class HumidexCalculator(Calculator):
+    """Define a humidex calculator."""
+
+    @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
+    def calculate_from_payload(
+        self, payload: dict[str, PreCalculatedValueType]
+    ) -> CalculatedDataPoint:
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
+        temp = cast(float, payload[DATA_POINT_TEMP])
+        humidity = cast(float, payload[DATA_POINT_HUMIDITY])
+
+        humidex = get_humidex(temp, humidity, self._config.input_unit_system)
+
+        return self.get_calculated_data_point(humidex)
 
 
 class SimmerIndexCalculator(BaseTemperatureCalculator):
