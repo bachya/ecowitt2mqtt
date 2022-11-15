@@ -42,6 +42,8 @@ from ecowitt2mqtt.const import (
     DATA_POINT_HOURLY_RAIN,
     DATA_POINT_HRAIN_PIEZO,
     DATA_POINT_HUMI_CO2,
+    DATA_POINT_HUMIDEX,
+    DATA_POINT_HUMIDEX_PERCEPTION,
     DATA_POINT_HUMIDITY_ABS,
     DATA_POINT_HUMIDITY_ABS_IN,
     DATA_POINT_LIGHTNING,
@@ -262,6 +264,13 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_HEATINDEX: EntityDescription(
         device_class=DeviceClass.TEMPERATURE,
         state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_HUMIDEX: EntityDescription(
+        icon="mdi:water",
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_HUMIDEX_PERCEPTION: EntityDescription(
+        icon="mdi:water",
     ),
     DATA_POINT_HUMI_CO2: EntityDescription(
         device_class=DeviceClass.HUMIDITY,

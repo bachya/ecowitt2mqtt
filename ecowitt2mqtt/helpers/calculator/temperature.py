@@ -46,6 +46,54 @@ class FrostRisk(StrEnum):
     VERY_PROBABLE = "Very probable"
 
 
+class HumidexPerception(StrEnum):
+    """Define types of humidex perception."""
+
+    COMFORTABLE = "Comfortable"
+    DANGEROUS = "Dangerous"
+    GREAT_DISCOMFORT = "Great discomfort"
+    LITTLE_TO_NO_DISCOMFORT = "Little to no discomfort"
+    SOME_DISCOMFORT = "Some discomfort"
+
+
+@dataclass
+class HumidexPerceptionRating:
+    """Define a dataclass to store a humidex perception rating."""
+
+    perception: HumidexPerception
+    minimum: float
+    maximum: float
+
+
+HUMIDEX_PERCEPTION_RATINGS: list[HumidexPerceptionRating] = [
+    HumidexPerceptionRating(
+        perception=HumidexPerception.COMFORTABLE,
+        minimum=-100,
+        maximum=20,
+    ),
+    HumidexPerceptionRating(
+        perception=HumidexPerception.LITTLE_TO_NO_DISCOMFORT,
+        minimum=20,
+        maximum=29,
+    ),
+    HumidexPerceptionRating(
+        perception=HumidexPerception.SOME_DISCOMFORT,
+        minimum=30,
+        maximum=39,
+    ),
+    HumidexPerceptionRating(
+        perception=HumidexPerception.GREAT_DISCOMFORT,
+        minimum=40,
+        maximum=45,
+    ),
+    HumidexPerceptionRating(
+        perception=HumidexPerception.DANGEROUS,
+        minimum=45,
+        maximum=100,
+    ),
+]
+
+
 class SimmerZone(StrEnum):
     """Define types of simmer zone."""
 
@@ -377,6 +425,31 @@ class HumidexCalculator(Calculator):
         humidex = get_humidex(temp, humidity, self._config.input_unit_system)
 
         return self.get_calculated_data_point(humidex)
+
+
+class HumidexPerceptionCalculator(Calculator):
+    """Define a humidex perception calculator."""
+
+    @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
+    def calculate_from_payload(
+        self, payload: dict[str, PreCalculatedValueType]
+    ) -> CalculatedDataPoint:
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
+        temp = cast(float, payload[DATA_POINT_TEMP])
+        humidity = cast(float, payload[DATA_POINT_HUMIDITY])
+
+        humidex = get_humidex(temp, humidity, self._config.input_unit_system)
+        [rating] = [
+            r for r in HUMIDEX_PERCEPTION_RATINGS if r.minimum <= humidex < r.maximum
+        ]
+        return self.get_calculated_data_point(rating.perception)
 
 
 class SimmerIndexCalculator(BaseTemperatureCalculator):
