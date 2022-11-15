@@ -31,6 +31,7 @@ from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, DataPointType
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy, BooleanBatteryState
 from ecowitt2mqtt.helpers.calculator.temperature import (
     FrostRisk,
+    HumidexPerception,
     SimmerZone,
     ThermalPerception,
 )
@@ -396,6 +397,20 @@ def test_battery_config(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
+        "humidex": CalculatedDataPoint(
+            data_point_key="humidex",
+            value=41,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "humidex_perception": CalculatedDataPoint(
+            data_point_key="humidex_perception",
+            value=HumidexPerception.GREAT_DISCOMFORT,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
     }
 
 
@@ -747,6 +762,20 @@ def test_default_battery_strategy(
         "simmerzone": CalculatedDataPoint(
             data_point_key="simmerzone",
             value=SimmerZone.CAUTION_HEAT_EXHAUSTION,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "humidex": CalculatedDataPoint(
+            data_point_key="humidex",
+            value=41,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "humidex_perception": CalculatedDataPoint(
+            data_point_key="humidex_perception",
+            value=HumidexPerception.GREAT_DISCOMFORT,
             unit=None,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -1107,6 +1136,20 @@ def test_unknown_battery(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                     "inland waters"
                 ),
             },
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "humidex": CalculatedDataPoint(
+            data_point_key="humidex",
+            value=48,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "humidex_perception": CalculatedDataPoint(
+            data_point_key="humidex_perception",
+            value=HumidexPerception.DANGEROUS,
+            unit=None,
+            attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "playstationbattery1": CalculatedDataPoint(

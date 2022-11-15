@@ -47,6 +47,7 @@ from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, DataPointType
 from ecowitt2mqtt.helpers.calculator.battery import BooleanBatteryState
 from ecowitt2mqtt.helpers.calculator.temperature import (
     FrostRisk,
+    HumidexPerception,
     SimmerZone,
     ThermalPerception,
 )
@@ -424,6 +425,20 @@ def test_output_units(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
             },
             data_type=DataPointType.NON_BOOLEAN,
         ),
+        "humidex": CalculatedDataPoint(
+            data_point_key="humidex",
+            value=48,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "humidex_perception": CalculatedDataPoint(
+            data_point_key="humidex_perception",
+            value=HumidexPerception.DANGEROUS,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
     }
 
 
@@ -792,6 +807,20 @@ def test_unit_conversion_to_imperial(
             },
             data_type=DataPointType.NON_BOOLEAN,
         ),
+        "humidex": CalculatedDataPoint(
+            data_point_key="humidex",
+            value=-8,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "humidex_perception": CalculatedDataPoint(
+            data_point_key="humidex_perception",
+            value=HumidexPerception.COMFORTABLE,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
     }
 
 
@@ -1151,6 +1180,20 @@ def test_unit_conversion_to_imperial(
                     },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
+                "humidex": CalculatedDataPoint(
+                    data_point_key="humidex",
+                    value=48,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "humidex_perception": CalculatedDataPoint(
+                    data_point_key="humidex_perception",
+                    value=HumidexPerception.DANGEROUS,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
             },
         ),
         (
@@ -1444,6 +1487,20 @@ def test_unit_conversion_to_imperial(
                             "on inland waters"
                         ),
                     },
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "humidex": CalculatedDataPoint(
+                    data_point_key="humidex",
+                    value=-8,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "humidex_perception": CalculatedDataPoint(
+                    data_point_key="humidex_perception",
+                    value=HumidexPerception.COMFORTABLE,
+                    unit=None,
+                    attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
             },

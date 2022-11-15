@@ -37,6 +37,7 @@ from ecowitt2mqtt.helpers.calculator.battery import BooleanBatteryState
 from ecowitt2mqtt.helpers.calculator.leak import LeakState
 from ecowitt2mqtt.helpers.calculator.temperature import (
     FrostRisk,
+    HumidexPerception,
     SimmerZone,
     ThermalPerception,
 )
@@ -615,6 +616,20 @@ def test_missing_distance(device_data: dict[str, Any], ecowitt: Ecowitt) -> None
             },
             data_type=DataPointType.NON_BOOLEAN,
         ),
+        "humidex": CalculatedDataPoint(
+            data_point_key="humidex",
+            value=26,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "humidex_perception": CalculatedDataPoint(
+            data_point_key="humidex_perception",
+            value=HumidexPerception.LITTLE_TO_NO_DISCOMFORT,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
     }
 
 
@@ -971,6 +986,20 @@ def test_nonnumeric_value(device_data: dict[str, Any], ecowitt: Ecowitt) -> None
                     "inland waters"
                 ),
             },
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "humidex": CalculatedDataPoint(
+            data_point_key="humidex",
+            value=48,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "humidex_perception": CalculatedDataPoint(
+            data_point_key="humidex_perception",
+            value=HumidexPerception.DANGEROUS,
+            unit=None,
+            attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
         "Random New Key": CalculatedDataPoint("Random New Key", "Some Value"),
@@ -1332,6 +1361,20 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
             },
             data_type=DataPointType.NON_BOOLEAN,
         ),
+        "humidex": CalculatedDataPoint(
+            data_point_key="humidex",
+            value=48,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "humidex_perception": CalculatedDataPoint(
+            data_point_key="humidex_perception",
+            value=HumidexPerception.DANGEROUS,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
     }
 
 
@@ -1688,6 +1731,20 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                     },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
+                "humidex": CalculatedDataPoint(
+                    data_point_key="humidex",
+                    value=48,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "humidex_perception": CalculatedDataPoint(
+                    data_point_key="humidex_perception",
+                    value=HumidexPerception.DANGEROUS,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
             },
         ),
         (
@@ -1981,6 +2038,20 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                             "on inland waters"
                         ),
                     },
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "humidex": CalculatedDataPoint(
+                    data_point_key="humidex",
+                    value=-8,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "humidex_perception": CalculatedDataPoint(
+                    data_point_key="humidex_perception",
+                    value=HumidexPerception.COMFORTABLE,
+                    unit=None,
+                    attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
             },
@@ -2320,6 +2391,20 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                 "simmerzone": CalculatedDataPoint(
                     data_point_key="simmerzone",
                     value=SimmerZone.CAUTION_HEAT_EXHAUSTION,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "humidex": CalculatedDataPoint(
+                    data_point_key="humidex",
+                    value=41,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "humidex_perception": CalculatedDataPoint(
+                    data_point_key="humidex_perception",
+                    value=HumidexPerception.GREAT_DISCOMFORT,
                     unit=None,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -2714,6 +2799,20 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                             "Direction shown by smoke drift but not by wind vanes"
                         ),
                     },
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "humidex": CalculatedDataPoint(
+                    data_point_key="humidex",
+                    value=26,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "humidex_perception": CalculatedDataPoint(
+                    data_point_key="humidex_perception",
+                    value=HumidexPerception.LITTLE_TO_NO_DISCOMFORT,
+                    unit=None,
+                    attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
             },
@@ -3427,6 +3526,20 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                     },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
+                "humidex": CalculatedDataPoint(
+                    data_point_key="humidex",
+                    value=16,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "humidex_perception": CalculatedDataPoint(
+                    data_point_key="humidex_perception",
+                    value=HumidexPerception.COMFORTABLE,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
             },
         ),
         (
@@ -3830,6 +3943,20 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                     },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
+                "humidex": CalculatedDataPoint(
+                    data_point_key="humidex",
+                    value=-1,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "humidex_perception": CalculatedDataPoint(
+                    data_point_key="humidex_perception",
+                    value=HumidexPerception.COMFORTABLE,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
             },
         ),
         (
@@ -4170,6 +4297,20 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                     },
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
+                "humidex": CalculatedDataPoint(
+                    data_point_key="humidex",
+                    value=28,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "humidex_perception": CalculatedDataPoint(
+                    data_point_key="humidex_perception",
+                    value=HumidexPerception.LITTLE_TO_NO_DISCOMFORT,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
             },
         ),
         (
@@ -4455,6 +4596,20 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                             "Wind felt on face; leaves rustle; wind vane moved by wind"
                         ),
                     },
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "humidex": CalculatedDataPoint(
+                    data_point_key="humidex",
+                    value=-9,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "humidex_perception": CalculatedDataPoint(
+                    data_point_key="humidex_perception",
+                    value=HumidexPerception.COMFORTABLE,
+                    unit=None,
+                    attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
             },

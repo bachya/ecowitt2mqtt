@@ -353,6 +353,8 @@ data exists:
 - **[Frost Point](https://en.wikipedia.org/wiki/Dew_point#Frost_point):** the temperature below 32°F (0°C) at which moisture in the air will condense as a layer of frost on exposed surfaces that are also at a temperature below the frost point
 - **[Frost Risk](https://en.wikipedia.org/wiki/Dew_point#Frost_point):** how likely the formation of frost is (based on the `frostpoint`)
 - **[Heat Index](https://en.wikipedia.org/wiki/Heat_index):** how hot the air feels to the human body when factoring in relative humidity (applicable when the apparent temperature is higher than the air temperature)
+- **[Humidex](https://en.wikipedia.org/wiki/Humidex):** an index number used by Canadian meteorologists to describe how hot the weather feels to the average person, by combining the effect of heat and humidity
+- **[Humidex Perception](https://en.wikipedia.org/wiki/Humidex):** a human-friendly interpretation of the Humidex
 - **[Safe Exposure Times](https://www.openuv.io/kb/skin-types-safe-exposure-time-calculation/):** how long different skin types can be in the sun (unprotected) before burning begins according to the [Fitzpatrick Scale](https://en.wikipedia.org/wiki/Fitzpatrick_scale)
 - **Solar Radiation (%):** the percentage of detected solar radiation illuminance as perceived by the human eye
 - **[Simmer Index](http://summersimmer.com/ssi_page2.htm):** an alternative to heat index that describes how how the air feels to the human body in relatively dry environments

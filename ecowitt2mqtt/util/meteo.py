@@ -6,8 +6,14 @@ from typing import cast
 
 import meteocalc
 
-from ecowitt2mqtt.const import UNIT_SYSTEM_IMPERIAL, UNIT_SYSTEM_METRIC
+from ecowitt2mqtt.const import (
+    TEMP_CELSIUS,
+    TEMP_KELVIN,
+    UNIT_SYSTEM_IMPERIAL,
+    UNIT_SYSTEM_METRIC,
+)
 from ecowitt2mqtt.helpers.typing import UnitSystemType
+from ecowitt2mqtt.util.unit_conversion import TemperatureConverter
 
 
 def get_absolute_humidity_in_metric(
@@ -123,6 +129,50 @@ def get_heat_index_meteocalc_object(
     """
     temp_obj = get_temperature_meteocalc_object(temperature, unit_system)
     return meteocalc.heat_index(temp_obj, relative_humidity)
+
+
+def get_humidex(
+    temperature: float, relative_humidity: float, unit_system: UnitSystemType
+) -> int:
+    """Get a humidex.
+
+    Args:
+        temperature: A float representing temperature.
+        relative_humidity: A float representing relative humidity.
+        unit_system: The target unit system.
+
+    Returns:
+        The index.
+    """
+    dew_point_obj = get_dew_point_meteocalc_object(
+        temperature, relative_humidity, unit_system
+    )
+    temp_obj = get_temperature_meteocalc_object(temperature, unit_system)
+
+    return round(
+        temp_obj.c
+        + (
+            0.5555
+            * (
+                (
+                    6.11
+                    * math.exp(
+                        5417.7530
+                        * (
+                            (1 / 273.16)
+                            - (
+                                1
+                                / TemperatureConverter.convert(
+                                    dew_point_obj.c, TEMP_CELSIUS, TEMP_KELVIN
+                                )
+                            )
+                        )
+                    )
+                )
+                - 10
+            )
+        )
+    )
 
 
 def get_simmer_index_meteocalc_object(
