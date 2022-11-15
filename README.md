@@ -356,6 +356,7 @@ data exists:
 - **[Humidex](https://en.wikipedia.org/wiki/Humidex):** an index number used by Canadian meteorologists to describe how hot the weather feels to the average person, by combining the effect of heat and humidity
 - **[Humidex Perception](https://en.wikipedia.org/wiki/Humidex):** a human-friendly interpretation of the Humidex
 - **Relative Strain Index:** a measure of discomfort resulting from the combined effect of temperature and humidity (applicable to heat stress of manual workers under shelter at various metabolic rates)
+- **Relative Strain Index Perception:** a human-friendly interpretation of the Relative Strain Index
 - **[Safe Exposure Times](https://www.openuv.io/kb/skin-types-safe-exposure-time-calculation/):** how long different skin types can be in the sun (unprotected) before burning begins according to the [Fitzpatrick Scale](https://en.wikipedia.org/wiki/Fitzpatrick_scale)
 - **Solar Radiation (%):** the percentage of detected solar radiation illuminance as perceived by the human eye
 - **[Simmer Index](http://summersimmer.com/ssi_page2.htm):** an alternative to heat index that describes how how the air feels to the human body in relatively dry environments
