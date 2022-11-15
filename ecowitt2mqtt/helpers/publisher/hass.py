@@ -52,6 +52,8 @@ from ecowitt2mqtt.const import (
     DATA_POINT_MONTHLY_RAIN,
     DATA_POINT_MRAIN_PIEZO,
     DATA_POINT_RAIN_RATE,
+    DATA_POINT_RELATIVE_STRAIN_INDEX,
+    DATA_POINT_RELATIVE_STRAIN_INDEX_PERCEPTION,
     DATA_POINT_RUNTIME,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2,
@@ -337,6 +339,13 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_RAIN_RATE: EntityDescription(
         icon="mdi:water",
         state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_RELATIVE_STRAIN_INDEX: EntityDescription(
+        icon="mdi:heat-wave",
+        state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_RELATIVE_STRAIN_INDEX_PERCEPTION: EntityDescription(
+        icon="mdi:heat-wave",
     ),
     DATA_POINT_RUNTIME: EntityDescription(
         device_class=DeviceClass.DURATION,

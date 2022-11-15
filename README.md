@@ -355,12 +355,17 @@ data exists:
 - **[Heat Index](https://en.wikipedia.org/wiki/Heat_index):** how hot the air feels to the human body when factoring in relative humidity (applicable when the apparent temperature is higher than the air temperature)
 - **[Humidex](https://en.wikipedia.org/wiki/Humidex):** an index number used by Canadian meteorologists to describe how hot the weather feels to the average person, by combining the effect of heat and humidity
 - **[Humidex Perception](https://en.wikipedia.org/wiki/Humidex):** a human-friendly interpretation of the Humidex
+- **Relative Strain Index:** a measure of discomfort resulting from the combined effect of temperature and humidity (applicable to heat stress of manual workers under shelter at various metabolic rates)
 - **[Safe Exposure Times](https://www.openuv.io/kb/skin-types-safe-exposure-time-calculation/):** how long different skin types can be in the sun (unprotected) before burning begins according to the [Fitzpatrick Scale](https://en.wikipedia.org/wiki/Fitzpatrick_scale)
 - **Solar Radiation (%):** the percentage of detected solar radiation illuminance as perceived by the human eye
 - **[Simmer Index](http://summersimmer.com/ssi_page2.htm):** an alternative to heat index that describes how how the air feels to the human body in relatively dry environments
 - **[Simmer Zone](http://summersimmer.com/ssi_page2.htm):** a human-friendly interpretation of the Simmer Index
 - **[Thermal Perception](https://en.wikipedia.org/wiki/Dew_point):** a human-friendly interpretation of the Dew Point
 - **[Wind Chill](https://en.wikipedia.org/wiki/Wind_chill):** how cold the air feels to the human body when factoring in relative humidity, wind speed, etc. (applicable when the apparent temperature is lower than the air temperature)
+
+(Special thanks to the excellent
+[`thermal_comfort`](https://github.com/dolezsa/thermal_comfort) library for inspiration
+on many of these.)
 
 If you would prefer to not have these sensors calculated and published, you can utilize
 the `--disable-calculated-data` configuration option.

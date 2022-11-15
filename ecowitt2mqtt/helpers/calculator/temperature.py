@@ -25,6 +25,7 @@ from ecowitt2mqtt.util.meteo import (
     get_frost_point_meteocalc_object,
     get_heat_index_meteocalc_object,
     get_humidex,
+    get_relative_strain_index,
     get_simmer_index_meteocalc_object,
     get_temperature_meteocalc_object,
     get_wind_chill_meteocalc_object,
@@ -90,6 +91,54 @@ HUMIDEX_PERCEPTION_RATINGS: list[HumidexPerceptionRating] = [
         perception=HumidexPerception.DANGEROUS,
         minimum=45,
         maximum=100,
+    ),
+]
+
+
+class RsiPerception(StrEnum):
+    """Define types of relative strain index perception."""
+
+    COMFORTABLE = "Comfortable"
+    DISCOMFORT = "Discomfort"
+    EXTREME_DISCOMFORT = "Extreme discomfort"
+    SIGNIFICANT_DISCOMFORT = "Significant discomfort"
+    SLIGHT_DISCOMFORT = "Slight discomfort"
+
+
+@dataclass
+class RsiPerceptionRating:
+    """Define a dataclass to store a relative strain index perception rating."""
+
+    perception: RsiPerception
+    minimum: float
+    maximum: float
+
+
+RELATIVE_STRAIN_INDEX_PERCEPTION_RATINGS: list[RsiPerceptionRating] = [
+    RsiPerceptionRating(
+        perception=RsiPerception.COMFORTABLE,
+        minimum=0,
+        maximum=0.15,
+    ),
+    RsiPerceptionRating(
+        perception=RsiPerception.SLIGHT_DISCOMFORT,
+        minimum=0.15,
+        maximum=0.25,
+    ),
+    RsiPerceptionRating(
+        perception=RsiPerception.DISCOMFORT,
+        minimum=0.25,
+        maximum=0.35,
+    ),
+    RsiPerceptionRating(
+        perception=RsiPerception.SIGNIFICANT_DISCOMFORT,
+        minimum=0.35,
+        maximum=0.45,
+    ),
+    RsiPerceptionRating(
+        perception=RsiPerception.EXTREME_DISCOMFORT,
+        minimum=0.45,
+        maximum=1,
     ),
 ]
 
@@ -448,6 +497,69 @@ class HumidexPerceptionCalculator(Calculator):
         humidex = get_humidex(temp, humidity, self._config.input_unit_system)
         [rating] = [
             r for r in HUMIDEX_PERCEPTION_RATINGS if r.minimum <= humidex < r.maximum
+        ]
+        return self.get_calculated_data_point(rating.perception)
+
+
+class RsiCalculator(Calculator):
+    """Define a relative strain index calculator."""
+
+    @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
+    def calculate_from_payload(
+        self, payload: dict[str, PreCalculatedValueType]
+    ) -> CalculatedDataPoint:
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
+        temp = cast(float, payload[DATA_POINT_TEMP])
+        humidity = cast(float, payload[DATA_POINT_HUMIDITY])
+
+        try:
+            rsi = get_relative_strain_index(
+                temp, humidity, self._config.input_unit_system
+            )
+        except ValueError as err:
+            LOGGER.debug("%s", err)
+            return self.get_calculated_data_point(None)
+
+        return self.get_calculated_data_point(rsi)
+
+
+class RsiPerceptionCalculator(Calculator):
+    """Define a relative strain index perception calculator."""
+
+    @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
+    def calculate_from_payload(
+        self, payload: dict[str, PreCalculatedValueType]
+    ) -> CalculatedDataPoint:
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
+        temp = cast(float, payload[DATA_POINT_TEMP])
+        humidity = cast(float, payload[DATA_POINT_HUMIDITY])
+
+        try:
+            rsi = get_relative_strain_index(
+                temp, humidity, self._config.input_unit_system
+            )
+        except ValueError as err:
+            LOGGER.debug("%s", err)
+            return self.get_calculated_data_point(None)
+
+        [rating] = [
+            r
+            for r in RELATIVE_STRAIN_INDEX_PERCEPTION_RATINGS
+            if r.minimum <= rsi < r.maximum
         ]
         return self.get_calculated_data_point(rating.perception)
 

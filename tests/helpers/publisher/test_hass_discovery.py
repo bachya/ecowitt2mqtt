@@ -1874,6 +1874,46 @@ async def test_publish(
                 retain=False,
             ),
             call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/config",
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/attributes", "name": "relative_strain_index", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_relative_strain_index", "icon": "mdi:heat-wave", "state_class": "measurement"}',
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/availability",
+                payload=b"online",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/attributes",
+                payload=b"{}",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/state",
+                payload=b"unknown",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/config",
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/attributes", "name": "relative_strain_index_perception", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_relative_strain_index_perception", "icon": "mdi:heat-wave"}',
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/availability",
+                payload=b"online",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/attributes",
+                payload=b"{}",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/state",
+                payload=b"unknown",
+                retain=False,
+            ),
+            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/attributes", "name": "safe_exposure_time_skin_type_1", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_safe_exposure_time_skin_type_1", "unit_of_measurement": "min", "icon": "mdi:timer", "state_class": "measurement"}',
                 retain=False,
@@ -3945,6 +3985,46 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
                 payload=b"0.0005325592736717602",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/config",
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/attributes", "name": "test_prefix_relative_strain_index", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_relative_strain_index", "icon": "mdi:heat-wave", "state_class": "measurement"}',
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/availability",
+                payload=b"online",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/attributes",
+                payload=b"{}",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/state",
+                payload=b"unknown",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/config",
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/attributes", "name": "test_prefix_relative_strain_index_perception", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_relative_strain_index_perception", "icon": "mdi:heat-wave"}',
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/availability",
+                payload=b"online",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/attributes",
+                payload=b"{}",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/state",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
@@ -6048,6 +6128,46 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/config",
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/attributes", "name": "relative_strain_index", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_relative_strain_index", "icon": "mdi:heat-wave", "state_class": "measurement"}',
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/availability",
+                payload=b"online",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/attributes",
+                payload=b"{}",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/state",
+                payload=b"unknown",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/config",
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/attributes", "name": "relative_strain_index_perception", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_relative_strain_index_perception", "icon": "mdi:heat-wave"}',
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/availability",
+                payload=b"online",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/attributes",
+                payload=b"{}",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/state",
+                payload=b"unknown",
+                retain=False,
+            ),
+            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/attributes", "name": "safe_exposure_time_skin_type_1", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_safe_exposure_time_skin_type_1", "unit_of_measurement": "min", "icon": "mdi:timer", "state_class": "measurement"}',
                 retain=False,
@@ -8135,6 +8255,46 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
                 payload=b"0.0005325592736717602",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/config",
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/attributes", "name": "relative_strain_index", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_relative_strain_index", "icon": "mdi:heat-wave", "state_class": "measurement"}',
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/availability",
+                payload=b"online",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/attributes",
+                payload=b"{}",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/state",
+                payload=b"unknown",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/config",
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000A", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/attributes", "name": "relative_strain_index_perception", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_relative_strain_index_perception", "icon": "mdi:heat-wave"}',
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/availability",
+                payload=b"online",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/attributes",
+                payload=b"{}",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/state",
+                payload=b"unknown",
                 retain=False,
             ),
             call(
