@@ -356,8 +356,8 @@ data exists:
 - **[Safe Exposure Times](https://www.openuv.io/kb/skin-types-safe-exposure-time-calculation/):** how long different skin types can be in the sun (unprotected) before burning begins according to the [Fitzpatrick Scale](https://en.wikipedia.org/wiki/Fitzpatrick_scale)
 - **Solar Radiation (%):** the percentage of detected solar radiation illuminance as perceived by the human eye
 - **[Simmer Index](http://summersimmer.com/ssi_page2.htm):** an alternative to heat index that describes how how the air feels to the human body in relatively dry environments
-- **Simmer Zone:** a human-friendly interpretation of the Simmer Index
-- **Thermal Perception:** a human-friendly interpretation of the Dew Point
+- **[Simmer Zone](http://summersimmer.com/ssi_page2.htm):** a human-friendly interpretation of the Simmer Index
+- **[Thermal Perception](https://en.wikipedia.org/wiki/Dew_point):** a human-friendly interpretation of the Dew Point
 - **[Wind Chill](https://en.wikipedia.org/wiki/Wind_chill):** how cold the air feels to the human body when factoring in relative humidity, wind speed, etc. (applicable when the apparent temperature is lower than the air temperature)
 
 If you would prefer to not have these sensors calculated and published, you can utilize
