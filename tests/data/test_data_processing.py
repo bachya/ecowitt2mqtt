@@ -38,6 +38,7 @@ from ecowitt2mqtt.helpers.calculator.leak import LeakState
 from ecowitt2mqtt.helpers.calculator.temperature import (
     FrostRisk,
     HumidexPerception,
+    RsiPerception,
     SimmerZone,
     ThermalPerception,
 )
@@ -630,6 +631,20 @@ def test_missing_distance(device_data: dict[str, Any], ecowitt: Ecowitt) -> None
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
+        "relative_strain_index": CalculatedDataPoint(
+            data_point_key="relative_strain_index",
+            value=None,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "relative_strain_index_perception": CalculatedDataPoint(
+            data_point_key="relative_strain_index_perception",
+            value=None,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
     }
 
 
@@ -998,6 +1013,20 @@ def test_nonnumeric_value(device_data: dict[str, Any], ecowitt: Ecowitt) -> None
         "humidex_perception": CalculatedDataPoint(
             data_point_key="humidex_perception",
             value=HumidexPerception.DANGEROUS,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "relative_strain_index": CalculatedDataPoint(
+            data_point_key="relative_strain_index",
+            value=0.54,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "relative_strain_index_perception": CalculatedDataPoint(
+            data_point_key="relative_strain_index_perception",
+            value=RsiPerception.EXTREME_DISCOMFORT,
             unit=None,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -1375,6 +1404,20 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
+        "relative_strain_index": CalculatedDataPoint(
+            data_point_key="relative_strain_index",
+            value=0.54,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "relative_strain_index_perception": CalculatedDataPoint(
+            data_point_key="relative_strain_index_perception",
+            value=RsiPerception.EXTREME_DISCOMFORT,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
     }
 
 
@@ -1745,6 +1788,20 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
+                "relative_strain_index": CalculatedDataPoint(
+                    data_point_key="relative_strain_index",
+                    value=0.54,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "relative_strain_index_perception": CalculatedDataPoint(
+                    data_point_key="relative_strain_index_perception",
+                    value=RsiPerception.EXTREME_DISCOMFORT,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
             },
         ),
         (
@@ -2050,6 +2107,20 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                 "humidex_perception": CalculatedDataPoint(
                     data_point_key="humidex_perception",
                     value=HumidexPerception.COMFORTABLE,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "relative_strain_index": CalculatedDataPoint(
+                    data_point_key="relative_strain_index",
+                    value=None,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "relative_strain_index_perception": CalculatedDataPoint(
+                    data_point_key="relative_strain_index_perception",
+                    value=None,
                     unit=None,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -2405,6 +2476,20 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                 "humidex_perception": CalculatedDataPoint(
                     data_point_key="humidex_perception",
                     value=HumidexPerception.GREAT_DISCOMFORT,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "relative_strain_index": CalculatedDataPoint(
+                    data_point_key="relative_strain_index",
+                    value=0.35,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "relative_strain_index_perception": CalculatedDataPoint(
+                    data_point_key="relative_strain_index_perception",
+                    value=RsiPerception.SIGNIFICANT_DISCOMFORT,
                     unit=None,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -2811,6 +2896,20 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                 "humidex_perception": CalculatedDataPoint(
                     data_point_key="humidex_perception",
                     value=HumidexPerception.LITTLE_TO_NO_DISCOMFORT,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "relative_strain_index": CalculatedDataPoint(
+                    data_point_key="relative_strain_index",
+                    value=None,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "relative_strain_index_perception": CalculatedDataPoint(
+                    data_point_key="relative_strain_index_perception",
+                    value=None,
                     unit=None,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -3540,6 +3639,20 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
+                "relative_strain_index": CalculatedDataPoint(
+                    data_point_key="relative_strain_index",
+                    value=None,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "relative_strain_index_perception": CalculatedDataPoint(
+                    data_point_key="relative_strain_index_perception",
+                    value=None,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
             },
         ),
         (
@@ -3957,6 +4070,20 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
+                "relative_strain_index": CalculatedDataPoint(
+                    data_point_key="relative_strain_index",
+                    value=None,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "relative_strain_index_perception": CalculatedDataPoint(
+                    data_point_key="relative_strain_index_perception",
+                    value=None,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
             },
         ),
         (
@@ -4311,6 +4438,20 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
+                "relative_strain_index": CalculatedDataPoint(
+                    data_point_key="relative_strain_index",
+                    value=None,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "relative_strain_index_perception": CalculatedDataPoint(
+                    data_point_key="relative_strain_index_perception",
+                    value=None,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
             },
         ),
         (
@@ -4608,6 +4749,20 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                 "humidex_perception": CalculatedDataPoint(
                     data_point_key="humidex_perception",
                     value=HumidexPerception.COMFORTABLE,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "relative_strain_index": CalculatedDataPoint(
+                    data_point_key="relative_strain_index",
+                    value=None,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "relative_strain_index_perception": CalculatedDataPoint(
+                    data_point_key="relative_strain_index_perception",
+                    value=None,
                     unit=None,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,

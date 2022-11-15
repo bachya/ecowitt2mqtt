@@ -175,9 +175,50 @@ def get_humidex(
     )
 
 
+def get_relative_strain_index(
+    temperature: float, relative_humidity: float, unit_system: UnitSystemType
+) -> float:
+    """Get a simmer index meteocalc object.
+
+    Args:
+        temperature: A float representing temperature.
+        relative_humidity: A float representing relative humidity.
+        unit_system: A target unit system.
+
+    Returns:
+        The index.
+
+    Raises:
+        ValueError: Raised when the index cannot be calculated.
+    """
+    temp_obj = get_temperature_meteocalc_object(temperature, unit_system)
+
+    if temp_obj.c < 26 or temp_obj.c > 35:
+        raise ValueError(
+            "Relative Strain Index is only valid for temperatures above 26°C and "
+            "below 35°C"
+        )
+
+    return cast(
+        float,
+        round(
+            (temp_obj.c - 21)
+            / (
+                58
+                - (
+                    relative_humidity
+                    * (6.112 * pow(10, 7.5 * temp_obj.c / (237.7 + temp_obj.c)))
+                    / 100
+                )
+            ),
+            2,
+        ),
+    )
+
+
 def get_simmer_index_meteocalc_object(
     temp_obj: meteocalc.Temp, relative_humidity: float, unit_system: UnitSystemType
-) -> meteocalc.Temp | None:
+) -> meteocalc.Temp:
     """Get a simmer index meteocalc object.
 
     Args:
