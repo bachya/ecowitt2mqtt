@@ -5,6 +5,7 @@ from abc import ABC, abstractmethod
 from collections.abc import Callable
 from typing import Any
 
+from aiohttp import hdrs
 from fastapi import FastAPI, Request, Response, status
 
 from ecowitt2mqtt.const import LOGGER
@@ -15,11 +16,12 @@ CallbackT = Callable[[dict[str, Any]], None]
 class APIServer(ABC):
     """Define an abstract API server class."""
 
-    def __init__(self, http_method_used: str, route: str) -> None:
+    HTTP_REQUEST_VERB: str
+
+    def __init__(self, route: str) -> None:
         """Initialize.
 
         Args:
-            http_method_used: The HTTP verb used to query this API.
             route: The API route to query.
         """
         self._payload_received_callbacks: list[CallbackT] = []
@@ -28,7 +30,7 @@ class APIServer(ABC):
         self.fastapi.add_api_route(
             route,
             self._async_handle_query,  # type: ignore[arg-type]
-            methods=[http_method_used.lower()],
+            methods=[self.HTTP_REQUEST_VERB.lower()],
             response_class=Response,
             status_code=status.HTTP_204_NO_CONTENT,
         )
@@ -67,6 +69,8 @@ class APIServer(ABC):
 
 class EcowittAPIServer(APIServer):
     """Define an Ecowitt API server."""
+
+    HTTP_REQUEST_VERB = hdrs.METH_POST
 
     async def async_parse_request_payload(self, request: Request) -> dict[str, Any]:
         """Parse and return the request payload.
