@@ -50,18 +50,22 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
         Args:
             ecowitt: An Ecowitt object.
         """
+        self._payload_events: dict[str, asyncio.Event] = {}
+        self._mqtt_loop_tasks: list[asyncio.Task] = []
+        self._payload_lock = asyncio.Lock()
+        self._payload_queues: dict[str, asyncio.Queue] = {}
+        self._rest_api_server_task: asyncio.Task | None = None
         self.ecowitt = ecowitt
-
-        if ecowitt.configs.default_config.verbose:
-            uvicorn_log_level = UVICORN_LOG_LEVEL_DEBUG
-        else:
-            uvicorn_log_level = UVICORN_LOG_LEVEL_ERROR
 
         self._api_server = EcowittAPIServer(
             hdrs.METH_POST, ecowitt.configs.default_config.endpoint
         )
         self._api_server.add_payload_callback(self._process_payload)
 
+        if ecowitt.configs.default_config.verbose:
+            uvicorn_log_level = UVICORN_LOG_LEVEL_DEBUG
+        else:
+            uvicorn_log_level = UVICORN_LOG_LEVEL_ERROR
         self._uvicorn = DeSignaledUvicornServer(
             config=uvicorn.Config(
                 self._api_server.fastapi,
@@ -70,12 +74,6 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
                 log_level=uvicorn_log_level,
             )
         )
-
-        self._payload_events: dict[str, asyncio.Event] = {}
-        self._mqtt_loop_tasks: list[asyncio.Task] = []
-        self._payload_lock = asyncio.Lock()
-        self._payload_queues: dict[str, asyncio.Queue] = {}
-        self._rest_api_server_task: asyncio.Task | None = None
 
     def _async_create_mqtt_loop_task(
         self,
