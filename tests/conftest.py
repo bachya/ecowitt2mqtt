@@ -141,6 +141,6 @@ async def setup_uvicorn_server_fixture(
     try:
         yield
     finally:
-        await ecowitt.runtime._server.shutdown()  # pylint: disable=protected-access
+        await ecowitt.runtime._uvicorn.shutdown()  # pylint: disable=protected-access
         start_task.cancel()
     await asyncio.sleep(0.1)

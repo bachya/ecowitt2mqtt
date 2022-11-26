@@ -11,11 +11,11 @@ from typing import TYPE_CHECKING, Any
 
 import uvicorn
 from asyncio_mqtt import Client, MqttError
-from fastapi import FastAPI, Request, Response, status
 
 from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import LOGGER
 from ecowitt2mqtt.helpers.publisher.factory import get_publisher
+from ecowitt2mqtt.helpers.server import EcowittAPIServer
 
 if TYPE_CHECKING:
     from ecowitt2mqtt.core import Ecowitt
@@ -49,39 +49,28 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
         Args:
             ecowitt: An Ecowitt object.
         """
-        self.ecowitt = ecowitt
-
-        if ecowitt.configs.default_config.verbose:
-            uvicorn_log_level = UVICORN_LOG_LEVEL_DEBUG
-        else:
-            uvicorn_log_level = UVICORN_LOG_LEVEL_ERROR
-
-        app = FastAPI()
-
-        for route in (
-            ecowitt.configs.default_config.endpoint,
-            f"{ecowitt.configs.default_config.endpoint}/",
-        ):
-            app.post(
-                route,
-                status_code=status.HTTP_204_NO_CONTENT,
-                response_class=Response,
-            )(self._async_post_data)
-
-        self._server = DeSignaledUvicornServer(
-            config=uvicorn.Config(
-                app,
-                host=DEFAULT_HOST,
-                port=ecowitt.configs.default_config.port,
-                log_level=uvicorn_log_level,
-            )
-        )
-
         self._payload_events: dict[str, asyncio.Event] = {}
         self._mqtt_loop_tasks: list[asyncio.Task] = []
         self._payload_lock = asyncio.Lock()
         self._payload_queues: dict[str, asyncio.Queue] = {}
         self._rest_api_server_task: asyncio.Task | None = None
+        self.ecowitt = ecowitt
+
+        self._api_server = EcowittAPIServer(ecowitt.configs.default_config.endpoint)
+        self._api_server.add_payload_callback(self._process_payload)
+
+        if ecowitt.configs.default_config.verbose:
+            uvicorn_log_level = UVICORN_LOG_LEVEL_DEBUG
+        else:
+            uvicorn_log_level = UVICORN_LOG_LEVEL_ERROR
+        self._uvicorn = DeSignaledUvicornServer(
+            config=uvicorn.Config(
+                self._api_server.fastapi,
+                host=DEFAULT_HOST,
+                port=ecowitt.configs.default_config.port,
+                log_level=uvicorn_log_level,
+            )
+        )
 
     def _async_create_mqtt_loop_task(
         self,
@@ -154,17 +143,12 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
 
         return asyncio.create_task(create_loop())
 
-    async def _async_post_data(self, request: Request) -> None:
+    def _process_payload(self, payload: dict[str, Any]) -> None:
         """Define an endpoint for the Ecowitt device to post data to.
 
         Args:
-            request: A FastAPI Request object.
+            payload: An API request payload.
         """
-        form_data = await request.form()
-        payload: dict[str, Any] = dict(form_data)
-
-        LOGGER.debug("Received data from an Ecowitt device: %s", payload)
-
         config = self.ecowitt.configs.get(payload["PASSKEY"])
 
         # Store the payload in the appropriate queue:
@@ -197,10 +181,10 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
             Args:
                 sig: The signal to handle.
             """
-            if self._server.should_exit and sig == signal.SIGINT:
-                self._server.force_exit = True
+            if self._uvicorn.should_exit and sig == signal.SIGINT:
+                self._uvicorn.force_exit = True
             else:
-                self._server.should_exit = True
+                self._uvicorn.should_exit = True
             self.stop()
 
         try:
@@ -212,7 +196,7 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
                 signal.signal(sig, handle_exit_signal)
 
         LOGGER.debug("Starting runtime")
-        self._rest_api_server_task = asyncio.create_task(self._server.serve())
+        self._rest_api_server_task = asyncio.create_task(self._uvicorn.serve())
         try:
             await self._rest_api_server_task
         except asyncio.CancelledError:

@@ -1,4 +1,4 @@
-"""Define tests for the API server."""
+"""Define tests for the Ecowitt API server."""
 # pylint: disable=unused-argument
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ import pytest
 from aiohttp import ClientSession
 from asyncio_mqtt import MqttError
 
-from ecowitt2mqtt.const import CONF_DIAGNOSTICS
+from ecowitt2mqtt.const import CONF_DIAGNOSTICS, CONF_ENDPOINT
 from ecowitt2mqtt.core import Ecowitt
 from tests.common import TEST_CONFIG_JSON, TEST_ENDPOINT, TEST_PORT
 
@@ -68,16 +68,15 @@ async def test_publish_failure(
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    "route",
+    "config",
     [
-        f"http://127.0.0.1:{TEST_PORT}{TEST_ENDPOINT}",
-        f"http://127.0.0.1:{TEST_PORT}{TEST_ENDPOINT}/",
+        TEST_CONFIG_JSON | {CONF_ENDPOINT: TEST_ENDPOINT},
+        TEST_CONFIG_JSON | {CONF_ENDPOINT: f"{TEST_ENDPOINT}/"},
     ],
 )
 async def test_publish_success(
     device_data: dict[str, Any],
     ecowitt: Ecowitt,
-    route: str,
     setup_asyncio_mqtt: AsyncGenerator[None, None],
     setup_uvicorn_server: AsyncGenerator[None, None],
 ) -> None:
@@ -86,12 +85,19 @@ async def test_publish_success(
     Args:
         device_data: A dictionary of device data.
         ecowitt: A parsed Ecowitt object.
-        route: A FastAPI route.
         setup_asyncio_mqtt: A mock asyncio-mqtt client connection.
         setup_uvicorn_server: A mock Uvicorn + FastAPI application.
     """
     async with ClientSession() as session:
-        resp = await session.request("post", route, data=device_data)
+
+        resp = await session.request(
+            "post",
+            (
+                f"http://127.0.0.1:{TEST_PORT}"
+                f"{ecowitt.configs.default_config.endpoint}"
+            ),
+            data=device_data,
+        )
         assert resp.status == 204
 
 
