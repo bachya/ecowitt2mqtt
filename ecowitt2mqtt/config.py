@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+from collections.abc import Generator
 from typing import Any, cast
 
 import voluptuous as vol
@@ -547,3 +548,11 @@ class Configs:
             A parsed Config object.
         """
         return self._configs.get(passkey, self.default_config)
+
+    def iterate(self) -> Generator[Config, None, None]:
+        """Get a generator to loop through all stored Config objects.
+
+        Returns:
+            An Generator of all stored Config objects.
+        """
+        return (config for config in self._configs.values())

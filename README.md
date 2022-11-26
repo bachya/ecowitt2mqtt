@@ -321,9 +321,10 @@ logs when `verbose` is enabled – look for the `PASSKEY` value that the gateway
 Received data from the Ecowitt device: {'PASSKEY': 'abcde12345', ...}
 ```
 
-Then, in the configuration file, simply add a `gateways` key that contains a mapping of any
-of the existing configuration options. Options that remain at the root level of the file
-are treated as defaults.
+Then, in the configuration file, simply add a `gateways` key that contains a mapping of
+any of the existing configuration options (except for `--verbose` and `--diagnostics`,
+which can only be defined once and are applied to _every_ configuration). Options that
+remain at the root level of the file are treated as defaults.
 
 For example, this YAML configuration file:
 

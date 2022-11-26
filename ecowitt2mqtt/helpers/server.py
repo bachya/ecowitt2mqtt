@@ -26,10 +26,14 @@ class APIServer(ABC):
 
     HTTP_REQUEST_VERB: str
 
-    def __init__(self) -> None:
-        """Initialize."""
+    def __init__(self, fastapi: FastAPI) -> None:
+        """Initialize.
+
+        Args:
+            fastapi: A FastAPI object.
+        """
         self._payload_received_callbacks: list[CallbackT] = []
-        self.fastapi = FastAPI()
+        self._fastapi = fastapi
 
     async def _async_handle_query(self, request: Request) -> None:
         """Handle an API query.
@@ -43,18 +47,18 @@ class APIServer(ABC):
         for callback in self._payload_received_callbacks:
             callback(payload)
 
-    def _normalize_route(self, route: str) -> str:
-        """Normalize the route to work with this server.
+    def _normalize_endpoint(self, endpoint: str) -> str:
+        """Normalize the endpoint to work with this server.
 
         Args:
-            route: The route to normalize.
+            endpoint: The endpoint to normalize.
 
         Returns:
-            A normalized route.
+            A normalized endpoint.
         """
-        if route.endswith("/"):
-            return route[:-1]
-        return route
+        if endpoint.endswith("/"):
+            return endpoint[:-1]
+        return endpoint
 
     def add_payload_callback(self, callback: CallbackT) -> None:
         """Add a callback to be called when a new payload is received.
@@ -64,14 +68,14 @@ class APIServer(ABC):
         """
         self._payload_received_callbacks.append(callback)
 
-    def add_route(self, route: str) -> None:
-        """Add a route to the API.
+    def add_endpoint(self, endpoint: str) -> None:
+        """Add a endpoint to the API.
 
         Args:
-            route: The API route to query.
+            endpoint: The API endpoint to query.
         """
-        self.fastapi.add_api_route(
-            self._normalize_route(route),
+        self._fastapi.add_api_route(
+            self._normalize_endpoint(endpoint),
             self._async_handle_query,  # type: ignore[arg-type]
             methods=[self.HTTP_REQUEST_VERB.lower()],
             response_class=Response,

@@ -11,11 +11,12 @@ from typing import TYPE_CHECKING, Any
 
 import uvicorn
 from asyncio_mqtt import Client, MqttError
+from fastapi import FastAPI
 
 from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import LOGGER
 from ecowitt2mqtt.helpers.publisher.factory import get_publisher
-from ecowitt2mqtt.helpers.server import EcowittAPIServer
+from ecowitt2mqtt.helpers.server import APIServer, EcowittAPIServer
 
 if TYPE_CHECKING:
     from ecowitt2mqtt.core import Ecowitt
@@ -49,16 +50,20 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
         Args:
             ecowitt: An Ecowitt object.
         """
-        self._payload_events: dict[str, asyncio.Event] = {}
+        self._api_servers: list[APIServer] = []
         self._mqtt_loop_tasks: list[asyncio.Task] = []
+        self._payload_events: dict[str, asyncio.Event] = {}
         self._payload_lock = asyncio.Lock()
         self._payload_queues: dict[str, asyncio.Queue] = {}
         self._rest_api_server_task: asyncio.Task | None = None
         self.ecowitt = ecowitt
 
-        self._api_server = EcowittAPIServer()
-        self._api_server.add_route(ecowitt.configs.default_config.endpoint)
-        self._api_server.add_payload_callback(self._process_payload)
+        fastapi = FastAPI()
+        for config in ecowitt.configs.iterate():
+            api_server = EcowittAPIServer(fastapi)
+            api_server.add_endpoint(config.endpoint)
+            api_server.add_payload_callback(self._process_payload)
+            self._api_servers.append(api_server)
 
         if ecowitt.configs.default_config.verbose:
             uvicorn_log_level = UVICORN_LOG_LEVEL_DEBUG
@@ -66,7 +71,7 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
             uvicorn_log_level = UVICORN_LOG_LEVEL_ERROR
         self._uvicorn = DeSignaledUvicornServer(
             config=uvicorn.Config(
-                self._api_server.fastapi,
+                fastapi,
                 host=DEFAULT_HOST,
                 port=ecowitt.configs.default_config.port,
                 log_level=uvicorn_log_level,
