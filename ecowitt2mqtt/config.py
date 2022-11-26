@@ -504,8 +504,8 @@ class Configs:
         Args:
             config: Raw configuration data.
         """
+        self._configs: dict[str, Config] = {}
         self._config_file_parser = YAML(typ="safe")
-        self.configs: dict[str, Config] = {}
 
         if config_path := config.get(CONF_CONFIG):
             config_file_config = load_config_from_file(config_path)
@@ -513,12 +513,12 @@ class Configs:
             config_file_config = {}
 
         # Store the default config:
-        self.configs[CONF_DEFAULT] = Config(config_file_config | config)
+        self._configs[CONF_DEFAULT] = Config(config_file_config | config)
 
         # Store configs for any gateways:
         gateways_file_config = config_file_config.get(CONF_GATEWAYS, {})
         for passkey, gateway_config in gateways_file_config.items():
-            self.configs[passkey] = Config(gateway_config | config)
+            self._configs[passkey] = Config(gateway_config | config)
 
     def __repr__(self) -> str:
         """Define a string representation of this object.
@@ -526,7 +526,7 @@ class Configs:
         Returns:
             A string representation.
         """
-        return f"<Configs _configs={self.configs}"
+        return f"<Configs _configs={self._configs}"
 
     @property
     def default_config(self) -> Config:
@@ -535,7 +535,7 @@ class Configs:
         Returns:
             A parsed Config object.
         """
-        return self.configs[CONF_DEFAULT]
+        return self._configs[CONF_DEFAULT]
 
     def get(self, passkey: str) -> Config:
         """Get the config for a particular passkey (returning the default if none).
@@ -546,4 +546,4 @@ class Configs:
         Returns:
             A parsed Config object.
         """
-        return self.configs.get(passkey, self.default_config)
+        return self._configs.get(passkey, self.default_config)
