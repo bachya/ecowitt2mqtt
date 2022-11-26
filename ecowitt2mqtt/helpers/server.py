@@ -18,22 +18,10 @@ class APIServer(ABC):
 
     HTTP_REQUEST_VERB: str
 
-    def __init__(self, route: str) -> None:
-        """Initialize.
-
-        Args:
-            route: The API route to query.
-        """
+    def __init__(self) -> None:
+        """Initialize."""
         self._payload_received_callbacks: list[CallbackT] = []
-
         self.fastapi = FastAPI()
-        self.fastapi.add_api_route(
-            route,
-            self._async_handle_query,  # type: ignore[arg-type]
-            methods=[self.HTTP_REQUEST_VERB.lower()],
-            response_class=Response,
-            status_code=status.HTTP_204_NO_CONTENT,
-        )
 
     async def _async_handle_query(self, request: Request) -> None:
         """Handle an API query.
@@ -47,6 +35,19 @@ class APIServer(ABC):
         for callback in self._payload_received_callbacks:
             callback(payload)
 
+    def _normalize_route(self, route: str) -> str:
+        """Normalize the route to work with this server.
+
+        Args:
+            route: The route to normalize.
+
+        Returns:
+            A normalized route.
+        """
+        if route.endswith("/"):
+            route = route[:-1]
+        return route
+
     def add_payload_callback(self, callback: CallbackT) -> None:
         """Add a callback to be called when a new payload is received.
 
@@ -54,6 +55,20 @@ class APIServer(ABC):
             callback: The callback to add.
         """
         self._payload_received_callbacks.append(callback)
+
+    def add_route(self, route: str) -> None:
+        """Add a route to the API.
+
+        Args:
+            route: The API route to query.
+        """
+        self.fastapi.add_api_route(
+            self._normalize_route(route),
+            self._async_handle_query,  # type: ignore[arg-type]
+            methods=[self.HTTP_REQUEST_VERB.lower()],
+            response_class=Response,
+            status_code=status.HTTP_204_NO_CONTENT,
+        )
 
     @abstractmethod
     async def async_parse_request_payload(self, request: Request) -> dict[str, Any]:

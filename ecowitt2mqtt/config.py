@@ -253,10 +253,7 @@ class Config:  # pylint: disable=too-many-public-methods
         Returns:
             The endpoint string.
         """
-        endpoint = cast(str, self._config[CONF_ENDPOINT])
-        if endpoint.endswith("/"):
-            endpoint = endpoint[:-1]
-        return endpoint
+        return cast(str, self._config[CONF_ENDPOINT])
 
     @property
     def hass_discovery(self) -> bool:
