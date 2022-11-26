@@ -483,7 +483,7 @@ class HomeAssistantDiscoveryPublisher(
                 "device": {
                     "identifiers": [device.unique_id],
                     "manufacturer": device.manufacturer,
-                    "model": device.name,
+                    "model": device.model,
                     "name": device.name,
                     "sw_version": device.station_type,
                 },
