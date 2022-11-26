@@ -19,6 +19,7 @@ from ecowitt2mqtt.const import (
     CONF_HASS_DISCOVERY,
     CONF_HASS_DISCOVERY_PREFIX,
     CONF_HASS_ENTITY_ID_PREFIX,
+    CONF_INPUT_DATA_FORMAT,
     CONF_INPUT_UNIT_SYSTEM,
     CONF_MQTT_BROKER,
     CONF_MQTT_PASSWORD,
@@ -53,6 +54,7 @@ from ecowitt2mqtt.const import (
     ENV_HASS_DISCOVERY,
     ENV_HASS_DISCOVERY_PREFIX,
     ENV_HASS_ENTITY_ID_PREFIX,
+    ENV_INPUT_DATA_FORMAT,
     ENV_INPUT_UNIT_SYSTEM,
     ENV_MQTT_BROKER,
     ENV_MQTT_PASSWORD,
@@ -94,6 +96,7 @@ from ecowitt2mqtt.const import (
 )
 from ecowitt2mqtt.core import Ecowitt
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
+from ecowitt2mqtt.helpers.server import InputDataFormat
 
 DEPRECATED_ENV_VAR_MAP = {
     LEGACY_ENV_ENDPOINT: ENV_ENDPOINT,
@@ -122,6 +125,7 @@ ENV_VAR_TO_CONF_MAP = {
     ENV_HASS_DISCOVERY: CONF_HASS_DISCOVERY,
     ENV_HASS_DISCOVERY_PREFIX: CONF_HASS_DISCOVERY_PREFIX,
     ENV_HASS_ENTITY_ID_PREFIX: CONF_HASS_ENTITY_ID_PREFIX,
+    ENV_INPUT_DATA_FORMAT: CONF_INPUT_DATA_FORMAT,
     ENV_INPUT_UNIT_SYSTEM: CONF_INPUT_UNIT_SYSTEM,
     ENV_MQTT_BROKER: CONF_MQTT_BROKER,
     ENV_MQTT_PASSWORD: CONF_MQTT_PASSWORD,
@@ -251,6 +255,15 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
         dest=CONF_HASS_ENTITY_ID_PREFIX,
         help="The prefix to use for Home Assistant entity IDs",
         metavar=CONF_HASS_ENTITY_ID_PREFIX,
+    )
+    parser.add_argument(
+        "--input-data-format",
+        dest=CONF_INPUT_DATA_FORMAT,
+        help=(
+            "The input data format used by the gateway "
+            f"(default: {InputDataFormat.ECOWITT})"
+        ),
+        metavar=CONF_INPUT_DATA_FORMAT,
     )
     parser.add_argument(
         "--input-unit-system",
