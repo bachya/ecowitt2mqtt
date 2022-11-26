@@ -1,4 +1,4 @@
-"""Define tests for the Ecowitt API server."""
+"""Define tests for the runtime."""
 # pylint: disable=unused-argument
 from __future__ import annotations
 

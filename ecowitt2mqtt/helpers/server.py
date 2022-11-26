@@ -45,7 +45,7 @@ class APIServer(ABC):
             A normalized route.
         """
         if route.endswith("/"):
-            route = route[:-1]
+            return route[:-1]
         return route
 
     def add_payload_callback(self, callback: CallbackT) -> None:
