@@ -56,7 +56,8 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
         self._rest_api_server_task: asyncio.Task | None = None
         self.ecowitt = ecowitt
 
-        self._api_server = EcowittAPIServer(ecowitt.configs.default_config.endpoint)
+        self._api_server = EcowittAPIServer()
+        self._api_server.add_route(ecowitt.configs.default_config.endpoint)
         self._api_server.add_payload_callback(self._process_payload)
 
         if ecowitt.configs.default_config.verbose:
