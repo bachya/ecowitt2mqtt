@@ -16,7 +16,7 @@ from fastapi import FastAPI
 from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import LOGGER
 from ecowitt2mqtt.helpers.publisher.factory import get_publisher
-from ecowitt2mqtt.helpers.server import APIServer, EcowittAPIServer
+from ecowitt2mqtt.helpers.server import APIServer, get_api_server
 
 if TYPE_CHECKING:
     from ecowitt2mqtt.core import Ecowitt
@@ -60,7 +60,7 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
 
         fastapi = FastAPI()
         for config in ecowitt.configs.iterate():
-            api_server = EcowittAPIServer(fastapi)
+            api_server = get_api_server(fastapi, config.input_data_format)
             api_server.add_endpoint(config.endpoint)
             api_server.add_payload_callback(self._process_payload)
             self._api_servers.append(api_server)

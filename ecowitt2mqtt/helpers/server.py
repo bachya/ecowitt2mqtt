@@ -110,3 +110,22 @@ class EcowittAPIServer(APIServer):
         """
         form_data = await request.form()
         return dict(form_data)
+
+
+API_SERVER_IMPLEMENTATION_MAP = {
+    InputDataFormat.ECOWITT: EcowittAPIServer,
+}
+
+
+def get_api_server(fastapi: FastAPI, input_data_format: InputDataFormat) -> APIServer:
+    """Get the correct APIServer implementation based on input data format.
+
+    Args:
+        fastapi: A FastAPI object.
+        input_data_format: The input data format to use.
+
+    Returns:
+        An APIServer implementation.
+    """
+    implementation_class = API_SERVER_IMPLEMENTATION_MAP[input_data_format]
+    return implementation_class(fastapi)
