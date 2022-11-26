@@ -19,6 +19,7 @@ from ecowitt2mqtt.const import (
     CONF_HASS_DISCOVERY,
     CONF_HASS_DISCOVERY_PREFIX,
     CONF_HASS_ENTITY_ID_PREFIX,
+    CONF_INPUT_DATA_FORMAT,
     CONF_INPUT_UNIT_SYSTEM,
     CONF_MQTT_BROKER,
     CONF_MQTT_PASSWORD,
@@ -49,6 +50,7 @@ from ecowitt2mqtt.const import (
 )
 from ecowitt2mqtt.errors import EcowittError
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
+from ecowitt2mqtt.helpers.server import InputDataFormat
 from ecowitt2mqtt.helpers.typing import UnitSystemType
 from ecowitt2mqtt.util.unit_conversion import (
     AccumulatedPrecipitationConverter,
@@ -103,6 +105,9 @@ CONFIG_SCHEMA = vol.All(
             vol.Optional(CONF_DIAGNOSTICS, default=False): cv.boolean,
             vol.Optional(CONF_DISABLE_CALCULATED_DATA, default=False): cv.boolean,
             vol.Optional(CONF_ENDPOINT, default=DEFAULT_ENDPOINT): str,
+            vol.Optional(
+                CONF_INPUT_DATA_FORMAT, default=InputDataFormat.ECOWITT
+            ): vol.Coerce(InputDataFormat),
             vol.Optional(
                 CONF_INPUT_UNIT_SYSTEM, default=UNIT_SYSTEM_IMPERIAL
             ): cv.unit_system,
@@ -281,6 +286,15 @@ class Config:  # pylint: disable=too-many-public-methods
             The string (if it exists).
         """
         return self._config.get(CONF_HASS_ENTITY_ID_PREFIX)
+
+    @property
+    def input_data_format(self) -> InputDataFormat:
+        """Return the input data format.
+
+        Returns:
+            A InputDataFormat object.
+        """
+        return cast(InputDataFormat, self._config[CONF_INPUT_DATA_FORMAT])
 
     @property
     def input_unit_system(self) -> UnitSystemType:

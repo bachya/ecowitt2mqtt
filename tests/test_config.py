@@ -33,15 +33,21 @@ from ecowitt2mqtt.const import (
     PRESSURE_HPA,
     SPEED_KILOMETERS_PER_HOUR,
     TEMP_CELSIUS,
+    UNIT_SYSTEM_IMPERIAL,
     VOLUME_GRAMS_PER_CUBIC_METER,
 )
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
+from ecowitt2mqtt.helpers.server import InputDataFormat
 from tests.common import (
     TEST_CONFIG_JSON,
     TEST_CONFIG_RAW_YAML,
     TEST_ENDPOINT,
+    TEST_HASS_DISCOVERY_PREFIX,
     TEST_MQTT_BROKER,
+    TEST_MQTT_PASSWORD,
+    TEST_MQTT_PORT,
     TEST_MQTT_TOPIC,
+    TEST_MQTT_USERNAME,
     TEST_PORT,
 )
 
@@ -163,8 +169,39 @@ def test_config_file(config_filepath: str) -> None:
         config_filepath: A configuration file path.
     """
     configs = Configs({CONF_CONFIG: config_filepath})
+    assert configs.default_config.battery_overrides == {}
+    assert configs.default_config.default_battery_strategy == BatteryStrategy.BOOLEAN
+    assert configs.default_config.diagnostics is False
+    assert configs.default_config.disable_calculated_data is False
     assert configs.default_config.endpoint == TEST_ENDPOINT
+    assert configs.default_config.hass_discovery is False
+    assert configs.default_config.hass_discovery_prefix == TEST_HASS_DISCOVERY_PREFIX
+    assert configs.default_config.hass_entity_id_prefix is None
+    assert configs.default_config.input_data_format == InputDataFormat.ECOWITT
+    assert configs.default_config.input_unit_system == UNIT_SYSTEM_IMPERIAL
+    assert configs.default_config.mqtt_broker == TEST_MQTT_BROKER
+    assert configs.default_config.mqtt_connection_info == (
+        f"{TEST_MQTT_USERNAME}@{TEST_MQTT_BROKER}:{TEST_MQTT_PORT}"
+    )
+    assert configs.default_config.mqtt_password == TEST_MQTT_PASSWORD
+    assert configs.default_config.mqtt_port == TEST_MQTT_PORT
+    assert configs.default_config.mqtt_retain is False
+    assert configs.default_config.mqtt_tls is False
+    assert configs.default_config.mqtt_topic == TEST_MQTT_TOPIC
+    assert configs.default_config.mqtt_username == TEST_MQTT_USERNAME
+    assert configs.default_config.output_unit_system == UNIT_SYSTEM_IMPERIAL
+    assert configs.default_config.output_unit_accumulated_precipitation is None
+    assert configs.default_config.output_unit_distance is None
+    assert configs.default_config.output_unit_humidity is None
+    assert configs.default_config.output_unit_illuminance is None
+    assert configs.default_config.output_unit_precipitation_rate is None
+    assert configs.default_config.output_unit_pressure is None
+    assert configs.default_config.output_unit_speed is None
+    assert configs.default_config.output_unit_temperature is None
     assert configs.default_config.port == TEST_PORT
+    assert configs.default_config.precision is None
+    assert configs.default_config.raw_data is False
+    assert configs.default_config.verbose is False
 
 
 @pytest.mark.parametrize("raw_config", ["{}"])

@@ -8,9 +8,17 @@ from typing import Any
 from aiohttp import hdrs
 from fastapi import FastAPI, Request, Response, status
 
+from ecowitt2mqtt.backports.enum import StrEnum
 from ecowitt2mqtt.const import LOGGER
 
 CallbackT = Callable[[dict[str, Any]], None]
+
+
+class InputDataFormat(StrEnum):
+    """Define an input data format."""
+
+    AMBIENT_WEATHER = "ambient_weather"
+    ECOWITT = "ecowitt"
 
 
 class APIServer(ABC):
