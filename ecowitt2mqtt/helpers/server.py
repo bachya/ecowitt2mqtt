@@ -118,11 +118,11 @@ class AmbientWeatherAPIServer(APIServer):
         endpoint_length = len(self._endpoint)
         param_string = request.url.path[endpoint_length:-1]
         params = dict(urllib.parse.parse_qsl(param_string))
-        
+
         # Ambient Weather uses a MAC address (with colons) as the PASSKEY; the colons
         # can cause issues with Home Assistant MQTT Discovery, so we remove them:
         params["PASSKEY"] = params["PASSKEY"].replace(":", "")
-        
+
         return params
 
 
