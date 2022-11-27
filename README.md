@@ -775,12 +775,11 @@ Thanks to all of [our contributors][contributors] so far!
 3. (_optional, but highly recommended_) Create a virtual environment: `python3 -m venv .venv`
 4. (_optional, but highly recommended_) Enter the virtual environment: `source ./.venv/bin/activate`
 5. Install the dev environment: `script/setup`
-6. Code your new feature or bug fix.
+6. Code your new feature or bug fix on a new branch.
 7. Write tests that cover your new functionality.
 8. Run tests and ensure 100% code coverage: `poetry run pytest --cov ecowitt2mqtt tests`
 9. Update `README.md` with any new documentation.
-10. Add yourself to `AUTHORS.md`.
-11. Submit a pull request!
+10. Submit a pull request!
 
 [absolute-humidity]: https://en.wikipedia.org/wiki/Humidity#Absolute_humidity
 [ambient-weather]: https://ambientweather.com/
