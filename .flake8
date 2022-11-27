@@ -5,4 +5,5 @@ max-complexity = 18
 per-file-ignores =
   tests/*:DAR,S101
   tests/helpers/publisher/*:B950,DAR,S101
+  tests/test_runtime.py:B950,S101
 select = B,B9,LK,C,D,E,F,I,S,W

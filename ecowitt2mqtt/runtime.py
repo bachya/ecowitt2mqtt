@@ -50,7 +50,7 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
         Args:
             ecowitt: An Ecowitt object.
         """
-        self._api_servers: list[APIServer] = []
+        self._api_servers: dict[str, APIServer] = {}
         self._mqtt_loop_tasks: list[asyncio.Task] = []
         self._payload_events: dict[str, asyncio.Event] = {}
         self._payload_lock = asyncio.Lock()
@@ -60,10 +60,11 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
 
         fastapi = FastAPI()
         for config in ecowitt.configs.iterate():
-            api_server = get_api_server(fastapi, config.input_data_format)
-            api_server.add_endpoint(config.endpoint)
-            api_server.add_payload_callback(self._process_payload)
-            self._api_servers.append(api_server)
+            if config.endpoint not in self._api_servers:
+                api_server = self._api_servers[config.endpoint] = get_api_server(
+                    fastapi, config.endpoint, config.input_data_format
+                )
+                api_server.add_payload_callback(self._process_payload)
 
         if ecowitt.configs.default_config.verbose:
             uvicorn_log_level = UVICORN_LOG_LEVEL_DEBUG
