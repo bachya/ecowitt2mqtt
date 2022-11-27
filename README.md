@@ -1,13 +1,12 @@
-![ecowitt2mqtt](resources/logo-full.png)
+![ecowitt2mqtt][logo]
 
-[![CI](https://github.com/bachya/ecowitt2mqtt/workflows/CI/badge.svg)](https://github.com/bachya/ecowitt2mqtt/actions)
-[![PyPi](https://img.shields.io/pypi/v/ecowitt2mqtt.svg)](https://pypi.python.org/pypi/ecowitt2mqtt)
-[![Docker Hub](https://img.shields.io/docker/pulls/bachya/ecowitt2mqtt)](https://hub.docker.com/r/bachya/ecowitt2mqtt)
-[![Version](https://img.shields.io/pypi/pyversions/ecowitt2mqtt.svg)](https://pypi.python.org/pypi/ecowitt2mqtt)
-[![License](https://img.shields.io/pypi/l/ecowitt2mqtt.svg)](https://github.com/bachya/ecowitt2mqtt/blob/main/LICENSE)
-[![Code Coverage](https://codecov.io/gh/bachya/ecowitt2mqtt/branch/dev/graph/badge.svg)](https://codecov.io/gh/bachya/ecowitt2mqtt)
-[![Maintainability](https://api.codeclimate.com/v1/badges/a03c9e96f19a3dc37f98/maintainability)](https://codeclimate.com/github/bachya/ecowitt2mqtt/maintainability)
-[![Say Thanks](https://img.shields.io/badge/SayThanks-!-1EAEDB.svg)](https://saythanks.io/to/bachya)
+[![CI][ci-badge]][ci]
+[![PyPI][pypi-badge]][pypi]
+[![Docker Hub][docker-hub-badge]][docker-hub]
+[![Version][version-badge]][version]
+[![License][license-badge]][license]
+[![Code Coverage][codecov-badge]][codecov]
+[![Maintainability][maintainability-badge]][maintainability]
 
 <a href="https://www.buymeacoffee.com/bachya1208P" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
@@ -64,9 +63,9 @@ Despite the name of the library, `ecowitt2mqtt` should support any weather stati
 that is produced by [Fine Offset](https://www.foshk.com/). This includes brands that
 white-label Fine Offset equipment, such as:
 
-- [Ambient Weather](https://ambientweather.com/) (U.S.)
-- [Ecowitt](https://www.ecowitt.com/) (China, Hong Kong)
-- [Froggit](https://www.froggit.de/Weather-Station/) (Germany)
+- [Ambient Weather][ambient-weather] (U.S.)
+- [Ecowitt][ecowitt] (China, Hong Kong)
+- [Froggit][froggit] (Germany)
 
 ...and many others. For more information on how these brands relate to one another, see
 this forum post: https://www.wxforum.net/index.php?topic=40730.0
@@ -86,15 +85,15 @@ $ pip install ecowitt2mqtt
 Next, if you haven't already, install the appropriate mobile app to configure your
 device. For example:
 
-- Ambient Weather: awnet ([iOS](https://apps.apple.com/us/app/awnet/id1341994564)/[Android](https://play.google.com/store/apps/details?id=com.dtston.ambienttoolplus&hl=en_US&gl=US))
-- Ecowitt: WS View ([iOS](https://apps.apple.com/us/app/ws-view/id1362944193)/[Android](https://play.google.com/store/apps/details?id=com.ost.wsview&gl=US))
+- Ambient Weather: awnet ([iOS][awnet-ios]/[Android][awnet-google-play])
+- Ecowitt: WS View ([iOS][ws-view-ios]/[Android][ws-view-google-play])
 
 Find the appropriate location in the mobile app to configure a customized upload target
 for the station's data. This will differ depending on the app, but in general, you
 should select your device and find a screen entitled "Upload" (or similar).
 
-![The "Upload" screen in the awnet app](resources/awnet-upload-screen.jpeg?raw=true)
-![The "Upload" screen in the WS View app](resources/ws-view-upload-screen.jpeg?raw=true)
+![The "Upload" screen in the awnet app][awnet-upload-screen]
+![The "Upload" screen in the WS View app][ws-view-upload-screen]
 
 Fill out the form with the appropriate values and tap `Save`:
 
@@ -242,29 +241,41 @@ optional arguments:
 
 ## Environment Variables
 
-- `ECOWITT2MQTT_BATTERY_OVERRIDE`: a semicolon-delimited list of key=value battery overrides (default: `numeric`)
+- `ECOWITT2MQTT_BATTERY_OVERRIDE`: a semicolon-delimited list of key=value battery
+  overrides (default: `numeric`)
 - `ECOWITT2MQTT_CONFIG`: a path to a YAML or JSON config file (default: `None`)
-- `ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY`: the default battery config strategy to use (default: `boolean`)
+- `ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY`: the default battery config strategy to use
+  (default: `boolean`)
 - `ECOWITT2MQTT_DIAGNOSTICS`: whether to output diagnostics (default: `false`)
-- `ECOWITT2MQTT_DISABLE_CALCULATED_DATA`: whether to disable the output of calculated sensors (default: `false`)
-- `ECOWITT2MQTT_ENDPOINT`: the relative endpoint/path to serve ecowitt2mqtt on (default: `/data/report`)
-- `ECOWITT2MQTT_HASS_DISCOVERY_PREFIX`: the Home Assistant discovery prefix to use (default: `homeassistant`)
-- `ECOWITT2MQTT_HASS_DISCOVERY`: publish data in the Home Assistant MQTT Discovery format Idefault: `false`)
-- `ECOWITT2MQTT_HASS_ENTITY_ID_PREFIX`: the prefix to use for Home Assistant entity IDs (default: `""`)
-- `ECOWITT2MQTT_INPUT_DATA_FORMAT`: the input data format used by the gateway (default: `ecowitt`)
-- `ECOWITT2MQTT_INPUT_UNIT_SYSTEM`: the input unit system used by the device (default: `imperial`)
+- `ECOWITT2MQTT_DISABLE_CALCULATED_DATA`: whether to disable the output of calculated
+  sensors (default: `false`)
+- `ECOWITT2MQTT_ENDPOINT`: the relative endpoint/path to serve ecowitt2mqtt on (default:
+  `/data/report`)
+- `ECOWITT2MQTT_HASS_DISCOVERY_PREFIX`: the Home Assistant discovery prefix to use
+  (default: `homeassistant`)
+- `ECOWITT2MQTT_HASS_DISCOVERY`: publish data in the Home Assistant MQTT Discovery format
+  (default: `false`)
+- `ECOWITT2MQTT_HASS_ENTITY_ID_PREFIX`: the prefix to use for Home Assistant entity IDs
+  (default: `""`)
+- `ECOWITT2MQTT_INPUT_DATA_FORMAT`: the input data format used by the gateway (default:
+  `ecowitt`)
+- `ECOWITT2MQTT_INPUT_UNIT_SYSTEM`: the input unit system used by the device (default:
+  `imperial`)
 - `ECOWITT2MQTT_MQTT_BROKER`: the hostname or IP address of an MQTT broker
 - `ECOWITT2MQTT_MQTT_PASSWORD`: a valid password for the MQTT broker
 - `ECOWITT2MQTT_MQTT_PORT`: the listenting port of the MQTT broker (default: `1883`)
-- `ECOWITT2MQTT_MQTT_RETAIN`: whether to instruct the MQTT broker to retain messages (default: `false`)
+- `ECOWITT2MQTT_MQTT_RETAIN`: whether to instruct the MQTT broker to retain messages
+  (default: `false`)
 - `ECOWITT2MQTT_MQTT_TLS`: publish data via MQTT over TLS (default: `false`)
 - `ECOWITT2MQTT_MQTT_TOPIC`: the MQTT topic to publish device data to
 - `ECOWITT2MQTT_MQTT_USERNAME`: a valid username for the MQTT broker
 - `ECOWITT2MQTT_OUTPUT_UNIT_SYSTEM`: the unit system to use in output (default: `imperial`)
-- `ECOWITT2MQTT_OUTPUT_UNIT_TEMPERATURE`: the output unit to use for temperature data points (default: the default used by the output unit system)
+- `ECOWITT2MQTT_OUTPUT_UNIT_TEMPERATURE`: the output unit to use for temperature data
+  points (default: the default used by the output unit system)
 - `ECOWITT2MQTT_PORT`: the port to serve ecowitt2mqtt on (default: `8080`)
 - `ECOWITT2MQTT_PRECISION`: the precision to output data points at (default: no limit)
-- `ECOWITT2MQTT_RAW_DATA`: return raw data (don't attempt to translate any values) (default: `false`)
+- `ECOWITT2MQTT_RAW_DATA`: return raw data (don't attempt to translate any values)
+  (default: `false`)
 - `ECOWITT2MQTT_VERBOSE`: increase verbosity of logged output (default: `false`)
 
 ## Configuration File
@@ -422,27 +433,47 @@ In addition to the data coming from a gateway, `ecowitt2mqtt` will automatically
 and published several additional, calculated data points if the requisite underlying
 data exists:
 
-- **[Absolute Humidity](https://en.wikipedia.org/wiki/Humidity#Absolute_humidity):** the actual volume of water vapor in the air
-- **[Beaufort Scale](https://en.wikipedia.org/wiki/Beaufort_scale):** the empirical measure that relates wind speed to observed conditions at sea or on land
-- **[Dew Point](https://en.wikipedia.org/wiki/Dew_point):** the temperature to which air must be cooled to become saturated with water vapor, assuming constant air pressure and water content
-- **[Feels Like](https://en.wikipedia.org/wiki/Heat_index):** how hot or how cold the air feels to the human body when factoring in variables such as relative humidity, wind speeds, the amount of sunshine, etc.
-- **[Frost Point](https://en.wikipedia.org/wiki/Dew_point#Frost_point):** the temperature below 32°F (0°C) at which moisture in the air will condense as a layer of frost on exposed surfaces that are also at a temperature below the frost point
-- **[Frost Risk](https://en.wikipedia.org/wiki/Dew_point#Frost_point):** how likely the formation of frost is (based on the `frostpoint`)
-- **[Heat Index](https://en.wikipedia.org/wiki/Heat_index):** how hot the air feels to the human body when factoring in relative humidity (applicable when the apparent temperature is higher than the air temperature)
-- **[Humidex](https://en.wikipedia.org/wiki/Humidex):** an index number used by Canadian meteorologists to describe how hot the weather feels to the average person, by combining the effect of heat and humidity
-- **[Humidex Perception](https://en.wikipedia.org/wiki/Humidex):** a human-friendly interpretation of the Humidex
-- **Relative Strain Index:** a measure of discomfort resulting from the combined effect of temperature and humidity (applicable to heat stress of manual workers under shelter at various metabolic rates)
-- **Relative Strain Index Perception:** a human-friendly interpretation of the Relative Strain Index
-- **[Safe Exposure Times](https://www.openuv.io/kb/skin-types-safe-exposure-time-calculation/):** how long different skin types can be in the sun (unprotected) before burning begins according to the [Fitzpatrick Scale](https://en.wikipedia.org/wiki/Fitzpatrick_scale)
-- **Solar Radiation (%):** the percentage of detected solar radiation illuminance as perceived by the human eye
-- **[Simmer Index](http://summersimmer.com/ssi_page2.htm):** an alternative to heat index that describes how how the air feels to the human body in relatively dry environments
-- **[Simmer Zone](http://summersimmer.com/ssi_page2.htm):** a human-friendly interpretation of the Simmer Index
-- **[Thermal Perception](https://en.wikipedia.org/wiki/Dew_point):** a human-friendly interpretation of the Dew Point
-- **[Wind Chill](https://en.wikipedia.org/wiki/Wind_chill):** how cold the air feels to the human body when factoring in relative humidity, wind speed, etc. (applicable when the apparent temperature is lower than the air temperature)
+- **[Absolute Humidity][absolute-humidity]:** the actual volume of water vapor in the
+  air
+- **[Beaufort Scale][beaufort-scale]:** the empirical measure that relates wind speed to
+  observed conditions at sea or on land
+- **[Dew Point][dew-point]:** the temperature to which air must be cooled to become
+  saturated with water vapor, assuming constant air pressure and water content
+- **[Feels Like][heat-index]:** how hot or how cold the air feels to the human body when
+  factoring in variables such as relative humidity, wind speeds, the amount of sunshine,
+  etc.
+- **[Frost Point][frost-point]:** the temperature below 32°F (0°C) at which moisture in
+  the air will condense as a layer of frost on exposed surfaces that are also at a
+  temperature below the frost point
+- **[Frost Risk][frost-point]:** how likely the formation of frost is (based on the
+  `frostpoint`)
+- **[Heat Index][heat-index]:** how hot the air feels to the human body when factoring
+  in relative humidity (applicable when the apparent temperature is higher than the air
+  temperature)
+- **[Humidex][humidex]:** an index number used by Canadian meteorologists to describe
+  how hot the weather feels to the average person, by combining the effect of heat and
+  humidity
+- **[Humidex Perception][humidex]:** a human-friendly interpretation of the Humidex
+- **Relative Strain Index:** a measure of discomfort resulting from the combined effect
+  of temperature and humidity (applicable to heat stress of manual workers under shelter
+  at various metabolic rates)
+- **Relative Strain Index Perception:** a human-friendly interpretation of the Relative
+  Strain Index
+- **[Safe Exposure Times][safe-exposure-times]:** how long different skin types can be
+  in the sun (unprotected) before burning begins according to the
+  [Fitzpatrick Scale][fitzpatrick-scale]
+- **Solar Radiation (%):** the percentage of detected solar radiation illuminance as
+  perceived by the human eye
+- **[Simmer Index][simmer-index]:** an alternative to heat index that describes how how
+  the air feels to the human body in relatively dry environments
+- **[Simmer Zone][simmer-index]:** a human-friendly interpretation of the Simmer Index
+- **[Thermal Perception][dew-point]:** a human-friendly interpretation of the Dew Point
+- **[Wind Chill][wind-chill]:** how cold the air feels to the human body when factoring
+  in relative humidity, wind speed, etc. (applicable when the apparent temperature is
+  lower than the air temperature)
 
-(Special thanks to the excellent
-[`thermal_comfort`](https://github.com/dolezsa/thermal_comfort) library for inspiration
-on many of these.)
+(Special thanks to the excellent [`thermal_comfort` library][thermal-comfort-library] for
+inspiration on many of these.)
 
 If you would prefer to not have these sensors calculated and published, you can utilize
 the `--disable-calculated-data` configuration option.
@@ -451,10 +482,10 @@ the `--disable-calculated-data` configuration option.
 
 Ecowitt devices report battery levels in three different formats:
 
-- `boolean`: `0` represents `OFF` (i.e., the battery is in normal condition) and `1`
-  represents `ON` (i.e., the battery is low).
-- `numeric`: the raw numeric value is interpreted as the number of volts remaining in
-  the battery.
+- `boolean`: `0` represents `OFF` (i.e., the battery is in normal condition) and `1` represents
+  `ON` (i.e., the battery is low).
+- `numeric`: the raw numeric value is interpreted as the number of volts remaining in the
+  battery.
 - `percentage`: the raw numeric value is interpreted as the percentage of voltage
   remaining the battery.
 
@@ -628,12 +659,10 @@ Note that the `--raw-data` flag supersedes any that might cause data translation
 
 ### MQTT Discovery
 
-[Home Assistant](https://home-assistant.io) users can quickly add entities from an
-Ecowitt device by using
-[MQTT Discovery](https://www.home-assistant.io/docs/mqtt/discovery/).
-
-Once Home Assistant is configured to accept MQTT Discovery, `ecowitt2mqtt` simply needs
-the `--hass-discovery` flag:
+[Home Assistant][home-assistant] users can quickly add entities from an Ecowitt device
+by using [MQTT Discovery][home-assistant-mqtt-discovery]. Once Home Assistant is
+configured to accept MQTT Discovery, `ecowitt2mqtt` simply needs the `--hass-discovery`
+flag:
 
 ```bash
 $ ecowitt2mqtt \
@@ -653,7 +682,7 @@ You can provide a custom prefix for all Home Assistant entities via the
 Home Assistant OS users can install the official `ecowitt2mqtt` add-on by clicking the
 link below:
 
-[![Open this add-on in your Home Assistant instance.][addon-badge]][addon]
+[![Home Assistant Add-on][home-assistant-addon-badge]][home-assistant-addon]
 
 ## Running in the Background
 
@@ -706,10 +735,9 @@ $ systemctl enable ecowitt2mqtt
 
 ## Docker
 
-The library is available via a Docker image from both
-[Docker Hub](https://hub.docker.com/r/bachya/ecowitt2mqtt) and
-[ghcr.io](https://ghcr.io/bachya/ecowitt2mqtt). It is configured by using the same
-environment variables listed [above](#environment-variables).
+The library is available via a Docker image from both [Docker Hub][docker-hub] and
+[ghcr.io][ghcr]. It is configured by using the same environment variables listed
+[above](#environment-variables).
 
 Running the image is straightforward:
 
@@ -726,11 +754,10 @@ Note the value of the `-p` flag: you must expose the port defined by the `PORT`
 environment variable. In the example above, the default port (`8080`) is used and is
 exposed via the same port on the host.
 
-[`docker-compose`](https://docs.docker.com/compose/) users can find an example
-configuration file at
-[`docker-compose.dev.yml`](https://github.com/bachya/ecowitt2mqtt/blob/dev/docker-compose.dev.yml).
-Note that this is intended to be a dev environment for quickly testing the repo itself;
-in production, you should refer to one of the published images.
+[`docker-compose`][docker-compose] users can find an example configuration file at
+[`docker-compose.dev.yml`](docker-compose.dev.yml). Note that this is intended to be a dev
+environment for quickly testing the repo itself; in production, you should refer to one
+of the published images.
 
 # Diagnostics
 
@@ -741,9 +768,10 @@ debugging, and issue reporting.
 
 # Contributing
 
-1. [Check for open features/bugs](https://github.com/bachya/ecowitt2mqtt/issues)
-   or [initiate a discussion on one](https://github.com/bachya/ecowitt2mqtt/issues/new).
-2. [Fork the repository](https://github.com/bachya/ecowitt2mqtt/fork).
+Thanks to all of [our contributors][contributors] so far!
+
+1. [Check for open features/bugs][issues] or [initiate a discussion on one][new-issue].
+2. [Fork the repository][fork].
 3. (_optional, but highly recommended_) Create a virtual environment: `python3 -m venv .venv`
 4. (_optional, but highly recommended_) Enter the virtual environment: `source ./.venv/bin/activate`
 5. Install the dev environment: `script/setup`
@@ -754,5 +782,50 @@ debugging, and issue reporting.
 10. Add yourself to `AUTHORS.md`.
 11. Submit a pull request!
 
-[addon-badge]: https://my.home-assistant.io/badges/supervisor_addon.svg
-[addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=c35f0383_ecowitt2mqtt&repository_url=https%3A%2F%2Fgithub.com%2Fbachya%2Fhome-assistant-addons
+[absolute-humidity]: https://en.wikipedia.org/wiki/Humidity#Absolute_humidity
+[ambient-weather]: https://ambientweather.com/
+[awnet-google-play]: https://play.google.com/store/apps/details?id=com.dtston.ambienttoolplus&hl=en_US&gl=US
+[awnet-ios]: https://apps.apple.com/us/app/awnet/id1341994564
+[awnet-upload-screen]: resources/awnet-upload-screen.jpeg?raw=true
+[beaufort-scale]: https://en.wikipedia.org/wiki/Beaufort_scale
+[ci-badge]: https://github.com/bachya/ecowitt2mqtt/workflows/CI/badge.svg
+[ci]: https://github.com/bachya/ecowitt2mqtt/actions
+[codecov-badge]: https://codecov.io/gh/bachya/ecowitt2mqtt/branch/dev/graph/badge.svg
+[codecov]: https://codecov.io/gh/bachya/ecowitt2mqtt
+[coffee-image]: https://cdn.buymeacoffee.com/buttons/default-orange.png
+[coffee]: https://www.buymeacoffee.com/bachya1208P
+[contributors]: https://github.com/bachya/ecowitt2mqtt/graphs/contributors
+[dew-point]: https://en.wikipedia.org/wiki/Dew_point
+[docker-compose]: https://docs.docker.com/compose/
+[docker-hub-badge]: https://img.shields.io/docker/pulls/bachya/ecowitt2mqtt
+[docker-hub]: https://hub.docker.com/r/bachya/ecowitt2mqtt
+[ecowitt]: https://www.ecowitt.com/
+[fitzpatrick-scale]: https://en.wikipedia.org/wiki/Fitzpatrick_scale
+[fork]: https://github.com/bachya/ecowitt2mqtt/fork
+[froggit]: https://www.froggit.de/Weather-Station/
+[frost-point]: https://en.wikipedia.org/wiki/Dew_point#Frost_point
+[ghcr]: https://ghcr.io/bachya/ecowitt2mqtt
+[heat-index]: https://en.wikipedia.org/wiki/Heat_index
+[home-assistant-addon-badge]: https://my.home-assistant.io/badges/supervisor_addon.svg
+[home-assistant-addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=c35f0383_ecowitt2mqtt&repository_url=https%3A%2F%2Fgithub.com%2Fbachya%2Fhome-assistant-addons
+[home-assistant-mqtt-discovery]: https://www.home-assistant.io/docs/mqtt/discovery/
+[home-assistant]: https://home-assistant.io
+[humidex]: https://en.wikipedia.org/wiki/Humidex
+[issues]: https://github.com/bachya/ecowitt2mqtt/issues
+[license-badge]: https://img.shields.io/pypi/l/ecowitt2mqtt.svg
+[license]: https://github.com/bachya/ecowitt2mqtt/blob/main/LICENSE
+[logo]: resources/logo-full.png
+[maintainability-badge]: https://api.codeclimate.com/v1/badges/a03c9e96f19a3dc37f98/maintainability
+[maintainability]: https://codeclimate.com/github/bachya/ecowitt2mqtt/maintainability
+[new-issue]: https://github.com/bachya/ecowitt2mqtt/issues/new
+[pypi-badge]: https://img.shields.io/pypi/v/ecowitt2mqtt.svg
+[pypi]: https://pypi.python.org/pypi/ecowitt2mqtt
+[safe-exposure-times]: https://www.openuv.io/kb/skin-types-safe-exposure-time-calculation/
+[simmer-index]: http://summersimmer.com/ssi_page2.htm
+[thermal-comfort-library]: https://github.com/dolezsa/thermal_comfort
+[version-badge]: https://img.shields.io/pypi/pyversions/ecowitt2mqtt.svg
+[version]: https://pypi.python.org/pypi/ecowitt2mqtt
+[wind-chill]: https://en.wikipedia.org/wiki/Wind_chill
+[ws-view-google-play]: https://play.google.com/store/apps/details?id=com.ost.wsview&gl=US
+[ws-view-ios]: https://apps.apple.com/us/app/ws-view/id1362944193
+[ws-view-upload-screen]: resources/ws-view-upload-screen.jpeg?raw=true
