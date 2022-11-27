@@ -11,18 +11,22 @@
 
 <a href="https://www.buymeacoffee.com/bachya1208P" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
-`ecowitt2mqtt` is a small CLI/web server that allows [Ecowitt](http://www.ecowitt.com)
-device data to be sent to an MQTT broker.
+`ecowitt2mqtt` is a small CLI/web server that can receive data from Fine Offset weather
+stations (and their numerous white-labeled counterparts, like Ecowitt and
+Ambient Weather), adjust that data in numerous ways, and send it on to one or more
+MQTT brokers.
 
 - [Installation](#installation)
 - [Python Versions](#python-versions)
 - [Disclaimer](#disclaimer)
+- [Supported Brands](#supported-brands)
 - [Quick Start](#quick-start)
 - [Configuration](#configuration)
   - [Command Line Options](#command-line-options)
   - [Environment Variables](#environment-variables)
   - [Configuration File](#configuration-file)
   - [Merging Configuration Options](#merging-configuration-options)
+  - [Input Data Formats](#input-data-formats)
 - [Advanced Usage](#advanced-usage)
   - [Calculated Sensors](#calculated-sensors)
   - [Battery Configurations](#battery-configurations)
@@ -54,13 +58,24 @@ The datapoints within this library and documentation constitute estimates and ar
 intended to help informed decision making. They should not replace analysis, advice, or
 diagnosis from trained professionals. Use this data at your own discretion.
 
+# Supported Brands
+
+Despite the name of the library, `ecowitt2mqtt` should support any weather station/gateway
+that is produced by [Fine Offset](https://www.foshk.com/). This includes brands that
+white-label Fine Offset equipment, such as:
+
+- [Ambient Weather](https://ambientweather.com/) (U.S.)
+- [Ecowitt](https://www.ecowitt.com/) (China, Hong Kong)
+- [Froggit](https://www.froggit.de/Weather-Station/) (Germany)
+
+...and many others. For more information on how these brands relate to one another, see
+this forum post: https://www.wxforum.net/index.php?topic=40730.0
+
+Although there are some small differences between how these various branded devices are
+configured, `ecowitt2mqtt` endeavors to incorporate them all with minimal effort on the
+user's part.
+
 # Quick Start
-
-Note that this README assumes that:
-
-- you have access to an MQTT broker.
-- you have already paired your Ecowitt device with the WS View Android/iOS app from
-  Ecowitt.
 
 First, install `ecowitt2mqtt` via `pip`:
 
@@ -68,22 +83,27 @@ First, install `ecowitt2mqtt` via `pip`:
 $ pip install ecowitt2mqtt
 ```
 
-Then, shift over to the WS View app on your Android/iOS device. While viewing your
-device in the app, select `Weather Services`:
+Next, if you haven't already, install the appropriate mobile app to configure your
+device. For example:
 
-![Select Weather Services](https://raw.githubusercontent.com/bachya/ecowitt2mqtt/dev/assets/1-weather-services.jpeg?raw=true)
+- Ambient Weather: awnet ([iOS](https://apps.apple.com/us/app/awnet/id1341994564)/[Android](https://play.google.com/store/apps/details?id=com.dtston.ambienttoolplus&hl=en_US&gl=US))
+- Ecowitt: WS View ([iOS](https://apps.apple.com/us/app/ws-view/id1362944193)/[Android](https://play.google.com/store/apps/details?id=com.ost.wsview&gl=US))
 
-Press `Next` until you reach the `Customized` screen:
+Find the appropriate location in the mobile app to configure a customized upload target
+for the station's data. This will differ depending on the app, but in general, you
+should select your device and find a screen entitled "Upload" (or similar).
 
-![The Customized screen in the WS View app](https://raw.githubusercontent.com/bachya/ecowitt2mqtt/dev/assets/2-customized.jpeg?raw=true)
+![The "Upload" screen in the awnet app](resources/awnet-upload-screen.jpeg?raw=true)
+![The "Upload" screen in the WS View app](resources/ws-view-upload-screen.jpeg?raw=true)
 
-Fill out the form with these values and tap `Save`:
+Fill out the form with the appropriate values and tap `Save`:
 
-- `Protocol Type Same As`: `Ecowitt`
+- `Protocol Type Same As`: pick the label that matches your brand (e.g., `Ecowitt` for
+  Ecowitt devices)
 - `Server IP / Hostname`: the IP address/hostname of the device running `ecowitt2mqtt`
-- `Path`: `/data/report/`
+- `Path`: `/data/report/` (the default path used by most mobile apps)
 - `Port`: `8080` (the default port on which `ecowitt2mqtt` is served)
-- `Upload Interval`: `60` (change this to alter the frequency with which data is published)
+- `Upload Interval`: 16 (a reasonable short number of seconds between publishes)
 
 Then, on the machine where you installed `ecowitt2mqtt`, run it:
 
@@ -93,6 +113,7 @@ $ ecowitt2mqtt \
     --mqtt-username=user \
     --mqtt-password=password \
     --mqtt-topic=ecowitt2mqtt/device_1
+    --input-data-format=ecowitt
 ```
 
 Within the `Upload Interval`, data should begin to appear in the MQTT broker.
@@ -383,6 +404,15 @@ the following order:
 
 This allows you to mix and match sources – for instance, you might have "defaults" in
 the configuration file and override them via environment variables.
+
+## Input Data Formats
+
+`ecowitt2mqtt` currently supports the following input data formats:
+
+- `ambient_weather`
+- `ecowitt`
+
+Provide the correct one to `---input-data-format` based on which device brand you use.
 
 # Advanced Usage
 

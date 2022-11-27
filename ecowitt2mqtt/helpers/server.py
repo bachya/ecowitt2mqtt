@@ -1,6 +1,7 @@
 """Define various API server helpers."""
 from __future__ import annotations
 
+import urllib.parse
 from abc import ABC, abstractmethod
 from collections.abc import Callable
 from typing import Any
@@ -26,14 +27,23 @@ class APIServer(ABC):
 
     HTTP_REQUEST_VERB: str
 
-    def __init__(self, fastapi: FastAPI) -> None:
+    def __init__(self, fastapi: FastAPI, endpoint: str) -> None:
         """Initialize.
 
         Args:
             fastapi: A FastAPI object.
+            endpoint: An API endpoint to serve.
         """
+        self._endpoint = endpoint
         self._payload_received_callbacks: list[CallbackT] = []
-        self._fastapi = fastapi
+
+        fastapi.add_api_route(
+            self._normalize_endpoint(endpoint),
+            self._async_handle_query,  # type: ignore[arg-type]
+            methods=[self.HTTP_REQUEST_VERB.lower()],
+            response_class=Response,
+            status_code=status.HTTP_204_NO_CONTENT,
+        )
 
     async def _async_handle_query(self, request: Request) -> None:
         """Handle an API query.
@@ -68,20 +78,6 @@ class APIServer(ABC):
         """
         self._payload_received_callbacks.append(callback)
 
-    def add_endpoint(self, endpoint: str) -> None:
-        """Add a endpoint to the API.
-
-        Args:
-            endpoint: The API endpoint to query.
-        """
-        self._fastapi.add_api_route(
-            self._normalize_endpoint(endpoint),
-            self._async_handle_query,  # type: ignore[arg-type]
-            methods=[self.HTTP_REQUEST_VERB.lower()],
-            response_class=Response,
-            status_code=status.HTTP_204_NO_CONTENT,
-        )
-
     @abstractmethod
     async def async_parse_request_payload(self, request: Request) -> dict[str, Any]:
         """Parse and return the request payload.
@@ -92,6 +88,35 @@ class APIServer(ABC):
         Returns:
             A dictionary containing the request payload.
         """
+
+
+class AmbientWeatherAPIServer(APIServer):
+    """Define an Ambient Weather API server."""
+
+    HTTP_REQUEST_VERB = hdrs.METH_GET
+
+    def _normalize_endpoint(self, endpoint: str) -> str:
+        """Normalize the endpoint to work with this server.
+
+        Args:
+            endpoint: The endpoint to normalize.
+
+        Returns:
+            A normalized endpoint.
+        """
+        return self._endpoint + "{param_string}"
+
+    async def async_parse_request_payload(self, request: Request) -> dict[str, Any]:
+        """Parse and return the request payload.
+
+        Args:
+            request: A FastAPI Request object.
+
+        Returns:
+            A dictionary containing the request payload.
+        """
+        param_string = request.url.path[len(self._endpoint) :]
+        return dict(urllib.parse.parse_qsl(param_string))
 
 
 class EcowittAPIServer(APIServer):
@@ -113,19 +138,23 @@ class EcowittAPIServer(APIServer):
 
 
 API_SERVER_IMPLEMENTATION_MAP = {
+    InputDataFormat.AMBIENT_WEATHER: AmbientWeatherAPIServer,
     InputDataFormat.ECOWITT: EcowittAPIServer,
 }
 
 
-def get_api_server(fastapi: FastAPI, input_data_format: InputDataFormat) -> APIServer:
+def get_api_server(
+    fastapi: FastAPI, endpoint: str, input_data_format: InputDataFormat
+) -> APIServer:
     """Get the correct APIServer implementation based on input data format.
 
     Args:
         fastapi: A FastAPI object.
+        endpoint: An API endpoint to serve.
         input_data_format: The input data format to use.
 
     Returns:
         An APIServer implementation.
     """
     implementation_class = API_SERVER_IMPLEMENTATION_MAP[input_data_format]
-    return implementation_class(fastapi)
+    return implementation_class(fastapi, endpoint)
