@@ -8,7 +8,7 @@
 [![Code Coverage][codecov-badge]][codecov]
 [![Maintainability][maintainability-badge]][maintainability]
 
-[![Buy Me A Coffee][coffee-image]][coffee]
+[![Buy Me A Coffee][coffee-image | width=100]][coffee]
 
 `ecowitt2mqtt` is a small CLI/web server that can receive data from Fine Offset weather
 stations (and their numerous white-labeled counterparts, like Ecowitt and
