@@ -1,15 +1,14 @@
 ![ecowitt2mqtt](resources/logo-full.png)
 
-[![CI](https://github.com/bachya/ecowitt2mqtt/workflows/CI/badge.svg)](https://github.com/bachya/ecowitt2mqtt/actions)
-[![PyPi](https://img.shields.io/pypi/v/ecowitt2mqtt.svg)](https://pypi.python.org/pypi/ecowitt2mqtt)
-[![Docker Hub](https://img.shields.io/docker/pulls/bachya/ecowitt2mqtt)](https://hub.docker.com/r/bachya/ecowitt2mqtt)
-[![Version](https://img.shields.io/pypi/pyversions/ecowitt2mqtt.svg)](https://pypi.python.org/pypi/ecowitt2mqtt)
-[![License](https://img.shields.io/pypi/l/ecowitt2mqtt.svg)](https://github.com/bachya/ecowitt2mqtt/blob/main/LICENSE)
-[![Code Coverage](https://codecov.io/gh/bachya/ecowitt2mqtt/branch/dev/graph/badge.svg)](https://codecov.io/gh/bachya/ecowitt2mqtt)
-[![Maintainability](https://api.codeclimate.com/v1/badges/a03c9e96f19a3dc37f98/maintainability)](https://codeclimate.com/github/bachya/ecowitt2mqtt/maintainability)
-[![Say Thanks](https://img.shields.io/badge/SayThanks-!-1EAEDB.svg)](https://saythanks.io/to/bachya)
+[![CI][ci-badge]][ci]
+[![PyPI][pypi-badge]][pypi]
+[![Docker Hub][docker-hub-badge]][docker-hub]
+[![Version][version-badge]][version]
+[![License][license-badge]][license]
+[![Code Coverage][codecov-badge]][codecov]
+[![Maintainability][maintainability-badge]][maintainability]
 
-<a href="https://www.buymeacoffee.com/bachya1208P" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+[![Buy Me A Coffee][coffee-image]][coffee]
 
 `ecowitt2mqtt` is a small CLI/web server that can receive data from Fine Offset weather
 stations (and their numerous white-labeled counterparts, like Ecowitt and
@@ -741,6 +740,8 @@ debugging, and issue reporting.
 
 # Contributing
 
+Thanks to all of [our contributors][contributors] so far!
+
 1. [Check for open features/bugs](https://github.com/bachya/ecowitt2mqtt/issues)
    or [initiate a discussion on one](https://github.com/bachya/ecowitt2mqtt/issues/new).
 2. [Fork the repository](https://github.com/bachya/ecowitt2mqtt/fork).
@@ -756,3 +757,20 @@ debugging, and issue reporting.
 
 [addon-badge]: https://my.home-assistant.io/badges/supervisor_addon.svg
 [addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=c35f0383_ecowitt2mqtt&repository_url=https%3A%2F%2Fgithub.com%2Fbachya%2Fhome-assistant-addons
+[ci]: https://github.com/bachya/ecowitt2mqtt/actions
+[ci-badge]: https://github.com/bachya/ecowitt2mqtt/workflows/CI/badge.svg
+[codecov]: https://codecov.io/gh/bachya/ecowitt2mqtt
+[codecov-badge]: https://codecov.io/gh/bachya/ecowitt2mqtt/branch/dev/graph/badge.svg
+[coffee]: https://www.buymeacoffee.com/bachya1208P
+[coffee-image]: https://cdn.buymeacoffee.com/buttons/default-orange.png
+[contributors]: https://github.com/bachya/ecowitt2mqtt/graphs/contributors
+[docker-hub]: https://hub.docker.com/r/bachya/ecowitt2mqtt
+[docker-hub-badge]: https://img.shields.io/docker/pulls/bachya/ecowitt2mqtt
+[license]: https://img.shields.io/pypi/l/ecowitt2mqtt.svg
+[license-badge]: https://github.com/bachya/ecowitt2mqtt/blob/main/LICENSE
+[maintainability]: https://codeclimate.com/github/bachya/ecowitt2mqtt/maintainability
+[maintainability-badge]: https://api.codeclimate.com/v1/badges/a03c9e96f19a3dc37f98/maintainability
+[pypi]: https://pypi.python.org/pypi/ecowitt2mqtt
+[pypi-badge]: https://img.shields.io/pypi/v/ecowitt2mqtt.svg
+[version]: https://pypi.python.org/pypi/ecowitt2mqtt
+[version-badge]: https://img.shields.io/pypi/pyversions/ecowitt2mqtt.svg
