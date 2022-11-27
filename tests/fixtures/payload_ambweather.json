@@ -1,6 +1,6 @@
 {
   "stationtype": "AMBWeatherV4.3.4",
-  "PASSKEY": "AB:CD:EF:12:34:56",
+  "PASSKEY": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
   "dateutc": "2022-11-26 22:25:29",
   "tempinf": "67.3",
   "humidityin": "33",
