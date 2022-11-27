@@ -1,4 +1,4 @@
-![ecowitt2mqtt](resources/logo-full.png)
+![ecowitt2mqtt][logo]
 
 [![CI][ci-badge]][ci]
 [![PyPI][pypi-badge]][pypi]
@@ -8,7 +8,7 @@
 [![Code Coverage][codecov-badge]][codecov]
 [![Maintainability][maintainability-badge]][maintainability]
 
-[![Buy Me A Coffee][coffee-image | width=100]][coffee]
+<a href="https://www.buymeacoffee.com/bachya1208P" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
 `ecowitt2mqtt` is a small CLI/web server that can receive data from Fine Offset weather
 stations (and their numerous white-labeled counterparts, like Ecowitt and
@@ -814,6 +814,7 @@ Thanks to all of [our contributors][contributors] so far!
 [issues]: https://github.com/bachya/ecowitt2mqtt/issues
 [license-badge]: https://img.shields.io/pypi/l/ecowitt2mqtt.svg
 [license]: https://github.com/bachya/ecowitt2mqtt/blob/main/LICENSE
+[logo]: resources/logo-full.png
 [maintainability-badge]: https://api.codeclimate.com/v1/badges/a03c9e96f19a3dc37f98/maintainability
 [maintainability]: https://codeclimate.com/github/bachya/ecowitt2mqtt/maintainability
 [new-issue]: https://github.com/bachya/ecowitt2mqtt/issues/new
