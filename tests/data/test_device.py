@@ -19,7 +19,7 @@ from ecowitt2mqtt.helpers.device import Device
                 model="Unknown Model",
                 name="AMBWeather",
                 station_type="AMBWeatherV4.3.4",
-                unique_id="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                unique_id="ABCDEF123456",
             ),
             "payload_ambweather.json",
         ),
