@@ -15,7 +15,6 @@ ENV PIP_DEFAULT_TIMEOUT=100 \
 WORKDIR /app
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
-# hadolint ignore=DL3018
 RUN apk add --no-cache \
       bash \
       build-base \
@@ -47,7 +46,6 @@ ENV PATH="/venv/bin:${PATH}"
 ENV VIRTUAL_ENV="/venv"
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
-# hadolint ignore=DL3018
 RUN apk add --no-cache --virtual .build-dependencies \
       curl \
       tar \
