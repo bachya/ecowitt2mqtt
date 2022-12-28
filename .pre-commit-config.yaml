@@ -169,6 +169,9 @@ repos:
     hooks:
       - id: hadolint
         name: 📄 Checking Dockerfile with hadolint
+        args:
+          - --ignore
+          - DL3018
 
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: "v3.0.0-alpha.4"
