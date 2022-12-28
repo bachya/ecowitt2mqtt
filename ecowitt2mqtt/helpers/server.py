@@ -37,13 +37,16 @@ class APIServer(ABC):
         self._endpoint = endpoint
         self._payload_received_callbacks: list[CallbackT] = []
 
-        fastapi.add_api_route(
-            self._normalize_endpoint(endpoint),
-            self._async_handle_query,  # type: ignore[arg-type]
-            methods=[self.HTTP_REQUEST_VERB.lower()],
-            response_class=Response,
-            status_code=status.HTTP_204_NO_CONTENT,
-        )
+        normalized_endpoint = self._normalize_endpoint(endpoint)
+
+        for route in (normalized_endpoint, f"{normalized_endpoint}/"):
+            fastapi.add_api_route(
+                route,
+                self._async_handle_query,  # type: ignore[arg-type]
+                methods=[self.HTTP_REQUEST_VERB.lower()],
+                response_class=Response,
+                status_code=status.HTTP_204_NO_CONTENT,
+            )
 
     async def _async_handle_query(self, request: Request) -> None:
         """Handle an API query.
@@ -104,7 +107,7 @@ class AmbientWeatherAPIServer(APIServer):
         Returns:
             A normalized endpoint.
         """
-        return self._endpoint + "{param_string}"
+        return endpoint + "{param_string}"
 
     async def async_parse_request_payload(self, request: Request) -> dict[str, Any]:
         """Parse and return the request payload.
