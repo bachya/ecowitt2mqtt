@@ -275,7 +275,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes", "name": "solarradiation", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "unit_of_measurement": "W/m\\u00b2", "device_class": "illuminance", "state_class": "measurement"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes", "name": "solarradiation", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "unit_of_measurement": "W/m\\u00b2", "icon": "mdi:weather-sunny", "state_class": "measurement"}',
                 retain=False,
             ),
             call(
@@ -1835,7 +1835,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/attributes", "name": "humidityabs", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabs", "unit_of_measurement": "lbs/ft\\u00b3", "device_class": "humidity", "state_class": "measurement"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/attributes", "name": "humidityabs", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabs", "unit_of_measurement": "lbs/ft\\u00b3", "icon": "mdi:water-percent", "state_class": "measurement"}',
                 retain=False,
             ),
             call(
@@ -1855,7 +1855,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/attributes", "name": "humidityabsin", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabsin", "unit_of_measurement": "lbs/ft\\u00b3", "device_class": "humidity", "state_class": "measurement"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/attributes", "name": "humidityabsin", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabsin", "unit_of_measurement": "lbs/ft\\u00b3", "icon": "mdi:water-percent", "state_class": "measurement"}',
                 retain=False,
             ),
             call(
@@ -2075,7 +2075,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes", "name": "solarradiation_perceived", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_perceived", "unit_of_measurement": "%", "device_class": "illuminance", "state_class": "measurement"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes", "name": "solarradiation_perceived", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_perceived", "unit_of_measurement": "%", "icon": "mdi:weather-sunny", "state_class": "measurement"}',
                 retain=False,
             ),
             call(
@@ -2389,7 +2389,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes", "name": "test_prefix_solarradiation", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "unit_of_measurement": "W/m\\u00b2", "device_class": "illuminance", "state_class": "measurement"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes", "name": "test_prefix_solarradiation", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "unit_of_measurement": "W/m\\u00b2", "icon": "mdi:weather-sunny", "state_class": "measurement"}',
                 retain=False,
             ),
             call(
@@ -3949,7 +3949,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/attributes", "name": "test_prefix_humidityabs", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabs", "unit_of_measurement": "lbs/ft\\u00b3", "device_class": "humidity", "state_class": "measurement"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/attributes", "name": "test_prefix_humidityabs", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabs", "unit_of_measurement": "lbs/ft\\u00b3", "icon": "mdi:water-percent", "state_class": "measurement"}',
                 retain=False,
             ),
             call(
@@ -3969,7 +3969,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/attributes", "name": "test_prefix_humidityabsin", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabsin", "unit_of_measurement": "lbs/ft\\u00b3", "device_class": "humidity", "state_class": "measurement"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/attributes", "name": "test_prefix_humidityabsin", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabsin", "unit_of_measurement": "lbs/ft\\u00b3", "icon": "mdi:water-percent", "state_class": "measurement"}',
                 retain=False,
             ),
             call(
@@ -4189,7 +4189,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes", "name": "test_prefix_solarradiation_perceived", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_perceived", "unit_of_measurement": "%", "device_class": "illuminance", "state_class": "measurement"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes", "name": "test_prefix_solarradiation_perceived", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_perceived", "unit_of_measurement": "%", "icon": "mdi:weather-sunny", "state_class": "measurement"}',
                 retain=False,
             ),
             call(
@@ -4529,7 +4529,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes", "name": "solarradiation", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "unit_of_measurement": "W/m\\u00b2", "device_class": "illuminance", "state_class": "measurement"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes", "name": "solarradiation", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "unit_of_measurement": "W/m\\u00b2", "icon": "mdi:weather-sunny", "state_class": "measurement"}',
                 retain=False,
             ),
             call(
@@ -6089,7 +6089,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/attributes", "name": "humidityabs", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabs", "unit_of_measurement": "lbs/ft\\u00b3", "device_class": "humidity", "state_class": "measurement"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/attributes", "name": "humidityabs", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabs", "unit_of_measurement": "lbs/ft\\u00b3", "icon": "mdi:water-percent", "state_class": "measurement"}',
                 retain=False,
             ),
             call(
@@ -6109,7 +6109,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/attributes", "name": "humidityabsin", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabsin", "unit_of_measurement": "lbs/ft\\u00b3", "device_class": "humidity", "state_class": "measurement"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/attributes", "name": "humidityabsin", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabsin", "unit_of_measurement": "lbs/ft\\u00b3", "icon": "mdi:water-percent", "state_class": "measurement"}',
                 retain=False,
             ),
             call(
@@ -6329,7 +6329,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes", "name": "solarradiation_perceived", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_perceived", "unit_of_measurement": "%", "device_class": "illuminance", "state_class": "measurement"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes", "name": "solarradiation_perceived", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_perceived", "unit_of_measurement": "%", "icon": "mdi:weather-sunny", "state_class": "measurement"}',
                 retain=False,
             ),
             call(
@@ -6639,7 +6639,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes", "name": "solarradiation", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "unit_of_measurement": "W/m\\u00b2", "device_class": "illuminance", "state_class": "measurement"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes", "name": "solarradiation", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "unit_of_measurement": "W/m\\u00b2", "icon": "mdi:weather-sunny", "state_class": "measurement"}',
                 retain=False,
             ),
             call(
@@ -8219,7 +8219,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/attributes", "name": "humidityabs", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabs", "unit_of_measurement": "lbs/ft\\u00b3", "device_class": "humidity", "state_class": "measurement"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/attributes", "name": "humidityabs", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabs", "unit_of_measurement": "lbs/ft\\u00b3", "icon": "mdi:water-percent", "state_class": "measurement"}',
                 retain=False,
             ),
             call(
@@ -8239,7 +8239,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/attributes", "name": "humidityabsin", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabsin", "unit_of_measurement": "lbs/ft\\u00b3", "device_class": "humidity", "state_class": "measurement"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/attributes", "name": "humidityabsin", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_humidityabsin", "unit_of_measurement": "lbs/ft\\u00b3", "icon": "mdi:water-percent", "state_class": "measurement"}',
                 retain=False,
             ),
             call(
@@ -8459,7 +8459,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes", "name": "solarradiation_perceived", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_perceived", "unit_of_measurement": "%", "device_class": "illuminance", "state_class": "measurement"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes", "name": "solarradiation_perceived", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_perceived", "unit_of_measurement": "%", "icon": "mdi:weather-sunny", "state_class": "measurement"}',
                 retain=False,
             ),
             call(
