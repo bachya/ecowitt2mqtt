@@ -279,11 +279,11 @@ ENTITY_DESCRIPTIONS = {
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_HUMIDITY_ABS: EntityDescription(
-        device_class=DeviceClass.HUMIDITY,
+        icon="mdi:water-percent",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_HUMIDITY_ABS_IN: EntityDescription(
-        device_class=DeviceClass.HUMIDITY,
+        icon="mdi:water-percent",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_LIGHTNING: EntityDescription(
@@ -329,11 +329,11 @@ ENTITY_DESCRIPTIONS = {
         icon="mdi:heat-wave",
     ),
     DATA_POINT_SOLARRADIATION: EntityDescription(
-        device_class=DeviceClass.ILLUMINANCE,
+        icon="mdi:weather-sunny",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_SOLARRADIATION_PERCEIVED: EntityDescription(
-        device_class=DeviceClass.ILLUMINANCE,
+        icon="mdi:weather-sunny",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_RAIN_RATE: EntityDescription(
