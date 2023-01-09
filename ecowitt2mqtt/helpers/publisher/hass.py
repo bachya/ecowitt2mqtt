@@ -96,6 +96,7 @@ class DeviceClass(StrEnum):
     DURATION = "duration"
     HUMIDITY = "humidity"
     ILLUMINANCE = "illuminance"
+    IRRADIANCE = "irradiance"
     MOISTURE = "moisture"
     PM10 = "pm10"
     PM25 = "pm25"
@@ -329,7 +330,7 @@ ENTITY_DESCRIPTIONS = {
         icon="mdi:heat-wave",
     ),
     DATA_POINT_SOLARRADIATION: EntityDescription(
-        icon="mdi:weather-sunny",
+        device_class=DeviceClass.IRRADIANCE,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_SOLARRADIATION_PERCEIVED: EntityDescription(
