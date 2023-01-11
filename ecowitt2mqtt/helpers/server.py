@@ -45,6 +45,7 @@ class APIServer(ABC):
                 self._async_handle_query,  # type: ignore[arg-type]
                 methods=[self.HTTP_REQUEST_VERB.lower()],
                 response_class=Response,
+                response_model=None,
                 status_code=status.HTTP_204_NO_CONTENT,
             )
 
