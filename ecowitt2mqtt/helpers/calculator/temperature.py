@@ -592,8 +592,8 @@ class SimmerIndexCalculator(BaseTemperatureCalculator):
         except ValueError as err:
             LOGGER.debug("%s (temperature: %s)", err, temp_obj)
             return self.get_calculated_data_point(None)
-        else:
-            simmer_obj = cast(meteocalc.Temp, simmer_obj)
+
+        simmer_obj = cast(meteocalc.Temp, simmer_obj)
 
         return self.get_calculated_data_point(
             simmer_obj.f, unit_converter=TemperatureConverter
@@ -628,8 +628,8 @@ class SimmerZoneCalculator(Calculator):
         except ValueError as err:
             LOGGER.debug("%s (temperature: %s)", err, temp_obj)
             return self.get_calculated_data_point(None)
-        else:
-            simmer_obj = cast(meteocalc.Temp, simmer_obj)
+
+        simmer_obj = cast(meteocalc.Temp, simmer_obj)
 
         [rating] = [
             r for r in SIMMER_ZONE_RATINGS if r.minimum_f <= simmer_obj.f < r.maximum_f
