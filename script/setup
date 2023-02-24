@@ -3,7 +3,6 @@ set -e
 
 # Install all dependencies:
 pip3 install poetry
-poetry lock
 poetry install
 
 # Install pre-commit hooks:
