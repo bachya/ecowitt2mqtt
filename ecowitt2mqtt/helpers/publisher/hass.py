@@ -409,8 +409,6 @@ def get_availability_payload(
     Returns:
         An availability string.
     """
-    if data_point.value is None:
-        return AVAILABILITY_OFFLINE
     return AVAILABILITY_ONLINE
 
 
