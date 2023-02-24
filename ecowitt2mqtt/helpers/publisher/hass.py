@@ -393,8 +393,6 @@ STATE_CLASS_OVERRIDES = {
     DATA_POINT_YRAIN_PIEZO: StateClass.TOTAL,
 }
 
-STATE_UNKNOWN = "unknown"
-
 
 def get_availability_payload(
     data_point: CalculatedDataPoint,
@@ -409,23 +407,7 @@ def get_availability_payload(
     Returns:
         An availability string.
     """
-    if data_point.value is None:
-        return AVAILABILITY_OFFLINE
     return AVAILABILITY_ONLINE
-
-
-def get_state_payload(data_point: CalculatedDataPoint) -> CalculatedValueType:
-    """Get the state payload for a data point.
-
-    Args:
-        data_point: A parsed CalculatedDataPoint object.
-
-    Returns:
-        A state string.
-    """
-    if data_point.value is None:
-        return STATE_UNKNOWN
-    return data_point.value
 
 
 class HomeAssistantDiscoveryPublisher(
@@ -557,7 +539,7 @@ class HomeAssistantDiscoveryPublisher(
                     ),
                     (
                         discovery_payload.payload["state_topic"],
-                        get_state_payload(data_point),
+                        data_point.value,
                     ),
                 ):
                     tasks.append(
