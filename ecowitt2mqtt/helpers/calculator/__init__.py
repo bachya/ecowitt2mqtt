@@ -104,7 +104,7 @@ class Calculator:
             return self.output_unit_imperial
         return self.output_unit_metric
 
-    def calculate_from_value(
+    def calculate_from_value(  # type: ignore[empty-body]
         self, value: PreCalculatedValueType
     ) -> CalculatedDataPoint:
         """Perform the calculation.
@@ -113,7 +113,7 @@ class Calculator:
             value: A pre-calculated value.
         """
 
-    def calculate_from_payload(
+    def calculate_from_payload(  # type: ignore[empty-body]
         self, payload: dict[str, PreCalculatedValueType]
     ) -> CalculatedDataPoint:
         """Perform the calculation.

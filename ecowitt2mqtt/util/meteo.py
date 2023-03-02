@@ -149,29 +149,32 @@ def get_humidex(
     )
     temp_obj = get_temperature_meteocalc_object(temperature, unit_system)
 
-    return round(
-        temp_obj.c
-        + (
-            0.5555
-            * (
-                (
-                    6.11
-                    * math.exp(
-                        5417.7530
-                        * (
-                            (1 / 273.16)
-                            - (
-                                1
-                                / TemperatureConverter.convert(
-                                    dew_point_obj.c, TEMP_CELSIUS, TEMP_KELVIN
+    return cast(
+        int,
+        round(
+            temp_obj.c
+            + (
+                0.5555
+                * (
+                    (
+                        6.11
+                        * math.exp(
+                            5417.7530
+                            * (
+                                (1 / 273.16)
+                                - (
+                                    1
+                                    / TemperatureConverter.convert(
+                                        dew_point_obj.c, TEMP_CELSIUS, TEMP_KELVIN
+                                    )
                                 )
                             )
                         )
                     )
+                    - 10
                 )
-                - 10
             )
-        )
+        ),
     )
 
 
