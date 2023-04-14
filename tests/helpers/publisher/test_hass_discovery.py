@@ -1,5 +1,6 @@
 """Define tests for the Home Assistant MQTT Discovery publisher."""
 # pylint: disable=line-too-long
+# ruff: noqa: E501
 import logging
 from typing import Any
 from unittest.mock import MagicMock, Mock, call
