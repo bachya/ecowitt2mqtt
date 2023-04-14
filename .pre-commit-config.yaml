@@ -93,13 +93,6 @@ repos:
         language: system
         types: [text]
         entry: poetry run fix-byte-order-marker
-      - id: flake8
-        name: 👔 Enforcing style guide with flake8
-        language: system
-        types: [python]
-        entry: poetry run flake8
-        exclude: ^vulture_whitelist\.py$
-        require_serial: true
       - id: isort
         name: 🔀 Sorting all imports with isort
         language: system
@@ -133,18 +126,18 @@ repos:
         types: [python]
         entry: poetry run pylint
         exclude: ^vulture_whitelist\.py$
-      - id: pytest
-        name: 🧪 Running tests and test coverage with pytest
-        language: system
-        types: [python]
-        entry: poetry run pytest ecowitt2mqtt tests
-        pass_filenames: false
       - id: pyupgrade
         name: 🆙 Checking for upgradable syntax with pyupgrade
         language: system
         types: [python]
         entry: poetry run pyupgrade
         args: [--py39-plus, --keep-runtime-typing]
+      - id: ruff
+        name: 👔 Enforcing style guide with ruff
+        language: system
+        types: [python]
+        entry: poetry run ruff --fix
+        exclude: ^vulture_whitelist\.py$
       - id: trailing-whitespace
         name: ✄  Trimming trailing whitespace
         language: system
