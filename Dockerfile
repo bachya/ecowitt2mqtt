@@ -24,8 +24,8 @@ RUN apk add --no-cache \
       openssl-dev \
       python3-dev
 RUN printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf \
-    && python3 -m pip install cryptography==38.0.1 \
-    && python3 -m pip install poetry==1.2.2 \
+    && python3 -m pip install cryptography==40.0.1 \
+    && python3 -m pip install poetry==1.4.2 \
     && python3 -m venv /venv
 
 COPY pyproject.toml ./
