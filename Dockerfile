@@ -22,9 +22,9 @@ RUN apk add --no-cache \
       libffi-dev \
       musl-dev \
       openssl-dev \
-      py3-cryptography \
       python3-dev
 RUN printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf \
+    && python3 -m pip install --upgrade pip \
     && python3 -m pip install poetry==1.4.2 \
     && python3 -m venv /venv
 
