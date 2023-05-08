@@ -1,28 +1,26 @@
-# Define the base image:
-FROM python:3.11-alpine as base
-ENV PYTHONFAULTHANDLER=1 \
-    PYTHONHASHSEED=random \
-    PYTHONUNBUFFERED=1
-
 # Define the builder image:
-FROM base as builder
+FROM python:3.11-buster as builder
 ARG TARGETPLATFORM
-ENV PIP_DEFAULT_TIMEOUT=100 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1 \
-    PIP_PREFER_BINARY=1
+    PIP_PREFER_BINARY=1 \
+    PYTHONFAULTHANDLER=1 \
+    PYTHONHASHSEED=random \
+    PYTHONUNBUFFERED=1 \
+    PIP_DEFAULT_TIMEOUT=100
 
 WORKDIR /app
 
-SHELL ["/bin/ash", "-o", "pipefail", "-c"]
-RUN apk add --no-cache \
-      bash \
-      build-base \
-      cargo \
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      build-essential \
       libffi-dev \
-      musl-dev \
-      openssl-dev \
-      python3-dev
+      libssl-dev \
+      pkg-config \
+      python3-dev \
+    && rm -rf /var/lib/apt/lists/*
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y \
+    && echo "source $HOME/.cargo/env" >> "$HOME/.bashrc"
 RUN printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf \
     && python3 -m pip install --upgrade pip \
     && python3 -m pip install poetry==1.4.2 \
@@ -36,7 +34,7 @@ COPY . .
 RUN poetry build && /venv/bin/python3 -m pip install dist/*.whl
 
 # Define the final image:
-FROM base as final
+FROM python:3.11-slim-buster as final
 ARG TARGETPLATFORM
 
 COPY ./s6/rootfs /
@@ -45,11 +43,11 @@ COPY --from=builder /venv /venv
 ENV PATH="/venv/bin:${PATH}"
 ENV VIRTUAL_ENV="/venv"
 
-SHELL ["/bin/ash", "-o", "pipefail", "-c"]
-RUN apk add --no-cache --virtual .build-dependencies \
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN apt-get update && apt-get install -y --no-install-recommends \
       curl \
       tar \
-      xz \
+      xz-utils \
     && case ${TARGETPLATFORM} in \
          "linux/386")    S6_ARCH=i686  ;; \
          "linux/amd64")  S6_ARCH=x86_64  ;; \
@@ -66,11 +64,12 @@ RUN apk add --no-cache --virtual .build-dependencies \
         | tar -C / -Jxpf - \
     && curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_VERSION}/s6-overlay-symlinks-arch.tar.xz" \
         | tar -C / -Jxpf - \
-    && apk del --no-cache --purge .build-dependencies \
-    && rm -f -r /tmp/*
+    && apt-get remove -y \
+      xz-utils \
+    && apt-get autoremove \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN addgroup -g 1000 -S ecowitt2mqtt \
-    && adduser -u 1000 -S ecowitt2mqtt -G ecowitt2mqtt
+RUN addgroup --gid 1000 ecowitt2mqtt && adduser --uid 1000 --gid 1000 ecowitt2mqtt
 RUN chown -R ecowitt2mqtt:ecowitt2mqtt ${VIRTUAL_ENV}
 USER 1000
 
