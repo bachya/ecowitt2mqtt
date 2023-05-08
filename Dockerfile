@@ -1,5 +1,5 @@
 # Define the builder image:
-FROM python:3.11-buster as builder
+FROM python:3.11 as builder
 ARG TARGETPLATFORM
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1 \
@@ -12,6 +12,8 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
 WORKDIR /app
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+# Add base libraries (mostly for building cryptography):
 RUN apt-get update && apt-get install -y --no-install-recommends \
       build-essential \
       libffi-dev \
@@ -19,31 +21,35 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       pkg-config \
       python3-dev \
     && rm -rf /var/lib/apt/lists/*
+
+# Add rust:
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y \
     && echo "source $HOME/.cargo/env" >> "$HOME/.bashrc"
+
+# Add poetry and build dependencies:
+COPY . .
 RUN printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf \
     && python3 -m pip install --upgrade pip \
     && python3 -m pip install poetry==1.4.2 \
     && python3 -m venv /venv
-
-COPY pyproject.toml ./
-RUN poetry lock && poetry export --without-hashes -f requirements.txt \
-       | /venv/bin/pip install -r /dev/stdin
-
-COPY . .
-RUN poetry build && /venv/bin/python3 -m pip install dist/*.whl
+RUN poetry lock \
+    && poetry export --without-hashes -f requirements.txt \
+       | /venv/bin/pip install -r /dev/stdin \
+   && poetry build \
+   && /venv/bin/python3 -m pip install dist/*.whl
 
 # Define the final image:
-FROM python:3.11-slim-buster as final
+FROM python:3.11-slim as final
 ARG TARGETPLATFORM
-
-COPY ./s6/rootfs /
 
 COPY --from=builder /venv /venv
 ENV PATH="/venv/bin:${PATH}"
 ENV VIRTUAL_ENV="/venv"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+# Set up s6-overlay:
+COPY ./s6/rootfs /
 RUN apt-get update && apt-get install -y --no-install-recommends \
       curl \
       tar \
@@ -69,6 +75,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 
+# Add ecowitt2mqtt user and group:
 RUN addgroup --gid 1000 ecowitt2mqtt && adduser --uid 1000 --gid 1000 ecowitt2mqtt
 RUN chown -R ecowitt2mqtt:ecowitt2mqtt ${VIRTUAL_ENV}
 USER 1000
