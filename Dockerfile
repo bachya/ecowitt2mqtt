@@ -23,9 +23,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Add rust:
+ENV PATH="${HOME}/.cargo/bin:${PATH}"
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y \
     && rustup toolchain install nightly
-ENV PATH="${HOME}/.cargo/bin:${PATH}"
 
 # Add poetry and build dependencies:
 COPY . .
