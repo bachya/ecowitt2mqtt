@@ -1,57 +1,69 @@
-# Define the base image:
-FROM python:3.11.0-alpine as base
-ENV PYTHONFAULTHANDLER=1 \
+########################################################################################
+# Stage 1: Dependency Builder
+#
+# This stage is responsible for building the dependencies.
+########################################################################################
+FROM python:3.9 as builder
+ARG TARGETPLATFORM
+
+# Set up the build environment:
+ENV CRYPTOGRAPHY_VERSION=40.0.1 \
+    PIP_DEFAULT_TIMEOUT=100 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_PREFER_BINARY=1 \
+    POETRY_VERSION=1.4.2 \
+    PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=random \
     PYTHONUNBUFFERED=1
 
-# Define the builder image:
-FROM base as builder
-ARG TARGETPLATFORM
-ENV PIP_DEFAULT_TIMEOUT=100 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    PIP_NO_CACHE_DIR=1 \
-    PIP_PREFER_BINARY=1
-
 WORKDIR /app
 
-SHELL ["/bin/ash", "-o", "pipefail", "-c"]
-RUN apk add --no-cache \
-      bash \
-      build-base \
-      cargo \
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+# Add base libraries (mostly for building cryptography):
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      build-essential \
       libffi-dev \
-      musl-dev \
-      openssl-dev \
-      python3-dev
-RUN printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf \
-    && python3 -m pip install cryptography==38.0.1 \
-    && python3 -m pip install poetry==1.2.2 \
-    && python3 -m venv /venv
+      libssl-dev \
+      pkg-config \
+      python3-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-COPY pyproject.toml ./
-RUN poetry lock && poetry export --without-hashes -f requirements.txt \
-       | /venv/bin/pip install -r /dev/stdin
-
+# Add poetry and build dependencies:
 COPY . .
-RUN poetry build && /venv/bin/python3 -m pip install dist/*.whl
+RUN printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf \
+    && pip install --upgrade pip \
+    && pip install cryptography==${CRYPTOGRAPHY_VERSION} \
+    && pip install poetry==${POETRY_VERSION} \
+    && python3 -m venv /venv
+RUN poetry export --without-hashes -f requirements.txt \
+       | /venv/bin/pip install -r /dev/stdin \
+   && poetry build \
+   && /venv/bin/pip install dist/*.whl
 
-# Define the final image:
-FROM base as final
+########################################################################################
+# Stage 2: Final
+#
+# This stage is responsible for building the final image.
+########################################################################################
+FROM python:3.9-slim as final
 ARG TARGETPLATFORM
 
-COPY ./s6/rootfs /
-
+# Copy the virtual environment from the builder image:
 COPY --from=builder /venv /venv
-ENV PATH="/venv/bin:${PATH}"
 ENV VIRTUAL_ENV="/venv"
+ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
 
-SHELL ["/bin/ash", "-o", "pipefail", "-c"]
-RUN apk add --no-cache --virtual .build-dependencies \
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+# Set up s6-overlay:
+COPY ./s6/rootfs /
+RUN apt-get update && apt-get install -y --no-install-recommends \
       curl \
       tar \
-      xz \
+      xz-utils \
     && case ${TARGETPLATFORM} in \
-         "linux/386")    S6_ARCH=i686  ;; \
          "linux/amd64")  S6_ARCH=x86_64  ;; \
          "linux/arm/v6") S6_ARCH=arm  ;; \
          "linux/arm/v7") S6_ARCH=arm  ;; \
@@ -66,11 +78,13 @@ RUN apk add --no-cache --virtual .build-dependencies \
         | tar -C / -Jxpf - \
     && curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_VERSION}/s6-overlay-symlinks-arch.tar.xz" \
         | tar -C / -Jxpf - \
-    && apk del --no-cache --purge .build-dependencies \
-    && rm -f -r /tmp/*
+    && apt-get remove -y \
+      xz-utils \
+    && apt-get autoremove \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN addgroup -g 1000 -S ecowitt2mqtt \
-    && adduser -u 1000 -S ecowitt2mqtt -G ecowitt2mqtt
+# Add ecowitt2mqtt user and group:
+RUN addgroup --gid 1000 ecowitt2mqtt && adduser --uid 1000 --gid 1000 ecowitt2mqtt
 RUN chown -R ecowitt2mqtt:ecowitt2mqtt ${VIRTUAL_ENV}
 USER 1000
 
