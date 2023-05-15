@@ -1,13 +1,21 @@
-# Define the builder image:
-FROM python:3.11 as builder
+########################################################################################
+# Stage 1: Dependency Builder
+#
+# This stage is responsible for building the dependencies.
+########################################################################################
+FROM python:3.9 as builder
 ARG TARGETPLATFORM
-ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
+
+# Set up the build environment:
+ENV CRYPTOGRAPHY_VERSION=40.0.1 \
+    PIP_DEFAULT_TIMEOUT=100 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_PREFER_BINARY=1 \
+    POETRY_VERSION=1.4.2 \
     PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=random \
-    PYTHONUNBUFFERED=1 \
-    PIP_DEFAULT_TIMEOUT=100
+    PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
@@ -22,30 +30,30 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Add rust:
-ENV PATH="/root/.cargo/bin:${PATH}"
-RUN curl https://sh.rustup.rs -sSf | bash -s -- -y && rustup toolchain install nightly
-
 # Add poetry and build dependencies:
 COPY . .
 RUN printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf \
-    && python3 -m pip install --upgrade pip \
-    && python3 -m pip install cryptography==40.0.1 \
-    && python3 -m pip install poetry==1.4.2 \
+    && pip install --upgrade pip \
+    && pip install cryptography==${CRYPTOGRAPHY_VERSION} \
+    && pip install poetry==${POETRY_VERSION} \
     && python3 -m venv /venv
-RUN poetry lock \
-    && poetry export --without-hashes -f requirements.txt \
+RUN poetry export --without-hashes -f requirements.txt \
        | /venv/bin/pip install -r /dev/stdin \
    && poetry build \
-   && /venv/bin/python3 -m pip install dist/*.whl
+   && /venv/bin/pip install dist/*.whl
 
-# Define the final image:
-FROM python:3.11-slim as final
+########################################################################################
+# Stage 2: Final
+#
+# This stage is responsible for building the final image.
+########################################################################################
+FROM python:3.9-slim as final
 ARG TARGETPLATFORM
 
+# Copy the virtual environment from the builder image:
 COPY --from=builder /venv /venv
-ENV PATH="/venv/bin:${PATH}"
 ENV VIRTUAL_ENV="/venv"
+ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
