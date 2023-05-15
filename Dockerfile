@@ -64,7 +64,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       tar \
       xz-utils \
     && case ${TARGETPLATFORM} in \
-         "linux/386")    S6_ARCH=i686  ;; \
          "linux/amd64")  S6_ARCH=x86_64  ;; \
          "linux/arm/v6") S6_ARCH=arm  ;; \
          "linux/arm/v7") S6_ARCH=arm  ;; \
