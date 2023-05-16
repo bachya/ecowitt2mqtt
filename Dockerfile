@@ -1,7 +1,7 @@
 ########################################################################################
 # Stage 1: Dependency Builder
 #
-# This stage is responsible for building the dependencies.
+# This stage is responsible for building the ecowitt2mqtt package and its dependencies.
 ########################################################################################
 FROM python:3.9-alpine as builder
 ARG TARGETPLATFORM
@@ -19,8 +19,6 @@ ENV CRYPTOGRAPHY_VERSION=40.0.1 \
 
 WORKDIR /app
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
 # Add base libraries:
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 RUN apk add --no-cache \
@@ -36,7 +34,7 @@ RUN printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/
     && pip install cryptography==${CRYPTOGRAPHY_VERSION} \
     && pip install poetry==${POETRY_VERSION} \
     && python3 -m venv /venv
-RUN poetry export --without-hashes -f requirements.txt \
+RUN poetry export --without-hashes -f requirements.txt --only main \
        | /venv/bin/pip install -r /dev/stdin \
    && poetry build \
    && /venv/bin/pip install dist/*.whl
@@ -55,7 +53,7 @@ ENV VIRTUAL_ENV="/venv"
 ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
 
 # Add ecowitt2mqtt user and group:
-RUN addgroup --gid 1000 ecowitt2mqtt && adduser --uid 1000 --gid 1000 ecowitt2mqtt
+RUN addgroup -g 1000 -S ecowitt2mqtt && adduser -u 1000 -S ecowitt2mqtt -G ecowitt2mqtt
 RUN chown -R ecowitt2mqtt:ecowitt2mqtt ${VIRTUAL_ENV}
 USER 1000
 
