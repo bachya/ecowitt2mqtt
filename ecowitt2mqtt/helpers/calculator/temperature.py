@@ -79,12 +79,12 @@ HUMIDEX_PERCEPTION_RATINGS: list[HumidexPerceptionRating] = [
     ),
     HumidexPerceptionRating(
         perception=HumidexPerception.SOME_DISCOMFORT,
-        minimum=30,
+        minimum=29,
         maximum=39,
     ),
     HumidexPerceptionRating(
         perception=HumidexPerception.GREAT_DISCOMFORT,
-        minimum=40,
+        minimum=39,
         maximum=45,
     ),
     HumidexPerceptionRating(
