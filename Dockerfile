@@ -21,12 +21,8 @@ WORKDIR /app
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Add base libraries (mostly for building cryptography):
+# Add base libraries:
 RUN apt-get update && apt-get install -y --no-install-recommends \
-      build-essential \
-      libffi-dev \
-      libssl-dev \
-      pkg-config \
       python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
@@ -55,37 +51,9 @@ COPY --from=builder /venv /venv
 ENV VIRTUAL_ENV="/venv"
 ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
-# Set up s6-overlay:
-COPY ./s6/rootfs /
-RUN apt-get update && apt-get install -y --no-install-recommends \
-      curl \
-      tar \
-      xz-utils \
-    && case ${TARGETPLATFORM} in \
-         "linux/amd64")  S6_ARCH=x86_64  ;; \
-         "linux/arm/v6") S6_ARCH=arm  ;; \
-         "linux/arm/v7") S6_ARCH=arm  ;; \
-         "linux/arm64")  S6_ARCH=aarch64  ;; \
-       esac \
-    && S6_VERSION="3.1.2.1" \
-    && curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_VERSION}/s6-overlay-noarch.tar.xz" \
-        | tar -C / -Jxpf - \
-    && curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_VERSION}/s6-overlay-${S6_ARCH}.tar.xz" \
-        | tar -C / -Jxpf - \
-    && curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_VERSION}/s6-overlay-symlinks-noarch.tar.xz" \
-        | tar -C / -Jxpf - \
-    && curl -L -s "https://github.com/just-containers/s6-overlay/releases/download/v${S6_VERSION}/s6-overlay-symlinks-arch.tar.xz" \
-        | tar -C / -Jxpf - \
-    && apt-get remove -y \
-      xz-utils \
-    && apt-get autoremove \
-    && rm -rf /var/lib/apt/lists/*
-
 # Add ecowitt2mqtt user and group:
 RUN addgroup --gid 1000 ecowitt2mqtt && adduser --uid 1000 --gid 1000 ecowitt2mqtt
 RUN chown -R ecowitt2mqtt:ecowitt2mqtt ${VIRTUAL_ENV}
 USER 1000
 
-ENTRYPOINT ["/init"]
+CMD ["ecowitt2mqtt"]
