@@ -3,7 +3,7 @@
 #
 # This stage is responsible for building the dependencies.
 ########################################################################################
-FROM python:3.9 as builder
+FROM python:3.9-alpine as builder
 ARG TARGETPLATFORM
 
 # Set up the build environment:
@@ -22,9 +22,12 @@ WORKDIR /app
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Add base libraries:
-RUN apt-get update && apt-get install -y --no-install-recommends \
-      python3-dev \
-    && rm -rf /var/lib/apt/lists/*
+SHELL ["/bin/ash", "-o", "pipefail", "-c"]
+RUN apk add --no-cache \
+      bash \
+      build-base \
+      libffi-dev \
+      python3-dev
 
 # Add poetry and build dependencies:
 COPY . .
@@ -43,7 +46,7 @@ RUN poetry export --without-hashes -f requirements.txt \
 #
 # This stage is responsible for building the final image.
 ########################################################################################
-FROM python:3.9-slim as final
+FROM python:3.9-alpine as final
 ARG TARGETPLATFORM
 
 # Copy the virtual environment from the builder image:
