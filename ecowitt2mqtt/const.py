@@ -47,6 +47,7 @@ CONF_VERBOSE: Final = "verbose"
 # Data points (glob):
 DATA_POINT_GLOB_BAROM: Final = "barom"
 DATA_POINT_GLOB_BATT: Final = "batt"
+DATA_POINT_GLOB_GAIN_PIEZO: Final = "gain_piezo"
 DATA_POINT_GLOB_GUST: Final = "gust"
 DATA_POINT_GLOB_HUMIDITY: Final = "humidity"
 DATA_POINT_GLOB_LEAFBATT: Final = "leaf_batt"

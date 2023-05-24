@@ -24,6 +24,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_FROST_RISK,
     DATA_POINT_GLOB_BAROM,
     DATA_POINT_GLOB_BATT,
+    DATA_POINT_GLOB_GAIN_PIEZO,
     DATA_POINT_GLOB_GUST,
     DATA_POINT_GLOB_HUMIDITY,
     DATA_POINT_GLOB_LEAK,
@@ -209,6 +210,9 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_GLOB_BAROM: EntityDescription(
         device_class=DeviceClass.PRESSURE,
         state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_GLOB_GAIN_PIEZO: EntityDescription(
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     DATA_POINT_GLOB_GUST: EntityDescription(
         icon="mdi:weather-windy",
