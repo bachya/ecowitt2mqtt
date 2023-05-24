@@ -48,3 +48,16 @@ class RuntimeCalculator(SimpleCalculator):
             A unit string.
         """
         return TIME_SECONDS
+
+
+class UpdateIntervalCalculator(SimpleCalculator):
+    """Define a data update interval calculator."""
+
+    @property
+    def output_unit(self) -> str:
+        """Get the output unit of measurement for this calculation.
+
+        Returns:
+            A unit string.
+        """
+        return TIME_SECONDS

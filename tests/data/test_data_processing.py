@@ -3653,6 +3653,13 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
+                "interval": CalculatedDataPoint(
+                    data_point_key="interval",
+                    value=16.0,
+                    unit=TIME_SECONDS,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
             },
         ),
         (

@@ -46,6 +46,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_HUMIDEX_PERCEPTION,
     DATA_POINT_HUMIDITY_ABS,
     DATA_POINT_HUMIDITY_ABS_IN,
+    DATA_POINT_INTERVAL,
     DATA_POINT_LIGHTNING,
     DATA_POINT_LIGHTNING_NUM,
     DATA_POINT_LIGHTNING_TIME,
@@ -286,6 +287,10 @@ ENTITY_DESCRIPTIONS = {
     DATA_POINT_HUMIDITY_ABS_IN: EntityDescription(
         icon="mdi:water-percent",
         state_class=StateClass.MEASUREMENT,
+    ),
+    DATA_POINT_INTERVAL: EntityDescription(
+        icon="mdi:water-percent",
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     DATA_POINT_LIGHTNING: EntityDescription(
         icon="mdi:map-marker-distance",

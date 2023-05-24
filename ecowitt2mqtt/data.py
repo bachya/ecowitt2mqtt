@@ -36,6 +36,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_HUMIDITY,
     DATA_POINT_HUMIDITY_ABS,
     DATA_POINT_HUMIDITY_ABS_IN,
+    DATA_POINT_INTERVAL,
     DATA_POINT_LIGHTNING,
     DATA_POINT_LIGHTNING_NUM,
     DATA_POINT_LIGHTNING_TIME,
@@ -101,7 +102,11 @@ from ecowitt2mqtt.helpers.calculator.temperature import (
     ThermalPerceptionCalculator,
     WindChillCalculator,
 )
-from ecowitt2mqtt.helpers.calculator.time import EpochCalculator, RuntimeCalculator
+from ecowitt2mqtt.helpers.calculator.time import (
+    EpochCalculator,
+    RuntimeCalculator,
+    UpdateIntervalCalculator,
+)
 from ecowitt2mqtt.helpers.calculator.uv import SafeExposureCalculator, UVIndexCalculator
 from ecowitt2mqtt.helpers.calculator.wind import (
     BeaufortScaleCalculator,
@@ -143,6 +148,7 @@ CALCULATOR_MAP: dict[str, type[Calculator]] = {
     DATA_POINT_HUMIDITY_ABS: AbsoluteHumidityCalculator,
     DATA_POINT_HUMIDITY_ABS_IN: AbsoluteHumidityCalculator,
     DATA_POINT_HUMI_CO2: RelativeHumidityCalculator,
+    DATA_POINT_INTERVAL: UpdateIntervalCalculator,
     DATA_POINT_LIGHTNING: LightningStrikeDistanceCalculator,
     DATA_POINT_LIGHTNING_NUM: LightningStrikeCountCalculator,
     DATA_POINT_LIGHTNING_TIME: EpochCalculator,

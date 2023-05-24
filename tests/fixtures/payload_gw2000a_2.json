@@ -84,5 +84,6 @@
   "co2_batt": "6",
   "wh90batt": "3.22",
   "freq": "868M",
-  "model": "GW2000A"
+  "model": "GW2000A",
+  "interval": "16"
 }
