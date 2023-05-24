@@ -1675,6 +1675,26 @@ async def test_publish(
                 retain=False,
             ),
             call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/config",
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/attributes", "name": "interval", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_interval", "unit_of_measurement": "s", "entity_category": "diagnostic", "icon": "mdi:water-percent"}',
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/availability",
+                payload=b"online",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/attributes",
+                payload=b"{}",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/state",
+                payload=b"16.0",
+                retain=False,
+            ),
+            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/attributes", "name": "beaufortscale", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_beaufortscale", "icon": "mdi:weather-windy", "state_class": "measurement"}',
                 retain=False,
@@ -3786,6 +3806,26 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh90batt/state",
                 payload=b"3.22",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/config",
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/attributes", "name": "test_prefix_interval", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_interval", "unit_of_measurement": "s", "entity_category": "diagnostic", "icon": "mdi:water-percent"}',
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/availability",
+                payload=b"online",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/attributes",
+                payload=b"{}",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/state",
+                payload=b"16.0",
                 retain=False,
             ),
             call(
@@ -5929,6 +5969,26 @@ async def test_publish_numeric_battery_strategy(
                 retain=False,
             ),
             call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/config",
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/attributes", "name": "interval", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_interval", "unit_of_measurement": "s", "entity_category": "diagnostic", "icon": "mdi:water-percent"}',
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/availability",
+                payload=b"online",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/attributes",
+                payload=b"{}",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/state",
+                payload=b"16.0",
+                retain=False,
+            ),
+            call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/config",
                 payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/attributes", "name": "beaufortscale", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_beaufortscale", "icon": "mdi:weather-windy", "state_class": "measurement"}',
                 retain=False,
@@ -8036,6 +8096,26 @@ async def test_no_entity_description(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh90batt/state",
                 payload=b"3.22",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/config",
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/attributes", "name": "interval", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_interval", "unit_of_measurement": "s", "entity_category": "diagnostic", "icon": "mdi:water-percent"}',
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/availability",
+                payload=b"online",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/attributes",
+                payload=b"{}",
+                retain=False,
+            ),
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/state",
+                payload=b"16.0",
                 retain=False,
             ),
             call(
