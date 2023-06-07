@@ -180,9 +180,6 @@ def test_config_file(config_filepath: str) -> None:
     assert configs.default_config.input_data_format == InputDataFormat.ECOWITT
     assert configs.default_config.input_unit_system == UNIT_SYSTEM_IMPERIAL
     assert configs.default_config.mqtt_broker == TEST_MQTT_BROKER
-    assert configs.default_config.mqtt_connection_info == (
-        f"{TEST_MQTT_USERNAME}@{TEST_MQTT_BROKER}:{TEST_MQTT_PORT}"
-    )
     assert configs.default_config.mqtt_password == TEST_MQTT_PASSWORD
     assert configs.default_config.mqtt_port == TEST_MQTT_PORT
     assert configs.default_config.mqtt_retain is False
