@@ -514,12 +514,13 @@ class Configs:
             config_file_config = {}
 
         # Store the default config:
-        self._configs[CONF_DEFAULT] = Config(config_file_config | config)
+        default_config = config | config_file_config
+        self._configs[CONF_DEFAULT] = Config(default_config)
 
         # Store configs for any gateways:
         gateways_file_config = config_file_config.get(CONF_GATEWAYS, {})
         for passkey, gateway_config in gateways_file_config.items():
-            self._configs[passkey] = Config(gateway_config | config)
+            self._configs[passkey] = Config(default_config | gateway_config)
 
     def __repr__(self) -> str:
         """Define a string representation of this object.
