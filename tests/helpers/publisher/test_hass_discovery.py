@@ -596,7 +596,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/attributes", "name": "gain10_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain10_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/attributes", "name": "gain10_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain10_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(
@@ -616,7 +616,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/attributes", "name": "gain20_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain20_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/attributes", "name": "gain20_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain20_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(
@@ -636,7 +636,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/attributes", "name": "gain30_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain30_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/attributes", "name": "gain30_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain30_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(
@@ -656,7 +656,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/attributes", "name": "gain40_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain40_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/attributes", "name": "gain40_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain40_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(
@@ -676,7 +676,7 @@ async def test_publish(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/attributes", "name": "gain50_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain50_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/attributes", "name": "gain50_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain50_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(
@@ -2830,7 +2830,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/attributes", "name": "test_prefix_gain10_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain10_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/attributes", "name": "test_prefix_gain10_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain10_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(
@@ -2850,7 +2850,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/attributes", "name": "test_prefix_gain20_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain20_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/attributes", "name": "test_prefix_gain20_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain20_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(
@@ -2870,7 +2870,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/attributes", "name": "test_prefix_gain30_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain30_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/attributes", "name": "test_prefix_gain30_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain30_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(
@@ -2890,7 +2890,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/attributes", "name": "test_prefix_gain40_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain40_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/attributes", "name": "test_prefix_gain40_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain40_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(
@@ -2910,7 +2910,7 @@ async def test_publish_custom_entity_id_prefix(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/attributes", "name": "test_prefix_gain50_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain50_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/attributes", "name": "test_prefix_gain50_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain50_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(
@@ -5090,7 +5090,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/attributes", "name": "gain10_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain10_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/attributes", "name": "gain10_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain10_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(
@@ -5110,7 +5110,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/attributes", "name": "gain20_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain20_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/attributes", "name": "gain20_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain20_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(
@@ -5130,7 +5130,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/attributes", "name": "gain30_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain30_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/attributes", "name": "gain30_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain30_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(
@@ -5150,7 +5150,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/attributes", "name": "gain40_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain40_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/attributes", "name": "gain40_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain40_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(
@@ -5170,7 +5170,7 @@ async def test_publish_numeric_battery_strategy(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/attributes", "name": "gain50_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain50_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/attributes", "name": "gain50_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain50_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(
@@ -7320,7 +7320,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/attributes", "name": "gain10_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain10_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/attributes", "name": "gain10_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain10_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(
@@ -7340,7 +7340,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/attributes", "name": "gain20_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain20_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/attributes", "name": "gain20_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain20_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(
@@ -7360,7 +7360,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/attributes", "name": "gain30_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain30_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/attributes", "name": "gain30_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain30_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(
@@ -7380,7 +7380,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/attributes", "name": "gain40_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain40_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/attributes", "name": "gain40_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain40_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(
@@ -7400,7 +7400,7 @@ async def test_no_entity_description(
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/config",
-                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/attributes", "name": "gain50_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain50_piezo"}',
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/availability", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/attributes", "name": "gain50_piezo", "qos": 1, "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_gain50_piezo", "entity_category": "diagnostic"}',
                 retain=False,
             ),
             call(

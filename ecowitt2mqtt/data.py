@@ -15,6 +15,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_FROST_RISK,
     DATA_POINT_GLOB_BAROM,
     DATA_POINT_GLOB_BATT,
+    DATA_POINT_GLOB_GAIN_PIEZO,
     DATA_POINT_GLOB_GUST,
     DATA_POINT_GLOB_HUMIDITY,
     DATA_POINT_GLOB_LEAK,
@@ -65,6 +66,7 @@ from ecowitt2mqtt.helpers.calculator import (
     CalculationFailedError,
     CalculationKeysMissingError,
     Calculator,
+    SimpleCalculator,
 )
 from ecowitt2mqtt.helpers.calculator.battery import BatteryCalculator
 from ecowitt2mqtt.helpers.calculator.humidity import (
@@ -127,6 +129,7 @@ CALCULATOR_MAP: dict[str, type[Calculator]] = {
     DATA_POINT_FROST_RISK: FrostRiskCalculator,
     DATA_POINT_GLOB_BAROM: PressureCalculator,
     DATA_POINT_GLOB_BATT: BatteryCalculator,
+    DATA_POINT_GLOB_GAIN_PIEZO: SimpleCalculator,
     DATA_POINT_GLOB_GUST: WindSpeedCalculator,
     DATA_POINT_GLOB_HUMIDITY: RelativeHumidityCalculator,
     DATA_POINT_GLOB_LEAK: LeakCalculator,
