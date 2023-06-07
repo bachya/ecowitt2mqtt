@@ -241,6 +241,9 @@ ENTITY_DESCRIPTIONS = {
         icon="mdi:water",
         state_class=StateClass.MEASUREMENT,
     ),
+    DATA_POINT_GLOB_RAIN_PIEZO: EntityDescription(
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
     DATA_POINT_GLOB_TEMP: EntityDescription(
         device_class=DeviceClass.TEMPERATURE,
         state_class=StateClass.MEASUREMENT,
