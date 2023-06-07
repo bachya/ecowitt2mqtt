@@ -16,6 +16,7 @@ MODEL_BRAND_MAP = {
     "GW2000": "Ecowitt",
     "HP2550": "Ecowitt",
     "HP2551": "Ecowitt",
+    "HP2553": "Ecowitt",
     "HP2564": "Ecowitt",
     "PT-HP2550": "Fine Offset",
     "WH2650": "Fine Offset",
