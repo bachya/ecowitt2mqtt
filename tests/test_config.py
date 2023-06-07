@@ -247,11 +247,13 @@ def test_config_file_multiple_gateways(config_filepath: str) -> None:
 
     # Test three values of the default config: one that should be the same no matter
     # what and two that will be different for a gateway config:
+    assert configs.default_config.default_battery_strategy == BatteryStrategy.BOOLEAN
     assert configs.default_config.endpoint == TEST_ENDPOINT
     assert configs.default_config.mqtt_broker == TEST_MQTT_BROKER
     assert configs.default_config.mqtt_topic == TEST_MQTT_TOPIC
 
     gateway_config = configs.get("passkey123")
+    assert configs.default_config.default_battery_strategy == BatteryStrategy.BOOLEAN
     assert gateway_config.endpoint == TEST_ENDPOINT
     assert gateway_config.mqtt_broker == "my.mqtt.local"
     assert gateway_config.mqtt_topic == "Some Topic"
