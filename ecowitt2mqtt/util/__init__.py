@@ -1,20 +1,23 @@
 """Define utilities."""
 from __future__ import annotations
 
-from typing import TypeVar, cast
+from typing import TypeVar
 
 from rapidfuzz import fuzz
 
 T = TypeVar("T")
 
+DEFAULT_FUZZY_THRESHOLD = 80
+
+
+def _get_fuzzy_match(candidates: list[str], key: str) -> str:
+    """Get a fuzzy match from a list of strings."""
+    candidates = sorted(candidates, key=lambda m: fuzz.ratio(key, m), reverse=True)
+    return candidates[0]
+
 
 def glob_search(data: dict[str, T], key: str) -> tuple[str, T] | tuple[None, None]:
-    """Get a key/value pair from a dict based on some rules.
-
-    1. If the exact key exists, use it.
-    2. If a single glob exists, use it.
-    3. If multiple globs exist, use the "closest" (Levenshtein distance).
-    4. If none of these are satisfied, return None.
+    """Get a key/value pair from a dict based on a target key.
 
     Args:
         data: The data dictionary to search.
@@ -24,18 +27,20 @@ def glob_search(data: dict[str, T], key: str) -> tuple[str, T] | tuple[None, Non
         A tuple of either the matching key/value or a None/None.
     """
     if key in data:
+        # If the exact key is in the data, return it and its value:
         return (key, data[key])
 
-    # If no keys (specific or globbed) match, we don't have a calculator:
-    if not (matches := [k for k in data if k in key]):
-        return (None, None)
+    if matches := [k for k in data if k in key]:
+        # If there are any keys that are substrings of the target key, return the
+        # closest one:
+        match = _get_fuzzy_match(matches, key)
+        return (match, data[match])
 
-    # Return the closest match based on the Levenshtein distance from the key:
-    #   Example Key: "winddir_avg10m"
-    #   Matches: ["wind", "winddir"]  # noqa: E800
-    #   Closest Match: "winddir"
-    sorted_matches = sorted(
-        matches, key=lambda m: cast(str, fuzz.ratio(key, m)), reverse=True
-    )
-    match = sorted_matches[0]
-    return (match, data[match])
+    if matches := [k for k in data if fuzz.ratio(key, k) >= DEFAULT_FUZZY_THRESHOLD]:
+        # If there are any keys that are fuzzy matches of the target key, return the
+        # closest one:
+        match = _get_fuzzy_match(matches, key)
+        return (match, data[match])
+
+    # ...otherwise, return None/None:
+    return (None, None)
