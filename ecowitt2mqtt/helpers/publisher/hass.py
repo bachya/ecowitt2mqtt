@@ -454,34 +454,32 @@ class HomeAssistantDiscoveryPublisher(
         else:
             data_point_key = data_point.data_point_key
 
-        if self._config.hass_entity_id_prefix:
-            name = f"{self._config.hass_entity_id_prefix}_{payload_key}"
-        else:
-            name = payload_key
-
         base_topic = (
             f"{self._config.hass_discovery_prefix}/{PLATFORM_MAP[data_point.data_type]}"
             f"/{device.unique_id}/{payload_key}"
         )
 
-        payload = self._discovery_payloads[payload_key] = HassDiscoveryPayload(
-            {
-                "availability_topic": f"{base_topic}/availability",
-                "device": {
-                    "identifiers": [device.unique_id],
-                    "manufacturer": device.manufacturer,
-                    "model": device.model,
-                    "name": device.name,
-                    "sw_version": device.station_type,
-                },
-                "json_attributes_topic": f"{base_topic}/attributes",
-                "name": name,
-                "qos": 1,
-                "retain": self._config.mqtt_retain,
-                "state_topic": f"{base_topic}/state",
-                "unique_id": f"{device.unique_id}_{payload_key}",
+        config = {
+            "availability_topic": f"{base_topic}/availability",
+            "device": {
+                "identifiers": [device.unique_id],
+                "manufacturer": device.manufacturer,
+                "model": device.model,
+                "name": device.name,
+                "sw_version": device.station_type,
             },
-            f"{base_topic}/config",
+            "json_attributes_topic": f"{base_topic}/attributes",
+            "name": payload_key,
+            "qos": 1,
+            "retain": self._config.mqtt_retain,
+            "state_topic": f"{base_topic}/state",
+            "unique_id": f"{device.unique_id}_{payload_key}",
+        }
+        if self._config.hass_entity_id_prefix:
+            config["object_id"] = f"{self._config.hass_entity_id_prefix}_{payload_key}"
+
+        payload = self._discovery_payloads[payload_key] = HassDiscoveryPayload(
+            config, f"{base_topic}/config"
         )
 
         if data_point.attributes:

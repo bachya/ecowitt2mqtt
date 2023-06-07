@@ -95,7 +95,7 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
         Returns:
             An asyncio Task object.
         """
-        LOGGER.debug("Creating MQTT loop: %s", config.mqtt_connection_info)
+        LOGGER.info("Creating MQTT loop: %s", config.uuid)
 
         async def create_loop() -> None:
             """Create the loop.
@@ -159,19 +159,13 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
         config = self.ecowitt.configs.get(payload["PASSKEY"])
 
         # Store the payload in the appropriate queue:
-        queue = self._payload_queues.setdefault(
-            config.mqtt_connection_info, asyncio.Queue()
-        )
+        queue = self._payload_queues.setdefault(config.uuid, asyncio.Queue())
         queue.put_nowait(payload)
 
         # If there isn't an active MQTT loop for this payload, create it first and
         # instruct it to publish the payload once it's connected:
-        if (
-            payload_event := self._payload_events.get(config.mqtt_connection_info)
-        ) is None:
-            payload_event = self._payload_events[
-                config.mqtt_connection_info
-            ] = asyncio.Event()
+        if (payload_event := self._payload_events.get(config.uuid)) is None:
+            payload_event = self._payload_events[config.uuid] = asyncio.Event()
             self._mqtt_loop_tasks.append(
                 self._async_create_mqtt_loop_task(config, queue, payload_event)
             )

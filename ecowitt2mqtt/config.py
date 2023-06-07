@@ -4,6 +4,7 @@ from __future__ import annotations
 import os
 from collections.abc import Generator
 from typing import Any, cast
+from uuid import uuid4
 
 import voluptuous as vol
 from ruamel.yaml import YAML
@@ -203,10 +204,7 @@ class Config:  # pylint: disable=too-many-public-methods
         except vol.Invalid as err:
             raise ConfigError(err) from err
 
-        self._mqtt_connection_info = (
-            f"{self._config.get(CONF_MQTT_USERNAME)}@{self._config[CONF_MQTT_BROKER]}"
-            f":{self._config[CONF_MQTT_PORT]}"
-        )
+        self._uuid = uuid4().hex
 
     def __repr__(self) -> str:
         """Define a string representation of this object.
@@ -316,13 +314,13 @@ class Config:  # pylint: disable=too-many-public-methods
         return cast(str, self._config[CONF_MQTT_BROKER])
 
     @property
-    def mqtt_connection_info(self) -> str:
-        """Return a string representation of MQTT connection parameters.
+    def uuid(self) -> str:
+        """Return the unique ID of this Config object.
 
         Returns:
             The connection info string.
         """
-        return self._mqtt_connection_info
+        return self._uuid
 
     @property
     def mqtt_password(self) -> str | None:
