@@ -9,16 +9,19 @@ from ecowitt2mqtt.helpers.publisher.hass import HomeAssistantDiscoveryPublisher
 from ecowitt2mqtt.helpers.publisher.topic import TopicPublisher
 
 
-def get_publisher(config: Config, client: Client) -> MqttPublisher:
-    """Get an MQTT publisher.
+def get_publishers(config: Config, client: Client) -> list[MqttPublisher]:
+    """Get configured MQTT publishers.
 
     Args:
         config: A Config object.
         client: An MQTT Client object.
 
     Returns:
-        An MqttPublisher object.
+        A list of MqttPublisher objects.
     """
+    publishers: list[MqttPublisher] = []
     if config.hass_discovery:
-        return HomeAssistantDiscoveryPublisher(config, client)
-    return TopicPublisher(config, client)
+        publishers.append(HomeAssistantDiscoveryPublisher(config, client))
+    if config.mqtt_topic:
+        publishers.append(TopicPublisher(config, client))
+    return publishers

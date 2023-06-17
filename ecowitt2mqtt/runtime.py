@@ -15,7 +15,7 @@ from fastapi import FastAPI
 
 from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import LOGGER
-from ecowitt2mqtt.helpers.publisher.factory import get_publisher
+from ecowitt2mqtt.helpers.publisher.factory import get_publishers
 from ecowitt2mqtt.helpers.server import APIServer, get_api_server
 
 if TYPE_CHECKING:
@@ -115,13 +115,17 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
                             tls_context=SSLContext() if config.mqtt_tls else None,
                             username=config.mqtt_username,
                         ) as client:
-                            publisher = get_publisher(config, client)
+                            publishers = get_publishers(config, client)
                             while True:
                                 await payload_event.wait()
                                 while not queue.empty():
                                     payload = await queue.get()
                                     LOGGER.debug("Publishing payload: %s", payload)
-                                    await publisher.async_publish(payload)
+                                    tasks = [
+                                        publisher.async_publish(payload)
+                                        for publisher in publishers
+                                    ]
+                                    await asyncio.gather(*tasks)
 
                                 if config.diagnostics:
                                     LOGGER.info("*** DIAGNOSTICS COLLECTED")

@@ -2,6 +2,7 @@
 # pylint: disable=line-too-long,too-many-arguments,unused-argument
 from __future__ import annotations
 
+import asyncio
 import json
 import urllib.parse
 from collections.abc import AsyncGenerator
@@ -46,6 +47,8 @@ async def test_publish_failure(
         await session.request(
             "post", f"http://127.0.0.1:{TEST_PORT}{TEST_ENDPOINT}", data=device_data
         )
+
+    await asyncio.sleep(0.1)
     assert any(m for m in caplog.messages if "There was an MQTT error" in m)
 
 
@@ -82,6 +85,7 @@ async def test_publish_ambient_weather_success(
             "get", f"http://127.0.0.1:{TEST_PORT}{TEST_ENDPOINT}{payload_string}"
         )
 
+    await asyncio.sleep(0.1)
     assert resp.status == 204
     mock_asyncio_mqtt_client.publish.assert_awaited_with(
         TEST_MQTT_TOPIC,
@@ -127,6 +131,7 @@ async def test_publish_ecowitt_success(
             data=device_data,
         )
 
+    await asyncio.sleep(0.1)
     assert resp.status == 204
     mock_asyncio_mqtt_client.publish.assert_awaited_with(
         TEST_MQTT_TOPIC,
@@ -163,4 +168,6 @@ async def test_unknown_exception_shutdown(
         await session.request(
             "post", f"http://127.0.0.1:{TEST_PORT}{TEST_ENDPOINT}", data=device_data
         )
+
+    await asyncio.sleep(0.1)
     assert any(m for m in caplog.messages if "Something horrible happened" in m)
