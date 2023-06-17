@@ -16,7 +16,7 @@ from ecowitt2mqtt.const import (
 )
 from ecowitt2mqtt.core import Ecowitt
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
-from ecowitt2mqtt.helpers.publisher.factory import get_publisher
+from ecowitt2mqtt.helpers.publisher.factory import get_publishers
 from ecowitt2mqtt.helpers.publisher.hass import HomeAssistantDiscoveryPublisher
 from tests.common import TEST_CONFIG_JSON, TEST_HASS_ENTITY_ID_PREFIX
 
@@ -29,8 +29,10 @@ def test_get_publisher(ecowitt: Ecowitt, mock_asyncio_mqtt_client: MagicMock) ->
         ecowitt: A parsed Ecowitt object.
         mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
     """
-    publisher = get_publisher(ecowitt.configs.default_config, mock_asyncio_mqtt_client)
-    assert isinstance(publisher, HomeAssistantDiscoveryPublisher)
+    publishers = get_publishers(
+        ecowitt.configs.default_config, mock_asyncio_mqtt_client
+    )
+    assert isinstance(publishers[0], HomeAssistantDiscoveryPublisher)
 
 
 @pytest.mark.asyncio
@@ -50,8 +52,10 @@ async def test_publish(
         ecowitt: A parsed Ecowitt object.
         mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
     """
-    publisher = get_publisher(ecowitt.configs.default_config, mock_asyncio_mqtt_client)
-    await publisher.async_publish(device_data)
+    publishers = get_publishers(
+        ecowitt.configs.default_config, mock_asyncio_mqtt_client
+    )
+    await publishers[0].async_publish(device_data)
     mock_asyncio_mqtt_client.publish.assert_has_awaits(
         [
             call(
@@ -2284,8 +2288,10 @@ async def test_publish_custom_entity_id_prefix(
         ecowitt: A parsed Ecowitt object.
         mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
     """
-    publisher = get_publisher(ecowitt.configs.default_config, mock_asyncio_mqtt_client)
-    await publisher.async_publish(device_data)
+    publishers = get_publishers(
+        ecowitt.configs.default_config, mock_asyncio_mqtt_client
+    )
+    await publishers[0].async_publish(device_data)
     mock_asyncio_mqtt_client.publish.assert_has_awaits(
         [
             call(
@@ -4515,9 +4521,11 @@ async def test_publish_error_mqtt(
         ecowitt: A parsed Ecowitt object.
         mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
     """
-    publisher = get_publisher(ecowitt.configs.default_config, mock_asyncio_mqtt_client)
+    publishers = get_publishers(
+        ecowitt.configs.default_config, mock_asyncio_mqtt_client
+    )
     with pytest.raises(MqttError):
-        await publisher.async_publish(device_data)
+        await publishers[0].async_publish(device_data)
 
 
 @pytest.mark.asyncio
@@ -4544,8 +4552,10 @@ async def test_publish_numeric_battery_strategy(
         ecowitt: A parsed Ecowitt object.
         mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
     """
-    publisher = get_publisher(ecowitt.configs.default_config, mock_asyncio_mqtt_client)
-    await publisher.async_publish(device_data)
+    publishers = get_publishers(
+        ecowitt.configs.default_config, mock_asyncio_mqtt_client
+    )
+    await publishers[0].async_publish(device_data)
     mock_asyncio_mqtt_client.publish.assert_has_awaits(
         [
             call(
@@ -6774,8 +6784,10 @@ async def test_no_entity_description(
     caplog.set_level(logging.DEBUG)
     device_data["random"] = "value"
 
-    publisher = get_publisher(ecowitt.configs.default_config, mock_asyncio_mqtt_client)
-    await publisher.async_publish(device_data)
+    publishers = get_publishers(
+        ecowitt.configs.default_config, mock_asyncio_mqtt_client
+    )
+    await publishers[0].async_publish(device_data)
     mock_asyncio_mqtt_client.publish.assert_has_awaits(
         [
             call(

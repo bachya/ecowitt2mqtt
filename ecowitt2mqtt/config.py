@@ -81,7 +81,6 @@ HASS_DISCOVERY_SCHEMA = vol.Schema(
 MQTT_TOPIC_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_MQTT_TOPIC): str,
-        vol.Optional(CONF_HASS_DISCOVERY, default=False): vol.All(cv.boolean, False),
     },
     extra=vol.ALLOW_EXTRA,
 )
