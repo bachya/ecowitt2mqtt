@@ -50,6 +50,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_LIGHTNING_NUM,
     DATA_POINT_LIGHTNING_TIME,
     DATA_POINT_MONTHLY_RAIN,
+    DATA_POINT_R_RAIN_PIEZO,
     DATA_POINT_RAIN_RATE,
     DATA_POINT_RELATIVE_STRAIN_INDEX,
     DATA_POINT_RELATIVE_STRAIN_INDEX_PERCEPTION,
@@ -242,7 +243,8 @@ ENTITY_DESCRIPTIONS = {
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_RAIN_PIEZO: EntityDescription(
-        entity_category=EntityCategory.DIAGNOSTIC,
+        icon="mdi:water",
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_TEMP: EntityDescription(
         device_class=DeviceClass.TEMPERATURE,
@@ -304,6 +306,10 @@ ENTITY_DESCRIPTIONS = {
     ),
     DATA_POINT_LIGHTNING_TIME: EntityDescription(
         device_class=DeviceClass.TIMESTAMP,
+    ),
+    DATA_POINT_R_RAIN_PIEZO: EntityDescription(
+        icon="mdi:water",
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1: EntityDescription(
         icon="mdi:timer",
