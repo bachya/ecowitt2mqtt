@@ -189,13 +189,12 @@ files = [
 
 [[package]]
 name = "asyncio-mqtt"
-version = "0.16.1"
+version = "0.16.2"
 description = "Idiomatic asyncio wrapper around paho-mqtt"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "asyncio_mqtt-0.16.1-py3-none-any.whl", hash = "sha256:ef12c1d0250ffd65b70085d66c457128ed6aa98b3d821d2316213fb9d1957d5b"},
-    {file = "asyncio_mqtt-0.16.1.tar.gz", hash = "sha256:38416481bb7cc9613c6a1a8e58b8f9f9c9a522d93411003e8000e74ef2b7ed85"},
+    {file = "asyncio_mqtt-0.16.2-py3-none-any.whl", hash = "sha256:fe70ea2c648b248779a7ff3d9218262cdd739083743dfaa7c0d52ba458a8ad71"},
 ]
 
 [package.dependencies]
