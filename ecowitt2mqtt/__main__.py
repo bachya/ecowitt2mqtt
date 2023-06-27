@@ -255,7 +255,7 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
         dest=CONF_HASS_ENTITY_ID_PREFIX,
         help=(
             "The prefix to use for Home Assistant entity IDs. "
-            "A prefix of 'prefix' will prepend 'prefix_' to IDs"
+            "Example: A prefix of 'prefix' will prepend 'prefix_' to entity IDs"
         ),
         metavar=CONF_HASS_ENTITY_ID_PREFIX,
     )
@@ -415,7 +415,8 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
         dest=CONF_PRECISION,
         help=(
             "The precision to output data points at. "
-            "A value of 2 will round data points to two decimal places (default: no limit)"
+            "Example: A value of 2 will round to two decimal places. "
+            "(default: no limit)"
         ),
         metavar=CONF_PRECISION,
     )
