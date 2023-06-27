@@ -174,7 +174,8 @@ optional arguments:
                         The Home Assistant MQTT Discovery topic prefix
                         to use (default: homeassistant)
   --hass-entity-id-prefix hass_entity_id_prefix
-                        The prefix to use for Home Assistant entity IDs
+                        The prefix to use for Home Assistant entity IDs.
+                        Example: A prefix of 'prefix' will prepend 'prefix_' to entity IDs.
   --input-data-format input_data_format
                         The input data format used by the gateway
                         (default: ecowitt)
@@ -232,7 +233,8 @@ optional arguments:
   --port port           The port to serve ecowitt2mqtt on (default:
                         8080)
   --precision precision
-                        The precision to output data points at
+                        The precision to output data points at.
+                        Example: A value of 2 will round to two decimal places
                         (default: no limit)
   --raw-data            Return raw data (don't attempt to translate any
                         values)
