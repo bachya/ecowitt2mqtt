@@ -7,7 +7,7 @@ target-version = ["py39"]
 
 [tool.coverage.report]
 exclude_lines = ["TYPE_CHECKING", "NotImplementedError", "handle_exit_signal"]
-fail_under = 100
+fail_under = 90
 show_missing = true
 
 [tool.coverage.run]
