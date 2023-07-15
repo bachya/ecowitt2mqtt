@@ -11,7 +11,8 @@ from typing import TYPE_CHECKING, Any
 
 import uvicorn
 from aiomqtt import Client, MqttError
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
 
 from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import LOGGER
@@ -65,6 +66,27 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
                     fastapi, config.endpoint, config.input_data_format
                 )
                 api_server.add_payload_callback(self._process_payload)
+
+        @fastapi.exception_handler(RequestValidationError)
+        async def validation_exception_handler(
+            request: Request, err: RequestValidationError
+        ) -> None:
+            """Handle validation exceptions.
+
+            Args:
+                request: The invalid request request.
+                err: A RequestValidationError exception.
+
+            Raises:
+                RequestValidationError: The exception that was raised.
+            """
+            body = await request.body()
+            LOGGER.debug("Request method: %s", request.method)
+            LOGGER.debug("Request URL: %s", request.url)
+            LOGGER.debug("Request query params: %s", request.query_params)
+            LOGGER.debug("Request body: %s", body)
+            LOGGER.debug("Request validation error: %s", err.errors())
+            raise err
 
         if ecowitt.configs.default_config.verbose:
             uvicorn_log_level = UVICORN_LOG_LEVEL_DEBUG
