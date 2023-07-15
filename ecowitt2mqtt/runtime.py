@@ -10,7 +10,7 @@ from types import FrameType
 from typing import TYPE_CHECKING, Any
 
 import uvicorn
-from asyncio_mqtt import Client, MqttError
+from aiomqtt import Client, MqttError
 from fastapi import FastAPI
 
 from ecowitt2mqtt.config import Config

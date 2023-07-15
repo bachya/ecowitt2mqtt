@@ -74,8 +74,8 @@ def ecowitt_fixture(config: dict[str, Any]) -> Ecowitt:
     return Ecowitt(config)
 
 
-@pytest.fixture(name="mock_asyncio_mqtt_client")
-def mock_asyncio_mqtt_client_fixture(mqtt_publish_side_effect: AsyncMock) -> MagicMock:
+@pytest.fixture(name="mock_aiomqtt_client")
+def mock_aiomqtt_client_fixture(mqtt_publish_side_effect: AsyncMock) -> MagicMock:
     """Define a mock asyncio-mqtt client.
 
     Args:
@@ -111,19 +111,17 @@ def raw_config_fixture() -> str:
     return json.dumps(TEST_CONFIG_JSON)
 
 
-@pytest_asyncio.fixture(name="setup_asyncio_mqtt")
-async def setup_asyncio_mqtt_fixture(
-    mock_asyncio_mqtt_client: MagicMock,
+@pytest_asyncio.fixture(name="setup_aiomqtt")
+async def setup_aiomqtt_fixture(
+    mock_aiomqtt_client: MagicMock,
 ) -> AsyncGenerator[None, None]:
     """Define a fixture to patch asyncio-mqtt properly.
 
     Args:
-        mock_asyncio_mqtt_client: A mocked asyncio-mqtt Client object.
+        mock_aiomqtt_client: A mocked aiomqtt Client object.
     """
     with patch("ecowitt2mqtt.runtime.Client") as mock_client_class:
-        mock_client_class.return_value.__aenter__.return_value = (
-            mock_asyncio_mqtt_client
-        )
+        mock_client_class.return_value.__aenter__.return_value = mock_aiomqtt_client
         yield
 
 

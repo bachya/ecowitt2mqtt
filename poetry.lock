@@ -109,6 +109,21 @@ yarl = ">=1.0,<2.0"
 speedups = ["Brotli", "aiodns", "cchardet"]
 
 [[package]]
+name = "aiomqtt"
+version = "1.0.0"
+description = "The idiomatic asyncio MQTT client, wrapped around paho-mqtt"
+optional = false
+python-versions = ">=3.7,<4.0"
+files = [
+    {file = "aiomqtt-1.0.0-py3-none-any.whl", hash = "sha256:dd6fe629c10ac24a3d2abc2bcc09afe4f66bc06b6457b63cf764cc81f3b980fe"},
+    {file = "aiomqtt-1.0.0.tar.gz", hash = "sha256:a96c4af50f54ded0c07d4dfc14aa3e212265cbebf659e2ab64950cf14ba8dca2"},
+]
+
+[package.dependencies]
+paho-mqtt = ">=1.6.0,<2.0.0"
+typing-extensions = {version = ">=4.4.0,<5.0.0", markers = "python_version < \"3.10\""}
+
+[[package]]
 name = "aiosignal"
 version = "1.3.1"
 description = "aiosignal: a list of registered asynchronous callbacks"
@@ -186,25 +201,6 @@ files = [
     {file = "async-timeout-4.0.2.tar.gz", hash = "sha256:2163e1640ddb52b7a8c80d0a67a08587e5d245cc9c553a74a847056bc2976b15"},
     {file = "async_timeout-4.0.2-py3-none-any.whl", hash = "sha256:8ca1e4fcf50d07413d66d1a5e416e42cfdf5851c981d679a09851a6853383b3c"},
 ]
-
-[[package]]
-name = "asyncio-mqtt"
-version = "0.16.2"
-description = "Idiomatic asyncio wrapper around paho-mqtt"
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "asyncio_mqtt-0.16.2-py3-none-any.whl", hash = "sha256:fe70ea2c648b248779a7ff3d9218262cdd739083743dfaa7c0d52ba458a8ad71"},
-]
-
-[package.dependencies]
-paho-mqtt = ">=1.6.0"
-typing-extensions = {version = ">=4.4.0", markers = "python_version < \"3.10\""}
-
-[package.extras]
-format = ["black (>=22.10.0)"]
-lint = ["mypy (>=0.991)", "ruff (>=0.0.158)", "types-paho-mqtt (>=1.6.0.1)"]
-tests = ["anyio (>=3.6.2)", "pytest (>=7.2.0)", "pytest-cov (>=4.0.0)"]
 
 [[package]]
 name = "attrs"
@@ -2054,4 +2050,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9.0"
-content-hash = "6e9ba55027bef5a4fa8502ad34809ff417e2f0bad1b280f0ced67b220af1db22"
+content-hash = "b2098a9d77cb85f42246b39d10d25ddcbd94f9486b2d3049a174dbc79fd87277"
