@@ -1,7 +1,7 @@
 """Define a publisher factory."""
 from __future__ import annotations
 
-from asyncio_mqtt import Client
+from aiomqtt import Client
 
 from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.helpers.publisher import MqttPublisher

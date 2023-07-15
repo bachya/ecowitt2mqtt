@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 from typing import Any
 
-from asyncio_mqtt import Client
+from aiomqtt import Client
 
 from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.helpers.typing import CalculatedValueType

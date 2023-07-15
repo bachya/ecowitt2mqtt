@@ -6,7 +6,7 @@ from typing import Any
 from unittest.mock import MagicMock, Mock, call
 
 import pytest
-from asyncio_mqtt import MqttError
+from aiomqtt import MqttError
 
 from ecowitt2mqtt.const import (
     CONF_DEFAULT_BATTERY_STRATEGY,
@@ -22,16 +22,14 @@ from tests.common import TEST_CONFIG_JSON, TEST_HASS_ENTITY_ID_PREFIX
 
 
 @pytest.mark.parametrize("config", [TEST_CONFIG_JSON | {CONF_HASS_DISCOVERY: True}])
-def test_get_publisher(ecowitt: Ecowitt, mock_asyncio_mqtt_client: MagicMock) -> None:
+def test_get_publisher(ecowitt: Ecowitt, mock_aiomqtt_client: MagicMock) -> None:
     """Test getting a publisher via the factory.
 
     Args:
         ecowitt: A parsed Ecowitt object.
-        mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
+        mock_aiomqtt_client: A mock aiomqtt Client object.
     """
-    publishers = get_publishers(
-        ecowitt.configs.default_config, mock_asyncio_mqtt_client
-    )
+    publishers = get_publishers(ecowitt.configs.default_config, mock_aiomqtt_client)
     assert isinstance(publishers[0], HomeAssistantDiscoveryPublisher)
 
 
@@ -43,20 +41,18 @@ def test_get_publisher(ecowitt: Ecowitt, mock_asyncio_mqtt_client: MagicMock) ->
 async def test_publish(
     device_data: dict[str, Any],
     ecowitt: Ecowitt,
-    mock_asyncio_mqtt_client: MagicMock,
+    mock_aiomqtt_client: MagicMock,
 ) -> None:
     """Test publishing a payload.
 
     Args:
         device_data: A dictionary of device data.
         ecowitt: A parsed Ecowitt object.
-        mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
+        mock_aiomqtt_client: A mock aiomqtt Client object.
     """
-    publishers = get_publishers(
-        ecowitt.configs.default_config, mock_asyncio_mqtt_client
-    )
+    publishers = get_publishers(ecowitt.configs.default_config, mock_aiomqtt_client)
     await publishers[0].async_publish(device_data)
-    mock_asyncio_mqtt_client.publish.assert_has_awaits(
+    mock_aiomqtt_client.publish.assert_has_awaits(
         [
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/config",
@@ -2279,20 +2275,18 @@ async def test_publish(
 async def test_publish_custom_entity_id_prefix(
     device_data: dict[str, Any],
     ecowitt: Ecowitt,
-    mock_asyncio_mqtt_client: MagicMock,
+    mock_aiomqtt_client: MagicMock,
 ) -> None:
     """Test publishing a payload with custom HASS entity ID prefix.
 
     Args:
         device_data: A dictionary of device data.
         ecowitt: A parsed Ecowitt object.
-        mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
+        mock_aiomqtt_client: A mock aiomqtt Client object.
     """
-    publishers = get_publishers(
-        ecowitt.configs.default_config, mock_asyncio_mqtt_client
-    )
+    publishers = get_publishers(ecowitt.configs.default_config, mock_aiomqtt_client)
     await publishers[0].async_publish(device_data)
-    mock_asyncio_mqtt_client.publish.assert_has_awaits(
+    mock_aiomqtt_client.publish.assert_has_awaits(
         [
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/config",
@@ -4512,18 +4506,16 @@ async def test_publish_custom_entity_id_prefix(
 async def test_publish_error_mqtt(
     device_data: dict[str, Any],
     ecowitt: Ecowitt,
-    mock_asyncio_mqtt_client: MagicMock,
+    mock_aiomqtt_client: MagicMock,
 ) -> None:
     """Test handling an asyncio-mqtt error when publishing.
 
     Args:
         device_data: A dictionary of device data.
         ecowitt: A parsed Ecowitt object.
-        mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
+        mock_aiomqtt_client: A mock aiomqtt Client object.
     """
-    publishers = get_publishers(
-        ecowitt.configs.default_config, mock_asyncio_mqtt_client
-    )
+    publishers = get_publishers(ecowitt.configs.default_config, mock_aiomqtt_client)
     with pytest.raises(MqttError):
         await publishers[0].async_publish(device_data)
 
@@ -4543,20 +4535,18 @@ async def test_publish_error_mqtt(
 async def test_publish_numeric_battery_strategy(
     device_data: dict[str, Any],
     ecowitt: Ecowitt,
-    mock_asyncio_mqtt_client: MagicMock,
+    mock_aiomqtt_client: MagicMock,
 ) -> None:
     """Test publishing a payload with numeric battery strategy.
 
     Args:
         device_data: A dictionary of device data.
         ecowitt: A parsed Ecowitt object.
-        mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
+        mock_aiomqtt_client: A mock aiomqtt Client object.
     """
-    publishers = get_publishers(
-        ecowitt.configs.default_config, mock_asyncio_mqtt_client
-    )
+    publishers = get_publishers(ecowitt.configs.default_config, mock_aiomqtt_client)
     await publishers[0].async_publish(device_data)
-    mock_asyncio_mqtt_client.publish.assert_has_awaits(
+    mock_aiomqtt_client.publish.assert_has_awaits(
         [
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/config",
@@ -6771,7 +6761,7 @@ async def test_no_entity_description(
     caplog: Mock,
     device_data: dict[str, Any],
     ecowitt: Ecowitt,
-    mock_asyncio_mqtt_client: MagicMock,
+    mock_aiomqtt_client: MagicMock,
 ) -> None:
     """Test that a key with no entity description is handled.
 
@@ -6779,16 +6769,14 @@ async def test_no_entity_description(
         caplog: A mock logging utility.
         device_data: A dictionary of device data.
         ecowitt: A parsed Ecowitt object.
-        mock_asyncio_mqtt_client: A mock asyncio-mqtt Client object.
+        mock_aiomqtt_client: A mock aiomqtt Client object.
     """
     caplog.set_level(logging.DEBUG)
     device_data["random"] = "value"
 
-    publishers = get_publishers(
-        ecowitt.configs.default_config, mock_asyncio_mqtt_client
-    )
+    publishers = get_publishers(ecowitt.configs.default_config, mock_aiomqtt_client)
     await publishers[0].async_publish(device_data)
-    mock_asyncio_mqtt_client.publish.assert_has_awaits(
+    mock_aiomqtt_client.publish.assert_has_awaits(
         [
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/config",

@@ -61,7 +61,7 @@ classifiers = [
 [tool.poetry.dependencies]
 "ruamel.yaml" = "^0.17.21"
 aiohttp = "^3.8.1"
-asyncio-mqtt = ">=0.12.1"
+aiomqtt = "^1.0.0"
 colorlog = "^6.6.0"
 fastapi = ">=0.89.1,<0.101.0"
 meteocalc = "^1.1.0"

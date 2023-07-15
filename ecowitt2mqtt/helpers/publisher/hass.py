@@ -6,7 +6,7 @@ import asyncio
 from dataclasses import dataclass
 from typing import Any, TypedDict
 
-from asyncio_mqtt import Client, MqttError
+from aiomqtt import Client, MqttError
 
 from ecowitt2mqtt.backports.enum import StrEnum
 from ecowitt2mqtt.config import Config
