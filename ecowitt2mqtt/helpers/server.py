@@ -125,8 +125,10 @@ class AmbientWeatherAPIServer(APIServer):
 
         # Ambient Weather uses a MAC address (with colons) as the PASSKEY; the colons
         # can cause issues with Home Assistant MQTT Discovery, so we remove them:
-        params["PASSKEY"] = params["PASSKEY"].replace(":", "")
-
+        if "MAC" in params:
+            params["PASSKEY"] = params["MAC"].replace(":", "")
+        else:
+            params["PASSKEY"] = params["PASSKEY"].replace(":", "")
         return params
 
 
