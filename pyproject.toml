@@ -61,8 +61,11 @@ classifiers = [
 
 [tool.poetry.dependencies]
 "ruamel.yaml" = "^0.17.21"
+GitPython = ">=3.1.32"
+Pygments = ">=2.15.0"
 aiohttp = "^3.8.1"
 aiomqtt = "^1.0.0"
+certifi = ">=2023.07.22"
 colorlog = "^6.6.0"
 fastapi = ">=0.89.1,<0.102.0"
 meteocalc = "^1.1.0"
