@@ -61,8 +61,6 @@ classifiers = [
 
 [tool.poetry.dependencies]
 "ruamel.yaml" = "^0.17.21"
-GitPython = ">=3.1.32"
-Pygments = ">=2.15.0"
 aiohttp = "^3.8.1"
 aiomqtt = "^1.0.0"
 certifi = ">=2023.07.22"
@@ -77,6 +75,8 @@ uvloop = "^0.17.0"
 voluptuous = "^0.13.1"
 
 [tool.poetry.group.dev.dependencies]
+GitPython = ">=3.1.32"
+Pygments = ">=2.15.0"
 aresponses = "^2.1.6"
 bandit = "^1.7.4"
 black = ">=22.10,<24.0"
