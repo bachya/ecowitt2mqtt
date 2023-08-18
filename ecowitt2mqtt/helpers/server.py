@@ -15,11 +15,27 @@ from ecowitt2mqtt.const import LOGGER
 CallbackT = Callable[[dict[str, Any]], None]
 
 
+def get_params_from_request_path(request: Request) -> dict[str, Any]:
+    """Get the parameters from a request path.
+
+    This is used in cases (like Ambient Weather) where the request payload is
+    passed as a non-standard query string.
+
+    Args:
+        request: A FastAPI Request object.
+
+    Returns:
+        A dictionary containing the request parameters.
+    """
+    return dict(urllib.parse.parse_qsl(request.path_params["param_string"]))
+
+
 class InputDataFormat(StrEnum):
     """Define an input data format."""
 
     AMBIENT_WEATHER = "ambient_weather"
     ECOWITT = "ecowitt"
+    WUNDERGROUND = "wunderground"
 
 
 class APIServer(ABC):
@@ -38,6 +54,7 @@ class APIServer(ABC):
         self._payload_received_callbacks: list[CallbackT] = []
 
         normalized_endpoint = self._normalize_endpoint(endpoint)
+        LOGGER.debug(normalized_endpoint)
 
         for route in (normalized_endpoint, f"{normalized_endpoint}/"):
             fastapi.add_api_route(
@@ -119,9 +136,7 @@ class AmbientWeatherAPIServer(APIServer):
         Returns:
             A dictionary containing the request payload.
         """
-        endpoint_length = len(self._endpoint)
-        param_string = request.url.path[endpoint_length:]
-        params = dict(urllib.parse.parse_qsl(param_string))
+        params = get_params_from_request_path(request)
 
         # Ambient Weather uses a MAC address (with colons) as the PASSKEY; the colons
         # can cause issues with Home Assistant MQTT Discovery, so we remove them:
@@ -148,9 +163,43 @@ class EcowittAPIServer(APIServer):
         return dict(form_data)
 
 
+class WUndergroundAPIServer(APIServer):
+    """Define a Weather Underground API server."""
+
+    HTTP_REQUEST_VERB = hdrs.METH_GET
+
+    def _normalize_endpoint(self, endpoint: str) -> str:
+        """Normalize the endpoint to work with this server.
+
+        Args:
+            endpoint: The endpoint to normalize.
+
+        Returns:
+            A normalized endpoint.
+        """
+        return endpoint + "{param_string}"
+
+    async def async_parse_request_payload(self, request: Request) -> dict[str, Any]:
+        """Parse and return the request payload.
+
+        Args:
+            request: A FastAPI Request object.
+
+        Returns:
+            A dictionary containing the request payload.
+        """
+        params = get_params_from_request_path(request)
+        for field_to_ignore in "PASSWORD":
+            params.pop(field_to_ignore, None)
+        params["PASSKEY"] = params["ID"]
+        params["stationtype"] = params.pop("softwaretype")
+        return params
+
+
 API_SERVER_IMPLEMENTATION_MAP = {
     InputDataFormat.AMBIENT_WEATHER: AmbientWeatherAPIServer,
     InputDataFormat.ECOWITT: EcowittAPIServer,
+    InputDataFormat.WUNDERGROUND: WUndergroundAPIServer,
 }
 
 

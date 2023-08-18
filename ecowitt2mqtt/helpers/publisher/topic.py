@@ -20,6 +20,7 @@ class TopicPublisher(MqttPublisher):  # pylint: disable=too-few-public-methods
         """
         if not self._config.raw_data:
             processed_data = ProcessedData(self._config, data)
+            LOGGER.error("Processed data: %s", processed_data.output)
             data = {key: value.value for key, value in processed_data.output.items()}
 
         topic = cast(str, self._config.mqtt_topic)
