@@ -196,7 +196,7 @@ class WUndergroundAPIServer(APIServer):
         return params
 
 
-API_SERVER_IMPLEMENTATION_MAP = {
+API_SERVER_IMPLEMENTATION_MAP: dict[InputDataFormat, type[APIServer]] = {
     InputDataFormat.AMBIENT_WEATHER: AmbientWeatherAPIServer,
     InputDataFormat.ECOWITT: EcowittAPIServer,
     InputDataFormat.WUNDERGROUND: WUndergroundAPIServer,
