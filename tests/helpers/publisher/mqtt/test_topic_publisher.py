@@ -7,9 +7,8 @@ import pytest
 
 from ecowitt2mqtt.const import CONF_MQTT_RETAIN, CONF_RAW_DATA
 from ecowitt2mqtt.core import Ecowitt
-from ecowitt2mqtt.helpers.publisher import generate_mqtt_payload
 from ecowitt2mqtt.helpers.publisher.factory import get_publishers
-from ecowitt2mqtt.helpers.publisher.topic import TopicPublisher
+from ecowitt2mqtt.helpers.publisher.mqtt import TopicPublisher, generate_mqtt_payload
 from tests.common import TEST_CONFIG_JSON, TEST_MQTT_TOPIC
 
 

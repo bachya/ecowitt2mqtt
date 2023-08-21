@@ -4,12 +4,12 @@ from __future__ import annotations
 from aiomqtt import Client
 
 from ecowitt2mqtt.config import Config
-from ecowitt2mqtt.helpers.publisher import MqttPublisher
-from ecowitt2mqtt.helpers.publisher.hass import HomeAssistantDiscoveryPublisher
-from ecowitt2mqtt.helpers.publisher.topic import TopicPublisher
+from ecowitt2mqtt.helpers.publisher import Publisher
+from ecowitt2mqtt.helpers.publisher.mqtt import TopicPublisher
+from ecowitt2mqtt.helpers.publisher.mqtt.hass import HomeAssistantDiscoveryPublisher
 
 
-def get_publishers(config: Config, client: Client) -> list[MqttPublisher]:
+def get_publishers(config: Config, client: Client) -> list[Publisher]:
     """Get configured MQTT publishers.
 
     Args:
@@ -19,7 +19,7 @@ def get_publishers(config: Config, client: Client) -> list[MqttPublisher]:
     Returns:
         A list of MqttPublisher objects.
     """
-    publishers: list[MqttPublisher] = []
+    publishers: list[Publisher] = []
     if config.hass_discovery:
         publishers.append(HomeAssistantDiscoveryPublisher(config, client))
     if config.mqtt_topic:
