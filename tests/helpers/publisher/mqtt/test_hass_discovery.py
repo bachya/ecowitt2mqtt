@@ -17,7 +17,7 @@ from ecowitt2mqtt.const import (
 from ecowitt2mqtt.core import Ecowitt
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 from ecowitt2mqtt.helpers.publisher.factory import get_publishers
-from ecowitt2mqtt.helpers.publisher.hass import HomeAssistantDiscoveryPublisher
+from ecowitt2mqtt.helpers.publisher.mqtt.hass import HomeAssistantDiscoveryPublisher
 from tests.common import TEST_CONFIG_JSON, TEST_HASS_ENTITY_ID_PREFIX
 
 

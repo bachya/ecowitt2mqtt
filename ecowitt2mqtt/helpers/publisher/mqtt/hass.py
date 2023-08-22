@@ -88,7 +88,7 @@ from ecowitt2mqtt.helpers.calculator.battery import (
     get_battery_strategy,
 )
 from ecowitt2mqtt.helpers.device import Device
-from ecowitt2mqtt.helpers.publisher import MqttPublisher, generate_mqtt_payload
+from ecowitt2mqtt.helpers.publisher.mqtt import MqttPublisher, generate_mqtt_payload
 from ecowitt2mqtt.helpers.typing import CalculatedValueType
 
 
