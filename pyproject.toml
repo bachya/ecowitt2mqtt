@@ -75,7 +75,7 @@ uvloop = "^0.17.0"
 voluptuous = "^0.13.1"
 
 [tool.poetry.group.dev.dependencies]
-GitPython = ">=3.1.32"
+GitPython = ">=3.1.33"
 Pygments = ">=2.15.0"
 aresponses = "^2.1.6"
 bandit = "^1.7.4"
