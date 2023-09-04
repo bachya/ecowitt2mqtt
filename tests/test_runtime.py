@@ -13,7 +13,12 @@ import pytest
 from aiohttp import ClientSession
 from aiomqtt import MqttError
 
-from ecowitt2mqtt.const import CONF_DIAGNOSTICS, CONF_ENDPOINT, CONF_INPUT_DATA_FORMAT
+from ecowitt2mqtt.const import (
+    CONF_DIAGNOSTICS,
+    CONF_DISABLE_CALCULATED_DATA,
+    CONF_ENDPOINT,
+    CONF_INPUT_DATA_FORMAT,
+)
 from ecowitt2mqtt.core import Ecowitt
 from ecowitt2mqtt.helpers.server import InputDataFormat
 from tests.common import (
@@ -141,6 +146,94 @@ async def test_publish_ecowitt_success(
 
     if ecowitt.configs.default_config.diagnostics:
         assert any(m for m in caplog.messages if "DIAGNOSTICS COLLECTED" in m)
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "config",
+    [
+        TEST_CONFIG_JSON
+        | {
+            CONF_DISABLE_CALCULATED_DATA: True,
+            CONF_INPUT_DATA_FORMAT: InputDataFormat.WUNDERGROUND,
+        },
+    ],
+)
+async def test_publish_wunderground_disable_calculated_data(
+    caplog: Mock,
+    device_data: dict[str, Any],
+    ecowitt: Ecowitt,
+    mock_aiomqtt_client: MagicMock,
+    setup_aiomqtt: AsyncGenerator[None, None],
+    setup_uvicorn_server: AsyncGenerator[None, None],
+) -> None:
+    """Test a successful Weather Underground payload being received and published.
+
+    Args:
+        caplog: A mock logging utility.
+        device_data: A dictionary of device data.
+        ecowitt: A parsed Ecowitt object.
+        mock_aiomqtt_client: A mocked aiomqtt Client object.
+        setup_aiomqtt: A mock aiomqtt client connection.
+        setup_uvicorn_server: A mock Uvicorn + FastAPI application.
+    """
+    wunderground_payload = json.loads(load_fixture("payload_wunderground.json"))
+    payload_string = urllib.parse.urlencode(wunderground_payload)
+
+    async with ClientSession() as session:
+        resp = await session.request(
+            "get", f"http://127.0.0.1:{TEST_PORT}{TEST_ENDPOINT}{payload_string}"
+        )
+
+    await asyncio.sleep(0.1)
+    assert resp.status == 204
+    mock_aiomqtt_client.publish.assert_awaited_with(
+        TEST_MQTT_TOPIC,
+        payload=b'{"ID": "MCKEAN", "PASSWORD": 1909.0, "temp": 89.42, "humidity": 54.0, "dewptf": 70.7, "windchill": 89.42, "winddir": 269.0, "windspeed": 0.0, "windgust": 9.17, "rain": 0.0, "dailyrain": 0.0, "weeklyrain": 0.476, "monthlyrain": 4.831, "yearlyrain": 4.831, "solarradiation": 732.04, "UV": 6.0, "indoortemp": 79.34, "indoorhumidity": 55.0, "barom": 30.135, "lowbatt": "OFF", "action": "updateraw", "realtime": 1.0, "rtfreq": 5.0}',  # noqa: E501
+        retain=False,
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "config",
+    [
+        TEST_CONFIG_JSON | {CONF_INPUT_DATA_FORMAT: InputDataFormat.WUNDERGROUND},
+    ],
+)
+async def test_publish_wunderground_success(
+    caplog: Mock,
+    device_data: dict[str, Any],
+    ecowitt: Ecowitt,
+    mock_aiomqtt_client: MagicMock,
+    setup_aiomqtt: AsyncGenerator[None, None],
+    setup_uvicorn_server: AsyncGenerator[None, None],
+) -> None:
+    """Test a successful Weather Underground payload being received and published.
+
+    Args:
+        caplog: A mock logging utility.
+        device_data: A dictionary of device data.
+        ecowitt: A parsed Ecowitt object.
+        mock_aiomqtt_client: A mocked aiomqtt Client object.
+        setup_aiomqtt: A mock aiomqtt client connection.
+        setup_uvicorn_server: A mock Uvicorn + FastAPI application.
+    """
+    wunderground_payload = json.loads(load_fixture("payload_wunderground.json"))
+    payload_string = urllib.parse.urlencode(wunderground_payload)
+
+    async with ClientSession() as session:
+        resp = await session.request(
+            "get", f"http://127.0.0.1:{TEST_PORT}{TEST_ENDPOINT}{payload_string}"
+        )
+
+    await asyncio.sleep(0.1)
+    assert resp.status == 204
+    mock_aiomqtt_client.publish.assert_awaited_with(
+        TEST_MQTT_TOPIC,
+        payload=b'{"ID": "MCKEAN", "PASSWORD": 1909.0, "temp": 89.42, "humidity": 54.0, "dewptf": 70.7, "winddir": 269.0, "windspeed": 0.0, "windgust": 9.17, "rain": 0.0, "dailyrain": 0.0, "weeklyrain": 0.476, "monthlyrain": 4.831, "yearlyrain": 4.831, "solarradiation": 732.04, "UV": 6.0, "indoortemp": 79.34, "indoorhumidity": 55.0, "barom": 30.135, "lowbatt": "OFF", "action": "updateraw", "realtime": 1.0, "rtfreq": 5.0, "beaufortscale": 0, "dewpoint": 70.5763744258485, "feelslike": 95.3087917601561, "frostpoint": 62.320677884203384, "frostrisk": "No risk", "heatindex": 95.3087917601561, "humidex": 41, "humidex_perception": "Great discomfort", "humidityabs": 0.0011334789215741161, "humidityabsin": 0.0011334789215741161, "relative_strain_index": 0.34, "relative_strain_index_perception": "Discomfort", "simmerindex": 104.48206520000001, "simmerzone": "Caution: Heat exhaustion", "solarradiation_perceived": 99.33815442116924, "thermalperception": "Quite uncomfortable", "windchill": null}',  # noqa: E501
+        retain=False,
+    )
 
 
 @pytest.mark.asyncio
