@@ -424,6 +424,7 @@ the configuration file and override them via environment variables.
 
 - `ambient_weather`
 - `ecowitt`
+- `wunderground` (Weather Underground)
 
 Provide the correct one to `---input-data-format` based on which device brand you use.
 

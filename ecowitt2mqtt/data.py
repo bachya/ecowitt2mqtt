@@ -195,6 +195,7 @@ UNIT_SUFFIX_MAP = {
     DATA_POINT_GLOB_TEMP: "f",
     DATA_POINT_GLOB_WIND: "mph",
     DATA_POINT_RAIN_RATE: "in",
+    DATA_POINT_WINDCHILL: "f",
 }
 
 
@@ -257,6 +258,32 @@ def remove_unit_from_key(key: str) -> str:
 class ProcessedData:
     """Define a processed data payload."""
 
+    CALCULATED_DATA_POINTS = (
+        DATA_POINT_BEAUFORT_SCALE,
+        DATA_POINT_DEWPOINT,
+        DATA_POINT_FEELSLIKE,
+        DATA_POINT_FROST_POINT,
+        DATA_POINT_FROST_RISK,
+        DATA_POINT_HEATINDEX,
+        DATA_POINT_HUMIDEX,
+        DATA_POINT_HUMIDEX_PERCEPTION,
+        DATA_POINT_HUMIDITY_ABS,
+        DATA_POINT_HUMIDITY_ABS_IN,
+        DATA_POINT_RELATIVE_STRAIN_INDEX,
+        DATA_POINT_RELATIVE_STRAIN_INDEX_PERCEPTION,
+        DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1,
+        DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2,
+        DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_3,
+        DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4,
+        DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5,
+        DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6,
+        DATA_POINT_SIMMER_INDEX,
+        DATA_POINT_SIMMER_ZONE,
+        DATA_POINT_SOLARRADIATION_PERCEIVED,
+        DATA_POINT_THERMAL_PERCEPTION,
+        DATA_POINT_WINDCHILL,
+    )
+
     config: Config
     data: dict[str, Any]
     device: Device = field(init=False)
@@ -287,31 +314,7 @@ class ProcessedData:
         Args:
             payload: A dictionary of keys to PreCalculatedValueType objects.
         """
-        for key in (
-            DATA_POINT_BEAUFORT_SCALE,
-            DATA_POINT_DEWPOINT,
-            DATA_POINT_FEELSLIKE,
-            DATA_POINT_FROST_POINT,
-            DATA_POINT_FROST_RISK,
-            DATA_POINT_HEATINDEX,
-            DATA_POINT_HUMIDEX,
-            DATA_POINT_HUMIDEX_PERCEPTION,
-            DATA_POINT_HUMIDITY_ABS,
-            DATA_POINT_HUMIDITY_ABS_IN,
-            DATA_POINT_RELATIVE_STRAIN_INDEX,
-            DATA_POINT_RELATIVE_STRAIN_INDEX_PERCEPTION,
-            DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1,
-            DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2,
-            DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_3,
-            DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_4,
-            DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_5,
-            DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6,
-            DATA_POINT_SIMMER_INDEX,
-            DATA_POINT_SIMMER_ZONE,
-            DATA_POINT_SOLARRADIATION_PERCEIVED,
-            DATA_POINT_THERMAL_PERCEPTION,
-            DATA_POINT_WINDCHILL,
-        ):
+        for key in self.CALCULATED_DATA_POINTS:
             if calculator := get_calculator_instance(self.config, key):
                 try:
                     self.output[key] = calculator.calculate_from_payload(payload)
@@ -327,6 +330,12 @@ class ProcessedData:
             payload: A dictionary of keys to PreCalculatedValueType objects.
         """
         for key, value in payload.items():
+            if (
+                not self.config.disable_calculated_data
+                and key in self.CALCULATED_DATA_POINTS
+            ):
+                LOGGER.debug("Skipping processing of calculated data point: %s", key)
+                continue
             if (calculator := get_calculator_instance(self.config, key)) is None:
                 LOGGER.debug("No calculator found for %s", key)
                 self.output[key] = CalculatedDataPoint(data_point_key=key, value=value)
