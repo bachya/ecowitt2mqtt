@@ -734,3 +734,23 @@ class WindChillCalculator(BaseTemperatureCalculator):
         return self.get_calculated_data_point(
             wind_chill_obj.f, unit_converter=TemperatureConverter
         )
+
+    def calculate_from_value(
+        self, value: PreCalculatedValueType
+    ) -> CalculatedDataPoint:
+        """Perform the calculation.
+
+        Args:
+            value: calculated value.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
+        float_value = cast(float, value)
+
+        temp_obj = get_temperature_meteocalc_object(
+            float_value, self._config.input_unit_system
+        )
+        return self.get_calculated_data_point(
+            temp_obj.f, unit_converter=TemperatureConverter
+        )
