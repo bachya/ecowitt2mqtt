@@ -32,7 +32,7 @@ jobs:
 
       - name: 🤘🏻 Collect Docker metadata
         id: meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: |
             bachya/ecowitt2mqtt
