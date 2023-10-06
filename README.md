@@ -187,7 +187,7 @@ optional arguments:
   -p mqtt_password, --mqtt-password mqtt_password
                         A valid password for the MQTT broker
   --mqtt-port mqtt_port
-                        The listenting port of the MQTT broker
+                        The listening port of the MQTT broker
                         (default: 1883)
   --mqtt-retain         Instruct the MQTT broker to retain messages
   --mqtt-tls            Enable MQTT over TLS
@@ -265,7 +265,7 @@ optional arguments:
   `imperial`)
 - `ECOWITT2MQTT_MQTT_BROKER`: the hostname or IP address of an MQTT broker
 - `ECOWITT2MQTT_MQTT_PASSWORD`: a valid password for the MQTT broker
-- `ECOWITT2MQTT_MQTT_PORT`: the listenting port of the MQTT broker (default: `1883`)
+- `ECOWITT2MQTT_MQTT_PORT`: the listening port of the MQTT broker (default: `1883`)
 - `ECOWITT2MQTT_MQTT_RETAIN`: whether to instruct the MQTT broker to retain messages
   (default: `false`)
 - `ECOWITT2MQTT_MQTT_TLS`: publish data via MQTT over TLS (default: `false`)
