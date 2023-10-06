@@ -294,7 +294,7 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
     parser.add_argument(
         "--mqtt-port",
         dest=CONF_MQTT_PORT,
-        help=f"The listenting port of the MQTT broker (default: {DEFAULT_MQTT_PORT})",
+        help=f"The listening port of the MQTT broker (default: {DEFAULT_MQTT_PORT})",
         metavar=CONF_MQTT_PORT,
     )
     parser.add_argument(
