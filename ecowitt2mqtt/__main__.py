@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import argparse
-import asyncio
 import os
 import sys
 from typing import Any
@@ -440,9 +439,6 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
 
 def main() -> None:
     """Run."""
-    loop = uvloop.new_event_loop()
-    asyncio.set_event_loop(loop)
-
     cli_arguments = get_cli_arguments(sys.argv[1:])
     env_vars = get_env_vars()
     params: dict[str, Any] = env_vars | cli_arguments
@@ -451,4 +447,4 @@ def main() -> None:
         params[CONF_VERBOSE] = True
 
     ecowitt = Ecowitt(params)
-    loop.run_until_complete(ecowitt.async_start())
+    uvloop.run(ecowitt.async_start())
