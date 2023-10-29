@@ -47,9 +47,9 @@ pip install ecowitt2mqtt
 
 `ecowitt2mqtt` is currently supported on:
 
-- Python 3.9
 - Python 3.10
 - Python 3.11
+- Python 3.12
 
 # Disclaimer
 

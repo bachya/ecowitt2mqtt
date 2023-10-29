@@ -14,11 +14,11 @@ jobs:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v4
 
-      - name: 🏗 Set up Python 3.9
+      - name: 🏗 Set up Python 3.12
         id: python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.9
+          python-version: "3.12"
 
       - name: 🚀 Publish to PyPi
         run: |
