@@ -3,16 +3,16 @@
 #
 # This stage is responsible for building the ecowitt2mqtt package and its dependencies.
 ########################################################################################
-FROM python:3.9-alpine as builder
+FROM python:3.11-alpine as builder
 ARG TARGETPLATFORM
 
 # Set up the build environment:
-ENV CRYPTOGRAPHY_VERSION=40.0.1 \
+ENV CRYPTOGRAPHY_VERSION=41.0.5 \
     PIP_DEFAULT_TIMEOUT=100 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_PREFER_BINARY=1 \
-    POETRY_VERSION=1.5.1 \
+    POETRY_VERSION=1.6.1 \
     PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=random \
     PYTHONUNBUFFERED=1
@@ -44,7 +44,7 @@ RUN poetry export --without-hashes -f requirements.txt --only main \
 #
 # This stage is responsible for building the final image.
 ########################################################################################
-FROM python:3.9-alpine as final
+FROM python:3.11-alpine as final
 ARG TARGETPLATFORM
 
 # Copy the virtual environment from the builder image:
