@@ -1,6 +1,10 @@
 #!/bin/sh
 set -e
 
+if command -v "rtx"; then
+  rtx install
+fi
+
 # Install all dependencies:
 pip3 install poetry
 poetry install

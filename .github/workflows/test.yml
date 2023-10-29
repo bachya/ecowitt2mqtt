@@ -21,9 +21,9 @@ jobs:
     strategy:
       matrix:
         python-version:
-          - "3.9"
           - "3.10"
           - "3.11"
+          - "3.12"
 
     steps:
       - name: ⤵️ Check out code from GitHub
@@ -91,11 +91,11 @@ jobs:
       - name: ⬇️ Download coverage data
         uses: actions/download-artifact@v3
 
-      - name: 🏗 Set up Python 3.9
+      - name: 🏗 Set up Python 3.12
         id: setup-python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.9
+          python-version: "3.12"
 
       - name: ⤵️ Get pip cache directory
         id: pip-cache
