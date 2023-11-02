@@ -15,11 +15,11 @@ from ecowitt2mqtt.const import LOGGER
 CallbackT = Callable[[dict[str, Any]], None]
 
 
-def get_params_from_request_path(request: Request) -> dict[str, Any]:
-    """Get the parameters from a request path.
+def get_request_query_params(request: Request) -> dict[str, Any]:
+    """Get the query parameters from a request.
 
-    This is used in cases (like Ambient Weather) where the request payload is
-    passed as a non-standard query string.
+    Some older devices will pass the parameters as part of a non-standard query string;
+    we look for those cases there.
 
     Args:
         request: A FastAPI Request object.
@@ -27,7 +27,9 @@ def get_params_from_request_path(request: Request) -> dict[str, Any]:
     Returns:
         A dictionary containing the request parameters.
     """
-    return dict(urllib.parse.parse_qsl(request.path_params["param_string"]))
+    if request.path_params:
+        return dict(urllib.parse.parse_qsl(request.path_params["param_string"]))
+    return dict(request.query_params)
 
 
 class InputDataFormat(StrEnum):
@@ -53,18 +55,16 @@ class APIServer(ABC):
         self._endpoint = endpoint
         self._payload_received_callbacks: list[CallbackT] = []
 
-        normalized_endpoint = self._normalize_endpoint(endpoint)
-        LOGGER.debug(normalized_endpoint)
-
-        for route in (normalized_endpoint, f"{normalized_endpoint}/"):
-            fastapi.add_api_route(
-                route,
-                self._async_handle_query,  # type: ignore[arg-type]
-                methods=[self.HTTP_REQUEST_VERB.lower()],
-                response_class=Response,
-                response_model=None,
-                status_code=status.HTTP_204_NO_CONTENT,
-            )
+        for normalized_endpoint in self._normalize_endpoints(endpoint):
+            for route in (normalized_endpoint, f"{normalized_endpoint}/"):
+                fastapi.add_api_route(
+                    route,
+                    self._async_handle_query,  # type: ignore[arg-type]
+                    methods=[self.HTTP_REQUEST_VERB.lower()],
+                    response_class=Response,
+                    response_model=None,
+                    status_code=status.HTTP_204_NO_CONTENT,
+                )
 
     async def _async_handle_query(self, request: Request) -> None:
         """Handle an API query.
@@ -78,8 +78,8 @@ class APIServer(ABC):
         for callback in self._payload_received_callbacks:
             callback(payload)
 
-    def _normalize_endpoint(self, endpoint: str) -> str:
-        """Normalize the endpoint to work with this server.
+    def _normalize_endpoints(self, endpoint: str) -> list[str]:
+        """Return the endpoints this server should expose.
 
         Args:
             endpoint: The endpoint to normalize.
@@ -88,8 +88,8 @@ class APIServer(ABC):
             A normalized endpoint.
         """
         if endpoint.endswith("/"):
-            return endpoint[:-1]
-        return endpoint
+            return [endpoint[:-1]]
+        return [endpoint]
 
     def add_payload_callback(self, callback: CallbackT) -> None:
         """Add a callback to be called when a new payload is received.
@@ -116,8 +116,8 @@ class AmbientWeatherAPIServer(APIServer):
 
     HTTP_REQUEST_VERB = hdrs.METH_GET
 
-    def _normalize_endpoint(self, endpoint: str) -> str:
-        """Normalize the endpoint to work with this server.
+    def _normalize_endpoints(self, endpoint: str) -> list[str]:
+        """Return the endpoints this server should expose.
 
         Args:
             endpoint: The endpoint to normalize.
@@ -125,7 +125,7 @@ class AmbientWeatherAPIServer(APIServer):
         Returns:
             A normalized endpoint.
         """
-        return endpoint + "{param_string}"
+        return [endpoint, endpoint + "{param_string}"]
 
     async def async_parse_request_payload(self, request: Request) -> dict[str, Any]:
         """Parse and return the request payload.
@@ -136,7 +136,7 @@ class AmbientWeatherAPIServer(APIServer):
         Returns:
             A dictionary containing the request payload.
         """
-        params = get_params_from_request_path(request)
+        params = get_request_query_params(request)
 
         # Ambient Weather uses a MAC address (with colons) as the PASSKEY; the colons
         # can cause issues with Home Assistant MQTT Discovery, so we remove them:
@@ -168,8 +168,8 @@ class WUndergroundAPIServer(APIServer):
 
     HTTP_REQUEST_VERB = hdrs.METH_GET
 
-    def _normalize_endpoint(self, endpoint: str) -> str:
-        """Normalize the endpoint to work with this server.
+    def _normalize_endpoints(self, endpoint: str) -> list[str]:
+        """Return the endpoints this server should expose.
 
         Args:
             endpoint: The endpoint to normalize.
@@ -177,7 +177,7 @@ class WUndergroundAPIServer(APIServer):
         Returns:
             A normalized endpoint.
         """
-        return endpoint + "{param_string}"
+        return [endpoint, endpoint + "{param_string}"]
 
     async def async_parse_request_payload(self, request: Request) -> dict[str, Any]:
         """Parse and return the request payload.
@@ -188,7 +188,7 @@ class WUndergroundAPIServer(APIServer):
         Returns:
             A dictionary containing the request payload.
         """
-        params = get_params_from_request_path(request)
+        params = get_request_query_params(request)
         for field_to_ignore in "PASSWORD":
             params.pop(field_to_ignore, None)
         params["PASSKEY"] = params["ID"]
