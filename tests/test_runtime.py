@@ -64,7 +64,7 @@ async def test_publish_failure(
         TEST_CONFIG_JSON | {CONF_INPUT_DATA_FORMAT: InputDataFormat.AMBIENT_WEATHER},
     ],
 )
-async def test_publish_ambient_weather_success(
+async def test_publish_ambient_weather_new_format_success(
     caplog: Mock,
     device_data: dict[str, Any],
     ecowitt: Ecowitt,
@@ -72,7 +72,50 @@ async def test_publish_ambient_weather_success(
     setup_aiomqtt: AsyncGenerator[None, None],
     setup_uvicorn_server: AsyncGenerator[None, None],
 ) -> None:
-    """Test a successful Ambient Weather payload being received and published.
+    """Test a successful new-format Ambient Weather payload being received and published.
+
+    Args:
+        caplog: A mock logging utility.
+        device_data: A dictionary of device data.
+        ecowitt: A parsed Ecowitt object.
+        mock_aiomqtt_client: A mocked aiomqtt Client object.
+        setup_aiomqtt: A mock aiomqtt client connection.
+        setup_uvicorn_server: A mock Uvicorn + FastAPI application.
+    """
+    ambient_payload = json.loads(load_fixture("payload_ambweather.json"))
+
+    async with ClientSession() as session:
+        resp = await session.request(
+            "get",
+            f"http://127.0.0.1:{TEST_PORT}{TEST_ENDPOINT}",
+            params=ambient_payload,
+        )
+
+    await asyncio.sleep(0.1)
+    assert resp.status == 204
+    mock_aiomqtt_client.publish.assert_awaited_with(
+        TEST_MQTT_TOPIC,
+        payload=b'{"tempin": 67.3, "humidityin": 33.0, "baromrel": 29.616, "baromabs": 24.679, "temp": 53.8, "humidity": 30.0, "winddir": 99.0, "windspeed": 4.5, "windgust": 6.9, "maxdailygust": 14.8, "hourlyrain": 0.0, "eventrain": 0.0, "dailyrain": 0.0, "weeklyrain": 0.024, "monthlyrain": 0.311, "totalrain": 48.811, "solarradiation": 39.02, "uv": 0.0, "batt_co2": "ON", "beaufortscale": 2, "dewpoint": 23.12793817902528, "feelslike": 53.8, "frostpoint": 20.34536144435649, "frostrisk": "No risk", "heatindex": 50.28999999999999, "humidex": 9, "humidex_perception": "Comfortable", "humidityabs": 0.00020090062644380612, "humidityabsin": 0.00020090062644380612, "relative_strain_index": null, "relative_strain_index_perception": null, "safe_exposure_time_skin_type_1": null, "safe_exposure_time_skin_type_2": null, "safe_exposure_time_skin_type_3": null, "safe_exposure_time_skin_type_4": null, "safe_exposure_time_skin_type_5": null, "safe_exposure_time_skin_type_6": null, "simmerindex": null, "simmerzone": null, "solarradiation_perceived": 73.87320347536115, "thermalperception": "Dry", "windchill": null}',  # noqa: E501
+        retain=False,
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "config",
+    [
+        TEST_CONFIG_JSON | {CONF_INPUT_DATA_FORMAT: InputDataFormat.AMBIENT_WEATHER},
+    ],
+)
+async def test_publish_ambient_weather_old_format_success(
+    caplog: Mock,
+    device_data: dict[str, Any],
+    ecowitt: Ecowitt,
+    mock_aiomqtt_client: MagicMock,
+    setup_aiomqtt: AsyncGenerator[None, None],
+    setup_uvicorn_server: AsyncGenerator[None, None],
+) -> None:
+    """Test a successful old-format Ambient Weather payload being received and published.
 
     Args:
         caplog: A mock logging utility.
