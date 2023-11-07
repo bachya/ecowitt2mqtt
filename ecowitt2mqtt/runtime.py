@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import asyncio
-import signal
 import traceback
 from contextlib import suppress
 from ssl import SSLContext
@@ -22,17 +21,13 @@ if TYPE_CHECKING:
 
 DEFAULT_HOST = "0.0.0.0"  # noqa: S104, # nosec: B104
 DEFAULT_MAX_RETRY_INTERVAL = 60
-
-HANDLED_SIGNALS = (
-    signal.SIGINT,  # Unix signal 2. Sent by Ctrl+C.
-    signal.SIGTERM,  # Unix signal 15. Sent by `kill <pid>`.
-)
+DEFAULT_PENDING_CALLS_THRESHOLD = 500
 
 UVICORN_LOG_LEVEL_DEBUG = "debug"
 UVICORN_LOG_LEVEL_ERROR = "error"
 
 
-class Runtime:  # pylint: disable=too-many-instance-attributes
+class Runtime:
     """Define the runtime manager."""
 
     def __init__(self, ecowitt: Ecowitt) -> None:
@@ -106,6 +101,9 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
                             tls_context=SSLContext() if config.mqtt_tls else None,
                             username=config.mqtt_username,
                         ) as client:
+                            client.pending_calls_threshold = (
+                                DEFAULT_PENDING_CALLS_THRESHOLD
+                            )
                             publishers = get_publishers(config, client)
                             while True:
                                 await payload_event.wait()
