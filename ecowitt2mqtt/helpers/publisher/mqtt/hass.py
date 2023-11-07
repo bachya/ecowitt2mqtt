@@ -564,7 +564,14 @@ class HomeAssistantDiscoveryPublisher(
                     asyncio.create_task(
                         self._client.publish(
                             discovery_info.config_topic,
-                            payload=generate_mqtt_payload(asdict(discovery_info)),
+                            payload=generate_mqtt_payload(
+                                asdict(
+                                    discovery_info,
+                                    dict_factory=lambda x: {
+                                        k: v for (k, v) in x if v is not None
+                                    },
+                                )
+                            ),
                             retain=self._config.mqtt_retain,
                         )
                     )
