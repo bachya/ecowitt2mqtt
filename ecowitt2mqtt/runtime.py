@@ -6,7 +6,6 @@ import signal
 import traceback
 from contextlib import suppress
 from ssl import SSLContext
-from types import FrameType
 from typing import TYPE_CHECKING, Any
 
 import uvicorn
@@ -31,14 +30,6 @@ HANDLED_SIGNALS = (
 
 UVICORN_LOG_LEVEL_DEBUG = "debug"
 UVICORN_LOG_LEVEL_ERROR = "error"
-
-
-class DeSignaledUvicornServer(uvicorn.Server):
-    """Define a Uvicorn server that doesn't swallow signals."""
-
-    def install_signal_handlers(self) -> None:
-        """Don't swallow signals."""
-        pass
 
 
 class Runtime:  # pylint: disable=too-many-instance-attributes
@@ -70,7 +61,7 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
             uvicorn_log_level = UVICORN_LOG_LEVEL_DEBUG
         else:
             uvicorn_log_level = UVICORN_LOG_LEVEL_ERROR
-        self._uvicorn = DeSignaledUvicornServer(
+        self._uvicorn = uvicorn.Server(
             config=uvicorn.Config(
                 fastapi,
                 host=DEFAULT_HOST,
@@ -178,28 +169,6 @@ class Runtime:  # pylint: disable=too-many-instance-attributes
 
     async def async_start(self) -> None:
         """Start the runtime."""
-        loop = asyncio.get_running_loop()
-
-        def handle_exit_signal(sig: int, _: FrameType | None) -> None:
-            """Handle an exit signal.
-
-            Args:
-                sig: The signal to handle.
-            """
-            if self._uvicorn.should_exit and sig == signal.SIGINT:
-                self._uvicorn.force_exit = True
-            else:
-                self._uvicorn.should_exit = True
-            self.stop()
-
-        try:
-            for sig in HANDLED_SIGNALS:
-                loop.add_signal_handler(sig, handle_exit_signal, sig, None)
-        except NotImplementedError:
-            # Windows
-            for sig in HANDLED_SIGNALS:
-                signal.signal(sig, handle_exit_signal)
-
         LOGGER.debug("Starting runtime")
         self._rest_api_server_task = asyncio.create_task(self._uvicorn.serve())
         try:
