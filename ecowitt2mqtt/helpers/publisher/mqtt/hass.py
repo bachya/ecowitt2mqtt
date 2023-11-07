@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import asyncio
 from dataclasses import asdict, dataclass
-from typing import Any, TypedDict
+from typing import TypedDict
 
 from aiomqtt import Client, MqttError
 
@@ -183,12 +183,6 @@ class HassDiscoveryInfo:
     qos: int = 1
     state_class: str | None = None
     unit_of_measurement: str | None = None
-
-    @staticmethod
-    def dict_factory(x: list[tuple[str, Any]]) -> dict[str, Any]:
-        """Define a default dict factory for the dataclass."""
-        exclude_fields = ("config_topic",)
-        return {k: v for (k, v) in x if ((v is not None) and (k not in exclude_fields))}
 
 
 AVAILABILITY_OFFLINE = "offline"
@@ -570,12 +564,7 @@ class HomeAssistantDiscoveryPublisher(
                     asyncio.create_task(
                         self._client.publish(
                             discovery_info.config_topic,
-                            payload=generate_mqtt_payload(
-                                asdict(
-                                    discovery_info,
-                                    dict_factory=HassDiscoveryInfo.dict_factory,
-                                )
-                            ),
+                            payload=generate_mqtt_payload(asdict(discovery_info)),
                             retain=self._config.mqtt_retain,
                         )
                     )
