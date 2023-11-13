@@ -75,7 +75,7 @@ rapidfuzz = ">=2.13,<4.0"
 urllib3 = ">=1.26.18"
 uvicorn = ">=0.19.0"
 uvloop = ">=0.17,<0.20"
-voluptuous = "^0.13.1"
+voluptuous = ">=0.13.1,<0.15.0"
 yarl = ">=1.9.2"
 
 [tool.poetry.group.dev.dependencies]
