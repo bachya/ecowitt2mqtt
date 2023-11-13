@@ -123,6 +123,13 @@ class Runtime:
                                 payload_event.clear()
                                 retry_attempt = 0
                     except MqttError as err:
+                        if self._uvicorn.should_exit:
+                            # If we've instructed the server to shutdown while we're
+                            # disconnected from the MQTT broker, we'll land here and be
+                            # delayed from full shutdown while we attempt to reconnect.
+                            # In this case, we raise a CancelledError to allow the task
+                            # to exit:
+                            raise asyncio.CancelledError
                         LOGGER.error("There was an MQTT error: %s", err)
                         payload_event.clear()
                         retry_attempt += 1

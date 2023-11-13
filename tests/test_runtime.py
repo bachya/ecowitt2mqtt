@@ -58,6 +58,37 @@ async def test_publish_failure(
 
 
 @pytest.mark.asyncio
+@pytest.mark.parametrize("mqtt_publish_side_effect", [AsyncMock(side_effect=MqttError)])
+async def test_publish_failure_during_shutdown(
+    caplog: Mock,
+    device_data: dict[str, Any],
+    ecowitt: Ecowitt,
+    setup_aiomqtt: AsyncGenerator[None, None],
+    setup_uvicorn_server: AsyncGenerator[None, None],
+) -> None:
+    """Test a failed MQTT publish during a runtime shutdown.
+
+    This is a sanity check to ensure that the runtime doesn't attempt to reconnect to
+    the MQTT broker when it's already in the process of shutting down.
+
+    Args:
+        caplog: A mock logging utility.
+        device_data: A dictionary of device data.
+        ecowitt: A parsed Ecowitt object.
+        setup_aiomqtt: A mock aiomqtt client connection.
+        setup_uvicorn_server: A mock Uvicorn + FastAPI application.
+    """
+    ecowitt.runtime._uvicorn.should_exit = True  # pylint: disable=protected-access
+    async with ClientSession() as session:
+        await session.request(
+            "post", f"http://127.0.0.1:{TEST_PORT}{TEST_ENDPOINT}", data=device_data
+        )
+
+    await asyncio.sleep(0.1)
+    assert not any(m for m in caplog.messages if "There was an MQTT error" in m)
+
+
+@pytest.mark.asyncio
 @pytest.mark.parametrize(
     "config",
     [
