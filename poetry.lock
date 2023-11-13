@@ -1786,13 +1786,13 @@ testing = ["coverage (>=6.2)", "coverage-enable-subprocess (>=1)", "flaky (>=3.7
 
 [[package]]
 name = "voluptuous"
-version = "0.13.1"
-description = ""
+version = "0.14.0"
+description = "Python data validation library"
 optional = false
 python-versions = "*"
 files = [
-    {file = "voluptuous-0.13.1-py3-none-any.whl", hash = "sha256:4b838b185f5951f2d6e8752b68fcf18bd7a9c26ded8f143f92d6d28f3921a3e6"},
-    {file = "voluptuous-0.13.1.tar.gz", hash = "sha256:e8d31c20601d6773cb14d4c0f42aee29c6821bbd1018039aac7ac5605b489723"},
+    {file = "voluptuous-0.14.0-py3-none-any.whl", hash = "sha256:f9d63353f270c87d5f3aea29f8c251beddfd164d74d934e54dad7b8f84ad7a74"},
+    {file = "voluptuous-0.14.0.tar.gz", hash = "sha256:145384a9613f7520b70e214e5c06de0809e069ab56716685446450f9bee15e2e"},
 ]
 
 [[package]]
@@ -1917,4 +1917,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<=3.12"
-content-hash = "6667a5de66f3bcc53bb070e195291ecd3517c618233dda6176617aac020864fa"
+content-hash = "be7c5bb7601bbbc83277f29d2c67b3ec3190367d1d90b7e1d5323ba1bbb5610f"
