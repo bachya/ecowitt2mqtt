@@ -3,7 +3,8 @@ from __future__ import annotations
 
 import asyncio
 import traceback
-from contextlib import suppress
+from collections.abc import AsyncGenerator
+from contextlib import asynccontextmanager, suppress
 from ssl import SSLContext
 from typing import TYPE_CHECKING, Any
 
@@ -44,7 +45,21 @@ class Runtime:
         self._rest_api_server_task: asyncio.Task | None = None
         self.ecowitt = ecowitt
 
-        fastapi = FastAPI()
+        @asynccontextmanager
+        async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
+            """Define a lifespan context manager."""
+            yield
+
+            # Upon shutdown:
+            for task in self._mqtt_loop_tasks:
+                if task.done():
+                    continue
+                with suppress(asyncio.CancelledError):
+                    LOGGER.debug("Cancelling MQTT loop task: %s", task.get_name())
+                    task.cancel()
+            LOGGER.debug("Runtime shutdown complete")
+
+        fastapi = FastAPI(lifespan=lifespan)
         for config in ecowitt.configs.iterate():
             if config.endpoint not in self._api_servers:
                 api_server = self._api_servers[config.endpoint] = get_api_server(
@@ -133,15 +148,14 @@ class Runtime:
                             retry_attempt,
                         )
                         await asyncio.sleep(delay)
-            except asyncio.CancelledError:
-                LOGGER.debug("Stopping MQTT process loop")
-                raise
             except Exception as err:  # pylint: disable=broad-except
                 LOGGER.exception("Exception caused a shutdown: %s", err)
                 LOGGER.debug("".join(traceback.format_tb(err.__traceback__)))
                 self.stop()
 
-        return asyncio.create_task(create_loop())
+        task = asyncio.create_task(create_loop())
+        task.set_name(f"mqtt_loop_{config.uuid}")
+        return task
 
     def _process_payload(self, payload: dict[str, Any]) -> None:
         """Define an endpoint for the Ecowitt device to post data to.
@@ -169,15 +183,7 @@ class Runtime:
         """Start the runtime."""
         LOGGER.debug("Starting runtime")
         self._rest_api_server_task = asyncio.create_task(self._uvicorn.serve())
-        try:
-            await self._rest_api_server_task
-        except asyncio.CancelledError:
-            for task in self._mqtt_loop_tasks:
-                if task.done():
-                    continue
-                with suppress(asyncio.CancelledError):
-                    task.cancel()
-            LOGGER.debug("Runtime shutdown complete")
+        await self._rest_api_server_task
 
     def stop(self) -> None:
         """Stop the REST API server."""
