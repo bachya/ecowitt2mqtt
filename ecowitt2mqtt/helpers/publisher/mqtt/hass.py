@@ -469,6 +469,7 @@ class HomeAssistantDiscoveryPublisher(
         super().__init__(config, client)
 
         self._discovery_infos: dict[str, HassDiscoveryInfo] = {}
+        self._first_publish = True
 
     def _get_data_point_key(
         self, payload_key: str, data_point: CalculatedDataPoint
@@ -555,7 +556,10 @@ class HomeAssistantDiscoveryPublisher(
                 processed_data.device, payload_key, data_point
             )
 
-            if self._discovery_infos.get(discovery_info.unique_id) != discovery_info:
+            if (
+                self._first_publish
+                or self._discovery_infos.get(discovery_info.unique_id) != discovery_info
+            ):
                 LOGGER.debug(
                     "Publishing discovery info for %s", discovery_info.unique_id
                 )
@@ -604,6 +608,10 @@ class HomeAssistantDiscoveryPublisher(
             for task in tasks:
                 task.cancel()
             raise
+
+        # If we've successful published our first payload, mark it:
+        if self._first_publish:
+            self._first_publish = False
 
         LOGGER.info("Published to Home Assistant MQTT Discovery")
         LOGGER.debug("Published data: %s", processed_data.output)
