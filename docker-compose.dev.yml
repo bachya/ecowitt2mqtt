@@ -21,7 +21,7 @@ services:
     environment:
       DOCKER_VERNEMQ_ACCEPT_EULA: "yes"
       DOCKER_VERNEMQ_USER_ECOWITT: "password"
-    image: "vernemq/vernemq:1.12.3"
+    image: "vernemq/vernemq:latest"
     ports:
       - "1883:1883/tcp"
     restart: unless-stopped
