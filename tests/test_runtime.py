@@ -78,10 +78,9 @@ async def test_publish_failure_during_shutdown(
         setup_aiomqtt: A mock aiomqtt client connection.
         setup_uvicorn_server: A mock Uvicorn + FastAPI application.
     """
-    # Simulate a server shutdown request:
-    ecowitt.runtime._uvicorn.should_exit = True  # pylint: disable=protected-access
-
     async with ClientSession() as session:
+        # Simulate a server shutdown request:
+        ecowitt.runtime._uvicorn.should_exit = True  # pylint: disable=protected-access
         await session.request(
             "post", f"http://127.0.0.1:{TEST_PORT}{TEST_ENDPOINT}", data=device_data
         )
