@@ -1786,13 +1786,13 @@ testing = ["coverage (>=6.2)", "coverage-enable-subprocess (>=1)", "flaky (>=3.7
 
 [[package]]
 name = "voluptuous"
-version = "0.14.0"
+version = "0.14.1"
 description = "Python data validation library"
 optional = false
-python-versions = "*"
+python-versions = ">=3.7"
 files = [
-    {file = "voluptuous-0.14.0-py3-none-any.whl", hash = "sha256:f9d63353f270c87d5f3aea29f8c251beddfd164d74d934e54dad7b8f84ad7a74"},
-    {file = "voluptuous-0.14.0.tar.gz", hash = "sha256:145384a9613f7520b70e214e5c06de0809e069ab56716685446450f9bee15e2e"},
+    {file = "voluptuous-0.14.1-py3-none-any.whl", hash = "sha256:ab202b5164b4bbd2c9bf2d4f264efef6f0f30fc0f570be27f1332be4514eefe0"},
+    {file = "voluptuous-0.14.1.tar.gz", hash = "sha256:7b6e5f7553ce02461cce17fedb0e3603195496eb260ece9aca86cc4cc6625218"},
 ]
 
 [[package]]
