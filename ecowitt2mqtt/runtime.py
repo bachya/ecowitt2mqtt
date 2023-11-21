@@ -55,7 +55,7 @@ class Runtime:
                 if task.done():
                     continue
                 with suppress(asyncio.CancelledError):
-                    LOGGER.debug("Cancelling MQTT loop task: %s", task.get_name())
+                    LOGGER.debug("Cancelling MQTT loop: %s", task.get_name())
                     task.cancel()
             LOGGER.debug("Runtime shutdown complete")
 
@@ -154,7 +154,7 @@ class Runtime:
                 self.stop()
 
         task = asyncio.create_task(create_loop())
-        task.set_name(f"mqtt_loop_{config.uuid}")
+        task.set_name(config.uuid)
         return task
 
     def _process_payload(self, payload: dict[str, Any]) -> None:
@@ -188,5 +188,4 @@ class Runtime:
     def stop(self) -> None:
         """Stop the REST API server."""
         LOGGER.debug("Stopping runtime")
-        if self._rest_api_server_task:
-            self._rest_api_server_task.cancel()
+        self._uvicorn.should_exit = True
