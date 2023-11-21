@@ -188,5 +188,4 @@ class Runtime:
     def stop(self) -> None:
         """Stop the REST API server."""
         LOGGER.debug("Stopping runtime")
-        if self._rest_api_server_task:
-            self._rest_api_server_task.cancel()
+        self._uvicorn.should_exit = True
