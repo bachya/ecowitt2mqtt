@@ -99,11 +99,7 @@ class Runtime:
         LOGGER.debug("Creating MQTT loop: %s", config.uuid)
 
         async def create_loop() -> None:
-            """Create the loop.
-
-            Raises:
-                asyncio.CancelledError: Raised when the task is cancelled.
-            """
+            """Create the loop."""
             retry_attempt = 0
             try:
                 while True:
