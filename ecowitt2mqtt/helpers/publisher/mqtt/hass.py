@@ -572,7 +572,9 @@ class HomeAssistantDiscoveryPublisher(
                                     },
                                 )
                             ),
-                            retain=self._config.mqtt_retain,
+                            # We always retain the config payload:
+                            # https://github.com/bachya/ecowitt2mqtt/issues/760#issuecomment-1821340217
+                            retain=True,
                         )
                     )
                 )
