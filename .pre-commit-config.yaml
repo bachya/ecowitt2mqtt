@@ -86,7 +86,7 @@ repos:
         types: [python]
         entry: poetry run ruff format
       - id: hadolint
-        name: 🌟 Linting Dockerfiles with hadolint
+        name: 🌟 Linting Dockerfile with hadolint
         language: system
         files: "Dockerfile"
         entry: poetry run hadolint
