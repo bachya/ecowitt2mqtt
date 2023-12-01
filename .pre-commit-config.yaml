@@ -85,14 +85,6 @@ repos:
         language: system
         types: [python]
         entry: poetry run ruff format
-      - id: hadolint
-        name: 🌟 Linting Dockerfile with hadolint
-        language: docker_image
-        types: ["dockerfile"]
-        entry: ghcr.io/hadolint/hadolint hadolint
-        args:
-          - --ignore=DL3013
-          - --ignore=DL3018
       - id: isort
         name: 🔀 Sorting all imports with isort
         language: system
@@ -156,6 +148,17 @@ repos:
         language: system
         types: [yaml]
         entry: poetry run yamllint
+
+  - repo: https://github.com/AleksaC/hadolint-py
+    rev: v2.12.0.3
+    hooks:
+      - id: hadolint
+        name: 📄 Checking Dockerfile with hadolint
+        args:
+          - --ignore
+          - DL3013
+          - --ignore
+          - DL3018
 
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: "v3.0.0-alpha.4"
