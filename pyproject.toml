@@ -86,6 +86,7 @@ blacken-docs = "^1.12.1"
 codespell = "^2.2.2"
 coverage = {version = ">=6.5,<8.0", extras = ["toml"]}
 darglint = "^1.8.1"
+hadolintw = "^1.2.1"
 isort = "^5.10.1"
 mypy = "^1.2.0"
 pre-commit = ">=2.20,<4.0"
