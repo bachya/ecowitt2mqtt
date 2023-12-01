@@ -66,4 +66,4 @@ jobs:
       - name: 🚀 Run pre-commit hooks
         uses: pre-commit/action@v3.0.0
         env:
-          SKIP: no-commit-to-branch,pytest
+          SKIP: no-commit-to-branch
