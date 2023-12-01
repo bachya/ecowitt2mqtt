@@ -454,9 +454,7 @@ def get_availability_payload(
     return AVAILABILITY_ONLINE
 
 
-class HomeAssistantDiscoveryPublisher(
-    MqttPublisher
-):  # pylint: disable=too-few-public-methods
+class HomeAssistantDiscoveryPublisher(MqttPublisher):  # pylint: disable=too-few-public-methods
     """Define an MQTT publisher for the MQTT Discovery standard."""
 
     def __init__(self, config: Config, client: Client) -> None:

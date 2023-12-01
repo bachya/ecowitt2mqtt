@@ -82,8 +82,6 @@ yarl = ">=1.9.2"
 GitPython = ">=3.1.35"
 Pygments = ">=2.15.0"
 aresponses = "^2.1.6"
-bandit = "^1.7.4"
-black = ">=22.10,<24.0"
 blacken-docs = "^1.12.1"
 codespell = "^2.2.2"
 coverage = {version = ">=6.5,<8.0", extras = ["toml"]}

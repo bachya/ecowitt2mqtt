@@ -2,19 +2,6 @@
 repos:
   - repo: local
     hooks:
-      - id: bandit
-        name: 🎰 Checking for vulnerabilities using bandit
-        language: system
-        types: [python]
-        entry: poetry run bandit
-        files: ^ecowitt2mqtt/
-        require_serial: true
-      - id: black
-        name: ☕️ Formatting code using black
-        language: system
-        types: [python]
-        entry: poetry run black
-        require_serial: true
       - id: blacken-docs
         name: ☕️ Format documentation using black
         language: system
@@ -93,6 +80,11 @@ repos:
         language: system
         types: [text]
         entry: poetry run fix-byte-order-marker
+      - id: format
+        name: ☕️ Formatting code using ruff
+        language: system
+        types: [python]
+        entry: poetry run ruff format
       - id: isort
         name: 🔀 Sorting all imports with isort
         language: system
