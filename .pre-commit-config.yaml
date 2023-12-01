@@ -89,7 +89,7 @@ repos:
         name: 🌟 Linting Dockerfile with hadolint
         language: system
         types: ["dockerfile"]
-        entry: poetry run hadolint
+        entry: poetry run hadolintw
         args:
           - --ignore=DL3013
           - --ignore=DL3018
