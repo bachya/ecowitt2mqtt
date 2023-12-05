@@ -11,7 +11,7 @@ from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 
 
 def battery_override(
-    value: str | tuple[str, str] | dict[str, Any]
+    value: str | tuple[str, str] | dict[str, Any],
 ) -> dict[str, BatteryStrategy]:
     """Validate and coerce one or more battery overrides.
 
