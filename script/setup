@@ -1,8 +1,8 @@
 #!/bin/sh
 set -e
 
-if command -v "rtx"; then
-  rtx install
+if command -v "mise"; then
+  mise install
 fi
 
 # Install all dependencies:
