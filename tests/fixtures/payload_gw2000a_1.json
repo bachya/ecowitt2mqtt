@@ -40,5 +40,6 @@
   "leafwetness_ch1": "14",
   "leaf_batt1": "1.78",
   "freq": "868M",
-  "model": "GW2000A"
+  "model": "GW2000A",
+  "heap": "18604"
 }

@@ -82,6 +82,7 @@ DATA_POINT_EVENT_RAIN: Final = "eventrain"
 DATA_POINT_FEELSLIKE: Final = "feelslike"
 DATA_POINT_FROST_POINT: Final = "frostpoint"
 DATA_POINT_FROST_RISK: Final = "frostrisk"
+DATA_POINT_HEAP: Final = "heap"
 DATA_POINT_HEATINDEX: Final = "heatindex"
 DATA_POINT_HOURLY_RAIN: Final = "hourlyrain"
 DATA_POINT_HRAIN_PIEZO: Final = "hrain_piezo"
@@ -236,6 +237,9 @@ LENGTH_YARD: Final = "yd"
 
 # Lightning units:
 STRIKES: Final = "strikes"
+
+# Memory units:
+MEMORY_BYTES: Final = "bytes"
 
 # Percentage units
 PERCENTAGE: Final = "%"

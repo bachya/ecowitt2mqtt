@@ -31,6 +31,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_GLOB_WETNESS,
     DATA_POINT_GLOB_WIND,
     DATA_POINT_GLOB_WINDDIR,
+    DATA_POINT_HEAP,
     DATA_POINT_HEATINDEX,
     DATA_POINT_HUMI_CO2,
     DATA_POINT_HUMIDEX,
@@ -71,6 +72,7 @@ from ecowitt2mqtt.helpers.calculator import (
     SimpleCalculator,
 )
 from ecowitt2mqtt.helpers.calculator.battery import BatteryCalculator
+from ecowitt2mqtt.helpers.calculator.heap import HeapCalculator
 from ecowitt2mqtt.helpers.calculator.humidity import (
     AbsoluteHumidityCalculator,
     RelativeHumidityCalculator,
@@ -147,6 +149,7 @@ CALCULATOR_MAP: dict[str, type[Calculator]] = {
     DATA_POINT_GLOB_WETNESS: RelativeHumidityCalculator,
     DATA_POINT_GLOB_WIND: WindSpeedCalculator,
     DATA_POINT_GLOB_WINDDIR: WindDirCalculator,
+    DATA_POINT_HEAP: HeapCalculator,
     DATA_POINT_HEATINDEX: HeatIndexCalculator,
     DATA_POINT_HUMIDEX: HumidexCalculator,
     DATA_POINT_HUMIDEX_PERCEPTION: HumidexPerceptionCalculator,
