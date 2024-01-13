@@ -749,6 +749,7 @@ docker run -it \
     -e ECOWITT2MQTT_MQTT_BROKER=192.168.1.101 \
     -e ECOWITT2MQTT_MQTT_USERNAME=user \
     -e ECOWITT2MQTT_MQTT_PASSWORD=password \
+    -e ECOWITT2MQTT_MQTT_TOPIC=topic \
     -p 8080:8080 \
     bachya/ecowitt2mqtt:latest
 ```
