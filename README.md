@@ -790,7 +790,7 @@ Thanks to all of [our contributors][contributors] so far!
 [awnet-ios]: https://apps.apple.com/us/app/awnet/id1341994564
 [awnet-upload-screen]: resources/awnet-upload-screen.jpeg?raw=true
 [beaufort-scale]: https://en.wikipedia.org/wiki/Beaufort_scale
-[ci-badge]: https://github.com/bachya/ecowitt2mqtt/workflows/CI/badge.svg
+[ci-badge]: https://img.shields.io/github/actions/workflow/status/bachya/ecowitt2mqtt/test.yml
 [ci]: https://github.com/bachya/ecowitt2mqtt/actions
 [codecov-badge]: https://codecov.io/gh/bachya/ecowitt2mqtt/branch/dev/graph/badge.svg
 [codecov]: https://codecov.io/gh/bachya/ecowitt2mqtt
