@@ -40,6 +40,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_GLOB_WETNESS,
     DATA_POINT_GLOB_WIND,
     DATA_POINT_GLOB_WINDDIR,
+    DATA_POINT_HEAP,
     DATA_POINT_HEATINDEX,
     DATA_POINT_HOURLY_RAIN,
     DATA_POINT_HRAIN_PIEZO,
@@ -299,6 +300,11 @@ ENTITY_DESCRIPTIONS = {
     ),
     DATA_POINT_GLOB_WINDDIR: EntityDescription(
         icon="mdi:compass",
+    ),
+    DATA_POINT_HEAP: EntityDescription(
+        icon="mdi:memory",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_HEATINDEX: EntityDescription(
         device_class=DeviceClass.TEMPERATURE,
