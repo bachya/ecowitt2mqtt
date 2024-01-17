@@ -1,63 +1,41 @@
-"""Define enum backports from the standard library."""
-# pylint: disable=unused-variable
-from __future__ import annotations
+"""Define enum backports from the standard library.
 
+https://github.com/clbarnes/backports.strenum
+"""
 from enum import Enum
-from typing import Any, TypeVar
+from typing import TypeVar
 
-_StrEnumSelfT = TypeVar("_StrEnumSelfT", bound="StrEnum")
+_S = TypeVar("_S", bound="StrEnum")
 
 
 class StrEnum(str, Enum):
-    """Define a partial backport of Python 3.11's StrEnum."""
+    """Define an Enum where members are also (and must be) strings."""
 
-    def __new__(
-        cls: type[_StrEnumSelfT], value: str, *args: Any, **kwargs: Any
-    ) -> _StrEnumSelfT:
-        """Create a new StrEnum instance.
+    def __new__(cls: type[_S], *values: str) -> _S:
+        if len(values) > 3:
+            raise TypeError(f"too many arguments for str(): {values}")
+        if len(values) == 1:
+            # it must be a string
+            if not isinstance(values[0], str):
+                raise TypeError(f"{values[0]} is not a string")
+        if len(values) >= 2:
+            # check that encoding argument is a string
+            if not isinstance(values[1], str):
+                raise TypeError(f"encoding must be a string, not {values[1]}")
+        if len(values) == 3:
+            # check that errors argument is a string
+            if not isinstance(values[2], str):
+                raise TypeError(f"errors must be a string, not {values[2]}")
+        value = str(*values)
+        member = str.__new__(cls, value)
+        member._value_ = value
+        return member
 
-        Args:
-            value: The enum value.
-            args: Additional args.
-            kwargs: Additional kwargs.
-
-        Returns:
-            The enum.
-
-        Raises:
-            TypeError: Raised when an enumerated value isn't a string.
-        """
-        if not isinstance(value, str):
-            raise TypeError(f"{value!r} is not a string")
-        return super().__new__(cls, value, *args, **kwargs)
-
-    def __str__(self) -> str:
-        """Return self.value.
-
-        Returns:
-            The string value.
-        """
-        return str(self.value)
+    __str__ = str.__str__
 
     @staticmethod
     def _generate_next_value_(
-        name: str,
-        start: int,
-        count: int,
-        last_values: list[Any],
-    ) -> Any:
-        """Make `auto()` explicitly unsupported.
-
-        We may revisit this when it's very clear that Python 3.11's `StrEnum.auto()`
-        behavior will no longer change.
-
-        Args:
-            name: The name of the enum.
-            start: The starting index.
-            count: The total number of enumerated values.
-            last_values: Previously enumerated values.
-
-        Raises:
-            TypeError: Always raised.
-        """
-        raise TypeError("auto() is not supported by this implementation")
+        name: str, start: int, count: int, last_values: list[str]
+    ) -> str:
+        """Return the lower-cased version of the member name."""
+        return name.lower()
