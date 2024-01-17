@@ -137,10 +137,12 @@ load-plugins = [
 [tool.pylint."MESSAGES CONTROL"]
 # Reasons disabled:
 # duplicate-code – The tests contain a lot of duplicated data payloads
+# invalid-enum-extension – We need to backport StrEnums until we drop Python 3.10
 # too-many-lines – We deal with a lot of data, so tests can be large
 # unnecessary-pass - This can hurt readability
 disable = [
   "duplicate-code",
+  "invalid-enum-extension",
   "too-many-lines",
   "unnecessary-pass"
 ]
