@@ -51,6 +51,9 @@ REQUIRES_AT_LEAST_ONE_OF = (
     CONF_HASS_DISCOVERY,
 )
 
+TRUTHY_VALUES = {"1", "true", "yes", "on", "enable"}
+FALSEY_VALUES = {"0", "false", "no", "off", "disable"}
+
 
 class ConfigError(EcowittError):
     """Define an error related to bad configuration."""
@@ -74,9 +77,9 @@ def validate_boolean(value: bool | str | Number) -> bool:
         return value
     if isinstance(value, str):
         value = value.lower().strip()
-        if value in ("1", "true", "yes", "on", "enable"):
+        if value in TRUTHY_VALUES:
             return True
-        if value in ("0", "false", "no", "off", "disable"):
+        if value in FALSEY_VALUES:
             return False
     elif isinstance(value, Number):
         # type ignore: https://github.com/python/mypy/issues/3186
