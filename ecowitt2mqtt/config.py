@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import os
-from collections.abc import Generator
+from collections.abc import Callable, Generator
 from numbers import Number
 from typing import Annotated, Any
 from uuid import uuid4
@@ -68,6 +68,9 @@ def validate_boolean(value: bool | str | Number) -> bool:
 
     Returns:
         A boolean value.
+
+    Raises:
+        ValueError: Raises if the value is not a valid boolean.
     """
     if isinstance(value, bool):
         return value
@@ -81,6 +84,38 @@ def validate_boolean(value: bool | str | Number) -> bool:
         # type ignore: https://github.com/python/mypy/issues/3186
         return value != 0  # type: ignore[comparison-overlap]
     raise ValueError(f"invalid boolean value: {value}")
+
+
+def validate_output_unit_system(valid_units: set[str]) -> Callable[[str], str]:
+    """Define a decorator to validate an output unit system via a Pydantic validator.
+
+    Args:
+        valid_units: A set of valid units.
+
+    Returns:
+        A Pydantic validator.
+
+    Raises:
+        ValueError: Raises if the output unit system is invalid.
+    """
+
+    def validate(value: str) -> str:
+        """Validate that the output unit system is valid.
+
+        Args:
+            value: The value to validate.
+
+        Returns:
+            The validated output unit system.
+        """
+        if value not in valid_units:
+            raise ValueError(
+                f"invalid output unit system: {value} "
+                f"(expected {', '.join(valid_units)})"
+            )
+        return value
+
+    return validate
 
 
 class Config(BaseModel):
@@ -145,7 +180,13 @@ class Config(BaseModel):
         """Get the raw battery overrides from the environment variable.
 
         The battery override env var is the only one that isn't passed through from the
-        CLI (given its special format), so check for it here:
+        CLI (given its special format), so check for it here.
+
+        Args:
+            data: The config data.
+
+        Returns:
+            The config data with the raw battery overrides.
         """
         if battery_overrides_env_var := os.getenv(ENV_BATTERY_OVERRIDES):
             data[CONF_BATTERY_OVERRIDES] = battery_overrides_env_var
@@ -156,7 +197,17 @@ class Config(BaseModel):
     def validate_battery_overrides(
         cls, value: dict[str, str] | tuple[str] | str
     ) -> dict[str, Any]:
-        """Validate that the battery overrides are valid."""
+        """Validate that the battery overrides are valid.
+
+        Args:
+            value: The battery overrides.
+
+        Returns:
+            The parsed battery overrides in a dictionary.
+
+        Raises:
+            ValueError: Raises if the battery overrides are invalid.
+        """
         try:
             if isinstance(value, dict):
                 return {key: BatteryStrategy(val) for key, val in value.items()}
@@ -191,7 +242,17 @@ class Config(BaseModel):
     @model_validator(mode="before")
     @classmethod
     def validate_mqtt_auth(cls, data: dict[str, Any]) -> dict[str, Any]:
-        """Validate that auth is either fully absent or fully present."""
+        """Validate that auth is either fully absent or fully present.
+
+        Args:
+            data: The config data.
+
+        Returns:
+            The config data with the MQTT auth validation.
+
+        Raises:
+            ValueError: Raises if the MQTT auth is invalid.
+        """
         if (data.get(CONF_MQTT_USERNAME) is None) != (
             data.get(CONF_MQTT_PASSWORD) is None
         ):
@@ -204,71 +265,41 @@ class Config(BaseModel):
 
     validate_mqtt_tls = field_validator("mqtt_tls", mode="before")(validate_boolean)
 
-    @field_validator("output_unit_accumulated_precipitation", mode="before")
-    @classmethod
-    def validate_output_unit_accumulated_precipitation(cls, value: str) -> str | None:
-        """Validate that the output unit for accumulated precipitation is valid."""
-        if value and value not in AccumulatedPrecipitationConverter.VALID_UNITS:
-            raise ValueError(
-                f"invalid output unit for accumulated precipitation: {value}"
-            )
-        return value
+    validate_output_unit_system_accumulated_precipitation = field_validator(
+        "output_unit_accumulated_precipitation", mode="before"
+    )(
+        validate_output_unit_system(
+            valid_units=AccumulatedPrecipitationConverter.VALID_UNITS
+        )
+    )
 
-    @field_validator("output_unit_distance", mode="before")
-    @classmethod
-    def validate_output_unit_distance(cls, value: str) -> str | None:
-        """Validate that the output unit for distance is valid."""
-        if value and value not in DistanceConverter.VALID_UNITS:
-            raise ValueError(f"invalid output unit for distance: {value}")
-        return value
+    validate_output_unit_system_distance = field_validator(
+        "output_unit_distance", mode="before"
+    )(validate_output_unit_system(valid_units=DistanceConverter.VALID_UNITS))
 
-    @field_validator("output_unit_humidity", mode="before")
-    @classmethod
-    def validate_output_unit_humidity(cls, value: str) -> str | None:
-        """Validate that the output unit for humidity is valid."""
-        if value and value not in VolumeConverter.VALID_UNITS:
-            raise ValueError(f"invalid output unit for humidity: {value}")
-        return value
+    validate_output_unit_system_humidity = field_validator(
+        "output_unit_humidity", mode="before"
+    )(validate_output_unit_system(valid_units=VolumeConverter.VALID_UNITS))
 
-    @field_validator("output_unit_illuminance", mode="before")
-    @classmethod
-    def validate_output_unit_illuminance(cls, value: str) -> str | None:
-        """Validate that the output unit for illuminance is valid."""
-        if value and value not in IlluminanceConverter.VALID_UNITS:
-            raise ValueError(f"invalid output unit for illuminance: {value}")
-        return value
+    validate_output_unit_system_illuminance = field_validator(
+        "output_unit_illuminance", mode="before"
+    )(validate_output_unit_system(valid_units=IlluminanceConverter.VALID_UNITS))
 
-    @field_validator("output_unit_precipitation_rate", mode="before")
-    @classmethod
-    def validate_output_unit_precipitation_rate(cls, value: str) -> str | None:
-        """Validate that the output unit for precipitation rate is valid."""
-        if value and value not in PrecipitationRateConverter.VALID_UNITS:
-            raise ValueError(f"invalid output unit for precipitation rate: {value}")
-        return value
+    validate_output_unit_system_precipitation_rate = field_validator(
+        "output_unit_precipitation_rate", mode="before"
+    )(validate_output_unit_system(valid_units=PrecipitationRateConverter.VALID_UNITS))
 
-    @field_validator("output_unit_pressure", mode="before")
-    @classmethod
-    def validate_output_unit_pressure(cls, value: str) -> str | None:
-        """Validate that the output unit for pressure is valid."""
-        if value and value not in PressureConverter.VALID_UNITS:
-            raise ValueError(f"invalid output unit for pressure: {value}")
-        return value
+    validate_output_unit_system_pressure = field_validator(
+        "output_unit_pressure", mode="before"
+    )(validate_output_unit_system(valid_units=PressureConverter.VALID_UNITS))
 
-    @field_validator("output_unit_speed", mode="before")
-    @classmethod
-    def validate_output_unit_speed(cls, value: str) -> str | None:
-        """Validate that the output unit for speed is valid."""
-        if value and value not in SpeedConverter.VALID_UNITS:
-            raise ValueError(f"invalid output unit for speed: {value}")
-        return value
+    validate_output_unit_system_speed = field_validator(
+        "output_unit_speed", mode="before"
+    )(validate_output_unit_system(valid_units=SpeedConverter.VALID_UNITS))
 
-    @field_validator("output_unit_temperature", mode="before")
-    @classmethod
-    def validate_output_unit_temperature(cls, value: str) -> str | None:
-        """Validate that the output unit for temperature is valid."""
-        if value and value not in TemperatureConverter.VALID_UNITS:
-            raise ValueError(f"invalid output unit for temperature: {value}")
-        return value
+    validate_output_unit_system_temperature = field_validator(
+        "output_unit_temperature", mode="before"
+    )(validate_output_unit_system(valid_units=TemperatureConverter.VALID_UNITS))
 
     validate_raw_data = field_validator("raw_data", mode="before")(validate_boolean)
 
@@ -277,7 +308,17 @@ class Config(BaseModel):
     def validate_required_optional_parameters(
         cls, data: dict[str, Any]
     ) -> dict[str, Any]:
-        """Validate that an approved mixture of optional parameters is present."""
+        """Validate that an approved mixture of optional parameters is present.
+
+        Args:
+            data: The config data.
+
+        Returns:
+            The config data with the required optional parameters validated.
+
+        Raises:
+            ValueError: Raises if an invalid mixture of optional parameters is present.
+        """
         if not any(data.get(param) for param in REQUIRES_AT_LEAST_ONE_OF):
             raise ValueError(
                 f"must provide at least one of: {', '.join(REQUIRES_AT_LEAST_ONE_OF)}"
