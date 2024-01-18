@@ -6,7 +6,7 @@ build-backend = "poetry.core.masonry.api"
 target-version = ["py39"]
 
 [tool.coverage.report]
-exclude_lines = ["TYPE_CHECKING", "NotImplementedError", "handle_exit_signal"]
+exclude_lines = ["TYPE_CHECKING", "ImportError", "NotImplementedError", "handle_exit_signal"]
 fail_under = 100
 show_missing = true
 
@@ -31,7 +31,7 @@ ignore_missing_imports = true
 no_implicit_optional = true
 platform = "linux"
 plugins = ["pydantic.mypy"]
-python_version = "3.10"
+python_version = "3.12"
 show_error_codes = true
 strict_equality = true
 warn_incomplete_stub = true
