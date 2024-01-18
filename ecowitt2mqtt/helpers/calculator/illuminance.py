@@ -6,8 +6,8 @@ from typing import cast
 from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_ILLUMINANCE,
     DATA_POINT_SOLARRADIATION,
-    ILLUMINANCE_WATTS_PER_SQUARE_METER,
     PERCENTAGE,
+    UnitOfIlluminance,
 )
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, Calculator
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
@@ -17,7 +17,7 @@ from ecowitt2mqtt.util.unit_conversion import IlluminanceConverter
 class BaseIlluminanceCalculator(Calculator):
     """Define a base illuminance calculator."""
 
-    DEFAULT_INPUT_UNIT = ILLUMINANCE_WATTS_PER_SQUARE_METER
+    DEFAULT_INPUT_UNIT = UnitOfIlluminance.WATTS_PER_SQUARE_METER
 
 
 class IlluminanceCalculator(BaseIlluminanceCalculator):
@@ -32,7 +32,7 @@ class IlluminanceCalculator(BaseIlluminanceCalculator):
         Returns:
             A unit string.
         """
-        return ILLUMINANCE_WATTS_PER_SQUARE_METER
+        return UnitOfIlluminance.WATTS_PER_SQUARE_METER
 
     @property
     def output_unit_metric(self) -> str:
@@ -41,7 +41,7 @@ class IlluminanceCalculator(BaseIlluminanceCalculator):
         Returns:
             A unit string.
         """
-        return ILLUMINANCE_WATTS_PER_SQUARE_METER
+        return UnitOfIlluminance.WATTS_PER_SQUARE_METER
 
     def calculate_from_value(
         self, value: PreCalculatedValueType

@@ -219,79 +219,131 @@ UNIT_NOT_RECOGNIZED_TEMPLATE: Final = '"{}" is not a recognized {} unit'
 # Degree units
 DEGREE: Final = "°"
 
+
 # Electric_potential units:
-ELECTRIC_POTENTIAL_VOLT: Final = "V"
+class UnitOfElectricPotential(StrEnum):
+    """Define electric potential units."""
+
+    VOLT = "V"
+
 
 # Illuminance units:
-ILLUMINANCE_FOOT_CANDLES: Final = "fc"
-ILLUMINANCE_KILOFOOT_CANDLES: Final = "kfc"
-ILLUMINANCE_KILOLUX: Final = "klx"
-ILLUMINANCE_LUX: Final = "lx"
-ILLUMINANCE_WATTS_PER_SQUARE_METER: Final = "W/m²"
+class UnitOfIlluminance(StrEnum):
+    """Define illuminance units."""
+
+    FOOT_CANDLES = "fc"
+    KILOFOOT_CANDLES = "kfc"
+    KILOLUX = "klx"
+    LUX = "lx"
+    WATTS_PER_SQUARE_METER = "W/m²"
+
 
 # Length units:
-LENGTH_CENTIMETERS: Final = "cm"
-LENGTH_FEET: Final = "ft"
-LENGTH_INCHES: Final = "in"
-LENGTH_KILOMETERS: Final = "km"
-LENGTH_METERS: Final = "m"
-LENGTH_MILES: Final = "mi"
-LENGTH_MILLIMETERS: Final = "mm"
-LENGTH_YARD: Final = "yd"
+class UnitOfLength(StrEnum):
+    """Define length units."""
+
+    CENTIMETERS = "cm"
+    FEET = "ft"
+    INCHES = "in"
+    KILOMETERS = "km"
+    METERS = "m"
+    MILES = "mi"
+    MILLIMETERS = "mm"
+    YARD = "yd"
+
 
 # Lightning units:
 STRIKES: Final = "strikes"
 
+
 # Memory units:
-MEMORY_BYTES: Final = "bytes"
+class UnitOfMemory(StrEnum):
+    """Define memory units."""
+
+    BYTES = "bytes"
+
 
 # Percentage units
 PERCENTAGE: Final = "%"
 
+
 # Pollution units:
-CONCENTRATION_MICROGRAMS_PER_CUBIC_METER: Final = "µg/m³"
-CONCENTRATION_PARTS_PER_MILLION: Final = "ppm"
+class UnitOfPollutionConcentration(StrEnum):
+    """Define pollution concentration units."""
+
+    MICROGRAMS_PER_CUBIC_METER = "µg/m³"
+    PARTS_PER_MILLION = "ppm"
+
 
 # Precipitation units:
-PRECIPITATION_INCHES: Final = "in"
-PRECIPITATION_MILLIMETERS: Final = "mm"
+class UnitOfAccumulatedPrecipitation(StrEnum):
+    """Define accumulated precipitation units."""
 
-PRECIPITATION_INCHES_PER_HOUR: Final = "in/h"
-PRECIPITATION_MILLIMETERS_PER_HOUR: Final = "mm/h"
+    INCHES = "in"
+    MILLIMETERS = "mm"
+
+
+# Precipitation units:
+class UnitOfPrecipitationRate(StrEnum):
+    """Define precipitation rate units."""
+
+    INCHES_PER_HOUR = "in/h"
+    MILLIMETERS_PER_HOUR = "mm/h"
+
 
 # Pressure units:
-PRESSURE_BAR: Final = "bar"
-PRESSURE_CBAR: Final = "cbar"
-PRESSURE_HPA: Final = "hPa"
-PRESSURE_INHG: Final = "inHg"
-PRESSURE_KPA: Final = "kPa"
-PRESSURE_MBAR: Final = "mbar"
-PRESSURE_MMHG: Final = "mmHg"
-PRESSURE_PA: Final = "Pa"
-PRESSURE_PSI: Final = "psi"
+class UnitOfPressure(StrEnum):
+    """Define pressure units."""
+
+    BAR = "bar"
+    CBAR = "cbar"
+    HPA = "hPa"
+    INHG = "inHg"
+    KPA = "kPa"
+    MBAR = "mbar"
+    MMHG = "mmHg"
+    PA = "Pa"
+    PSI = "psi"
+
 
 # Speed units:
-SPEED_FEET_PER_SECOND: Final = "ft/s"
-SPEED_INCHES_PER_DAY: Final = "in/d"
-SPEED_INCHES_PER_HOUR: Final = "in/h"
-SPEED_KILOMETERS_PER_HOUR: Final = "km/h"
-SPEED_KNOTS: Final = "kn"
-SPEED_METERS_PER_SECOND: Final = "m/s"
-SPEED_MILES_PER_HOUR: Final = "mph"
-SPEED_MILLIMETERS_PER_DAY: Final = "mm/d"
+class UnitOfSpeed(StrEnum):
+    """Define speed units."""
+
+    FEET_PER_SECOND = "ft/s"
+    INCHES_PER_DAY = "in/d"
+    INCHES_PER_HOUR = "in/h"
+    KILOMETERS_PER_HOUR = "km/h"
+    KNOTS = "kn"
+    METERS_PER_SECOND = "m/s"
+    MILES_PER_HOUR = "mph"
+    MILLIMETERS_PER_DAY = "mm/d"
+
 
 # Temperature units:
-TEMP_CELSIUS: Final = "°C"
-TEMP_FAHRENHEIT: Final = "°F"
-TEMP_KELVIN: Final = "K"
+class UnitOfTemperature(StrEnum):
+    """Define temperature units."""
+
+    CELSIUS = "°C"
+    FAHRENHEIT = "°F"
+    KELVIN = "K"
+
 
 # Time units
-TIME_MINUTES: Final = "min"
-TIME_SECONDS: Final = "s"
+class UnitOfTime(StrEnum):
+    """Define time units."""
+
+    MINUTES = "min"
+    SECONDS = "s"
+
 
 # UV units:
 UV_INDEX: Final = "UV index"
 
+
 # Volume units:
-VOLUME_GRAMS_PER_CUBIC_METER: Final = "g/m³"
-VOLUME_POUNDS_PER_CUBIC_FOOT: Final = "lbs/ft³"
+class UnitOfVolume(StrEnum):
+    """Define volume units."""
+
+    GRAMS_PER_CUBIC_METER = "g/m³"
+    POUNDS_PER_CUBIC_FOOT = "lbs/ft³"

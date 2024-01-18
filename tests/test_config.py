@@ -29,14 +29,14 @@ from ecowitt2mqtt.const import (
     CONF_PRECISION,
     CONF_VERBOSE,
     ENV_BATTERY_OVERRIDES,
-    ILLUMINANCE_LUX,
-    LENGTH_KILOMETERS,
-    PRECIPITATION_MILLIMETERS,
-    PRECIPITATION_MILLIMETERS_PER_HOUR,
-    PRESSURE_HPA,
-    SPEED_KILOMETERS_PER_HOUR,
-    TEMP_CELSIUS,
-    VOLUME_GRAMS_PER_CUBIC_METER,
+    UnitOfAccumulatedPrecipitation,
+    UnitOfIlluminance,
+    UnitOfLength,
+    UnitOfPrecipitationRate,
+    UnitOfPressure,
+    UnitOfSpeed,
+    UnitOfTemperature,
+    UnitOfVolume,
     UnitSystem,
 )
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
@@ -373,14 +373,20 @@ def test_mqtt_auth(config: dict[str, Any], valid: bool) -> None:
 @pytest.mark.parametrize(
     "config_option,value",
     [
-        (CONF_OUTPUT_UNIT_ACCUMULATED_PRECIPITATION, PRECIPITATION_MILLIMETERS),
-        (CONF_OUTPUT_UNIT_DISTANCE, LENGTH_KILOMETERS),
-        (CONF_OUTPUT_UNIT_HUMIDITY, VOLUME_GRAMS_PER_CUBIC_METER),
-        (CONF_OUTPUT_UNIT_ILLUMINANCE, ILLUMINANCE_LUX),
-        (CONF_OUTPUT_UNIT_PRECIPITATION_RATE, PRECIPITATION_MILLIMETERS_PER_HOUR),
-        (CONF_OUTPUT_UNIT_PRESSURE, PRESSURE_HPA),
-        (CONF_OUTPUT_UNIT_SPEED, SPEED_KILOMETERS_PER_HOUR),
-        (CONF_OUTPUT_UNIT_TEMPERATURE, TEMP_CELSIUS),
+        (
+            CONF_OUTPUT_UNIT_ACCUMULATED_PRECIPITATION,
+            UnitOfAccumulatedPrecipitation.MILLIMETERS,
+        ),
+        (CONF_OUTPUT_UNIT_DISTANCE, UnitOfLength.KILOMETERS),
+        (CONF_OUTPUT_UNIT_HUMIDITY, UnitOfVolume.GRAMS_PER_CUBIC_METER),
+        (CONF_OUTPUT_UNIT_ILLUMINANCE, UnitOfIlluminance.LUX),
+        (
+            CONF_OUTPUT_UNIT_PRECIPITATION_RATE,
+            UnitOfPrecipitationRate.MILLIMETERS_PER_HOUR,
+        ),
+        (CONF_OUTPUT_UNIT_PRESSURE, UnitOfPressure.HPA),
+        (CONF_OUTPUT_UNIT_SPEED, UnitOfSpeed.KILOMETERS_PER_HOUR),
+        (CONF_OUTPUT_UNIT_TEMPERATURE, UnitOfTemperature.CELSIUS),
     ],
 )
 def test_output_units(config_option: str, value: str) -> None:

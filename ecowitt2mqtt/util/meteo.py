@@ -6,7 +6,7 @@ from typing import cast
 
 import meteocalc
 
-from ecowitt2mqtt.const import TEMP_CELSIUS, TEMP_KELVIN, UnitSystem
+from ecowitt2mqtt.const import UnitOfTemperature, UnitSystem
 from ecowitt2mqtt.util.unit_conversion import TemperatureConverter
 
 
@@ -159,7 +159,9 @@ def get_humidex(
                                 - (
                                     1
                                     / TemperatureConverter.convert(
-                                        dew_point_obj.c, TEMP_CELSIUS, TEMP_KELVIN
+                                        dew_point_obj.c,
+                                        UnitOfTemperature.CELSIUS,
+                                        UnitOfTemperature.KELVIN,
                                     )
                                 )
                             )

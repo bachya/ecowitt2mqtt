@@ -6,10 +6,8 @@ from typing import cast
 from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_ACCUMULATED_PRECIPITATION,
     CONF_OUTPUT_UNIT_PRECIPITATION_RATE,
-    PRECIPITATION_INCHES,
-    PRECIPITATION_INCHES_PER_HOUR,
-    PRECIPITATION_MILLIMETERS,
-    PRECIPITATION_MILLIMETERS_PER_HOUR,
+    UnitOfAccumulatedPrecipitation,
+    UnitOfPrecipitationRate,
 )
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, Calculator
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
@@ -22,7 +20,7 @@ from ecowitt2mqtt.util.unit_conversion import (
 class AccumulatedPrecipitationCalculator(Calculator):
     """Define a rain volume calculator."""
 
-    DEFAULT_INPUT_UNIT = PRECIPITATION_INCHES
+    DEFAULT_INPUT_UNIT = UnitOfAccumulatedPrecipitation.INCHES
     UNIT_OVERRIDE_CONFIG_OPTION = CONF_OUTPUT_UNIT_ACCUMULATED_PRECIPITATION
 
     @property
@@ -32,7 +30,7 @@ class AccumulatedPrecipitationCalculator(Calculator):
         Returns:
             A unit string.
         """
-        return PRECIPITATION_INCHES
+        return UnitOfAccumulatedPrecipitation.INCHES
 
     @property
     def output_unit_metric(self) -> str:
@@ -41,7 +39,7 @@ class AccumulatedPrecipitationCalculator(Calculator):
         Returns:
             A unit string.
         """
-        return PRECIPITATION_MILLIMETERS
+        return UnitOfAccumulatedPrecipitation.MILLIMETERS
 
     def calculate_from_value(
         self, value: PreCalculatedValueType
@@ -63,7 +61,7 @@ class AccumulatedPrecipitationCalculator(Calculator):
 class PrecipitationRateCalculator(Calculator):
     """Define a rain rate calculator."""
 
-    DEFAULT_INPUT_UNIT = PRECIPITATION_INCHES_PER_HOUR
+    DEFAULT_INPUT_UNIT = UnitOfPrecipitationRate.INCHES_PER_HOUR
     UNIT_OVERRIDE_CONFIG_OPTION = CONF_OUTPUT_UNIT_PRECIPITATION_RATE
 
     @property
@@ -73,7 +71,7 @@ class PrecipitationRateCalculator(Calculator):
         Returns:
             A unit string.
         """
-        return PRECIPITATION_INCHES_PER_HOUR
+        return UnitOfPrecipitationRate.INCHES_PER_HOUR
 
     @property
     def output_unit_metric(self) -> str:
@@ -82,7 +80,7 @@ class PrecipitationRateCalculator(Calculator):
         Returns:
             A unit string.
         """
-        return PRECIPITATION_MILLIMETERS_PER_HOUR
+        return UnitOfPrecipitationRate.MILLIMETERS_PER_HOUR
 
     def calculate_from_value(
         self, value: PreCalculatedValueType
