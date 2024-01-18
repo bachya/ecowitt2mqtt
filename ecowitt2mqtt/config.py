@@ -301,20 +301,14 @@ class Configs:
 
         # Store the default config:
         default_config = config | config_file_config
-        try:
-            self._configs[CONF_DEFAULT] = Config.model_validate(default_config)
-        except ValidationError as err:
-            raise ConfigError(err) from err
+        self._configs[CONF_DEFAULT] = self._validate_config(default_config)
 
         # Store configs for any gateways:
         gateways_file_config = config_file_config.get(CONF_GATEWAYS, {})
         for passkey, gateway_config in gateways_file_config.items():
-            try:
-                self._configs[passkey] = Config.model_validate(
-                    default_config | gateway_config
-                )
-            except ValidationError as err:
-                raise ConfigError(err) from err
+            self._configs[passkey] = self._validate_config(
+                default_config | gateway_config
+            )
 
     def __repr__(self) -> str:
         """Define a string representation of this object.
@@ -323,6 +317,20 @@ class Configs:
             A string representation.
         """
         return f"<Configs _configs={self._configs}"
+
+    def _validate_config(self, config: dict[str, Any]) -> Config:
+        """Validate a config.
+
+        Args:
+            config: A config to validate.
+
+        Raises:
+            ConfigError: Raises if the config is invalid.
+        """
+        try:
+            return Config.model_validate(config)
+        except ValidationError as err:
+            raise ConfigError(err) from err
 
     @property
     def default_config(self) -> Config:
