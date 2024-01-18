@@ -117,7 +117,7 @@ class Config(BaseModel):
 
     # Optional HTTP parameters:
     endpoint: str = DEFAULT_ENDPOINT
-    port: int = DEFAULT_PORT
+    port: Annotated[int, Field(strict=True, ge=1, le=65536)] = DEFAULT_PORT
 
     # Optional logging parameters:
     diagnostics: bool = False
