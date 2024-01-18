@@ -2,14 +2,12 @@
 import logging
 from typing import Final
 
-from ecowitt2mqtt.helpers.typing import UnitSystemType
-
 __version__ = "2024.01.0"
 
 LOGGER = logging.getLogger(__package__)
 
 # Configuration keys:
-CONF_BATTERY_OVERRIDES: Final = "battery_override"
+CONF_BATTERY_OVERRIDES: Final = "battery_overrides"
 CONF_CONFIG: Final = "config"
 CONF_DEFAULT_BATTERY_STRATEGY: Final = "default_battery_strategy"
 CONF_DIAGNOSTICS: Final = "diagnostics"
@@ -196,8 +194,8 @@ LEGACY_ENV_PORT: Final = "PORT"
 LEGACY_ENV_RAW_DATA: Final = "RAW_DATA"
 
 # Unit systems:
-UNIT_SYSTEM_IMPERIAL: UnitSystemType = "imperial"
-UNIT_SYSTEM_METRIC: UnitSystemType = "metric"
+UNIT_SYSTEM_IMPERIAL: Final = "imperial"
+UNIT_SYSTEM_METRIC: Final = "metric"
 UNIT_SYSTEMS: Final = [UNIT_SYSTEM_IMPERIAL, UNIT_SYSTEM_METRIC]
 
 # Unit classes:

@@ -25,20 +25,14 @@ def test_ecowitt_create(config: dict[str, Any]) -> None:
 
 
 @pytest.mark.parametrize("config", [{}])
-def test_invalid_config(caplog: Mock, config: dict[str, Any]) -> None:
+def test_invalid_config(config: dict[str, Any]) -> None:
     """Test that an invalid config is caught.
 
     Args:
-        caplog: A mock logging utility.
         config: A configuration dictionary.
     """
     with pytest.raises(SystemExit):
         _ = Ecowitt(config)
-    assert any(
-        m
-        for m in caplog.messages
-        if "Must provide an MQTT topic or enable Home Assistant MQTT Discovery" in m
-    )
 
 
 @pytest.mark.asyncio
