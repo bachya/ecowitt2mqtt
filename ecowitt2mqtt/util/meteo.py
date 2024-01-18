@@ -12,7 +12,6 @@ from ecowitt2mqtt.const import (
     UNIT_SYSTEM_IMPERIAL,
     UNIT_SYSTEM_METRIC,
 )
-from ecowitt2mqtt.helpers.typing import UnitSystemType
 from ecowitt2mqtt.util.unit_conversion import TemperatureConverter
 
 
@@ -41,7 +40,7 @@ def get_absolute_humidity_in_metric(
 
 
 def get_dew_point_meteocalc_object(
-    temperature: float, relative_humidity: float, unit_system: UnitSystemType
+    temperature: float, relative_humidity: float, unit_system: str
 ) -> meteocalc.Temp:
     """Get a dew point meteocalc object.
 
@@ -61,7 +60,7 @@ def get_feels_like_meteocalc_object(
     temperature: float,
     relative_humidity: float,
     wind_speed: float,
-    unit_system: UnitSystemType,
+    unit_system: str,
 ) -> meteocalc.Temp:
     """Get a "feels like" meteocalc object.
 
@@ -115,7 +114,7 @@ def get_frost_point_meteocalc_object(
 def get_heat_index_meteocalc_object(
     temperature: float,
     relative_humidity: float,
-    unit_system: UnitSystemType,
+    unit_system: str,
 ) -> meteocalc.Temp:
     """Get a heat index meteocalc object.
 
@@ -131,9 +130,7 @@ def get_heat_index_meteocalc_object(
     return meteocalc.heat_index(temp_obj, relative_humidity)
 
 
-def get_humidex(
-    temperature: float, relative_humidity: float, unit_system: UnitSystemType
-) -> int:
+def get_humidex(temperature: float, relative_humidity: float, unit_system: str) -> int:
     """Get a humidex.
 
     Args:
@@ -179,7 +176,7 @@ def get_humidex(
 
 
 def get_relative_strain_index(
-    temperature: float, relative_humidity: float, unit_system: UnitSystemType
+    temperature: float, relative_humidity: float, unit_system: str
 ) -> float:
     """Get a simmer index meteocalc object.
 
@@ -220,7 +217,7 @@ def get_relative_strain_index(
 
 
 def get_simmer_index_meteocalc_object(
-    temp_obj: meteocalc.Temp, relative_humidity: float, unit_system: UnitSystemType
+    temp_obj: meteocalc.Temp, relative_humidity: float, unit_system: str
 ) -> meteocalc.Temp:
     """Get a simmer index meteocalc object.
 
@@ -252,7 +249,7 @@ def get_simmer_index_meteocalc_object(
 
 
 def get_temperature_meteocalc_object(
-    temperature: float, unit_system: UnitSystemType
+    temperature: float, unit_system: str
 ) -> meteocalc.Temp:
     """Get a temperature meteocalc object.
 
@@ -273,7 +270,7 @@ def get_temperature_meteocalc_object(
 def get_wind_chill_meteocalc_object(
     temperature: float,
     wind_speed: float,
-    unit_system: UnitSystemType,
+    unit_system: str,
 ) -> meteocalc.Temp:
     """Get a wind chill meteocalc object.
 

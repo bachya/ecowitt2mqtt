@@ -2,8 +2,6 @@
 import logging
 from typing import Final
 
-from ecowitt2mqtt.helpers.typing import UnitSystemType
-
 __version__ = "2024.01.0"
 
 LOGGER = logging.getLogger(__package__)
@@ -196,8 +194,8 @@ LEGACY_ENV_PORT: Final = "PORT"
 LEGACY_ENV_RAW_DATA: Final = "RAW_DATA"
 
 # Unit systems:
-UNIT_SYSTEM_IMPERIAL: UnitSystemType = "imperial"
-UNIT_SYSTEM_METRIC: UnitSystemType = "metric"
+UNIT_SYSTEM_IMPERIAL: Final = "imperial"
+UNIT_SYSTEM_METRIC: Final = "metric"
 UNIT_SYSTEMS: Final = [UNIT_SYSTEM_IMPERIAL, UNIT_SYSTEM_METRIC]
 
 # Unit classes:

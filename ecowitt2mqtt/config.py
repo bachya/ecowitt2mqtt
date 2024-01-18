@@ -133,8 +133,8 @@ class Config(BaseModel):
     output_unit_temperature: str | None = None
 
     # Optional unit system parameters:
-    input_unit_system: str | None = UNIT_SYSTEM_IMPERIAL
-    output_unit_system: str | None = UNIT_SYSTEM_IMPERIAL
+    input_unit_system: str = UNIT_SYSTEM_IMPERIAL
+    output_unit_system: str = UNIT_SYSTEM_IMPERIAL
 
     # Generated parameters:
     uuid: str = Field(default_factory=lambda: uuid4().hex)
