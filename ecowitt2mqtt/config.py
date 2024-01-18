@@ -4,7 +4,7 @@ from __future__ import annotations
 import os
 from collections.abc import Generator
 from numbers import Number
-from typing import Any
+from typing import Annotated, Any
 from uuid import uuid4
 
 from pydantic import (
@@ -93,7 +93,7 @@ class Config(BaseModel):
 
     # Optional MQTT parameters:
     mqtt_password: str | None = None
-    mqtt_port: int = Field(DEFAULT_MQTT_PORT, ge=1, le=65536)
+    mqtt_port: Annotated[int, Field(strict=True, ge=1, le=65536)] = DEFAULT_MQTT_PORT
     mqtt_retain: bool = False
     mqtt_tls: bool = False
     mqtt_topic: str | None = None

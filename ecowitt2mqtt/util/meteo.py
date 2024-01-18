@@ -268,9 +268,7 @@ def get_temperature_meteocalc_object(
 
 
 def get_wind_chill_meteocalc_object(
-    temperature: float,
-    wind_speed: float,
-    unit_system: str,
+    temperature: float, wind_speed: float, unit_system: str
 ) -> meteocalc.Temp:
     """Get a wind chill meteocalc object.
 
