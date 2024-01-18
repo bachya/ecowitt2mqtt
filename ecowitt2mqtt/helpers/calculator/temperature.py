@@ -13,8 +13,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_TEMP,
     DATA_POINT_WINDSPEED,
     LOGGER,
-    TEMP_CELSIUS,
-    TEMP_FAHRENHEIT,
+    UnitOfTemperature,
 )
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, Calculator
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
@@ -278,7 +277,7 @@ THERMAL_PERCEPTION_RATINGS: list[ThermalPerceptionRating] = [
 class BaseTemperatureCalculator(Calculator):
     """Define a base temperature calculator."""
 
-    DEFAULT_INPUT_UNIT = TEMP_FAHRENHEIT
+    DEFAULT_INPUT_UNIT = UnitOfTemperature.FAHRENHEIT
     UNIT_OVERRIDE_CONFIG_OPTION = CONF_OUTPUT_UNIT_TEMPERATURE
 
     @property
@@ -288,7 +287,7 @@ class BaseTemperatureCalculator(Calculator):
         Returns:
             A unit string.
         """
-        return TEMP_FAHRENHEIT
+        return UnitOfTemperature.FAHRENHEIT
 
     @property
     def output_unit_metric(self) -> str:
@@ -297,7 +296,7 @@ class BaseTemperatureCalculator(Calculator):
         Returns:
             A unit string.
         """
-        return TEMP_CELSIUS
+        return UnitOfTemperature.CELSIUS
 
 
 class DewPointCalculator(BaseTemperatureCalculator):

@@ -13,8 +13,8 @@ from ecowitt2mqtt.const import (
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_6,
     DATA_POINT_UV,
     LOGGER,
-    TIME_MINUTES,
     UV_INDEX,
+    UnitOfTime,
 )
 from ecowitt2mqtt.helpers.calculator import (
     CalculatedDataPoint,
@@ -94,7 +94,7 @@ class SafeExposureCalculator(Calculator):
         Returns:
             A unit string.
         """
-        return TIME_MINUTES
+        return UnitOfTime.MINUTES
 
     @Calculator.requires_keys(DATA_POINT_UV)
     def calculate_from_payload(

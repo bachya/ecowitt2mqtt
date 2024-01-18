@@ -1,7 +1,7 @@
 """Define time calculators."""
 from __future__ import annotations
 
-from ecowitt2mqtt.const import TIME_SECONDS
+from ecowitt2mqtt.const import UnitOfTime
 from ecowitt2mqtt.helpers.calculator import (
     CalculatedDataPoint,
     CalculationFailedError,
@@ -46,7 +46,7 @@ class RuntimeCalculator(SimpleCalculator):
         Returns:
             A unit string.
         """
-        return TIME_SECONDS
+        return UnitOfTime.SECONDS
 
 
 class UpdateIntervalCalculator(SimpleCalculator):
@@ -59,4 +59,4 @@ class UpdateIntervalCalculator(SimpleCalculator):
         Returns:
             A unit string.
         """
-        return TIME_SECONDS
+        return UnitOfTime.SECONDS

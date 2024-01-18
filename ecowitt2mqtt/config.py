@@ -17,6 +17,7 @@ from pydantic import (
 )
 from ruamel.yaml import YAML
 
+from ecowitt2mqtt.backports.enum import StrEnum
 from ecowitt2mqtt.const import (
     CONF_BATTERY_OVERRIDES,
     CONF_CONFIG,
@@ -30,6 +31,14 @@ from ecowitt2mqtt.const import (
     DEFAULT_MQTT_PORT,
     DEFAULT_PORT,
     ENV_BATTERY_OVERRIDES,
+    UnitOfAccumulatedPrecipitation,
+    UnitOfIlluminance,
+    UnitOfLength,
+    UnitOfPrecipitationRate,
+    UnitOfPressure,
+    UnitOfSpeed,
+    UnitOfTemperature,
+    UnitOfVolume,
     UnitSystem,
 )
 from ecowitt2mqtt.errors import EcowittError
@@ -86,7 +95,7 @@ def validate_boolean(value: bool | str | Number) -> bool:
     raise ValueError(f"invalid boolean value: {value}")
 
 
-def validate_output_unit_system(valid_units: set[str]) -> Callable[[str], str]:
+def validate_output_unit_system(valid_units: type[StrEnum]) -> Callable[[str], str]:
     """Define a decorator to validate an output unit system via a Pydantic validator.
 
     Args:
@@ -158,14 +167,14 @@ class Config(BaseModel):
     verbose: bool = False
 
     # Optional unit conversion parameters:
-    output_unit_accumulated_precipitation: str | None = None
-    output_unit_distance: str | None = None
-    output_unit_humidity: str | None = None
-    output_unit_illuminance: str | None = None
-    output_unit_precipitation_rate: str | None = None
-    output_unit_pressure: str | None = None
-    output_unit_speed: str | None = None
-    output_unit_temperature: str | None = None
+    output_unit_accumulated_precipitation: UnitOfAccumulatedPrecipitation | None = None
+    output_unit_distance: UnitOfLength | None = None
+    output_unit_humidity: UnitOfVolume | None = None
+    output_unit_illuminance: UnitOfIlluminance | None = None
+    output_unit_precipitation_rate: UnitOfPrecipitationRate | None = None
+    output_unit_pressure: UnitOfPressure | None = None
+    output_unit_speed: UnitOfSpeed | None = None
+    output_unit_temperature: UnitOfTemperature | None = None
 
     # Optional unit system parameters:
     input_unit_system: UnitSystem = UnitSystem.IMPERIAL

@@ -21,8 +21,8 @@ from ecowitt2mqtt.const import (
     DATA_POINT_WH90BATT,
     DATA_POINT_WH90BATT_PC,
     DATA_POINT_WH90CAP_VOLT,
-    ELECTRIC_POTENTIAL_VOLT,
     PERCENTAGE,
+    UnitOfElectricPotential,
 )
 from ecowitt2mqtt.helpers.calculator import (
     CalculatedDataPoint,
@@ -120,7 +120,7 @@ class BatteryCalculator(Calculator):
             An optional string.
         """
         if self._battery_strategy == BatteryStrategy.NUMERIC:
-            return ELECTRIC_POTENTIAL_VOLT
+            return UnitOfElectricPotential.VOLT
         if self._battery_strategy == BatteryStrategy.PERCENTAGE:
             return PERCENTAGE
         return None

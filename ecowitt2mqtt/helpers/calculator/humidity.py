@@ -8,8 +8,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_HUMIDITY,
     DATA_POINT_TEMP,
     PERCENTAGE,
-    VOLUME_GRAMS_PER_CUBIC_METER,
-    VOLUME_POUNDS_PER_CUBIC_FOOT,
+    UnitOfVolume,
 )
 from ecowitt2mqtt.helpers.calculator import (
     CalculatedDataPoint,
@@ -27,7 +26,7 @@ from ecowitt2mqtt.util.unit_conversion import VolumeConverter
 class AbsoluteHumidityCalculator(Calculator):
     """Define an absolute humidity calculator."""
 
-    DEFAULT_INPUT_UNIT = VOLUME_GRAMS_PER_CUBIC_METER
+    DEFAULT_INPUT_UNIT = UnitOfVolume.GRAMS_PER_CUBIC_METER
     UNIT_OVERRIDE_CONFIG_OPTION = CONF_OUTPUT_UNIT_HUMIDITY
 
     @property
@@ -37,7 +36,7 @@ class AbsoluteHumidityCalculator(Calculator):
         Returns:
             A unit string.
         """
-        return VOLUME_POUNDS_PER_CUBIC_FOOT
+        return UnitOfVolume.POUNDS_PER_CUBIC_FOOT
 
     @property
     def output_unit_metric(self) -> str:
@@ -46,7 +45,7 @@ class AbsoluteHumidityCalculator(Calculator):
         Returns:
             A unit string.
         """
-        return VOLUME_GRAMS_PER_CUBIC_METER
+        return UnitOfVolume.GRAMS_PER_CUBIC_METER
 
     @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
     def calculate_from_payload(

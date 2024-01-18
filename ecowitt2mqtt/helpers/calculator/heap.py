@@ -1,7 +1,7 @@
 """Define time calculators."""
 from __future__ import annotations
 
-from ecowitt2mqtt.const import MEMORY_BYTES
+from ecowitt2mqtt.const import UnitOfMemory
 from ecowitt2mqtt.helpers.calculator import SimpleCalculator
 
 
@@ -15,4 +15,4 @@ class HeapCalculator(SimpleCalculator):
         Returns:
             A unit string.
         """
-        return MEMORY_BYTES
+        return UnitOfMemory.BYTES

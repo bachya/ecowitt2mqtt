@@ -8,8 +8,7 @@ from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_SPEED,
     DATA_POINT_WINDSPEED,
     DEGREE,
-    SPEED_KILOMETERS_PER_HOUR,
-    SPEED_MILES_PER_HOUR,
+    UnitOfSpeed,
     UnitSystem,
 )
 from ecowitt2mqtt.helpers.calculator import (
@@ -274,7 +273,7 @@ class WindDirCalculator(SimpleCalculator):
 class WindSpeedCalculator(Calculator):
     """Define a wind speed calculator."""
 
-    DEFAULT_INPUT_UNIT = SPEED_MILES_PER_HOUR
+    DEFAULT_INPUT_UNIT = UnitOfSpeed.MILES_PER_HOUR
     UNIT_OVERRIDE_CONFIG_OPTION = CONF_OUTPUT_UNIT_SPEED
 
     @property
@@ -284,7 +283,7 @@ class WindSpeedCalculator(Calculator):
         Returns:
             A unit string.
         """
-        return SPEED_MILES_PER_HOUR
+        return UnitOfSpeed.MILES_PER_HOUR
 
     @property
     def output_unit_metric(self) -> str:
@@ -293,7 +292,7 @@ class WindSpeedCalculator(Calculator):
         Returns:
             A unit string.
         """
-        return SPEED_KILOMETERS_PER_HOUR
+        return UnitOfSpeed.KILOMETERS_PER_HOUR
 
     def calculate_from_value(
         self, value: PreCalculatedValueType
