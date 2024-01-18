@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import os
-from collections.abc import Callable, Generator
+from collections.abc import Generator
 from numbers import Number
 from typing import Annotated, Any
 from uuid import uuid4
@@ -17,7 +17,6 @@ from pydantic import (
 )
 from ruamel.yaml import YAML
 
-from ecowitt2mqtt.backports.enum import StrEnum
 from ecowitt2mqtt.const import (
     CONF_BATTERY_OVERRIDES,
     CONF_CONFIG,
@@ -44,16 +43,6 @@ from ecowitt2mqtt.const import (
 from ecowitt2mqtt.errors import EcowittError
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 from ecowitt2mqtt.helpers.server import InputDataFormat
-from ecowitt2mqtt.util.unit_conversion import (
-    AccumulatedPrecipitationConverter,
-    DistanceConverter,
-    IlluminanceConverter,
-    PrecipitationRateConverter,
-    PressureConverter,
-    SpeedConverter,
-    TemperatureConverter,
-    VolumeConverter,
-)
 
 CONF_DEFAULT = "default"
 
@@ -93,38 +82,6 @@ def validate_boolean(value: bool | str | Number) -> bool:
         # type ignore: https://github.com/python/mypy/issues/3186
         return value != 0  # type: ignore[comparison-overlap]
     raise ValueError(f"invalid boolean value: {value}")
-
-
-def validate_output_unit_system(valid_units: type[StrEnum]) -> Callable[[str], str]:
-    """Define a decorator to validate an output unit system via a Pydantic validator.
-
-    Args:
-        valid_units: A set of valid units.
-
-    Returns:
-        A Pydantic validator.
-
-    Raises:
-        ValueError: Raises if the output unit system is invalid.
-    """
-
-    def validate(value: str) -> str:
-        """Validate that the output unit system is valid.
-
-        Args:
-            value: The value to validate.
-
-        Returns:
-            The validated output unit system.
-        """
-        if value not in valid_units:
-            raise ValueError(
-                f"invalid output unit system: {value} "
-                f"(expected {', '.join(valid_units)})"
-            )
-        return value
-
-    return validate
 
 
 class Config(BaseModel):
@@ -273,42 +230,6 @@ class Config(BaseModel):
     )
 
     validate_mqtt_tls = field_validator("mqtt_tls", mode="before")(validate_boolean)
-
-    validate_output_unit_system_accumulated_precipitation = field_validator(
-        "output_unit_accumulated_precipitation", mode="before"
-    )(
-        validate_output_unit_system(
-            valid_units=AccumulatedPrecipitationConverter.VALID_UNITS
-        )
-    )
-
-    validate_output_unit_system_distance = field_validator(
-        "output_unit_distance", mode="before"
-    )(validate_output_unit_system(valid_units=DistanceConverter.VALID_UNITS))
-
-    validate_output_unit_system_humidity = field_validator(
-        "output_unit_humidity", mode="before"
-    )(validate_output_unit_system(valid_units=VolumeConverter.VALID_UNITS))
-
-    validate_output_unit_system_illuminance = field_validator(
-        "output_unit_illuminance", mode="before"
-    )(validate_output_unit_system(valid_units=IlluminanceConverter.VALID_UNITS))
-
-    validate_output_unit_system_precipitation_rate = field_validator(
-        "output_unit_precipitation_rate", mode="before"
-    )(validate_output_unit_system(valid_units=PrecipitationRateConverter.VALID_UNITS))
-
-    validate_output_unit_system_pressure = field_validator(
-        "output_unit_pressure", mode="before"
-    )(validate_output_unit_system(valid_units=PressureConverter.VALID_UNITS))
-
-    validate_output_unit_system_speed = field_validator(
-        "output_unit_speed", mode="before"
-    )(validate_output_unit_system(valid_units=SpeedConverter.VALID_UNITS))
-
-    validate_output_unit_system_temperature = field_validator(
-        "output_unit_temperature", mode="before"
-    )(validate_output_unit_system(valid_units=TemperatureConverter.VALID_UNITS))
 
     validate_raw_data = field_validator("raw_data", mode="before")(validate_boolean)
 
