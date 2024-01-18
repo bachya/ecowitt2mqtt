@@ -113,11 +113,12 @@ class BaseUnitConverter:
             return value
 
         for unit in (from_unit, to_unit):
-            if unit in cls.VALID_UNITS:
-                continue
-            raise UnitConversionError(
-                UNIT_NOT_RECOGNIZED_TEMPLATE.format(unit, cls.UNIT_CLASS)
-            )
+            try:
+                cls.VALID_UNITS(unit)
+            except ValueError as err:
+                raise UnitConversionError(
+                    UNIT_NOT_RECOGNIZED_TEMPLATE.format(unit, cls.UNIT_CLASS)
+                ) from err
 
         from_ratio = cls._UNIT_CONVERSION[from_unit]
         to_ratio = cls._UNIT_CONVERSION[to_unit]
