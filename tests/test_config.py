@@ -14,7 +14,9 @@ from ecowitt2mqtt.const import (
     CONF_DEFAULT_BATTERY_STRATEGY,
     CONF_GATEWAYS,
     CONF_MQTT_BROKER,
+    CONF_MQTT_PASSWORD,
     CONF_MQTT_TOPIC,
+    CONF_MQTT_USERNAME,
     CONF_OUTPUT_UNIT_ACCUMULATED_PRECIPITATION,
     CONF_OUTPUT_UNIT_DISTANCE,
     CONF_OUTPUT_UNIT_HUMIDITY,
@@ -23,6 +25,7 @@ from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_PRESSURE,
     CONF_OUTPUT_UNIT_SPEED,
     CONF_OUTPUT_UNIT_TEMPERATURE,
+    CONF_PORT,
     CONF_PRECISION,
     CONF_VERBOSE,
     ENV_BATTERY_OVERRIDES,
@@ -210,9 +213,7 @@ def test_config_file_empty(config_filepath: str) -> None:
     """
     with pytest.raises(ConfigError) as err:
         _ = Configs({CONF_CONFIG: config_filepath})
-    assert "Must provide an MQTT topic or enable Home Assistant MQTT Discovery" in str(
-        err
-    )
+    assert "must provide at least one of" in str(err)
 
 
 @pytest.mark.parametrize(
@@ -254,6 +255,33 @@ def test_config_file_multiple_gateways(config_filepath: str) -> None:
     assert gateway_config.endpoint == TEST_ENDPOINT
     assert gateway_config.mqtt_broker == "my.mqtt.local"
     assert gateway_config.mqtt_topic == "Some Topic"
+
+
+@pytest.mark.parametrize(
+    "raw_config",
+    [
+        json.dumps(
+            TEST_CONFIG_JSON
+            | {
+                CONF_GATEWAYS: {
+                    "passkey123": {
+                        CONF_MQTT_BROKER: "my.mqtt.local",
+                        CONF_MQTT_TOPIC: "Some Topic",
+                        CONF_PORT: "WHOOPS",
+                    }
+                }
+            },
+        ),
+    ],
+)
+def test_config_file_invalid_gateway(config_filepath: str) -> None:
+    """Test successfully loading a config file with an invalid gateway.
+
+    Args:
+        config_filepath: A configuration file path.
+    """
+    with pytest.raises(ConfigError):
+        _ = Configs({CONF_CONFIG: config_filepath})
 
 
 @pytest.mark.parametrize(
@@ -306,6 +334,40 @@ def test_invalid_boolean_config_validation(config: dict[str, Any]) -> None:
     """
     with pytest.raises(ConfigError):
         _ = Configs(config)
+
+
+@pytest.mark.parametrize(
+    "config,valid",
+    [
+        (
+            TEST_CONFIG_JSON
+            | {CONF_MQTT_USERNAME: None, CONF_MQTT_PASSWORD: "password"},
+            False,
+        ),
+        (
+            TEST_CONFIG_JSON
+            | {CONF_MQTT_USERNAME: "username", CONF_MQTT_PASSWORD: None},
+            False,
+        ),
+        (
+            TEST_CONFIG_JSON
+            | {CONF_MQTT_USERNAME: "username", CONF_MQTT_PASSWORD: "password"},
+            True,
+        ),
+    ],
+)
+def test_mqtt_auth(config: dict[str, Any], valid: bool) -> None:
+    """Test that we do the correct thing with various MQTT auth configurations.
+
+    Args:
+        config: A configuration dictionary.
+        valid: Whether the configuration is valid.
+    """
+    if valid:
+        _ = Configs(config)
+    else:
+        with pytest.raises(ConfigError):
+            _ = Configs(config)
 
 
 @pytest.mark.parametrize(

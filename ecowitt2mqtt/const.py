@@ -9,7 +9,7 @@ __version__ = "2024.01.0"
 LOGGER = logging.getLogger(__package__)
 
 # Configuration keys:
-CONF_BATTERY_OVERRIDES: Final = "battery_override"
+CONF_BATTERY_OVERRIDES: Final = "battery_overrides"
 CONF_CONFIG: Final = "config"
 CONF_DEFAULT_BATTERY_STRATEGY: Final = "default_battery_strategy"
 CONF_DIAGNOSTICS: Final = "diagnostics"
