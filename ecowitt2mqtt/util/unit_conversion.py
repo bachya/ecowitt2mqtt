@@ -95,6 +95,23 @@ class BaseUnitConverter:
         return round(value) if precision == 0 else round(value, precision)
 
     @classmethod
+    def _validate_unit(cls, unit: str) -> None:
+        """Validate a unit of measurement.
+
+        Args:
+            unit: The unit to validate.
+
+        Raises:
+            ValueError: Raised when a unit is not recognized.
+        """
+        try:
+            cls.VALID_UNITS(unit)
+        except ValueError as err:
+            raise UnitConversionError(
+                UNIT_NOT_RECOGNIZED_TEMPLATE.format(unit, cls.UNIT_CLASS)
+            ) from err
+
+    @classmethod
     def convert(cls, value: float, from_unit: str, to_unit: str) -> float:
         """Convert one unit of measurement to another.
 
@@ -113,12 +130,7 @@ class BaseUnitConverter:
             return value
 
         for unit in (from_unit, to_unit):
-            try:
-                cls.VALID_UNITS(unit)
-            except ValueError as err:
-                raise UnitConversionError(
-                    UNIT_NOT_RECOGNIZED_TEMPLATE.format(unit, cls.UNIT_CLASS)
-                ) from err
+            cls._validate_unit(unit)
 
         from_ratio = cls._UNIT_CONVERSION[from_unit]
         to_ratio = cls._UNIT_CONVERSION[to_unit]
@@ -355,11 +367,7 @@ class TemperatureConverter(BaseUnitConverter):
             return value
 
         for unit in (from_unit, to_unit):
-            if unit in cls.VALID_UNITS:
-                continue
-            raise UnitConversionError(
-                UNIT_NOT_RECOGNIZED_TEMPLATE.format(unit, cls.UNIT_CLASS)
-            )
+            cls._validate_unit(unit)
 
         if from_unit == UnitOfTemperature.CELSIUS:
             if to_unit == UnitOfTemperature.FAHRENHEIT:
