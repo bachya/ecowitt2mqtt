@@ -68,6 +68,9 @@ def validate_boolean(value: bool | str | Number) -> bool:
 
     Returns:
         A boolean value.
+
+    Raises:
+        ValueError: Raises if the value is not a valid boolean.
     """
     if isinstance(value, bool):
         return value
@@ -91,6 +94,9 @@ def validate_output_unit_system(valid_units: set[str]) -> Callable[[str], str]:
 
     Returns:
         A Pydantic validator.
+
+    Raises:
+        ValueError: Raises if the output unit system is invalid.
     """
 
     def validate(value: str) -> str:
@@ -198,6 +204,9 @@ class Config(BaseModel):
 
         Returns:
             The parsed battery overrides in a dictionary.
+
+        Raises:
+            ValueError: Raises if the battery overrides are invalid.
         """
         try:
             if isinstance(value, dict):
@@ -240,6 +249,9 @@ class Config(BaseModel):
 
         Returns:
             The config data with the MQTT auth validation.
+
+        Raises:
+            ValueError: Raises if the MQTT auth is invalid.
         """
         if (data.get(CONF_MQTT_USERNAME) is None) != (
             data.get(CONF_MQTT_PASSWORD) is None
@@ -303,6 +315,9 @@ class Config(BaseModel):
 
         Returns:
             The config data with the required optional parameters validated.
+
+        Raises:
+            ValueError: Raises if an invalid mixture of optional parameters is present.
         """
         if not any(data.get(param) for param in REQUIRES_AT_LEAST_ONE_OF):
             raise ValueError(
