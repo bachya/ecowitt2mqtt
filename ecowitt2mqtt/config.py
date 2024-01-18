@@ -30,7 +30,7 @@ from ecowitt2mqtt.const import (
     DEFAULT_MQTT_PORT,
     DEFAULT_PORT,
     ENV_BATTERY_OVERRIDES,
-    UNIT_SYSTEM_IMPERIAL,
+    UnitSystem,
 )
 from ecowitt2mqtt.errors import EcowittError
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
@@ -133,8 +133,8 @@ class Config(BaseModel):
     output_unit_temperature: str | None = None
 
     # Optional unit system parameters:
-    input_unit_system: str = UNIT_SYSTEM_IMPERIAL
-    output_unit_system: str = UNIT_SYSTEM_IMPERIAL
+    input_unit_system: UnitSystem = UnitSystem.IMPERIAL
+    output_unit_system: UnitSystem = UnitSystem.IMPERIAL
 
     # Generated parameters:
     uuid: str = Field(default_factory=lambda: uuid4().hex)

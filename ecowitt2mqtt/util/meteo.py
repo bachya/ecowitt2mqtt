@@ -6,12 +6,7 @@ from typing import cast
 
 import meteocalc
 
-from ecowitt2mqtt.const import (
-    TEMP_CELSIUS,
-    TEMP_KELVIN,
-    UNIT_SYSTEM_IMPERIAL,
-    UNIT_SYSTEM_METRIC,
-)
+from ecowitt2mqtt.const import TEMP_CELSIUS, TEMP_KELVIN, UnitSystem
 from ecowitt2mqtt.util.unit_conversion import TemperatureConverter
 
 
@@ -40,7 +35,7 @@ def get_absolute_humidity_in_metric(
 
 
 def get_dew_point_meteocalc_object(
-    temperature: float, relative_humidity: float, unit_system: str
+    temperature: float, relative_humidity: float, unit_system: UnitSystem
 ) -> meteocalc.Temp:
     """Get a dew point meteocalc object.
 
@@ -60,7 +55,7 @@ def get_feels_like_meteocalc_object(
     temperature: float,
     relative_humidity: float,
     wind_speed: float,
-    unit_system: str,
+    unit_system: UnitSystem,
 ) -> meteocalc.Temp:
     """Get a "feels like" meteocalc object.
 
@@ -107,14 +102,14 @@ def get_frost_point_meteocalc_object(
             - absolute_temp_c
         )
         - 273.15,
-        UNIT_SYSTEM_METRIC,
+        UnitSystem.METRIC,
     )
 
 
 def get_heat_index_meteocalc_object(
     temperature: float,
     relative_humidity: float,
-    unit_system: str,
+    unit_system: UnitSystem,
 ) -> meteocalc.Temp:
     """Get a heat index meteocalc object.
 
@@ -130,7 +125,9 @@ def get_heat_index_meteocalc_object(
     return meteocalc.heat_index(temp_obj, relative_humidity)
 
 
-def get_humidex(temperature: float, relative_humidity: float, unit_system: str) -> int:
+def get_humidex(
+    temperature: float, relative_humidity: float, unit_system: UnitSystem
+) -> int:
     """Get a humidex.
 
     Args:
@@ -176,7 +173,7 @@ def get_humidex(temperature: float, relative_humidity: float, unit_system: str) 
 
 
 def get_relative_strain_index(
-    temperature: float, relative_humidity: float, unit_system: str
+    temperature: float, relative_humidity: float, unit_system: UnitSystem
 ) -> float:
     """Get a simmer index meteocalc object.
 
@@ -217,7 +214,7 @@ def get_relative_strain_index(
 
 
 def get_simmer_index_meteocalc_object(
-    temp_obj: meteocalc.Temp, relative_humidity: float, unit_system: str
+    temp_obj: meteocalc.Temp, relative_humidity: float, unit_system: UnitSystem
 ) -> meteocalc.Temp:
     """Get a simmer index meteocalc object.
 
@@ -235,7 +232,7 @@ def get_simmer_index_meteocalc_object(
     if temp_obj.f < 70:
         raise ValueError(
             "Simmer Index is only valid for temperatures above "
-            f"{'70°F' if unit_system == UNIT_SYSTEM_IMPERIAL else '21.1°C'}"
+            f"{'70°F' if unit_system == UnitSystem.IMPERIAL else '21.1°C'}"
         )
 
     return get_temperature_meteocalc_object(
@@ -244,12 +241,12 @@ def get_simmer_index_meteocalc_object(
             * (temp_obj.f - (0.55 - (0.0055 * relative_humidity)) * (temp_obj.f - 58.0))
             - 56.83
         ),
-        UNIT_SYSTEM_IMPERIAL,
+        UnitSystem.IMPERIAL,
     )
 
 
 def get_temperature_meteocalc_object(
-    temperature: float, unit_system: str
+    temperature: float, unit_system: UnitSystem
 ) -> meteocalc.Temp:
     """Get a temperature meteocalc object.
 
@@ -260,7 +257,7 @@ def get_temperature_meteocalc_object(
     Returns:
         A meteocalc.Temp object.
     """
-    if unit_system == UNIT_SYSTEM_IMPERIAL:
+    if unit_system == UnitSystem.IMPERIAL:
         unit = "f"
     else:
         unit = "c"
@@ -268,7 +265,7 @@ def get_temperature_meteocalc_object(
 
 
 def get_wind_chill_meteocalc_object(
-    temperature: float, wind_speed: float, unit_system: str
+    temperature: float, wind_speed: float, unit_system: UnitSystem
 ) -> meteocalc.Temp:
     """Get a wind chill meteocalc object.
 

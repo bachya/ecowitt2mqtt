@@ -90,7 +90,7 @@ from ecowitt2mqtt.const import (
     LEGACY_ENV_PORT,
     LEGACY_ENV_RAW_DATA,
     LOGGER,
-    UNIT_SYSTEM_IMPERIAL,
+    UnitSystem,
     __version__,
 )
 from ecowitt2mqtt.core import Ecowitt
@@ -272,7 +272,7 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
         dest=CONF_INPUT_UNIT_SYSTEM,
         help=(
             "The input unit system used by the gateway "
-            f"(default: {UNIT_SYSTEM_IMPERIAL})"
+            f"(default: {UnitSystem.IMPERIAL})"
         ),
         metavar=CONF_INPUT_UNIT_SYSTEM,
     )
@@ -327,7 +327,7 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
         dest=CONF_OUTPUT_UNIT_SYSTEM,
         help=(
             "The output unit system used by the gateway "
-            f"(default: {UNIT_SYSTEM_IMPERIAL})"
+            f"(default: {UnitSystem.IMPERIAL})"
         ),
         metavar=CONF_OUTPUT_UNIT_SYSTEM,
     )
