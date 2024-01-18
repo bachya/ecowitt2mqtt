@@ -7,7 +7,7 @@ from enum import Enum
 from functools import wraps
 from typing import TYPE_CHECKING, Any, TypeVar, cast
 
-from ecowitt2mqtt.const import UNIT_SYSTEM_IMPERIAL
+from ecowitt2mqtt.const import UnitSystem
 from ecowitt2mqtt.errors import EcowittError
 from ecowitt2mqtt.helpers.typing import CalculatedValueType, PreCalculatedValueType
 from ecowitt2mqtt.util.unit_conversion import BaseUnitConverter
@@ -100,7 +100,7 @@ class Calculator:
             )
         ) is not None:
             return cast(str, override)
-        if self._config.output_unit_system == UNIT_SYSTEM_IMPERIAL:
+        if self._config.output_unit_system == UnitSystem.IMPERIAL:
             return self.output_unit_imperial
         return self.output_unit_metric
 

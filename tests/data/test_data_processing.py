@@ -27,9 +27,9 @@ from ecowitt2mqtt.const import (
     TEMP_FAHRENHEIT,
     TIME_MINUTES,
     TIME_SECONDS,
-    UNIT_SYSTEM_METRIC,
     UV_INDEX,
     VOLUME_POUNDS_PER_CUBIC_FOOT,
+    UnitSystem,
 )
 from ecowitt2mqtt.core import Ecowitt
 from ecowitt2mqtt.data import ProcessedData
@@ -4841,7 +4841,7 @@ def test_process(
 
 
 @pytest.mark.parametrize(
-    "config", [TEST_CONFIG_JSON | {CONF_INPUT_UNIT_SYSTEM: UNIT_SYSTEM_METRIC}]
+    "config", [TEST_CONFIG_JSON | {CONF_INPUT_UNIT_SYSTEM: UnitSystem.METRIC}]
 )
 def test_suspcious_temperature_value(
     caplog: Mock, device_data: dict[str, Any], ecowitt: Ecowitt

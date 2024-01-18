@@ -36,10 +36,10 @@ from ecowitt2mqtt.const import (
     TEMP_FAHRENHEIT,
     TIME_MINUTES,
     TIME_SECONDS,
-    UNIT_SYSTEM_METRIC,
     UV_INDEX,
     VOLUME_GRAMS_PER_CUBIC_METER,
     VOLUME_POUNDS_PER_CUBIC_FOOT,
+    UnitSystem,
 )
 from ecowitt2mqtt.core import Ecowitt
 from ecowitt2mqtt.data import ProcessedData
@@ -461,7 +461,7 @@ def test_output_units(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
     "config,device_data_filename",
     [
         (
-            TEST_CONFIG_JSON | {CONF_INPUT_UNIT_SYSTEM: UNIT_SYSTEM_METRIC},
+            TEST_CONFIG_JSON | {CONF_INPUT_UNIT_SYSTEM: UnitSystem.METRIC},
             "payload_gw1000bpro_metric.json",
         )
     ],
@@ -854,7 +854,7 @@ def test_unit_conversion_to_imperial(
 
 
 @pytest.mark.parametrize(
-    "config", [TEST_CONFIG_JSON | {CONF_OUTPUT_UNIT_SYSTEM: UNIT_SYSTEM_METRIC}]
+    "config", [TEST_CONFIG_JSON | {CONF_OUTPUT_UNIT_SYSTEM: UnitSystem.METRIC}]
 )
 @pytest.mark.parametrize(
     "device_data_filename,expected_output",

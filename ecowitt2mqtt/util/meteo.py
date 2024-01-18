@@ -6,12 +6,7 @@ from typing import cast
 
 import meteocalc
 
-from ecowitt2mqtt.const import (
-    TEMP_CELSIUS,
-    TEMP_KELVIN,
-    UNIT_SYSTEM_IMPERIAL,
-    UNIT_SYSTEM_METRIC,
-)
+from ecowitt2mqtt.const import TEMP_CELSIUS, TEMP_KELVIN, UnitSystem
 from ecowitt2mqtt.util.unit_conversion import TemperatureConverter
 
 
@@ -107,7 +102,7 @@ def get_frost_point_meteocalc_object(
             - absolute_temp_c
         )
         - 273.15,
-        UNIT_SYSTEM_METRIC,
+        UnitSystem.METRIC,
     )
 
 
@@ -235,7 +230,7 @@ def get_simmer_index_meteocalc_object(
     if temp_obj.f < 70:
         raise ValueError(
             "Simmer Index is only valid for temperatures above "
-            f"{'70°F' if unit_system == UNIT_SYSTEM_IMPERIAL else '21.1°C'}"
+            f"{'70°F' if unit_system == UnitSystem.IMPERIAL else '21.1°C'}"
         )
 
     return get_temperature_meteocalc_object(
@@ -244,7 +239,7 @@ def get_simmer_index_meteocalc_object(
             * (temp_obj.f - (0.55 - (0.0055 * relative_humidity)) * (temp_obj.f - 58.0))
             - 56.83
         ),
-        UNIT_SYSTEM_IMPERIAL,
+        UnitSystem.IMPERIAL,
     )
 
 
@@ -260,7 +255,7 @@ def get_temperature_meteocalc_object(
     Returns:
         A meteocalc.Temp object.
     """
-    if unit_system == UNIT_SYSTEM_IMPERIAL:
+    if unit_system == UnitSystem.IMPERIAL:
         unit = "f"
     else:
         unit = "c"

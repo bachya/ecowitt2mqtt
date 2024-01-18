@@ -10,8 +10,7 @@ from ecowitt2mqtt.const import (
     DEGREE,
     SPEED_KILOMETERS_PER_HOUR,
     SPEED_MILES_PER_HOUR,
-    UNIT_SYSTEM_IMPERIAL,
-    UNIT_SYSTEM_METRIC,
+    UnitSystem,
 )
 from ecowitt2mqtt.helpers.calculator import (
     CalculatedDataPoint,
@@ -240,11 +239,11 @@ class BeaufortScaleCalculator(Calculator):
             r
             for r in BEAUFORT_SCALE_RATINGS
             if (
-                self._config.input_unit_system == UNIT_SYSTEM_IMPERIAL
+                self._config.input_unit_system == UnitSystem.IMPERIAL
                 and r.minimum_mph <= wind_speed < r.maximum_mph
             )
             or (
-                self._config.input_unit_system == UNIT_SYSTEM_METRIC
+                self._config.input_unit_system == UnitSystem.METRIC
                 and r.minimum_kmh <= wind_speed < r.maximum_kmh
             )
         ]

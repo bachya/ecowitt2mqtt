@@ -2,6 +2,8 @@
 import logging
 from typing import Final
 
+from ecowitt2mqtt.backports.enum import StrEnum
+
 __version__ = "2024.01.0"
 
 LOGGER = logging.getLogger(__package__)
@@ -193,10 +195,14 @@ LEGACY_ENV_OUTPUT_UNIT_SYSTEM: Final = "OUTPUT_UNIT_SYSTEM"
 LEGACY_ENV_PORT: Final = "PORT"
 LEGACY_ENV_RAW_DATA: Final = "RAW_DATA"
 
+
 # Unit systems:
-UNIT_SYSTEM_IMPERIAL: Final = "imperial"
-UNIT_SYSTEM_METRIC: Final = "metric"
-UNIT_SYSTEMS: Final = [UNIT_SYSTEM_IMPERIAL, UNIT_SYSTEM_METRIC]
+class UnitSystem(StrEnum):
+    """Define unit systems."""
+
+    IMPERIAL = "imperial"
+    METRIC = "metric"
+
 
 # Unit classes:
 ACCUMULATED_PRECIPITATION: Final = "accumulated_precipitation"

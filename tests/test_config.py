@@ -36,8 +36,8 @@ from ecowitt2mqtt.const import (
     PRESSURE_HPA,
     SPEED_KILOMETERS_PER_HOUR,
     TEMP_CELSIUS,
-    UNIT_SYSTEM_IMPERIAL,
     VOLUME_GRAMS_PER_CUBIC_METER,
+    UnitSystem,
 )
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 from ecowitt2mqtt.helpers.server import InputDataFormat
@@ -181,7 +181,7 @@ def test_config_file(config_filepath: str) -> None:
     assert configs.default_config.hass_discovery_prefix == TEST_HASS_DISCOVERY_PREFIX
     assert configs.default_config.hass_entity_id_prefix is None
     assert configs.default_config.input_data_format == InputDataFormat.ECOWITT
-    assert configs.default_config.input_unit_system == UNIT_SYSTEM_IMPERIAL
+    assert configs.default_config.input_unit_system == UnitSystem.IMPERIAL
     assert configs.default_config.mqtt_broker == TEST_MQTT_BROKER
     assert configs.default_config.mqtt_password == TEST_MQTT_PASSWORD
     assert configs.default_config.mqtt_port == TEST_MQTT_PORT
@@ -189,7 +189,7 @@ def test_config_file(config_filepath: str) -> None:
     assert configs.default_config.mqtt_tls is False
     assert configs.default_config.mqtt_topic == TEST_MQTT_TOPIC
     assert configs.default_config.mqtt_username == TEST_MQTT_USERNAME
-    assert configs.default_config.output_unit_system == UNIT_SYSTEM_IMPERIAL
+    assert configs.default_config.output_unit_system == UnitSystem.IMPERIAL
     assert configs.default_config.output_unit_accumulated_precipitation is None
     assert configs.default_config.output_unit_distance is None
     assert configs.default_config.output_unit_humidity is None
