@@ -1,8 +1,6 @@
 """Define time calculators."""
 from __future__ import annotations
 
-from datetime import datetime, timezone
-
 from ecowitt2mqtt.const import TIME_SECONDS
 from ecowitt2mqtt.helpers.calculator import (
     CalculatedDataPoint,
@@ -11,6 +9,7 @@ from ecowitt2mqtt.helpers.calculator import (
     SimpleCalculator,
 )
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
+from ecowitt2mqtt.util.dt import utc_from_timestamp
 
 
 class EpochCalculator(Calculator):
@@ -33,7 +32,7 @@ class EpochCalculator(Calculator):
         if isinstance(value, str):
             raise CalculationFailedError("Cannot parse value as datetime")
 
-        timestamp = datetime.utcfromtimestamp(value).replace(tzinfo=timezone.utc)
+        timestamp = utc_from_timestamp(value)
         return self.get_calculated_data_point(timestamp)
 
 
