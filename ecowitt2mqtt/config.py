@@ -225,7 +225,7 @@ class Config(BaseModel):
         if (data.get(CONF_MQTT_USERNAME) is None) != (
             data.get(CONF_MQTT_PASSWORD) is None
         ):
-            raise ValueError("MQTT auth must be both fully present or fully absent")
+            raise ValueError("Invalid MQTT auth configuration")
         return data
 
     validate_mqtt_retain = field_validator("mqtt_retain", mode="before")(
