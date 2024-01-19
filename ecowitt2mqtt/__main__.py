@@ -397,9 +397,5 @@ def main() -> None:
     cli_arguments = get_cli_arguments(sys.argv[1:])
     env_vars = get_env_vars()
     params: dict[str, Any] = env_vars | cli_arguments
-
-    if CONF_DIAGNOSTICS in params:
-        params[CONF_VERBOSE] = True
-
     ecowitt = Ecowitt(params)
     uvloop.run(ecowitt.async_start())
