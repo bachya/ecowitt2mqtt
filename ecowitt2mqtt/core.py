@@ -2,14 +2,13 @@
 from __future__ import annotations
 
 import logging
-import os
 import sys
 from typing import Any
 
 import colorlog
 
 from ecowitt2mqtt.config import ConfigError, Configs
-from ecowitt2mqtt.const import LEGACY_ENV_LOG_LEVEL, LOGGER, __version__
+from ecowitt2mqtt.const import LOGGER, __version__
 from ecowitt2mqtt.runtime import Runtime
 
 
@@ -19,7 +18,7 @@ def configure_logging(verbose: bool) -> None:
     Args:
         verbose: Whether verbose logging should be included.
     """
-    if verbose or os.getenv(LEGACY_ENV_LOG_LEVEL):
+    if verbose:
         log_level = logging.DEBUG
     else:
         log_level = logging.INFO

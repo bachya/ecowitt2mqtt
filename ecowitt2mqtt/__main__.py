@@ -75,44 +75,12 @@ from ecowitt2mqtt.const import (
     ENV_PRECISION,
     ENV_RAW_DATA,
     ENV_VERBOSE,
-    LEGACY_ENV_ENDPOINT,
-    LEGACY_ENV_HASS_DISCOVERY,
-    LEGACY_ENV_HASS_DISCOVERY_PREFIX,
-    LEGACY_ENV_HASS_ENTITY_ID_PREFIX,
-    LEGACY_ENV_INPUT_UNIT_SYSTEM,
-    LEGACY_ENV_LOG_LEVEL,
-    LEGACY_ENV_MQTT_BROKER,
-    LEGACY_ENV_MQTT_PASSWORD,
-    LEGACY_ENV_MQTT_PORT,
-    LEGACY_ENV_MQTT_TOPIC,
-    LEGACY_ENV_MQTT_USERNAME,
-    LEGACY_ENV_OUTPUT_UNIT_SYSTEM,
-    LEGACY_ENV_PORT,
-    LEGACY_ENV_RAW_DATA,
-    LOGGER,
     UnitSystem,
     __version__,
 )
 from ecowitt2mqtt.core import Ecowitt
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
 from ecowitt2mqtt.helpers.server import InputDataFormat
-
-DEPRECATED_ENV_VAR_MAP = {
-    LEGACY_ENV_ENDPOINT: ENV_ENDPOINT,
-    LEGACY_ENV_HASS_DISCOVERY: ENV_HASS_DISCOVERY,
-    LEGACY_ENV_HASS_DISCOVERY_PREFIX: ENV_HASS_DISCOVERY_PREFIX,
-    LEGACY_ENV_HASS_ENTITY_ID_PREFIX: ENV_HASS_ENTITY_ID_PREFIX,
-    LEGACY_ENV_INPUT_UNIT_SYSTEM: ENV_INPUT_UNIT_SYSTEM,
-    LEGACY_ENV_LOG_LEVEL: ENV_VERBOSE,
-    LEGACY_ENV_MQTT_BROKER: ENV_MQTT_BROKER,
-    LEGACY_ENV_MQTT_PASSWORD: ENV_MQTT_PASSWORD,
-    LEGACY_ENV_MQTT_PORT: ENV_MQTT_PORT,
-    LEGACY_ENV_MQTT_TOPIC: ENV_MQTT_TOPIC,
-    LEGACY_ENV_MQTT_USERNAME: ENV_MQTT_USERNAME,
-    LEGACY_ENV_OUTPUT_UNIT_SYSTEM: ENV_OUTPUT_UNIT_SYSTEM,
-    LEGACY_ENV_PORT: ENV_PORT,
-    LEGACY_ENV_RAW_DATA: ENV_RAW_DATA,
-}
 
 ENV_VAR_TO_CONF_MAP = {
     ENV_BATTERY_OVERRIDES: CONF_BATTERY_OVERRIDES,
@@ -157,24 +125,11 @@ def get_env_vars() -> dict[str, str]:
     Returns:
         A dictionary of environment variables to config options.
     """
-    env_vars = {}
-
-    for env_var in ENV_VAR_TO_CONF_MAP | DEPRECATED_ENV_VAR_MAP:
-        if (env_var_value := os.getenv(env_var)) is None:
-            continue
-
-        if (replacement_env_var := DEPRECATED_ENV_VAR_MAP.get(env_var)) is not None:
-            LOGGER.warning(
-                "Environment variable %s is deprecated; use %s instead",
-                env_var,
-                replacement_env_var,
-            )
-            env_var = replacement_env_var
-
-        config_option = ENV_VAR_TO_CONF_MAP[env_var]
-        env_vars[config_option] = env_var_value
-
-    return env_vars
+    return {
+        config_option: env_var_value
+        for env_var, config_option in ENV_VAR_TO_CONF_MAP.items()
+        if (env_var_value := os.getenv(env_var)) is not None
+    }
 
 
 def get_cli_arguments(args: list[str]) -> dict[str, Any]:
