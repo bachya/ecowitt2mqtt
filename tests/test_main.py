@@ -5,7 +5,12 @@ import os
 from unittest.mock import patch
 
 from ecowitt2mqtt.__main__ import get_cli_arguments, get_env_vars, main
-from ecowitt2mqtt.const import CONF_MQTT_BROKER, CONF_MQTT_TOPIC, CONF_VERBOSE, ENV_VERBOSE
+from ecowitt2mqtt.const import (
+    CONF_MQTT_BROKER,
+    CONF_MQTT_TOPIC,
+    CONF_VERBOSE,
+    ENV_VERBOSE,
+)
 
 
 def test_get_cli_arguments() -> None:
