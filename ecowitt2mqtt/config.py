@@ -20,11 +20,13 @@ from ruamel.yaml import YAML
 from ecowitt2mqtt.const import (
     CONF_BATTERY_OVERRIDES,
     CONF_CONFIG,
+    CONF_DIAGNOSTICS,
     CONF_GATEWAYS,
     CONF_HASS_DISCOVERY,
     CONF_MQTT_BROKER,
     CONF_MQTT_PASSWORD,
     CONF_MQTT_USERNAME,
+    CONF_VERBOSE,
     DEFAULT_ENDPOINT,
     DEFAULT_HASS_DISCOVERY_PREFIX,
     DEFAULT_MQTT_PORT,
@@ -155,10 +157,25 @@ class Config(BaseModel):
             data: The config data.
 
         Returns:
-            The config data with the raw battery overrides.
+            The potentially altered config data.
         """
         if battery_overrides_env_var := os.getenv(ENV_BATTERY_OVERRIDES):
             data[CONF_BATTERY_OVERRIDES] = battery_overrides_env_var
+        return data
+
+    @model_validator(mode="before")
+    @classmethod
+    def set_diagnostics_verbosity(cls, data: dict[str, Any]) -> dict[str, Any]:
+        """Set verbose when diagnostics is set.
+
+        Args:
+            data: The config data.
+
+        Returns:
+            The potentially altered config data.
+        """
+        if data.get(CONF_DIAGNOSTICS):
+            data[CONF_VERBOSE] = True
         return data
 
     @field_validator("battery_overrides", mode="before")
