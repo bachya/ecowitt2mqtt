@@ -125,16 +125,11 @@ def get_env_vars() -> dict[str, str]:
     Returns:
         A dictionary of environment variables to config options.
     """
-    env_vars = {}
-
-    for env_var in ENV_VAR_TO_CONF_MAP:
-        if (env_var_value := os.getenv(env_var)) is None:
-            continue
-
-        config_option = ENV_VAR_TO_CONF_MAP[env_var]
-        env_vars[config_option] = env_var_value
-
-    return env_vars
+    return {
+        config_option: env_var_value
+        for env_var, config_option in ENV_VAR_TO_CONF_MAP.items()
+        if (env_var_value := os.getenv(env_var)) is not None
+    }
 
 
 def get_cli_arguments(args: list[str]) -> dict[str, Any]:
