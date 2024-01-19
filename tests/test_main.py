@@ -2,30 +2,10 @@
 from __future__ import annotations
 
 import os
-from unittest.mock import Mock, patch
-
-import pytest
+from unittest.mock import patch
 
 from ecowitt2mqtt.__main__ import get_cli_arguments, get_env_vars, main
-from ecowitt2mqtt.const import (
-    CONF_MQTT_BROKER,
-    CONF_MQTT_TOPIC,
-    CONF_VERBOSE,
-    ENV_ENDPOINT,
-    ENV_HASS_DISCOVERY,
-    ENV_HASS_DISCOVERY_PREFIX,
-    ENV_HASS_ENTITY_ID_PREFIX,
-    ENV_INPUT_UNIT_SYSTEM,
-    ENV_MQTT_BROKER,
-    ENV_MQTT_PASSWORD,
-    ENV_MQTT_PORT,
-    ENV_MQTT_TOPIC,
-    ENV_MQTT_USERNAME,
-    ENV_OUTPUT_UNIT_SYSTEM,
-    ENV_PORT,
-    ENV_RAW_DATA,
-    ENV_VERBOSE,
-)
+from ecowitt2mqtt.const import CONF_MQTT_BROKER, CONF_MQTT_TOPIC, CONF_VERBOSE, ENV_VERBOSE
 
 
 def test_get_cli_arguments() -> None:

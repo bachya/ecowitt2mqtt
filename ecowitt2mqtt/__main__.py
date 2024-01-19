@@ -75,7 +75,6 @@ from ecowitt2mqtt.const import (
     ENV_PRECISION,
     ENV_RAW_DATA,
     ENV_VERBOSE,
-    LOGGER,
     UnitSystem,
     __version__,
 )
