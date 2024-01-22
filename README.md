@@ -125,17 +125,11 @@ Within the `Upload Interval`, data should begin to appear in the MQTT broker.
 ## Command Line Options
 
 ```
-usage: ecowitt2mqtt [-h] [--version] [--battery-override BATTERY_OVERRIDES] [--boolean-battery-true-value boolean_battery_true_value]
-                    [-c config] [--default-battery-strategy default_battery_strategy] [--diagnostics] [--disable-calculated-data]
-                    [-e endpoint] [--hass-discovery] [--hass-discovery-prefix hass_discovery_prefix]
-                    [--hass-entity-id-prefix hass_entity_id_prefix] [--input-data-format input_data_format]
-                    [--input-unit-system input_unit_system] [-b mqtt_broker] [-p mqtt_password] [--mqtt-port mqtt_port] [--mqtt-retain]
-                    [--mqtt-tls] [-t mqtt_topic] [-u mqtt_username] [--output-unit-system output_unit_system]
-                    [--output-unit-accumulated-precipitation output_unit_accumulated_precipitation]
-                    [--output-unit-distance output_unit_distance] [--output-unit-humidity output_unit_humidity]
-                    [--output-unit-illuminance output_unit_illuminance] [--output-unit-precipitation-rate output_unit_precipitation_rate]
-                    [--output-unit-pressure output_unit_pressure] [--output-unit-speed output_unit_speed]
-                    [--output-unit-temperature output_unit_temperature] [--port port] [--precision precision] [--raw-data] [-v]
+usage: ecowitt2mqtt [-h] [--version] [--battery-override BATTERY_OVERRIDES] [--boolean-battery-true-value boolean_battery_true_value] [-c config] [--default-battery-strategy default_battery_strategy] [--diagnostics] [--disable-calculated-data] [-e endpoint] [--hass-discovery]
+                    [--hass-discovery-prefix hass_discovery_prefix] [--hass-entity-id-prefix hass_entity_id_prefix] [--input-data-format input_data_format] [--input-unit-system input_unit_system] [-b mqtt_broker] [-p mqtt_password] [--mqtt-port mqtt_port] [--mqtt-retain] [--mqtt-tls] [-t mqtt_topic]
+                    [-u mqtt_username] [--output-unit-system output_unit_system] [--output-unit-accumulated-precipitation output_unit_accumulated_precipitation] [--output-unit-distance output_unit_distance] [--output-unit-humidity output_unit_humidity]
+                    [--output-unit-illuminance output_unit_illuminance] [--output-unit-precipitation-rate output_unit_precipitation_rate] [--output-unit-pressure output_unit_pressure] [--output-unit-speed output_unit_speed] [--output-unit-temperature output_unit_temperature] [--port port]
+                    [--precision precision] [--raw-data] [-v]
 
 Send data from an Ecowitt gateway to an MQTT broker
 
@@ -159,8 +153,7 @@ options:
   --hass-discovery-prefix hass_discovery_prefix
                         The Home Assistant MQTT Discovery topic prefix to use (default: homeassistant)
   --hass-entity-id-prefix hass_entity_id_prefix
-                        The prefix to use for Home Assistant entity IDs. Example: A prefix of 'prefix' will prepend 'prefix_' to entity
-                        IDs
+                        The prefix to use for Home Assistant entity IDs. Example: A prefix of 'prefix' will prepend 'prefix_' to entity IDs
   --input-data-format input_data_format
                         The input data format used by the gateway (default: ecowitt)
   --input-unit-system input_unit_system
@@ -180,8 +173,7 @@ options:
   --output-unit-system output_unit_system
                         The output unit system used by the gateway (default: imperial)
   --output-unit-accumulated-precipitation output_unit_accumulated_precipitation
-                        The output unit to use for accumulated precipitation data points (default: the default used by the output unit
-                        system)
+                        The output unit to use for accumulated precipitation data points (default: the default used by the output unit system)
   --output-unit-distance output_unit_distance
                         The output unit to use for distance data points (default: the default used by the output unit system)
   --output-unit-humidity output_unit_humidity
@@ -198,8 +190,7 @@ options:
                         The output unit to use for temperature data points (default: the default used by the output unit system)
   --port port           The port to serve ecowitt2mqtt on (default: 8080)
   --precision precision
-                        The precision to output data points at. Example: A value of 2 will round to two decimal places. (default: no
-                        limit)
+                        The precision to output data points at. Example: A value of 2 will round to two decimal places. (default: no limit)
   --raw-data            Return raw data (don't attempt to translate any values)
   -v, --verbose         Increase verbosity of logged output
 ```
