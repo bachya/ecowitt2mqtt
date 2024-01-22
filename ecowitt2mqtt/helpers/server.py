@@ -15,6 +15,20 @@ from ecowitt2mqtt.const import LOGGER
 CallbackT = Callable[[dict[str, Any]], None]
 
 
+def remove_trailing_slash(endpoint: str) -> str:
+    """Remove a trailing slash from an endpoint.
+
+    Args:
+        endpoint: The endpoint to remove the trailing slash from.
+
+    Returns:
+        The endpoint with the trailing slash removed.
+    """
+    if endpoint.endswith("/"):
+        return endpoint[:-1]
+    return endpoint
+
+
 def get_request_query_params(request: Request) -> dict[str, Any]:
     """Get the query parameters from a request.
 
@@ -87,9 +101,7 @@ class APIServer(ABC):
         Returns:
             A normalized endpoint.
         """
-        if endpoint.endswith("/"):
-            return [endpoint[:-1]]
-        return [endpoint]
+        return [remove_trailing_slash(endpoint)]
 
     def add_payload_callback(self, callback: CallbackT) -> None:
         """Add a callback to be called when a new payload is received.
@@ -125,7 +137,9 @@ class AmbientWeatherAPIServer(APIServer):
         Returns:
             A normalized endpoint.
         """
-        return [endpoint, endpoint + "{param_string}"]
+        return [
+            remove_trailing_slash(e) for e in (endpoint, endpoint + "{param_string}")
+        ]
 
     async def async_parse_request_payload(self, request: Request) -> dict[str, Any]:
         """Parse and return the request payload.
@@ -177,7 +191,9 @@ class WUndergroundAPIServer(APIServer):
         Returns:
             A normalized endpoint.
         """
-        return [endpoint, endpoint + "{param_string}"]
+        return [
+            remove_trailing_slash(e) for e in (endpoint, endpoint + "{param_string}")
+        ]
 
     async def async_parse_request_payload(self, request: Request) -> dict[str, Any]:
         """Parse and return the request payload.
