@@ -4,7 +4,7 @@ from typing import Final
 
 from ecowitt2mqtt.backports.enum import StrEnum
 
-__version__ = "2024.01.0"
+__version__ = "2024.01.1"
 
 LOGGER = logging.getLogger(__package__)
 
