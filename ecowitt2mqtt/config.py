@@ -57,6 +57,8 @@ REQUIRES_AT_LEAST_ONE_OF = (
 TRUTHY_VALUES = {"1", "true", "yes", "on", "enable"}
 FALSEY_VALUES = {"0", "false", "no", "off", "disable"}
 
+BOOLEAN_BATTERY_TRUE_VALUES = {0, 1}
+
 
 class ConfigError(EcowittError):
     """Define an error related to bad configuration."""
@@ -108,9 +110,7 @@ class Config(BaseModel):
 
     # Optional battery parameters:
     battery_overrides: dict[str, BatteryStrategy] = {}
-    boolean_battery_true_value: Annotated[
-        int, Field(strict=True, ge=0, le=1)
-    ] = DEFAULT_BOOLEAN_BATTERY_TRUE_VALUE
+    boolean_battery_true_value: int = DEFAULT_BOOLEAN_BATTERY_TRUE_VALUE
     default_battery_strategy: BatteryStrategy = BatteryStrategy.BOOLEAN
 
     # Optional data parameters:
@@ -228,7 +228,9 @@ class Config(BaseModel):
         Returns:
             The parsed boolean battery true value.
         """
-        return int(value)
+        if (parsed := int(value)) not in BOOLEAN_BATTERY_TRUE_VALUES:
+            raise ValueError(f"invalid boolean battery true value: {value}")
+        return parsed
 
     validate_diagnostics = field_validator("diagnostics", mode="before")(
         validate_boolean
