@@ -151,10 +151,10 @@ class BatteryCalculator(Calculator):
             #   * 6 = 120% (plugged into mains voltage)
             return self.get_calculated_data_point(float_value * 20)
 
-        if float_value == 0.0:
+        if float_value == self._config.boolean_battery_true_value:
             return self.get_calculated_data_point(
-                BooleanBatteryState.OFF, data_type=DataPointType.BOOLEAN
+                BooleanBatteryState.ON, data_type=DataPointType.BOOLEAN
             )
         return self.get_calculated_data_point(
-            BooleanBatteryState.ON, data_type=DataPointType.BOOLEAN
+            BooleanBatteryState.OFF, data_type=DataPointType.BOOLEAN
         )

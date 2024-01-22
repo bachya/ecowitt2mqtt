@@ -27,6 +27,7 @@ from ecowitt2mqtt.const import (
     CONF_MQTT_PASSWORD,
     CONF_MQTT_USERNAME,
     CONF_VERBOSE,
+    DEFAULT_BOOLEAN_BATTERY_TRUE_VALUE,
     DEFAULT_ENDPOINT,
     DEFAULT_HASS_DISCOVERY_PREFIX,
     DEFAULT_MQTT_PORT,
@@ -55,6 +56,8 @@ REQUIRES_AT_LEAST_ONE_OF = (
 
 TRUTHY_VALUES = {"1", "true", "yes", "on", "enable"}
 FALSEY_VALUES = {"0", "false", "no", "off", "disable"}
+
+BOOLEAN_BATTERY_TRUE_VALUES = {0, 1}
 
 
 class ConfigError(EcowittError):
@@ -107,6 +110,7 @@ class Config(BaseModel):
 
     # Optional battery parameters:
     battery_overrides: dict[str, BatteryStrategy] = {}
+    boolean_battery_true_value: int = DEFAULT_BOOLEAN_BATTERY_TRUE_VALUE
     default_battery_strategy: BatteryStrategy = BatteryStrategy.BOOLEAN
 
     # Optional data parameters:
@@ -212,6 +216,21 @@ class Config(BaseModel):
             }
         except (IndexError, ValueError) as err:
             raise ValueError(f"invalid battery overrides: {value}") from err
+
+    @field_validator("boolean_battery_true_value", mode="before")
+    @classmethod
+    def validate_boolean_battery_true_value(cls, value: int | str) -> int:
+        """Validate that boolean battery true value is valid.
+
+        Args:
+            value: The boolean battery true value.
+
+        Returns:
+            The parsed boolean battery true value.
+        """
+        if (parsed := int(value)) not in BOOLEAN_BATTERY_TRUE_VALUES:
+            raise ValueError(f"invalid boolean battery true value: {value}")
+        return parsed
 
     validate_diagnostics = field_validator("diagnostics", mode="before")(
         validate_boolean

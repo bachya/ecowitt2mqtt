@@ -10,6 +10,7 @@ LOGGER = logging.getLogger(__package__)
 
 # Configuration keys:
 CONF_BATTERY_OVERRIDES: Final = "battery_overrides"
+CONF_BOOLEAN_BATTERY_TRUE_VALUE: Final = "boolean_battery_true_value"
 CONF_CONFIG: Final = "config"
 CONF_DEFAULT_BATTERY_STRATEGY: Final = "default_battery_strategy"
 CONF_DIAGNOSTICS: Final = "diagnostics"
@@ -137,6 +138,7 @@ DATA_POINT_YEARLY_RAIN: Final = "yearlyrain"
 DATA_POINT_YRAIN_PIEZO: Final = "yrain_piezo"
 
 # Defaults:
+DEFAULT_BOOLEAN_BATTERY_TRUE_VALUE: Final = 1
 DEFAULT_ENDPOINT: Final = "/data/report"
 DEFAULT_HASS_DISCOVERY_PREFIX: Final = "homeassistant"
 DEFAULT_MQTT_PORT: Final = 1883
@@ -144,6 +146,7 @@ DEFAULT_PORT: Final = 8080
 
 # Environment variables:
 ENV_BATTERY_OVERRIDES: Final = "ECOWITT2MQTT_BATTERY_OVERRIDE"
+ENV_BOOLEAN_BATTERY_TRUE_VALUE: Final = "ECOWITT2MQTT_BOOLEAN_BATTERY_TRUE_VALUE"
 ENV_CONFIG: Final = "ECOWITT2MQTT_CONFIG"
 ENV_DEFAULT_BATTERY_STRATEGY: Final = "ECOWITT2MQTT_DEFAULT_BATTERY_STRATEGY"
 ENV_DIAGNOSTICS: Final = "ECOWITT2MQTT_DIAGNOSTICS"

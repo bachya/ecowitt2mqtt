@@ -10,6 +10,7 @@ import pytest
 from ecowitt2mqtt.config import ConfigError, Configs
 from ecowitt2mqtt.const import (
     CONF_BATTERY_OVERRIDES,
+    CONF_BOOLEAN_BATTERY_TRUE_VALUE,
     CONF_CONFIG,
     CONF_DEFAULT_BATTERY_STRATEGY,
     CONF_GATEWAYS,
@@ -156,6 +157,29 @@ def test_battery_overrides_missing(config: dict[str, Any]) -> None:
     """
     configs = Configs(config)
     assert configs.default_config.battery_overrides == {}
+
+
+@pytest.mark.parametrize(
+    "config,value",
+    [
+        (TEST_CONFIG_JSON | {CONF_BOOLEAN_BATTERY_TRUE_VALUE: "0"}, 0),
+        (TEST_CONFIG_JSON | {CONF_BOOLEAN_BATTERY_TRUE_VALUE: "1"}, 1),
+        (TEST_CONFIG_JSON | {CONF_BOOLEAN_BATTERY_TRUE_VALUE: "2"}, None),
+    ],
+)
+def test_boolean_battery_true_value(config: dict[str, Any], value: int | None) -> None:
+    """Test configuring the default True value for a boolean battery.
+
+    Args:
+        config: A configuration dictionary.
+        value: The expected value.
+    """
+    if value is not None:
+        configs = Configs(config)
+        assert configs.default_config.boolean_battery_true_value == value
+    else:
+        with pytest.raises(ConfigError):
+            _ = Configs(config)
 
 
 @pytest.mark.parametrize(
@@ -328,6 +352,20 @@ def test_default_battery_strategy(config: dict[str, Any]) -> None:
 )
 def test_invalid_boolean_config_validation(config: dict[str, Any]) -> None:
     """Test an invalid boolean config validation.
+
+    Args:
+        config: A configuration dictionary.
+    """
+    with pytest.raises(ConfigError):
+        _ = Configs(config)
+
+
+@pytest.mark.parametrize(
+    "config",
+    [TEST_CONFIG_JSON | {CONF_PORT: 99999999999}],
+)
+def test_invalid_port(config: dict[str, Any]) -> None:
+    """Test that an invalid port is detected.
 
     Args:
         config: A configuration dictionary.
