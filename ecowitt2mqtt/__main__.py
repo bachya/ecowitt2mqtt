@@ -10,6 +10,7 @@ import uvloop
 
 from ecowitt2mqtt.const import (
     CONF_BATTERY_OVERRIDES,
+    CONF_BOOLEAN_BATTERY_TRUE_VALUE,
     CONF_CONFIG,
     CONF_DEFAULT_BATTERY_STRATEGY,
     CONF_DIAGNOSTICS,
@@ -40,11 +41,13 @@ from ecowitt2mqtt.const import (
     CONF_PRECISION,
     CONF_RAW_DATA,
     CONF_VERBOSE,
+    DEFAULT_BOOLEAN_BATTERY_TRUE_VALUE,
     DEFAULT_ENDPOINT,
     DEFAULT_HASS_DISCOVERY_PREFIX,
     DEFAULT_MQTT_PORT,
     DEFAULT_PORT,
     ENV_BATTERY_OVERRIDES,
+    ENV_BOOLEAN_BATTERY_TRUE_VALUE,
     ENV_CONFIG,
     ENV_DEFAULT_BATTERY_STRATEGY,
     ENV_DIAGNOSTICS,
@@ -84,6 +87,7 @@ from ecowitt2mqtt.helpers.server import InputDataFormat
 
 ENV_VAR_TO_CONF_MAP = {
     ENV_BATTERY_OVERRIDES: CONF_BATTERY_OVERRIDES,
+    ENV_BOOLEAN_BATTERY_TRUE_VALUE: CONF_BOOLEAN_BATTERY_TRUE_VALUE,
     ENV_CONFIG: CONF_CONFIG,
     ENV_DEFAULT_BATTERY_STRATEGY: CONF_DEFAULT_BATTERY_STRATEGY,
     ENV_DIAGNOSTICS: CONF_DIAGNOSTICS,
@@ -150,6 +154,15 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
         "--battery-override",
         dest=CONF_BATTERY_OVERRIDES,
         help="A battery configuration override (format: key,value)",
+    )
+    parser.add_argument(
+        "--boolean-battery-true-value",
+        dest=CONF_BOOLEAN_BATTERY_TRUE_VALUE,
+        help=(
+            "The value that boolean battery sensors use to represent a True value "
+            f"(default: {DEFAULT_BOOLEAN_BATTERY_TRUE_VALUE})"
+        ),
+        metavar=CONF_BOOLEAN_BATTERY_TRUE_VALUE,
     )
     parser.add_argument(
         "-c",
