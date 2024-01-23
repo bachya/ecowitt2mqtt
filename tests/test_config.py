@@ -471,6 +471,27 @@ def test_precision() -> None:
 
 
 @pytest.mark.parametrize(
+    "config,is_valid",
+    (
+        [TEST_CONFIG_JSON | {CONF_PORT: 1883}, True],
+        [TEST_CONFIG_JSON | {CONF_PORT: 9000}, True],
+        [TEST_CONFIG_JSON | {CONF_PORT: "1883"}, True],
+        [TEST_CONFIG_JSON | {CONF_PORT: "Not a port"}, False],
+    ),
+)
+def test_port(config: dict[str, Any], is_valid: bool) -> None:
+    """Test validating a port.
+
+    Args:
+        config: A configuration dictionary.
+        is_valid: Whether the configuration is valid.
+    """
+    if not is_valid:
+        with pytest.raises(ConfigError):
+            _ = Configs(config)
+
+
+@pytest.mark.parametrize(
     "config,verbose_value",
     [
         (TEST_CONFIG_JSON | {CONF_VERBOSE: "yes"}, True),

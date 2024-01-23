@@ -4,7 +4,7 @@ from __future__ import annotations
 import os
 from collections.abc import Generator
 from numbers import Number
-from typing import Annotated, Any
+from typing import Any
 from uuid import uuid4
 
 from pydantic import (
@@ -92,6 +92,24 @@ def validate_boolean(value: bool | str | Number) -> bool:
     raise ValueError(f"invalid boolean value: {value}")
 
 
+def validate_port(value: int | str) -> int:
+    """Validate a port
+
+    Args:
+        value: A value to validate.
+
+    Returns:
+        An validated port.
+
+    Raises:
+        ValueError: Raises if the value is not a valid port.
+    """
+    parsed = int(value)
+    if not 1 <= parsed <= 65536:
+        raise ValueError(f"invalid port: {value}")
+    return parsed
+
+
 class Config(BaseModel):
     """Define a config object."""
 
@@ -102,7 +120,7 @@ class Config(BaseModel):
 
     # Optional MQTT parameters:
     mqtt_password: str | None = None
-    mqtt_port: Annotated[int, Field(strict=True, ge=1, le=65536)] = DEFAULT_MQTT_PORT
+    mqtt_port: int = DEFAULT_MQTT_PORT
     mqtt_retain: bool = False
     mqtt_tls: bool = False
     mqtt_topic: str | None = None
@@ -126,7 +144,7 @@ class Config(BaseModel):
 
     # Optional HTTP parameters:
     endpoint: str = DEFAULT_ENDPOINT
-    port: Annotated[int, Field(strict=True, ge=1, le=65536)] = DEFAULT_PORT
+    port: int = DEFAULT_PORT
 
     # Optional logging parameters:
     diagnostics: bool = False
@@ -240,7 +258,7 @@ class Config(BaseModel):
         "disable_calculated_data", mode="before"
     )(validate_boolean)
 
-    validate_has_discovery = field_validator("hass_discovery", mode="before")(
+    validate_hass_discovery = field_validator("hass_discovery", mode="before")(
         validate_boolean
     )
 
@@ -264,11 +282,15 @@ class Config(BaseModel):
             raise ValueError("Invalid MQTT auth configuration")
         return data
 
+    validate_mqtt_port = field_validator("mqtt_port", mode="before")(validate_port)
+
     validate_mqtt_retain = field_validator("mqtt_retain", mode="before")(
         validate_boolean
     )
 
     validate_mqtt_tls = field_validator("mqtt_tls", mode="before")(validate_boolean)
+
+    validate_port = field_validator("port", mode="before")(validate_port)
 
     validate_raw_data = field_validator("raw_data", mode="before")(validate_boolean)
 
