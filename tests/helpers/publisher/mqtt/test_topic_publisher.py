@@ -1,4 +1,5 @@
 """Define tests for the MQTT Topic publisher."""
+
 # pylint: disable=line-too-long
 from typing import Any
 from unittest.mock import MagicMock

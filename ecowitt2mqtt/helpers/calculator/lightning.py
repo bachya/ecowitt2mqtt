@@ -1,4 +1,5 @@
 """Define lightning-related calculators."""
+
 from __future__ import annotations
 
 from ecowitt2mqtt.const import CONF_OUTPUT_UNIT_DISTANCE, STRIKES, UnitOfLength

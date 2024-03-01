@@ -1,4 +1,5 @@
 """Define time calculators."""
+
 from __future__ import annotations
 
 from ecowitt2mqtt.const import UnitOfMemory

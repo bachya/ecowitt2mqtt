@@ -1,4 +1,5 @@
 """Define helpers to publish Ecowitt payloads."""
+
 from __future__ import annotations
 
 from abc import ABC, abstractmethod

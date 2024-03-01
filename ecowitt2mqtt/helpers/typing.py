@@ -1,4 +1,5 @@
 """Define typing helpers."""
+
 from collections.abc import Collection
 from datetime import datetime
 from typing import Union

@@ -2,6 +2,7 @@
 
 https://github.com/clbarnes/backports.strenum
 """
+
 from enum import Enum
 from typing import TypeVar
 

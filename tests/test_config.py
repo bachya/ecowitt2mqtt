@@ -1,4 +1,5 @@
 """Define tests for configuration management."""
+
 from __future__ import annotations
 
 import json
@@ -119,9 +120,9 @@ def test_battery_overrides_env_vars(config: dict[str, Any]) -> None:
     Args:
         config: A configuration dictionary.
     """
-    os.environ[
-        ENV_BATTERY_OVERRIDES
-    ] = "testbatt0=boolean;testbatt1=numeric;testbatt2=percentage"
+    os.environ[ENV_BATTERY_OVERRIDES] = (
+        "testbatt0=boolean;testbatt1=numeric;testbatt2=percentage"
+    )
     configs = Configs(config)
     assert configs.default_config.battery_overrides == {
         "testbatt0": BatteryStrategy.BOOLEAN,

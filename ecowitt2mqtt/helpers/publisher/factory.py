@@ -1,4 +1,5 @@
 """Define a publisher factory."""
+
 from __future__ import annotations
 
 from aiomqtt import Client

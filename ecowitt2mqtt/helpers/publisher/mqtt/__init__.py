@@ -1,4 +1,5 @@
 """Define MQTT publishers."""
+
 from __future__ import annotations
 
 import json

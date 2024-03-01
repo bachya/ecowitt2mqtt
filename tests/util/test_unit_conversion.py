@@ -1,4 +1,5 @@
 """Test unit conversion helpers."""
+
 import pytest
 
 from ecowitt2mqtt.util.unit_conversion import (

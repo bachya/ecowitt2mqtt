@@ -1,4 +1,5 @@
 """Define a configuration management module."""
+
 from __future__ import annotations
 
 import os
