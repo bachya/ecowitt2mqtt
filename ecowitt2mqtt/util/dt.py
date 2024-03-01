@@ -1,4 +1,5 @@
 """Define datetime utilities."""
+
 from datetime import datetime
 
 try:

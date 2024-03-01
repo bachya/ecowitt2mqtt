@@ -1,4 +1,5 @@
 """Define various API server helpers."""
+
 from __future__ import annotations
 
 import urllib.parse

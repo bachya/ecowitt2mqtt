@@ -1,4 +1,5 @@
 """Test the main entrypoint."""
+
 from __future__ import annotations
 
 import os

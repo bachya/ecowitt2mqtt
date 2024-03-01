@@ -1,4 +1,5 @@
 """Define moisture calculators."""
+
 from __future__ import annotations
 
 from ecowitt2mqtt.backports.enum import StrEnum

@@ -1,4 +1,5 @@
 """Define MQTT publishing."""
+
 # pylint: disable=unused-argument
 from __future__ import annotations
 
