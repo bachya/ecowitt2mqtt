@@ -24,8 +24,8 @@ from ecowitt2mqtt.const import (
     CONF_DIAGNOSTICS,
     CONF_GATEWAYS,
     CONF_HASS_DISCOVERY,
-    CONF_MQTT_BROKER,
     CONF_MQTT_PASSWORD,
+    CONF_MQTT_TOPIC,
     CONF_MQTT_USERNAME,
     CONF_VERBOSE,
     DEFAULT_BOOLEAN_BATTERY_TRUE_VALUE,
@@ -51,7 +51,7 @@ from ecowitt2mqtt.helpers.server import InputDataFormat
 CONF_DEFAULT = "default"
 
 REQUIRES_AT_LEAST_ONE_OF = (
-    CONF_MQTT_BROKER,
+    CONF_MQTT_TOPIC,
     CONF_HASS_DISCOVERY,
 )
 
