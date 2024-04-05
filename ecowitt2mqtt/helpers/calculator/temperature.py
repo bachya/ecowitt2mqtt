@@ -495,9 +495,16 @@ class HumidexPerceptionCalculator(Calculator):
         humidity = cast(float, payload[DATA_POINT_HUMIDITY])
 
         humidex = get_humidex(temp, humidity, self._config.input_unit_system)
-        [rating] = [
-            r for r in HUMIDEX_PERCEPTION_RATINGS if r.minimum <= humidex < r.maximum
-        ]
+
+        try:
+            rating = next(
+                r
+                for r in HUMIDEX_PERCEPTION_RATINGS
+                if r.minimum <= humidex < r.maximum
+            )
+        except StopIteration:
+            return self.get_calculated_data_point(None)
+
         return self.get_calculated_data_point(rating.perception)
 
 
@@ -556,11 +563,12 @@ class RsiPerceptionCalculator(Calculator):
             LOGGER.debug("%s", err)
             return self.get_calculated_data_point(None)
 
-        [rating] = [
+        rating = next(
             r
             for r in RELATIVE_STRAIN_INDEX_PERCEPTION_RATINGS
             if r.minimum <= rsi < r.maximum
-        ]
+        )
+
         return self.get_calculated_data_point(rating.perception)
 
 
@@ -631,9 +639,15 @@ class SimmerZoneCalculator(Calculator):
 
         simmer_obj = cast(meteocalc.Temp, simmer_obj)
 
-        [rating] = [
-            r for r in SIMMER_ZONE_RATINGS if r.minimum_f <= simmer_obj.f < r.maximum_f
-        ]
+        try:
+            rating = next(
+                r
+                for r in SIMMER_ZONE_RATINGS
+                if r.minimum_f <= simmer_obj.f < r.maximum_f
+            )
+        except StopIteration:
+            return self.get_calculated_data_point(None)
+
         return self.get_calculated_data_point(rating.zone)
 
 
@@ -692,11 +706,12 @@ class ThermalPerceptionCalculator(Calculator):
             temp, humidity, self._config.input_unit_system
         )
 
-        [rating] = [
+        rating = next(
             r
             for r in THERMAL_PERCEPTION_RATINGS
             if r.minimum_c <= dew_point_obj.c < r.maximum_c
-        ]
+        )
+
         return self.get_calculated_data_point(rating.perception)
 
 

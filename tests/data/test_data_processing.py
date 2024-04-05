@@ -4852,8 +4852,7 @@ def test_suspcious_temperature_value(
         device_data: A dictionary of device data.
         ecowitt: An Ecowitt object.
     """
-    with pytest.raises(ValueError):
-        _ = ProcessedData(ecowitt.configs.default_config, device_data)
+    _ = ProcessedData(ecowitt.configs.default_config, device_data)
 
     for message in (
         'Value of "temp" (93.2) with input unit system "metric" seems suspicious',

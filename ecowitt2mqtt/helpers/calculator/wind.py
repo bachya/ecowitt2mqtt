@@ -235,7 +235,7 @@ class BeaufortScaleCalculator(Calculator):
         """
         wind_speed = cast(float, payload[DATA_POINT_WINDSPEED])
 
-        [rating] = [
+        rating = next(
             r
             for r in BEAUFORT_SCALE_RATINGS
             if (
@@ -246,7 +246,7 @@ class BeaufortScaleCalculator(Calculator):
                 self._config.input_unit_system == UnitSystem.METRIC
                 and r.minimum_kmh <= wind_speed < r.maximum_kmh
             )
-        ]
+        )
 
         return self.get_calculated_data_point(
             rating.number,
