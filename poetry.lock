@@ -98,17 +98,17 @@ speedups = ["Brotli", "aiodns", "brotlicffi"]
 
 [[package]]
 name = "aiomqtt"
-version = "2.0.1"
+version = "2.1.0"
 description = "The idiomatic asyncio MQTT client, wrapped around paho-mqtt"
 optional = false
-python-versions = ">=3.8,<4.0"
+python-versions = "<4.0,>=3.8"
 files = [
-    {file = "aiomqtt-2.0.1-py3-none-any.whl", hash = "sha256:7c26a867212366ae0841571e6c2d06cebc00c2de029475b920c2cd7396aeacea"},
-    {file = "aiomqtt-2.0.1.tar.gz", hash = "sha256:60f6451c8ab7235cfb392b1b0cab398e9bc6040f4b140628c0615371abcde15f"},
+    {file = "aiomqtt-2.1.0-py3-none-any.whl", hash = "sha256:ba62afe18e57b01ef28240f192b73cd54d7e42d827a47697997d3e6252a130d1"},
+    {file = "aiomqtt-2.1.0.tar.gz", hash = "sha256:8501c373c00fa7074a990a951285f31340c29b6541aea15e040da9ea33d79719"},
 ]
 
 [package.dependencies]
-paho-mqtt = ">=1.6.0,<2.0.0"
+paho-mqtt = ">=2.0.0,<3.0.0"
 
 [[package]]
 name = "aiosignal"
@@ -888,16 +888,17 @@ files = [
 
 [[package]]
 name = "paho-mqtt"
-version = "1.6.1"
+version = "2.0.0"
 description = "MQTT version 5.0/3.1.1 client class"
 optional = false
-python-versions = "*"
+python-versions = ">=3.7"
 files = [
-    {file = "paho-mqtt-1.6.1.tar.gz", hash = "sha256:2a8291c81623aec00372b5a85558a372c747cbca8e9934dfe218638b8eefc26f"},
+    {file = "paho_mqtt-2.0.0-py3-none-any.whl", hash = "sha256:2ef745073dfc9aa68bfec30d0b9b6f0304ea75182bae85a7c77a80cefce1eff5"},
+    {file = "paho_mqtt-2.0.0.tar.gz", hash = "sha256:13b205f29251e4f2c66a6c923c31fc4fd780561e03b2d775cff8e4f2915cf947"},
 ]
 
 [package.extras]
-proxy = ["PySocks"]
+proxy = ["pysocks"]
 
 [[package]]
 name = "pathspec"
