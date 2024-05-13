@@ -180,7 +180,10 @@ class Runtime:
         """Start the runtime."""
         LOGGER.debug("Starting runtime")
         self._rest_api_server_task = asyncio.create_task(self._uvicorn.serve())
-        await self._rest_api_server_task
+        try:
+            await self._rest_api_server_task
+        except asyncio.CancelledError:
+            LOGGER.debug("Runtime task successfully cancelled")
 
     def stop(self) -> None:
         """Stop the REST API server."""
