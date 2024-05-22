@@ -1,7 +1,7 @@
 """Define runtime management."""
 
 from __future__ import annotations
-
+import os
 import asyncio
 import traceback
 from collections.abc import AsyncGenerator
@@ -72,14 +72,22 @@ class Runtime:
             uvicorn_log_level = UVICORN_LOG_LEVEL_DEBUG
         else:
             uvicorn_log_level = UVICORN_LOG_LEVEL_ERROR
-        self._uvicorn = uvicorn.Server(
-            config=uvicorn.Config(
+        if 'LISTEN_FDS' in os.environ and 'LISTEN_PID' in os.environ:
+            # systemd socket-activation is provided, use it automatically
+            SD_LISTEN_FD = 3
+            uvc_config = uvicorn.Config(
+                fastapi,
+                fd=SD_LISTEN_FD,
+                log_level=uvicorn_log_level,
+            )
+        else:
+            uvc_config = uvicorn.Config(
                 fastapi,
                 host=DEFAULT_HOST,
                 port=ecowitt.configs.default_config.port,
                 log_level=uvicorn_log_level,
             )
-        )
+        self._uvicorn = uvicorn.Server(config=uvc_config)
 
     def _async_create_mqtt_loop_task(
         self,

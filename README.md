@@ -694,6 +694,22 @@ To enable the service:
 $ systemctl enable ecowitt2mqtt
 ```
 
+Alternatively, socket activation can be used to let systemd open the port for the application.  This
+is especially useful when paired with Podman allowing a usermode process to listen for connections
+without a slirp4ns proxy.  Socket activation can be enabled by creating a systemd socket file
+with the same base-name as the service file.  For example:
+
+```
+[Unit]
+Description=ecowitt2mqtt service
+
+[Socket]
+ListenStream=[::]:8080
+
+[Install]
+WantedBy=sockets.target
+```
+
 ## Docker
 
 The library is available via a Docker image from both [Docker Hub][docker-hub] and
