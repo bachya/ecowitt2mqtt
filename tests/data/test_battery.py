@@ -1195,6 +1195,13 @@ def test_unknown_battery(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
+        "winddir_name": CalculatedDataPoint(
+            data_point_key="winddir_name",
+            value="SE",
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
         "playstationbattery1": CalculatedDataPoint(
             "batt",
             BooleanBatteryState.OFF,

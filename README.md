@@ -432,6 +432,8 @@ data exists:
 - **[Wind Chill][wind-chill]:** how cold the air feels to the human body when factoring
   in relative humidity, wind speed, etc. (applicable when the apparent temperature is
   lower than the air temperature)
+- **Wind Direction Name:** a conversion from degrees to a human-friendly label (e.g.,
+  "NNW")
 
 (Special thanks to the excellent [`thermal_comfort` library][thermal-comfort-library] for
 inspiration on many of these.)

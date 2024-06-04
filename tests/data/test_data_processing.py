@@ -652,6 +652,13 @@ def test_missing_distance(device_data: dict[str, Any], ecowitt: Ecowitt) -> None
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
+        "winddir_name": CalculatedDataPoint(
+            data_point_key="winddir_name",
+            value="E",
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
     }
 
 
@@ -1034,6 +1041,13 @@ def test_nonnumeric_value(device_data: dict[str, Any], ecowitt: Ecowitt) -> None
         "relative_strain_index_perception": CalculatedDataPoint(
             data_point_key="relative_strain_index_perception",
             value=RsiPerception.EXTREME_DISCOMFORT,
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
+        "winddir_name": CalculatedDataPoint(
+            data_point_key="winddir_name",
+            value="SE",
             unit=None,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -1425,6 +1439,13 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
+        "winddir_name": CalculatedDataPoint(
+            data_point_key="winddir_name",
+            value="SE",
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
     }
 
 
@@ -1809,6 +1830,13 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
+                "winddir_name": CalculatedDataPoint(
+                    data_point_key="winddir_name",
+                    value="SE",
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
             },
         ),
         (
@@ -2128,6 +2156,13 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                 "relative_strain_index_perception": CalculatedDataPoint(
                     data_point_key="relative_strain_index_perception",
                     value=None,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "winddir_name": CalculatedDataPoint(
+                    data_point_key="winddir_name",
+                    value="NE",
                     unit=None,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -2928,6 +2963,13 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
+                "winddir_name": CalculatedDataPoint(
+                    data_point_key="winddir_name",
+                    value="E",
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
             },
         ),
         (
@@ -3707,6 +3749,13 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
+                "winddir_name": CalculatedDataPoint(
+                    data_point_key="winddir_name",
+                    value="NNW",
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
             },
         ),
         (
@@ -4138,6 +4187,13 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
+                "winddir_name": CalculatedDataPoint(
+                    data_point_key="winddir_name",
+                    value="WNW",
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
             },
         ),
         (
@@ -4506,6 +4562,13 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
+                "winddir_name": CalculatedDataPoint(
+                    data_point_key="winddir_name",
+                    value="SW",
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
             },
         ),
         (
@@ -4817,6 +4880,13 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                 "relative_strain_index_perception": CalculatedDataPoint(
                     data_point_key="relative_strain_index_perception",
                     value=None,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "winddir_name": CalculatedDataPoint(
+                    data_point_key="winddir_name",
+                    value="W",
                     unit=None,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
