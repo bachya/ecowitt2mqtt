@@ -362,7 +362,7 @@ def test_output_units(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
         ),
         "humidityabsin": CalculatedDataPoint(
             data_point_key="humidityabsin",
-            value=24.054020931926463,
+            value=15.938818531054617,
             unit=UnitOfVolume.GRAMS_PER_CUBIC_METER,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -765,7 +765,7 @@ def test_unit_conversion_to_imperial(
         ),
         "humidityabsin": CalculatedDataPoint(
             data_point_key="humidityabsin",
-            value=0.00016449986246231337,
+            value=0.0011505010497130945,
             unit=UnitOfVolume.POUNDS_PER_CUBIC_FOOT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -1159,7 +1159,7 @@ def test_unit_conversion_to_imperial(
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=24.054020931926463,
+                    value=15.938818531054617,
                     unit=UnitOfVolume.GRAMS_PER_CUBIC_METER,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -1489,7 +1489,7 @@ def test_unit_conversion_to_imperial(
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=1.0662546271835098,
+                    value=6.178110598107857,
                     unit=UnitOfVolume.GRAMS_PER_CUBIC_METER,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
