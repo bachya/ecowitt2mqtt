@@ -63,6 +63,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_THERMAL_PERCEPTION,
     DATA_POINT_UV,
     DATA_POINT_WINDCHILL,
+    DATA_POINT_WINDDIR_NAME,
     LOGGER,
 )
 from ecowitt2mqtt.helpers.calculator import (
@@ -118,6 +119,7 @@ from ecowitt2mqtt.helpers.calculator.uv import SafeExposureCalculator, UVIndexCa
 from ecowitt2mqtt.helpers.calculator.wind import (
     BeaufortScaleCalculator,
     WindDirCalculator,
+    WindDirNameCalculator,
     WindSpeedCalculator,
 )
 from ecowitt2mqtt.helpers.device import Device, get_device_from_raw_payload
@@ -181,6 +183,7 @@ CALCULATOR_MAP: dict[str, type[Calculator]] = {
     DATA_POINT_THERMAL_PERCEPTION: ThermalPerceptionCalculator,
     DATA_POINT_UV: UVIndexCalculator,
     DATA_POINT_WINDCHILL: WindChillCalculator,
+    DATA_POINT_WINDDIR_NAME: WindDirNameCalculator,
 }
 
 DEFAULT_KEYS_TO_IGNORE = [
@@ -286,6 +289,7 @@ class ProcessedData:
         DATA_POINT_SOLARRADIATION_PERCEIVED,
         DATA_POINT_THERMAL_PERCEPTION,
         DATA_POINT_WINDCHILL,
+        DATA_POINT_WINDDIR_NAME,
     )
 
     config: Config

@@ -7,6 +7,7 @@ from typing import cast
 
 from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_SPEED,
+    DATA_POINT_GLOB_WINDDIR,
     DATA_POINT_WINDSPEED,
     DEGREE,
     UnitOfSpeed,
@@ -19,6 +20,26 @@ from ecowitt2mqtt.helpers.calculator import (
 )
 from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
 from ecowitt2mqtt.util.unit_conversion import SpeedConverter
+
+WIND_DIR_NAMES = [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+]
 
 
 @dataclass
@@ -269,6 +290,27 @@ class WindDirCalculator(SimpleCalculator):
             A unit string.
         """
         return DEGREE
+
+
+class WindDirNameCalculator(Calculator):
+    """Define a wind direction name calculator."""
+
+    @Calculator.requires_keys(DATA_POINT_GLOB_WINDDIR)
+    def calculate_from_payload(
+        self, payload: dict[str, PreCalculatedValueType]
+    ) -> CalculatedDataPoint:
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
+        wind_dir = float(payload[DATA_POINT_GLOB_WINDDIR])
+        return self.get_calculated_data_point(
+            WIND_DIR_NAMES[int((wind_dir + 11.25) % 360 / 22.5)]
+        )
 
 
 class WindSpeedCalculator(Calculator):

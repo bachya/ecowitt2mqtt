@@ -447,6 +447,13 @@ def test_output_units(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
+        "winddir_name": CalculatedDataPoint(
+            data_point_key="winddir_name",
+            value="SE",
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
     }
 
 
@@ -843,6 +850,13 @@ def test_unit_conversion_to_imperial(
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
         ),
+        "winddir_name": CalculatedDataPoint(
+            data_point_key="winddir_name",
+            value="SE",
+            unit=None,
+            attributes={},
+            data_type=DataPointType.NON_BOOLEAN,
+        ),
     }
 
 
@@ -1230,6 +1244,13 @@ def test_unit_conversion_to_imperial(
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
+                "winddir_name": CalculatedDataPoint(
+                    data_point_key="winddir_name",
+                    value="SE",
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
             },
         ),
         (
@@ -1549,6 +1570,13 @@ def test_unit_conversion_to_imperial(
                 "relative_strain_index_perception": CalculatedDataPoint(
                     data_point_key="relative_strain_index_perception",
                     value=None,
+                    unit=None,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "winddir_name": CalculatedDataPoint(
+                    data_point_key="winddir_name",
+                    value="NE",
                     unit=None,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
