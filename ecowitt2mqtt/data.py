@@ -77,6 +77,7 @@ from ecowitt2mqtt.helpers.calculator.battery import BatteryCalculator
 from ecowitt2mqtt.helpers.calculator.heap import HeapCalculator
 from ecowitt2mqtt.helpers.calculator.humidity import (
     AbsoluteHumidityCalculator,
+    IndoorAbsoluteHumidityCalculator,
     RelativeHumidityCalculator,
 )
 from ecowitt2mqtt.helpers.calculator.illuminance import (
@@ -158,7 +159,7 @@ CALCULATOR_MAP: dict[str, type[Calculator]] = {
     DATA_POINT_HUMIDEX_PERCEPTION: HumidexPerceptionCalculator,
     DATA_POINT_HUMIDITY: RelativeHumidityCalculator,
     DATA_POINT_HUMIDITY_ABS: AbsoluteHumidityCalculator,
-    DATA_POINT_HUMIDITY_ABS_IN: AbsoluteHumidityCalculator,
+    DATA_POINT_HUMIDITY_ABS_IN: IndoorAbsoluteHumidityCalculator,
     DATA_POINT_HUMI_CO2: RelativeHumidityCalculator,
     DATA_POINT_INTERVAL: UpdateIntervalCalculator,
     DATA_POINT_LIGHTNING: LightningStrikeDistanceCalculator,

@@ -7,7 +7,9 @@ from typing import cast
 from ecowitt2mqtt.const import (
     CONF_OUTPUT_UNIT_HUMIDITY,
     DATA_POINT_HUMIDITY,
+    DATA_POINT_HUMIDITYIN,
     DATA_POINT_TEMP,
+    DATA_POINT_TEMPIN,
     PERCENTAGE,
     UnitOfVolume,
 )
@@ -48,6 +50,15 @@ class AbsoluteHumidityCalculator(Calculator):
         """
         return UnitOfVolume.GRAMS_PER_CUBIC_METER
 
+    def _calculate_value(self, temp: float, humidity: float) -> CalculatedDataPoint:
+        """Calculate the absolute humidity."""
+        temp_obj = get_temperature_meteocalc_object(
+            temp, self._config.input_unit_system
+        )
+
+        value = get_absolute_humidity_in_metric(temp_obj, humidity)
+        return self.get_calculated_data_point(value, unit_converter=VolumeConverter)
+
     @Calculator.requires_keys(DATA_POINT_TEMP, DATA_POINT_HUMIDITY)
     def calculate_from_payload(
         self, payload: dict[str, PreCalculatedValueType]
@@ -62,13 +73,27 @@ class AbsoluteHumidityCalculator(Calculator):
         """
         temp = cast(float, payload[DATA_POINT_TEMP])
         humidity = cast(float, payload[DATA_POINT_HUMIDITY])
+        return self._calculate_value(temp, humidity)
 
-        temp_obj = get_temperature_meteocalc_object(
-            temp, self._config.input_unit_system
-        )
 
-        value = get_absolute_humidity_in_metric(temp_obj, humidity)
-        return self.get_calculated_data_point(value, unit_converter=VolumeConverter)
+class IndoorAbsoluteHumidityCalculator(AbsoluteHumidityCalculator):
+    """Define an absolute humidity calculator."""
+
+    @Calculator.requires_keys(DATA_POINT_TEMPIN, DATA_POINT_HUMIDITYIN)
+    def calculate_from_payload(
+        self, payload: dict[str, PreCalculatedValueType]
+    ) -> CalculatedDataPoint:
+        """Perform the calculation.
+
+        Args:
+            payload: An Ecowitt data payload.
+
+        Returns:
+            A parsed CalculatedDataPoint object.
+        """
+        temp = cast(float, payload[DATA_POINT_TEMPIN])
+        humidity = cast(float, payload[DATA_POINT_HUMIDITY])
+        return self._calculate_value(temp, humidity)
 
 
 class RelativeHumidityCalculator(SimpleCalculator):

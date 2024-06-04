@@ -358,7 +358,7 @@ def test_battery_config(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
         ),
         "humidityabsin": CalculatedDataPoint(
             data_point_key="humidityabsin",
-            value=0.0010682941088042506,
+            value=0.0006792489921019872,
             unit=UnitOfVolume.POUNDS_PER_CUBIC_FOOT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -741,7 +741,7 @@ def test_default_battery_strategy(
         ),
         "humidityabsin": CalculatedDataPoint(
             data_point_key="humidityabsin",
-            value=0.0010682941088042506,
+            value=0.0006792489921019872,
             unit=UnitOfVolume.POUNDS_PER_CUBIC_FOOT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -1110,7 +1110,7 @@ def test_unknown_battery(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
         ),
         "humidityabsin": CalculatedDataPoint(
             data_point_key="humidityabsin",
-            value=0.001501643470436062,
+            value=0.0009950279348870004,
             unit=UnitOfVolume.POUNDS_PER_CUBIC_FOOT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
