@@ -77,7 +77,6 @@ from ecowitt2mqtt.const import (
     DATA_POINT_UV,
     DATA_POINT_WEEKLY_RAIN,
     DATA_POINT_WINDCHILL,
-    DATA_POINT_WINDDIR_NAME,
     DATA_POINT_WRAIN_PIEZO,
     DATA_POINT_WS90_VER,
     DATA_POINT_YEARLY_RAIN,
@@ -212,7 +211,6 @@ ENTITY_DESCRIPTIONS = {
     ),
     DATA_POINT_BEAUFORT_SCALE: EntityDescription(
         icon="mdi:weather-windy",
-        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_CO2: EntityDescription(
         device_class=DeviceClass.CO2,
@@ -419,10 +417,6 @@ ENTITY_DESCRIPTIONS = {
     ),
     DATA_POINT_WINDCHILL: EntityDescription(
         device_class=DeviceClass.TEMPERATURE,
-        state_class=StateClass.MEASUREMENT,
-    ),
-    DATA_POINT_WINDDIR_NAME: EntityDescription(
-        icon="mdi:compass",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_WS90_VER: EntityDescription(entity_category=EntityCategory.DIAGNOSTIC),
