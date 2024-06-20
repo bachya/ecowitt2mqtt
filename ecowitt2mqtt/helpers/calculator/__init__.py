@@ -149,12 +149,15 @@ class Calculator:
             )
 
         if self._config.precision:
-            try:
-                value = round(locale.atof(str(value)), self._config.precision)
-            except ValueError:
-                # This conversion is in place to see if we have a non-standard float
-                # notation; if we can't parse it as such, leave the value as-is:
-                pass
+            if isinstance(value, float):
+                value = round(value, self._config.precision)
+            else:
+                try:
+                    value = round(locale.atof(str(value)), self._config.precision)
+                except ValueError:
+                    # This conversion is in place to see if we have a non-standard float
+                    # notation; if we can't parse it as such, leave the value as-is:
+                    pass
 
         data_point = CalculatedDataPoint(
             data_point_key=self._data_point_key,
