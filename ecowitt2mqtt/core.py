@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import locale
 import logging
 import sys
 from typing import Any
@@ -61,6 +62,9 @@ class Ecowitt:  # pylint: disable=too-few-public-methods
 
         LOGGER.debug("Input CLI options/environment variables: %s", params)
         LOGGER.debug("Configs loaded: %s", self.configs)
+
+        LOGGER.debug("Setting locale: %s", self.configs.default_config.locale)
+        locale.setlocale(locale.LC_ALL, self.configs.default_config.locale)
 
         self.runtime = Runtime(self)
 
