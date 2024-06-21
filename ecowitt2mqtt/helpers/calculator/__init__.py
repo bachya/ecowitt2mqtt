@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import locale
 from collections.abc import Callable, Iterable
 from dataclasses import dataclass, field
 from enum import Enum
@@ -147,8 +148,16 @@ class Calculator:
                 value, self.DEFAULT_INPUT_UNIT, self.output_unit
             )
 
-        if self._config.precision and isinstance(value, float):
-            value = round(value, self._config.precision)
+        if self._config.precision:
+            if isinstance(value, float):
+                value = round(value, self._config.precision)
+            else:
+                try:
+                    value = round(locale.atof(str(value)), self._config.precision)
+                except ValueError:
+                    # This conversion is in place to see if we have a non-standard float
+                    # notation; if we can't parse it as such, leave the value as-is:
+                    pass
 
         data_point = CalculatedDataPoint(
             data_point_key=self._data_point_key,

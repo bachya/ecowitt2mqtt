@@ -31,6 +31,7 @@ from ecowitt2mqtt.const import (
     DEFAULT_BOOLEAN_BATTERY_TRUE_VALUE,
     DEFAULT_ENDPOINT,
     DEFAULT_HASS_DISCOVERY_PREFIX,
+    DEFAULT_LOCALE,
     DEFAULT_MQTT_PORT,
     DEFAULT_PORT,
     ENV_BATTERY_OVERRIDES,
@@ -167,6 +168,9 @@ class Config(BaseModel):
 
     # Generated parameters:
     uuid: str = Field(default_factory=lambda: uuid4().hex)
+
+    # Misc. parameters:
+    locale: str = DEFAULT_LOCALE
 
     @model_validator(mode="before")
     @classmethod
