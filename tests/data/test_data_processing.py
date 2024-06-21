@@ -562,7 +562,7 @@ def test_missing_distance(device_data: dict[str, Any], ecowitt: Ecowitt) -> None
         ),
         "humidityabsin": CalculatedDataPoint(
             data_point_key="humidityabsin",
-            value=0.0005621776693578237,
+            value=0.0005861001233730504,
             unit=UnitOfVolume.POUNDS_PER_CUBIC_FOOT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -960,7 +960,7 @@ def test_nonnumeric_value(device_data: dict[str, Any], ecowitt: Ecowitt) -> None
         ),
         "humidityabsin": CalculatedDataPoint(
             data_point_key="humidityabsin",
-            value=0.0009950279348870004,
+            value=0.00048196665596089087,
             unit=UnitOfVolume.POUNDS_PER_CUBIC_FOOT,
             attributes={},
             data_type=DataPointType.NON_BOOLEAN,
@@ -1745,7 +1745,7 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=0.0009950279348870004,
+                    value=0.00048196665596089087,
                     unit=UnitOfVolume.POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -2075,7 +2075,7 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=0.00038568684485373834,
+                    value=0.0003714021468961925,
                     unit=UnitOfVolume.POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -2468,7 +2468,7 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=0.0006792489921019872,
+                    value=0.0006509469507644044,
                     unit=UnitOfVolume.POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -2872,7 +2872,7 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=0.0005621776693578237,
+                    value=0.0005861001233730504,
                     unit=UnitOfVolume.POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -3625,7 +3625,7 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=0.000820898950357005,
+                    value=0.000707236018769112,
                     unit=UnitOfVolume.POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4103,7 +4103,7 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=0.000575127755994321,
+                    value=0.0006901533071931853,
                     unit=UnitOfVolume.POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4478,7 +4478,7 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=0.0006467356391665706,
+                    value=0.000718595154629523,
                     unit=UnitOfVolume.POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -4800,7 +4800,7 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                 ),
                 "humidityabsin": CalculatedDataPoint(
                     data_point_key="humidityabsin",
-                    value=0.0012629214620876999,
+                    value=0.000783011306494374,
                     unit=UnitOfVolume.POUNDS_PER_CUBIC_FOOT,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
