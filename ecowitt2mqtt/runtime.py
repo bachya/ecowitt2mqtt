@@ -146,7 +146,7 @@ class Runtime:
                         )
                         await asyncio.sleep(delay)
             except Exception as err:  # pylint: disable=broad-except
-                LOGGER.exception("Exception caused a shutdown: %s", err)
+                LOGGER.exception("%s exception caused a shutdown: %s", type(err), err)
                 LOGGER.debug("".join(traceback.format_tb(err.__traceback__)))
                 self.stop()
 
