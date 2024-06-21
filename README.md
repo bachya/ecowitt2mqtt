@@ -158,6 +158,7 @@ options:
                         The input data format used by the gateway (default: ecowitt)
   --input-unit-system input_unit_system
                         The input unit system used by the gateway (default: imperial)
+  --locale locale       The locale to use (default: en_US.UTF-8)
   -b mqtt_broker, --mqtt-broker mqtt_broker
                         The hostname or IP address of an MQTT broker
   -p mqtt_password, --mqtt-password mqtt_password
@@ -219,6 +220,7 @@ options:
   `ecowitt`)
 - `ECOWITT2MQTT_INPUT_UNIT_SYSTEM`: the input unit system used by the device (default:
   `imperial`)
+- `ECOWITT2MQTT_LOCALE`: the locale to use (default: `en_US.UTF-8`)
 - `ECOWITT2MQTT_MQTT_BROKER`: the hostname or IP address of an MQTT broker
 - `ECOWITT2MQTT_MQTT_PASSWORD`: a valid password for the MQTT broker
 - `ECOWITT2MQTT_MQTT_PORT`: the listening port of the MQTT broker (default: `1883`)
@@ -254,6 +256,7 @@ hass_discovery_prefix: homeassistant
 hass_entity_id_prefix: test_prefix
 input_data_format: ecowitt
 input_unit_system: imperial
+locale: en_US.UTF-8
 mqtt_broker: 127.0.0.1
 mqtt_password: password
 mqtt_port: 1883
@@ -284,6 +287,7 @@ verbose: false
   "hass_entity_id_prefix": "test_prefix"
   "input_data_format": "ecowitt",
   "input_unit_system": "imperial",
+  "locale": "en_US.UTF-8",
   "mqtt_broker": "127.0.0.1",
   "mqtt_password": "password",
   "mqtt_port": 1883,

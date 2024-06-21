@@ -22,6 +22,7 @@ from ecowitt2mqtt.const import (
     CONF_HASS_ENTITY_ID_PREFIX,
     CONF_INPUT_DATA_FORMAT,
     CONF_INPUT_UNIT_SYSTEM,
+    CONF_LOCALE,
     CONF_MQTT_BROKER,
     CONF_MQTT_PASSWORD,
     CONF_MQTT_PORT,
@@ -45,6 +46,7 @@ from ecowitt2mqtt.const import (
     DEFAULT_BOOLEAN_BATTERY_TRUE_VALUE,
     DEFAULT_ENDPOINT,
     DEFAULT_HASS_DISCOVERY_PREFIX,
+    DEFAULT_LOCALE,
     DEFAULT_MQTT_PORT,
     DEFAULT_PORT,
     ENV_BATTERY_OVERRIDES,
@@ -59,6 +61,7 @@ from ecowitt2mqtt.const import (
     ENV_HASS_ENTITY_ID_PREFIX,
     ENV_INPUT_DATA_FORMAT,
     ENV_INPUT_UNIT_SYSTEM,
+    ENV_LOCALE,
     ENV_MQTT_BROKER,
     ENV_MQTT_PASSWORD,
     ENV_MQTT_PORT,
@@ -97,6 +100,7 @@ ENV_VAR_TO_CONF_MAP = {
     ENV_HASS_DISCOVERY: CONF_HASS_DISCOVERY,
     ENV_HASS_DISCOVERY_PREFIX: CONF_HASS_DISCOVERY_PREFIX,
     ENV_HASS_ENTITY_ID_PREFIX: CONF_HASS_ENTITY_ID_PREFIX,
+    ENV_LOCALE: CONF_LOCALE,
     ENV_INPUT_DATA_FORMAT: CONF_INPUT_DATA_FORMAT,
     ENV_INPUT_UNIT_SYSTEM: CONF_INPUT_UNIT_SYSTEM,
     ENV_MQTT_BROKER: CONF_MQTT_BROKER,
@@ -244,6 +248,12 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
             f"(default: {UnitSystem.IMPERIAL})"
         ),
         metavar=CONF_INPUT_UNIT_SYSTEM,
+    )
+    parser.add_argument(
+        "--locale",
+        dest=CONF_LOCALE,
+        help=f"The locale to use (default: {DEFAULT_LOCALE})",
+        metavar=CONF_LOCALE,
     )
     parser.add_argument(
         "-b",
