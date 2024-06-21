@@ -92,7 +92,7 @@ class IndoorAbsoluteHumidityCalculator(AbsoluteHumidityCalculator):
             A parsed CalculatedDataPoint object.
         """
         temp = cast(float, payload[DATA_POINT_TEMPIN])
-        humidity = cast(float, payload[DATA_POINT_HUMIDITY])
+        humidity = cast(float, payload[DATA_POINT_HUMIDITYIN])
         return self._calculate_value(temp, humidity)
 
 
