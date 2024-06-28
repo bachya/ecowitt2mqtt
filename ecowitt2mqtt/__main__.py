@@ -251,7 +251,7 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
     parser.add_argument(
         "--locale",
         dest=CONF_LOCALE,
-        help=f"The locale to set (default: system default)",
+        help="The locale to set (default: system default)",
         metavar=CONF_LOCALE,
     )
     parser.add_argument(
