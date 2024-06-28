@@ -63,8 +63,9 @@ class Ecowitt:  # pylint: disable=too-few-public-methods
         LOGGER.debug("Input CLI options/environment variables: %s", params)
         LOGGER.debug("Configs loaded: %s", self.configs)
 
-        LOGGER.debug("Setting locale: %s", self.configs.default_config.locale)
-        locale.setlocale(locale.LC_ALL, self.configs.default_config.locale)
+        if locale := self.configs.default_config.locale:
+            LOGGER.debug("Setting locale: %s", self.configs.default_config.locale)
+            locale.setlocale(locale.LC_ALL, locale)
 
         self.runtime = Runtime(self)
 
