@@ -46,7 +46,6 @@ from ecowitt2mqtt.const import (
     DEFAULT_BOOLEAN_BATTERY_TRUE_VALUE,
     DEFAULT_ENDPOINT,
     DEFAULT_HASS_DISCOVERY_PREFIX,
-    DEFAULT_LOCALE,
     DEFAULT_MQTT_PORT,
     DEFAULT_PORT,
     ENV_BATTERY_OVERRIDES,
@@ -252,7 +251,7 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
     parser.add_argument(
         "--locale",
         dest=CONF_LOCALE,
-        help=f"The locale to use (default: {DEFAULT_LOCALE})",
+        help="The locale to set (default: system default)",
         metavar=CONF_LOCALE,
     )
     parser.add_argument(
