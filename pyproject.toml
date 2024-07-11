@@ -103,6 +103,7 @@ ruff = ">=0.5.1,<0.5.6"
 typing-extensions = "^4.8.0"
 vulture = "^2.6"
 yamllint = "^1.28.0"
+types-paho-mqtt = "^1.6.0.20240321"
 
 [tool.poetry.scripts]
 ecowitt2mqtt = "ecowitt2mqtt.__main__:main"

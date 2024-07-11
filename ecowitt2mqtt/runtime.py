@@ -12,6 +12,8 @@ from typing import TYPE_CHECKING, Any
 import uvicorn
 from aiomqtt import Client, MqttError
 from fastapi import FastAPI
+from paho.mqtt.packettypes import PacketTypes
+from paho.mqtt.properties import Properties
 
 from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import LOGGER
@@ -99,6 +101,10 @@ class Runtime:
         """
         LOGGER.debug("Creating MQTT loop: %s", config.uuid)
 
+        client_properties = Properties(PacketTypes.CONNECT)
+        if session_expiry := config.mqtt_session_expiry_interval:
+            client_properties.SessionExpiryInterval = session_expiry
+
         async def create_loop() -> None:
             """Create the loop."""
             retry_attempt = 0
@@ -110,6 +116,7 @@ class Runtime:
                             logger=LOGGER,
                             password=config.mqtt_password,
                             port=config.mqtt_port,
+                            properties=client_properties,
                             tls_context=SSLContext() if config.mqtt_tls else None,
                             username=config.mqtt_username,
                         ) as client:

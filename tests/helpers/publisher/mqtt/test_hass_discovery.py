@@ -3,7 +3,7 @@
 # pylint: disable=line-too-long
 # ruff: noqa: E501
 from typing import Any
-from unittest.mock import MagicMock, call
+from unittest.mock import ANY, MagicMock, call
 
 import pytest
 from aiomqtt import MqttError
@@ -61,16 +61,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/state",
                 payload=b"436796.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -81,16 +84,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/state",
                 payload=b"72.9",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -101,16 +107,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/state",
                 payload=b"56.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -121,16 +130,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/state",
                 payload=b"29.87",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -141,16 +153,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/state",
                 payload=b"29.509",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -161,16 +176,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/state",
                 payload=b"59.7",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -181,16 +199,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/state",
                 payload=b"65.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -201,16 +222,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/state",
                 payload=b"327.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -221,16 +245,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/state",
                 payload=b"2.24",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -241,16 +268,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/state",
                 payload=b"3.8",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -261,16 +291,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/state",
                 payload=b"17.45",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -281,16 +314,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -301,16 +337,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -321,16 +360,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -341,16 +383,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -361,16 +406,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -381,16 +429,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -401,16 +452,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -421,16 +475,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/state",
                 payload=b"0.736",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -441,16 +498,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/state",
                 payload=b"3.909",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -461,16 +521,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -481,16 +544,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/state",
                 payload=b"0.063",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -501,16 +567,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -521,16 +590,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/state",
                 payload=b"0.075",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -541,16 +613,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wrain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wrain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wrain_piezo/state",
                 payload=b"0.075",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -561,16 +636,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/mrain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/mrain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/mrain_piezo/state",
                 payload=b"0.941",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -581,16 +659,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yrain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yrain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yrain_piezo/state",
                 payload=b"4.114",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -601,16 +682,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/state",
                 payload=b"1.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -621,16 +705,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/state",
                 payload=b"1.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -641,16 +728,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/state",
                 payload=b"1.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -661,16 +751,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/state",
                 payload=b"1.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -681,16 +774,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/state",
                 payload=b"1.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -701,16 +797,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90cap_volt/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90cap_volt/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90cap_volt/state",
                 payload=b"5.2",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -721,16 +820,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90_ver/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90_ver/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90_ver/state",
                 payload=b"115.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -741,16 +843,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp1/state",
                 payload=b"71.2",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -761,16 +866,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity1/state",
                 payload=b"61.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -781,16 +889,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp2/state",
                 payload=b"71.2",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -801,16 +912,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity2/state",
                 payload=b"58.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -821,16 +935,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp3/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp3/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp3/state",
                 payload=b"70.5",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -841,16 +958,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity3/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity3/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity3/state",
                 payload=b"61.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -861,16 +981,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp4/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp4/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp4/state",
                 payload=b"73.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -881,16 +1004,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity4/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity4/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity4/state",
                 payload=b"58.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -901,16 +1027,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp5/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp5/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp5/state",
                 payload=b"70.7",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -921,16 +1050,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity5/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity5/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity5/state",
                 payload=b"69.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -941,16 +1073,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp6/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp6/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp6/state",
                 payload=b"72.7",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -961,16 +1096,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity6/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity6/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity6/state",
                 payload=b"58.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -981,16 +1119,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp7/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp7/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp7/state",
                 payload=b"67.1",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1001,16 +1142,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity7/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity7/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity7/state",
                 payload=b"54.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1021,16 +1165,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp8/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp8/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp8/state",
                 payload=b"68.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1041,16 +1188,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity8/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity8/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity8/state",
                 payload=b"56.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1061,16 +1211,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture1/state",
                 payload=b"53.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1081,16 +1234,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture2/state",
                 payload=b"57.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1101,16 +1257,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture3/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture3/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture3/state",
                 payload=b"59.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1121,16 +1280,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture4/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture4/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture4/state",
                 payload=b"49.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1141,16 +1303,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture5/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture5/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture5/state",
                 payload=b"52.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1161,16 +1326,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_ch1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_ch1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_ch1/state",
                 payload=b"21.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1181,16 +1349,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_avg_24h_ch1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_avg_24h_ch1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_avg_24h_ch1/state",
                 payload=b"16.3",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1201,16 +1372,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tf_co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tf_co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tf_co2/state",
                 payload=b"62.2",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1221,16 +1395,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humi_co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humi_co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humi_co2/state",
                 payload=b"61.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1241,16 +1418,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_co2/state",
                 payload=b"4.9",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1261,16 +1441,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_24h_co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_24h_co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_24h_co2/state",
                 payload=b"7.5",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1281,16 +1464,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_co2/state",
                 payload=b"6.1",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1301,16 +1487,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_24h_co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_24h_co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_24h_co2/state",
                 payload=b"7.8",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1321,16 +1510,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2/state",
                 payload=b"455.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1341,16 +1533,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_24h/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_24h/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_24h/state",
                 payload=b"473.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1361,16 +1556,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/state",
                 payload=b"13.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1381,16 +1579,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/state",
                 payload=b"0.6213711922373341",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1401,16 +1602,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_time/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_time/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_time/state",
                 payload=b"2022-04-20 17:17:17+00:00",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1421,16 +1625,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh80batt/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh80batt/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh80batt/state",
                 payload=b"3.28",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1441,16 +1648,19 @@ async def test_publish(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/state",
                 payload=b"OFF",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1461,16 +1671,19 @@ async def test_publish(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/state",
                 payload=b"OFF",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1481,16 +1694,19 @@ async def test_publish(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/state",
                 payload=b"OFF",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1501,16 +1717,19 @@ async def test_publish(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/state",
                 payload=b"OFF",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1521,16 +1740,19 @@ async def test_publish(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/state",
                 payload=b"OFF",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1541,16 +1763,19 @@ async def test_publish(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/state",
                 payload=b"OFF",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1561,16 +1786,19 @@ async def test_publish(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/state",
                 payload=b"OFF",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1581,16 +1809,19 @@ async def test_publish(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/state",
                 payload=b"OFF",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1601,16 +1832,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/state",
                 payload=b"1.4",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1621,16 +1855,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt2/state",
                 payload=b"1.3",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1641,16 +1878,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt3/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt3/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt3/state",
                 payload=b"1.3",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1661,16 +1901,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt4/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt4/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt4/state",
                 payload=b"1.3",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1681,16 +1924,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt5/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt5/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt5/state",
                 payload=b"1.3",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1701,16 +1947,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25batt1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25batt1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25batt1/state",
                 payload=b"60.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1721,16 +1970,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh57batt/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh57batt/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh57batt/state",
                 payload=b"60.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1741,16 +1993,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_batt/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_batt/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_batt/state",
                 payload=b"120.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1761,16 +2016,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh90batt/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh90batt/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh90batt/state",
                 payload=b"3.22",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1781,16 +2039,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/state",
                 payload=b"16.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1801,16 +2062,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/attributes",
                 payload=b'{"description": "Light air", "sea_conditions": "Ripples with appearance of scales are formed, without foam crests", "land_conditions": "Direction shown by smoke drift but not by wind vanes"}',
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/state",
                 payload=b"1",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1821,16 +2085,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state",
                 payload=b"47.92744533120437",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1841,16 +2108,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/state",
                 payload=b"59.7",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1861,16 +2131,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/state",
                 payload=b"44.317785974114166",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1881,16 +2154,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/state",
                 payload=b"No risk",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1901,16 +2177,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state",
                 payload=b"58.425000000000004",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1921,16 +2200,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidex/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidex/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidex/state",
                 payload=b"16",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1941,16 +2223,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidex_perception/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidex_perception/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidex_perception/state",
                 payload=b"Comfortable",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1961,16 +2246,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state",
                 payload=b"0.0005325592736717602",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -1981,16 +2269,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
                 payload=b"0.000707236018769112",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2001,16 +2292,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2021,16 +2315,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2041,16 +2338,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2061,16 +2361,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2081,16 +2384,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2101,16 +2407,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2121,16 +2430,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2141,16 +2453,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2161,16 +2476,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2181,16 +2499,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2201,16 +2522,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2221,16 +2545,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state",
                 payload=b"Dry",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2241,16 +2568,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2261,16 +2591,19 @@ async def test_publish(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir_name/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir_name/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir_name/state",
                 payload=b"NNW",
+                properties=ANY,
                 retain=False,
             ),
         ]
@@ -2315,16 +2648,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/state",
                 payload=b"436796.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2335,16 +2671,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/state",
                 payload=b"72.9",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2355,16 +2694,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/state",
                 payload=b"56.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2375,16 +2717,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/state",
                 payload=b"29.87",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2395,16 +2740,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/state",
                 payload=b"29.509",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2415,16 +2763,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/state",
                 payload=b"59.7",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2435,16 +2786,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/state",
                 payload=b"65.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2455,16 +2809,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/state",
                 payload=b"327.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2475,16 +2832,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/state",
                 payload=b"2.24",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2495,16 +2855,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/state",
                 payload=b"3.8",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2515,16 +2878,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/state",
                 payload=b"17.45",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2535,16 +2901,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2555,16 +2924,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2575,16 +2947,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2595,16 +2970,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2615,16 +2993,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2635,16 +3016,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2655,16 +3039,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2675,16 +3062,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/state",
                 payload=b"0.736",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2695,16 +3085,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/state",
                 payload=b"3.909",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2715,16 +3108,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2735,16 +3131,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/state",
                 payload=b"0.063",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2755,16 +3154,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2775,16 +3177,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/state",
                 payload=b"0.075",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2795,16 +3200,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wrain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wrain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wrain_piezo/state",
                 payload=b"0.075",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2815,16 +3223,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/mrain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/mrain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/mrain_piezo/state",
                 payload=b"0.941",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2835,16 +3246,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yrain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yrain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yrain_piezo/state",
                 payload=b"4.114",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2855,16 +3269,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/state",
                 payload=b"1.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2875,16 +3292,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/state",
                 payload=b"1.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2895,16 +3315,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/state",
                 payload=b"1.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2915,16 +3338,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/state",
                 payload=b"1.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2935,16 +3361,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/state",
                 payload=b"1.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2955,16 +3384,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90cap_volt/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90cap_volt/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90cap_volt/state",
                 payload=b"5.2",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2975,16 +3407,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90_ver/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90_ver/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90_ver/state",
                 payload=b"115.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -2995,16 +3430,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp1/state",
                 payload=b"71.2",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3015,16 +3453,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity1/state",
                 payload=b"61.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3035,16 +3476,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp2/state",
                 payload=b"71.2",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3055,16 +3499,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity2/state",
                 payload=b"58.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3075,16 +3522,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp3/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp3/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp3/state",
                 payload=b"70.5",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3095,16 +3545,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity3/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity3/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity3/state",
                 payload=b"61.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3115,16 +3568,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp4/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp4/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp4/state",
                 payload=b"73.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3135,16 +3591,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity4/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity4/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity4/state",
                 payload=b"58.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3155,16 +3614,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp5/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp5/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp5/state",
                 payload=b"70.7",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3175,16 +3637,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity5/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity5/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity5/state",
                 payload=b"69.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3195,16 +3660,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp6/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp6/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp6/state",
                 payload=b"72.7",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3215,16 +3683,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity6/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity6/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity6/state",
                 payload=b"58.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3235,16 +3706,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp7/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp7/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp7/state",
                 payload=b"67.1",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3255,16 +3729,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity7/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity7/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity7/state",
                 payload=b"54.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3275,16 +3752,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp8/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp8/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp8/state",
                 payload=b"68.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3295,16 +3775,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity8/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity8/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity8/state",
                 payload=b"56.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3315,16 +3798,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture1/state",
                 payload=b"53.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3335,16 +3821,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture2/state",
                 payload=b"57.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3355,16 +3844,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture3/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture3/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture3/state",
                 payload=b"59.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3375,16 +3867,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture4/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture4/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture4/state",
                 payload=b"49.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3395,16 +3890,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture5/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture5/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture5/state",
                 payload=b"52.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3415,16 +3913,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_ch1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_ch1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_ch1/state",
                 payload=b"21.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3435,16 +3936,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_avg_24h_ch1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_avg_24h_ch1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_avg_24h_ch1/state",
                 payload=b"16.3",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3455,16 +3959,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tf_co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tf_co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tf_co2/state",
                 payload=b"62.2",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3475,16 +3982,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humi_co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humi_co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humi_co2/state",
                 payload=b"61.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3495,16 +4005,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_co2/state",
                 payload=b"4.9",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3515,16 +4028,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_24h_co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_24h_co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_24h_co2/state",
                 payload=b"7.5",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3535,16 +4051,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_co2/state",
                 payload=b"6.1",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3555,16 +4074,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_24h_co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_24h_co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_24h_co2/state",
                 payload=b"7.8",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3575,16 +4097,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2/state",
                 payload=b"455.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3595,16 +4120,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_24h/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_24h/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_24h/state",
                 payload=b"473.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3615,16 +4143,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/state",
                 payload=b"13.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3635,16 +4166,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/state",
                 payload=b"0.6213711922373341",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3655,16 +4189,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_time/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_time/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_time/state",
                 payload=b"2022-04-20 17:17:17+00:00",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3675,16 +4212,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh80batt/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh80batt/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh80batt/state",
                 payload=b"3.28",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3695,16 +4235,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/state",
                 payload=b"OFF",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3715,16 +4258,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/state",
                 payload=b"OFF",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3735,16 +4281,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/state",
                 payload=b"OFF",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3755,16 +4304,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/state",
                 payload=b"OFF",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3775,16 +4327,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/state",
                 payload=b"OFF",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3795,16 +4350,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/state",
                 payload=b"OFF",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3815,16 +4373,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/state",
                 payload=b"OFF",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3835,16 +4396,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/binary_sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/state",
                 payload=b"OFF",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3855,16 +4419,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/state",
                 payload=b"1.4",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3875,16 +4442,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt2/state",
                 payload=b"1.3",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3895,16 +4465,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt3/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt3/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt3/state",
                 payload=b"1.3",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3915,16 +4488,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt4/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt4/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt4/state",
                 payload=b"1.3",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3935,16 +4511,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt5/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt5/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt5/state",
                 payload=b"1.3",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3955,16 +4534,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25batt1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25batt1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25batt1/state",
                 payload=b"60.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3975,16 +4557,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh57batt/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh57batt/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh57batt/state",
                 payload=b"60.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -3995,16 +4580,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_batt/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_batt/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_batt/state",
                 payload=b"120.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4015,16 +4603,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh90batt/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh90batt/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh90batt/state",
                 payload=b"3.22",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4035,16 +4626,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/state",
                 payload=b"16.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4055,16 +4649,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/attributes",
                 payload=b'{"description": "Light air", "sea_conditions": "Ripples with appearance of scales are formed, without foam crests", "land_conditions": "Direction shown by smoke drift but not by wind vanes"}',
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/state",
                 payload=b"1",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4075,16 +4672,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state",
                 payload=b"47.92744533120437",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4095,16 +4695,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/state",
                 payload=b"59.7",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4115,16 +4718,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/state",
                 payload=b"44.317785974114166",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4135,16 +4741,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/state",
                 payload=b"No risk",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4155,16 +4764,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state",
                 payload=b"58.425000000000004",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4175,16 +4787,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidex/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidex/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidex/state",
                 payload=b"16",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4195,16 +4810,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidex_perception/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidex_perception/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidex_perception/state",
                 payload=b"Comfortable",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4215,16 +4833,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state",
                 payload=b"0.0005325592736717602",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4235,16 +4856,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
                 payload=b"0.000707236018769112",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4255,16 +4879,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4275,16 +4902,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4295,16 +4925,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4315,16 +4948,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4335,16 +4971,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4355,16 +4994,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4375,16 +5017,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4395,16 +5040,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4415,16 +5063,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4435,16 +5086,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4455,16 +5109,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4475,16 +5132,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state",
                 payload=b"Dry",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4495,16 +5155,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4515,16 +5178,19 @@ async def test_publish_custom_entity_id_prefix(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir_name/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir_name/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir_name/state",
                 payload=b"NNW",
+                properties=ANY,
                 retain=False,
             ),
         ]
@@ -4595,16 +5261,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/runtime/state",
                 payload=b"436796.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4615,16 +5284,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tempin/state",
                 payload=b"72.9",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4635,16 +5307,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityin/state",
                 payload=b"56.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4655,16 +5330,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromrel/state",
                 payload=b"29.87",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4675,16 +5353,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/baromabs/state",
                 payload=b"29.509",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4695,16 +5376,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp/state",
                 payload=b"59.7",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4715,16 +5399,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity/state",
                 payload=b"65.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4735,16 +5422,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir/state",
                 payload=b"327.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4755,16 +5445,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windspeed/state",
                 payload=b"2.24",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4775,16 +5468,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windgust/state",
                 payload=b"3.8",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4795,16 +5491,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/maxdailygust/state",
                 payload=b"17.45",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4815,16 +5514,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4835,16 +5537,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/uv/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4855,16 +5560,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rainrate/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4875,16 +5583,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/eventrain/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4895,16 +5606,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hourlyrain/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4915,16 +5629,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dailyrain/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4935,16 +5652,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/weeklyrain/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4955,16 +5675,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/monthlyrain/state",
                 payload=b"0.736",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4975,16 +5698,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yearlyrain/state",
                 payload=b"3.909",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -4995,16 +5721,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/rrain_piezo/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5015,16 +5744,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/erain_piezo/state",
                 payload=b"0.063",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5035,16 +5767,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/hrain_piezo/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5055,16 +5790,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/drain_piezo/state",
                 payload=b"0.075",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5075,16 +5813,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wrain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wrain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wrain_piezo/state",
                 payload=b"0.075",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5095,16 +5836,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/mrain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/mrain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/mrain_piezo/state",
                 payload=b"0.941",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5115,16 +5859,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yrain_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yrain_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/yrain_piezo/state",
                 payload=b"4.114",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5135,16 +5882,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain10_piezo/state",
                 payload=b"1.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5155,16 +5905,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain20_piezo/state",
                 payload=b"1.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5175,16 +5928,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain30_piezo/state",
                 payload=b"1.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5195,16 +5951,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain40_piezo/state",
                 payload=b"1.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5215,16 +5974,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/gain50_piezo/state",
                 payload=b"1.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5235,16 +5997,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90cap_volt/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90cap_volt/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90cap_volt/state",
                 payload=b"5.2",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5255,16 +6020,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90_ver/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90_ver/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ws90_ver/state",
                 payload=b"115.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5275,16 +6043,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp1/state",
                 payload=b"71.2",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5295,16 +6066,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity1/state",
                 payload=b"61.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5315,16 +6089,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp2/state",
                 payload=b"71.2",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5335,16 +6112,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity2/state",
                 payload=b"58.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5355,16 +6135,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp3/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp3/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp3/state",
                 payload=b"70.5",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5375,16 +6158,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity3/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity3/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity3/state",
                 payload=b"61.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5395,16 +6181,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp4/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp4/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp4/state",
                 payload=b"73.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5415,16 +6204,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity4/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity4/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity4/state",
                 payload=b"58.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5435,16 +6227,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp5/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp5/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp5/state",
                 payload=b"70.7",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5455,16 +6250,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity5/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity5/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity5/state",
                 payload=b"69.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5475,16 +6273,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp6/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp6/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp6/state",
                 payload=b"72.7",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5495,16 +6296,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity6/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity6/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity6/state",
                 payload=b"58.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5515,16 +6319,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp7/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp7/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp7/state",
                 payload=b"67.1",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5535,16 +6342,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity7/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity7/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity7/state",
                 payload=b"54.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5555,16 +6365,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp8/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp8/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/temp8/state",
                 payload=b"68.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5575,16 +6388,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity8/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity8/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidity8/state",
                 payload=b"56.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5595,16 +6411,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture1/state",
                 payload=b"53.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5615,16 +6434,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture2/state",
                 payload=b"57.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5635,16 +6457,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture3/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture3/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture3/state",
                 payload=b"59.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5655,16 +6480,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture4/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture4/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture4/state",
                 payload=b"49.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5675,16 +6503,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture5/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture5/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilmoisture5/state",
                 payload=b"52.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5695,16 +6526,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_ch1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_ch1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_ch1/state",
                 payload=b"21.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5715,16 +6549,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_avg_24h_ch1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_avg_24h_ch1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_avg_24h_ch1/state",
                 payload=b"16.3",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5735,16 +6572,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tf_co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tf_co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/tf_co2/state",
                 payload=b"62.2",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5755,16 +6595,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humi_co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humi_co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humi_co2/state",
                 payload=b"61.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5775,16 +6618,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_co2/state",
                 payload=b"4.9",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5795,16 +6641,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_24h_co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_24h_co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25_24h_co2/state",
                 payload=b"7.5",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5815,16 +6664,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_co2/state",
                 payload=b"6.1",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5835,16 +6687,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_24h_co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_24h_co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm10_24h_co2/state",
                 payload=b"7.8",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5855,16 +6710,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2/state",
                 payload=b"455.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5875,16 +6733,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_24h/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_24h/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_24h/state",
                 payload=b"473.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5895,16 +6756,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_num/state",
                 payload=b"13.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5915,16 +6779,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning/state",
                 payload=b"0.6213711922373341",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5935,16 +6802,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_time/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_time/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/lightning_time/state",
                 payload=b"2022-04-20 17:17:17+00:00",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5955,16 +6825,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh80batt/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh80batt/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh80batt/state",
                 payload=b"3.28",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5975,16 +6848,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt1/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -5995,16 +6871,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt2/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6015,16 +6894,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt3/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6035,16 +6917,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt4/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6055,16 +6940,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt5/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6075,16 +6963,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt6/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6095,16 +6986,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt7/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6115,16 +7009,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/batt8/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6135,16 +7032,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt1/state",
                 payload=b"1.4",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6155,16 +7055,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt2/state",
                 payload=b"1.3",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6175,16 +7078,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt3/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt3/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt3/state",
                 payload=b"1.3",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6195,16 +7101,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt4/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt4/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt4/state",
                 payload=b"1.3",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6215,16 +7124,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt5/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt5/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/soilbatt5/state",
                 payload=b"1.3",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6235,16 +7147,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25batt1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25batt1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/pm25batt1/state",
                 payload=b"60.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6255,16 +7170,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh57batt/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh57batt/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh57batt/state",
                 payload=b"60.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6275,16 +7193,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_batt/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_batt/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/co2_batt/state",
                 payload=b"120.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6295,16 +7216,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh90batt/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh90batt/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/wh90batt/state",
                 payload=b"3.22",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6315,16 +7239,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/interval/state",
                 payload=b"16.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6335,16 +7262,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/attributes",
                 payload=b'{"description": "Light air", "sea_conditions": "Ripples with appearance of scales are formed, without foam crests", "land_conditions": "Direction shown by smoke drift but not by wind vanes"}',
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/beaufortscale/state",
                 payload=b"1",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6355,16 +7285,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/dewpoint/state",
                 payload=b"47.92744533120437",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6375,16 +7308,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/feelslike/state",
                 payload=b"59.7",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6395,16 +7331,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostpoint/state",
                 payload=b"44.317785974114166",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6415,16 +7354,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/frostrisk/state",
                 payload=b"No risk",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6435,16 +7377,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/heatindex/state",
                 payload=b"58.425000000000004",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6455,16 +7400,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidex/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidex/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidex/state",
                 payload=b"16",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6475,16 +7423,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidex_perception/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidex_perception/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidex_perception/state",
                 payload=b"Comfortable",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6495,16 +7446,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabs/state",
                 payload=b"0.0005325592736717602",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6515,16 +7469,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/humidityabsin/state",
                 payload=b"0.000707236018769112",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6535,16 +7492,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6555,16 +7515,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/relative_strain_index_perception/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6575,16 +7538,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_1/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6595,16 +7561,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_2/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6615,16 +7584,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_3/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6635,16 +7607,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_4/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6655,16 +7630,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_5/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6675,16 +7653,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/safe_exposure_time_skin_type_6/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6695,16 +7676,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerindex/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6715,16 +7699,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/simmerzone/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6735,16 +7722,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state",
                 payload=b"0.0",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6755,16 +7745,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/thermalperception/state",
                 payload=b"Dry",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6775,16 +7768,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/windchill/state",
                 payload=b"None",
+                properties=ANY,
                 retain=False,
             ),
             call(
@@ -6795,16 +7791,19 @@ async def test_publish_numeric_battery_strategy(
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir_name/availability",
                 payload=b"online",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir_name/attributes",
                 payload=b"{}",
+                properties=ANY,
                 retain=False,
             ),
             call(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir_name/state",
                 payload=b"NNW",
+                properties=ANY,
                 retain=False,
             ),
         ]

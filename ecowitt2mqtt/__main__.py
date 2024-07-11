@@ -24,9 +24,11 @@ from ecowitt2mqtt.const import (
     CONF_INPUT_UNIT_SYSTEM,
     CONF_LOCALE,
     CONF_MQTT_BROKER,
+    CONF_MQTT_MESSAGE_EXPIRY_INTERVAL,
     CONF_MQTT_PASSWORD,
     CONF_MQTT_PORT,
     CONF_MQTT_RETAIN,
+    CONF_MQTT_SESSION_EXPIRY_INTERVAL,
     CONF_MQTT_TLS,
     CONF_MQTT_TOPIC,
     CONF_MQTT_USERNAME,
@@ -62,9 +64,11 @@ from ecowitt2mqtt.const import (
     ENV_INPUT_UNIT_SYSTEM,
     ENV_LOCALE,
     ENV_MQTT_BROKER,
+    ENV_MQTT_MESSAGE_EXPIRY_INTERVAL,
     ENV_MQTT_PASSWORD,
     ENV_MQTT_PORT,
     ENV_MQTT_RETAIN,
+    ENV_MQTT_SESSION_EXPIRY_INTERVAL,
     ENV_MQTT_TLS,
     ENV_MQTT_TOPIC,
     ENV_MQTT_USERNAME,
@@ -99,13 +103,15 @@ ENV_VAR_TO_CONF_MAP = {
     ENV_HASS_DISCOVERY: CONF_HASS_DISCOVERY,
     ENV_HASS_DISCOVERY_PREFIX: CONF_HASS_DISCOVERY_PREFIX,
     ENV_HASS_ENTITY_ID_PREFIX: CONF_HASS_ENTITY_ID_PREFIX,
-    ENV_LOCALE: CONF_LOCALE,
     ENV_INPUT_DATA_FORMAT: CONF_INPUT_DATA_FORMAT,
     ENV_INPUT_UNIT_SYSTEM: CONF_INPUT_UNIT_SYSTEM,
+    ENV_LOCALE: CONF_LOCALE,
     ENV_MQTT_BROKER: CONF_MQTT_BROKER,
+    ENV_MQTT_MESSAGE_EXPIRY_INTERVAL: CONF_MQTT_MESSAGE_EXPIRY_INTERVAL,
     ENV_MQTT_PASSWORD: CONF_MQTT_PASSWORD,
     ENV_MQTT_PORT: CONF_MQTT_PORT,
     ENV_MQTT_RETAIN: CONF_MQTT_RETAIN,
+    ENV_MQTT_SESSION_EXPIRY_INTERVAL: CONF_MQTT_SESSION_EXPIRY_INTERVAL,
     ENV_MQTT_TLS: CONF_MQTT_TLS,
     ENV_MQTT_TOPIC: CONF_MQTT_TOPIC,
     ENV_MQTT_USERNAME: CONF_MQTT_USERNAME,
@@ -262,6 +268,12 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
         metavar=CONF_MQTT_BROKER,
     )
     parser.add_argument(
+        "--mqtt-message-expiry-interval",
+        dest=CONF_MQTT_MESSAGE_EXPIRY_INTERVAL,
+        help="The number of seconds the MQTT broker should retain a message",
+        metavar=CONF_MQTT_MESSAGE_EXPIRY_INTERVAL,
+    )
+    parser.add_argument(
         "-p",
         "--mqtt-password",
         dest=CONF_MQTT_PASSWORD,
@@ -279,6 +291,12 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
         action="store_true",
         dest=CONF_MQTT_RETAIN,
         help="Instruct the MQTT broker to retain messages",
+    )
+    parser.add_argument(
+        "--mqtt-session-expiry-interval",
+        dest=CONF_MQTT_SESSION_EXPIRY_INTERVAL,
+        help="The number of seconds the MQTT broker should retain a session",
+        metavar=CONF_MQTT_SESSION_EXPIRY_INTERVAL,
     )
     parser.add_argument(
         "--mqtt-tls",

@@ -120,9 +120,11 @@ class Config(BaseModel):
     mqtt_broker: str
 
     # Optional MQTT parameters:
+    mqtt_message_expiry_interval: int | None = None
     mqtt_password: str | None = None
     mqtt_port: int = DEFAULT_MQTT_PORT
     mqtt_retain: bool = False
+    mqtt_session_expiry_interval: int | None = None
     mqtt_tls: bool = False
     mqtt_topic: str | None = None
     mqtt_username: str | None = None

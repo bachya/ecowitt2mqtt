@@ -599,6 +599,7 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):  # pylint: disable=too-few
                         self._client.publish(
                             topic,
                             payload=generate_mqtt_payload(payload),
+                            properties=self._client_publish_properties,
                             retain=self._config.mqtt_retain,
                         )
                     )

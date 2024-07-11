@@ -7,6 +7,8 @@ from datetime import datetime
 from typing import Any, cast
 
 from aiomqtt import Client
+from paho.mqtt.packettypes import PacketTypes
+from paho.mqtt.properties import Properties
 
 from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import LOGGER
@@ -59,6 +61,9 @@ class MqttPublisher(Publisher):  # pylint: disable=too-few-public-methods
         """
         super().__init__(config)
         self._client = client
+        self._client_publish_properties = Properties(PacketTypes.PUBLISH)
+        if message_expiry := config.mqtt_message_expiry_interval:
+            self._client_publish_properties.MessageExpiryInterval = message_expiry
 
 
 class TopicPublisher(MqttPublisher):  # pylint: disable=too-few-public-methods
@@ -76,7 +81,10 @@ class TopicPublisher(MqttPublisher):  # pylint: disable=too-few-public-methods
 
         topic = cast(str, self._config.mqtt_topic)
         await self._client.publish(
-            topic, payload=generate_mqtt_payload(data), retain=self._config.mqtt_retain
+            topic,
+            payload=generate_mqtt_payload(data),
+            properties=self._client_publish_properties,
+            retain=self._config.mqtt_retain,
         )
 
         LOGGER.info("Published to %s", self._config.mqtt_topic)
