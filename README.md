@@ -162,16 +162,16 @@ options:
   -b mqtt_broker, --mqtt-broker mqtt_broker
                         The hostname or IP address of an MQTT broker
   --mqtt-message-expiry-interval mqtt_message_expiry_interval
-                        The number of seconds the MQTT broker should retain a message
+                        The number of seconds the MQTT broker should retain a session (requires an MQTT protocol version of 5)
   -p mqtt_password, --mqtt-password mqtt_password
                         A valid password for the MQTT broker
   --mqtt-port mqtt_port
                         The listening port of the MQTT broker (default: 1883)
-  --mqtt-protocol-version mqtt_port
+  --mqtt-protocol-version mqtt_protocol_version
                         The version of the MQTT protocol to use (default: 3.1.1)
   --mqtt-retain         Instruct the MQTT broker to retain messages
   --mqtt-session-expiry-interval mqtt_session_expiry_interval
-                        The number of seconds the MQTT broker should retain a session
+                        The number of seconds the MQTT broker should retain a session (requires an MQTT protocol version of 5)
   --mqtt-tls            Enable MQTT over TLS
   -t mqtt_topic, --mqtt-topic mqtt_topic
                         The MQTT topic to publish device data to
@@ -229,14 +229,14 @@ options:
 - `ECOWITT2MQTT_LOCALE`: the locale to use (default: `en_US.UTF-8`)
 - `ECOWITT2MQTT_MQTT_BROKER`: the hostname or IP address of an MQTT broker
 - `ECOWITT2MQTT_MQTT_MESSAGE_EXPIRY_INTERVAL`: a number of seconds to keep messages on
-  the broker before they expire
+  the broker before they expire (requires an MQTT protocol version of `5`)
 - `ECOWITT2MQTT_MQTT_PASSWORD`: a valid password for the MQTT broker
 - `ECOWITT2MQTT_MQTT_PORT`: the listening port of the MQTT broker (default: `1883`)
 - `ECOWITT2MQTT_MQTT_PROTOCOL_VERSION`: the version of the MQTT protocol to use (default: `3.1.1`)
 - `ECOWITT2MQTT_MQTT_RETAIN`: whether to instruct the MQTT broker to retain messages
   (default: `false`)
 - `ECOWITT2MQTT_MQTT_SESSION_EXPIRY_INTERVAL`: a number of seconds to keep the MQTT
-  session alive
+  session alive (requires an MQTT protocol version of `5`)
 - `ECOWITT2MQTT_MQTT_TLS`: publish data via MQTT over TLS (default: `false`)
 - `ECOWITT2MQTT_MQTT_TOPIC`: the MQTT topic to publish device data to
 - `ECOWITT2MQTT_MQTT_USERNAME`: a valid username for the MQTT broker

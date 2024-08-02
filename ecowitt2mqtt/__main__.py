@@ -274,7 +274,10 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
     parser.add_argument(
         "--mqtt-message-expiry-interval",
         dest=CONF_MQTT_MESSAGE_EXPIRY_INTERVAL,
-        help="The number of seconds the MQTT broker should retain a message",
+        help=(
+            "The number of seconds the MQTT broker should retain a session (requires "
+            "an MQTT protocol version of 5)"
+        ),
         metavar=CONF_MQTT_MESSAGE_EXPIRY_INTERVAL,
     )
     parser.add_argument(
@@ -292,9 +295,9 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
     )
     parser.add_argument(
         "--mqtt-protocol-version",
-        dest=CONF_MQTT_PORT,
+        dest=CONF_MQTT_PROTOCOL_VERSION,
         help=f"The version of the MQTT protocol to use (default: {MqttVersion.V311})",
-        metavar=CONF_MQTT_PORT,
+        metavar=CONF_MQTT_PROTOCOL_VERSION,
     )
     parser.add_argument(
         "--mqtt-retain",
@@ -305,7 +308,10 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
     parser.add_argument(
         "--mqtt-session-expiry-interval",
         dest=CONF_MQTT_SESSION_EXPIRY_INTERVAL,
-        help="The number of seconds the MQTT broker should retain a session",
+        help=(
+            "The number of seconds the MQTT broker should retain a session (requires "
+            "an MQTT protocol version of 5)"
+        ),
         metavar=CONF_MQTT_SESSION_EXPIRY_INTERVAL,
     )
     parser.add_argument(
