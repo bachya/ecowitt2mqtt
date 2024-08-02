@@ -27,6 +27,7 @@ from ecowitt2mqtt.const import (
     CONF_MQTT_MESSAGE_EXPIRY_INTERVAL,
     CONF_MQTT_PASSWORD,
     CONF_MQTT_PORT,
+    CONF_MQTT_PROTOCOL_VERSION,
     CONF_MQTT_RETAIN,
     CONF_MQTT_SESSION_EXPIRY_INTERVAL,
     CONF_MQTT_TLS,
@@ -67,6 +68,7 @@ from ecowitt2mqtt.const import (
     ENV_MQTT_MESSAGE_EXPIRY_INTERVAL,
     ENV_MQTT_PASSWORD,
     ENV_MQTT_PORT,
+    ENV_MQTT_PROTOCOL_VERSION,
     ENV_MQTT_RETAIN,
     ENV_MQTT_SESSION_EXPIRY_INTERVAL,
     ENV_MQTT_TLS,
@@ -85,6 +87,7 @@ from ecowitt2mqtt.const import (
     ENV_PRECISION,
     ENV_RAW_DATA,
     ENV_VERBOSE,
+    MqttVersion,
     UnitSystem,
     __version__,
 )
@@ -110,6 +113,7 @@ ENV_VAR_TO_CONF_MAP = {
     ENV_MQTT_MESSAGE_EXPIRY_INTERVAL: CONF_MQTT_MESSAGE_EXPIRY_INTERVAL,
     ENV_MQTT_PASSWORD: CONF_MQTT_PASSWORD,
     ENV_MQTT_PORT: CONF_MQTT_PORT,
+    ENV_MQTT_PROTOCOL_VERSION: CONF_MQTT_PROTOCOL_VERSION,
     ENV_MQTT_RETAIN: CONF_MQTT_RETAIN,
     ENV_MQTT_SESSION_EXPIRY_INTERVAL: CONF_MQTT_SESSION_EXPIRY_INTERVAL,
     ENV_MQTT_TLS: CONF_MQTT_TLS,
@@ -284,6 +288,12 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
         "--mqtt-port",
         dest=CONF_MQTT_PORT,
         help=f"The listening port of the MQTT broker (default: {DEFAULT_MQTT_PORT})",
+        metavar=CONF_MQTT_PORT,
+    )
+    parser.add_argument(
+        "--mqtt-protocol-version",
+        dest=CONF_MQTT_PORT,
+        help=f"The version of the MQTT protocol to use (default: {MqttVersion.V311})",
         metavar=CONF_MQTT_PORT,
     )
     parser.add_argument(

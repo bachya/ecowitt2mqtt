@@ -34,6 +34,7 @@ from ecowitt2mqtt.const import (
     DEFAULT_MQTT_PORT,
     DEFAULT_PORT,
     ENV_BATTERY_OVERRIDES,
+    MqttVersion,
     UnitOfAccumulatedPrecipitation,
     UnitOfIlluminance,
     UnitOfLength,
@@ -128,6 +129,7 @@ class Config(BaseModel):
     mqtt_tls: bool = False
     mqtt_topic: str | None = None
     mqtt_username: str | None = None
+    mqtt_protocol_version: MqttVersion = MqttVersion.V311
 
     # Optional battery parameters:
     battery_overrides: dict[str, BatteryStrategy] = {}

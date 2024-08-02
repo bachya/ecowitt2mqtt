@@ -11,7 +11,7 @@ from paho.mqtt.packettypes import PacketTypes
 from paho.mqtt.properties import Properties
 
 from ecowitt2mqtt.config import Config
-from ecowitt2mqtt.const import LOGGER
+from ecowitt2mqtt.const import LOGGER, MqttVersion
 from ecowitt2mqtt.data import ProcessedData
 from ecowitt2mqtt.helpers.publisher import Publisher
 from ecowitt2mqtt.helpers.typing import CalculatedValueType
@@ -61,9 +61,12 @@ class MqttPublisher(Publisher):  # pylint: disable=too-few-public-methods
         """
         super().__init__(config)
         self._client = client
-        self._client_publish_properties = Properties(PacketTypes.PUBLISH)
-        if message_expiry := config.mqtt_message_expiry_interval:
-            self._client_publish_properties.MessageExpiryInterval = message_expiry
+
+        self._clilent_publish_properties: Properties | None = None
+        if config.mqtt_protocol_version == MqttVersion.V5:
+            self._client_publish_properties = Properties(PacketTypes.PUBLISH)
+            if message_expiry := config.mqtt_message_expiry_interval:
+                self._client_publish_properties.MessageExpiryInterval = message_expiry
 
 
 class TopicPublisher(MqttPublisher):  # pylint: disable=too-few-public-methods

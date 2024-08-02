@@ -16,7 +16,7 @@ from paho.mqtt.packettypes import PacketTypes
 from paho.mqtt.properties import Properties
 
 from ecowitt2mqtt.config import Config
-from ecowitt2mqtt.const import LOGGER
+from ecowitt2mqtt.const import LOGGER, MqttVersion
 from ecowitt2mqtt.helpers.publisher.factory import get_publishers
 from ecowitt2mqtt.helpers.server import APIServer, get_api_server
 
@@ -101,9 +101,11 @@ class Runtime:
         """
         LOGGER.debug("Creating MQTT loop: %s", config.uuid)
 
-        client_properties = Properties(PacketTypes.CONNECT)
-        if session_expiry := config.mqtt_session_expiry_interval:
-            client_properties.SessionExpiryInterval = session_expiry
+        client_properties = None
+        if config.mqtt_protocol_version == MqttVersion.V5:
+            client_properties = Properties(PacketTypes.CONNECT)
+            if session_expiry := config.mqtt_session_expiry_interval:
+                client_properties.SessionExpiryInterval = session_expiry
 
         async def create_loop() -> None:
             """Create the loop."""

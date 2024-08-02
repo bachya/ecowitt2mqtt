@@ -167,6 +167,8 @@ options:
                         A valid password for the MQTT broker
   --mqtt-port mqtt_port
                         The listening port of the MQTT broker (default: 1883)
+  --mqtt-protocol-version mqtt_port
+                        The version of the MQTT protocol to use (default: 3.1.1)
   --mqtt-retain         Instruct the MQTT broker to retain messages
   --mqtt-session-expiry-interval mqtt_session_expiry_interval
                         The number of seconds the MQTT broker should retain a session
@@ -230,6 +232,7 @@ options:
   the broker before they expire
 - `ECOWITT2MQTT_MQTT_PASSWORD`: a valid password for the MQTT broker
 - `ECOWITT2MQTT_MQTT_PORT`: the listening port of the MQTT broker (default: `1883`)
+- `ECOWITT2MQTT_MQTT_PROTOCOL_VERSION`: the version of the MQTT protocol to use (default: `3.1.1`)
 - `ECOWITT2MQTT_MQTT_RETAIN`: whether to instruct the MQTT broker to retain messages
   (default: `false`)
 - `ECOWITT2MQTT_MQTT_SESSION_EXPIRY_INTERVAL`: a number of seconds to keep the MQTT
@@ -269,6 +272,7 @@ mqtt_broker: 127.0.0.1
 mqtt_message_expiry_interval: 60
 mqtt_password: password
 mqtt_port: 1883
+mqtt_protocol_version: 3.1.1
 mqtt_retain: false
 mqtt_session_expiry_interval: 900
 mqtt_tls: false
@@ -302,6 +306,7 @@ verbose: false
   "mqtt_message_expiry_interval": 60
   "mqtt_password": "password",
   "mqtt_port": 1883,
+  "mqtt_protocol_version": "3.1.1",
   "mqtt_retain": true,
   "mqtt_session_expiry_interval": 900
   "mqtt_tls": false,
