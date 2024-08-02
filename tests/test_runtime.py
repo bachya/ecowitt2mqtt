@@ -8,7 +8,7 @@ import json
 import urllib.parse
 from collections.abc import AsyncGenerator
 from typing import Any
-from unittest.mock import AsyncMock, MagicMock, Mock
+from unittest.mock import ANY, AsyncMock, MagicMock, Mock
 
 import pytest
 from aiohttp import ClientSession
@@ -97,6 +97,7 @@ async def test_publish_ambient_weather_new_format_success(
     mock_aiomqtt_client.publish.assert_awaited_with(
         TEST_MQTT_TOPIC,
         payload=b'{"tempin": 67.3, "humidityin": 33.0, "baromrel": 29.616, "baromabs": 24.679, "temp": 53.8, "humidity": 30.0, "winddir": 99.0, "windspeed": 4.5, "windgust": 6.9, "maxdailygust": 14.8, "hourlyrain": 0.0, "eventrain": 0.0, "dailyrain": 0.0, "weeklyrain": 0.024, "monthlyrain": 0.311, "totalrain": 48.811, "solarradiation": 39.02, "uv": 0.0, "batt_co2": "ON", "beaufortscale": 2, "dewpoint": 23.12793817902528, "feelslike": 53.8, "frostpoint": 20.34536144435649, "frostrisk": "No risk", "heatindex": 50.28999999999999, "humidex": 9, "humidex_perception": "Comfortable", "humidityabs": 0.00020090062644380612, "humidityabsin": 0.000347925375450316, "relative_strain_index": null, "relative_strain_index_perception": null, "safe_exposure_time_skin_type_1": null, "safe_exposure_time_skin_type_2": null, "safe_exposure_time_skin_type_3": null, "safe_exposure_time_skin_type_4": null, "safe_exposure_time_skin_type_5": null, "safe_exposure_time_skin_type_6": null, "simmerindex": null, "simmerzone": null, "solarradiation_perceived": 73.87320347536115, "thermalperception": "Dry", "windchill": null, "winddir_name": "E"}',
+        properties=ANY,
         retain=False,
     )
 
@@ -139,6 +140,7 @@ async def test_publish_ambient_weather_old_format_success(
     mock_aiomqtt_client.publish.assert_awaited_with(
         TEST_MQTT_TOPIC,
         payload=b'{"tempin": 67.3, "humidityin": 33.0, "baromrel": 29.616, "baromabs": 24.679, "temp": 53.8, "humidity": 30.0, "winddir": 99.0, "windspeed": 4.5, "windgust": 6.9, "maxdailygust": 14.8, "hourlyrain": 0.0, "eventrain": 0.0, "dailyrain": 0.0, "weeklyrain": 0.024, "monthlyrain": 0.311, "totalrain": 48.811, "solarradiation": 39.02, "uv": 0.0, "batt_co2": "ON", "beaufortscale": 2, "dewpoint": 23.12793817902528, "feelslike": 53.8, "frostpoint": 20.34536144435649, "frostrisk": "No risk", "heatindex": 50.28999999999999, "humidex": 9, "humidex_perception": "Comfortable", "humidityabs": 0.00020090062644380612, "humidityabsin": 0.000347925375450316, "relative_strain_index": null, "relative_strain_index_perception": null, "safe_exposure_time_skin_type_1": null, "safe_exposure_time_skin_type_2": null, "safe_exposure_time_skin_type_3": null, "safe_exposure_time_skin_type_4": null, "safe_exposure_time_skin_type_5": null, "safe_exposure_time_skin_type_6": null, "simmerindex": null, "simmerzone": null, "solarradiation_perceived": 73.87320347536115, "thermalperception": "Dry", "windchill": null, "winddir_name": "E"}',
+        properties=ANY,
         retain=False,
     )
 
@@ -185,6 +187,7 @@ async def test_publish_ecowitt_success(
     mock_aiomqtt_client.publish.assert_awaited_with(
         TEST_MQTT_TOPIC,
         payload=b'{"runtime": 319206.0, "tempin": 79.52, "humidityin": 31.0, "baromrel": 24.74, "baromabs": 24.74, "temp": 93.2, "humidity": 64.0, "winddir": 139.0, "windspeed": 20.89, "windgust": 1.12, "maxdailygust": 8.05, "solarradiation": 264.61, "uv": 2.0, "rainrate": 0.0, "eventrain": 0.0, "hourlyrain": 0.0, "dailyrain": 0.0, "weeklyrain": 0.0, "monthlyrain": 2.177, "yearlyrain": 4.441, "lightning_num": 13.0, "lightning": 0.6213711922373341, "lightning_time": "2022-04-20T17:17:17+00:00", "wh65batt": "OFF", "beaufortscale": 5, "dewpoint": 79.19328776816637, "feelslike": 111.0553021896001, "frostpoint": 70.28882284994654, "frostrisk": "No risk", "heatindex": 111.0553021896001, "humidex": 48, "humidex_perception": "Dangerous", "humidityabs": 0.001501643470436062, "humidityabsin": 0.00048196665596089087, "relative_strain_index": 0.54, "relative_strain_index_perception": "Extreme discomfort", "safe_exposure_time_skin_type_1": 83.3, "safe_exposure_time_skin_type_2": 100.0, "safe_exposure_time_skin_type_3": 133.3, "safe_exposure_time_skin_type_4": 166.7, "safe_exposure_time_skin_type_5": 266.7, "safe_exposure_time_skin_type_6": 433.3, "simmerindex": 113.90619200000002, "simmerzone": "Danger of heatstroke", "solarradiation_perceived": 90.49958322993245, "thermalperception": "Severely high", "windchill": null, "winddir_name": "SE"}',
+        properties=ANY,
         retain=False,
     )
 
@@ -234,6 +237,7 @@ async def test_publish_wunderground_disable_calculated_data(
     mock_aiomqtt_client.publish.assert_awaited_with(
         TEST_MQTT_TOPIC,
         payload=b'{"ID": "MCKEAN", "PASSWORD": 1909.0, "temp": 89.42, "humidity": 54.0, "dewptf": 70.7, "windchill": 89.42, "winddir": 269.0, "windspeed": 0.0, "windgust": 9.17, "rain": 0.0, "dailyrain": 0.0, "weeklyrain": 0.476, "monthlyrain": 4.831, "yearlyrain": 4.831, "solarradiation": 732.04, "UV": 6.0, "indoortemp": 79.34, "indoorhumidity": 55.0, "barom": 30.135, "lowbatt": "OFF", "action": "updateraw", "realtime": 1.0, "rtfreq": 5.0}',  # noqa: E501
+        properties=ANY,
         retain=False,
     )
 
@@ -276,6 +280,7 @@ async def test_publish_wunderground_success(
     mock_aiomqtt_client.publish.assert_awaited_with(
         TEST_MQTT_TOPIC,
         payload=b'{"ID": "MCKEAN", "PASSWORD": 1909.0, "temp": 89.42, "humidity": 54.0, "dewptf": 70.7, "winddir": 269.0, "windspeed": 0.0, "windgust": 9.17, "rain": 0.0, "dailyrain": 0.0, "weeklyrain": 0.476, "monthlyrain": 4.831, "yearlyrain": 4.831, "solarradiation": 732.04, "UV": 6.0, "indoortemp": 79.34, "indoorhumidity": 55.0, "barom": 30.135, "lowbatt": "OFF", "action": "updateraw", "realtime": 1.0, "rtfreq": 5.0, "beaufortscale": 0, "dewpoint": 70.5763744258485, "feelslike": 95.3087917601561, "frostpoint": 62.320677884203384, "frostrisk": "No risk", "heatindex": 95.3087917601561, "humidex": 41, "humidex_perception": "Great discomfort", "humidityabs": 0.0011334789215741161, "relative_strain_index": 0.34, "relative_strain_index_perception": "Discomfort", "simmerindex": 104.48206520000001, "simmerzone": "Caution: Heat exhaustion", "solarradiation_perceived": 99.33815442116924, "thermalperception": "Quite uncomfortable", "windchill": null, "winddir_name": "W"}',
+        properties=ANY,
         retain=False,
     )
 

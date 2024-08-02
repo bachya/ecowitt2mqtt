@@ -34,6 +34,7 @@ from ecowitt2mqtt.const import (
     DEFAULT_MQTT_PORT,
     DEFAULT_PORT,
     ENV_BATTERY_OVERRIDES,
+    MqttVersion,
     UnitOfAccumulatedPrecipitation,
     UnitOfIlluminance,
     UnitOfLength,
@@ -120,12 +121,15 @@ class Config(BaseModel):
     mqtt_broker: str
 
     # Optional MQTT parameters:
+    mqtt_message_expiry_interval: int | None = None
     mqtt_password: str | None = None
     mqtt_port: int = DEFAULT_MQTT_PORT
     mqtt_retain: bool = False
+    mqtt_session_expiry_interval: int | None = None
     mqtt_tls: bool = False
     mqtt_topic: str | None = None
     mqtt_username: str | None = None
+    mqtt_protocol_version: MqttVersion = MqttVersion.V311
 
     # Optional battery parameters:
     battery_overrides: dict[str, BatteryStrategy] = {}
