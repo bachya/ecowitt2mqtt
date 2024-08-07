@@ -110,13 +110,13 @@ speedups = ["Brotli", "aiodns (>=3.2.0)", "brotlicffi"]
 
 [[package]]
 name = "aiomqtt"
-version = "2.2.0"
+version = "2.3.0"
 description = "The idiomatic asyncio MQTT client, wrapped around paho-mqtt"
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "aiomqtt-2.2.0-py3-none-any.whl", hash = "sha256:91dc5e405a4a9040a61caadcfde88babc495dcf57eef21c5585feeabe5d151c4"},
-    {file = "aiomqtt-2.2.0.tar.gz", hash = "sha256:1aef0b258f1662f665b1f272efd0b373e37a94aa2884cd8a8717800f93ac5352"},
+    {file = "aiomqtt-2.3.0-py3-none-any.whl", hash = "sha256:127926717bd6b012d1630f9087f24552eb9c4af58205bc2964f09d6e304f7e63"},
+    {file = "aiomqtt-2.3.0.tar.gz", hash = "sha256:312feebe20bc76dc7c20916663011f3bd37aa6f42f9f687a19a1c58308d80d47"},
 ]
 
 [package.dependencies]
