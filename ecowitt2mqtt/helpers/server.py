@@ -74,7 +74,7 @@ class APIServer(ABC):
             for route in (normalized_endpoint, f"{normalized_endpoint}/"):
                 fastapi.add_api_route(
                     route,
-                    self._async_handle_query,  # type: ignore[arg-type]
+                    self._async_handle_query,
                     methods=[self.HTTP_REQUEST_VERB.lower()],
                     response_class=Response,
                     response_model=None,
