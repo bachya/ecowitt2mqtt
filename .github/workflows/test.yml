@@ -72,10 +72,11 @@ jobs:
         run: poetry run pytest --cov ecowitt2mqtt tests
 
       - name: ⬆️ Upload coverage artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-${{ matrix.python-version }}
           path: .coverage
+          include-hidden-files: true
 
   coverage:
     name: Code Coverage
@@ -89,7 +90,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: ⬇️ Download coverage data
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
 
       - name: 🏗 Set up Python 3.12
         id: setup-python
