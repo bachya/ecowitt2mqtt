@@ -47,7 +47,7 @@ class Runtime:
         self.ecowitt = ecowitt
 
         @asynccontextmanager
-        async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
+        async def lifespan(_: FastAPI) -> AsyncGenerator[None]:
             """Define a lifespan context manager."""
             yield
 
