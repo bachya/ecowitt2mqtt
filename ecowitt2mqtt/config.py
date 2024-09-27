@@ -417,7 +417,7 @@ class Configs:
         """
         return self._configs.get(passkey, self.default_config)
 
-    def iterate(self) -> Generator[Config, None, None]:
+    def iterate(self) -> Generator[Config]:
         """Get a generator to loop through all stored Config objects.
 
         Returns:

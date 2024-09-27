@@ -27,7 +27,7 @@ def config_fixture() -> dict[str, Any]:
 
 
 @pytest.fixture(name="config_filepath")
-def config_filepath_fixture(raw_config: str) -> Generator[str, None, None]:
+def config_filepath_fixture(raw_config: str) -> Generator[str]:
     """Define a fixture to return a config filepath.
 
     Args:
@@ -115,7 +115,7 @@ def raw_config_fixture() -> str:
 @pytest_asyncio.fixture(name="setup_aiomqtt")
 async def setup_aiomqtt_fixture(
     mock_aiomqtt_client: MagicMock,
-) -> AsyncGenerator[None, None]:
+) -> AsyncGenerator[None]:
     """Define a fixture to patch asyncio-mqtt properly.
 
     Args:
@@ -129,7 +129,7 @@ async def setup_aiomqtt_fixture(
 @pytest_asyncio.fixture(name="setup_uvicorn_server")
 async def setup_uvicorn_server_fixture(
     ecowitt: Ecowitt,
-) -> AsyncGenerator[None, None]:
+) -> AsyncGenerator[None]:
     """Define a fixture to patch Uvicorn properly.
 
     Args:

@@ -1,6 +1,6 @@
 """Define tests for the runtime."""
 
-# pylint: disable=line-too-long,too-many-arguments,unused-argument
+# pylint: disable=line-too-long,too-many-arguments,too-many-positional-arguments,unused-argument
 from __future__ import annotations
 
 import asyncio
@@ -37,8 +37,8 @@ async def test_publish_failure(
     caplog: Mock,
     device_data: dict[str, Any],
     ecowitt: Ecowitt,
-    setup_aiomqtt: AsyncGenerator[None, None],
-    setup_uvicorn_server: AsyncGenerator[None, None],
+    setup_aiomqtt: AsyncGenerator[None],
+    setup_uvicorn_server: AsyncGenerator[None],
 ) -> None:
     """Test a failed MQTT publish.
 
@@ -70,8 +70,8 @@ async def test_publish_ambient_weather_new_format_success(
     device_data: dict[str, Any],
     ecowitt: Ecowitt,
     mock_aiomqtt_client: MagicMock,
-    setup_aiomqtt: AsyncGenerator[None, None],
-    setup_uvicorn_server: AsyncGenerator[None, None],
+    setup_aiomqtt: AsyncGenerator[None],
+    setup_uvicorn_server: AsyncGenerator[None],
 ) -> None:
     """Test a successful new-format Ambient Weather payload being received and published.
 
@@ -113,8 +113,8 @@ async def test_publish_ambient_weather_old_format_success(
     device_data: dict[str, Any],
     ecowitt: Ecowitt,
     mock_aiomqtt_client: MagicMock,
-    setup_aiomqtt: AsyncGenerator[None, None],
-    setup_uvicorn_server: AsyncGenerator[None, None],
+    setup_aiomqtt: AsyncGenerator[None],
+    setup_uvicorn_server: AsyncGenerator[None],
 ) -> None:
     """Test a successful old-format Ambient Weather payload being received and published.
 
@@ -157,8 +157,8 @@ async def test_publish_ecowitt_success(
     device_data: dict[str, Any],
     ecowitt: Ecowitt,
     mock_aiomqtt_client: MagicMock,
-    setup_aiomqtt: AsyncGenerator[None, None],
-    setup_uvicorn_server: AsyncGenerator[None, None],
+    setup_aiomqtt: AsyncGenerator[None],
+    setup_uvicorn_server: AsyncGenerator[None],
 ) -> None:
     """Test a successful Ecowitt payload being received and published.
 
@@ -208,8 +208,8 @@ async def test_publish_wunderground_disable_calculated_data(
     device_data: dict[str, Any],
     ecowitt: Ecowitt,
     mock_aiomqtt_client: MagicMock,
-    setup_aiomqtt: AsyncGenerator[None, None],
-    setup_uvicorn_server: AsyncGenerator[None, None],
+    setup_aiomqtt: AsyncGenerator[None],
+    setup_uvicorn_server: AsyncGenerator[None],
 ) -> None:
     """Test a successful Weather Underground payload being received and published.
 
@@ -250,8 +250,8 @@ async def test_publish_wunderground_success(
     device_data: dict[str, Any],
     ecowitt: Ecowitt,
     mock_aiomqtt_client: MagicMock,
-    setup_aiomqtt: AsyncGenerator[None, None],
-    setup_uvicorn_server: AsyncGenerator[None, None],
+    setup_aiomqtt: AsyncGenerator[None],
+    setup_uvicorn_server: AsyncGenerator[None],
 ) -> None:
     """Test a successful Weather Underground payload being received and published.
 
@@ -289,8 +289,8 @@ async def test_unknown_exception_shutdown(
     caplog: Mock,
     device_data: dict[str, Any],
     ecowitt: Ecowitt,
-    setup_aiomqtt: AsyncGenerator[None, None],
-    setup_uvicorn_server: AsyncGenerator[None, None],
+    setup_aiomqtt: AsyncGenerator[None],
+    setup_uvicorn_server: AsyncGenerator[None],
 ) -> None:
     """Test that an unknown exception successfully shuts down the runtime.
 
