@@ -15,6 +15,7 @@ MODEL_BRAND_MAP = {
     "GW1000": "Ecowitt",
     "GW1100": "Ecowitt",
     "GW2000": "Ecowitt",
+    "HP1000SE-PRO": "Froggit",
     "HP2550": "Ecowitt",
     "HP2551": "Ecowitt",
     "HP2553": "Ecowitt",
