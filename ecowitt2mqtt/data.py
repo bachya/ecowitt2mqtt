@@ -49,6 +49,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_RELATIVE_STRAIN_INDEX,
     DATA_POINT_RELATIVE_STRAIN_INDEX_PERCEPTION,
     DATA_POINT_RUNTIME,
+    DATA_POINT_S_RAIN_PIEZO,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_3,
@@ -95,6 +96,7 @@ from ecowitt2mqtt.helpers.calculator.precipitation import (
     PrecipitationRateCalculator,
 )
 from ecowitt2mqtt.helpers.calculator.pressure import PressureCalculator
+from ecowitt2mqtt.helpers.calculator.rainstate import RainStateCalculator
 from ecowitt2mqtt.helpers.calculator.temperature import (
     DewPointCalculator,
     FeelsLikeCalculator,
@@ -170,6 +172,7 @@ CALCULATOR_MAP: dict[str, type[Calculator]] = {
     DATA_POINT_RELATIVE_STRAIN_INDEX_PERCEPTION: RsiPerceptionCalculator,
     DATA_POINT_RUNTIME: RuntimeCalculator,
     DATA_POINT_R_RAIN_PIEZO: PrecipitationRateCalculator,
+    DATA_POINT_S_RAIN_PIEZO: RainStateCalculator,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_1: SafeExposureCalculator,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_2: SafeExposureCalculator,
     DATA_POINT_SAFE_EXPOSURE_TIME_SKIN_TYPE_3: SafeExposureCalculator,
