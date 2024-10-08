@@ -27,7 +27,7 @@ repos:
         language: system
         types: [text, executable]
         entry: poetry run check-executables-have-shebangs
-        stages: [commit, push, manual]
+        stages: [pre-commit, pre-push, manual]
       - id: check-json
         name: ｛ Checking JSON files
         language: system
@@ -74,7 +74,7 @@ repos:
         language: system
         types: [text]
         entry: poetry run end-of-file-fixer
-        stages: [commit, push, manual]
+        stages: [pre-commit, pre-push, manual]
       - id: fix-byte-order-marker
         name: 🚏 Checking UTF-8 byte order marker
         language: system
@@ -135,7 +135,7 @@ repos:
         language: system
         types: [text]
         entry: poetry run trailing-whitespace-fixer
-        stages: [commit, push, manual]
+        stages: [pre-commit, pre-push, manual]
       - id: vulture
         name: 🔍 Finding unused Python code with Vulture
         language: system
