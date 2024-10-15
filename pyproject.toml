@@ -75,7 +75,7 @@ python-multipart = ">=0.0.5,<0.0.13"
 rapidfuzz = ">=2.13,<4.0"
 urllib3 = ">=1.26.18"
 uvicorn = ">=0.19.0"
-uvloop = ">=0.17,<0.21"
+uvloop = ">=0.17,<0.22"
 yarl = ">=1.9.2"
 pydantic = "^2.5.3"
 
