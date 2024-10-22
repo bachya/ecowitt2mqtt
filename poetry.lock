@@ -1381,17 +1381,17 @@ files = [
 
 [[package]]
 name = "pyupgrade"
-version = "3.18.0"
+version = "3.19.0"
 description = "A tool to automatically upgrade syntax for newer versions."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "pyupgrade-3.18.0-py2.py3-none-any.whl", hash = "sha256:74dbca15f715342393d20e31575d846643fdeb32c6fe8d9598c41645bab3f762"},
-    {file = "pyupgrade-3.18.0.tar.gz", hash = "sha256:894cf4c64c17c020f86adaab55a82449a7add29b1ea4a1b9e659ed48c922d3ae"},
+    {file = "pyupgrade-3.19.0-py2.py3-none-any.whl", hash = "sha256:1364fcae4436a6a236a85960587390ec8a939ad0f65f429346f70a5f201c1489"},
+    {file = "pyupgrade-3.19.0.tar.gz", hash = "sha256:7ed4b7d972ed2788c43994f4a24f949d5bf044342992f3b48e1bed0092ddaa01"},
 ]
 
 [package.dependencies]
-tokenize-rt = ">=5.2.0"
+tokenize-rt = ">=6.1.0"
 
 [[package]]
 name = "pyyaml"
@@ -1728,13 +1728,13 @@ full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.7
 
 [[package]]
 name = "tokenize-rt"
-version = "5.2.0"
+version = "6.1.0"
 description = "A wrapper around the stdlib `tokenize` which roundtrips."
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 files = [
-    {file = "tokenize_rt-5.2.0-py2.py3-none-any.whl", hash = "sha256:b79d41a65cfec71285433511b50271b05da3584a1da144a0752e9c621a285289"},
-    {file = "tokenize_rt-5.2.0.tar.gz", hash = "sha256:9fe80f8a5c1edad2d3ede0f37481cc0cc1538a2f442c9c2f9e4feacd2792d054"},
+    {file = "tokenize_rt-6.1.0-py2.py3-none-any.whl", hash = "sha256:d706141cdec4aa5f358945abe36b911b8cbdc844545da99e811250c0cee9b6fc"},
+    {file = "tokenize_rt-6.1.0.tar.gz", hash = "sha256:e8ee836616c0877ab7c7b54776d2fefcc3bde714449a206762425ae114b53c86"},
 ]
 
 [[package]]
