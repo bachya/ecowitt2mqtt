@@ -2978,7 +2978,7 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
             {
                 "ws90_ver": CalculatedDataPoint(
                     data_point_key="ws90_ver",
-                    value=147.0,
+                    value=152.0,
                     unit=None,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -3029,6 +3029,13 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                     "humidity",
                     76.0,
                     unit=PERCENTAGE,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "vpd": CalculatedDataPoint(
+                    "vpd",
+                    0.186,
+                    unit=UnitOfPressure.INHG,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),
@@ -3342,7 +3349,7 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
             {
                 "ws90_ver": CalculatedDataPoint(
                     data_point_key="ws90_ver",
-                    value=147.0,
+                    value=152.0,
                     unit=None,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
@@ -3393,6 +3400,13 @@ def test_precision(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
                     "humidity",
                     76.0,
                     unit=PERCENTAGE,
+                    attributes={},
+                    data_type=DataPointType.NON_BOOLEAN,
+                ),
+                "vpd": CalculatedDataPoint(
+                    "vpd",
+                    0.186,
+                    unit=UnitOfPressure.INHG,
                     attributes={},
                     data_type=DataPointType.NON_BOOLEAN,
                 ),

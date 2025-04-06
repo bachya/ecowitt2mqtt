@@ -63,6 +63,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_TF_CO2,
     DATA_POINT_THERMAL_PERCEPTION,
     DATA_POINT_UV,
+    DATA_POINT_VAPOUR_PRESSURE_DEFICIT,
     DATA_POINT_WINDCHILL,
     DATA_POINT_WINDDIR_NAME,
     LOGGER,
@@ -186,6 +187,7 @@ CALCULATOR_MAP: dict[str, type[Calculator]] = {
     DATA_POINT_TF_CO2: TemperatureCalculator,
     DATA_POINT_THERMAL_PERCEPTION: ThermalPerceptionCalculator,
     DATA_POINT_UV: UVIndexCalculator,
+    DATA_POINT_VAPOUR_PRESSURE_DEFICIT: PressureCalculator,
     DATA_POINT_WINDCHILL: WindChillCalculator,
     DATA_POINT_WINDDIR_NAME: WindDirNameCalculator,
 }
