@@ -14,8 +14,8 @@ from ecowitt2mqtt.helpers.typing import PreCalculatedValueType
 class RainState(StrEnum):
     """Define types of rain state configuration."""
 
-    OFF = "Dry"
-    ON = "Wet"
+    OFF = "OFF"
+    ON = "ON"
 
 
 class RainStateCalculator(Calculator):
