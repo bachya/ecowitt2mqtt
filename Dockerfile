@@ -29,7 +29,7 @@ RUN apk add --no-cache \
 # Add poetry and build dependencies:
 COPY . .
 RUN pip install --upgrade pip \
-    && pip install poetry==${POETRY_VERSION} \
+    && pip install poetry==${POETRY_VERSION} "poetry-plugin-export"\
     && python3 -m venv /venv
 RUN poetry export --without-hashes -f requirements.txt --only main \
        | /venv/bin/pip install -r /dev/stdin \
