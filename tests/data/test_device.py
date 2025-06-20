@@ -114,6 +114,16 @@ from ecowitt2mqtt.helpers.device import Device
             ),
             "payload_ws2900.json",
         ),
+        (
+            Device(
+                manufacturer="Ecowitt",
+                model="GW3000A",
+                name="GW3000",
+                station_type="GW3000A_V1.0.9",
+                unique_id="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            ),
+            "payload_gw3000a.json",
+        ),
     ],
 )
 def test_device(device: Device, device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
