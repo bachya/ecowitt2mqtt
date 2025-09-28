@@ -57,6 +57,16 @@ from ecowitt2mqtt.helpers.device import Device
         (
             Device(
                 manufacturer="Ecowitt",
+                model="GW1200C",
+                name="GW1200",
+                station_type="GW1200C_V1.3.8",
+                unique_id="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            ),
+            "payload_gw1200c.json",
+        ),
+        (
+            Device(
+                manufacturer="Ecowitt",
                 model="GW2000A",
                 name="GW2000",
                 station_type="GW2000A_V2.1.4",
