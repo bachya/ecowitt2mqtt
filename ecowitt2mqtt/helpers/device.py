@@ -14,6 +14,7 @@ DEFAULT_NAME = "Unknown Device"
 MODEL_BRAND_MAP = {
     "GW1000": "Ecowitt",
     "GW1100": "Ecowitt",
+    "GW1200": "Ecowitt",
     "GW2000": "Ecowitt",
     "GW3000": "Ecowitt",
     "HP1000SE-PRO": "Froggit",
