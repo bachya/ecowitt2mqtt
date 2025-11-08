@@ -5672,3 +5672,26 @@ def test_suspcious_temperature_value(
         'Value of "tempin" (79.52) with input unit system "metric" seems suspicious',
     ):
         assert any(m for m in caplog.messages if m == message)
+
+
+@pytest.mark.parametrize(
+    "device_data_filename,expected_state",
+    [
+        ("payload_gw2000a_wet.json", RainState.ON),
+        ("payload_gw2000a_dry.json", RainState.OFF),
+    ],
+)
+def test_rain_sensor_string_payloads(
+    device_data: dict[str, Any], ecowitt: Ecowitt, expected_state: RainState
+) -> None:
+    """Test that rain sensors with 'Wet'/'Dry' string payloads are handled correctly.
+
+    Args:
+        device_data: A dictionary of device data.
+        ecowitt: An Ecowitt object.
+        expected_state: The expected RainState value.
+    """
+    processed_data = ProcessedData(ecowitt.configs.default_config, device_data)
+    assert "srain_piezo" in processed_data.output
+    assert processed_data.output["srain_piezo"].value == expected_state
+    assert processed_data.output["srain_piezo"].data_type == DataPointType.BOOLEAN
