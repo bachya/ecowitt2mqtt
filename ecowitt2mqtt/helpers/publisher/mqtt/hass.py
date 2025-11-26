@@ -181,7 +181,6 @@ class HassDiscoveryInfo:
     device_class: str | None = None
     entity_category: str | None = None
     icon: str | None = None
-    object_id: str | None = None
     default_entity_id: str | None = None
     qos: int = 1
     state_class: str | None = None
@@ -519,8 +518,7 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):  # pylint: disable=too-few
         )
 
         if self._config.hass_entity_id_prefix:
-            discovery.object_id = f"{self._config.hass_entity_id_prefix}_{payload_key}"
-            discovery.default_entity_id = f"{PLATFORM_MAP[data_point.data_type]}.{discovery.object_id}"
+            discovery.default_entity_id = f"{PLATFORM_MAP[data_point.data_type]}.{self._config.hass_entity_id_prefix}_{payload_key}"
         if data_point.unit:
             discovery.unit_of_measurement = data_point.unit
 
