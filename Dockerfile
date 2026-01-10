@@ -49,6 +49,19 @@ COPY --from=builder /venv /venv
 ENV VIRTUAL_ENV="/venv"
 ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
 
+# ---- BEGIN: Config volume conventions ----
+# Standard location for persistent configuration/state in the container:
+ENV CONFIG_DIR="/config" \
+    ECOWITT2MQTT_CONFIG="/config/config.yaml"
+
+# Create the directory at build time (so it exists even without a bind mount):
+RUN mkdir -p /config
+
+# Declare intent that /config is a volume (Docker will create an anonymous volume
+# if the user doesn't bind-mount one):
+VOLUME ["/config"]
+# ---- END: Config volume conventions ----
+
 # Add ecowitt2mqtt user and group:
 RUN addgroup -g 1000 -S ecowitt2mqtt && adduser -u 1000 -S ecowitt2mqtt -G ecowitt2mqtt
 RUN chown -R ecowitt2mqtt:ecowitt2mqtt ${VIRTUAL_ENV}
