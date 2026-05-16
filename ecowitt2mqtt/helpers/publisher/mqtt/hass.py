@@ -106,10 +106,14 @@ class DeviceClass(StrEnum):
     MOISTURE = "moisture"
     PM10 = "pm10"
     PM25 = "pm25"
-    PRESSURE = "pressure"
+    ATMOSPHERIC_PRESSURE = "atmospheric_pressure"
+    PRECIPITATION = "precipitation"
+    PRECIPITATION_INTENSITY = "precipitation_intensity"
     TEMPERATURE = "temperature"
     TIMESTAMP = "timestamp"
     VOLTAGE = "voltage"
+    WIND_DIRECTION = "wind_direction"
+    WIND_SPEED = "wind_speed"
 
 
 class EntityCategory(StrEnum):
@@ -236,13 +240,14 @@ ENTITY_DESCRIPTIONS = {
         icon="mdi:snowflake-alert",
     ),
     DATA_POINT_GLOB_BAROM: EntityDescription(
-        device_class=DeviceClass.PRESSURE,
+        device_class=DeviceClass.ATMOSPHERIC_PRESSURE,
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_GAIN_PIEZO: EntityDescription(
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
     DATA_POINT_GLOB_GUST: EntityDescription(
+        device_class=DeviceClass.WIND_SPEED,
         icon="mdi:weather-windy",
         state_class=StateClass.MEASUREMENT,
     ),
@@ -255,6 +260,7 @@ ENTITY_DESCRIPTIONS = {
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_MOISTURE: EntityDescription(
+        device_class=DeviceClass.MOISTURE,
         icon="mdi:water-percent",
         state_class=StateClass.MEASUREMENT,
     ),
@@ -267,14 +273,17 @@ ENTITY_DESCRIPTIONS = {
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_R_RAIN: EntityDescription(
+        device_class=DeviceClass.PRECIPITATION_INTENSITY,
         icon="mdi:water",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_RAIN: EntityDescription(
+        device_class=DeviceClass.PRECIPITATION,
         icon="mdi:water",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_RAIN_PIEZO: EntityDescription(
+        device_class=DeviceClass.PRECIPITATION,
         icon="mdi:water",
         state_class=StateClass.MEASUREMENT,
     ),
@@ -291,15 +300,19 @@ ENTITY_DESCRIPTIONS = {
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_WETNESS: EntityDescription(
+        device_class=DeviceClass.MOISTURE,
         icon="mdi:water-percent",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_WIND: EntityDescription(
+        device_class=DeviceClass.WIND_SPEED,
         icon="mdi:weather-windy",
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_GLOB_WINDDIR: EntityDescription(
+        device_class=DeviceClass.WIND_DIRECTION,
         icon="mdi:compass",
+        state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_HEAP: EntityDescription(
         icon="mdi:memory",
@@ -388,6 +401,7 @@ ENTITY_DESCRIPTIONS = {
         state_class=StateClass.MEASUREMENT,
     ),
     DATA_POINT_RAIN_RATE: EntityDescription(
+        device_class=DeviceClass.PRECIPITATION_INTENSITY,
         icon="mdi:water",
         state_class=StateClass.MEASUREMENT,
     ),
