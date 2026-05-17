@@ -358,6 +358,7 @@ ENTITY_DESCRIPTIONS = {
         device_class=DeviceClass.TIMESTAMP,
     ),
     DATA_POINT_R_RAIN_PIEZO: EntityDescription(
+        device_class=DeviceClass.PRECIPITATION_INTENSITY,
         icon="mdi:water",
         state_class=StateClass.MEASUREMENT,
     ),
