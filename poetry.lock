@@ -1457,14 +1457,14 @@ files = [
 
 [[package]]
 name = "pyupgrade"
-version = "3.19.0"
+version = "3.21.2"
 description = "A tool to automatically upgrade syntax for newer versions."
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.10"
 groups = ["dev"]
 files = [
-    {file = "pyupgrade-3.19.0-py2.py3-none-any.whl", hash = "sha256:1364fcae4436a6a236a85960587390ec8a939ad0f65f429346f70a5f201c1489"},
-    {file = "pyupgrade-3.19.0.tar.gz", hash = "sha256:7ed4b7d972ed2788c43994f4a24f949d5bf044342992f3b48e1bed0092ddaa01"},
+    {file = "pyupgrade-3.21.2-py2.py3-none-any.whl", hash = "sha256:2ac7b95cbd176475041e4dfe8ef81298bd4654a244f957167bd68af37d52be9f"},
+    {file = "pyupgrade-3.21.2.tar.gz", hash = "sha256:1a361bea39deda78d1460f65d9dd548d3a36ff8171d2482298539b9dc11c9c06"},
 ]
 
 [package.dependencies]
