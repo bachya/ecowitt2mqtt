@@ -8,6 +8,7 @@ from typing import Any
 from ecowitt2mqtt.config import Config
 from ecowitt2mqtt.const import (
     DATA_POINT_BEAUFORT_SCALE,
+    DATA_POINT_BGT,
     DATA_POINT_CO2,
     DATA_POINT_CO2_24H,
     DATA_POINT_DEWPOINT,
@@ -64,6 +65,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_THERMAL_PERCEPTION,
     DATA_POINT_UV,
     DATA_POINT_VAPOUR_PRESSURE_DEFICIT,
+    DATA_POINT_WBGT,
     DATA_POINT_WINDCHILL,
     DATA_POINT_WINDDIR_NAME,
     LOGGER,
@@ -132,6 +134,7 @@ from ecowitt2mqtt.util import glob_search
 
 CALCULATOR_MAP: dict[str, type[Calculator]] = {
     DATA_POINT_BEAUFORT_SCALE: BeaufortScaleCalculator,
+    DATA_POINT_BGT: TemperatureCalculator,
     DATA_POINT_CO2: PollutantCalculator,
     DATA_POINT_CO2_24H: PollutantCalculator,
     DATA_POINT_DEWPOINT: DewPointCalculator,
@@ -188,6 +191,7 @@ CALCULATOR_MAP: dict[str, type[Calculator]] = {
     DATA_POINT_THERMAL_PERCEPTION: ThermalPerceptionCalculator,
     DATA_POINT_UV: UVIndexCalculator,
     DATA_POINT_VAPOUR_PRESSURE_DEFICIT: PressureCalculator,
+    DATA_POINT_WBGT: TemperatureCalculator,
     DATA_POINT_WINDCHILL: WindChillCalculator,
     DATA_POINT_WINDDIR_NAME: WindDirNameCalculator,
 }
