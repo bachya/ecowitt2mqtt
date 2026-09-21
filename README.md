@@ -569,6 +569,10 @@ Config Option: `--output-unit-illuminance`
 - `lx`
 - `W/m²`
 
+The Home Assistant device class follows the selected unit: `lx` publishes `illuminance`
+and `W/m²` publishes `irradiance`. `fc`, `kfc` and `klx` are published without a device
+class, since Home Assistant has none that accepts those units.
+
 #### Precipitation Rate
 
 Config Option: `--output-unit-precipitation-rate`

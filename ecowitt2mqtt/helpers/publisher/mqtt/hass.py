@@ -82,6 +82,7 @@ from ecowitt2mqtt.const import (
     DATA_POINT_YEARLY_RAIN,
     DATA_POINT_YRAIN_PIEZO,
     LOGGER,
+    UnitOfIlluminance,
 )
 from ecowitt2mqtt.data import ProcessedData
 from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, DataPointType
@@ -443,6 +444,21 @@ STATE_CLASS_OVERRIDES = {
     DATA_POINT_YRAIN_PIEZO: StateClass.TOTAL,
 }
 
+# Home Assistant only accepts certain units of measurement for certain device classes,
+# so data points whose output unit is user-selectable can't rely on a static device
+# class. A None value means Home Assistant has no device class that accepts that unit,
+# in which case none is published (which Home Assistant allows):
+# https://github.com/home-assistant/core/blob/dev/homeassistant/components/sensor/const.py
+UNIT_DEVICE_CLASS_OVERRIDES: dict[str, dict[str | None, str | None]] = {
+    DATA_POINT_SOLARRADIATION: {
+        UnitOfIlluminance.LUX: DeviceClass.ILLUMINANCE,
+        UnitOfIlluminance.WATTS_PER_SQUARE_METER: DeviceClass.IRRADIANCE,
+        UnitOfIlluminance.KILOLUX: None,
+        UnitOfIlluminance.FOOT_CANDLES: None,
+        UnitOfIlluminance.KILOFOOT_CANDLES: None,
+    },
+}
+
 
 def get_availability_payload(
     data_point: CalculatedDataPoint,
@@ -528,7 +544,9 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):  # pylint: disable=too-few
         data_point_key = self._get_data_point_key(payload_key, data_point)
         if description := ENTITY_DESCRIPTIONS.get(data_point_key):
             if description.device_class:
-                discovery.device_class = description.device_class
+                discovery.device_class = UNIT_DEVICE_CLASS_OVERRIDES.get(
+                    data_point_key, {}
+                ).get(discovery.unit_of_measurement, description.device_class)
             if description.entity_category:
                 discovery.entity_category = description.entity_category
             if description.icon:
