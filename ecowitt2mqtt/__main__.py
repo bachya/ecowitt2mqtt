@@ -20,6 +20,7 @@ from ecowitt2mqtt.const import (
     CONF_HASS_DISCOVERY,
     CONF_HASS_DISCOVERY_PREFIX,
     CONF_HASS_ENTITY_ID_PREFIX,
+    CONF_HASS_EXPIRE_AFTER,
     CONF_INPUT_DATA_FORMAT,
     CONF_INPUT_UNIT_SYSTEM,
     CONF_LOCALE,
@@ -58,6 +59,7 @@ from ecowitt2mqtt.const import (
     ENV_HASS_DISCOVERY,
     ENV_HASS_DISCOVERY_PREFIX,
     ENV_HASS_ENTITY_ID_PREFIX,
+    ENV_HASS_EXPIRE_AFTER,
     ENV_INPUT_DATA_FORMAT,
     ENV_INPUT_UNIT_SYSTEM,
     ENV_LOCALE,
@@ -99,6 +101,7 @@ ENV_VAR_TO_CONF_MAP = {
     ENV_HASS_DISCOVERY: CONF_HASS_DISCOVERY,
     ENV_HASS_DISCOVERY_PREFIX: CONF_HASS_DISCOVERY_PREFIX,
     ENV_HASS_ENTITY_ID_PREFIX: CONF_HASS_ENTITY_ID_PREFIX,
+    ENV_HASS_EXPIRE_AFTER: CONF_HASS_EXPIRE_AFTER,
     ENV_LOCALE: CONF_LOCALE,
     ENV_INPUT_DATA_FORMAT: CONF_INPUT_DATA_FORMAT,
     ENV_INPUT_UNIT_SYSTEM: CONF_INPUT_UNIT_SYSTEM,
@@ -229,6 +232,12 @@ def get_cli_arguments(args: list[str]) -> dict[str, Any]:
             "Example: A prefix of 'prefix' will prepend 'prefix_' to entity IDs"
         ),
         metavar=CONF_HASS_ENTITY_ID_PREFIX,
+    )
+    parser.add_argument(
+        "--hass-expire-after",
+        dest=CONF_HASS_EXPIRE_AFTER,
+        help="Seconds without an update before Home Assistant sensor values expire",
+        metavar=CONF_HASS_EXPIRE_AFTER,
     )
     parser.add_argument(
         "--input-data-format",

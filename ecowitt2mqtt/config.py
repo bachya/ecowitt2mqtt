@@ -142,6 +142,7 @@ class Config(BaseModel):
     hass_discovery: bool = False
     hass_discovery_prefix: str = DEFAULT_HASS_DISCOVERY_PREFIX
     hass_entity_id_prefix: str | None = None
+    hass_expire_after: int | None = None
 
     # Optional HTTP parameters:
     endpoint: str = DEFAULT_ENDPOINT
@@ -265,6 +266,22 @@ class Config(BaseModel):
     validate_hass_discovery = field_validator("hass_discovery", mode="before")(
         validate_boolean
     )
+
+    @field_validator("hass_expire_after", mode="before")
+    @classmethod
+    def validate_hass_expire_after(cls, value: int | str | None) -> int | None:
+        """Validate the optional positive Home Assistant sensor expiration."""
+        if value is None:
+            return None
+        if isinstance(value, bool):
+            raise ValueError("hass_expire_after must be a positive integer")
+        try:
+            parsed = int(value)
+        except (TypeError, ValueError) as err:
+            raise ValueError("hass_expire_after must be a positive integer") from err
+        if parsed <= 0 or str(value).strip() != str(parsed):
+            raise ValueError("hass_expire_after must be a positive integer")
+        return parsed
 
     @model_validator(mode="before")
     @classmethod

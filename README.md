@@ -126,7 +126,7 @@ Within the `Upload Interval`, data should begin to appear in the MQTT broker.
 
 ```
 usage: ecowitt2mqtt [-h] [--version] [--battery-override BATTERY_OVERRIDES] [--boolean-battery-true-value boolean_battery_true_value] [-c config] [--default-battery-strategy default_battery_strategy] [--diagnostics] [--disable-calculated-data] [-e endpoint] [--hass-discovery]
-                    [--hass-discovery-prefix hass_discovery_prefix] [--hass-entity-id-prefix hass_entity_id_prefix] [--input-data-format input_data_format] [--input-unit-system input_unit_system] [-b mqtt_broker] [-p mqtt_password] [--mqtt-port mqtt_port] [--mqtt-retain] [--mqtt-tls] [-t mqtt_topic]
+                    [--hass-discovery-prefix hass_discovery_prefix] [--hass-entity-id-prefix hass_entity_id_prefix] [--hass-expire-after hass_expire_after] [--input-data-format input_data_format] [--input-unit-system input_unit_system] [-b mqtt_broker] [-p mqtt_password] [--mqtt-port mqtt_port] [--mqtt-retain] [--mqtt-tls] [-t mqtt_topic]
                     [-u mqtt_username] [--output-unit-system output_unit_system] [--output-unit-accumulated-precipitation output_unit_accumulated_precipitation] [--output-unit-distance output_unit_distance] [--output-unit-humidity output_unit_humidity]
                     [--output-unit-illuminance output_unit_illuminance] [--output-unit-precipitation-rate output_unit_precipitation_rate] [--output-unit-pressure output_unit_pressure] [--output-unit-speed output_unit_speed] [--output-unit-temperature output_unit_temperature] [--port port]
                     [--precision precision] [--raw-data] [-v]
@@ -154,6 +154,8 @@ options:
                         The Home Assistant MQTT Discovery topic prefix to use (default: homeassistant)
   --hass-entity-id-prefix hass_entity_id_prefix
                         The prefix to use for Home Assistant entity IDs. Example: A prefix of 'prefix' will prepend 'prefix_' to entity IDs
+  --hass-expire-after hass_expire_after
+                        Seconds without an update before Home Assistant sensor values expire
   --input-data-format input_data_format
                         The input data format used by the gateway (default: ecowitt)
   --input-unit-system input_unit_system
@@ -216,6 +218,8 @@ options:
   (default: `false`)
 - `ECOWITT2MQTT_HASS_ENTITY_ID_PREFIX`: the prefix to use for Home Assistant entity IDs
   (default: `""`)
+- `ECOWITT2MQTT_HASS_EXPIRE_AFTER`: seconds without an update before Home Assistant sensor
+  values expire (default: unset; sensors do not expire)
 - `ECOWITT2MQTT_INPUT_DATA_FORMAT`: the input data format used by the gateway (default:
   `ecowitt`)
 - `ECOWITT2MQTT_INPUT_UNIT_SYSTEM`: the input unit system used by the device (default:
@@ -254,6 +258,7 @@ endpoint: /data/report
 hass_discovery: false
 hass_discovery_prefix: homeassistant
 hass_entity_id_prefix: test_prefix
+hass_expire_after: 3600
 input_data_format: ecowitt
 input_unit_system: imperial
 locale: en_US.UTF-8
@@ -284,7 +289,8 @@ verbose: false
   "endpoint": "/data/report",
   "hass_discovery": false,
   "hass_discovery_prefix": "homeassistant",
-  "hass_entity_id_prefix": "test_prefix"
+  "hass_entity_id_prefix": "test_prefix",
+  "hass_expire_after": 3600,
   "input_data_format": "ecowitt",
   "input_unit_system": "imperial",
   "locale": "en_US.UTF-8",
@@ -643,6 +649,21 @@ $ ecowitt2mqtt \
 
 You can provide a custom prefix for all Home Assistant entities via the
 `--hass-entity-id-prefix` config parameter.
+
+Sensor entities can optionally expire after a period without a new report. Set
+`hass_expire_after` to a positive number of seconds, or use `--hass-expire-after`
+or `ECOWITT2MQTT_HASS_EXPIRE_AFTER`. The default is unset, which preserves the
+current behavior. This lets Home Assistant mark sensor values unavailable when
+reports stop; it is separate from MQTT Last Will, which reports a client
+disconnect, and MQTT 5 message expiry, which controls message lifetime in the
+broker. Binary sensors are not configured to expire by this option.
+
+When MQTT state messages are retained, expiration is a Home Assistant-side
+silence timeout, not broker cleanup: a retained state may still be replayed to
+new subscribers and restart the expiration timer even if the reading is old.
+Repeated identical fresh reports also reset the timer; this detects silence,
+not an unchanged value. Configure the timeout longer than the expected interval
+between reports to avoid false stale indications.
 
 ### Home Assistant OS Add-on
 
