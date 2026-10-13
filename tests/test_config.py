@@ -15,6 +15,7 @@ from ecowitt2mqtt.const import (
     CONF_CONFIG,
     CONF_DEFAULT_BATTERY_STRATEGY,
     CONF_GATEWAYS,
+    CONF_HASS_EXPIRE_AFTER,
     CONF_MQTT_BROKER,
     CONF_MQTT_PASSWORD,
     CONF_MQTT_TOPIC,
@@ -469,6 +470,26 @@ def test_precision() -> None:
     config = TEST_CONFIG_JSON | {CONF_PRECISION: 2}
     configs = Configs(config)
     assert configs.default_config.precision == 2
+
+
+@pytest.mark.parametrize("value", [1, "1", 3600, "3600"])
+def test_hass_expire_after_valid(value: int | str) -> None:
+    """Test configuring the optional positive Home Assistant expiration."""
+    configs = Configs(TEST_CONFIG_JSON | {CONF_HASS_EXPIRE_AFTER: value})
+    assert configs.default_config.hass_expire_after == int(value)
+
+
+def test_hass_expire_after_none() -> None:
+    """Test explicit None preserves the default sensor behavior."""
+    configs = Configs(TEST_CONFIG_JSON | {CONF_HASS_EXPIRE_AFTER: None})
+    assert configs.default_config.hass_expire_after is None
+
+
+@pytest.mark.parametrize("value", [0, -1, "0", "-1", "invalid", 1.5, True])
+def test_hass_expire_after_invalid(value: Any) -> None:
+    """Test rejecting invalid Home Assistant expiration values."""
+    with pytest.raises(ConfigError):
+        _ = Configs(TEST_CONFIG_JSON | {CONF_HASS_EXPIRE_AFTER: value})
 
 
 @pytest.mark.parametrize(

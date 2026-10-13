@@ -2,22 +2,103 @@
 
 # pylint: disable=line-too-long
 # ruff: noqa: E501
+import json
 from typing import Any
 from unittest.mock import MagicMock, call
 
 import pytest
 from aiomqtt import MqttError
 
+from ecowitt2mqtt.config import Configs
 from ecowitt2mqtt.const import (
     CONF_DEFAULT_BATTERY_STRATEGY,
     CONF_HASS_DISCOVERY,
     CONF_HASS_ENTITY_ID_PREFIX,
+    CONF_HASS_EXPIRE_AFTER,
 )
 from ecowitt2mqtt.core import Ecowitt
+from ecowitt2mqtt.helpers.calculator import CalculatedDataPoint, DataPointType
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
+from ecowitt2mqtt.helpers.device import Device
 from ecowitt2mqtt.helpers.publisher.factory import get_publishers
 from ecowitt2mqtt.helpers.publisher.mqtt.hass import HomeAssistantDiscoveryPublisher
 from tests.common import TEST_CONFIG_JSON, TEST_HASS_ENTITY_ID_PREFIX
+
+
+@pytest.mark.parametrize("expire_after", [None, 3600])
+def test_sensor_discovery_expire_after(expire_after: int | None) -> None:
+    """Test sensor discovery expiration is optional and configurable."""
+    config_values = TEST_CONFIG_JSON | {CONF_HASS_DISCOVERY: True}
+    if expire_after is not None:
+        config_values[CONF_HASS_EXPIRE_AFTER] = expire_after
+    config = Configs(config_values).default_config
+    publisher = HomeAssistantDiscoveryPublisher(config, MagicMock())
+    discovery = publisher._get_discovery_info(
+        Device("Ecowitt", "GW2000A", "GW2000", "GW2000A", "device"),
+        "temp",
+        CalculatedDataPoint("temp", 20),
+    )
+    assert discovery.expire_after == expire_after
+
+
+def test_binary_sensor_discovery_never_expires() -> None:
+    """Test expiration is omitted from binary_sensor discovery."""
+    config = Configs(
+        TEST_CONFIG_JSON | {CONF_HASS_DISCOVERY: True, CONF_HASS_EXPIRE_AFTER: 3600}
+    ).default_config
+    publisher = HomeAssistantDiscoveryPublisher(config, MagicMock())
+    discovery = publisher._get_discovery_info(
+        Device("Ecowitt", "GW2000A", "GW2000", "GW2000A", "device"),
+        "frostrisk",
+        CalculatedDataPoint("frostrisk", True, data_type=DataPointType.BOOLEAN),
+    )
+    assert discovery.expire_after is None
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "config,device_data_filename,expire_after",
+    [
+        (
+            TEST_CONFIG_JSON | {CONF_HASS_DISCOVERY: True},
+            "payload_gw2000a_2.json",
+            None,
+        ),
+        (
+            TEST_CONFIG_JSON
+            | {CONF_HASS_DISCOVERY: True, CONF_HASS_EXPIRE_AFTER: 3600},
+            "payload_gw2000a_2.json",
+            3600,
+        ),
+    ],
+)
+async def test_published_discovery_expiration(
+    device_data: dict[str, Any],
+    ecowitt: Ecowitt,
+    mock_aiomqtt_client: MagicMock,
+    expire_after: int | None,
+) -> None:
+    """Test expiration is serialized only for configured sensor discovery."""
+    publisher = get_publishers(ecowitt.configs.default_config, mock_aiomqtt_client)[0]
+    await publisher.async_publish(device_data)
+    sensor_count = binary_sensor_count = 0
+    for published in mock_aiomqtt_client.publish.await_args_list:
+        topic = published.args[0]
+        if not topic.endswith("/config"):
+            continue
+        payload = json.loads(published.kwargs["payload"])
+        assert published.kwargs["retain"] is True
+        if topic.startswith("homeassistant/sensor/"):
+            sensor_count += 1
+            if expire_after is None:
+                assert "expire_after" not in payload
+            else:
+                assert payload["expire_after"] == expire_after
+        elif topic.startswith("homeassistant/binary_sensor/"):
+            binary_sensor_count += 1
+            assert "expire_after" not in payload
+    assert sensor_count > 0
+    assert binary_sensor_count > 0
 
 
 @pytest.mark.parametrize("config", [TEST_CONFIG_JSON | {CONF_HASS_DISCOVERY: True}])

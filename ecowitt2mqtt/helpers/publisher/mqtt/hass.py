@@ -185,6 +185,7 @@ class HassDiscoveryInfo:
     qos: int = 1
     state_class: str | None = None
     unit_of_measurement: str | None = None
+    expire_after: int | None = None
 
 
 AVAILABILITY_OFFLINE = "offline"
@@ -516,6 +517,9 @@ class HomeAssistantDiscoveryPublisher(MqttPublisher):  # pylint: disable=too-few
             state_topic=f"{base_topic}/state",
             unique_id=f"{device.unique_id}_{payload_key}",
         )
+
+        if PLATFORM_MAP[data_point.data_type] == Platform.SENSOR:
+            discovery.expire_after = self._config.hass_expire_after
 
         if self._config.hass_entity_id_prefix:
             platform = PLATFORM_MAP[data_point.data_type]
