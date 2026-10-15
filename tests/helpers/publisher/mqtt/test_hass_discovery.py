@@ -12,6 +12,8 @@ from ecowitt2mqtt.const import (
     CONF_DEFAULT_BATTERY_STRATEGY,
     CONF_HASS_DISCOVERY,
     CONF_HASS_ENTITY_ID_PREFIX,
+    CONF_OUTPUT_UNIT_ILLUMINANCE,
+    UnitOfIlluminance,
 )
 from ecowitt2mqtt.core import Ecowitt
 from ecowitt2mqtt.helpers.calculator.battery import BatteryStrategy
@@ -6807,6 +6809,120 @@ async def test_publish_numeric_battery_strategy(
                 "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/winddir_name/state",
                 payload=b"NNW",
                 retain=False,
+            ),
+        ]
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("device_data_filename", ["payload_gw2000a_2.json"])
+@pytest.mark.parametrize(
+    "config,expected_payload",
+    [
+        (
+            TEST_CONFIG_JSON | {CONF_HASS_DISCOVERY: True},
+            b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/availability", "config_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/config", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes", "name": "solarradiation", "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "device_class": "irradiance", "qos": 1, "state_class": "measurement", "unit_of_measurement": "W/m\\u00b2"}',
+        ),
+        (
+            TEST_CONFIG_JSON
+            | {
+                CONF_HASS_DISCOVERY: True,
+                CONF_OUTPUT_UNIT_ILLUMINANCE: UnitOfIlluminance.WATTS_PER_SQUARE_METER,
+            },
+            b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/availability", "config_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/config", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes", "name": "solarradiation", "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "device_class": "irradiance", "qos": 1, "state_class": "measurement", "unit_of_measurement": "W/m\\u00b2"}',
+        ),
+        (
+            TEST_CONFIG_JSON
+            | {
+                CONF_HASS_DISCOVERY: True,
+                CONF_OUTPUT_UNIT_ILLUMINANCE: UnitOfIlluminance.LUX,
+            },
+            b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/availability", "config_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/config", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes", "name": "solarradiation", "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "device_class": "illuminance", "qos": 1, "state_class": "measurement", "unit_of_measurement": "lx"}',
+        ),
+        (
+            TEST_CONFIG_JSON
+            | {
+                CONF_HASS_DISCOVERY: True,
+                CONF_OUTPUT_UNIT_ILLUMINANCE: UnitOfIlluminance.KILOLUX,
+            },
+            b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/availability", "config_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/config", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes", "name": "solarradiation", "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "qos": 1, "state_class": "measurement", "unit_of_measurement": "klx"}',
+        ),
+        (
+            TEST_CONFIG_JSON
+            | {
+                CONF_HASS_DISCOVERY: True,
+                CONF_OUTPUT_UNIT_ILLUMINANCE: UnitOfIlluminance.FOOT_CANDLES,
+            },
+            b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/availability", "config_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/config", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes", "name": "solarradiation", "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "qos": 1, "state_class": "measurement", "unit_of_measurement": "fc"}',
+        ),
+        (
+            TEST_CONFIG_JSON
+            | {
+                CONF_HASS_DISCOVERY: True,
+                CONF_OUTPUT_UNIT_ILLUMINANCE: UnitOfIlluminance.KILOFOOT_CANDLES,
+            },
+            b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/availability", "config_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/config", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/attributes", "name": "solarradiation", "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation", "qos": 1, "state_class": "measurement", "unit_of_measurement": "kfc"}',
+        ),
+    ],
+)
+async def test_publish_illuminance_device_class(
+    device_data: dict[str, Any],
+    ecowitt: Ecowitt,
+    expected_payload: bytes,
+    mock_aiomqtt_client: MagicMock,
+) -> None:
+    """Test that the solar radiation device class follows the output unit.
+
+    Home Assistant only accepts "lx" for the illuminance device class and "W/m2" for
+    the irradiance device class; every other illuminance unit gets no device class.
+
+    Args:
+        device_data: A dictionary of device data.
+        ecowitt: A parsed Ecowitt object.
+        expected_payload: The expected MQTT Discovery config payload.
+        mock_aiomqtt_client: A mock aiomqtt Client object.
+    """
+    publishers = get_publishers(ecowitt.configs.default_config, mock_aiomqtt_client)
+    await publishers[0].async_publish(device_data)
+    mock_aiomqtt_client.publish.assert_has_awaits(
+        [
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation/config",
+                payload=expected_payload,
+                retain=True,
+            ),
+        ]
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "config,device_data_filename",
+    [(TEST_CONFIG_JSON | {CONF_HASS_DISCOVERY: True}, "payload_gw2000a_2.json")],
+)
+async def test_publish_perceived_illuminance_no_device_class(
+    device_data: dict[str, Any],
+    ecowitt: Ecowitt,
+    mock_aiomqtt_client: MagicMock,
+) -> None:
+    """Test that perceived solar radiation is published without a device class.
+
+    Its unit is a percentage, which is valid for neither the illuminance nor the
+    irradiance device class.
+
+    Args:
+        device_data: A dictionary of device data.
+        ecowitt: A parsed Ecowitt object.
+        mock_aiomqtt_client: A mock aiomqtt Client object.
+    """
+    publishers = get_publishers(ecowitt.configs.default_config, mock_aiomqtt_client)
+    await publishers[0].async_publish(device_data)
+    mock_aiomqtt_client.publish.assert_has_awaits(
+        [
+            call(
+                "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/config",
+                payload=b'{"availability_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/availability", "config_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/config", "device": {"identifiers": ["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"], "manufacturer": "Ecowitt", "model": "GW2000A", "name": "GW2000", "sw_version": "GW2000A_V2.1.4"}, "json_attributes_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/attributes", "name": "solarradiation_perceived", "retain": false, "state_topic": "homeassistant/sensor/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/solarradiation_perceived/state", "unique_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_solarradiation_perceived", "icon": "mdi:weather-sunny", "qos": 1, "state_class": "measurement", "unit_of_measurement": "%"}',
+                retain=True,
             ),
         ]
     )
